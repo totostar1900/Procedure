@@ -1,0 +1,32 @@
+# Régénère le site, les PDF et les Word à chaque modification des sources,
+# puis enregistre dist/ dans le dépôt : Vercel redéploie referentiel.purposecapital.africa.
+name: Publier le référentiel
+on:
+  push:
+    branches: [main]
+    paths: ["content/**", "templates/**", "build.mjs", "tools/**", "package.json", "package-lock.json"]
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: publier
+  cancel-in-progress: false
+jobs:
+  publier:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: node build.mjs
+      - name: Enregistrer la publication
+        run: |
+          git config user.name "Publication référentiel"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A dist
+          if git diff --cached --quiet; then echo "Rien à publier"; exit 0; fi
+          git commit -m "Publication automatique du référentiel"
+          git push

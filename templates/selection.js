@@ -58,7 +58,7 @@
 
   async function saveBlob(filename, data) {
     var dl = await downloadsP;
-    if (!dl) { toast("Le téléchargement n'est pas disponible dans cette vue. Ouvrez le référentiel dans claude.ai."); return; }
+    if (!dl) { toast("Le téléchargement n'est pas disponible dans cette vue. Rechargez la page."); return; }
     try { await dl.save({ filename: filename, data: data }); toast("Fichier prêt : " + filename); }
     catch (e) { if (e && e.code === "declined") return; toast(e && e.code === "rate_limited" ? "Une confirmation est déjà ouverte. Réessayez dans un instant." : "Le téléchargement a échoué. Réessayez."); }
   }

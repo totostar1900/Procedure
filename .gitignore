@@ -1,3 +1,9 @@
 node_modules/
 build/
-dist/
+app/node_modules/
+app/.next/
+app/site/
+app/public/shim.js
+app/.env.local
+app/next-env.d.ts
+app/tsconfig.tsbuildinfo

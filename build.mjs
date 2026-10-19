@@ -12,6 +12,24 @@ import { chromium } from "playwright";
 import { PDFDocument } from "pdf-lib";
 import { createRequire } from "node:module";
 import { docxCorps, docxAnnexe } from "./templates/docx.mjs";
+import JSZip from "jszip";
+// Rend un .docx reproductible : dates du paquet et des propriétés fixées à la date de la version
+async function docxFixe(buf, d) {
+  const iso = (d.historique[0] && d.historique[0].date ? d.historique[0].date : "2026-01-01") + "T00:00:00Z";
+  const z = await JSZip.loadAsync(buf), date = new Date(iso);
+  const core = z.file("docProps/core.xml");
+  if (core) z.file("docProps/core.xml", (await core.async("string")).replace(/(<dcterms:(created|modified)[^>]*>)[^<]*/g, "$1" + iso.replace(".000", "")), { date });
+  // identifiants aléatoires des liens hypertextes -> identifiants stables
+  const docF = z.file("word/document.xml"), relF = z.file("word/_rels/document.xml.rels");
+  if (docF && relF) {
+    let doc = await docF.async("string"), rel = await relF.async("string"); const map = {}; let n = 0;
+    doc = doc.replace(/rId[a-z0-9_-]{12,}/g, (m) => (map[m] ||= "rIdLien" + ++n));
+    rel = rel.replace(/rId[a-z0-9_-]{12,}/g, (m) => map[m] || m);
+    z.file("word/document.xml", doc, { date }); z.file("word/_rels/document.xml.rels", rel, { date });
+  }
+  z.forEach((p, f) => { f.date = date; });
+  return z.generateAsync({ type: "nodebuffer", compression: "DEFLATE", date });
+}
 const Engine = createRequire(import.meta.url)("./templates/engine.cjs");
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
@@ -126,8 +144,10 @@ const docs = fs.readdirSync(DOC_DIR).filter((d) => fs.existsSync(path.join(DOC_D
   }
   return loadVariant(root);
 });
-const variants = docs.flatMap((d) => (d.projet ? [d, d.projet] : [d]));
-for (const d of variants) {
+const ONLY = process.env.ONLY;
+const variants0 = docs.flatMap((d) => (d.projet ? [d, d.projet] : [d]));
+const variants = ONLY ? variants0.filter((d) => d.id === ONLY) : variants0;
+for (const d of variants0) {
   d.pdfCorps = { file: `${d.id}_v${d.version}_sans-annexes.pdf`, size: 0 };
   d.word = { file: `${d.id}_v${d.version}.docx`, size: 0 };
   for (const a of d.annexes) { a.pdf = { file: `${a.id}_v${d.version}.pdf`, size: 0 }; a.word = { file: `${a.id}_v${d.version}.docx`, size: 0 }; }
@@ -135,13 +155,13 @@ for (const d of variants) {
 
 // ---------- Word ----------
 async function buildWord() {
-  fs.rmSync(P("dist/word"), { recursive: true, force: true });
+  if (!ONLY) fs.rmSync(P("dist/word"), { recursive: true, force: true });
   fs.mkdirSync(P("dist/word"), { recursive: true });
   for (const d of variants) {
     // Le service de publication ne sert pas les .docx : chaque Word est publié encodé en base64
     // dans un .txt, et la page le décode avant de le proposer au téléchargement.
-    fs.writeFileSync(P("dist/word", d.word.file + ".txt"), (await docxCorps(d)).toString("base64"));
-    for (const a of d.annexes) fs.writeFileSync(P("dist/word", a.word.file + ".txt"), (await docxAnnexe(d, a)).toString("base64"));
+    fs.writeFileSync(P("dist/word", d.word.file + ".txt"), (await docxFixe(await docxCorps(d), d)).toString("base64"));
+    for (const a of d.annexes) fs.writeFileSync(P("dist/word", a.word.file + ".txt"), (await docxFixe(await docxAnnexe(d, a), d)).toString("base64"));
   }
   console.log("WORD", fs.readdirSync(P("dist/word")).length, "fichiers");
 }
@@ -239,6 +259,11 @@ const hf = (d, label) => ({
 const MARGIN = { top: "22mm", bottom: "18mm", left: "20mm", right: "18mm" };
 const ANNEX_MARGIN = { top: "17mm", bottom: "14mm", left: "18mm", right: "16mm" };
 
+// Métadonnées fixes : un document inchangé produit un fichier identique d'une génération à l'autre
+const fixe = (pdf, d) => {
+  const dt = new Date((d.historique[0] && d.historique[0].date ? d.historique[0].date : "2026-01-01") + "T00:00:00Z");
+  pdf.setCreationDate(dt); pdf.setModificationDate(dt); pdf.setProducer("Référentiel Purpose Capital"); pdf.setCreator("build.mjs");
+};
 async function buildPdfs() {
   fs.mkdirSync(P("dist/pdf"), { recursive: true });
   fs.mkdirSync(P("build"), { recursive: true });
@@ -260,7 +285,7 @@ async function buildPdfs() {
       const s = await PDFDocument.load(src);
       (await out.copyPages(s, s.getPageIndices())).forEach((p) => out.addPage(p));
     }
-    out.setTitle(`${d.id} — ${d.titre} (v${d.version})`); out.setAuthor(cfg.societe.raison_sociale); out.setSubject(`${d.type} · ${d.statut}`);
+    out.setTitle(`${d.id} — ${d.titre} (v${d.version})`); out.setAuthor(cfg.societe.raison_sociale); out.setSubject(`${d.type} · ${d.statut}`); fixe(out, d);
     const bytes = await out.save();
     fs.writeFileSync(P("dist/pdf", d.pdf.file), bytes);
     console.log("PDF", d.pdf.file, (bytes.length / 1024).toFixed(0) + " Ko");
@@ -268,7 +293,7 @@ async function buildPdfs() {
     const bodyOnly = await render(page(bodyHtml(d, false)), d.id + "-corps", { displayHeaderFooter: true, margin: MARGIN, ...hf(d, `${d.id} — ${d.titre}`) });
     const out2 = await PDFDocument.create();
     for (const src of [cover, bodyOnly]) { const s = await PDFDocument.load(src); (await out2.copyPages(s, s.getPageIndices())).forEach((p) => out2.addPage(p)); }
-    out2.setTitle(`${d.id} — ${d.titre} (v${d.version}, sans annexes)`); out2.setAuthor(cfg.societe.raison_sociale);
+    out2.setTitle(`${d.id} — ${d.titre} (v${d.version}, sans annexes)`); out2.setAuthor(cfg.societe.raison_sociale); fixe(out2, d);
     fs.writeFileSync(P("dist/pdf", d.pdfCorps.file), await out2.save());
     for (const a of d.annexes) {
       const land = a.orientation === "paysage";
@@ -276,7 +301,7 @@ async function buildPdfs() {
         displayHeaderFooter: true, landscape: land, margin: ANNEX_MARGIN, ...hf(d, `${a.id} — Annexe ${a.num} au ${d.id}`),
       });
       const doc = await PDFDocument.load(buf);
-      doc.setTitle(`${a.id} — ${a.titre}`); doc.setAuthor(cfg.societe.raison_sociale);
+      doc.setTitle(`${a.id} — ${a.titre}`); doc.setAuthor(cfg.societe.raison_sociale); fixe(doc, d);
       const ab = await doc.save();
       fs.writeFileSync(P("dist/pdf", a.pdf.file), ab);
       console.log("PDF", a.pdf.file, (ab.length / 1024).toFixed(0) + " Ko");
@@ -289,7 +314,7 @@ async function buildPdfs() {
 function buildSite() {
   const size = (f) => (fs.existsSync(P("dist/pdf", f)) ? fs.statSync(P("dist/pdf", f)).size : 0);
   const wsize = (f) => (fs.existsSync(P("dist/word", f + ".txt")) ? Math.round(fs.statSync(P("dist/word", f + ".txt")).size * 3 / 4) : 0);
-  for (const d of variants) { d.pdf.size = size(d.pdf.file); d.pdfCorps.size = size(d.pdfCorps.file); d.word.size = wsize(d.word.file); for (const a of d.annexes) { a.pdf.size = size(a.pdf.file); a.word.size = wsize(a.word.file); } }
+  for (const d of variants0) { d.pdf.size = size(d.pdf.file); d.pdfCorps.size = size(d.pdfCorps.file); d.word.size = wsize(d.word.file); for (const a of d.annexes) { a.pdf.size = size(a.pdf.file); a.word.size = wsize(a.word.file); } }
   const data = { societe: cfg.societe, niveaux: cfg.niveaux, references: cfg.references, glossaire: cfg.glossaire, docs, prevus, generated: TODAY };
   const html = read(P("templates/index.tpl.html"))
     .replace("{{SITE_CSS}}", () => read(P("templates/site.css")))

@@ -1,0 +1,162 @@
+// Relie la page du référentiel (écrite pour l'environnement claude.ai : window.claude.use(...))
+// à Supabase : connexion Microsoft 365, base partagée, téléchargements.
+// Mêmes chemins que l'artefact : roles/<id>, lectures/<doc>, annuaire/<id>, sig/<id>/items/<clé>, dossiers/<id>.
+import { createBrowserClient } from "@supabase/ssr";
+
+const CFG = window.__REF_CFG || {};
+const sb = createBrowserClient(CFG.url, CFG.key);
+let ME = null; // { id, nom, email, admin, fonctions }
+const meP = (async () => {
+  const { data } = await sb.rpc("rattacher");
+  const { data: u } = await sb.auth.getUser();
+  if (data && data.autorise) ME = { id: data.id, nom: data.nom || "", email: (u && u.user && u.user.email) || "", admin: !!data.admin, fonctions: data.fonctions || [] };
+  return ME;
+})();
+
+// ---------- membres <-> roles/<id> ----------
+let membresCache = [];
+const idOf = (m) => m.user_id || "email:" + m.email;
+async function lireMembres() {
+  const { data, error } = await sb.from("membres").select("email,user_id,nom,fonctions,actif,admin").order("email");
+  if (error) throw { code: "unavailable", message: error.message };
+  membresCache = data || [];
+  return membresCache;
+}
+const err = (e) => ({ code: e && /permission|policy|violates/i.test(e.message || "") ? "invalid_argument" : "unavailable", message: (e && e.message) || "erreur" });
+
+function snap(rows) {
+  const docs = rows.map((r) => ({ id: r.id, exists: true, data: () => r.data, metadata: { fromCache: false, hasPendingWrites: false } }));
+  return { docs, size: docs.length, empty: !docs.length, docChanges: () => docs.map((d, i) => ({ type: "added", doc: d, oldIndex: -1, newIndex: i })), metadata: { fromCache: false, hasPendingWrites: false } };
+}
+const lastSeg = (p) => p.split("/").pop();
+
+async function lireCollection(coll, opts) {
+  if (coll === "roles") {
+    const ms = await lireMembres();
+    return ms.map((m) => ({ id: idOf(m), data: { fonctions: m.fonctions, actif: m.actif, admin: m.admin } }));
+  }
+  let q = sb.from("kv").select("path,data,maj_le").eq("collection", coll);
+  if (opts && opts.limit) q = q.limit(opts.limit);
+  const { data, error } = await q;
+  if (error) throw err(error);
+  let rows = (data || []).map((r) => ({ id: lastSeg(r.path), data: r.data }));
+  if (coll === "lectures") {
+    // une lecture désignée par adresse avant la première connexion suit la personne après
+    const ms = membresCache.length ? membresCache : await lireMembres();
+    const map = {}; ms.forEach((m) => { if (m.user_id) map["email:" + m.email] = m.user_id; });
+    rows = rows.map((r) => ({ id: r.id, data: { ...r.data, ids: (r.data.ids || []).map((x) => map[x] || x) } }));
+  }
+  if (opts && opts.orderBy) { const [f, dir] = opts.orderBy; rows.sort((a, b) => ((a.data[f] || "") < (b.data[f] || "") ? -1 : 1) * (dir === "desc" ? -1 : 1)); }
+  return rows;
+}
+
+// Abonnements : rafraîchis après chaque écriture de cette page, par le temps réel, et toutes les 20 s
+const subs = new Set();
+const refreshAll = () => subs.forEach((s) => s.run());
+setInterval(refreshAll, 20000);
+sb.channel("kv-tout").on("postgres_changes", { event: "*", schema: "public", table: "kv" }, refreshAll)
+  .on("postgres_changes", { event: "*", schema: "public", table: "membres" }, refreshAll).subscribe();
+
+function collection(coll, opts = {}) {
+  return {
+    doc: (id) => doc(coll + "/" + id),
+    orderBy: (f, dir) => collection(coll, { ...opts, orderBy: [f, dir] }),
+    limit: (n) => collection(coll, { ...opts, limit: n }),
+    where: () => collection(coll, opts),
+    get: async () => snap(await lireCollection(coll, opts)),
+    onSnapshot(next, error) {
+      let live = true, last = "";
+      const s = { run: async () => {
+        if (!live) return;
+        try { const rows = await lireCollection(coll, opts); const k = JSON.stringify(rows); if (k !== last) { last = k; next(snap(rows)); } }
+        catch (e) { if (error) error(e); }
+      } };
+      subs.add(s); s.run();
+      return () => { live = false; subs.delete(s); };
+    },
+  };
+}
+
+function doc(p) {
+  return {
+    id: lastSeg(p),
+    collection: (c) => collection(p + "/" + c),
+    async get() {
+      if (p.startsWith("roles/")) { const ms = await lireMembres(); const m = ms.find((x) => idOf(x) === lastSeg(p)); return { id: lastSeg(p), exists: !!m, data: () => (m ? { fonctions: m.fonctions, actif: m.actif } : undefined) }; }
+      const { data, error } = await sb.from("kv").select("data").eq("path", p).maybeSingle();
+      if (error) throw err(error);
+      return { id: lastSeg(p), exists: !!data, data: () => (data ? data.data : undefined), metadata: { fromCache: false, hasPendingWrites: false } };
+    },
+    async set(body) {
+      if (p.startsWith("roles/")) {
+        const id = lastSeg(p);
+        const row = { fonctions: body.fonctions || [], actif: body.actif !== false, maj_le: new Date().toISOString() };
+        const r = id.startsWith("email:")
+          ? await sb.from("membres").upsert({ email: id.slice(6).toLowerCase(), ...row }, { onConflict: "email" })
+          : await sb.from("membres").update(row).eq("user_id", id);
+        if (r.error) throw err(r.error);
+      } else if (p.startsWith("sig/")) {
+        const r = await sb.from("kv").insert({ path: p, data: body });
+        if (r.error) throw err(r.error);
+      } else {
+        const r = await sb.from("kv").upsert({ path: p, data: body }, { onConflict: "path" });
+        if (r.error) throw err(r.error);
+      }
+      refreshAll();
+    },
+    async update(part) { const cur = await this.get(); await this.set({ ...(cur.data() || {}), ...part }); },
+    async delete() { const r = await sb.from("kv").delete().eq("path", p); if (r.error) throw err(r.error); refreshAll(); },
+    onSnapshot(next, error) {
+      return collection(p.replace(/\/[^/]+$/, "")).onSnapshot((s) => { const d = s.docs.find((x) => x.id === lastSeg(p)); next(d || { id: lastSeg(p), exists: false, data: () => undefined }); }, error);
+    },
+  };
+}
+
+// ---------- user ----------
+const user = {
+  id: async () => (await meP) && ME.id,
+  me: async () => { await meP; return ME ? { id: ME.id, name: ME.nom, email: ME.email, isOwner: ME.admin, canEdit: ME.admin } : { id: null, name: "", email: null, isOwner: false, canEdit: false }; },
+  name: async () => ((await meP) ? ME.nom : ""),
+  isOwner: async () => !!((await meP) && ME.admin),
+  canEdit: async () => !!((await meP) && ME.admin),
+  can: async () => !!(await meP),
+  async profiles(ids) {
+    const ms = membresCache.length ? membresCache : await lireMembres().catch(() => []);
+    const out = {};
+    ids.forEach((id) => { const m = ms.find((x) => idOf(x) === id || x.user_id === id); out[id] = { id, name: m ? m.nom || m.email : id.startsWith("email:") ? id.slice(6) : "", email: m ? m.email : null, isMe: !!(ME && id === ME.id), guest: false }; });
+    return out;
+  },
+  async search(q) {
+    q = String(q || "").trim().toLowerCase();
+    const ms = await lireMembres().catch(() => []);
+    const hits = ms.filter((m) => !q || m.email.includes(q) || (m.nom || "").toLowerCase().includes(q)).map((m) => ({ id: idOf(m), name: m.nom || m.email, email: m.email }));
+    if (/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/.test(q) && !ms.some((m) => m.email === q)) hits.unshift({ id: "email:" + q, name: q + " (accès à créer)", email: q });
+    return hits;
+  },
+};
+
+// ---------- downloads ----------
+const downloads = {
+  async save({ filename, data }) {
+    const blob = data instanceof Blob ? data : new Blob([data]);
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a"); a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 30000);
+    return { saved: true };
+  },
+};
+
+window.claude = { use: async (name) => (name === "db" ? ((await meP) ? { collection, doc } : null) : name === "user" ? user : name === "downloads" ? downloads : null) };
+
+// Barre de session : nom de la personne connectée et déconnexion
+meP.then(() => {
+  const add = () => {
+    const nav = document.querySelector(".nav"); if (!nav || document.getElementById("ref-session")) return;
+    const s = document.createElement("span"); s.id = "ref-session";
+    s.style.cssText = "margin-left:12px;display:inline-flex;gap:10px;align-items:center;font-size:12.5px;color:var(--on-navy-muted,#B9C8DA)";
+    const n = document.createElement("span"); n.textContent = ME ? ME.nom || ME.email : "";
+    const a = document.createElement("a"); a.href = "/deconnexion"; a.textContent = "Se déconnecter"; a.style.cssText = "color:inherit;text-decoration:underline";
+    s.append(n, a); nav.appendChild(s);
+  };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", add); else add();
+});

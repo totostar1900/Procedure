@@ -6,6 +6,7 @@
   //   sig/<id>/items/<clé>    visas d'une personne — chacun écrit les siens, personne d'autre
   // Un visa ne compte que si la personne détient, dans roles/, la fonction qu'exige l'étape,
   // et il ne vaut que pour l'empreinte du texte qu'il porte.
+  var HOSTED = !!window.__REF_CFG;
   var FONCTIONS = [
     ["pca", "Président du Conseil d'Administration"], ["dg", "Directeur Général"], ["rcci", "RCCI"],
     ["dcom", "Directeur Commercial"], ["dmc", "Directeur des Marchés de Capitaux"], ["collab", "Collaborateur"]
@@ -98,7 +99,7 @@
   // ---------- Encadré sur la page d'un document ----------
   function renderDocVisas(d) {
     var box = $("#doc-visas"); if (!box) return;
-    if (!V.db) { box.innerHTML = V.ready ? '<p class="visa-note">Les visas électroniques ne sont pas disponibles dans cette vue. Ouvrez le référentiel depuis claude.ai, connecté à votre compte.</p>' : ""; return; }
+    if (!V.db) { box.innerHTML = V.ready ? '<p class="visa-note">Les visas électroniques ne sont pas disponibles dans cette vue. Reconnectez-vous au référentiel.</p>' : ""; return; }
     var st = docState(d);
     var rows = st.steps.map(function (x) {
       var s = x.cur, o = x.old;
@@ -147,14 +148,14 @@
       await V.db.doc("sig/" + V.me + "/items/" + d.id + "~" + etape + "~" + d.empreinte).set(body);
       V.pending = null; toast(etape === "lecture" ? "Prise de connaissance enregistrée." : "Visa enregistré."); renderDocVisas(d);
     } catch (e) {
-      toast(e && e.code === "invalid_argument" ? "Votre niveau de partage ne permet pas d'enregistrer un visa. Demandez à l'administrateur de vous donner accès en tant que contributeur." : "L'enregistrement a échoué. Réessayez.");
+      toast(e && e.code === "invalid_argument" ? "" + (HOSTED ? "Votre accès ne permet pas d'enregistrer ce visa. Adressez-vous à l'administrateur." : "Votre niveau de partage ne permet pas d'enregistrer un visa. Demandez à l'administrateur de vous donner accès en tant que contributeur.") : "L'enregistrement a échoué. Réessayez.");
     }
   }
 
   // ---------- Onglet Visas ----------
   function renderVisas() {
     var v = $("#v-visas"); if (!v) return;
-    if (!V.db) { v.innerHTML = '<div class="eyebrow">Visas</div><h1 class="title">Visas et approbations</h1><p class="lead">' + (V.ready ? "Les visas électroniques ne sont pas disponibles dans cette vue. Ouvrez le référentiel depuis claude.ai, connecté à votre compte." : "Chargement…") + "</p>"; return; }
+    if (!V.db) { v.innerHTML = '<div class="eyebrow">Visas</div><h1 class="title">Visas et approbations</h1><p class="lead">' + (V.ready ? "Les visas électroniques ne sont pas disponibles dans cette vue. Reconnectez-vous au référentiel." : "Chargement…") + "</p>"; return; }
     var mineHtml = "";
     if (V.me) {
       var todo = [];
@@ -193,8 +194,8 @@
         collabs.map(function (id) { return '<td class="c"><input type="checkbox" aria-label="' + esc(vName(id)) + '" data-vlect="' + esc(d.id) + "|" + esc(id) + '"' + ((L.ids || []).indexOf(id) >= 0 || L.tous ? " checked" : "") + (L.tous ? " disabled" : "") + "></td>"; }).join("") + "</tr>";
     }).join("");
     return '<h2 class="section-h">Administration</h2>' +
-      '<p class="lead">Réservé à l\'administrateur du référentiel. Une personne apparaît ici dès qu\'elle a ouvert le référentiel avec son compte, ou par la recherche. Pour pouvoir viser, elle doit avoir reçu l\'accès à la page avec un niveau qui permet d\'écrire.</p>' +
-      '<h3 class="sub-h">Fonctions</h3><div class="vsearch"><input type="search" id="v-q" placeholder="Rechercher une personne par nom ou adresse" aria-label="Rechercher une personne">' +
+      '<p class="lead">' + (HOSTED ? "Réservé à l'administrateur. Pour donner l'accès à une personne, tapez son adresse Microsoft 365 complète dans la recherche, puis « Ajouter ». Décochez « Actif » pour retirer l'accès : la personne ne peut plus ouvrir le référentiel. Les visas déjà donnés restent au registre." : "Réservé à l'administrateur du référentiel. Une personne apparaît ici dès qu'elle a ouvert le référentiel avec son compte, ou par la recherche. Pour pouvoir viser, elle doit avoir reçu l'accès à la page avec un niveau qui permet d'écrire.") + '</p>' +
+      '<h3 class="sub-h">Fonctions</h3><div class="vsearch"><input type="search" id="v-q" placeholder="' + (HOSTED ? "Adresse Microsoft 365 ou nom" : "Rechercher une personne par nom ou adresse") + '" aria-label="Rechercher une personne">' +
       '<div id="v-hits">' + V.search.filter(function (h) { return vPeople().indexOf(h.id) < 0; }).map(function (h) { return '<button type="button" class="btn" data-vrole="' + esc(h.id) + '|__add">Ajouter ' + esc(h.name || h.email || "") + "</button>"; }).join("") + "</div></div>" +
       '<div class="table-scroll"><table class="reg vadm"><thead><tr><th>Personne</th>' + FONCTIONS.map(function (f) { return '<th class="c">' + esc(f[1]) + "</th>"; }).join("") + '<th class="c">Actif</th></tr></thead><tbody>' + (roleRows || '<tr><td colspan="8">Personne pour l\'instant.</td></tr>') + "</tbody></table></div>" +
       '<h3 class="sub-h">Lectures obligatoires</h3><p class="lead">Cochez les personnes qui doivent lire et attester chaque document. « Tous » vise toutes les personnes ayant une fonction active.</p>' +

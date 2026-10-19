@@ -1,0 +1,23 @@
+{
+  "name": "referentiel-web",
+  "private": true,
+  "scripts": {
+    "prebuild": "node scripts/preparer.mjs",
+    "build": "next build",
+    "dev": "node scripts/preparer.mjs && next dev",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@supabase/ssr": "0.7.0",
+    "@supabase/supabase-js": "2.75.0",
+    "next": "15.5.27",
+    "react": "19.1.10",
+    "react-dom": "19.1.10"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.10",
+    "typescript": "5.9.3",
+    "@types/node": "22.18.0",
+    "@types/react": "19.1.13"
+  }
+}

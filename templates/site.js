@@ -35,7 +35,7 @@
   }
   async function download(file) {
     var d = await downloadsP;
-    if (!d) { toast("Le téléchargement n'est pas disponible dans cette vue. Ouvrez le référentiel dans claude.ai."); return; }
+    if (!d) { toast("Le téléchargement n'est pas disponible dans cette vue. Rechargez la page."); return; }
     try {
       var blob = /^word\//.test(file) ? await fetchWord(file.replace(/^word\//, "")) : await (async function () { var r = await fetch("pdf/" + file); if (!r.ok) throw { code: "missing" }; return r.blob(); })();
       var fname = file.replace(/^word\//, "");
