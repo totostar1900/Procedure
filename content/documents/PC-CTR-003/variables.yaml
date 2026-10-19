@@ -1,0 +1,149 @@
+# Champs de la convention PC-CTR-003.
+# Chaque champ est saisi une seule fois dans le formulaire du référentiel ;
+# le modèle (document.md et annexes) l'appelle par {{id}}.
+# Types : texte, long, montant, entier, pourcentage, date, choix.
+
+intitule: "{{emetteur_nom}} · syndicat de placement · {{montant}}"
+partie: "{{membre1_nom}}"
+
+sections:
+  - id: operation
+    titre: Opération
+    aide: Reprendre les données de la convention de mandat (PC-CTR-001) et du Document d'information visé par la COSUMAF.
+    champs:
+      - { id: emetteur_nom, label: Raison sociale de l'Émetteur, type: texte, requis: true }
+      - { id: emetteur_pays, label: Pays du siège de l'Émetteur, type: texte, requis: true, defaut: Cameroun }
+      - id: titres_nature
+        label: Nature des Titres
+        type: choix
+        requis: true
+        options:
+          - { valeur: actions, label: Actions, texte: actions }
+          - { valeur: obligations, label: Obligations, texte: obligations }
+          - { valeur: convertibles, label: Obligations convertibles, texte: obligations convertibles en actions }
+          - { valeur: autres, label: Autres titres financiers, texte: titres financiers }
+      - { id: titres_autre, label: Description des titres, type: texte, requis: true, si: { champ: titres_nature, egal: autres } }
+      - { id: montant, label: Montant de l'Opération, type: montant, requis: true }
+      - { id: nominal, label: Valeur nominale unitaire, type: montant, requis: true }
+      - { id: prix_emission, label: Prix d'émission unitaire, type: montant, requis: true }
+      - { id: date_mandat, label: Date de la convention de mandat entre l'Émetteur et Purpose Capital, type: date, requis: true }
+      - { id: visa_ref, label: Numéro du visa de la COSUMAF, type: texte, vide: "à obtenir ; la présente convention ne prend effet qu'à son obtention" }
+      - { id: souscription_debut, label: Ouverture de la Période de souscription, type: date, requis: true }
+      - { id: souscription_fin, label: Clôture de la Période de souscription, type: date, requis: true }
+      - { id: date_reglement, label: Date de règlement-livraison, type: date, requis: true }
+      - { id: compte_banque, label: Établissement teneur du Compte de centralisation, type: texte, requis: true }
+      - { id: compte_numero, label: Numéro du Compte de centralisation, type: texte, requis: true }
+
+  - id: membres
+    titre: Membres du Syndicat
+    aide: Un à trois membres. Chaque membre doit être une société de bourse agréée par la COSUMAF ou un établissement de crédit agréé dans la CEMAC.
+    champs:
+      - id: nb_membres
+        label: Nombre de membres (hors Purpose Capital)
+        type: choix
+        requis: true
+        defaut: un
+        options:
+          - { valeur: un, label: Un membre, texte: un membre }
+          - { valeur: deux, label: Deux membres, texte: deux membres }
+          - { valeur: trois, label: Trois membres, texte: trois membres }
+      - { id: membre1_nom, label: "Membre 1 : raison sociale", type: texte, requis: true }
+      - id: membre1_type
+        label: "Membre 1 : statut"
+        type: choix
+        requis: true
+        options: &statut
+          - { valeur: sdb, label: Société de bourse, texte: société de bourse agréée par la COSUMAF }
+          - { valeur: banque, label: Établissement de crédit, texte: établissement de crédit agréé }
+      - { id: membre1_agrement, label: "Membre 1 : numéro d'agrément", type: texte, requis: true }
+      - { id: membre1_siege, label: "Membre 1 : siège social", type: texte, requis: true }
+      - { id: membre1_representant, label: "Membre 1 : représentant et qualité", type: texte, requis: true }
+      - { id: membre1_quota, label: "Membre 1 : quota indicatif de placement", type: montant, requis: true }
+      - { id: membre2_nom, label: "Membre 2 : raison sociale", type: texte, requis: true, si: { champ: nb_membres, parmi: [deux, trois] } }
+      - { id: membre2_type, label: "Membre 2 : statut", type: choix, requis: true, options: *statut, si: { champ: nb_membres, parmi: [deux, trois] } }
+      - { id: membre2_agrement, label: "Membre 2 : numéro d'agrément", type: texte, requis: true, si: { champ: nb_membres, parmi: [deux, trois] } }
+      - { id: membre2_siege, label: "Membre 2 : siège social", type: texte, requis: true, si: { champ: nb_membres, parmi: [deux, trois] } }
+      - { id: membre2_representant, label: "Membre 2 : représentant et qualité", type: texte, requis: true, si: { champ: nb_membres, parmi: [deux, trois] } }
+      - { id: membre2_quota, label: "Membre 2 : quota indicatif de placement", type: montant, requis: true, si: { champ: nb_membres, parmi: [deux, trois] } }
+      - { id: membre3_nom, label: "Membre 3 : raison sociale", type: texte, requis: true, si: { champ: nb_membres, egal: trois } }
+      - { id: membre3_type, label: "Membre 3 : statut", type: choix, requis: true, options: *statut, si: { champ: nb_membres, egal: trois } }
+      - { id: membre3_agrement, label: "Membre 3 : numéro d'agrément", type: texte, requis: true, si: { champ: nb_membres, egal: trois } }
+      - { id: membre3_siege, label: "Membre 3 : siège social", type: texte, requis: true, si: { champ: nb_membres, egal: trois } }
+      - { id: membre3_representant, label: "Membre 3 : représentant et qualité", type: texte, requis: true, si: { champ: nb_membres, egal: trois } }
+      - { id: membre3_quota, label: "Membre 3 : quota indicatif de placement", type: montant, requis: true, si: { champ: nb_membres, egal: trois } }
+      - { id: pc_quota, label: Quota indicatif conservé par Purpose Capital, type: montant, requis: true }
+
+  - id: fonctionnement
+    titre: Fonctionnement
+    aide: Les valeurs par défaut correspondent à la pratique de la Société.
+    champs:
+      - { id: heure_etat, label: Heure limite de transmission de l'état quotidien des souscriptions, type: texte, requis: true, defaut: 16 h (heure de Yaoundé) }
+      - { id: delai_fonds, label: Délai de virement des fonds collectés sur le Compte de centralisation (jours ouvrés), type: entier, requis: true, defaut: 1 }
+      - { id: delai_cloture, label: Délai de remise de l'état définitif après la clôture (jours ouvrés), type: entier, requis: true, defaut: 1 }
+      - id: allocation
+        label: Règle d'allocation en cas de sursouscription
+        type: choix
+        requis: true
+        defaut: prorata
+        options:
+          - { valeur: prorata, label: Proportionnelle, texte: "au prorata des quantités demandées, les rompus étant attribués dans l'ordre chronologique de réception" }
+          - { valeur: priorite, label: Selon le Document d'information, texte: "selon les catégories d'investisseurs et les priorités fixées par le Document d'information, puis au prorata à l'intérieur de chaque catégorie" }
+      - { id: delai_restitution, label: Délai de restitution des fonds non alloués ou en cas d'échec (jours ouvrés), type: entier, requis: true, defaut: 10 }
+      - { id: delai_amiable, label: Durée de la phase amiable (jours), type: entier, requis: true, defaut: 30 }
+      - id: litiges
+        label: Règlement des différends
+        type: choix
+        requis: true
+        defaut: arbitrage
+        options:
+          - { valeur: arbitrage, label: Arbitrage CCJA }
+          - { valeur: juridictions, label: Juridictions étatiques }
+      - id: arbitres
+        label: Composition du tribunal arbitral
+        type: choix
+        requis: true
+        defaut: un
+        si: { champ: litiges, egal: arbitrage }
+        options:
+          - { valeur: un, label: Arbitre unique, texte: un arbitre unique }
+          - { valeur: trois, label: Trois arbitres, texte: trois arbitres }
+      - { id: lieu_arbitrage, label: Siège de l'arbitrage, type: texte, requis: true, defaut: Yaoundé, si: { champ: litiges, egal: arbitrage } }
+      - { id: juridiction_ville, label: Juridictions compétentes de, type: texte, requis: true, defaut: Yaoundé, si: { champ: litiges, egal: juridictions } }
+
+  - id: remuneration
+    titre: Rémunération
+    aide: Montants et taux hors taxes. La commission de placement est payée par l'Émetteur à Purpose Capital, qui en rétrocède une partie aux membres.
+    champs:
+      - { id: com_placement, label: Commission de placement payée par l'Émetteur (% des montants souscrits et libérés), type: pourcentage, requis: true }
+      - { id: com_retro, label: Commission rétrocédée aux membres (% des montants qu'ils ont placés et libérés), type: pourcentage, requis: true }
+      - { id: delai_paiement, label: Délai de paiement des commissions après leur encaissement par Purpose Capital (jours ouvrés), type: entier, requis: true, defaut: 10 }
+
+  - id: signature
+    titre: Signature
+    champs:
+      - { id: pc_rccm, label: Numéro RCCM de Purpose Capital S.A., type: texte, requis: true, source: rccm, aide: Repris automatiquement des paramètres de la Société lorsqu'il y est renseigné. }
+      - { id: lieu_signature, label: Lieu de signature, type: texte, requis: true, defaut: Yaoundé }
+      - { id: date_signature, label: Date de signature, type: date, requis: true }
+      - { id: nb_exemplaires, label: Nombre d'exemplaires originaux, type: entier, requis: true, defaut: 2 }
+
+calculs:
+  - { id: nb_titres, label: Nombre de Titres, type: entier, op: div, a: montant, b: nominal }
+  - { id: q2, label: "Quota retenu, membre 2", type: montant, op: somme, de: [membre2_quota], si: { champ: nb_membres, parmi: [deux, trois] } }
+  - { id: q3, label: "Quota retenu, membre 3", type: montant, op: somme, de: [membre3_quota], si: { champ: nb_membres, egal: trois } }
+  - { id: quota_membres, label: Quotas des membres, type: montant, op: somme, de: [membre1_quota, q2, q3] }
+  - { id: quota_total, label: Total des quotas indicatifs, type: montant, op: somme, de: [quota_membres, pc_quota] }
+  - { id: quota_ratio, label: Quotas en % du montant, type: pourcentage, op: ratio, a: quota_total, b: montant }
+  - { id: retro1, label: "Membre 1 : commission si quota placé", type: montant, op: pct, a: membre1_quota, b: com_retro }
+  - { id: retro2, label: "Membre 2 : commission si quota placé", type: montant, op: pct, a: membre2_quota, b: com_retro, si: { champ: nb_membres, parmi: [deux, trois] } }
+  - { id: retro3, label: "Membre 3 : commission si quota placé", type: montant, op: pct, a: membre3_quota, b: com_retro, si: { champ: nb_membres, egal: trois } }
+  - { id: marge_chef, label: Part conservée par le chef de file sur les montants placés par les membres, type: pourcentage, op: diff, a: com_placement, b: com_retro }
+
+regles:
+  - { a: com_retro, op: "<=", b: com_placement, message: "La commission rétrocédée ne peut pas dépasser la commission de placement payée par l'Émetteur." }
+  - { a: quota_total, op: "<=", b: montant, message: "Le total des quotas indicatifs dépasse le Montant de l'Opération." }
+  - { a: quota_ratio, op: ">=", valeur: 80, niveau: attention, message: "Les quotas couvrent moins de 80 % du montant : vérifier la capacité de placement du Syndicat." }
+  - { a: montant, op: multiple, b: nominal, message: "Le Montant de l'Opération doit être un multiple de la valeur nominale." }
+  - { a: souscription_fin, op: ">", b: souscription_debut, type: date, message: "La clôture de la souscription doit suivre son ouverture." }
+  - { a: date_reglement, op: ">", b: souscription_fin, type: date, message: "Le règlement-livraison doit suivre la clôture de la souscription." }
+  - { a: souscription_debut, op: ">=", b: date_signature, type: date, niveau: attention, message: "La souscription s'ouvre avant la signature de la convention : vérifier les dates." }
+  - { a: nb_exemplaires, op: ">=", valeur: 2, message: "Prévoir au moins un exemplaire original par Partie." }

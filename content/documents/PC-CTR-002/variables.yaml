@@ -1,0 +1,164 @@
+# Champs de la convention PC-CTR-002.
+# Chaque champ est saisi une seule fois dans le formulaire du référentiel ;
+# le modèle (document.md et annexes) l'appelle par {{id}}.
+# Types : texte, long, montant, entier, pourcentage, date, choix.
+
+intitule: "{{emetteur_nom}} · {{engagement|label}} · {{montant_garanti}}"
+partie: "{{emetteur_nom}}"
+
+sections:
+  - id: emetteur
+    titre: Émetteur
+    aide: Identité de la société qui émet les Titres, telle qu'elle figure au RCCM et dans la convention de mandat.
+    champs:
+      - { id: emetteur_nom, label: Raison sociale de l'Émetteur, type: texte, requis: true }
+      - id: emetteur_forme
+        label: Forme sociale
+        type: choix
+        requis: true
+        options:
+          - { valeur: sa_ca, label: Société anonyme avec Conseil d'Administration, texte: société anonyme avec conseil d'administration }
+          - { valeur: sa_ag, label: Société anonyme avec Administrateur Général, texte: société anonyme avec administrateur général }
+          - { valeur: sas, label: Société par actions simplifiée, texte: société par actions simplifiée }
+          - { valeur: autre, label: Autre forme, texte: "" }
+      - { id: emetteur_forme_autre, label: Forme sociale (précisez), type: texte, requis: true, si: { champ: emetteur_forme, egal: autre } }
+      - { id: emetteur_capital, label: Capital social, type: montant, requis: true }
+      - id: emetteur_pays
+        label: Pays du siège
+        type: choix
+        requis: true
+        defaut: cameroun
+        options:
+          - { valeur: cameroun, label: Cameroun, texte: Cameroun }
+          - { valeur: gabon, label: Gabon, texte: Gabon }
+          - { valeur: congo, label: Congo, texte: Congo }
+          - { valeur: tchad, label: Tchad, texte: Tchad }
+          - { valeur: rca, label: République centrafricaine, texte: République centrafricaine }
+          - { valeur: guinee, label: Guinée équatoriale, texte: Guinée équatoriale }
+      - { id: emetteur_siege, label: Adresse du siège social, type: texte, requis: true }
+      - { id: emetteur_rccm_ville, label: Ville d'immatriculation au RCCM, type: texte, requis: true }
+      - { id: emetteur_rccm, label: Numéro RCCM de l'Émetteur, type: texte, requis: true, aide: "Exemple : RC/YAO/2015/B/1234" }
+      - { id: emetteur_representant, label: Nom du représentant de l'Émetteur, type: texte, requis: true }
+      - { id: emetteur_qualite, label: Qualité du représentant, type: texte, requis: true, defaut: Directeur Général }
+
+  - id: operation
+    titre: Opération
+    aide: Reprendre les caractéristiques arrêtées dans la convention de mandat et le Document d'information.
+    champs:
+      - { id: date_mandat, label: Date de la convention de mandat d'arrangement et de placement, type: date, requis: true }
+      - id: titres_nature
+        label: Nature des Titres
+        type: choix
+        requis: true
+        options:
+          - { valeur: actions, label: Actions, texte: actions }
+          - { valeur: obligations, label: Obligations, texte: obligations }
+          - { valeur: convertibles, label: Obligations convertibles, texte: obligations convertibles en actions }
+          - { valeur: autres, label: Autres titres financiers, texte: titres financiers }
+      - { id: titres_autre, label: Description des titres, type: texte, requis: true, si: { champ: titres_nature, egal: autres } }
+      - { id: montant, label: Montant de l'Opération, type: montant, requis: true }
+      - { id: prix, label: Prix de souscription unitaire des Titres, type: montant, requis: true, aide: Prix d'émission fixé dans le Document d'information. }
+      - { id: souscription_fin, label: Clôture de la Période de souscription, type: date, requis: true }
+      - { id: date_reglement, label: Date de règlement-livraison, type: date, requis: true }
+
+  - id: garantie
+    titre: Engagement du Garant
+    aide: L'engagement mobilise les fonds propres de la Société. Au-delà de 15 % des fonds propres, le Conseil d'Administration est informé ; au-delà de 25 %, son accord préalable est requis (PC-POL-RIS-001, Annexe 1).
+    champs:
+      - id: engagement
+        label: Nature de l'engagement
+        type: choix
+        requis: true
+        defaut: bonne_fin
+        options:
+          - { valeur: bonne_fin, label: Garantie de bonne fin, texte: garantie de bonne fin }
+          - { valeur: prise_ferme, label: Prise ferme, texte: prise ferme }
+      - { id: montant_garanti, label: Montant garanti, type: montant, requis: true, aide: "Garantie de bonne fin : plafond du solde non souscrit que le Garant s'engage à souscrire. Prise ferme : montant que le Garant souscrit en totalité." }
+      - id: syndicat
+        label: Syndicat de garantie
+        type: choix
+        requis: true
+        defaut: seul
+        options:
+          - { valeur: seul, label: Purpose Capital seul garant }
+          - { valeur: syndicat, label: Syndicat de garantie }
+      - { id: cogarants, label: Autres membres du syndicat de garantie et leur part, type: long, requis: true, si: { champ: syndicat, egal: syndicat } }
+      - { id: part_pc, label: Part du montant garanti assumée par Purpose Capital, type: pourcentage, requis: true, defaut: 100, aide: 100 % si Purpose Capital est seul garant. }
+      - { id: fonds_propres, label: Fonds propres de Purpose Capital (dernière situation arrêtée), type: montant, requis: true }
+      - { id: date_fonds_propres, label: Date de cette situation, type: date, requis: true }
+      - { id: accord_conseil, label: Date de l'accord du Conseil d'Administration, type: texte, vide: Non requis, aide: Obligatoire si l'engagement de Purpose Capital dépasse 25 % de ses fonds propres. }
+      - { id: delai_paiement, label: Délai de paiement du solde garanti après la clôture (jours ouvrés), type: entier, requis: true, defaut: 3 }
+
+  - id: clauses
+    titre: Clauses
+    aide: Les valeurs par défaut correspondent à la pratique de la Société. Toute modification se négocie avec l'Émetteur.
+    champs:
+      - { id: date_limite, label: Date limite de réalisation des conditions suspensives, type: date, requis: true }
+      - { id: lockup_mois, label: Engagement de l'Émetteur de ne pas émettre de titres similaires (mois après le règlement), type: entier, requis: true, defaut: 6 }
+      - { id: delai_force_majeure, label: Durée de force majeure ouvrant la résiliation (jours), type: entier, requis: true, defaut: 30 }
+      - { id: delai_amiable, label: Durée de la phase amiable (jours), type: entier, requis: true, defaut: 30 }
+      - id: droit
+        label: Droit national applicable à titre subsidiaire
+        type: choix
+        requis: true
+        defaut: cameroun
+        options:
+          - { valeur: cameroun, label: Droit camerounais, texte: camerounais }
+          - { valeur: gabon, label: Droit gabonais, texte: gabonais }
+          - { valeur: congo, label: Droit congolais, texte: congolais }
+          - { valeur: tchad, label: Droit tchadien, texte: tchadien }
+          - { valeur: rca, label: Droit centrafricain, texte: centrafricain }
+          - { valeur: guinee, label: Droit équato-guinéen, texte: équato-guinéen }
+      - id: litiges
+        label: Règlement des différends
+        type: choix
+        requis: true
+        defaut: arbitrage
+        options:
+          - { valeur: arbitrage, label: Arbitrage CCJA }
+          - { valeur: juridictions, label: Juridictions étatiques }
+      - id: arbitres
+        label: Composition du tribunal arbitral
+        type: choix
+        requis: true
+        defaut: un
+        si: { champ: litiges, egal: arbitrage }
+        options:
+          - { valeur: un, label: Arbitre unique, texte: un arbitre unique }
+          - { valeur: trois, label: Trois arbitres, texte: trois arbitres }
+      - { id: lieu_arbitrage, label: Siège de l'arbitrage, type: texte, requis: true, defaut: Yaoundé, si: { champ: litiges, egal: arbitrage } }
+      - { id: juridiction_ville, label: Juridictions compétentes de, type: texte, requis: true, defaut: Yaoundé, si: { champ: litiges, egal: juridictions } }
+
+  - id: remuneration
+    titre: Rémunération
+    aide: Montants hors taxes. La commission de garantie est facturée séparément des commissions de la convention de mandat.
+    champs:
+      - { id: com_garantie, label: Commission de garantie (% du montant garanti), type: pourcentage, requis: true }
+
+  - id: signature
+    titre: Signature
+    champs:
+      - { id: pc_rccm, label: Numéro RCCM de Purpose Capital S.A., type: texte, requis: true, source: rccm, aide: Repris automatiquement des paramètres de la Société lorsqu'il y est renseigné. }
+      - { id: lieu_signature, label: Lieu de signature, type: texte, requis: true, defaut: Yaoundé }
+      - { id: date_signature, label: Date de signature, type: date, requis: true }
+      - { id: nb_exemplaires, label: Nombre d'exemplaires originaux, type: entier, requis: true, defaut: 2 }
+
+calculs:
+  - { id: nb_titres_garantis, label: Nombre de Titres garantis, type: entier, op: div, a: montant_garanti, b: prix }
+  - { id: ratio_garanti, label: Part de l'Opération garantie, type: pourcentage, op: ratio, a: montant_garanti, b: montant }
+  - { id: engagement_pc, label: Engagement maximal de Purpose Capital, type: montant, op: pct, a: montant_garanti, b: part_pc }
+  - { id: ratio_fp, label: Engagement de Purpose Capital en % de ses fonds propres, type: pourcentage, op: ratio, a: engagement_pc, b: fonds_propres }
+  - { id: com_garantie_montant, label: Commission de garantie, type: montant, op: pct, a: montant_garanti, b: com_garantie }
+
+regles:
+  - { a: montant_garanti, op: "<=", b: montant, message: "Le Montant garanti ne peut pas dépasser le Montant de l'Opération." }
+  - { a: montant_garanti, op: multiple, b: prix, message: "Le Montant garanti doit être un multiple du prix de souscription : le nombre de Titres garantis doit être entier." }
+  - { a: ratio_fp, op: "<=", valeur: 15, niveau: attention, message: "L'engagement de Purpose Capital dépasse 15 % de ses fonds propres (seuil d'alerte de PC-POL-RIS-001) : informer le Conseil d'Administration." }
+  - { a: ratio_fp, op: "<=", valeur: 25, niveau: attention, message: "L'engagement de Purpose Capital dépasse 25 % de ses fonds propres : accord préalable du Conseil d'Administration requis avant signature (PC-POL-RIS-001, Annexe 1). Renseigner la date de cet accord." }
+  - { a: ratio_fp, op: "<=", valeur: 100, message: "L'engagement de Purpose Capital dépasse ses fonds propres : convention impossible en l'état." }
+  - { a: com_garantie, op: "<=", valeur: 4, niveau: attention, message: "Commission de garantie supérieure à 4 % : niveau inhabituel, à justifier." }
+  - { a: date_reglement, op: ">", b: souscription_fin, type: date, message: "Le règlement-livraison doit suivre la clôture de la souscription." }
+  - { a: souscription_fin, op: ">", b: date_signature, type: date, message: "La clôture de la souscription doit suivre la signature de la convention." }
+  - { a: date_limite, op: "<=", b: souscription_fin, type: date, niveau: attention, message: "La date limite de réalisation des conditions suspensives est postérieure à la clôture de la souscription : vérifier le calendrier." }
+  - { a: date_signature, op: ">=", b: date_mandat, type: date, message: "La convention de garantie ne peut précéder la convention de mandat." }
+  - { a: nb_exemplaires, op: ">=", valeur: 2, message: "Prévoir au moins deux exemplaires originaux, un par Partie." }

@@ -1,0 +1,106 @@
+<title>Référentiel Purpose Capital</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap">
+<style>
+{{SITE_CSS}}
+{{CONTENT_CSS}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <button type="button" class="brand" data-open="registre" style="background:none;border:0;cursor:pointer;padding:0">
+      <span class="brand-mark">PURPOSE CAPITAL</span><span class="brand-sep"></span><span class="brand-sub">Référentiel documentaire</span>
+    </button>
+    <nav class="nav" aria-label="Sections">
+      <button type="button" data-open="registre">Documents</button>
+      <button type="button" data-open="dossiers">Dossiers</button>
+      <button type="button" data-open="visas">Visas</button>
+      <button type="button" data-open="circuit">Circuit d'approbation</button>
+      <button type="button" data-open="correspondance">Textes de référence</button>
+      <button type="button" data-open="glossaire">Glossaire</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="view wrap" id="v-registre">
+    <div class="eyebrow">{{SOCIETE}} · Agrément {{AGREMENT}}</div>
+    <h1 class="title">Codes, politiques et procédures</h1>
+    <p class="lead">Seule la version publiée ici fait foi. Les copies imprimées ou téléchargées sont des versions non maîtrisées. Chaque document et chaque annexe se télécharge en PDF A4 ou en Word ; cochez-en plusieurs pour les recevoir ensemble, en ZIP ou en recueil PDF.</p>
+    <div class="counts" id="counts"></div>
+    <div class="filters">
+      <input type="search" id="f-q" placeholder="Rechercher une référence, un titre, un domaine" aria-label="Rechercher">
+      <select id="f-type" aria-label="Type"></select>
+      <select id="f-dom" aria-label="Domaine"></select>
+      <select id="f-stat" aria-label="Statut"></select>
+    </div>
+    <div class="table-scroll">
+      <table class="reg">
+        <thead><tr><th class="selc"><input type="checkbox" id="sel-all" aria-label="Sélectionner tous les documents affichés"></th><th>Référence</th><th>Document</th><th>Type</th><th>Domaine</th><th>Version</th><th>Statut</th><th>Prochaine revue</th><th></th></tr></thead>
+        <tbody id="reg-body"></tbody>
+      </table>
+    </div>
+    <p class="cite-src" id="reg-shown" style="margin-top:10px"></p>
+  </section>
+
+  <section class="view wrap" id="v-doc" hidden></section>
+  <section class="view wrap" id="v-dossiers" hidden></section>
+  <section class="view wrap" id="v-dossier" hidden></section>
+  <section class="view wrap" id="v-visas" hidden></section>
+
+  <section class="view wrap" id="v-circuit" hidden>
+    <div class="eyebrow">Gouvernance documentaire</div>
+    <h1 class="title">Circuit d'approbation</h1>
+    <p class="lead">Chaque document suit le même cycle de vie. Les rôles sont désignés par leur titre ; le circuit reste valable quel que soit le titulaire du poste.</p>
+    <div class="circuit">
+      <div class="step"><b>Rédaction</b><span>Propriétaire du document</span></div><span class="arrow">→</span>
+      <div class="step"><b>Revue de conformité</b><span>RCCI</span></div><span class="arrow">→</span>
+      <div class="step"><b>Approbation</b><span>DG ou Conseil d'Administration</span></div><span class="arrow">→</span>
+      <div class="step"><b>Publication</b><span>Version maîtrisée en ligne</span></div><span class="arrow">→</span>
+      <div class="step"><b>Attestation de lecture</b><span>Collaborateurs concernés</span></div><span class="arrow">→</span>
+      <div class="step"><b>Revue périodique</b><span>Selon le niveau</span></div>
+    </div>
+    <div class="table-scroll panel-gap">
+      <table class="plain" style="min-width:720px">
+        <thead><tr><th>Niveau</th><th>Rédaction</th><th>Vérification</th><th>Approbation</th><th>Revue</th></tr></thead>
+        <tbody id="niv-body"></tbody>
+      </table>
+    </div>
+    <p class="cite-src panel-gap">Numérotation des versions : 0.x pour un projet, 1.0 à l'adoption, 1.1 pour une modification mineure (forme, coquille), 2.0 pour une modification de fond soumise à nouvelle approbation.</p>
+  </section>
+
+  <section class="view wrap" id="v-correspondance" hidden>
+    <div class="eyebrow">Conformité réglementaire</div>
+    <h1 class="title">Textes de référence</h1>
+    <p class="lead">Pour chaque texte applicable, les documents internes qui le mettent en œuvre. Cette table se met à jour automatiquement à partir des références déclarées dans chaque document.</p>
+    <div class="table-scroll panel-gap">
+      <table class="plain" style="min-width:720px">
+        <thead><tr><th>Texte</th><th>Émetteur</th><th>Documents internes</th></tr></thead>
+        <tbody id="corr-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="view wrap" id="v-glossaire" hidden>
+    <div class="eyebrow">Vocabulaire commun</div>
+    <h1 class="title">Glossaire</h1>
+    <p class="lead">Définitions applicables à l'ensemble des codes, politiques et procédures de la Société.</p>
+    <dl class="gloss" id="gloss"></dl>
+  </section>
+</main>
+<div class="selbar" id="selbar" hidden></div>
+
+<footer class="foot">
+  <div class="wrap"><span>{{SOCIETE}} · {{SIEGE}}</span><span>Document interne · Généré le {{GENERATED}}</span></div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script type="application/json" id="ref-data">{{DATA}}</script>
+<script>
+{{ENGINE_JS}}
+</script>
+<script>
+{{SITE_JS}}
+</script>

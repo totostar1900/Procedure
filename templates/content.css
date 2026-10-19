@@ -1,0 +1,69 @@
+/* Styles du corps des documents — partagés par le site et les PDF.
+   Les couleurs viennent des jetons définis par chaque gabarit. */
+
+.doc-body { font-family: var(--font-body); color: var(--ink); line-height: 1.6; }
+.doc-body h2 {
+  font-family: var(--font-display); font-weight: 600; color: var(--heading);
+  font-size: 1.45em; line-height: 1.25; margin: 2.2em 0 .8em; padding-top: .9em;
+  border-top: 1px solid var(--rule); text-wrap: balance;
+}
+.doc-body h2:first-child { margin-top: 0; }
+.doc-body h2::before {
+  content: ""; display: block; width: 28px; height: 2px; background: var(--gold); margin-bottom: .7em;
+}
+.doc-body h3 {
+  font-family: var(--font-body); font-weight: 600; color: var(--heading);
+  font-size: 1em; margin: 1.6em 0 .35em; letter-spacing: .005em;
+}
+.doc-body p { margin: 0 0 .75em; }
+.doc-body ul, .doc-body ol { margin: 0 0 .9em; padding-left: 1.4em; }
+.doc-body li { margin: .2em 0; }
+.doc-body li::marker { color: var(--gold-deep); }
+.doc-body em { font-style: italic; }
+.doc-body strong { font-weight: 600; }
+
+/* Blocs de signature */
+.signatures { margin-top: 2em; }
+.sig-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 24px; margin: 1.6em 0 1em; }
+.sig { border-top: 1px solid var(--ink-soft); padding-top: .5em; min-height: 70px; font-size: .88em; color: var(--muted); }
+.sig small { font-size: .9em; }
+
+/* Formulaires (annexes) */
+.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 28px; margin: .6em 0 1.2em; }
+.form-grid.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.field { display: flex; flex-direction: column; gap: 4px; }
+.field label { font-size: .72em; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600; }
+.field .line { display: block; height: 22px; border-bottom: 1px solid var(--ink-soft); }
+.form-table { width: 100%; border-collapse: collapse; margin: .8em 0 1.2em; font-size: .86em; }
+.form-table th {
+  text-align: left; font-weight: 600; font-size: .9em; color: var(--heading);
+  background: var(--band); border: 1px solid var(--rule-strong); padding: 7px 8px; vertical-align: bottom;
+}
+.form-table td { border: 1px solid var(--rule-strong); padding: 6px 8px; height: 26px; vertical-align: top; }
+.form-table.tall td { height: 54px; }
+.check { margin: .35em 0; }
+.office-use { margin-top: 1.8em; padding: 12px 16px; background: var(--band); border: 1px solid var(--rule); }
+.office-title { margin: 0 0 .4em; font-size: .72em; text-transform: uppercase; letter-spacing: .1em; font-weight: 600; color: var(--muted); }
+.office-use .form-grid { margin-bottom: .2em; }
+
+/* Modèles de contrat : zones à compléter, comparution, fiches */
+.ph { background: var(--ph-bg); color: var(--ph-ink); padding: 0 .2em; border-radius: 2px; }
+.parties { margin: 0 0 1.4em; }
+.parties p { margin: 0 0 .6em; }
+.party-role { text-align: right; font-style: italic; color: var(--muted); }
+.form-table.spec th { width: 34%; background: var(--band); vertical-align: top; }
+.form-table.spec td { height: 24px; }
+.form-table tr.group td { background: var(--band); font-weight: 600; color: var(--heading); font-size: .82em; text-transform: uppercase; letter-spacing: .06em; height: auto; }
+.form-table.checklist td:nth-child(2) { text-align: center; }
+
+/* Tableaux Markdown dans les documents et annexes */
+.doc-body table:not(.form-table) { width: 100%; border-collapse: collapse; margin: .8em 0 1.2em; font-size: .86em; }
+.doc-body table:not(.form-table) th { text-align: left; font-weight: 600; color: var(--heading); background: var(--band); border: 1px solid var(--rule-strong); padding: 6px 8px; vertical-align: bottom; }
+.doc-body table:not(.form-table) td { border: 1px solid var(--rule-strong); padding: 4px 8px; vertical-align: top; }
+
+/* Variantes d'un modèle : signalées dans le modèle, résolues à la génération */
+.opt { border-left: 2px solid var(--gold); padding: .2em 0 .1em 12px; margin: .4em 0 1em; }
+.opt-label { font-size: .74em; text-transform: uppercase; letter-spacing: .08em; color: var(--gold-deep); font-weight: 600; margin: 0 0 .35em !important; }
+.opt > ol, .opt > ul { margin-bottom: .2em; }
+.opt-inline { border-bottom: 1px dotted var(--gold-deep); }
+td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 0; }

@@ -1,0 +1,71 @@
+# Champs de la convention PC-CTR-004.
+# Chaque champ est saisi une seule fois dans le formulaire du référentiel ;
+# le modèle (document.md et annexes) l'appelle par {{id}}.
+# Le texte des articles reprend celui de la convention du Guichet (version 2026-09).
+
+intitule: "{{titulaire_nom}} · compte-titres"
+partie: "{{titulaire_nom}}"
+
+sections:
+  - id: titulaire
+    titre: Titulaire
+    aide: Identité telle qu'elle figure sur la pièce d'identité ou au RCCM, et au dossier d'entrée en relation.
+    champs:
+      - id: titulaire_type
+        label: Type de titulaire
+        type: choix
+        requis: true
+        defaut: physique
+        options:
+          - { valeur: physique, label: Personne physique, texte: personne physique }
+          - { valeur: morale, label: Personne morale, texte: personne morale }
+          - { valeur: groupement, label: Groupement, association ou indivision, texte: groupement }
+      - { id: titulaire_nom, label: Nom et prénoms ou raison sociale, type: texte, requis: true }
+      - { id: naissance, label: Date et lieu de naissance, type: texte, requis: true, si: { champ: titulaire_type, egal: physique }, aide: "Exemple : 12 mars 1985 à Douala" }
+      - { id: nationalite, label: Nationalité, type: texte, requis: true, si: { champ: titulaire_type, egal: physique } }
+      - { id: piece, label: Pièce d'identité (nature, numéro, date d'expiration), type: texte, requis: true, si: { champ: titulaire_type, egal: physique } }
+      - { id: profession, label: Profession, type: texte, requis: true, si: { champ: titulaire_type, egal: physique } }
+      - { id: forme, label: Forme juridique, type: texte, requis: true, si: { champ: titulaire_type, parmi: [morale, groupement] } }
+      - { id: immatriculation, label: Immatriculation (RCCM, récépissé ou acte constitutif), type: texte, requis: true, si: { champ: titulaire_type, parmi: [morale, groupement] } }
+      - { id: representant, label: Nom du représentant légal, type: texte, requis: true, si: { champ: titulaire_type, parmi: [morale, groupement] } }
+      - { id: representant_qualite, label: Qualité du représentant, type: texte, requis: true, si: { champ: titulaire_type, parmi: [morale, groupement] } }
+      - { id: cotitulaires, label: Cotitulaires désignés et règle de décision, type: long, requis: true, si: { champ: titulaire_type, egal: groupement }, aide: "Noms des personnes habilitées à donner les ordres et règle applicable (signature conjointe, majorité…)" }
+      - { id: adresse, label: Adresse, type: texte, requis: true }
+      - { id: ville, label: Ville et pays de résidence, type: texte, requis: true }
+      - { id: telephone, label: Téléphone, type: texte, requis: true }
+      - { id: email, label: Adresse électronique, type: texte, requis: true }
+
+  - id: compte
+    titre: Compte
+    aide: Données reprises de l'entrée en relation. Le compte bancaire déclaré est le seul vers lequel les sommes du Titulaire peuvent être versées.
+    champs:
+      - { id: numero_compte, label: Numéro de compte-titres attribué, type: texte, requis: true }
+      - id: categorie
+        label: Catégorie du client
+        type: choix
+        requis: true
+        defaut: non_professionnel
+        options:
+          - { valeur: non_professionnel, label: Non professionnel, texte: non professionnel }
+          - { valeur: professionnel, label: Professionnel, texte: professionnel }
+      - { id: banque, label: Banque du compte bancaire déclaré, type: texte, requis: true }
+      - { id: rib, label: Numéro du compte bancaire déclaré (RIB), type: texte, requis: true }
+      - id: whatsapp
+        label: Le Titulaire accepte les notifications WhatsApp
+        type: choix
+        requis: true
+        defaut: non
+        options:
+          - { valeur: oui, label: Oui }
+          - { valeur: non, label: Non }
+
+  - id: signature
+    titre: Signature
+    champs:
+      - { id: pc_rccm, label: Numéro RCCM de Purpose Capital S.A., type: texte, requis: true, source: rccm, aide: Repris automatiquement des paramètres de la Société lorsqu'il y est renseigné. }
+      - { id: lieu_signature, label: Lieu de signature, type: texte, requis: true, defaut: Yaoundé }
+      - { id: date_signature, label: Date de signature, type: date, requis: true }
+      - { id: nb_exemplaires, label: Nombre d'exemplaires originaux, type: entier, requis: true, defaut: 2 }
+
+regles:
+  - { a: nb_exemplaires, op: ">=", valeur: 2, message: "Prévoir au moins deux exemplaires originaux, un par Partie." }

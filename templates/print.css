@@ -1,0 +1,89 @@
+/* Gabarit d'impression A4 — Purpose Capital S.A. */
+:root {
+  --navy: #0B2E52; --deep: #061B33; --ink: #0A2540; --ink-soft: #3E5068;
+  --heading: #0B2E52; --muted: #5B6B80; --gold: #E8A020; --gold-deep: #8A6413;
+  --ph-bg: #FBF1DC; --ph-ink: #6B4A0E; --rule: #D5DEE9; --rule-strong: #A9B8CA; --band: #EEF3F9; --paper: #FFFFFF;
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", "Helvetica Neue", Arial, sans-serif;
+}
+@page { size: A4; margin: 22mm 18mm 20mm 20mm; }
+@page landscape { size: A4 landscape; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 9.6pt; }
+body.landscape { page: landscape; }
+
+.doc-body h2 { break-after: avoid; font-size: 15pt; }
+.doc-body h3 { break-after: avoid; font-size: 10pt; }
+.doc-body p, .doc-body li { orphans: 3; widows: 3; }
+.sig-row, .form-table tr, .office-use { break-inside: avoid; }
+
+/* Filigrane des projets : position fixe = répété sur chaque page */
+.watermark {
+  position: fixed; top: 46%; left: 0; right: 0; text-align: center;
+  transform: rotate(-32deg); font-family: var(--font-display); font-weight: 700;
+  font-size: 92pt; letter-spacing: .12em; color: rgba(11, 46, 82, .055); z-index: 0; pointer-events: none;
+}
+
+/* ---------- Page de garde ---------- */
+.cover { position: relative; height: 297mm; width: 210mm; display: flex; flex-direction: column; overflow: hidden; }
+.cover-band { background: var(--navy); color: #fff; padding: 22mm 20mm 16mm; }
+.wordmark { font-family: var(--font-display); font-weight: 600; font-size: 17pt; letter-spacing: .2em; }
+.wordmark-rule { width: 40px; height: 2px; background: var(--gold); margin: 9px 0 8px; }
+.wordmark-sub { font-size: 8.5pt; letter-spacing: .14em; text-transform: uppercase; color: #C7D4E3; }
+.cover-main { flex: 1; padding: 30mm 20mm 0; position: relative; z-index: 1; }
+.cover-eyebrow { font-size: 8.5pt; text-transform: uppercase; letter-spacing: .16em; color: var(--gold-deep); font-weight: 600; }
+.cover-title { font-family: var(--font-display); font-weight: 600; font-size: 32pt; line-height: 1.12; color: var(--navy); margin: 10px 0 14px; max-width: 150mm; }
+.cover-ref { font-size: 10.5pt; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.cover-ref b { color: var(--ink); font-weight: 600; }
+.cover-status { display: inline-block; margin-left: 10px; padding: 2px 9px; border: 1px solid var(--gold-deep); color: var(--gold-deep); font-size: 7.5pt; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; vertical-align: 2px; }
+.cover-meta { margin-top: 24mm; width: 100%; border-collapse: collapse; font-size: 9pt; }
+.cover-meta th { width: 42%; text-align: left; font-weight: 500; color: var(--muted); padding: 7px 0; border-bottom: 1px solid var(--rule); }
+.cover-meta td { padding: 7px 0; border-bottom: 1px solid var(--rule); color: var(--ink); }
+.cover-foot { padding: 0 20mm 16mm; font-size: 7.8pt; color: var(--muted); line-height: 1.5; display: flex; justify-content: space-between; gap: 20mm; }
+.cover-foot strong { color: var(--ink); font-weight: 600; }
+
+/* ---------- Fiche de maîtrise ---------- */
+.control h1 { font-family: var(--font-display); font-weight: 600; color: var(--navy); font-size: 16pt; margin: 0 0 4mm; }
+.control h4 { font-size: 7.6pt; text-transform: uppercase; letter-spacing: .12em; color: var(--gold-deep); margin: 5mm 0 2mm; font-weight: 600; }
+.ctable { width: 100%; border-collapse: collapse; font-size: 8.2pt; line-height: 1.35; }
+.ctable th { text-align: left; font-weight: 600; color: var(--heading); background: var(--band); border: 1px solid var(--rule-strong); padding: 4px 7px; }
+.ctable td { border: 1px solid var(--rule-strong); padding: 4px 7px; vertical-align: top; }
+.ctable td.visa { height: 28px; }
+.toc { columns: 2; column-gap: 10mm; font-size: 8.4pt; }
+.toc div { break-inside: avoid; padding: 2px 0; border-bottom: 1px dotted var(--rule-strong); display: flex; justify-content: space-between; gap: 6mm; }
+.toc span:last-child { color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.page-break { break-before: page; }
+
+/* ---------- Annexes ---------- */
+.annex-head { border-bottom: 2px solid var(--navy); padding-bottom: 5mm; margin-bottom: 6mm; display: flex; justify-content: space-between; align-items: flex-end; gap: 10mm; }
+.annex-head .mini-mark { font-family: var(--font-display); font-weight: 600; letter-spacing: .18em; font-size: 9.5pt; color: var(--navy); }
+.annex-head .mini-mark i { display: block; width: 26px; height: 2px; background: var(--gold); margin-top: 5px; }
+.annex-eyebrow { font-size: 7.8pt; text-transform: uppercase; letter-spacing: .14em; color: var(--gold-deep); font-weight: 600; }
+.annex-title { font-family: var(--font-display); font-weight: 600; color: var(--navy); font-size: 17pt; margin: 2mm 0 0; line-height: 1.2; }
+.annex-ref { text-align: right; font-size: 8pt; color: var(--muted); line-height: 1.5; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.annex-ref b { color: var(--ink); }
+.annex-usage { font-size: 8pt; color: var(--muted); margin: 0 0 5mm; display: flex; gap: 8mm; flex-wrap: wrap; }
+.annex-usage b { color: var(--ink-soft); font-weight: 600; }
+.annex .doc-body { font-size: 9.8pt; }
+
+/* Ajustements : formulaire paysage sur une page, pied de garde */
+body.landscape .form-table td { height: 21px; padding: 3px 8px; }
+body.landscape .annex-head { padding-bottom: 3mm; margin-bottom: 4mm; }
+body.landscape .sig-row { margin-top: .8em; }
+body.landscape .sig { min-height: 46px; }
+.cover-foot > div:last-child { flex: none; white-space: nowrap; }
+
+.toc-block { margin-bottom: 9mm; padding-bottom: 6mm; border-bottom: 1px solid var(--rule); }
+.toc-block h4 { margin-top: 0; }
+.form-table.spec td, .form-table.spec th { height: 21px; padding: 4px 8px; }
+.form-table.checklist td { height: 20px; padding: 4px 8px; }
+.annex .sig-row { margin: 1em 0 0; } .annex .sig { min-height: 50px; }
+
+.annex-landscape { page: landscape; }
+body.landscape .doc-body table:not(.form-table), .annex-landscape .doc-body table:not(.form-table) { font-size: .8em; }
+body.landscape .doc-body table:not(.form-table) td, .annex-landscape .doc-body table:not(.form-table) td { padding: 3px 6px; }
+.annex .doc-body p { margin-bottom: .55em; }
+.annex .doc-body ul { margin-bottom: .6em; }
+.annex .office-use { margin-top: 1.1em; padding: 8px 14px; }
+.annex-head { padding-bottom: 3.5mm; margin-bottom: 4mm; }
+.annex-usage { margin-bottom: 3.5mm; }

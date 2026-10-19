@@ -1,0 +1,424 @@
+# Paramètres généraux du référentiel documentaire — Purpose Capital S.A.
+# Les rôles sont désignés par leur titre, jamais par le nom de la personne.
+
+societe:
+  raison_sociale: Purpose Capital S.A.
+  forme: Société anonyme avec Conseil d'Administration
+  agrement: COSUMAF-SDB-01/2026
+  capital: 317 500 000 FCFA
+  siege: Rue Joseph Essono Balla, Elig-Essono, Yaoundé (Cameroun)
+  rccm:            # à renseigner une fois : repris automatiquement dans les conventions
+
+# Circuit d'approbation par niveau documentaire
+niveaux:
+  - type: Code
+    prefixe: COD
+    redaction: RCCI
+    verification: Directeur Général
+    approbation: Conseil d'Administration
+    revue: Annuelle
+  - type: Politique
+    prefixe: POL
+    redaction: Propriétaire du domaine
+    verification: RCCI
+    approbation: Conseil d'Administration
+    revue: Annuelle
+  - type: Procédure
+    prefixe: PRO
+    redaction: Responsable du processus
+    verification: RCCI
+    approbation: Directeur Général
+    revue: 1 à 2 ans
+  - type: Modèle de contrat
+    prefixe: CTR
+    redaction: Directeur de la direction concernée
+    verification: RCCI et conseil juridique
+    approbation: Directeur Général
+    revue: Annuelle
+  - type: Mode opératoire
+    prefixe: MOP
+    redaction: Responsable du service
+    verification: RCCI
+    approbation: Responsable du service
+    revue: Au fil de l'eau
+  - type: Formulaire
+    prefixe: FRM
+    redaction: Propriétaire du document parent
+    verification: RCCI
+    approbation: Approbateur du document parent
+    revue: Avec le document parent
+
+# Documents prévus, pas encore rédigés. Un document rédigé (dossier dans
+# content/documents/) remplace automatiquement sa ligne ici.
+prevus:
+  - { id: PC-PRO-GOV-001, titre: Procédure de maîtrise documentaire, type: Procédure, domaine: Gouvernance, priorite: 1 }
+  - { id: PC-POL-LBC-001, titre: Politique de lutte contre le blanchiment et le financement du terrorisme, type: Politique, domaine: LBC/FT, priorite: 1 }
+  - { id: PC-POL-CI-001, titre: Politique de gestion des conflits d'intérêts, type: Politique, domaine: Déontologie, priorite: 1 }
+  - { id: PC-POL-EXE-001, titre: Politique de meilleure exécution des ordres, type: Politique, domaine: Clientèle, priorite: 1 }
+  - { id: PC-PRO-KYC-001, titre: Procédure d'entrée en relation et de connaissance client, type: Procédure, domaine: Clientèle, priorite: 1 }
+  - { id: PC-PRO-ORD-001, titre: Procédure de réception, transmission et exécution des ordres, type: Procédure, domaine: Marchés, priorite: 1 }
+  - { id: PC-PRO-REC-001, titre: Procédure de traitement des réclamations, type: Procédure, domaine: Clientèle, priorite: 2 }
+  - { id: PC-PRO-OPP-001, titre: Procédure des opérations personnelles, type: Procédure, domaine: Déontologie, priorite: 2 }
+  - { id: PC-PRO-SEG-001, titre: Procédure de ségrégation et de rapprochement des avoirs clients, type: Procédure, domaine: Opérations, priorite: 2 }
+  - { id: PC-PRO-REP-001, titre: Procédure de reporting réglementaire, type: Procédure, domaine: Conformité, priorite: 2 }
+  - { id: PC-POL-RIS-001, titre: Politique de gestion des risques, type: Politique, domaine: Risques, priorite: 2 }
+  - { id: PC-POL-SSI-001, titre: Politique de sécurité des systèmes d'information, type: Politique, domaine: Systèmes d'information, priorite: 2 }
+  - { id: PC-POL-PCA-001, titre: Plan de continuité d'activité, type: Politique, domaine: Risques, priorite: 2 }
+  - { id: PC-POL-EXT-001, titre: Politique d'externalisation, type: Politique, domaine: Gouvernance, priorite: 3 }
+  - { id: PC-POL-REM-001, titre: Politique de rémunération, type: Politique, domaine: Ressources humaines, priorite: 3 }
+  - { id: PC-PRO-ARC-001, titre: Procédure d'archivage et de conservation, type: Procédure, domaine: Opérations, priorite: 3 }
+  - { id: PC-PRO-COM-001, titre: Procédure de validation des communications commerciales, type: Procédure, domaine: Conformité, priorite: 3 }
+  - { id: PC-CTR-002, titre: Convention de prise ferme et de garantie de bonne fin, type: Modèle de contrat, domaine: Marchés de capitaux, priorite: 2 }
+  - { id: PC-CTR-003, titre: Convention de syndicat de placement, type: Modèle de contrat, domaine: Marchés de capitaux, priorite: 2 }
+  - { id: PC-COD-002, titre: Règlement intérieur du Conseil d'Administration, type: Code, domaine: Gouvernance, priorite: 2 }
+  - { id: PC-COD-003, titre: Charte du contrôle interne et de la conformité, type: Code, domaine: Conformité, priorite: 2 }
+
+# Textes de référence (utilisés par la table de correspondance)
+# lien_type : « Texte officiel » (texte intégral publié par l'autorité), « Page officielle »
+# (page de l'autorité, sans texte intégral en ligne) ou « Présentation » (source secondaire,
+# à remplacer par le texte officiel dès qu'il est publié en ligne).
+references:
+  REG-01-22:
+    titre: Règlement n° 01/22/CEMAC/UMAC/CM/COSUMAF du 21 juillet 2022
+    objet: Organisation et fonctionnement du marché financier de l'Afrique centrale
+    emetteur: CEMAC — Comité ministériel
+    lien: https://cosumaf.org/actualite/reglement-portant-organisation-et-fonctionnement-du-marche-financier-de-lafrique-centrale-du-21-juillet-2022/
+    lien_type: Page officielle
+  RG-COSUMAF-2023:
+    titre: Règlement général de la COSUMAF du 23 mai 2023
+    objet: Règles applicables aux acteurs du marché financier régional
+    emetteur: COSUMAF
+    lien: https://cosumaf.org/files/documents/01KGCA9RV96SXYAY9EAHG1YBN1.pdf
+    lien_type: Texte officiel
+  REG-02-24:
+    titre: Règlement n° 02/24/CEMAC/UMAC/CM du 20 décembre 2024
+    objet: Prévention et répression du blanchiment de capitaux et du financement du terrorisme et de la prolifération ; révise le règlement du 11 avril 2016
+    emetteur: CEMAC — Comité ministériel
+    lien: https://droitmediasfinance.com/index.php/actualites/lutte-anti-blanchiment/948-aml-blanchiment-des-capitaux-cemac-trois-nouveaux-reglements-adoptes-en-decembre-2024-sur-la-prevention-repression-et-sanctions-financieres-ciblees
+    lien_type: Présentation
+  REG-04-24:
+    titre: Règlement n° 04/24/CEMAC/UMAC/CM du 20 décembre 2024
+    objet: Mise en œuvre des sanctions financières ciblées liées au terrorisme et à la prolifération
+    emetteur: CEMAC — Comité ministériel
+    lien: https://droitmediasfinance.com/index.php/actualites/lutte-anti-blanchiment/948-aml-blanchiment-des-capitaux-cemac-trois-nouveaux-reglements-adoptes-en-decembre-2024-sur-la-prevention-repression-et-sanctions-financieres-ciblees
+    lien_type: Présentation
+  COSUMAF-LD-LBC-2025:
+    titre: Lignes directrices de la COSUMAF en matière de LBC/FT (septembre 2025)
+    objet: Mise en œuvre du Règlement n° 02/24 par les acteurs du marché financier régional
+    emetteur: COSUMAF
+    lien: https://droitmediasfinance.com/index.php/actualites/droit-des-marches-financiers/1091-cemac-aml-que-retenir-des-nouvelles-lignes-directrices-de-la-cosumaf-en-matiere-de-lutte-contre-le-blanchiment-des-capitaux-sur-le-marche-financier
+    lien_type: Présentation
+  COBAC-LD-LBC-2025:
+    titre: Lignes directrices de la COBAC en matière de LBC/FT (février 2025)
+    objet: Identification, bénéficiaires effectifs, PPE, correspondants, déclarations de soupçon (secteur bancaire)
+    emetteur: COBAC
+    lien: https://droitmediasfinance.com/index.php/actualites/droit-bancaire/1004-blanchiment-des-capitaux-cemac-les-lignes-directrices-de-la-cobac-de-fevrier-2025-alignent-la-sous-region-sur-les-standards-internationaux-du-gafi
+    lien_type: Présentation
+  GAFI-JUR:
+    titre: GAFI — Juridictions sous surveillance renforcée et à haut risque
+    objet: Listes publiées après chaque plénière (février, juin, octobre)
+    emetteur: GAFI
+    lien: https://www.fatf-gafi.org/fr/publications/Juridictions-haut-risques-et-sous-surveillance/surveillance-renforcee-fevrier-2026.html
+    lien_type: Page officielle
+  GAFI-VM:
+    titre: GAFI — Lignes directrices sur l'approche fondée sur les risques pour le secteur des valeurs mobilières (2018)
+    objet: Bonnes pratiques internationales pour les intermédiaires de marché
+    emetteur: GAFI
+    lien: https://www.cssf.lu/fr/2018/10/lignes-directrices-du-gafi-sur-lapproche-fondee-sur-les-risques-pour-le-secteur-des-valeurs-mobilieres/
+    lien_type: Présentation
+  AMF-LCB-RISQUES:
+    titre: AMF (France) — Lignes directrices sur l'approche par les risques en matière de LCB-FT
+    objet: "Bonne pratique étrangère : classification des risques et vigilance des intermédiaires"
+    emetteur: Autorité des marchés financiers (France)
+    lien: https://www.amf-france.org/sites/institutionnel/files/private/2021-01/doc-2019-15_vf2_ld-approche-par-les-risques.pdf
+    lien_type: Texte officiel
+  AMF-LCB-PPE:
+    titre: AMF (France) — Lignes directrices sur la notion de personne politiquement exposée
+    objet: "Bonne pratique étrangère : identification et suivi des PPE"
+    emetteur: Autorité des marchés financiers (France)
+    lien: https://www.amf-france.org/sites/institutionnel/files/doctrine/fr/Position/DOC-2013-23/2.2/Lignes%20directrices%20sur%20la%20notion%20de%20personne%20politiquement%20exposee%20en%20matiere%20de%20lutte%20contre%20le%20blanchiment%20des%20capitaux%20et%20le%20financement%20du%20terrorisme.pdf
+    lien_type: Texte officiel
+  OICV-PRINCIPES:
+    titre: OICV (IOSCO) — Objectifs et principes de la régulation des valeurs mobilières
+    objet: Principes applicables aux intermédiaires de marché (capital, contrôle interne, gestion des risques)
+    emetteur: Organisation internationale des commissions de valeurs
+    lien: https://www.iosco.org/library/pubdocs/pdf/IOSCOPD561.pdf
+    lien_type: Texte officiel
+  BCBS-RO:
+    titre: Comité de Bâle — Principes de saine gestion du risque opérationnel (révision 2021)
+    objet: Gouvernance, identification, contrôle et résilience face au risque opérationnel
+    emetteur: Comité de Bâle sur le contrôle bancaire
+    lien: https://www.bis.org/bcbs/publ/d515.pdf
+    lien_type: Texte officiel
+  ISO-31000:
+    titre: Norme ISO 31000 — Management du risque, lignes directrices
+    objet: Démarche d'identification, d'évaluation et de traitement des risques
+    emetteur: Organisation internationale de normalisation
+  LOI-CM-2024-017:
+    titre: Loi n° 2024/017 du 23 décembre 2024 relative à la protection des données à caractère personnel au Cameroun
+    objet: Obligations des responsables de traitement et des sous-traitants, sécurité, transferts hors du Cameroun (en vigueur depuis le 23 juin 2026)
+    emetteur: République du Cameroun
+    lien: https://droitmediasfinance.com/index.php/actualites/droit-tech-fintech/1297-cameroun-la-loi-sur-la-protection-des-donnees-a-caractere-personnel-entre-en-vigueur-ce-23-juin-2026
+    lien_type: Présentation
+  OICV-EXT-2021:
+    titre: OICV — Principes sur l'externalisation (octobre 2021)
+    objet: Sept principes et lignes directrices pour l'externalisation par les intermédiaires de marché et les infrastructures
+    emetteur: Organisation internationale des commissions de valeurs
+    lien: https://www.iosco.org/library/pubdocs/pdf/IOSCOPD687.pdf
+    lien_type: Texte officiel
+  OICV-CONF-2006:
+    titre: OICV — La fonction conformité des intermédiaires de marché (mars 2006)
+    objet: Mission, indépendance, moyens, compétences et évaluation de la fonction conformité
+    emetteur: Organisation internationale des commissions de valeurs
+    lien: https://www.iosco.org/library/pubdocs/pdf/IOSCOPD214.pdf
+    lien_type: Texte officiel
+  BCBS-CONF-2005:
+    titre: Comité de Bâle — La conformité et la fonction conformité dans les banques (2005)
+    objet: Responsabilités du conseil et de la direction, indépendance et moyens de la fonction conformité
+    emetteur: Comité de Bâle sur le contrôle bancaire
+    lien: https://www.bis.org/publ/bcbs113.pdf
+    lien_type: Texte officiel
+  COSO-2013:
+    titre: COSO — Contrôle interne, référentiel intégré (2013)
+    objet: Cinq composantes et dix-sept principes du contrôle interne
+    emetteur: Committee of Sponsoring Organizations of the Treadway Commission
+  IIA-3L-2020:
+    titre: IIA — Le modèle des trois lignes (2020)
+    objet: Rôles respectifs de la direction, des fonctions de maîtrise des risques et de l'audit interne
+    emetteur: Institute of Internal Auditors
+  COBAC-CANEVAS-CI:
+    titre: COBAC — Canevas indicatif du rapport annuel sur l'exécution du contrôle interne, la mesure et la surveillance des risques
+    objet: Plan type du rapport annuel de contrôle interne des établissements de crédit de la CEMAC
+    emetteur: Commission Bancaire de l'Afrique Centrale
+    lien: https://www.beac.int/wp-content/uploads/2016/10/Canevas-indicatif-du-rapport-annuel-sur-lexécution-du-contrôle-interne-la-mesure-et-la-surveillance-des-risques.pdf
+    lien_type: Texte officiel
+  OICV-PCA-2015:
+    titre: OICV — Continuité d'activité et plans de reprise des intermédiaires de marché (décembre 2015)
+    objet: Plan écrit, fonctions et personnels critiques, accès des clients à leurs avoirs, communication, tests et revue annuelle
+    emetteur: Organisation internationale des commissions de valeurs
+    lien: https://www.iosco.org/library/pubdocs/pdf/IOSCOPD523.pdf
+    lien_type: Texte officiel
+  FINRA-4370:
+    titre: FINRA — Règle 4370, plans de continuité d'activité et contacts d'urgence (États-Unis)
+    objet: Contenu minimal du plan de continuité d'une société de bourse, dont l'accès des clients à leurs fonds et titres
+    emetteur: Financial Industry Regulatory Authority
+    lien: https://www.finra.org/rules-guidance/rulebooks/finra-rules/4370
+    lien_type: Texte officiel
+  ISO-22301:
+    titre: Norme ISO 22301 — Systèmes de management de la continuité d'activité
+    objet: Analyse d'impact, stratégies de continuité, exercices et amélioration continue
+    emetteur: Organisation internationale de normalisation
+  ABE-EXT-2019:
+    titre: ABE — Orientations relatives à l'externalisation (EBA/GL/2019/02)
+    objet: Fonctions critiques ou importantes, analyse préalable, clauses contractuelles, registre, stratégies de sortie
+    emetteur: Autorité bancaire européenne
+    lien: https://www.eba.europa.eu/sites/default/documents/files/documents/10180/2761380/6565c789-487b-4528-8a17-4b94147dc5b8/EBA%20revised%20Guidelines%20on%20outsourcing_FR.pdf
+    lien_type: Texte officiel
+  BVMAC-RM:
+    titre: Règlement général de la BVMAC (en vigueur depuis avril 2025)
+    objet: Admission, négociation, transmission des ordres, membres du marché
+    emetteur: BVMAC
+    lien: https://www.bvm-ac.org/?p=14656
+    lien_type: Page officielle
+  BVMAC-AVIS-057-2023:
+    titre: Avis n° 057/2023/BVMAC/DG du 29 novembre 2023
+    objet: Passage à la cotation journalière au fixing, à compter du 1er décembre 2023
+    emetteur: BVMAC
+    lien: https://www.bvm-ac.org/?p=12570
+    lien_type: Page officielle
+  BVMAC-AVIS-058-2023:
+    titre: Avis n° 058/2023/BVMAC/DG
+    objet: Introduction de l'ordre au marché, à compter du 1er décembre 2023
+    emetteur: BVMAC
+    lien: https://droitmediasfinance.com/index.php/actualites/droit-des-marches-financiers/674-droit-boursier-cemac-la-bvmac-introduit-active-lordre-marche-ou-market-order-pour-les-ordres-de-bourse
+    lien_type: Présentation
+  BVMAC-INST-02:
+    titre: Instruction n° 2 relative aux règles de marché de la BVMAC
+    objet: Séances, types et validité des ordres, priorité, seuils de variation (à confirmer au regard du règlement général de 2025)
+    emetteur: BVMAC
+    lien: https://www.bvm-ac.org/wp-content/uploads/2019/11/BVMAC-instruction-n2-relative-aux-regles-de-marche-de-bvmac.pdf
+    lien_type: Texte officiel
+  DC-RG:
+    titre: Règlement général du Dépositaire central unique
+    objet: Inscription en compte, conservation, règlement-livraison des titres
+    emetteur: Dépositaire central unique
+    lien: https://droitmediasfinance.com/index.php/actualites/droit-des-marches-financiers/1145-cemac-le-depositaire-central-unique-lance-avant-le-31-decembre-2025-et-dirige-par-un-cadre-de-la-beac
+    lien_type: Présentation
+  AUSCGIE:
+    titre: Acte uniforme OHADA relatif au droit des sociétés commerciales et du GIE
+    objet: Gouvernance des sociétés anonymes, émission de valeurs mobilières
+    emetteur: OHADA
+    lien: https://www.ohada.org/en/commercial-companies-and-economic-interest-groups/
+    lien_type: Page officielle
+  AUS:
+    titre: Acte uniforme OHADA portant organisation des sûretés
+    objet: Garanties et sûretés attachées aux émissions
+    emetteur: OHADA
+    lien: https://www.ohada.org/organisation-des-suretes/
+    lien_type: Page officielle
+  AUA:
+    titre: Acte uniforme OHADA relatif au droit de l'arbitrage
+    objet: Arbitrage, compétence de la CCJA
+    emetteur: OHADA
+    lien: https://www.ohada.org/en/arbitration-law/
+    lien_type: Page officielle
+  CT-CM:
+    titre: Code du travail camerounais (loi n° 92/007 du 14 août 1992)
+    objet: Relations de travail, pouvoir disciplinaire
+    emetteur: République du Cameroun
+    lien: https://www.ilo.org/dyn/travail/docs/2069/Cameroun%20-%20Code%20du%20travail.pdf
+    lien_type: Texte officiel
+  OCDE-G20-GOUV-2023:
+    titre: Principes de gouvernance d'entreprise du G20 et de l'OCDE (2023)
+    objet: 'Responsabilités du conseil d''administration, indépendance, information, évaluation et traitement équitable des actionnaires'
+    emetteur: Organisation de coopération et de développement économiques
+    lien: 'https://www.oecd.org/en/publications/g20-oecd-principles-of-corporate-governance-2023_ed750b30-en.html'
+    lien_type: Texte officiel
+  BCBS-GOUV-2015:
+    titre: Comité de Bâle — Principes de gouvernance d'entreprise pour les banques (2015)
+    objet: 'Rôle du conseil dans la surveillance des risques, de la conformité et du contrôle interne ; comités ; évaluation'
+    emetteur: Comité de Bâle sur le contrôle bancaire
+    lien: 'https://www.bis.org/bcbs/publ/d328.pdf'
+    lien_type: Texte officiel
+  AFEP-MEDEF:
+    titre: Code de gouvernement d'entreprise des sociétés cotées AFEP-MEDEF (France)
+    objet: 'Règlement intérieur, administrateurs indépendants, comités, évaluation du conseil, déontologie de l''administrateur'
+    emetteur: AFEP et MEDEF
+  ICMA-AGREEMENT:
+    titre: ICMA — Primary Market Handbook et modèles de conventions entre chefs de file et membres du syndicat
+    objet: 'Pratique internationale des émissions syndiquées — rôles du chef de file, engagements des membres, restrictions de vente, allocation'
+    emetteur: International Capital Market Association
+    lien: 'https://www.icmagroup.org/market-practice-and-regulatory-policy/primary-markets/'
+    lien_type: Page officielle
+  CCN-BEF-CM-2024:
+    titre: 'Convention collective nationale des banques et autres établissements financiers du Cameroun (révisée, signée le 18 novembre 2024)'
+    objet: 'Classifications, salaires minima, accessoires de salaire et conditions de travail du secteur'
+    emetteur: 'Partenaires sociaux du secteur bancaire et financier, Cameroun'
+    lien: 'https://cameroon-tribune.cm/article.html/68203/fr.html/convention-collective-nationale-banques-ce-qui'
+    lien_type: Présentation
+  ESMA-REM-2023:
+    titre: 'ESMA — Orientations sur certains aspects des exigences de MiFID II en matière de rémunération (ESMA35-43-3565, 2023)'
+    objet: 'Rémunération des personnes en contact avec les clients, critères qualitatifs, prévention des conflits d''intérêts'
+    emetteur: Autorité européenne des marchés financiers
+    lien: 'https://www.esma.europa.eu/sites/default/files/2023-04/ESMA35-43-3565_Guidelines_on_MiFID_II_remuneration_requirements.pdf'
+    lien_type: Texte officiel
+  FSB-REM-2009:
+    titre: Conseil de stabilité financière — Principes pour de saines pratiques de rémunération (2009)
+    objet: 'Gouvernance de la rémunération, alignement sur les risques, réduction du variable'
+    emetteur: Conseil de stabilité financière
+    lien: 'https://www.fsb.org/2009/04/principles-for-sound-compensation-practices-2/'
+    lien_type: Texte officiel
+  LOI-CM-2010-012:
+    titre: Loi n° 2010/012 du 21 décembre 2010 relative à la cybersécurité et à la cybercriminalité au Cameroun
+    objet: 'Cadre de la sécurité des réseaux et systèmes d''information, infractions, rôle de l''ANTIC'
+    emetteur: République du Cameroun
+    lien: 'https://dig.watch/resource/the-law-no-2010-012-of-21-december-2010-on-cybersecurity-and-cybercriminality-in-cameroon'
+    lien_type: Présentation
+  ISO-27001:
+    titre: Normes ISO/IEC 27001 et 27002 (2022) — Sécurité de l'information
+    objet: Système de management de la sécurité de l'information et catalogue de mesures de sécurité
+    emetteur: Organisation internationale de normalisation
+  NIST-CSF-2:
+    titre: NIST — Cybersecurity Framework 2.0 (2024)
+    objet: 'Six fonctions de la cybersécurité, adaptables aux petites organisations'
+    emetteur: National Institute of Standards and Technology (États-Unis)
+    lien: 'https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf'
+    lien_type: Texte officiel
+  ANSSI-HYGIENE:
+    titre: ANSSI — Guide d'hygiène informatique
+    objet: Mesures essentielles de sécurité informatique pour les organisations
+    emetteur: Agence nationale de la sécurité des systèmes d'information (France)
+    lien: 'https://cyber.gouv.fr/publications/guide-dhygiene-informatique'
+    lien_type: Texte officiel
+  AUDCIF:
+    titre: Acte uniforme OHADA relatif au droit comptable et à l'information financière (26 janvier 2017)
+    objet: 'Tenue de la comptabilité, conservation des livres et pièces justificatives'
+    emetteur: OHADA
+    lien: 'https://www.vie-publique.sn/documents/11026/acte-uniforme-droit-comptable-information-financiere-ohada-2017'
+    lien_type: Présentation
+  LOI-CM-2010-021:
+    titre: Loi n° 2010/021 du 21 décembre 2010 régissant le commerce électronique au Cameroun
+    objet: 'Valeur juridique de l''écrit et de la signature électroniques, conservation des documents électroniques'
+    emetteur: République du Cameroun
+  ISO-9001-DOC:
+    titre: 'Norme ISO 9001 — Systèmes de management de la qualité, maîtrise des informations documentées (§ 7.5)'
+    objet: 'Création, mise à jour, diffusion, protection et conservation des documents'
+    emetteur: Organisation internationale de normalisation
+  MIFID-RD-2017-565:
+    titre: Règlement délégué (UE) 2017/565 du 25 avril 2016 complétant la directive MIF 2
+    objet: 'Organisation des entreprises d''investissement, dont les transactions personnelles (art. 28 et 29)'
+    emetteur: Commission européenne
+    lien: 'https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32017R0565'
+    lien_type: Texte officiel
+  MAR-596-2014:
+    titre: Règlement (UE) n° 596/2014 sur les abus de marché (MAR)
+    objet: 'Informations privilégiées, listes d''initiés (art. 18) et transactions des dirigeants (art. 19)'
+    emetteur: Parlement européen et Conseil de l'Union européenne
+    lien: 'https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014R0596'
+    lien_type: Texte officiel
+  FINRA-3210:
+    titre: 'FINRA — Règle 3210, comptes ouverts chez d''autres intermédiaires (États-Unis)'
+    objet: Accord préalable de l'employeur et transmission des relevés pour les comptes de collaborateurs ouverts ailleurs
+    emetteur: Financial Industry Regulatory Authority
+    lien: 'https://www.finra.org/rules-guidance/rulebooks/finra-rules/3210'
+    lien_type: Texte officiel
+  ESMA-EBA-REC-2018:
+    titre: ESMA et ABE — Orientations communes sur le traitement des réclamations (JC 2018 35)
+    objet: 'Politique et fonction de traitement des réclamations, enregistrement, délais, réponse, analyse des causes et compte rendu'
+    emetteur: Autorité européenne des marchés financiers et Autorité bancaire européenne
+    lien: 'https://www.eba.europa.eu/regulation-and-policy/consumer-protection-and-financial-innovation/guidelines-for-complaints-handling-for-the-securities-esma-and-banking-eba-sectors'
+    lien_type: Page officielle
+  FCA-CASS:
+    titre: 'FCA Handbook — CASS, protection des avoirs des clients (Royaume-Uni)'
+    objet: 'Ségrégation des titres et des espèces des clients, rapprochements quotidiens et mensuels, lettres de reconnaissance, traitement des écarts'
+    emetteur: Financial Conduct Authority
+    lien: 'https://www.handbook.fca.org.uk/handbook/CASS/'
+    lien_type: Texte officiel
+  SEC-15C3-3:
+    titre: 'SEC — Règle 15c3-3, protection des fonds et titres des clients (États-Unis)'
+    objet: 'Possession et contrôle des titres des clients, compte de réserve spécial au profit des clients'
+    emetteur: Securities and Exchange Commission
+    lien: 'https://www.law.cornell.edu/cfr/text/17/240.15c3-3'
+    lien_type: Texte officiel
+  FINRA-2210:
+    titre: 'FINRA — Règle 2210, communications avec le public (États-Unis)'
+    objet: 'Approbation préalable, contenu équilibré et non trompeur, conservation des communications des sociétés de bourse'
+    emetteur: Financial Industry Regulatory Authority
+    lien: 'https://www.finra.org/rules-guidance/rulebooks/finra-rules/2210'
+    lien_type: Texte officiel
+
+
+
+glossaire:
+  - terme: Bénéficiaire effectif
+    definition: Personne physique qui, en dernier lieu, possède ou contrôle le client, ou pour le compte de laquelle une opération est effectuée.
+  - terme: Collaborateur
+    definition: Toute personne agissant pour le compte de la Société — administrateur, dirigeant, salarié, stagiaire, intérimaire, prestataire ou mandataire.
+  - terme: Conflit d'intérêts
+    definition: Situation dans laquelle l'intérêt de la Société, d'un Collaborateur ou d'un client peut s'opposer à l'intérêt d'un autre client.
+  - terme: Arrangeur
+    definition: Société de bourse mandatée par un émetteur pour structurer une levée de fonds, préparer le dossier de visa et organiser le placement des titres.
+  - terme: Document d'information
+    definition: Prospectus décrivant l'émetteur et l'opération, soumis au visa de la COSUMAF avant toute diffusion au public.
+  - terme: Fenêtre négative
+    definition: Période pendant laquelle les Collaborateurs s'abstiennent de toute opération personnelle sur un titre donné.
+  - terme: Front running
+    definition: Exécution d'un ordre pour compte propre ou personnel avant un ordre client portant sur le même titre, pour profiter de son impact sur le cours.
+  - terme: Garantie de bonne fin
+    definition: Engagement d'un intermédiaire de souscrire ou de faire souscrire les titres non placés à l'issue de la période de souscription.
+  - terme: Information privilégiée
+    definition: Information précise, non publique, concernant un émetteur ou un titre, susceptible d'influencer sensiblement son cours si elle était rendue publique.
+  - terme: Muraille de Chine
+    definition: Ensemble de mesures organisationnelles et informatiques empêchant la circulation d'informations sensibles entre activités séparées.
+  - terme: Opération personnelle
+    definition: Toute opération sur instrument financier réalisée par un Collaborateur pour son compte, celui de son conjoint, de ses enfants à charge ou de toute personne interposée.
+  - terme: Personne politiquement exposée (PPE)
+    definition: Personne qui exerce ou a exercé une fonction publique importante, ainsi que les membres de sa famille et ses proches associés.
+  - terme: Prise ferme
+    definition: Souscription par l'intermédiaire de la totalité ou d'une partie des titres dès l'émission, avant leur revente aux investisseurs ; elle engage ses fonds propres.
+  - terme: RCCI
+    definition: Responsable de la conformité et du contrôle interne ; titulaire de la fonction déontologique, nommé par le Conseil d'Administration et notifié à la COSUMAF.
+  - terme: Syndicat de placement
+    definition: Groupement de sociétés de bourse et d'établissements de crédit constitué par le chef de file pour placer les titres d'une émission.
+  - terme: Version maîtrisée
+    definition: Version d'un document publiée dans le référentiel en ligne ; seule elle fait foi. Toute copie imprimée ou téléchargée est réputée non maîtrisée.

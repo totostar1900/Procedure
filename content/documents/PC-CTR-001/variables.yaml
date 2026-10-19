@@ -1,0 +1,224 @@
+# Champs de la convention PC-CTR-001.
+# Chaque champ est saisi une seule fois dans le formulaire du référentiel ;
+# le modèle (document.md et annexes) l'appelle par {{id}}.
+# Types : texte, long, montant, entier, pourcentage, date, choix.
+# requis : la convention ne peut pas être générée tant qu'il manque.
+# si : le champ n'apparaît (et n'est exigé) que si la condition est remplie.
+# vide : texte utilisé dans la convention quand un champ facultatif est laissé vide.
+
+intitule: "{{emetteur_nom}} · {{titres_nature|label}} · {{montant}}"
+
+sections:
+  - id: emetteur
+    titre: Émetteur
+    aide: Identité de la société qui lève les fonds, telle qu'elle figure au RCCM.
+    champs:
+      - { id: emetteur_nom, label: Raison sociale de l'Émetteur, type: texte, requis: true }
+      - id: emetteur_forme
+        label: Forme sociale
+        type: choix
+        requis: true
+        options:
+          - { valeur: sa_ca, label: Société anonyme avec Conseil d'Administration, texte: société anonyme avec conseil d'administration }
+          - { valeur: sa_ag, label: Société anonyme avec Administrateur Général, texte: société anonyme avec administrateur général }
+          - { valeur: sas, label: Société par actions simplifiée, texte: société par actions simplifiée }
+          - { valeur: autre, label: Autre forme, texte: "" }
+      - { id: emetteur_forme_autre, label: Forme sociale (précisez), type: texte, requis: true, si: { champ: emetteur_forme, egal: autre } }
+      - { id: emetteur_capital, label: Capital social, type: montant, requis: true }
+      - id: emetteur_pays
+        label: Pays du siège
+        type: choix
+        requis: true
+        defaut: cameroun
+        options: &pays
+          - { valeur: cameroun, label: Cameroun, texte: Cameroun }
+          - { valeur: gabon, label: Gabon, texte: Gabon }
+          - { valeur: congo, label: Congo, texte: Congo }
+          - { valeur: tchad, label: Tchad, texte: Tchad }
+          - { valeur: rca, label: République centrafricaine, texte: République centrafricaine }
+          - { valeur: guinee, label: Guinée équatoriale, texte: Guinée équatoriale }
+      - { id: emetteur_siege, label: Adresse du siège social, type: texte, requis: true }
+      - { id: emetteur_rccm_ville, label: Ville d'immatriculation au RCCM, type: texte, requis: true }
+      - { id: emetteur_rccm, label: Numéro RCCM de l'Émetteur, type: texte, requis: true, aide: "Exemple : RC/YAO/2015/B/1234" }
+      - { id: emetteur_representant, label: Nom du représentant de l'Émetteur, type: texte, requis: true }
+      - { id: emetteur_qualite, label: Qualité du représentant, type: texte, requis: true, defaut: Directeur Général }
+      - { id: emetteur_secteur, label: Secteur d'activité, type: texte, requis: true }
+
+  - id: operation
+    titre: Opération
+    aide: Caractéristiques indicatives, reprises à l'article 1 et à l'Annexe 1. Elles seront arrêtées dans le Document d'information visé par la COSUMAF.
+    champs:
+      - id: titres_nature
+        label: Nature des Titres
+        type: choix
+        requis: true
+        options:
+          - { valeur: actions, label: Actions, texte: actions }
+          - { valeur: obligations, label: Obligations, texte: obligations }
+          - { valeur: convertibles, label: Obligations convertibles, texte: obligations convertibles en actions }
+          - { valeur: autres, label: Autres titres financiers, texte: titres financiers }
+      - { id: titres_autre, label: Description des titres, type: texte, requis: true, si: { champ: titres_nature, egal: autres } }
+      - id: mode_placement
+        label: Mode de placement
+        type: choix
+        requis: true
+        options:
+          - { valeur: ape, label: Appel public à l'épargne, texte: par appel public à l'épargne }
+          - { valeur: prive, label: Placement privé, texte: par placement privé }
+      - { id: montant, label: Montant de l'Opération, type: montant, requis: true }
+      - { id: seuil, label: Seuil de réussite, type: montant, requis: true, aide: Montant minimal de souscriptions en dessous duquel l'Opération est annulée. }
+      - { id: nominal, label: Valeur nominale unitaire, type: montant, requis: true }
+      - { id: taux, label: Taux d'intérêt annuel, type: pourcentage, requis: true, si: { champ: titres_nature, parmi: [obligations, convertibles] } }
+      - { id: maturite, label: Maturité (années), type: entier, requis: true, si: { champ: titres_nature, parmi: [obligations, convertibles] } }
+      - { id: differe, label: Différé d'amortissement (années), type: entier, vide: Néant, si: { champ: titres_nature, parmi: [obligations, convertibles] } }
+      - id: remboursement
+        label: Profil de remboursement
+        type: choix
+        requis: true
+        si: { champ: titres_nature, parmi: [obligations, convertibles] }
+        options:
+          - { valeur: in_fine, label: In fine, texte: in fine }
+          - { valeur: constant, label: Amortissement constant, texte: par amortissement constant du capital }
+          - { valeur: annuites, label: Annuités constantes, texte: par annuités constantes }
+      - { id: garanties, label: Garanties, type: long, vide: Néant }
+      - id: notation
+        label: Notation financière
+        type: choix
+        requis: true
+        defaut: non
+        options:
+          - { valeur: oui, label: Oui, texte: Oui }
+          - { valeur: non, label: Non, texte: Non }
+      - { id: notation_agence, label: Agence de notation, type: texte, requis: true, si: { champ: notation, egal: oui } }
+      - id: admission
+        label: Admission à la cote de la BVMAC
+        type: choix
+        requis: true
+        options:
+          - { valeur: oui, label: Oui, texte: Oui }
+          - { valeur: non, label: Non, texte: Non }
+      - { id: investisseurs, label: Investisseurs ciblés, type: texte, requis: true }
+      - { id: utilisation, label: Utilisation des fonds, type: long, requis: true }
+      - { id: syndicat, label: Syndicat de placement envisagé, type: texte, vide: À constituer par l'Arrangeur }
+
+  - id: calendrier
+    titre: Calendrier
+    aide: Les dates de souscription peuvent rester vides ; elles seront fixées dans le Document d'information.
+    champs:
+      - { id: date_signature, label: Date de signature prévue, type: date, requis: true }
+      - { id: validite_mois, label: Délai d'obtention du visa (mois), type: entier, requis: true, defaut: 12, aide: Au-delà, la convention expire sauf prorogation écrite. }
+      - { id: souscription_debut, label: Ouverture de la Période de souscription, type: date, vide: À fixer dans le Document d'information }
+      - { id: souscription_fin, label: Clôture de la Période de souscription, type: date, vide: À fixer dans le Document d'information }
+      - { id: date_reglement, label: Date de règlement-livraison, type: date, vide: À fixer dans le Document d'information }
+
+  - id: clauses
+    titre: Clauses
+    aide: Les valeurs par défaut correspondent à la pratique de la Société. Toute modification se négocie avec l'Émetteur.
+    champs:
+      - id: exclusivite
+        label: Exclusivité
+        type: choix
+        requis: true
+        defaut: exclusif
+        options:
+          - { valeur: exclusif, label: Mandat exclusif }
+          - { valeur: coarrangement, label: Co-arrangement }
+      - { id: coarrangeur, label: Société de bourse co-arrangeur, type: texte, requis: true, si: { champ: exclusivite, egal: coarrangement } }
+      - id: compte_titulaire
+        label: Titulaire du compte de centralisation
+        type: choix
+        requis: true
+        defaut: arrangeur
+        options:
+          - { valeur: arrangeur, label: L'Arrangeur pour le compte de l'Émetteur, texte: de l'Arrangeur pour le compte de l'Émetteur }
+          - { valeur: emetteur, label: L'Émetteur, texte: de l'Émetteur }
+      - { id: compte_banque, label: Établissement teneur du compte de centralisation, type: texte, requis: true }
+      - { id: delai_restitution, label: Délai de restitution des fonds si échec (jours ouvrés), type: entier, requis: true, defaut: 10 }
+      - { id: delai_rapport, label: Délai de remise du rapport de clôture (jours ouvrés), type: entier, requis: true, defaut: 15 }
+      - { id: nb_exercices, label: Nombre d'exercices d'états financiers certifiés, type: entier, requis: true, defaut: 3 }
+      - { id: conflits, label: Conflits d'intérêts déclarés par l'Arrangeur, type: long, requis: true, defaut: Néant }
+      - { id: seuil_frais, label: Frais avancés soumis à accord préalable au-delà de, type: montant, requis: true, defaut: 1000000 }
+      - { id: delai_mise_en_demeure, label: Délai de régularisation après mise en demeure (jours), type: entier, requis: true, defaut: 30 }
+      - { id: delai_tail, label: Protection de l'Arrangeur après résiliation (mois), type: entier, requis: true, defaut: 12 }
+      - { id: delai_force_majeure, label: Durée de force majeure ouvrant la résiliation (jours), type: entier, requis: true, defaut: 60 }
+      - { id: delai_amiable, label: Durée de la phase amiable (jours), type: entier, requis: true, defaut: 30 }
+      - id: droit
+        label: Droit national applicable à titre subsidiaire
+        type: choix
+        requis: true
+        defaut: cameroun
+        options:
+          - { valeur: cameroun, label: Droit camerounais, texte: camerounais }
+          - { valeur: gabon, label: Droit gabonais, texte: gabonais }
+          - { valeur: congo, label: Droit congolais, texte: congolais }
+          - { valeur: tchad, label: Droit tchadien, texte: tchadien }
+          - { valeur: rca, label: Droit centrafricain, texte: centrafricain }
+          - { valeur: guinee, label: Droit équato-guinéen, texte: équato-guinéen }
+      - id: litiges
+        label: Règlement des différends
+        type: choix
+        requis: true
+        defaut: arbitrage
+        options:
+          - { valeur: arbitrage, label: Arbitrage CCJA }
+          - { valeur: juridictions, label: Juridictions étatiques }
+      - id: arbitres
+        label: Composition du tribunal arbitral
+        type: choix
+        requis: true
+        defaut: un
+        si: { champ: litiges, egal: arbitrage }
+        options:
+          - { valeur: un, label: Arbitre unique, texte: un arbitre unique }
+          - { valeur: trois, label: Trois arbitres, texte: trois arbitres }
+      - { id: lieu_arbitrage, label: Siège de l'arbitrage, type: texte, requis: true, defaut: Yaoundé, si: { champ: litiges, egal: arbitrage } }
+      - { id: juridiction_ville, label: Juridictions compétentes de, type: texte, requis: true, defaut: Yaoundé, si: { champ: litiges, egal: juridictions } }
+
+  - id: remuneration
+    titre: Rémunération
+    aide: Montants hors taxes. Chaque commission est facturée séparément.
+    champs:
+      - { id: com_arrangement, label: Commission d'arrangement (forfait), type: montant, requis: true }
+      - { id: com_arr_part, label: Part de la commission d'arrangement exigible à la signature, type: pourcentage, requis: true, defaut: 50 }
+      - { id: com_placement, label: Commission de placement (% des montants souscrits et libérés), type: pourcentage, requis: true }
+      - id: com_succes
+        label: Commission de succès
+        type: choix
+        requis: true
+        defaut: non
+        options:
+          - { valeur: oui, label: Oui }
+          - { valeur: non, label: Non }
+      - { id: com_succes_seuil, label: Montant placé au-delà duquel la commission de succès est due, type: montant, requis: true, si: { champ: com_succes, egal: oui } }
+      - { id: com_succes_taux, label: Taux de la commission de succès, type: pourcentage, requis: true, si: { champ: com_succes, egal: oui } }
+      - { id: com_admission, label: Commission d'admission à la cote (forfait), type: montant, vide: Néant, si: { champ: admission, egal: oui } }
+
+  - id: signature
+    titre: Signature
+    champs:
+      - { id: pc_rccm, label: Numéro RCCM de Purpose Capital S.A., type: texte, requis: true, source: rccm, aide: Repris automatiquement des paramètres de la Société lorsqu'il y est renseigné. }
+      - { id: lieu_signature, label: Lieu de signature, type: texte, requis: true, defaut: Yaoundé }
+      - { id: nb_exemplaires, label: Nombre d'exemplaires originaux, type: entier, requis: true, defaut: 2 }
+
+calculs:
+  - { id: nb_titres, label: Nombre de Titres, type: entier, op: div, a: montant, b: nominal }
+  - { id: seuil_ratio, label: Seuil en % du montant, type: pourcentage, op: ratio, a: seuil, b: montant }
+  - { id: com_placement_estimee, label: Commission de placement si placement total, type: montant, op: pct, a: montant, b: com_placement }
+  - { id: com_arr_signature, label: Commission d'arrangement exigible à la signature, type: montant, op: pct, a: com_arrangement, b: com_arr_part }
+  - { id: com_arr_solde, label: Solde exigible au visa, type: montant, op: diff, a: com_arrangement, b: com_arr_signature }
+  - { id: com_total_estime, label: Rémunération totale estimée (HT), type: montant, op: somme, de: [com_arrangement, com_placement_estimee, com_admission] }
+
+regles:
+  - { a: seuil, op: "<=", b: montant, message: "Le Seuil de réussite ne peut pas dépasser le Montant de l'Opération." }
+  - { a: montant, op: multiple, b: nominal, message: "Le Montant de l'Opération doit être un multiple de la valeur nominale : le nombre de Titres doit être entier." }
+  - { a: seuil_ratio, op: ">=", valeur: 50, niveau: attention, message: "Le Seuil de réussite est inférieur à la moitié du montant. Vérifier que l'Émetteur peut réaliser son projet avec ce montant." }
+  - { a: com_placement, op: "<=", valeur: 5, niveau: attention, message: "Commission de placement supérieure à 5 % : niveau inhabituel, à justifier." }
+  - { a: taux, op: "<=", valeur: 15, niveau: attention, message: "Taux d'intérêt supérieur à 15 % : vérifier la saisie." }
+  - { a: maturite, op: ">=", valeur: 1, message: "La maturité doit être d'au moins un an." }
+  - { a: differe, op: "<", b: maturite, message: "Le différé d'amortissement doit être inférieur à la maturité." }
+  - { a: souscription_debut, op: ">", b: date_signature, type: date, message: "L'ouverture de la souscription doit suivre la signature de la convention." }
+  - { a: souscription_fin, op: ">", b: souscription_debut, type: date, message: "La clôture de la souscription doit suivre son ouverture." }
+  - { a: date_reglement, op: ">", b: souscription_fin, type: date, message: "Le règlement-livraison doit suivre la clôture de la souscription." }
+  - { a: com_succes_seuil, op: "<", b: montant, niveau: attention, message: "Le seuil de la commission de succès dépasse le Montant de l'Opération : cette commission ne sera jamais due." }
+  - { a: com_arr_part, op: "<=", valeur: 100, message: "La part exigible à la signature ne peut dépasser 100 %." }
+  - { a: nb_exemplaires, op: ">=", valeur: 2, message: "Prévoir au moins deux exemplaires originaux, un par Partie." }
