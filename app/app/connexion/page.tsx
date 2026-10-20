@@ -3,12 +3,13 @@ import { supabaseServeur } from "@/lib/supabase-serveur";
 import Bouton from "./bouton";
 
 export default async function Connexion({ searchParams }: { searchParams: Promise<{ refus?: string }> }) {
-  const { refus } = await searchParams;
+  const { refus: refusQ } = await searchParams;
+  let refus = refusQ;
   // Compte refusé : celui qui vient d'être essayé (retour Microsoft) ou celui encore connecté (accès retiré depuis)
   let compte = "";
   if (refus) {
     compte = (await cookies()).get("pc-ref-refus")?.value || "";
-    if (!compte) { try { const sb = await supabaseServeur(); const { data: { user } } = await sb.auth.getUser(); compte = user?.email || ""; } catch { /* sans session */ } }
+    if (!compte) { try { const sb = await supabaseServeur(); const { data: { user } } = await sb.auth.getUser(); compte = user?.email || ""; if (user) { const { data: actif } = await sb.rpc("est_actif"); if (actif) { refus = undefined; compte = ""; } } } catch { /* sans session */ } }
   }
   return (
     <main style={{ minHeight: "100vh", display: "grid", placeItems: "center", background: "#0B2E52", fontFamily: "Inter, 'Helvetica Neue', Arial, sans-serif", padding: 16 }}>
