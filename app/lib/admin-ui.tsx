@@ -78,7 +78,7 @@ export function libelle(e: Evt) {
   if (e.action === "CONNEXION") return `${qui} s'est connecté(e)`;
   if (e.action === "MEMBRE_INSERT") return `Accès ouvert : ${e.path} (${(d.fonctions || []).map((c) => FL[c] || c).join(", ")})${d.admin ? ", administrateur" : ""}${par}`;
   if (e.action === "MEMBRE_DELETE") return `Invitation retirée : ${e.path}${par}`;
-  if (e.action === "MEMBRE_UPDATE") return `Accès modifié : ${qui} — ${d.actif ? "actif" : "suspendu"}${d.super ? ", super administrateur" : d.admin ? ", administrateur (" + ((d.prerogatives || []).map((p) => PL[p] || p).join(", ") || "aucune prérogative") + ")" : ""} ; ${(d.fonctions || []).map((c) => FL[c] || c).join(", ") || "aucune fonction"}${par}`;
+  if (e.action === "MEMBRE_UPDATE") return `Accès modifié : ${qui} — ${d.actif ? "actif" : "suspendu"}${d.super ? ", super administrateur" : d.admin ? ", administrateur" + (Array.isArray(d.prerogatives) ? " (" + (d.prerogatives.map((p) => PL[p] || p).join(", ") || "aucune prérogative") + ")" : "") : ""} ; ${(d.fonctions || []).map((c) => FL[c] || c).join(", ") || "aucune fonction"}${par}`;
   const seg = e.path.split("/");
   if (seg[0] === "sig") return `${d.etape === "lecture" ? "Lecture attestée" : d.etape === "renvoi" ? "Renvoi" : "Visa"} : ${d.doc || ""} v${d.version || ""}${par}`;
   if (seg[0] === "circuits") return `Circuit « ${(d.type as string) || seg[1]} » ${e.action === "DELETE" ? "rétabli" : "modifié"}${par}`;
