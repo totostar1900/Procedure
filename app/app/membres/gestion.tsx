@@ -210,7 +210,7 @@ function libelle(e: Evt) {
 
 const CSS = `
 .pg{--navy:#0B2E52;--gold:#E8A020;--ink:#1C2B3A;--muted:#5A6B80;--line:#DCE3EC;--bg:#F5F7FA;--card:#fff;color:var(--ink);font:13px/1.5 Inter,"Helvetica Neue",Arial,sans-serif}
-.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+
 .top{background:var(--navy);color:#fff;padding:18px 0 16px}
 .tophead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
 .brand{letter-spacing:.18em;font-weight:600;font-size:12.5px}.rule{width:28px;height:2px;background:var(--gold);margin:6px 0 8px}
