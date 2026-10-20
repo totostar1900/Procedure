@@ -49,9 +49,15 @@
     }
   }
   document.addEventListener("click", function (ev) {
+    var sb = ev.target.closest("[data-sort]");
+    if (sb) { ev.preventDefault(); sortBy(sb.getAttribute("data-sort")); return; }
+    var dz = ev.target.closest("[data-drawer-close]");
+    if (dz) { ev.preventDefault(); closeDrawer(); return; }
     var b = ev.target.closest("[data-dl]");
     if (b) { ev.preventDefault(); ev.stopPropagation(); download(b.getAttribute("data-dl")); return; }
     if (ev.target.closest("[data-dup],[data-del],[data-new],[data-gen],[data-focus],[data-tab],[data-vact],[data-vrole],[data-vlect],[data-vcsv],[data-vgo],[data-sel],[data-selact],.selchk")) return;
+    var pk = ev.target.closest("[data-peek]");
+    if (pk && !ev.target.closest("[data-open]")) { ev.preventDefault(); openDrawer(pk.getAttribute("data-peek"), pk); return; }
     var o = ev.target.closest("[data-open]");
     if (o) { ev.preventDefault(); go(o.getAttribute("data-open")); return; }
     var j = ev.target.closest("[data-jump]");
@@ -80,6 +86,21 @@
   fillSelect("#f-dom", uniq("domaine"), "Tous les domaines");
   fillSelect("#f-stat", ["En vigueur", "Projet", "À rédiger", "Abrogé"], "Tous les statuts");
 
+  var SORT = { col: null, dir: 1 };
+  try { var ss = JSON.parse(localStorage.getItem("pc-ref-tri") || "null"); if (ss && ss.col) SORT = ss; } catch (e) { /* stockage indisponible */ }
+  var STAT_ORDER = { "En vigueur": 1, "Projet": 2, "À rédiger": 3, "Abrogé": 4 };
+  var verNum = function (v) { var p = String(v || "0").split("."); return (+p[0] || 0) * 1000 + (+p[1] || 0); };
+  var sortKey = {
+    id: function (r) { return r.id; }, titre: function (r) { return r.titre; }, type: function (r) { return (typeOrder[r.type] || 9) + r.type; },
+    domaine: function (r) { return r.domaine || ""; }, version: function (r) { return r.live ? verNum(r.version) : -1; },
+    statut: function (r) { return STAT_ORDER[r.statut] || 9; },
+    revue: function (r) { var v = String(r.prochaine_revue || ""); return /^\d{4}-\d{2}-\d{2}$/.test(v) ? "0" + v : "1" + (r.prochaine_revue_label || "~"); }
+  };
+  function sortBy(col) {
+    if (SORT.col !== col) SORT = { col: col, dir: 1 }; else if (SORT.dir === 1) SORT.dir = -1; else SORT = { col: null, dir: 1 };
+    try { localStorage.setItem("pc-ref-tri", JSON.stringify(SORT)); } catch (e) { /* stockage indisponible */ }
+    renderRegistre();
+  }
   var typeOrder = { "Code": 1, "Politique": 2, "Procédure": 3, "Modèle de contrat": 4, "Mode opératoire": 5, "Formulaire": 6 };
   var REG_SHOWN = [];
   function renderRegistre() {
@@ -92,25 +113,35 @@
       if (q && (r.id + " " + r.titre + " " + (r.resume || "") + " " + r.domaine).toLowerCase().indexOf(q) < 0) return false;
       return true;
     }).sort(function (a, b) {
+      if (SORT.col) {
+        var ka = sortKey[SORT.col](a), kb2 = sortKey[SORT.col](b);
+        var c = typeof ka === "number" ? ka - kb2 : String(ka).localeCompare(String(kb2), "fr", { numeric: true, sensitivity: "base" });
+        if (c) return c * SORT.dir;
+        return a.id.localeCompare(b.id);
+      }
       if (a.live !== b.live) return a.live ? -1 : 1;
       if (!a.live && a.priorite !== b.priorite) return a.priorite - b.priorite;
       return (typeOrder[a.type] - typeOrder[b.type]) || a.id.localeCompare(b.id);
     });
     $("#reg-body").innerHTML = list.length ? list.map(function (r) {
       if (r.live) {
-        return '<tr class="live" data-open="' + esc(r.id) + '">' +
+        return '<tr class="live" data-peek="' + esc(r.id) + '" tabindex="0" aria-label="Aperçu de ' + esc(r.id) + '">' +
           '<td class="selc"><input type="checkbox" data-sel="doc|' + esc(r.id) + '" aria-label="Sélectionner ' + esc(r.id) + '"></td>' +
           '<td class="ref">' + esc(r.id) + "</td>" +
-          '<td><div class="doc-title">' + esc(r.titre) + '</div><div class="doc-sum">' + esc(r.resume) + "</div></td>" +
+          '<td><div class="doc-title">' + esc(r.titre) + "</div></td>" +
           "<td>" + esc(r.type) + "</td><td>" + esc(r.domaine) + "</td>" +
           '<td class="num">v' + esc(r.version) + "</td><td>" + pill(r.statut) + (r.projet ? '<div class="cite-src">révision v' + esc(r.projet.version) + " en cours</div>" : "") + "</td>" +
           '<td class="num">' + esc(r.prochaine_revue_label) + "</td>" +
-          '<td><div class="row-actions"><button type="button" class="btn" data-open="' + esc(r.id) + '">Consulter</button>' + dlBtn(r.pdf.file, "PDF") + "</div></td></tr>";
+          '<td><div class="row-actions"><button type="button" class="btn" data-open="' + esc(r.id) + '">Ouvrir</button>' + dlBtn(r.pdf.file, "PDF") + "</div></td></tr>";
       }
       return '<tr class="planned"><td class="selc"></td><td class="ref">' + esc(r.id) + '</td><td><div class="doc-title">' + esc(r.titre) + "</div></td>" +
         "<td>" + esc(r.type) + "</td><td>" + esc(r.domaine) + '</td><td class="num">—</td><td>' + pill(r.statut) + "</td>" +
         '<td><span class="prio p' + r.priorite + '"><i></i>Priorité ' + r.priorite + "</span></td><td></td></tr>";
     }).join("") : '<tr><td colspan="9" class="empty">Aucun document ne correspond à ces critères.</td></tr>';
+    document.querySelectorAll("th[data-sortcol]").forEach(function (th) {
+      var on = th.getAttribute("data-sortcol") === SORT.col;
+      th.setAttribute("aria-sort", on ? (SORT.dir === 1 ? "ascending" : "descending") : "none");
+    });
     REG_SHOWN = list.filter(function (r) { return r.live; }).map(function (r) { return r.id; }); selSync();
     $("#reg-shown").textContent = list.length + " document" + (list.length > 1 ? "s" : "") + " affiché" + (list.length > 1 ? "s" : "");
   }
@@ -186,6 +217,63 @@
     }
   }
 
+  // ---------- Aperçu d'un document (panneau latéral) ----------
+  var drawerFrom = null;
+  function openDrawer(id, from) {
+    var d = docs.filter(function (x) { return x.id === id; })[0]; if (!d) return;
+    drawerFrom = from || document.activeElement;
+    var dr = $("#drawer");
+    var meta = [["Type", d.type], ["Domaine", d.domaine], ["Propriétaire", d.proprietaire], ["Approuvé par", d.approuve_par],
+      ["Date d'effet", d.date_effet ? fmtDate(d.date_effet) : "À l'adoption"], ["Prochaine revue", d.prochaine_revue_label], ["Confidentialité", d.confidentialite], ["Diffusion", d.diffusion]];
+    dr.innerHTML =
+      '<div class="dr-head"><div class="eyebrow">' + esc(d.type) + " · " + esc(d.id) + '</div>' +
+      '<button type="button" class="dr-x" data-drawer-close aria-label="Fermer l\'aperçu"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button></div>' +
+      '<div class="dr-body"><h2 id="drawer-title" class="dr-title">' + esc(d.titre) + "</h2>" +
+      '<div class="dr-status">' + pill(d.statut) + ' <span class="cite-src">Version ' + esc(d.version) + " · mise à jour le " + fmtDate(d.historique[0].date) + "</span>" +
+      (d.projet ? '<div class="cite-src">Révision v' + esc(d.projet.version) + " en cours de visa</div>" : "") + "</div>" +
+      '<p class="dr-sum">' + esc(d.resume) + "</p>" +
+      '<div class="dr-acts"><button type="button" class="btn primary" data-open="' + esc(d.id) + '">Ouvrir le document</button>' + dlBtn(d.pdf.file, "PDF · " + kb(d.pdf.size)) + dlBtn("word/" + d.word.file, "Word") +
+      '<label class="selchk"><input type="checkbox" data-sel="doc|' + esc(d.id) + '"> Sélection</label></div>' +
+      (typeof drawerVisasHtml === "function" ? drawerVisasHtml(d) : "") +
+      '<p class="side-title">Fiche</p><dl class="dr-meta">' + meta.map(function (m) { return "<div><dt>" + esc(m[0]) + "</dt><dd>" + esc(m[1] || "—") + "</dd></div>"; }).join("") + "</dl>" +
+      '<p class="side-title">Sommaire</p><ol class="dr-toc">' + d.toc.map(function (t) { return "<li>" + esc(t.label) + "</li>"; }).join("") + "</ol>" +
+      (d.annexes.length ? '<p class="side-title">Annexes</p><ul class="dr-ann">' + d.annexes.map(function (a) {
+        return '<li><div><b>Annexe ' + a.num + "</b> " + esc(a.titre) + '</div><div class="dr-ann-dl">' + dlBtn(a.pdf.file, "PDF") + dlBtn("word/" + a.word.file, "Word") + "</div></li>";
+      }).join("") + "</ul>" : "") +
+      (d.notes_redaction && d.notes_redaction.length ? '<div class="notice"><b>' + d.notes_redaction.length + " point" + (d.notes_redaction.length > 1 ? "s" : "") + " à valider avant adoption</b></div>" : "") +
+      "</div>";
+    dr.hidden = false; $("#drawer-scrim").hidden = false;
+    document.body.classList.add("has-drawer");
+    requestAnimationFrame(function () { dr.classList.add("open"); });
+    document.querySelectorAll("tr[data-peek]").forEach(function (t) { t.classList.toggle("peeked", t.getAttribute("data-peek") === id); });
+    selSync();
+    var x = dr.querySelector(".dr-x"); if (x) x.focus();
+  }
+  function closeDrawer() {
+    var dr = $("#drawer"); if (dr.hidden) return;
+    dr.classList.remove("open"); $("#drawer-scrim").hidden = true; document.body.classList.remove("has-drawer");
+    document.querySelectorAll("tr.peeked").forEach(function (t) { t.classList.remove("peeked"); });
+    setTimeout(function () { dr.hidden = true; }, 200);
+    if (drawerFrom && drawerFrom.focus && document.contains(drawerFrom)) drawerFrom.focus();
+  }
+  $("#drawer-scrim").addEventListener("click", closeDrawer);
+  document.addEventListener("keydown", function (ev) {
+    if (ev.key === "Escape") { if (!$("#drawer").hidden) closeDrawer(); else if (document.body.classList.contains("rail-open")) railMobile(false); return; }
+    if ((ev.key === "Enter" || ev.key === " ") && ev.target.matches && ev.target.matches("tr[data-peek]")) { ev.preventDefault(); openDrawer(ev.target.getAttribute("data-peek"), ev.target); }
+  });
+
+  // ---------- Rail de navigation ----------
+  function railFold(on) {
+    document.body.classList.toggle("rail-folded", on);
+    var b = $("#rail-fold"); b.setAttribute("aria-label", on ? "Déplier le menu" : "Réduire le menu"); b.title = b.getAttribute("aria-label");
+    try { localStorage.setItem("pc-ref-rail", on ? "1" : "0"); } catch (e) { /* stockage indisponible */ }
+  }
+  function railMobile(on) { document.body.classList.toggle("rail-open", on); $("#rail-scrim").hidden = !on; }
+  try { if (localStorage.getItem("pc-ref-rail") === "1") railFold(true); } catch (e) { /* stockage indisponible */ }
+  $("#rail-fold").addEventListener("click", function () { railFold(!document.body.classList.contains("rail-folded")); });
+  $("#rail-open").addEventListener("click", function () { railMobile(true); });
+  $("#rail-scrim").addEventListener("click", function () { railMobile(false); });
+
   // ---------- Glossaire, correspondance, circuit ----------
   $("#gloss").innerHTML = DATA.glossaire.map(function (g) { return "<div><dt>" + esc(g.terme) + "</dt><dd>" + esc(g.definition) + "</dd></div>"; }).join("");
 
@@ -222,6 +310,7 @@
       var on = b.getAttribute("data-open") === view || (view === "doc" && b.getAttribute("data-open") === "registre") || (view === "dossier" && b.getAttribute("data-open") === "dossiers");
       if (on) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
     });
+    closeDrawer(); railMobile(false);
     if (doc) { renderDoc(doc); renderDocVisas(doc); }
     selSync();
     if (view === "dossiers") renderDossiers();

@@ -148,16 +148,4 @@ const downloads = {
 
 window.claude = { use: async (name) => (name === "db" ? ((await meP) ? { collection, doc } : null) : name === "user" ? user : name === "downloads" ? downloads : null) };
 
-// Barre de session : nom de la personne connectée et déconnexion
-meP.then(() => {
-  const add = () => {
-    const nav = document.querySelector(".nav"); if (!nav || document.getElementById("ref-session")) return;
-    const s = document.createElement("span"); s.id = "ref-session";
-    s.style.cssText = "margin-left:12px;display:inline-flex;gap:10px;align-items:center;font-size:12.5px;color:var(--on-navy-muted,#B9C8DA)";
-    const n = document.createElement("span"); n.textContent = ME ? ME.nom || ME.email : "";
-    const a = document.createElement("a"); a.href = "/deconnexion"; a.textContent = "Se déconnecter"; a.style.cssText = "color:inherit;text-decoration:underline";
-    if (ME && ME.admin) { const g = document.createElement("a"); g.href = "/membres"; g.textContent = "Membres"; g.style.cssText = "color:inherit;text-decoration:underline"; s.append(n, g, a); } else s.append(n, a);
-    nav.appendChild(s);
-  };
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", add); else add();
-});
+// Nom, fonctions et liens de session : affichés par la page elle-même (bas du rail de navigation).

@@ -21,6 +21,7 @@
     if (V.user) {
       try { V.me = await V.user.id(); V.owner = await V.user.isOwner(); var w = await V.user.can("data.write"); V.canWrite = w !== false; } catch (e) { /* lecture seule */ }
     }
+    vRenderMe();
     if (!V.db) { V.ready = true; vRefresh(); return; }
     var err = function () { /* hors ligne : on garde le dernier état */ };
     V.db.collection("roles").onSnapshot(function (s) { V.roles = {}; s.docs.forEach(function (d) { V.roles[d.id] = d.data(); }); vWatchSigs(); vNames(); vRefresh(); }, err);
@@ -267,8 +268,50 @@
     var d = docs.filter(function (x) { return x.id === id; })[0];
     return d ? (pj ? d.projet || d : d) : null;
   }
+  // ---------- Aperçu (panneau) : état des visas en une ligne ----------
+  function drawerVisasHtml(d) {
+    if (!V.db) return "";
+    var st = docState(d), acts = myActions(d);
+    var steps = st.steps.map(function (x) {
+      return '<li class="' + (x.cur ? "ok" : x.old ? "re" : "") + '"><span>' + esc(x.st.label) + "</span>" + (x.cur ? '<small>' + esc(vName(x.cur.by).replace(" (vous)", "")) + " · " + esc(fmtDT(x.cur.at).split(" à ")[0]) + "</small>" : x.old ? "<small>À viser de nouveau</small>" : "<small>En attente</small>") + "</li>";
+    }).join("");
+    var lect = d.estProjet ? "" : '<li class="' + (st.readers.length && st.read.length === st.readers.length ? "ok" : "") + '"><span>Prise de connaissance</span><small>' + (st.readers.length ? st.read.length + " / " + st.readers.length : "Aucun lecteur désigné") + "</small></li>";
+    return '<p class="side-title">Visas</p><ol class="dr-steps">' + steps + lect + "</ol>" +
+      (acts.length ? '<p class="dr-todo"><b>À faire de votre part :</b> ' + acts.map(function (a) { return esc(a.label); }).join(", ") + ' — <button type="button" class="doclink" data-open="' + esc(d.id) + '">ouvrir pour viser</button></p>' : "");
+  }
+
+  // ---------- Membre connecté (bas du rail) ----------
+  function vTodo() {
+    var t = { visa: 0, lecture: 0 };
+    VARIANTS().forEach(function (d) { myActions(d).forEach(function (a) { if (a.etape === "lecture") t.lecture++; else t.visa++; }); });
+    return t;
+  }
+  function vRenderMe() {
+    var box = $("#rail-me"); if (!box) return;
+    var badge = $("#nav-badge");
+    if (!V.ready && !V.me) { box.innerHTML = '<div class="me-load">Chargement…</div>'; return; }
+    if (!V.me) {
+      box.innerHTML = '<div class="me-card"><div class="me-av">?</div><div class="me-id"><b>Lecture seule</b><span>' + (HOSTED ? "Session expirée" : "Connectez-vous à claude.ai pour viser") + "</span></div></div>";
+      if (badge) badge.hidden = true; return;
+    }
+    var nom = V.names[V.me] || "", mail = V.emails[V.me] || "";
+    var ini = (nom || mail || "?").split(/[\s.@]+/).filter(Boolean).slice(0, 2).map(function (x) { return x[0].toUpperCase(); }).join("");
+    var f = myRoles(), r = V.roles[V.me] || {};
+    var t = vTodo(), n = t.visa + t.lecture;
+    if (badge) { badge.hidden = !n; badge.textContent = n; badge.title = n + " action" + (n > 1 ? "s" : "") + " en attente"; }
+    box.innerHTML =
+      '<div class="me-card" title="' + esc(nom + (mail ? " · " + mail : "")) + '"><div class="me-av">' + esc(ini || "?") + (n ? '<i class="me-dot"></i>' : "") + '</div><div class="me-id"><b>' + esc(nom || mail || "Vous") + "</b>" + (mail && nom ? "<span>" + esc(mail) + "</span>" : "") + "</div></div>" +
+      '<div class="me-more">' +
+      '<div class="me-roles">' + (f.length ? f.map(function (x) { return '<span class="me-chip">' + esc(FLABEL[x] || x) + "</span>"; }).join("") : '<span class="me-none">Aucune fonction attribuée</span>') + (V.owner ? '<span class="me-chip gold">Administrateur</span>' : "") + "</div>" +
+      '<button type="button" class="me-todo" data-open="visas"><span><b>' + t.visa + "</b> à viser</span><span><b>" + t.lecture + "</b> à lire</span></button>" +
+      (r.depuis ? '<div class="me-since">Fonctions attribuées depuis le ' + esc(fmtDate(r.depuis)) + "</div>" : "") +
+      (HOSTED ? '<div class="me-links">' + (V.owner ? '<a href="/membres">Membres</a>' : "") + '<a href="/deconnexion">Se déconnecter</a></div>' : "") +
+      "</div>";
+  }
+
   // Rafraîchit la vue ouverte sans toucher un champ en cours de saisie
   function vRefresh() {
+    vRenderMe();
     var h = decodeURIComponent(location.hash.slice(1));
     var act = document.activeElement;
     if (act && (act.id === "v-q" || act.id === "v-seance" || act.id === "v-pv" || act.id === "v-com")) return;

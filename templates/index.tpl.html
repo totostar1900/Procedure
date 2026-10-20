@@ -8,27 +8,30 @@
 {{CONTENT_CSS}}
 </style>
 
-<header class="top">
-  <div class="wrap">
-    <button type="button" class="brand" data-open="registre" style="background:none;border:0;cursor:pointer;padding:0">
-      <span class="brand-mark">PURPOSE CAPITAL</span><span class="brand-sep"></span><span class="brand-sub">Référentiel documentaire</span>
+<div class="mbar">
+  <button type="button" class="mbar-menu" id="rail-open" aria-label="Ouvrir le menu" aria-controls="rail"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14"/></svg></button>
+  <button type="button" class="mbar-brand" data-open="registre">PURPOSE CAPITAL</button>
+</div>
+<aside class="rail" id="rail" aria-label="Navigation">
+  <div class="rail-top">
+    <button type="button" class="brand" data-open="registre" title="Registre des documents">
+      <span class="brand-mark">PURPOSE CAPITAL</span><span class="brand-rule"></span><span class="brand-sub">Référentiel documentaire</span>
+      <span class="brand-mono" aria-hidden="true">PC</span>
     </button>
-    <nav class="nav" aria-label="Sections">
-      <button type="button" data-open="registre">Documents</button>
-      <button type="button" data-open="dossiers">Dossiers</button>
-      <button type="button" data-open="visas">Visas</button>
-      <button type="button" data-open="circuit">Circuit d'approbation</button>
-      <button type="button" data-open="correspondance">Textes de référence</button>
-      <button type="button" data-open="glossaire">Glossaire</button>
-    </nav>
   </div>
-</header>
-
+  <nav class="nav" aria-label="Sections"><button type="button" data-open="registre" title="Documents"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 2.5h7l3 3v12H5z"/><path d="M12 2.5v3h3M7.5 9.5h5M7.5 12.5h5M7.5 15h3"/></svg><span class="rl">Documents</span></button><button type="button" data-open="dossiers" title="Dossiers"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5.5v10h15v-8h-7l-2-2z"/></svg><span class="rl">Dossiers</span></button><button type="button" data-open="visas" title="Visas"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 14.5c2-1 3-4 4.5-4s.5 3 2 3 2-2 3-2 1 1.5 3.5 1.5"/><path d="M3 17.5h14"/></svg><span class="rl">Visas</span><span class="badge" id="nav-badge" hidden></span></button><button type="button" data-open="circuit" title="Circuit d'approbation"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="4.5" cy="10" r="2"/><circle cx="15.5" cy="4.5" r="2"/><circle cx="15.5" cy="15.5" r="2"/><path d="M6.4 9.1l7.2-3.7M6.4 10.9l7.2 3.7"/></svg><span class="rl">Circuit d'approbation</span></button><button type="button" data-open="correspondance" title="Textes de référence"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v14M4 6h12M4 6l-2 5h4zM16 6l-2 5h4zM7 17h6"/></svg><span class="rl">Textes de référence</span></button><button type="button" data-open="glossaire" title="Glossaire"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3.5h9.5a2 2 0 012 2v11H6a2 2 0 01-2-2z"/><path d="M4 14.5a2 2 0 012-2h9.5"/></svg><span class="rl">Glossaire</span></button></nav>
+  <div class="rail-foot">
+    <div class="rail-me" id="rail-me" aria-live="polite"></div>
+    <button type="button" class="rail-fold" id="rail-fold" aria-label="Réduire le menu" title="Réduire le menu"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5l-5 5 5 5"/></svg></button>
+  </div>
+</aside>
+<div class="rail-scrim" id="rail-scrim" hidden></div>
+<div class="shell">
 <main>
   <section class="view wrap" id="v-registre">
     <div class="eyebrow">{{SOCIETE}} · Agrément {{AGREMENT}}</div>
     <h1 class="title">Codes, politiques et procédures</h1>
-    <p class="lead">Seule la version publiée ici fait foi. Les copies imprimées ou téléchargées sont des versions non maîtrisées. Chaque document et chaque annexe se télécharge en PDF A4 ou en Word ; cochez-en plusieurs pour les recevoir ensemble, en ZIP ou en recueil PDF.</p>
+    <p class="lead">Seule la version publiée ici fait foi. Les copies imprimées ou téléchargées sont des versions non maîtrisées. Cliquez sur une ligne pour un aperçu ; cochez-en plusieurs pour les recevoir ensemble, en ZIP ou en recueil PDF.</p>
     <div class="counts" id="counts"></div>
     <div class="filters">
       <input type="search" id="f-q" placeholder="Rechercher une référence, un titre, un domaine" aria-label="Rechercher">
@@ -38,7 +41,7 @@
     </div>
     <div class="table-scroll">
       <table class="reg">
-        <thead><tr><th class="selc"><input type="checkbox" id="sel-all" aria-label="Sélectionner tous les documents affichés"></th><th>Référence</th><th>Document</th><th>Type</th><th>Domaine</th><th>Version</th><th>Statut</th><th>Prochaine revue</th><th></th></tr></thead>
+        <thead><tr><th class="selc"><input type="checkbox" id="sel-all" aria-label="Sélectionner tous les documents affichés"></th><th aria-sort="none" data-sortcol="id"><button type="button" class="sortb" data-sort="id">Référence<i aria-hidden="true"></i></button></th><th aria-sort="none" data-sortcol="titre"><button type="button" class="sortb" data-sort="titre">Document<i aria-hidden="true"></i></button></th><th aria-sort="none" data-sortcol="type"><button type="button" class="sortb" data-sort="type">Type<i aria-hidden="true"></i></button></th><th aria-sort="none" data-sortcol="domaine"><button type="button" class="sortb" data-sort="domaine">Domaine<i aria-hidden="true"></i></button></th><th aria-sort="none" data-sortcol="version"><button type="button" class="sortb" data-sort="version">Version<i aria-hidden="true"></i></button></th><th aria-sort="none" data-sortcol="statut"><button type="button" class="sortb" data-sort="statut">Statut<i aria-hidden="true"></i></button></th><th aria-sort="none" data-sortcol="revue"><button type="button" class="sortb" data-sort="revue">Prochaine revue<i aria-hidden="true"></i></button></th><th><span class="sr">Actions</span></th></tr></thead>
         <tbody id="reg-body"></tbody>
       </table>
     </div>
@@ -95,6 +98,9 @@
 <footer class="foot">
   <div class="wrap"><span>{{SOCIETE}} · {{SIEGE}}</span><span>Document interne · Généré le {{GENERATED}}</span></div>
 </footer>
+</div>
+<div class="drawer-scrim" id="drawer-scrim" hidden></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" hidden></aside>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
 <script type="application/json" id="ref-data">{{DATA}}</script>
