@@ -350,7 +350,7 @@ export default function Gestion({ moi, docs }: { moi: MoiC; docs: Doc[] }) {
 
             {orig ? <>
               <h3>Historique de l&apos;accès</h3>
-              <ul className="journal" style={{ maxHeight: 220 }}>{hist.map((l) => <li key={l.id}><time>{date(l.le)}</time><span><b>{l.type}</b>{l.detail ? <> — <span>{l.detail}</span></> : null}{l.par ? " · " + l.par : ""}</span></li>)}{!hist.length ? <li className="vide">Aucun événement.</li> : null}</ul>
+              <ul className="journal">{hist.map((l) => <li key={l.id}><time>{date(l.le)}</time><span><b>{l.type}</b>{l.detail ? <> — <span>{l.detail}</span></> : null}{l.par ? " · " + l.par : ""}</span></li>)}{!hist.length ? <li className="vide">Aucun événement.</li> : null}</ul>
             </> : null}
           </div>
           <footer className="sd-f">
@@ -383,7 +383,10 @@ table.ml .tag{margin-left:6px}
 .sd-h{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:18px 22px 14px;border-bottom:1px solid var(--line)}
 .sd-h h2{margin:2px 0 0;font-size:19px}
 .sd-x{background:none;border:0;font-size:16px;cursor:pointer;color:var(--muted);padding:4px 6px}
-.sd-b{flex:1;overflow:auto;padding:14px 22px 22px}
+.sd-b{flex:1;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;padding:14px 22px 22px}
+/* Un seul défilement dans le volet : ni la liste ni le tableau n'ont leur propre barre */
+.sd-b .journal{max-height:none;overflow:visible}.sd-b table{min-width:0}.sd-b .tbl{overflow:visible}
+body:has(.sd){overflow:hidden}
 .sd-b h3{margin:18px 0 8px;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
 .sd-f{display:flex;gap:8px;align-items:center;padding:12px 22px;border-top:1px solid var(--line);background:#FAFBFD}.sd-f .btn{grid-column:auto}
 .frm{display:flex;flex-direction:column;gap:10px}

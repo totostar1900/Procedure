@@ -213,7 +213,7 @@
       '<select data-tf="personne" aria-label="Personne">' + opt(gens.map(function (id) { return [id, nomCourt(id)]; }), T.personne, "Toutes les personnes") + "</select>" +
       '<label class="selchk"><input type="checkbox" data-tf="projets"' + (T.projets ? " checked" : "") + "> Inclure les projets</label></div>" +
       kpis +
-      '<div class="g2"><section class="card"><div class="ch"><h2>Où en sont les documents</h2><button type="button" class="lnk" data-open="circuit">Circuits et délais</button></div><p class="sub">' + list.length + " version(s) suivie(s), par étape du circuit</p>" + pipe + delais + "</section>" +
+      '<div class="g2"><section class="card"><div class="ch"><h2>Où en sont les documents</h2><button type="button" class="lnk" data-open="circuit">Suivi détaillé</button></div><p class="sub">' + list.length + " version(s) suivie(s), par étape du circuit</p>" + pipe + delais + "</section>" +
       '<section class="card"><div class="ch"><h2>Alertes</h2></div><p class="sub">Ce qui empêche le circuit d\'avancer</p>' + alertes + "</section></div>" +
       '<div class="g2"><section class="card" id="t-att"><div class="ch"><h2>En attente d\'une action</h2></div><p class="sub">Par ancienneté ; en rouge au-delà du délai fixé pour l\'étape</p>' + attHtml + "</section>" +
       '<section class="card"><div class="ch"><h2>Par personne</h2>' + (V.owner && HOSTED ? '<a class="lnk" href="/membres">Membres</a>' : "") + '</div><p class="sub">Ce qui attend chacun ; cliquez un nom pour filtrer</p>' + persHtml + "</section></div>" +

@@ -287,7 +287,7 @@
     var who = V.me ? (mine.length ? "Vos fonctions : " + mine.map(function (f) { return FLABEL[f] || f; }).join(", ") + "." : V.owner ? "Vous êtes administrateur : attribuez les fonctions dans la page Membres." : "Aucune fonction ne vous est attribuée : vous consultez le document.") : HOSTED ? "Session expirée : reconnectez-vous." : "Connectez-vous à claude.ai pour viser.";
     box.innerHTML = '<div class="visas-head"><h3>Circuit d\'approbation</h3><span class="cite-src">' + (src === "fige" ? "Circuit figé au premier visa de cette version" : src === "type" ? "Circuit des documents de type « " + esc(d.type) + " »" : "Circuit déclaré dans le document") + ' · empreinte <code>' + esc(d.empreinte) + "</code></span></div>" + renv +
       '<table class="visa-table"><tbody>' + rows + "</tbody></table>" +
-      '<p class="visa-note">' + esc(who) + ' <button type="button" class="doclink" data-vgo="circuit">Voir tous les circuits</button></p>';
+      '<p class="visa-note">' + esc(who) + ' <button type="button" class="doclink" data-vgo="circuit">Suivi des documents</button></p>';
   }
 
   // Gestion d'un document : abroger (administrateur ou RCCI), supprimer (administrateur), rétablir
@@ -468,26 +468,169 @@
   }
 
   // ---------- Page « Circuit d'approbation » (dynamique) ----------
+  // ---------- Suivi des documents ----------
+  // Une ligne par version en mouvement : frise des étapes, qui doit agir, depuis quand et par rapport à quel délai,
+  // situation (en retard, renvoyé…) et, en dépliant, l'historique daté. Les circuits et délais se règlent dans
+  // la page Paramétrage (site hébergé) ; dans l'artefact, ils restent en bas de cette page.
+  var SV = { f: "", g: "situation", q: "", open: {} };
+  var svReglages = function () { var c = V.circuits && V.circuits._suivi; return { seuil: c && +c.seuil > 0 ? +c.seuil : 75 }; };
+  var svJours = function (iso) { return iso ? Math.max(0, Math.floor((Date.now() - new Date(iso).getTime()) / 86400000)) : 0; };
+  function svLigne(d) {
+    var st = docState(d), sg = stageOf(d), steps = st.steps, x = st.current, seuil = svReglages().seuil / 100;
+    var r = { d: d, st: st, sg: sg, sit: "", etat: "", qui: "", sous: "", age: 0, delai: 0, lect: null, moi: myActions(d) };
+    var lectureEtape = !d.estProjet && st.readers.length;
+    if (sg.k === "renvoi") {
+      var rv = st.renvois[0]; r.sit = "bloque"; r.etat = "ret"; r.age = svJours(rv.at); r.delai = 0;
+      var au = V.auteurs && V.auteurs[d.id + "~" + d.empreinte];
+      r.qui = au && au.auteurs && au.auteurs.length ? au.auteurs.map(function (a) { return vName(a); }).join(", ") : "Rédacteur";
+      r.sous = "renvoyé par " + vName(rv.by) + " le " + fmtDate(String(rv.at).slice(0, 10));
+    } else if (x) {
+      var qui = x.holders.filter(function (h) { return x.by.indexOf(h) < 0 && !authorOf(d, h) && !signedOther(d, x.st.etape, h); });
+      var dep = debutEtape(d, st, x); r.age = svJours(dep); r.delai = x.st.delai || 7;
+      r.qui = qui.length ? qui.map(function (h) { return vName(h); }).join(", ") : (FLABEL[x.st.role] || x.st.role);
+      r.sous = (FLABEL[x.st.role] || x.st.role) + (x.need > 1 ? " · " + x.by.length + " / " + x.need + " visas" : "") + (dep ? " · depuis le " + fmtDate(String(dep).slice(0, 10)) : "");
+      if (!qui.length) r.sous = "aucune personne ne peut viser cette étape";
+      r.sit = r.age > r.delai || !qui.length ? "bloque" : "circuit";
+      r.etat = r.age > r.delai ? "late" : !qui.length ? "late" : r.age >= r.delai * seuil ? "near" : "cur";
+    } else if (sg.k === "lecture") {
+      var dap = dateApprobation(d, st); r.age = svJours(dap); r.delai = delaiLecture(d.type);
+      r.lect = [st.read.length, st.readers.length]; r.sit = "lecture"; r.etat = r.age > r.delai ? "late" : "lect";
+      r.qui = (st.readers.length - st.read.length) + " personne(s)"; r.sous = st.read.length + " / " + st.readers.length + " ont attesté";
+    } else if (sg.k === "ok") {
+      var da = dateApprobation(d, st); r.age = svJours(da);
+      if (d.statut === "En vigueur" && !d.estProjet && r.age > 30) return null;
+      r.sit = "vigueur"; r.etat = "ok"; r.qui = "—"; r.sous = d.statut === "En vigueur" && !d.estProjet ? "en vigueur" + (da ? " depuis le " + fmtDate(String(da).slice(0, 10)) : "") : "mise en vigueur en cours";
+    } else { r.sit = "bloque"; r.etat = "late"; r.qui = "Administrateur"; r.sous = "circuit à configurer"; }
+    // Frise : étapes du circuit, puis la prise de connaissance
+    var curDone = false;
+    r.track = steps.map(function (s) {
+      var c = s.done ? "done" : "";
+      if (!s.done && !curDone && (s === x || (sg.k === "renvoi" && s.st.obligatoire))) { c = sg.k === "renvoi" ? "ret" : r.etat === "late" ? "late" : "cur"; curDone = true; }
+      return { l: s.st.label, c: c, opt: !s.st.obligatoire };
+    });
+    if (lectureEtape) r.track.push({ l: "Lecture", c: sg.k === "lecture" ? (r.etat === "late" ? "late" : "cur") : sg.k === "ok" ? "done" : "", opt: false });
+    return r;
+  }
+  function svHistorique(r) {
+    var d = r.d, ev = [];
+    (d.historique || []).slice(0, 3).forEach(function (h) { ev.push({ at: String(h.date), c: "ok", t: "Version " + h.version + " : " + h.objet + (h.par ? " (" + h.par + ")" : "") }); });
+    sigsOf(d.id).forEach(function (s) {
+      if (s.etape === "lecture") return;
+      if (s.etape === "renvoi") { if (s.empreinte === d.empreinte || ev.length < 12) ev.push({ at: s.at, c: "ret", t: "Renvoyé par " + vName(s.by) + (s.version ? " (v" + s.version + ")" : ""), q: s.commentaire }); return; }
+      if (s.empreinte !== d.empreinte) return;
+      ev.push({ at: s.at, c: "ok", t: "Visé par " + vName(s.by) + " : " + (FLABEL[s.role] || s.role) + (s.seance ? " · séance du " + fmtDate(s.seance) : "") });
+    });
+    var lus = sigsOf(d.id, "lecture").filter(function (s) { return (d.lectureOK || [d.empreinte]).indexOf(s.empreinte) >= 0; });
+    if (lus.length) ev.push({ at: lus[lus.length - 1].at, c: "ok", t: lus.length + " lecture(s) attestée(s) ; dernière le " + fmtDate(String(lus[0].at).slice(0, 10)) });
+    ev.sort(function (a, b) { return a.at < b.at ? -1 : 1; });
+    if (r.etat !== "ok") ev.push({ at: "", c: "cur", t: r.sit === "lecture" ? "Prise de connaissance en cours : " + r.sous : r.etat === "ret" ? "Reprise du texte par la rédaction" : "En attente : " + r.qui + (r.delai ? " · " + r.age + " j sur " + r.delai : "") });
+    return '<ol class="sv-tl">' + ev.map(function (e) { return '<li class="' + e.c + '"><time>' + (e.at ? esc(e.at.length > 10 ? fmtDT(e.at) : fmtDate(e.at)) : "Aujourd'hui") + "</time>" + esc(e.t) + (e.q ? "<q>« " + esc(e.q) + " »</q>" : "") + "</li>"; }).join("") + "</ol>";
+  }
+  function svDetail(r, i) {
+    var d = r.d, st = r.st;
+    var side = '<h4>En bref</h4><dl class="sv-kv"><dt>Type</dt><dd>' + esc(d.type) + "</dd><dt>Version</dt><dd>" + esc(d.version) + (d.estProjet ? " (révision)" : "") + "</dd><dt>Statut</dt><dd>" + esc(d.statut) + "</dd>" +
+      (r.delai ? "<dt>Échéance</dt><dd>" + (r.age > r.delai ? "dépassée de " + (r.age - r.delai) + " j" : "dans " + (r.delai - r.age) + " j") + "</dd>" : "") + "<dt>Circuit</dt><dd>" + (circSource(d) === "fige" ? "figé au premier visa" : circSource(d) === "type" ? "celui du type" : "celui déclaré dans le document") + "</dd></dl>";
+    if (st.readers.length && !d.estProjet) {
+      side += "<h4>Lectures</h4><div class=\"sv-readers\">" + st.readers.map(function (id) { var ok = st.read.indexOf(id) >= 0; return '<span class="' + (ok ? "y" : "") + '" title="' + (ok ? "A attesté" : "Pas encore lu") + '">' + esc(vName(id)) + "</span>"; }).join("") + "</div>";
+    }
+    var b = '<div class="sv-btns"><button type="button" class="btn" data-open="' + esc(docHash(d)) + '">Ouvrir le document</button>';
+    if (svRelance(r) >= 0) b += '<button type="button" class="btn" data-trel="' + (r.lect ? "l" : "a") + "|" + svRelance(r) + '">Préparer une relance</button>';
+    b += "</div>";
+    return '<tr class="sv-det"><td colspan="6"><div class="sv-det-grid"><div><h4>Historique</h4>' + svHistorique(r) + "</div><div>" + side + b + "</div></div></td></tr>";
+  }
+  // Relance : réutilise le message préparé du tableau de bord (adresses visibles des personnes habilitées)
+  function svRelance(r) {
+    if (!(V.owner || peut("membres") || accesTableau())) return -1;
+    if (r.lect) { T.lecLignes = T.lecLignes || []; var l = lectures([r.d])[0]; if (!l || !l.manquants.length) return -1; T.lecLignes.push(l); return T.lecLignes.length - 1; }
+    if (r.etat === "late" || r.etat === "near" || r.etat === "cur") { T.lignes = T.lignes || []; var a = attentes([r.d])[0]; if (!a || !a.qui.length) return -1; T.lignes.push(a); return T.lignes.length - 1; }
+    return -1;
+  }
+  var SV_SIT = { bloque: "À débloquer", circuit: "En approbation", lecture: "En prise de connaissance", vigueur: "Mis en vigueur ces 30 derniers jours" };
+  var SV_PILL = { late: ["p-late", "En retard"], ret: ["p-ret", "Renvoyé"], cur: ["p-cur", "Dans les délais"], near: ["p-near", "Bientôt en retard"], lect: ["p-cur", "Lectures en cours"], ok: ["p-ok", "Terminé"] };
   function renderCircuit() {
     var v = $("#v-circuit"); if (!v) return;
-    var live = VARIANTS().filter(function (d) { return !etatOf(d.id); });
-    var cols = [], seen = {};
-    live.forEach(function (d) {
-      var s = stageOf(d);
-      if (!seen[s.k]) {
-        var order = s.k === "renvoi" ? -1 : s.k === "lecture" ? 50 : s.k === "ok" ? 60 : s.k === "attente" ? 70 : circOf(d).map(function (x) { return x.label; }).indexOf(s.label);
-        seen[s.k] = { k: s.k, label: s.label, docs: [], order: order }; cols.push(seen[s.k]);
-      }
-      seen[s.k].docs.push(d);
+    var head = '<div class="eyebrow">Gouvernance documentaire</div><h1 class="title">Suivi des documents</h1>' +
+      '<p class="lead">Pour chaque document en mouvement : l\'étape atteinte, qui doit agir, depuis combien de temps et par rapport à quel délai. Cliquez une ligne pour l\'historique.' +
+      (HOSTED && peut("circuits") ? ' <a class="doclink" href="/parametrage#circuits">Régler les circuits et délais</a>' : "") + "</p>";
+    if (!V.db || !V.ready) { v.innerHTML = head + '<p class="lead">' + (V.ready ? "Le suivi n'est pas disponible dans cette vue." : "Chargement…") + "</p>" + (!HOSTED ? circuitCardsHtml() : ""); return; }
+    T.lignes = []; T.lecLignes = [];
+    var all = VARIANTS().filter(function (d) { return !etatOf(d.id); }).map(svLigne).filter(Boolean);
+    var ordre = { late: 0, ret: 1, near: 2, cur: 3, lect: 4, ok: 5 };
+    all.sort(function (a, b) { return (ordre[a.etat] - ordre[b.etat]) || (b.age - b.delai) - (a.age - a.delai); });
+    var n = function (f) { return all.filter(f).length; };
+    var nB = n(function (r) { return r.sit === "bloque"; }), nRet = n(function (r) { return r.etat === "ret"; }), nLate = nB - nRet;
+    var lec = all.filter(function (r) { return r.lect; }), lus = lec.reduce(function (s, r) { return s + r.lect[0]; }, 0), att = lec.reduce(function (s, r) { return s + r.lect[1]; }, 0);
+    var circ = all.filter(function (r) { return r.sit === "circuit"; }), moy = circ.length ? Math.round(circ.reduce(function (s, r) { return s + r.age; }, 0) / circ.length) : 0;
+    var kpi = function (f, val, lab, sub, cls) { return '<button type="button" class="sv-kpi ' + (cls || "") + '" data-svf="' + f + '" aria-pressed="' + (SV.f === f) + '"><b>' + val + "</b><span>" + lab + "</span><em>" + sub + "</em></button>"; };
+    var kpis = '<div class="sv-kpis" role="group" aria-label="Filtrer par situation">' +
+      kpi("bloque", nB, "À débloquer", nB ? nLate + " en retard · " + nRet + " renvoyé(s)" : "rien de bloqué", nB ? "bad" : "") +
+      kpi("circuit", circ.length, "En approbation", circ.length ? "attente moyenne " + moy + " j" : "aucun", "") +
+      kpi("lecture", lec.length, "En prise de connaissance", att ? lus + " lectures sur " + att : "aucune", lec.some(function (r) { return r.etat === "late"; }) ? "warn" : "") +
+      kpi("vigueur", n(function (r) { return r.sit === "vigueur"; }), "Mis en vigueur (30 j)", "versions adoptées récemment", "") +
+      kpi("moi", n(function (r) { return r.moi.length; }), "J'ai à agir", "visas et lectures attendus de vous", "") + "</div>";
+    var q = SV.q.toLowerCase();
+    var rows = all.filter(function (r) {
+      if (SV.f === "moi" ? !r.moi.length : SV.f && r.sit !== SV.f) return false;
+      return !q || (r.d.id + " " + r.d.titre + " " + r.qui + " " + r.d.type).toLowerCase().indexOf(q) >= 0;
     });
-    cols.sort(function (a, b) { return a.order - b.order; });
-    var board = V.db ? '<div class="kanban">' + cols.map(function (c) {
-      return '<section class="kcol k-' + esc(c.k.split(":")[0]) + '"><h3>' + esc(c.label) + ' <span class="count-chip">' + c.docs.length + "</span></h3><ul>" + c.docs.map(function (d) {
-        var cur = docState(d).current;
-        var who = cur ? (cur.holders.length ? cur.holders.map(function (h) { return vName(h); }).join(", ") : "aucun titulaire de la fonction") : "";
-        return '<li><button type="button" data-open="' + esc(docHash(d)) + '"><span class="k-ref">' + esc(d.id) + (d.estProjet ? " · révision" : "") + '</span><span class="k-title">' + esc(d.titre) + "</span>" + (who ? '<span class="k-who">' + esc(who) + (cur.need > 1 ? " · " + cur.by.length + "/" + cur.need : "") + "</span>" : "") + "</button></li>";
-      }).join("") + "</ul></section>";
-    }).join("") + "</div>" : '<p class="lead">' + (V.ready ? "Le suivi n'est pas disponible dans cette vue." : "Chargement…") + "</p>";
+    var cle = function (r) {
+      if (SV.g === "type") return r.d.type;
+      if (SV.g === "qui") return r.qui === "—" ? "Personne" : r.qui;
+      if (SV.g === "etape") { var c = r.track.filter(function (t) { return t.c && t.c !== "done"; })[0]; return c ? c.l : "Terminé"; }
+      return SV_SIT[r.sit];
+    };
+    var groupes = [], idx = {};
+    rows.forEach(function (r) { var k = cle(r); if (!idx[k]) { idx[k] = []; groupes.push(k); } idx[k].push(r); });
+    if (SV.g === "situation") groupes.sort(function (a, b) { var o = Object.keys(SV_SIT).map(function (k) { return SV_SIT[k]; }); return o.indexOf(a) - o.indexOf(b); });
+    var frise = function (r) { return '<div class="sv-track">' + r.track.map(function (t) { var m = t.c === "done" ? "✓" : t.c === "late" ? "!" : t.c === "ret" ? "↺" : ""; return '<div class="sv-st ' + t.c + (t.opt ? " opt" : "") + '"><span class="dot">' + m + "</span>" + esc(t.l) + "</div>"; }).join("") + "</div>"; };
+    var delai = function (r) {
+      if (r.lect) { var p = r.lect[1] ? Math.round(100 * r.lect[0] / r.lect[1]) : 0; return '<div class="sv-delay"><small>' + r.lect[0] + " / " + r.lect[1] + ' lectures</small><div class="sv-bar ok"><i style="width:' + p + '%"></i></div><small class="' + (r.age > r.delai ? "late" : "") + '">J' + r.age + " sur " + r.delai + "</small></div>"; }
+      if (!r.delai) return '<div class="sv-delay"><small>' + (r.etat === "ret" ? "depuis " + r.age + " j" : "—") + "</small></div>";
+      var p = Math.min(100, Math.round(100 * r.age / r.delai)), k = r.age > r.delai ? "late" : r.etat === "near" ? "near" : "";
+      return '<div class="sv-delay"><small>' + r.age + " j sur " + r.delai + (r.age > r.delai ? " · +" + (r.age - r.delai) + " j" : "") + '</small><div class="sv-bar ' + k + '"><i style="width:' + p + '%"></i></div></div>';
+    };
+    var bouton = function (r, i) {
+      if (r.moi.length) return '<button type="button" class="btn primary" data-open="' + esc(docHash(r.d)) + '">' + (r.moi[0].etape === "lecture" ? "Lire et attester" : "Viser") + "</button>";
+      var k = (r.etat === "late" || r.etat === "near" || r.lect) ? svRelance(r) : -1;
+      if (k >= 0) return '<button type="button" class="btn" data-trel="' + (r.lect ? "l" : "a") + "|" + k + '">Relancer</button>';
+      return '<button type="button" class="btn" data-open="' + esc(docHash(r.d)) + '">Ouvrir</button>';
+    };
+    var body = "", i = 0;
+    groupes.forEach(function (g) {
+      body += '<tr class="sv-grp"><td colspan="6">' + esc(g) + "<small>" + idx[g].length + " document" + (idx[g].length > 1 ? "s" : "") + "</small></td></tr>";
+      idx[g].forEach(function (r) {
+        var k = docHash(r.d), ouvert = !!SV.open[k], p = SV_PILL[r.etat];
+        body += '<tr class="sv-row' + (ouvert ? " open" : "") + '" data-svrow="' + esc(k) + '" tabindex="0" aria-expanded="' + ouvert + '"><td class="sv-doc"><span class="ref"><span class="chev" aria-hidden="true">▶</span> ' + esc(r.d.id) + ' · <span class="v">' + esc(r.d.type) + " v" + esc(r.d.version) + (r.d.estProjet ? " · révision" : "") + "</span></span><b>" + esc(r.d.titre) + "</b></td><td>" + frise(r) + '</td><td class="sv-who"><b>' + esc(r.qui) + "</b><span>" + esc(r.sous) + "</span></td><td>" + delai(r) + '</td><td><span class="sv-pill ' + p[0] + '">' + p[1] + '</span></td><td class="sv-act">' + bouton(r, i++) + "</td></tr>";
+        if (ouvert) body += svDetail(r);
+      });
+    });
+    var reste = docs.filter(function (d) { return !etatOf(d.id) && d.statut === "En vigueur" && !d.projet; }).length - n(function (r) { return r.sit === "vigueur" || r.sit === "lecture"; });
+    v.innerHTML = head + kpis +
+      '<div class="sv-tools"><input type="search" id="sv-q" placeholder="Rechercher un document, une personne…" aria-label="Rechercher" value="' + esc(SV.q) + '">' +
+      '<span class="sv-lbl">Regrouper par</span><div class="sv-seg" role="group" aria-label="Regrouper par">' + [["situation", "Situation"], ["etape", "Étape"], ["qui", "Responsable"], ["type", "Type"]].map(function (o) { return '<button type="button" data-svg="' + o[0] + '" aria-pressed="' + (SV.g === o[0]) + '">' + o[1] + "</button>"; }).join("") + "</div>" +
+      '<div class="sv-legend"><span><i class="done"></i>Visé</span><span><i class="cur"></i>En cours</span><span><i class="late"></i>En retard</span><span><i class="ret"></i>Renvoyé</span><span><i></i>À venir</span></div></div>' +
+      '<div class="sv-wrap"><table class="sv-tbl"><thead><tr><th style="width:28%">Document</th><th>Avancement</th><th>Attend</th><th>Délai de l\'étape</th><th>Situation</th><th></th></tr></thead><tbody>' +
+      (body || '<tr><td colspan="6" class="sv-vide">' + (all.length ? "Aucun document ne correspond." : "Aucun document en mouvement : tout est en vigueur et lu.") + "</td></tr>") + "</tbody></table></div>" +
+      (reste > 0 ? '<p class="cite-src panel-gap">' + reste + ' autre(s) document(s) en vigueur, lectures terminées. <button type="button" class="doclink" data-open="registre">Voir le registre</button></p>' : "") +
+      (!HOSTED ? circuitCardsHtml() : "");
+  }
+  document.addEventListener("click", function (ev) {
+    var k = ev.target.closest("[data-svf]"); if (k) { SV.f = SV.f === k.getAttribute("data-svf") ? "" : k.getAttribute("data-svf"); renderCircuit(); return; }
+    var g = ev.target.closest("[data-svg]"); if (g) { SV.g = g.getAttribute("data-svg"); renderCircuit(); return; }
+    if (ev.target.closest("button, a, input")) return;
+    var r = ev.target.closest("[data-svrow]"); if (r) { var id = r.getAttribute("data-svrow"); SV.open[id] = !SV.open[id]; renderCircuit(); }
+  });
+  document.addEventListener("keydown", function (ev) {
+    var r = ev.target.closest && ev.target.closest("[data-svrow]"); if (!r || (ev.key !== "Enter" && ev.key !== " ")) return;
+    ev.preventDefault(); var id = r.getAttribute("data-svrow"); SV.open[id] = !SV.open[id]; renderCircuit();
+    var n = document.querySelector('[data-svrow="' + id + '"]'); if (n) n.focus({ preventScroll: true });
+  });
+  document.addEventListener("input", function (ev) {
+    if (ev.target.id !== "sv-q") return; SV.q = ev.target.value; var pos = ev.target.selectionStart; renderCircuit();
+    var q = $("#sv-q"); if (q) { q.focus({ preventScroll: true }); try { q.setSelectionRange(pos, pos); } catch (e) { /* champ */ } }
+  });
+  // Circuits par type (artefact sans page Paramétrage)
+  function circuitCardsHtml() {
     var niv = {}; (DATA.niveaux || []).forEach(function (n) { niv[n.type] = n; });
     var cards = TYPES.map(function (t) {
       var k = typeKey(t), cfg = V.circuits[k], steps = cfg && cfg.etapes && cfg.etapes.length ? cfg.etapes.map(normStep) : defaultTypeCircuit(t);
@@ -502,11 +645,7 @@
         (varies ? '<p class="cite-src">Les documents de ce type déclarent des circuits différents ; le premier est affiché. Définir le circuit du type l\'appliquera à tous.</p>' : "") +
         (issues.length ? '<ul class="tt-warn">' + issues.map(function (m) { return "<li>" + esc(m) + "</li>"; }).join("") + "</ul>" : "") + "</article>";
     }).join("");
-    v.innerHTML = '<div class="eyebrow">Gouvernance documentaire</div><h1 class="title">Circuit d\'approbation</h1>' +
-      '<p class="lead">Où en est chaque document, et qui doit agir. Les étapes se visent dans l\'ordre ; une même personne ne vise pas deux étapes d\'une même version (règle des quatre yeux). Si le texte change, le circuit recommence.</p>' +
-      '<h2 class="section-h">Où en sont les documents</h2>' + board +
-      '<h2 class="section-h">Circuits par type de document</h2><p class="lead">' + (peut("circuits") ? "Vous pouvez modifier le circuit de chaque type. Le nouveau circuit s'applique aux versions dont le circuit n'a pas commencé ; une version déjà visée garde le circuit de son premier visa." : "Définis par l'administrateur. Une version déjà visée garde le circuit de son premier visa.") + '</p><div class="ccards">' + cards + "</div>" +
-      '<p class="cite-src panel-gap">Numérotation des versions : 0.x pour un projet, 1.0 à l\'adoption, 1.1 pour une correction mineure (forme, coquille : les lectures restent valables), 2.0 pour une révision de fond, soumise de nouveau au circuit et à la lecture.</p>';
+    return '<h2 class="section-h">Circuits par type de document</h2><p class="lead">' + (peut("circuits") ? "Vous pouvez modifier le circuit de chaque type. Le nouveau circuit s'applique aux versions dont le circuit n'a pas commencé ; une version déjà visée garde le circuit de son premier visa." : "Définis par l'administrateur. Une version déjà visée garde le circuit de son premier visa.") + '</p><div class="ccards">' + cards + "</div>";
   }
   function circEditorHtml(t, steps) {
     var k = typeKey(t);
@@ -674,7 +813,7 @@
     var box = $("#rail-me"); if (!box) return;
     var badge = $(RESTREINT ? "#nav-badge-emp" : "#nav-badge");
     var lm = $("#nav-membres"); if (lm) lm.hidden = !(HOSTED && V.owner);
-    var lp = $("#nav-parametrage"); if (lp) lp.hidden = !(HOSTED && estSuper());
+    var lp = $("#nav-parametrage"); if (lp) lp.hidden = !(HOSTED && (estSuper() || peut("circuits")));
     var lt = $("#nav-tableau"); if (lt) lt.hidden = !accesTableau();
     var bn = $("#btn-nouveau"); if (bn) bn.hidden = !(HOSTED && typeof canEdit === "function" && canEdit());
     if (!V.ready && !V.me) { box.innerHTML = '<div class="me-load">Chargement…</div>'; return; }

@@ -335,3 +335,49 @@ Annexe (\d+) — (.+)	Appendix $1 — $2
 annexe (\d+) au (PC-[A-Z0-9-]+)	appendix $1 to $2
 Manuel des procédures · (\d+) Ko	Procedures manual · $1 KB
 ([\d.]+) Mo	$1 MB
+(\d+) en retard · (\d+) renvoyé\(s\)	$1 overdue · $2 returned
+attente moyenne (\d+) j	average wait $1 d
+(\d+) lectures sur (\d+)	$1 readings out of $2
+(\d+) / (\d+) ont attesté	$1 / $2 have acknowledged
+(\d+) / (\d+) lectures	$1 / $2 readings
+J(\d+) sur (\d+)	Day $1 of $2
+(\d+) j sur (\d+) · \+(\d+) j	$1 d of $2 · +$3 d
+(\d+) j sur (\d+)	$1 d of $2
+depuis (\d+) j	for $1 d
+depuis le (.+)	since $1
+(.+) · (\d+) / (\d+) visas · depuis le (.+)	$1 · $2 / $3 sign-offs · since $4
+(.+) · depuis le (.+)	$1 · since $2
+renvoyé par (.+) le (.+)	returned by $1 on $2
+en vigueur depuis le (.+)	in force since $1
+(.+) v([\d.]+) · révision	$1 v$2 · revision
+(.+) v([\d.]+)	$1 v$2
+(\d+) personne\(s\)	$1 person(s)
+(\d+) document	$1 document
+(\d+) documents	$1 documents
+dépassée de (\d+) j	exceeded by $1 d
+dans (\d+) j	in $1 d
+([\d.]+) \(révision\)	$1 (revision)
+Visé par (.+) : (.+) · séance du (.+)	Signed off by $1: $2 · meeting of $3
+Visé par (.+) : (.+)	Signed off by $1: $2
+Renvoyé par (.+) \(v([\d.]+)\)	Returned by $1 (v$2)
+Renvoyé par (.+)	Returned by $1
+Version ([\d.]+) : (.+) \((.+)\)	Version $1: $2 ($3)
+Version ([\d.]+) : (.+)	Version $1: $2
+(\d+) lecture\(s\) attestée\(s\) ; dernière le (.+)	$1 reading(s) acknowledged; latest on $2
+Prise de connaissance en cours : (.+)	Acknowledgement in progress: $1
+En attente : (.+) · (\d+) j sur (\d+)	Waiting for: $1 · $2 d of $3
+En attente : (.+)	Waiting for: $1
+(\d+) autre\(s\) document\(s\) en vigueur, lectures terminées\.	$1 other document(s) in force, readings completed.
+(.+) — modification	$1 — editing
+(\d+) documents? · s'applique aux versions dont le circuit n'a pas commencé	$1 document(s) · applies to versions whose workflow has not started
+(\d+) documents? · (\d+) étapes? · (.+)	$1 document(s) · $2 step(s) · $3
+Étape (\d+)	Step $1
+Circuit des documents de type « (.+) » enregistré\.	Workflow for “$1” documents saved.
+Le type « (.+) » reprend le circuit déclaré dans chaque document\.	The “$1” type reverts to the workflow declared in each document.
+Modifier le circuit des documents de type « (.+) »	Edit the workflow for “$1” documents
+Revenir au circuit déclaré dans les documents	Revert to the workflow declared in the documents
+« (.+) » : aucune personne active n'a la fonction (.+)	“$1”: no active person holds the function $2
+« (.+) » et « (.+) » demandent la même fonction, détenue par une seule personne : la règle des quatre yeux bloquera le circuit	“$1” and “$2” require the same function, held by a single person: the four-eyes rule will block the workflow
+(\d+)\. (.+) — (.+) · (\d+) j · facultative	$1. $2 — $3 · $4 d · optional
+(\d+)\. (.+) — (.+) · (\d+) j	$1. $2 — $3 · $4 d
+Attention : (.+)	Warning: $1

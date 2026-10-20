@@ -1,0 +1,113 @@
+Suivi des documents	Document tracking
+Suivi détaillé	Detailed tracking
+Pour chaque document en mouvement : l'étape atteinte, qui doit agir, depuis combien de temps et par rapport à quel délai. Cliquez une ligne pour l'historique.	For each document in progress: the step reached, who must act, for how long and against which deadline. Click a row for its history.
+Régler les circuits et délais	Set workflows and deadlines
+À débloquer	To unblock
+rien de bloqué	nothing blocked
+En approbation	Awaiting approval
+En prise de connaissance	Being acknowledged
+Mis en vigueur (30 j)	Brought into force (30 d)
+Mis en vigueur ces 30 derniers jours	Brought into force in the last 30 days
+versions adoptées récemment	recently adopted versions
+J'ai à agir	Awaiting my action
+visas et lectures attendus de vous	sign-offs and readings expected from you
+Filtrer par situation	Filter by situation
+Rechercher un document, une personne…	Search for a document or a person…
+Regrouper par	Group by
+Situation	Situation
+Responsable	Responsible
+En cours	In progress
+À venir	Upcoming
+Avancement	Progress
+Attend	Waiting for
+Délai de l'étape	Step deadline
+Dans les délais	On time
+Bientôt en retard	Nearly overdue
+Lectures en cours	Readings in progress
+Terminé	Completed
+Lecture	Reading
+Lire et attester	Read and acknowledge
+Préparer une relance	Prepare a reminder
+Historique	History
+En bref	At a glance
+Échéance	Deadline
+figé au premier visa	frozen at the first sign-off
+celui du type	the one set for the type
+celui déclaré dans le document	the one declared in the document
+A attesté	Has acknowledged
+Pas encore lu	Not yet read
+Aucun document ne correspond.	No document matches.
+Aucun document en mouvement : tout est en vigueur et lu.	No document in progress: everything is in force and read.
+Voir le registre	View the register
+Reprise du texte par la rédaction	Text being revised by the drafter
+Rédacteur	Drafter
+Administrateur	Administrator
+circuit à configurer	workflow to be configured
+aucune personne ne peut viser cette étape	nobody can sign off this step
+mise en vigueur en cours	entry into force in progress
+en vigueur	in force
+Aujourd'hui	Today
+Le suivi n'est pas disponible dans cette vue.	Tracking is not available in this view.
+Circuits par type de document	Workflows by document type
+Administration	Administration
+Les réglages du référentiel, regroupés par thème. Chaque section indique qui peut la modifier ; un administrateur ne voit que les sections couvertes par ses prérogatives.	The repository settings, grouped by theme. Each section shows who may change it; an administrator only sees the sections covered by their powers.
+Sections	Sections
+Administrateurs et prérogatives	Administrators and powers
+Circuits d'approbation	Approval workflows
+Délais et alertes	Deadlines and alerts
+Règles appliquées	Rules applied
+Journal complet	Full log
+Super administrateur	Super administrator
+Prérogative « circuits »	“Workflows” power
+Pour mémoire	For reference
+Les étapes de visa par type de document. Un nouveau circuit s'applique aux versions dont le circuit n'a pas commencé ; une version déjà visée garde le circuit de son premier visa. La Procédure de maîtrise documentaire doit rester cohérente avec ces circuits.	The sign-off steps for each document type. A new workflow applies to versions whose workflow has not started; a version already signed off keeps the workflow of its first sign-off. The document control procedure must remain consistent with these workflows.
+Les délais de chaque étape et de la prise de connaissance, réunis sur une grille. Une étape passe « en retard » au-delà de son délai, et « bientôt en retard » au seuil choisi ; le suivi des documents et le tableau de bord s'en servent.	The deadlines of each step and of acknowledgement, on one grid. A step becomes “overdue” past its deadline and “nearly overdue” at the chosen threshold; document tracking and the dashboard use them.
+Qui administre le référentiel et avec quelles prérogatives. Les administrateurs gèrent à leur tour les autres membres dans la page Membres, sans pouvoir dépasser ce que vous leur donnez ici.	Who administers the repository and with which powers. Administrators in turn manage the other members on the Members page, without exceeding what you give them here.
+Règle des quatre yeux : une même personne ne vise pas deux étapes d'une même version ; le rédacteur ne vise pas sa version. Si le texte change, le circuit recommence.	Four-eyes rule: the same person does not sign off two steps of the same version; the drafter does not sign off their own version. If the text changes, the workflow starts again.
+Numérotation des versions : 0.x pour un projet, 1.0 à l'adoption, 1.1 pour une correction de forme (les lectures restent valables), 2.0 pour une révision de fond, soumise de nouveau au circuit et à la lecture.	Version numbering: 0.x for a draft, 1.0 on adoption, 1.1 for an editorial correction (readings remain valid), 2.0 for a substantive revision, submitted again to the workflow and to reading.
+Ailleurs :	Elsewhere:
+Lectures obligatoires	Mandatory readings
+modification	editing
+défini ici	set here
+circuit déclaré dans les documents	workflow declared in the documents
+séance et PV	meeting and minutes
+facultative	optional
+Fonction	Function
+Qui doit viser	Who must sign off
+Délai (jours)	Deadline (days)
+Obligatoire	Mandatory
+Date de séance et PV	Meeting date and minutes
+Monter	Move up
+Descendre	Move down
+Retirer	Remove
++ Ajouter une étape	+ Add a step
+Prise de connaissance après adoption	Acknowledgement after adoption
+jours	days
+Enregistrer le circuit	Save the workflow
+Annuler	Cancel
+Revenir au circuit déclaré dans les documents	Revert to the workflow declared in the documents
+Modifier	Edit
+Prise de connaissance · personnes désignées	Acknowledgement · designated persons
+une personne	one person
+toutes les personnes	all persons
+la majorité	the majority
+Nouvelle étape	New step
+Prise de connaissance	Acknowledgement
+après adoption	after adoption
+Signaler « bientôt en retard » à	Flag “nearly overdue” at
+% du délai	% of the deadline
+Enregistrer les délais	Save the deadlines
+Délais enregistrés.	Deadlines saved.
+Chaque étape doit avoir un nom.	Each step must have a name.
+Le circuit doit comporter au moins une étape obligatoire.	The workflow must include at least one mandatory step.
+Modifier le circuit	Edit the workflow
+Rétablir	Restore
+Chaque document de ce type reprend le circuit inscrit dans son en-tête.	Each document of this type reverts to the workflow stated in its header.
+Les versions déjà visées gardent le circuit de leur premier visa.	Versions already signed off keep the workflow of their first sign-off.
+S'applique aux versions dont le circuit n'a pas encore commencé ; une version déjà visée garde le circuit de son premier visa.	Applies to versions whose workflow has not yet started; a version already signed off keeps the workflow of its first sign-off.
+aucune étape obligatoire	no mandatory step
+Où en est chaque document : étape atteinte, qui doit agir, depuis quand et par rapport à quel délai. Cliquez une ligne pour l'historique.	Where each document stands: step reached, who must act, since when and against which deadline. Click a row for its history.
+Dans Paramétrage : par type de document, étapes, fonctions, règles de visa et délais. Une version déjà visée garde le circuit de son premier visa.	In Settings: for each document type, steps, functions, sign-off rules and deadlines. A version already signed off keeps the workflow of its first sign-off.
+Administrateurs et prérogatives, circuits et délais, règles, journal complet. Chaque administrateur n'y voit que les sections de ses prérogatives.	Administrators and powers, workflows and deadlines, rules, full log. Each administrator only sees the sections within their powers.
+« Suivi des documents » montre où en est chaque document, qui doit agir et depuis quand.	“Document tracking” shows where each document stands, who must act and since when.
+« Paramétrage », section Circuits et délais : modification des circuits et des délais (si vous en avez la prérogative).	“Settings”, Workflows and deadlines section: editing workflows and deadlines (if you hold the power).
