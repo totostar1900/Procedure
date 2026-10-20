@@ -59,6 +59,9 @@ async function lireCollection(coll, opts) {
 // Abonnements : rafraîchis après chaque écriture de cette page, par le temps réel, et toutes les 20 s
 const subs = new Set();
 const refreshAll = () => subs.forEach((s) => s.run());
+// Après une écriture : le site calcule les avis par e-mail dus (visa attendu, lecture, renvoi…) ; rien n'est envoyé deux fois
+let avisT = null;
+const avis = () => { clearTimeout(avisT); avisT = setTimeout(() => { try { fetch("/api/notifier", { method: "POST", keepalive: true }); } catch (e) { /* le passage suivant enverra */ } }, 4000); };
 setInterval(refreshAll, 20000);
 sb.channel("kv-tout").on("postgres_changes", { event: "*", schema: "public", table: "kv" }, refreshAll)
   .on("postgres_changes", { event: "*", schema: "public", table: "membres" }, refreshAll).subscribe();
@@ -109,9 +112,10 @@ function doc(p) {
         if (r.error) throw err(r.error);
       }
       refreshAll();
+      if (!p.startsWith("annuaire/") && !p.startsWith("dossiers/") && !p.startsWith("brouillons/")) avis();
     },
     async update(part) { const cur = await this.get(); await this.set({ ...(cur.data() || {}), ...part }); },
-    async delete() { const r = await sb.from("kv").delete().eq("path", p); if (r.error) throw err(r.error); refreshAll(); },
+    async delete() { const r = await sb.from("kv").delete().eq("path", p); if (r.error) throw err(r.error); refreshAll(); avis(); },
     onSnapshot(next, error) {
       return collection(p.replace(/\/[^/]+$/, "")).onSnapshot((s) => { const d = s.docs.find((x) => x.id === lastSeg(p)); next(d || { id: lastSeg(p), exists: false, data: () => undefined }); }, error);
     },

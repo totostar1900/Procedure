@@ -1,7 +1,7 @@
 "use client";
 import { createBrowserClient } from "@supabase/ssr";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { loc, t, useLangue, COLS, CSS, Cfm, Confirmation, Evt, FL, FONCTIONS, Membre, MoiC, PL, Prerogatives, date, msg, peutDe, statutDe, telecharger } from "../../lib/admin-ui";
+import { avisDus, loc, t, useLangue, COLS, CSS, Cfm, Confirmation, Evt, FL, FONCTIONS, Membre, MoiC, PL, Prerogatives, date, msg, peutDe, statutDe, telecharger } from "../../lib/admin-ui";
 
 type Doc = { id: string; titre: string; type: string };
 type Lect = { ids?: string[]; consult?: string[]; tous?: boolean; maj?: string };
@@ -157,7 +157,7 @@ export default function Gestion({ moi, docs }: { moi: MoiC; docs: Doc[] }) {
       setOccupe(true);
       if (Object.keys(p).length) { const { error } = await sb.from("membres").update(p).eq("email", orig.email); if (error) { setOccupe(false); setNote({ t: "err", m: msg(error) }); charger(); return; } }
       for (const [doc, L] of Object.entries(edL)) { const { error } = await sb.from("kv").upsert({ path: "lectures/" + doc, data: { ...L, maj: new Date().toISOString() } }, { onConflict: "path" }); if (error) { setOccupe(false); setNote({ t: "err", m: msg(error) }); charger(); return; } }
-      setOccupe(false); setVolet(null); setNote({ t: "ok", m: "Accès de " + (ed.nom || orig.email) + " mis à jour." }); charger();
+      setOccupe(false); setVolet(null); setNote({ t: "ok", m: "Accès de " + (ed.nom || orig.email) + " mis à jour." }); charger(); avisDus();
     } });
   }
   function creer() {
@@ -176,7 +176,7 @@ export default function Gestion({ moi, docs }: { moi: MoiC; docs: Doc[] }) {
       const { error } = await sb.from("membres").insert({ email, nom: ed.nom?.trim() || null, poste: ed.poste?.trim() || null, fonctions: ed.fonctions, admin: ed.admin, prerogatives: ed.admin ? ed.prerogatives : [], actif: true, acces: ed.admin ? "complet" : ed.acces, tableau: !!ed.tableau && peut("tableau") });
       setOccupe(false);
       if (error) return setNote({ t: "err", m: msg(error) });
-      setNote({ t: "ok", m: `Accès ouvert pour ${email}. Prévenez la personne : elle se connecte sur ${SITE} avec son compte Microsoft 365.` });
+      setNote({ t: "ok", m: `Accès ouvert pour ${email}. Elle se connecte sur ${SITE} avec son compte Microsoft 365 ; un avis lui est envoyé par e-mail si les envois automatiques sont actifs.` }); avisDus();
       await charger();
       const m = { ...VIERGE, ...ed, email, cree_le: new Date().toISOString() };
       if (!ed.admin && ed.acces === "employe" && peut("lectures")) { setEd(m); setVolet({ mode: "fiche", email }); } else setVolet(null);

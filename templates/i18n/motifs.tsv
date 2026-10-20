@@ -381,3 +381,6 @@ Revenir au circuit déclaré dans les documents	Revert to the workflow declared 
 (\d+)\. (.+) — (.+) · (\d+) j · facultative	$1. $2 — $3 · $4 d · optional
 (\d+)\. (.+) — (.+) · (\d+) j	$1. $2 — $3 · $4 d
 Attention : (.+)	Warning: $1
+E-mail d'essai envoyé à (.+)\.	Test e-mail sent to $1.
+(\d+) e-mail\(s\) envoyé\(s\), (\d+) en erreur\.	$1 e-mail(s) sent, $2 with errors.
+(\d+) e-mail\(s\) envoyé\(s\)\.	$1 e-mail(s) sent.

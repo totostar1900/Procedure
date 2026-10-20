@@ -1,8 +1,9 @@
 "use client";
 import { createBrowserClient } from "@supabase/ssr";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useLangue, COLS, CSS, Cfm, Confirmation, Evt, FL, Membre, MoiC, PL, PREROGS, date, libelle, msg, telecharger } from "../../lib/admin-ui";
+import { useLangue, COLS, CSS, Cfm, Confirmation, Evt, FL, Membre, MoiC, PL, PREROGS, avisDus, date, libelle, msg, telecharger } from "../../lib/admin-ui";
 import { Circuits, Delais, DocC, useCircuits } from "./circuits";
+import { Notifications, NT_CSS } from "./notifications";
 
 // Paramétrage, en sections : administrateurs et prérogatives (super administrateur), circuits et délais (prérogative
 // « circuits »), règles appliquées, journal complet (super administrateur). Chacun ne voit que ses sections.
@@ -33,6 +34,7 @@ export default function Reglages({ moi, docs }: { moi: MoiC; docs: DocC[] }) {
   const SECTIONS: [string, string, string][] = [
     ...(moi.super ? [["admins", "Administrateurs et prérogatives", "Super administrateur"] as [string, string, string]] : []),
     ...(circ ? [["circuits", "Circuits d'approbation", "Prérogative « circuits »"], ["delais", "Délais et alertes", "Prérogative « circuits »"]] as [string, string, string][] : []),
+    ...(moi.super ? [["notifications", "Avis par e-mail", "Super administrateur"] as [string, string, string]] : []),
     ["regles", "Règles appliquées", "Pour mémoire"],
     ...(moi.super ? [["journal", "Journal complet", "Super administrateur"] as [string, string, string]] : []),
   ];
@@ -72,14 +74,14 @@ export default function Reglages({ moi, docs }: { moi: MoiC; docs: DocC[] }) {
   }
   async function enregistrer() {
     for (const [email, p] of Object.entries(pend)) { const { error } = await sb.from("membres").update(p).eq("email", email); if (error) { setNote({ t: "err", m: msg(error) }); charger(); return; } }
-    setPend({}); setNote({ t: "ok", m: "Administrateurs et prérogatives enregistrés." }); charger();
+    setPend({}); setNote({ t: "ok", m: "Administrateurs et prérogatives enregistrés." }); charger(); avisDus();
   }
   const journal = evts.filter((e) => (CATS.find((c) => c[0] === cat) || CATS[0])[2](e) && (!q || (libelle(e) + " " + e.path).toLowerCase().includes(q.toLowerCase())));
   const exporter = () => telecharger("journal_" + new Date().toISOString().slice(0, 10) + ".csv", [["Date", "Par", "Action", "Objet", "Détail"], ...journal.map((e) => [e.le, e.par_email || "système", e.action, e.path, libelle(e)])]);
 
   return (
     <div className="pg">
-      <style>{CSS + PZ}</style>
+      <style>{CSS + PZ + NT_CSS}</style>
       <main className="wrap view">
         <div className="eyebrow">Administration</div>
         <h1 className="title">Paramétrage</h1>
@@ -121,6 +123,12 @@ export default function Reglages({ moi, docs }: { moi: MoiC; docs: DocC[] }) {
           {tete("delais")}
           <p className="zp">Les délais de chaque étape et de la prise de connaissance, réunis sur une grille. Une étape passe « en retard » au-delà de son délai, et « bientôt en retard » au seuil choisi ; le suivi des documents et le tableau de bord s&apos;en servent.</p>
           <Delais sb={sb} docs={docs} moi={moi} cfg={cfg} charger={chargerC} note={noter} />
+        </section> : null}
+
+        {moi.super ? <section className="zone" id="z-notifications">
+          {tete("notifications")}
+          <p className="zp">Les avis envoyés automatiquement par e-mail depuis la boîte partagée, par Microsoft 365. Chaque type d&apos;avis et chaque fonction a son interrupteur.</p>
+          <Notifications sb={sb} note={noter} />
         </section> : null}
 
         <section className="zone" id="z-regles">

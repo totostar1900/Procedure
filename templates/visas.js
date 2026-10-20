@@ -42,7 +42,7 @@
     watch("auteurs", "auteurs");
     watch("adoptions", "adoptions", vAdoptionsManquantes);
     if (V.me && V.canWrite) {
-      try { var a = await V.db.doc("annuaire/" + V.me).get(); var last = a.exists ? a.data().vu : ""; if (!last || last.slice(0, 10) !== new Date().toISOString().slice(0, 10)) await V.db.doc("annuaire/" + V.me).set({ vu: new Date().toISOString() }); } catch (e) { /* lecture seule */ }
+      try { var a = await V.db.doc("annuaire/" + V.me).get(); var last = a.exists ? a.data().vu : "", lg = window.PCI18N ? PCI18N.lang : "fr"; if (!last || last.slice(0, 10) !== new Date().toISOString().slice(0, 10) || (a.exists && (a.data().langue || "fr") !== lg)) await V.db.doc("annuaire/" + V.me).set({ vu: new Date().toISOString(), langue: lg }); } catch (e) { /* lecture seule */ }
     }
   });
 

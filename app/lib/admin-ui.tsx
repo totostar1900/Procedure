@@ -9,6 +9,8 @@ export type Membre = {
 export type MoiC = { email: string; super: boolean; prerogatives: string[] };
 export type Evt = { id: number; le: string; par_email: string | null; action: string; path: string; data: Record<string, unknown> & Partial<Membre> };
 
+// Après une modification d'accès : le site calcule les avis par e-mail dus
+export const avisDus = () => { try { setTimeout(() => fetch("/api/notifier", { method: "POST", keepalive: true }), 3000); } catch { /* passage suivant */ } };
 export const COLS = "email,user_id,nom,poste,fonctions,actif,admin,super,prerogatives,cree_le,derniere_connexion,acces,tableau";
 export const FONCTIONS: [string, string][] = [
   ["pca", "Président du Conseil"], ["adm", "Administrateur du Conseil"], ["dg", "Directeur Général"], ["rcci", "RCCI"],

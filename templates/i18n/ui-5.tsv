@@ -111,3 +111,83 @@ Dans Paramétrage : par type de document, étapes, fonctions, règles de visa et
 Administrateurs et prérogatives, circuits et délais, règles, journal complet. Chaque administrateur n'y voit que les sections de ses prérogatives.	Administrators and powers, workflows and deadlines, rules, full log. Each administrator only sees the sections within their powers.
 « Suivi des documents » montre où en est chaque document, qui doit agir et depuis quand.	“Document tracking” shows where each document stands, who must act and since when.
 « Paramétrage », section Circuits et délais : modification des circuits et des délais (si vous en avez la prérogative).	“Settings”, Workflows and deadlines section: editing workflows and deadlines (if you hold the power).
+Avis par e-mail	E-mail notices
+Les avis envoyés automatiquement par e-mail depuis la boîte partagée, par Microsoft 365. Chaque type d'avis et chaque fonction a son interrupteur.	Notices sent automatically by e-mail from the shared mailbox, through Microsoft 365. Each type of notice and each function has its own switch.
+Microsoft 365 est configuré : les envois sont possibles.	Microsoft 365 is configured: sending is possible.
+Microsoft 365 n'est pas encore configuré : aucun e-mail ne part.	Microsoft 365 is not configured yet: no e-mail is sent.
+à renseigner dans Vercel	to be set in Vercel
+Marche à suivre	Steps to follow
+Entra ID (portail Azure) › Inscriptions d'applications › Nouvelle inscription : « Référentiel — envoi d'avis », locataire unique.	Entra ID (Azure portal) › App registrations › New registration: “Repository — notices”, single tenant.
+Autorisations d'API › Microsoft Graph › Autorisations d'application › Mail.Send, puis « Accorder le consentement administrateur ».	API permissions › Microsoft Graph › Application permissions › Mail.Send, then “Grant admin consent”.
+Limiter l'application à la seule boîte referentiel@ (Exchange Online PowerShell, stratégie d'accès des applications ou RBAC pour les applications).	Restrict the application to the referentiel@ mailbox only (Exchange Online PowerShell, application access policy or RBAC for Applications).
+Certificats et secrets › Nouveau secret client (24 mois au plus ; noter la date d'expiration).	Certificates & secrets › New client secret (24 months at most; note the expiry date).
+Vercel › projet « procedure » › Settings › Environment Variables : M365_TENANT_ID, M365_CLIENT_ID, M365_CLIENT_SECRET et SUPABASE_SERVICE_ROLE_KEY (Supabase › Project Settings › API), puis redéployer.	Vercel › “procedure” project › Settings › Environment Variables: M365_TENANT_ID, M365_CLIENT_ID, M365_CLIENT_SECRET and SUPABASE_SERVICE_ROLE_KEY (Supabase › Project Settings › API), then redeploy.
+Revenir ici : envoyer un e-mail d'essai, activer les envois en mode test, vérifier la boîte partagée, puis sortir du mode test.	Come back here: send a test e-mail, enable sending in test mode, check the shared mailbox, then leave test mode.
+Envois automatiques	Automatic sending
+Interrupteur général. Éteint, aucun avis ne part.	Master switch. When off, no notice is sent.
+Mode test	Test mode
+Tous les avis partent vers la boîte partagée, avec le destinataire prévu en tête. À utiliser avant la mise en service.	All notices go to the shared mailbox, with the intended recipient at the top. Use it before going live.
+Boîte partagée (expéditeur, copies et résumé)	Shared mailbox (sender, copies and summary)
+Avis	Notice
+Destinataires	Recipients
+Moment	Timing
+Envoi	Sending
+Destinataires par fonction	Recipients by function
+Une personne reçoit les avis si au moins une de ses fonctions est allumée. La boîte partagée reçoit toujours les siens.	A person receives notices if at least one of their functions is switched on. The shared mailbox always receives its own.
+Escalade des retards	Escalation of delays
+Après	After
+jours de retard, avis à	days overdue, notify
+et à la boîte partagée ; ensuite chaque semaine.	and the shared mailbox; then every week.
+Enregistrer les réglages des avis	Save notice settings
+Envoyer un e-mail d'essai	Send a test e-mail
+Calculer et envoyer maintenant	Compute and send now
+Envoi…	Sending…
+Calcul…	Computing…
+Envois les jours ouvrés, de 7 h à 19 h (heure de Yaoundé) ; ce qui survient hors de ces heures part le matin. Un e-mail par personne, regroupant ses avis ; au plus un rappel par jour. Aucun contenu de document dans les e-mails.	Sent on working days, 7 a.m. to 7 p.m. (Yaoundé time); anything outside those hours goes out in the morning. One e-mail per person, grouping their notices; at most one reminder a day. No document content in e-mails.
+Derniers envois	Latest e-mails
+Aucun envoi pour le moment.	No e-mail sent yet.
+envoyé	sent
+erreur	error
+attente	pending
+Réglages des avis enregistrés.	Notice settings saved.
+Visa attendu	Sign-off awaited
+Lecture demandée	Reading requested
+Renvoi pour modification	Returned for changes
+Abrogation	Repeal
+Modification soumise, publiée ou refusée	Change submitted, published or refused
+Accès ouvert	Access granted
+Fonctions ou prérogatives modifiées	Functions or powers changed
+Suspension ou réactivation	Suspension or reactivation
+Rappels de visa et de lecture	Sign-off and reading reminders
+Retards persistants	Persistent delays
+Nouveautés de la semaine	This week's new documents
+Revues périodiques	Periodic reviews
+Résumé quotidien	Daily summary
+Titulaires de la fonction qui peuvent viser	Holders of the function who can sign off
+Lecteurs désignés	Designated readers
+Rédacteurs du texte et RCCI	Drafters of the text and RCCI
+Lecteurs du document et boîte partagée	Readers of the document and shared mailbox
+Rédacteurs et boîte partagée	Drafters and shared mailbox
+La personne et la boîte partagée	The person and the shared mailbox
+Boîte partagée (et la personne réactivée)	Shared mailbox (and the reactivated person)
+Les personnes attendues	The persons awaited
+Fonctions d'escalade et boîte partagée	Escalation functions and shared mailbox
+Personnes concernées par le document	Persons concerned by the document
+RCCI et boîte partagée	RCCI and shared mailbox
+Boîte partagée	Shared mailbox
+Dès le début de l'étape	As soon as the step starts
+Dès l'adoption	As soon as adopted
+Immédiat	Immediate
+Au seuil d'alerte, à l'échéance, puis tous les 3 jours	At the alert threshold, at the deadline, then every 3 days
+Après le délai d'escalade, puis chaque semaine	After the escalation period, then every week
+Le lundi	On Mondays
+Le premier jour ouvré du mois	On the first working day of the month
+Chaque jour ouvré, à la première exécution après 7 h	Every working day, at the first run after 7 a.m.
+Président du Conseil	Chairman of the Board
+Administrateur du Conseil	Board director
+Directeur Commercial	Head of Sales
+Directeur des Marchés de Capitaux	Head of Capital Markets
+envois désactivés	sending disabled
+hors des heures d'envoi	outside sending hours
+exécution récente	run too recent, try again in a few seconds
+configuration Microsoft 365 absente	Microsoft 365 configuration missing
