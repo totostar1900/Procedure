@@ -417,3 +417,21 @@ body.has-selbar .toast { bottom: calc(96px + env(safe-area-inset-bottom, 0px)); 
 /* Contenu aligné sur le rail plutôt que centré dans l'espace restant */
 .shell .wrap { max-width: 1320px; margin-left: 0; padding-left: max(32px, env(safe-area-inset-left, 0px)); padding-right: 32px; }
 @media (max-width: 860px) { .shell .wrap { padding-left: 16px; padding-right: 16px; } }
+/* Rail réduit : se déplie temporairement au survol, par-dessus le contenu */
+@media (min-width: 861px) and (hover: hover) {
+  body.rail-folded .rail:hover, body.rail-folded .rail:focus-within { width: 214px; box-shadow: 8px 0 30px rgba(2,12,24,.25); }
+  body.rail-folded .rail:hover .rl, body.rail-folded .rail:focus-within .rl,
+  body.rail-folded .rail:hover .me-id, body.rail-folded .rail:focus-within .me-id,
+  body.rail-folded .rail:hover .me-more, body.rail-folded .rail:focus-within .me-more,
+  body.rail-folded .rail:hover .brand-mark, body.rail-folded .rail:hover .brand-rule, body.rail-folded .rail:hover .brand-sub { display: revert; }
+  body.rail-folded .rail:hover .me-more, body.rail-folded .rail:focus-within .me-more { display: flex; }
+  body.rail-folded .rail:hover .me-id, body.rail-folded .rail:focus-within .me-id { display: flex; }
+  body.rail-folded .rail:hover .brand, body.rail-folded .rail:focus-within .brand { display: flex; }
+  body.rail-folded .rail:hover .brand-mono { display: none; }
+  body.rail-folded .rail:hover .rail-top { padding: 18px 16px 14px; display: block; }
+  body.rail-folded .rail:hover .nav button { justify-content: flex-start; padding: 7px 10px; }
+  body.rail-folded .rail:hover .badge { position: static; min-width: 20px; height: 20px; font-size: var(--fs-xs); }
+  body.rail-folded .rail:hover .me-card { justify-content: flex-start; padding: 4px 6px; }
+  body.rail-folded .rail:hover .rail-fold { align-self: flex-end; }
+  body.rail-folded .rail { transition: width .15s ease .12s; }
+}
