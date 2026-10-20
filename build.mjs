@@ -393,7 +393,7 @@ async function buildManuel(render, lang) {
   const v = { lang: lang === "en" ? "en" : undefined, statut: "En vigueur", version: "", confidentialite: "Interne" };
   const pdfs = [];
   for (const d of list) { const f = P("dist/pdf", d.pdf.file); if (fs.existsSync(f)) pdfs.push({ d, doc: await PDFDocument.load(fs.readFileSync(f)) }); }
-  let page = 3; const rows = pdfs.map((x, i) => { const r = { n: i + 1, d: x.d, page }; page += x.doc.getPageCount(); return r; });
+  let numPage = 3; const rows = pdfs.map((x, i) => { const r = { n: i + 1, d: x.d, page: numPage }; numPage += x.doc.getPageCount(); return r; });
   const EN = lang === "en";
   const html = `<div class="cover"><div class="cover-band"><div class="wordmark">PURPOSE CAPITAL</div><div class="wordmark-rule"></div><div class="wordmark-sub">${L(v, "Référentiel documentaire")} · ${esc(cfg.societe.raison_sociale)}</div></div>
   <div class="cover-main"><div class="cover-eyebrow">${EN ? "Compilation" : "Recueil"}</div><div class="cover-title">${EN ? "Procedures manual" : "Manuel des procédures"}</div>
