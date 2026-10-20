@@ -308,7 +308,7 @@
         var m = cur.model, sch = m.modele.schema, ctx = { societe: DATA.societe };
         var md = function (src) { return mk.parse(E.render(src, sch, cur.data.valeurs, "apercu", ctx)).replace(/<p><em>ci-après/g, '<p class="party-role"><em>ci-après'); };
         p.innerHTML = '<p class="paper-note">Aperçu : les zones surlignées restent à compléter. Le document final est produit par les boutons Word et PDF.</p>' +
-          '<div class="doc-body"><div class="eyebrow">Convention</div><h1 class="title" style="font-size:26px">' + esc(m.titre) + "</h1>" + md(m.modele.template) +
+          '<div class="doc-body"><div class="eyebrow">Convention</div><h1 class="title" style="font-size:var(--fs-xl)">' + esc(m.titre) + "</h1>" + md(m.modele.template) +
           m.annexes.map(function (a) { return '<h2>Annexe ' + a.num + " — " + esc(a.titre) + "</h2>" + md(a.template); }).join("") + "</div>";
       }).catch(function () { p.innerHTML = '<p class="notice">L\'aperçu nécessite une connexion pour charger son moteur de mise en page.</p>'; });
     }, 150);

@@ -179,21 +179,21 @@ function libelle(e: Evt) {
 }
 
 const CSS = `
-.pg{--navy:#0B2E52;--gold:#E8A020;--ink:#1C2B3A;--muted:#5A6B80;--line:#DCE3EC;--bg:#F5F7FA;--card:#fff;min-height:100vh;background:var(--bg);color:var(--ink);font:14.5px/1.5 Inter,"Helvetica Neue",Arial,sans-serif}
+.pg{--navy:#0B2E52;--gold:#E8A020;--ink:#1C2B3A;--muted:#5A6B80;--line:#DCE3EC;--bg:#F5F7FA;--card:#fff;min-height:100vh;background:var(--bg);color:var(--ink);font:13.5px/1.5 Inter,"Helvetica Neue",Arial,sans-serif}
 .wrap{max-width:1080px;margin:0 auto;padding:0 16px}
 .top{background:var(--navy);color:#fff;padding:18px 0 16px}
 .tophead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
 .brand{letter-spacing:.18em;font-weight:600;font-size:12.5px}.rule{width:28px;height:2px;background:var(--gold);margin:6px 0 8px}
-.ttl{font-family:"Playfair Display",Georgia,serif;font-size:22px}
+.ttl{font-family:"Playfair Display",Georgia,serif;font-size:20px}
 .top nav{display:flex;gap:18px;font-size:13.5px}.top a{color:#B9C8DA}.top a:hover{color:#fff}
 .lead{max-width:780px;color:var(--muted);margin:22px 0 16px}
 .stats{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px}
 .stats div{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:10px 16px;min-width:140px}
-.stats b{display:block;font-size:22px;color:var(--navy)}.stats span{color:var(--muted);font-size:13px}
+.stats b{display:block;font-size:20px;color:var(--navy)}.stats span{color:var(--muted);font-size:13px}
 .warn,.ok,.err{border-radius:4px;padding:10px 12px;margin:0 0 14px;font-size:13.5px}
 .warn{background:#FBF1DC;color:#6B4A0E}.ok{background:#E5F3EA;color:#1D5B34}.err{background:#FBE6E4;color:#8A2219}
 .card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:18px 20px;margin-bottom:18px}
-h2{font-family:"Playfair Display",Georgia,serif;color:var(--navy);font-size:19px;margin:0 0 12px;font-weight:600}
+h2{font-family:"Playfair Display",Georgia,serif;color:var(--navy);font-size:16px;margin:0 0 12px;font-weight:600}
 .add{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 16px;align-items:end}
 .add>label{display:flex;flex-direction:column;gap:4px;font-weight:600;font-size:13px}.add small{font-weight:400;color:var(--muted)}
 input[type=email],input[type=search],.add input:not([type=checkbox]),.poste{border:1px solid var(--line);border-radius:4px;padding:8px 10px;font:inherit;background:#fff;color:inherit}
