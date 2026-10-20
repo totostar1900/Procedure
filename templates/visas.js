@@ -75,8 +75,8 @@
   var estSuper = function () { var r = V.me && V.roles[V.me]; return !!(V.owner && (!HOSTED || (r && r.super))); };
   var peut = function (p) { var r = V.me && V.roles[V.me]; return !!(V.db && V.owner && (!HOSTED || (r && (r.super || (r.prerogatives || []).indexOf(p) >= 0)))); };
   var canArchive = function () { return !!(V.db && V.me && (peut("abroger") || hasRole(V.me, "rcci"))); };
-  var fmtDT = function (s) { if (!s) return ""; var d = new Date(s); return isNaN(d) ? s : d.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" }) + " à " + d.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }); };
-  var fmtD = function (s) { return fmtDT(s).split(" à ")[0]; };
+  var fmtDT = function (s) { if (!s) return ""; var d = new Date(s); return isNaN(d) ? s : d.toLocaleDateString((window.PCI18N ? PCI18N.locale : "fr-FR"), { day: "numeric", month: "long", year: "numeric" }) + (window.PCI18N && PCI18N.lang === "en" ? ", " : " à ") + d.toLocaleTimeString((window.PCI18N ? PCI18N.locale : "fr-FR"), { hour: "2-digit", minute: "2-digit" }); };
+  var fmtD = function (s) { return fmtDT(s).split(/ à |, (?=\d\d:)/)[0]; };
   var since = function (s) { if (!s) return ""; var n = Math.floor((Date.now() - new Date(s).getTime()) / 86400000); return n <= 0 ? "aujourd'hui" : n === 1 ? "depuis hier" : "depuis " + n + " jours"; };
   var docKey = function (d) { return d.id + "@" + d.empreinte; };
   var docHash = function (d) { return d.id + (d.estProjet ? "~projet" : ""); };
@@ -608,7 +608,7 @@
     } catch (e) { toast("Modification refusée : seul l'administrateur peut désigner les lecteurs."); }
   }
   async function vCsv() {
-    var lines = [["Document", "Version", "Empreinte visée", "Empreinte en ligne", "Étape", "Fonction", "Personne", "Adresse", "Date et heure (UTC)", "Séance", "PV", "Fonction détenue", "Commentaire"].join(";")];
+    var lines = [["Document", "Version", "Empreinte visée", "Empreinte en ligne", "Étape", "Fonction", "Personne", "Adresse", "Date et heure (UTC)", "Séance", "PV", "Fonction détenue", "Commentaire"].map(function (x) { return window.PCI18N ? PCI18N.t(x) : x; }).join(";")];
     Object.keys(V.sigs).forEach(function (id) {
       (V.sigs[id] || []).forEach(function (s) {
         var d = docs.filter(function (x) { return x.id === s.doc; })[0];

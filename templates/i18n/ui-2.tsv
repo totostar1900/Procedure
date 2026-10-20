@@ -1,0 +1,303 @@
+Quand un document qui vous concerne entre en vigueur, il apparaît dans « À traiter », rubrique « À lire ».	When a document that concerns you comes into force, it appears in “To do”, under “To read”.
+Lisez-le, puis attestez votre lecture en bas de page. L'attestation est datée et conservée au registre.	Read it, then acknowledge it at the bottom of the page. The acknowledgement is dated and kept in the register.
+Une nouvelle version vous est de nouveau proposée à la lecture.	A new version is offered to you again for reading.
+« Documents » présente le registre : statut, version, prochaine revue. Cliquez un en-tête de colonne pour trier.	“Documents” shows the register: status, version, next review. Click a column header to sort.
+Cherchez par mot-clé, filtrez par type, domaine ou statut. Cliquez une ligne pour un aperçu rapide.	Search by keyword, filter by type, domain or status. Click a row for a quick preview.
+La page du document donne le texte applicable, la fiche de maîtrise (circuit, visas, historique) et les téléchargements PDF et Word.	The document page gives the applicable text, the document control sheet (workflow, sign-offs, history) and the PDF and Word downloads.
+« Textes de référence » relie chaque document aux textes CEMAC/COSUMAF ; le « Glossaire » définit les termes.	“Reference texts” links each document to the CEMAC/COSUMAF texts; the “Glossary” defines the terms.
+« À traiter » liste les documents qui attendent votre visa, dans l'ordre du circuit.	“To do” lists the documents awaiting your sign-off, in workflow order.
+Ouvrez le document : la barre en haut indique l'étape et ce qui est attendu de vous.	Open the document: the bar at the top shows the step and what is expected of you.
+Pour viser, cliquez le bouton puis écrivez l'action demandée (double validation). Pour renvoyer, indiquez ce qui doit être corrigé : le document repart en rédaction.	To sign off, click the button then type the requested action (double confirmation). To return a document, state what must be corrected: it goes back to drafting.
+Les étapes se visent dans l'ordre ; une même personne ne vise pas deux étapes d'une même version (règle des quatre yeux).	Steps are signed off in order; the same person does not sign off two steps of the same version (four-eyes rule).
+Quand la dernière étape est visée, le document est adopté et publié automatiquement.	When the last step is signed off, the document is adopted and published automatically.
+« Circuit d'approbation » montre où en est chaque document et qui doit agir.	“Approval workflow” shows where each document stands and who needs to act.
+« Suivi des visas » donne, document par document, les visas obtenus et les lectures attestées.	“Sign-off tracking” gives, document by document, the sign-offs obtained and the readings acknowledged.
+« Archives » conserve les documents abrogés et les versions antérieures.	“Archives” keeps repealed documents and earlier versions.
+Sur la page d'un document, « Modifier » ouvre l'éditeur : article par article, ou le texte complet.	On a document page, “Edit” opens the editor: article by article, or the full text.
+Vous pouvez repartir d'un Word : téléchargez le document en Word, modifiez-le, puis importez-le. Titres, articles, listes, tableaux et images sont repris.	You can start from a Word file: download the document in Word, edit it, then import it. Titles, articles, lists, tables and images are kept.
+Votre brouillon est enregistré au fur et à mesure. Avant soumission, la vue d'ensemble montre toutes les modifications.	Your draft is saved as you go. Before submission, the overview shows every change.
+Une fois soumis, le texte est publié automatiquement et repart dans son circuit. Vous ne pouvez pas viser une version que vous avez rédigée.	Once submitted, the text is published automatically and goes back through its workflow. You cannot sign off a version you drafted.
+« + Nouveau document » crée un texte à partir d'un modèle vierge.	“+ New document” creates a text from a blank template.
+Six indicateurs : documents, visas en attente, renvois, lectures, modifications, revues échues.	Six indicators: documents, pending sign-offs, returns, readings, changes, overdue reviews.
+« En attente d'une action » classe les visas par ancienneté ; en rouge au-delà du délai fixé. « Relancer » prépare un message à envoyer vous-même.	“Awaiting action” sorts sign-offs oldest first; in red past the set deadline. “Send a reminder” prepares a message for you to send yourself.
+Filtrez par période, type, domaine ou personne ; exportez en CSV ou imprimez.	Filter by period, type, domain or person; export to CSV or print.
+« Membres » : ouvrir un accès, modifier une fiche (nom, poste, fonctions, accès), suspendre, attribuer les documents aux employés.	“Members”: grant access, edit a profile (name, position, functions, access), suspend, assign documents to employees.
+Vous agissez dans la limite des prérogatives que le super administrateur vous a données ; vous ne modifiez ni votre propre accès ni celui d'un autre administrateur.	You act within the powers the super administrator has given you; you cannot change your own access or that of another administrator.
+« Suivi des visas » : lectures obligatoires par document et export du registre des visas.	“Sign-off tracking”: mandatory readings per document and export of the sign-off register.
+« Circuit d'approbation » : modification des circuits et des délais (si vous en avez la prérogative).	“Approval workflow”: changing workflows and deadlines (if you have that power).
+« Paramétrage » : nommer les administrateurs et choisir leurs prérogatives.	“Settings”: appoint administrators and choose their powers.
+Les règles sont appliquées par la base : on ne donne que ce que l'on détient, personne ne se dispense d'une lecture obligatoire, il reste toujours un super administrateur.	The rules are enforced by the database: you can only grant what you hold, nobody can exempt themselves from a mandatory reading, and there is always a super administrator.
+Le journal complet retrace toutes les opérations ; il ne peut être modifié depuis le site.	The full log records every operation; it cannot be changed from the site.
+Une question sur un texte ? Adressez-vous au RCCI. Un problème d'accès ? À un administrateur.	A question about a text? Ask the Compliance Officer. An access problem? Ask an administrator.
+Ouvrez « Mes documents » : seuls les textes qui vous ont été attribués y figurent.	Open “My documents”: only the texts assigned to you appear there.
+Ouvrez un document à lire et lisez-le jusqu'au bout. Le PDF et le Word sont disponibles en haut de page.	Open a document to read and read it to the end. The PDF and Word files are available at the top of the page.
+En bas du document, attestez votre lecture. L'attestation est datée et conservée ; elle vaut engagement à respecter le texte.	At the bottom of the document, acknowledge your reading. The acknowledgement is dated and kept; it is a commitment to comply with the text.
+Quand une nouvelle version entre en vigueur, il vous est demandé de la lire à nouveau.	When a new version comes into force, you are asked to read it again.
+Bienvenue dans le référentiel	Welcome to the repository
+Le référentiel documentaire réunit, en un seul endroit, les codes, politiques, procédures et modèles de contrat de Purpose Capital. Chaque texte y suit un circuit d'approbation tracé : il est rédigé, vérifié, approuvé puis adopté par les personnes désignées, chacune par un visa électronique daté. Une fois en vigueur, il est porté à la connaissance des collaborateurs concernés, qui attestent l'avoir lu. Vous y trouvez toujours la version applicable, son historique et la preuve de son adoption, en ligne, en PDF et en Word.	The document repository brings together, in one place, Purpose Capital's codes, policies, procedures and contract templates. Each text follows a traceable approval workflow: it is drafted, reviewed, approved and then adopted by the designated people, each with a dated electronic sign-off. Once in force, it is brought to the attention of the staff concerned, who acknowledge having read it. Here you will always find the applicable version, its history and proof of its adoption, online, in PDF and in Word.
+Précédent	Previous
+Suivant	Next
+Terminer	Finish
+Quitter la visite	Leave the tour
+Votre carte	Your card
+Votre nom, vos fonctions et ce qui vous attend. Les compteurs ouvrent directement la liste de vos actions.	Your name, your functions and what awaits you. The counters open the list of your actions directly.
+Les documents que l'on vous a attribués, et rien d'autre. Un badge indique le nombre de lectures à attester.	The documents assigned to you, and nothing else. A badge shows the number of readings to acknowledge.
+Lire et attester	Read and acknowledge
+Ouvrez un document, lisez-le jusqu'au bout, puis attestez votre lecture en bas de page. Votre attestation est datée et conservée au registre.	Open a document, read it to the end, then acknowledge your reading at the bottom of the page. Your acknowledgement is dated and kept in the register.
+Votre point d'entrée : les documents qui attendent votre visa, dans l'ordre du circuit. Un badge rouge compte vos actions.	Your starting point: the documents awaiting your sign-off, in workflow order. A red badge counts your actions.
+Examiner, viser ou renvoyer	Review, sign off or return
+Ouvrez un document : la barre en haut propose de viser, ou de renvoyer avec un commentaire. Chaque visa demande d'écrire l'action pour éviter les erreurs. Une même personne ne vise pas deux étapes d'une même version (règle des quatre yeux).	Open a document: the bar at the top lets you sign off, or return it with a comment. Each sign-off asks you to type the action to avoid mistakes. The same person does not sign off two steps of the same version (four-eyes rule).
+Le registre de tous les textes, avec leur statut, leur version et leur prochaine revue.	The register of all texts, with their status, version and next review.
+Rechercher et filtrer	Search and filter
+Cherchez par mot, filtrez par type, domaine ou statut. Cliquez une ligne pour un aperçu ; ouvrez le document pour le texte complet, le PDF ou le Word.	Search by word, filter by type, domain or status. Click a row for a preview; open the document for the full text, the PDF or the Word file.
+Rédiger	Draft
+Créez un document, ou ouvrez un document existant et choisissez « Modifier ». Vous pouvez aussi repartir d'un fichier Word. Une fois soumis, le texte est publié automatiquement et repart dans son circuit ; vous ne pouvez pas viser votre propre version.	Create a document, or open an existing one and choose “Edit”. You can also start from a Word file. Once submitted, the text is published automatically and goes back through its workflow; you cannot sign off your own version.
+Qui a visé quoi et quand, document par document, et l'état des lectures obligatoires.	Who signed off what and when, document by document, and the status of mandatory readings.
+Où en est chaque document et qui doit agir.	Where each document stands and who needs to act.
+Modifier les circuits	Changing workflows
+Par type de document : étapes, fonctions, règles de visa et délais. Une version déjà visée garde le circuit de son premier visa.	By document type: steps, functions, sign-off rules and deadlines. A version already signed off keeps the workflow of its first sign-off.
+La vue d'ensemble : visas en attente et retards, alertes, charge par personne, modifications en cours, lectures et revues.	The overview: pending and overdue sign-offs, alerts, workload by person, changes in progress, readings and reviews.
+Ouvrir un accès, modifier les fonctions, suspendre, attribuer les documents aux employés — dans la limite de vos prérogatives.	Grant access, change functions, suspend, assign documents to employees — within the limits of your powers.
+Réservé au super administrateur : administrateurs et prérogatives, règles, journal complet.	Reserved for the super administrator: administrators and powers, rules, full log.
+Replier le menu	Collapse the menu
+Ce bouton masque le menu pour lire en pleine largeur. Approchez la souris du bord gauche pour le faire réapparaître.	This button hides the menu so you can read at full width. Move the mouse to the left edge to bring it back.
+Retrouver ce guide	Finding this guide again
+Le guide écrit et cette visite restent accessibles ici à tout moment.	The written guide and this tour remain available here at any time.
+← Registre des documents	← Document register
+← Mes documents	← My documents
+Nouveau document	New document
+Le document est créé en projet (version 0.9). Rédigez-le en ligne ou importez un Word ; à la soumission, il suit le circuit d'approbation de son type, puis est adopté et publié comme les autres.	The document is created as a draft (version 0.9). Write it online or import a Word file; on submission, it follows the approval workflow of its type, then is adopted and published like the others.
+Télécharger le modèle Word vierge	Download the blank Word template
+Code (2 à 4 lettres, ex. ESG)	Code (2 to 4 letters, e.g. ESG)
+Titre	Title
+Résumé (affiché dans le registre)	Summary (shown in the register)
+Résumé	Summary
+Confidentialité	Confidentiality
+Public	Public
+Interne	Internal
+Confidentiel	Confidential
+Propriétaire	Owner
+Vérifié par	Reviewed by
+Approuvé par	Approved by
+Rédigé par	Drafted by
+Diffusion	Distribution
+Point de départ	Starting point
+Rédiger en ligne	Write online
+, à partir d'un plan type (titres et articles)	, from a standard outline (titles and articles)
+Importer un Word	Import a Word file
+rédigé à partir du modèle vierge	drafted from the blank template
+Créer le brouillon	Create the draft
+Sommaire	Contents
+Annexes	Appendices
+Maîtrise du document	Document control
+Historique et références	History and references
+À vous	Your turn
+À vous :	Your turn:
+J'ai lu et compris	I have read and understood
+PDF complet	Full PDF
+Ajouter à la sélection	Add to selection
+✎ Modifier le texte	✎ Edit the text
+Gérer le document	Manage the document
+Abroger et archiver…	Repeal and archive…
+Abroger et archiver	Repeal and archive
+Supprimer…	Delete…
+Supprimer du registre…	Delete from the register…
+La modification du texte arrivera avec l'édition en ligne.	Editing the text will come with online editing.
+Points à valider avant adoption	Points to settle before adoption
+Date d'approbation	Approval date
+À compléter à l'adoption	To be completed on adoption
+Date d'effet	Effective date
+Circuit déclaré dans le document	Workflow declared in the document
+Circuit figé au premier visa de cette version	Workflow fixed at the first sign-off of this version
+empreinte	fingerprint
+Visé	Signed off
+Voir tous les circuits	See all workflows
+Chaque annexe se télécharge séparément, au format A4, prête à imprimer et à signer.	Each appendix downloads separately, in A4 format, ready to print and sign.
+Renseigné par	Completed by
+Fréquence	Frequency
+Conservé par	Kept by
+Sélectionner	Select
+Sélection	Selection
+Aperçu du formulaire	Form preview
+Historique des révisions	Revision history
+Date	Date
+Objet	Purpose
+Par	By
+Dispositions concernées	Provisions concerned
+En attente	Pending
+Aucune personne désignée	No one designated
+Document abrogé	Repealed document
+Document supprimé du registre	Document deleted from the register
+Préparer une convention	Prepare an agreement
+Ce modèle se remplit par formulaire : chaque donnée est saisie une seule fois, les variantes sont choisies et le Word ou le PDF ne sont produits que lorsque la convention est complète et cohérente.	This template is filled in through a form: each item is entered only once, options are chosen, and the Word or PDF file is produced only when the agreement is complete and consistent.
+Voir les dossiers en cours	See files in progress
+Fermer l'aperçu	Close the preview
+Ouvrir le document	Open the document
+Circuit	Workflow
+Prise de connaissance	Acknowledgement
+Prise de connaissance —	Acknowledgement —
+examiner le document	review the document
+À l'adoption	On adoption
+Tout désélectionner	Deselect all
+Formats	Formats
+toutes	all
+aucune	none
+seulement celles cochées	only those ticked
+ZIP	ZIP
+Recueil PDF	PDF compilation
+Modification du circuit	Changing the workflow
+Fonction	Function
+Qui doit viser	Who must sign off
+une personne	one person
+toutes les personnes	everyone
+la majorité	the majority
+Obligatoire	Mandatory
+Date de séance et PV	Meeting date and minutes
+Monter	Move up
+Descendre	Move down
+Supprimer l'étape	Delete the step
++ Ajouter une étape	+ Add a step
+Nouvelle étape	New step
+Délai de prise de connaissance après adoption (jours)	Acknowledgement deadline after adoption (days)
+Enregistrer le circuit	Save the workflow
+Revenir au circuit déclaré dans les documents	Revert to the workflow declared in the documents
+Annuler	Cancel
+Enregistrer	Save
+Le document cesse de s'appliquer. Il reste consultable dans les Archives, avec ses versions et ses visas.	The document ceases to apply. It remains available in the Archives, with its versions and sign-offs.
+Le document disparaît du registre et des archives visibles. Il reste dans l'historique du dépôt et dans le journal ; l'administrateur peut le rétablir.	The document disappears from the register and the visible archives. It remains in the repository history and in the log; the administrator can restore it.
+Motif (obligatoire)	Reason (required)
+Abroger…	Repeal…
+Supprimer du registre	Delete from the register
+Vérification	Review
+Approbation	Approval
+Adoption par le Conseil d'Administration	Adoption by the Board of Directors
+Adoption	Adoption
+Viser	Sign off
+Approuver	Approve
+Attester	Acknowledge
+Renvoyer	Return
+Renvoyer avec commentaire	Return with a comment
+Renvoyer pour modification	Return for changes
+Passer ›	Skip ›
+Commentaire (facultatif)	Comment (optional)
+Commentaire	Comment
+Continuer…	Continue…
+Motif du renvoi (obligatoire)	Reason for return (required)
+Ce qui doit être corrigé avant de viser	What must be corrected before signing off
+Date de la séance	Meeting date
+Référence du procès-verbal	Minutes reference
+PV n°…	Minutes no.…
+Enregistrer l'adoption	Record the adoption
+Vous avez tout traité.	You have dealt with everything.
+Retour à « À traiter »	Back to “To do”
+Attester votre lecture	Acknowledge your reading
+Renvoyer le document pour modification	Return the document for changes
+Enregistrer l'adoption par le Conseil	Record the adoption by the Board
+Donner votre visa	Give your sign-off
+En qualité de	In the capacity of
+Séance	Meeting
+Vous déclarez avoir lu et compris ce document, dans cette version.	You declare that you have read and understood this document, in this version.
+L'attestation est enregistrée à votre nom, avec la date et l'heure.	The acknowledgement is recorded in your name, with the date and time.
+Le circuit s'arrête pour cette version.	The workflow stops for this version.
+Les rédacteurs voient votre motif ; le circuit reprendra sur le texte corrigé.	Drafters see your reason; the workflow will resume on the corrected text.
+Votre visa est enregistré à votre nom, avec la date, l'heure et l'empreinte du texte.	Your sign-off is recorded in your name, with the date, time and fingerprint of the text.
+Il ne vaut que pour ce texte : toute modification ultérieure demandera un nouveau visa.	It applies only to this text: any later change will require a new sign-off.
+Document renvoyé pour modification.	Document returned for changes.
+Prise de connaissance enregistrée.	Acknowledgement recorded.
+Adoption enregistrée.	Adoption recorded.
+Visa enregistré.	Sign-off recorded.
+Le circuit est complet : le document passe en vigueur (publication en cours, quelques minutes).	The workflow is complete: the document comes into force (publishing, a few minutes).
+Votre accès ne permet pas d'enregistrer ce visa. Adressez-vous à l'administrateur.	Your access does not allow you to record this sign-off. Contact the administrator.
+Votre niveau de partage ne permet pas d'enregistrer un visa. Demandez à l'administrateur de vous donner accès en tant que contributeur.	Your sharing level does not allow you to record a sign-off. Ask the administrator to give you contributor access.
+L'enregistrement a échoué. Réessayez.	Saving failed. Please try again.
+Indiquez le motif du renvoi.	Enter the reason for the return.
+Indiquez le motif.	Enter the reason.
+Indiquez la date de la séance du Conseil.	Enter the date of the Board meeting.
+La date de séance ne peut pas être dans le futur.	The meeting date cannot be in the future.
+Cette action n'est plus possible : la page a été mise à jour.	This action is no longer possible: the page has been updated.
+Opération refusée par la base : droits insuffisants.	Operation refused by the database: insufficient rights.
+Opération réservée à l'administrateur.	Operation reserved for the administrator.
+Opération réservée à l'administrateur et au RCCI.	Operation reserved for the administrator and the Compliance Officer.
+Abroger et archiver un document	Repeal and archive a document
+Supprimer un document du registre	Delete a document from the register
+Rétablir un document dans le registre	Restore a document to the register
+Le document cesse de s'appliquer et quitte le registre.	The document ceases to apply and leaves the register.
+Il reste consultable dans les Archives, avec ses versions et ses visas.	It remains available in the Archives, with its versions and sign-offs.
+Le document disparaît du registre et des archives visibles.	The document disappears from the register and the visible archives.
+Il reste dans l'historique du dépôt et dans le journal ; l'administrateur peut le rétablir.	It remains in the repository history and in the log; the administrator can restore it.
+Le document revient dans le registre, avec son état d'avant.	The document returns to the register, in its previous state.
+Abroger	Repeal
+Supprimer	Delete
+Les visas électroniques ne sont pas disponibles dans cette vue. Reconnectez-vous au référentiel.	Electronic sign-offs are not available in this view. Sign in to the repository again.
+· facultative	· optional
+Correction mineure : les lectures de la version en vigueur restent valables	Minor correction: readings of the version in force remain valid
+Demandée aux personnes concernées après l'adoption	Requested from the people concerned after adoption
+Vous êtes administrateur : attribuez les fonctions dans la page Membres.	You are an administrator: assign functions on the Members page.
+Aucune fonction ne vous est attribuée : vous consultez le document.	No function is assigned to you: you are viewing the document.
+Session expirée : reconnectez-vous.	Session expired: sign in again.
+Session expirée	Session expired
+Lecture seule	Read only
+Lecture seule.	Read only.
+Aucune fonction attribuée	No function assigned
+En cours	In progress
+Aucun lecteur désigné	No designated reader
+Circuits à corriger	Workflows to fix
+Ouvrir les circuits	Open the workflows
+Aucun renvoi, aucun circuit bloqué.	No returns, no blocked workflows.
+Vérifier et enregistrer…	Review and save…
+Attribuez d'abord des fonctions.	Assign functions first.
+Personne pour l'instant.	Nobody yet.
+Lu et attesté	Read and acknowledged
+En cours d'approbation	Being approved
+En cours d'approbation — lecture demandée après l'adoption	Being approved — reading requested after adoption
+Vous serez invité à le lire et à l'attester dès son adoption.	You will be asked to read and acknowledge it as soon as it is adopted.
+Aucun document ne vous est attribué pour le moment. L'administrateur vous préviendra lorsqu'un document vous concernera.	No document is assigned to you yet. The administrator will let you know when a document concerns you.
+Vous êtes à jour : aucune lecture en attente.	You are up to date: no pending readings.
+Aucun document à ce jour	No document so far
+Aucune lecture en attente.	No pending readings.
+À lire et attester	To read and acknowledge
+Votre prise de connaissance	Your acknowledgement
+Lisez le document, puis confirmez avec le bouton en haut de la page.	Read the document, then confirm with the button at the top of the page.
+Le suivi n'est pas disponible dans cette vue.	Tracking is not available in this view.
+défini par l'administrateur	set by the administrator
+déclaré dans les documents	declared in the documents
+Chaque document de ce type reprend le circuit inscrit dans son en-tête.	Each document of this type takes the workflow set out in its header.
+Les versions déjà visées gardent le circuit de leur premier visa.	Versions already signed off keep the workflow of their first sign-off.
+Opération refusée : réservée à l'administrateur.	Operation refused: reserved for the administrator.
+Chaque étape doit avoir un nom.	Each step must have a name.
+Le circuit doit comporter au moins une étape obligatoire.	The workflow must have at least one mandatory step.
+S'applique aux versions dont le circuit n'a pas encore commencé.	Applies to versions whose workflow has not yet started.
+Une version déjà visée garde le circuit de son premier visa.	A version already signed off keeps the workflow of its first sign-off.
+La Procédure de maîtrise documentaire doit rester cohérente avec ce circuit.	The Document Control Procedure must remain consistent with this workflow.
+Attention :	Warning:
+Enregistrement refusé : réservé à l'administrateur.	Saving refused: reserved for the administrator.
+Modification refusée : seul l'administrateur peut attribuer les fonctions.	Change refused: only the administrator can assign functions.
+lecture demandée à tous	reading requested from everyone
+demandé à tous	requested from everyone
+plus à tous	no longer everyone
+Enregistrer les lectures obligatoires	Save mandatory readings
+Les personnes ajoutées devront attester leur lecture une fois le document en vigueur.	The people added will have to acknowledge their reading once the document is in force.
+Lectures obligatoires enregistrées.	Mandatory readings saved.
+Modification refusée : seul l'administrateur peut désigner les lecteurs.	Change refused: only the administrator can designate readers.
+Empreinte visée	Fingerprint signed off
+Empreinte en ligne	Online fingerprint
+Date et heure (UTC)	Date and time (UTC)
+Fonction détenue	Function held
+Le téléchargement n'est pas disponible dans cette vue.	Download is not available in this view.
+Le téléchargement n'est pas disponible dans cette vue. Rechargez la page.	Download is not available in this view. Reload the page.
+Le téléchargement a échoué.	Download failed.
+Le téléchargement a échoué. Réessayez.	Download failed. Please try again.
+Fichier introuvable dans cette version du référentiel.	File not found in this version of the repository.
+Une confirmation est déjà ouverte. Réessayez dans un instant.	A confirmation is already open. Try again in a moment.
+Une confirmation est déjà ouverte.	A confirmation is already open.
+Pour confirmer, écrivez :	To confirm, type:
+Écrivez la phrase vous-même : c'est ce qui confirme votre intention.	Type the phrase yourself: that is what confirms your intention.
+Personne non identifiée	Unidentified person
+aucune étape obligatoire	no mandatory step
+Approuvés	Approved
+(mise en vigueur en cours)	(coming into force)
+Circuit à configurer	Workflow to configure
+Collaborateur	Staff member
+Accès complet	Full access
+Modèle PDF	PDF template
+date de séance et PV	meeting date and minutes

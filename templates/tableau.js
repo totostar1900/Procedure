@@ -131,7 +131,7 @@
       st.steps.forEach(function (x, i) {
         var k = x.st.label, e = dl[k] || (dl[k] = { label: k, durees: [], max: 0, delais: [] });
         if (e.delais.indexOf(x.st.delai) < 0) e.delais.push(x.st.delai);
-        if (x.done && x.sigs.length) { var fin = x.sigs[0].at; if (new Date(fin).getTime() >= lim) { var deb = debutEtape(d, st, x); if (deb) e.durees.push((new Date(fin) - new Date(deb)) / JOUR); } }
+        if (x.done && x.sigs.length) { var fin = x.sigs[0].at; if (new Date(fin).getTime() >= lim) { var deb = debutEtape(d, st, x); if (deb) e.durees.push(Math.max(0, (new Date(fin) - new Date(deb)) / JOUR)); } }
         if (st.current === x) e.max = Math.max(e.max, jours(debutEtape(d, st, x)));
       });
     });
@@ -193,7 +193,7 @@
     var IC = { visas: ["v", "✓"], renvois: ["r", "↩"], modifications: ["m", "✎"], adoptions: ["a", "★"], lectures: ["l", "◉"], abrogations: ["x", "⌫"], acces: ["x", "⚙"] };
     var fluxHtml = '<div class="chips">' + CAT.map(function (c) { return '<button type="button" class="chip' + (T.flux === c[0] ? " on" : "") + '" data-tflux="' + c[0] + '">' + c[1] + "</button>"; }).join("") + "</div>" +
       (T.journal === null && !V.owner ? "" : "") +
-      (ev.length ? '<ul class="feed">' + ev.slice(0, 60).map(function (e) { var ic = IC[e.cat] || ["x", "•"]; return "<li><time>" + esc(fmtDT(e.at).replace(" à ", " · ")) + '</time><span class="ic ' + ic[0] + '">' + ic[1] + "</span><span><b>" + esc(e.qui) + "</b> " + e.texte + "</span></li>"; }).join("") + "</ul>" : '<p class="tt-empty">Aucune opération sur la période.</p>');
+      (ev.length ? '<ul class="feed">' + ev.slice(0, 60).map(function (e) { var ic = IC[e.cat] || ["x", "•"]; return "<li><time>" + esc(fmtDT(e.at).replace(/ à |, (?=\d\d:)/, " · ")) + '</time><span class="ic ' + ic[0] + '">' + ic[1] + "</span><span><b>" + esc(e.qui) + "</b> " + e.texte + "</span></li>"; }).join("") + "</ul>" : '<p class="tt-empty">Aucune opération sur la période.</p>');
 
     // Revues
     var revHtml = rev.length ? '<table class="mini"><thead><tr><th>Document</th><th>Prochaine revue</th><th class="n"></th></tr></thead><tbody>' + rev.map(function (x) {
@@ -233,7 +233,10 @@
   // Relance : message prêt à envoyer (pas d'envoi automatique)
   function relancer(kind, i) {
     var to = [], sujet = "", corps = "", lien = location.origin + location.pathname;
-    if (kind === "a") { var a = T.lignes[i]; to = a.qui; sujet = "Référentiel : " + a.d.id + " attend votre " + a.x.st.label.toLowerCase(); corps = "Bonjour,\n\nLe document " + a.d.id + " — " + a.d.titre + " (version " + a.d.version + ") attend votre " + a.x.st.label.toLowerCase() + " depuis " + a.age + " jour(s) (délai fixé : " + a.delai + " jours).\n\nVous pouvez le viser ici : " + lien + "#" + docHash(a.d) + "\n\nMerci."; }
+    var EN = window.PCI18N && PCI18N.lang === "en", tr = function (x) { return EN ? PCI18N.t(x) : x; };
+    if (kind === "a" && EN) { var ae = T.lignes[i]; to = ae.qui; sujet = "Repository: " + ae.d.id + " awaits your " + tr(ae.x.st.label).toLowerCase(); corps = "Hello,\n\nDocument " + ae.d.id + " — " + tr(ae.d.titre) + " (version " + ae.d.version + ") has been awaiting your " + tr(ae.x.st.label).toLowerCase() + " for " + ae.age + " day(s) (deadline: " + ae.delai + " days).\n\nYou can sign it off here: " + lien + "#" + docHash(ae.d) + "\n\nThank you."; }
+    else if (kind !== "a" && EN) { var le = T.lecLignes[i]; to = le.manquants; sujet = "Repository: reading of " + le.d.id + " to acknowledge"; corps = "Hello,\n\nDocument " + le.d.id + " — " + tr(le.d.titre) + " (version " + le.d.version + ") is in force. Please read it and acknowledge your reading (deadline: " + le.delai + " days): " + lien + "#" + le.d.id + "\n\nThank you."; }
+    else if (kind === "a") { var a = T.lignes[i]; to = a.qui; sujet = "Référentiel : " + a.d.id + " attend votre " + a.x.st.label.toLowerCase(); corps = "Bonjour,\n\nLe document " + a.d.id + " — " + a.d.titre + " (version " + a.d.version + ") attend votre " + a.x.st.label.toLowerCase() + " depuis " + a.age + " jour(s) (délai fixé : " + a.delai + " jours).\n\nVous pouvez le viser ici : " + lien + "#" + docHash(a.d) + "\n\nMerci."; }
     else { var l = T.lecLignes[i]; to = l.manquants; sujet = "Référentiel : lecture de " + l.d.id + " à attester"; corps = "Bonjour,\n\nLe document " + l.d.id + " — " + l.d.titre + " (version " + l.d.version + ") est en vigueur. Merci de le lire et d'attester votre lecture (délai : " + l.delai + " jours) : " + lien + "#" + l.d.id + "\n\nMerci."; }
     var mails = to.map(function (id) { return V.emails[id]; }).filter(Boolean);
     var el = document.createElement("div"); el.className = "cfm-scrim";
@@ -248,7 +251,7 @@
   }
 
   async function exporterTableau() {
-    var lignes = [["Référence", "Titre", "Type", "Statut", "Version", "Étape en cours", "Attendu de", "Depuis (jours)", "Délai (jours)", "En retard", "Lectures attestées", "Lectures attendues", "Brouillon en cours", "Prochaine revue"].join(";")];
+    var lignes = [["Référence", "Titre", "Type", "Statut", "Version", "Étape en cours", "Attendu de", "Depuis (jours)", "Délai (jours)", "En retard", "Lectures attestées", "Lectures attendues", "Brouillon en cours", "Prochaine revue"].map(function (x) { return window.PCI18N ? PCI18N.t(x) : x; }).join(";")];
     var att = attentes(docsSuivis()), lec = lectures(docsSuivis());
     docsSuivis().forEach(function (d) {
       var a = att.filter(function (x) { return x.d === d; })[0], l = lec.filter(function (x) { return x.d === d; })[0], dr = V.redac && V.redac[d.id];

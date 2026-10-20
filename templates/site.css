@@ -732,3 +732,10 @@ table.mini .acts2 { white-space: nowrap; text-align: right; }
 .gt-invite div { display: flex; gap: 8px; margin-top: 8px; }
 @media (prefers-reduced-motion: reduce) { .gt-spot, .gt-card, .gd-steps li, .gt-invite { transition: none; animation: none; } .gt-spot::after { display: none; } }
 @media print { .gt, .gt-invite { display: none !important; } }
+html.i18n-attente body { visibility: hidden; }
+.lang-sw { align-self: flex-start; display: inline-flex; border: 1px solid rgba(255,255,255,.22); border-radius: var(--radius); overflow: hidden; margin: 0 0 10px 6px; }
+.lang-sw button { background: none; border: 0; color: var(--on-navy-muted); font: inherit; font-size: var(--fs-xs); font-weight: 600; letter-spacing: .06em; padding: 3px 9px; cursor: pointer; }
+.lang-sw button + button { border-left: 1px solid rgba(255,255,255,.22); }
+.lang-sw button:hover { color: var(--on-navy); }
+.lang-sw button.on { background: rgba(232,160,32,.22); color: #F3C66B; }
+.mbar-lang { margin: 0 0 0 auto; }

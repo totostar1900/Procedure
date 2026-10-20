@@ -1,0 +1,332 @@
+# Motifs : expression (ancrée au début et à la fin) → traduction. $1, $2… sont traduits à leur tour.
+# Dates écrites par la génération (français)
+(\d{1,2}) janvier (\d{4})	$1 January $2
+(\d{1,2}) février (\d{4})	$1 February $2
+(\d{1,2}) mars (\d{4})	$1 March $2
+(\d{1,2}) avril (\d{4})	$1 April $2
+(\d{1,2}) mai (\d{4})	$1 May $2
+(\d{1,2}) juin (\d{4})	$1 June $2
+(\d{1,2}) juillet (\d{4})	$1 July $2
+(\d{1,2}) août (\d{4})	$1 August $2
+(\d{1,2}) septembre (\d{4})	$1 September $2
+(\d{1,2}) octobre (\d{4})	$1 October $2
+(\d{1,2}) novembre (\d{4})	$1 November $2
+(\d{1,2}) décembre (\d{4})	$1 December $2
+1er (.+)	1 $1
+# Dates abrégées (pages d'administration, rendues avant le chargement de la traduction)
+(\d{1,2}) janv\. (\d{4}),? (\d\d:\d\d)	$1 Jan $2, $3
+(\d{1,2}) janv\. (\d{4})	$1 Jan $2
+(\d{1,2}) févr\. (\d{4}),? (\d\d:\d\d)	$1 Feb $2, $3
+(\d{1,2}) févr\. (\d{4})	$1 Feb $2
+(\d{1,2}) mars (\d{4}),? (\d\d:\d\d)	$1 Mar $2, $3
+(\d{1,2}) mars (\d{4})	$1 Mar $2
+(\d{1,2}) avr\. (\d{4}),? (\d\d:\d\d)	$1 Apr $2, $3
+(\d{1,2}) avr\. (\d{4})	$1 Apr $2
+(\d{1,2}) mai (\d{4}),? (\d\d:\d\d)	$1 May $2, $3
+(\d{1,2}) mai (\d{4})	$1 May $2
+(\d{1,2}) juin (\d{4}),? (\d\d:\d\d)	$1 Jun $2, $3
+(\d{1,2}) juin (\d{4})	$1 Jun $2
+(\d{1,2}) juil\. (\d{4}),? (\d\d:\d\d)	$1 Jul $2, $3
+(\d{1,2}) juil\. (\d{4})	$1 Jul $2
+(\d{1,2}) août (\d{4}),? (\d\d:\d\d)	$1 Aug $2, $3
+(\d{1,2}) août (\d{4})	$1 Aug $2
+(\d{1,2}) sept\. (\d{4}),? (\d\d:\d\d)	$1 Sep $2, $3
+(\d{1,2}) sept\. (\d{4})	$1 Sep $2
+(\d{1,2}) oct\. (\d{4}),? (\d\d:\d\d)	$1 Oct $2, $3
+(\d{1,2}) oct\. (\d{4})	$1 Oct $2
+(\d{1,2}) nov\. (\d{4}),? (\d\d:\d\d)	$1 Nov $2, $3
+(\d{1,2}) nov\. (\d{4})	$1 Nov $2
+(\d{1,2}) déc\. (\d{4}),? (\d\d:\d\d)	$1 Dec $2, $3
+(\d{1,2}) déc\. (\d{4})	$1 Dec $2
+Document interne · Généré le (.+)	Internal document · Generated on $1
+(.+) · Agrément (.+)	$1 · Licence $2
+# Phrases de double validation
+viser (PC-[A-Z0-9-]+)	sign off $1
+approuver (PC-[A-Z0-9-]+)	approve $1
+adopter (PC-[A-Z0-9-]+)	adopt $1
+renvoyer (PC-[A-Z0-9-]+)	return $1
+j'ai lu (PC-[A-Z0-9-]+)	I have read $1
+abroger (PC-[A-Z0-9-]+)	repeal $1
+supprimer (PC-[A-Z0-9-]+)	delete $1
+rétablir (PC-[A-Z0-9-]+)	restore $1
+créer (PC-[A-Z0-9-]+)	create $1
+soumettre (PC-[A-Z0-9-]+)	submit $1
+abandonner (PC-[A-Z0-9-]+)	abandon $1
+modifier le circuit (.+)	change the workflow $1
+enregistrer les lectures	save the readings
+importer le fichier	import the file
+repartir du texte publié	restart from the published text
+rétablir le circuit	restore the workflow
+enregistrer les modifications	save the changes
+modifier l'accès	change the access
+ouvrir l'accès	grant the access
+retirer l'invitation	withdraw the invitation
+enregistrer les prérogatives	save the powers
+# Compteurs
+1 action en attente	1 pending action
+(\d+) actions en attente	$1 pending actions
+Vous avez 1 action en attente\.	You have 1 pending action.
+Vous avez (\d+) actions en attente\.	You have $1 pending actions.
+1 document affiché	1 document shown
+(\d+) documents affichés	$1 documents shown
+1 document	1 document
+(\d+) documents	$1 documents
+1 membre	1 member
+(\d+) membres	$1 members
+1 événement	1 event
+(\d+) événements	$1 events
+(\d+) en vigueur	$1 in force
+(\d+) en projet	$1 in draft
+(\d+) en révision	$1 under revision
+(\d+) à rédiger	$1 to be drafted
+(\d+) au-delà du délai	$1 past the deadline
+(\d+) en retard	$1 overdue
+(\d+) brouillon\(s\)	$1 draft(s)
+(\d+) soumis	$1 submitted
+refus	rejection
+(\d+) autre\(s\) sous 60 jours	$1 other(s) within 60 days
+(\d+) version\(s\) suivie\(s\), par étape du circuit	$1 version(s) tracked, by workflow step
+(\d+) invitation\(s\) de plus de 30 jours \((.+)\)\.	$1 invitation(s) older than 30 days ($2).
+(\d+) étape\(s\) au-delà du délai fixé\.	$1 step(s) past the set deadline.
+(\d+) attestation\(s\) au-delà du délai de prise de connaissance\.	$1 acknowledgement(s) past the acknowledgement deadline.
+(\d+) document\(s\) en vigueur n'ont aucune lecture obligatoire \((.+)\)\.	$1 document(s) in force have no mandatory reading ($2).
+(\d+) document\(s\) modifié\(s\), non enregistré\(s\)	$1 document(s) changed, not saved
+objectif (\d+) j	target $1 d
+(\d+),(\d+) j	$1.$2 d
+(\d+) j	$1 d
+(\d+) jours?	$1 days
+échue depuis (\d+) j	overdue by $1 d
+dans (\d+) j	in $1 d
+Afficher les (\d+) attentes	Show all $1 pending items
+(\d+) / (\d+) visas	$1 / $2 sign-offs
+(\d+) sur (\d+) personnes? concernées?	$1 of $2 people concerned
+(\d+) sur (\d+) à traiter	$1 of $2 to do
+Il vous reste (\d+) documents? à traiter\.	You have $1 document(s) left to deal with.
+(\d+) personnes? désignées?	$1 designated people
+Ouverte après l'approbation · (.+)	Opens after approval · $1
+(\d+) points? à valider avant adoption	$1 point(s) to settle before adoption
+(\d+) modifications? non enregistrées?	$1 unsaved change(s)
+(\d+) modification\(s\) non enregistrée\(s\)	$1 unsaved change(s)
+(\d+) Ko	$1 KB
+(\d+) pages	$1 pages
+Vous avez (\d+) documents? à lire et à attester\. Ouvrez-le, lisez-le, puis confirmez votre lecture avec le bouton en haut de la page\.	You have $1 document(s) to read and acknowledge. Open it, read it, then confirm your reading with the button at the top of the page.
+# Tableau de bord
+Situation au (.+) · mise à jour en continu\.	Status as of $1 · updated continuously.
+(.+) : (\d+)	$1: $2
+Pas encore lu : (.+) ·	Not yet read: $1 ·
+Pas encore lu :	Not yet read:
+En retard \((\d+) j, délai (\d+) j\)	Overdue ($1 d, deadline $2 d)
+En retard \((\d+) j, délai (\d+) j\) :	Overdue ($1 d, deadline $2 d):
+nouveau · (\d+) article\(s\)	new · $1 article(s)
+(.+) · en vigueur depuis le (.+)	$1 · in force since $2
+a ouvert un brouillon de (.+)	opened a draft of $1
+a abandonné le brouillon de (.+)	abandoned the draft of $1
+a attesté sa lecture de	acknowledged reading
+a donné son visa \((.+)\) à	signed off ($1)
+a modifié les lectures obligatoires de (.+)	changed the mandatory readings of $1
+a retiré l'invitation de (.+)	withdrew the invitation of $1
+a modifié l'accès de (.+)	changed the access of $1
+ouvert un accès	granted access
+a	has
+a visé	signed off
+a renvoyé	returned
+a rétabli	restored
+a rétabli (.+)	restored $1
+le circuit des documents de type « (.+) »	the workflow for documents of type “$1”
+a modifié	changed
+a soumis	submitted
+la création de (.+)	the creation of $1
+une modification de (.+)	a change to $1
+Référentiel : (PC-[A-Z0-9-]+) attend votre (.+)	Repository: $1 awaits your $2
+Référentiel : lecture de (PC-[A-Z0-9-]+) à attester	Repository: reading of $1 to acknowledge
+vérification	review
+approbation	approval
+adoption par le conseil d'administration	adoption by the Board of Directors
+# Circuits
+(\d+) documents? · revue (.+?) · (.+)	$1 document(s) · $2 review · $3
+(.+) · délai (\d+) j	$1 · deadline $2 d
+(.+) · date de séance et PV · délai (\d+) j	$1 · meeting date and minutes · deadline $2 d
+Personnes désignées · délai (\d+) j	Designated people · deadline $1 d
+(.+) — (.+) : visé	$1 — $2: signed off
+(.+) — (.+) : en cours	$1 — $2: in progress
+(.+) : visé	$1: signed off
+(.+) : en cours	$1: in progress
+« (.+) » : aucune personne active n'a la fonction (.+)	“$1”: no active person holds the function $2
+« (.+) » et « (.+) » demandent la même fonction, détenue par une seule personne : la règle des quatre yeux bloquera le circuit	“$1” and “$2” require the same function, held by a single person: the four-eyes rule will block the workflow
+(.+) — aucune étape obligatoire	$1 — no mandatory step
+aucun titulaire de la fonction	no holder of the function
+Circuit des documents de type « (.+) » enregistré\.	Workflow for documents of type “$1” saved.
+Le type « (.+) » reprend le circuit déclaré dans chaque document\.	The type “$1” takes the workflow declared in each document.
+Modifier le circuit des documents de type « (.+) »	Change the workflow for documents of type “$1”
+Circuit des documents de type « (.+) »	Workflow for documents of type “$1”
+Type : (.+)	Type: $1
+# Documents
+Aperçu de (.+)	Preview of $1
+Sélectionner (.+)	Select $1
+Version (.+) · mise à jour le (.+)	Version $1 · updated on $2
+mise à jour le (.+)	updated on $1
+Annexe (\d+)	Appendix $1
+Art\. (\d+) à (\d+)	Art. $1 to $2
+(.+) \(vous\)	$1 (you)
+Vos fonctions : (.+)\.	Your functions: $1.
+Vos fonctions :	Your functions:
+Prise de connaissance · depuis (\d+) jours	Acknowledgement · for $1 days
+Prise de connaissance · depuis hier	Acknowledgement · since yesterday
+depuis (\d+) jours	for $1 days
+Renvoyé par (.+) : « (.+) »	Returned by $1: “$2”
+Par (.+) le (.+) : « (.+) »	By $1 on $2: “$3”
+par (.+) le (.+) : « (.+) »\. Le circuit reprendra sur le texte corrigé \(nouvelle empreinte\)\.	by $1 on $2: “$3”. The workflow will resume on the corrected text (new fingerprint).
+le (\d.+?) — (.+)	on $1 — $2
+le (\d.+)	on $1
+Brouillon · (.+) · « (.+) »	Draft · $1 · “$2”
+Soumis le (.+), publication en cours · « (.+) »	Submitted on $1, publishing · “$2”
+Publication refusée : (.+) · « (.+) »	Publication rejected: $1 · “$2”
+Publication refusée : (.+)	Publication rejected: $1
+par (.+) — (.+) : « (.+) »	by $1 — $2: “$3”
+(.+) en qualité de (.+) : je vise, après vérification, le document (PC-[A-Z0-9-]+), version (.+) \(empreinte	$1 as $2: I sign off, after review, document $3, version $4 (fingerprint
+en qualité de (.+) : je vise, après vérification, le document (PC-[A-Z0-9-]+), version (.+) \(empreinte	as $1: I sign off, after review, document $2, version $3 (fingerprint
+en qualité de (.+) : j'approuve, à l'étape « (.+) », le document (PC-[A-Z0-9-]+), version (.+) \(empreinte	as $1: I approve, at the “$2” step, document $3, version $4 (fingerprint
+en qualité de (.+) : j'atteste que le Conseil d'Administration a adopté le document (PC-[A-Z0-9-]+), version (.+) \(empreinte	as $1: I certify that the Board of Directors adopted document $2, version $3 (fingerprint
+: je déclare avoir lu et compris le document (PC-[A-Z0-9-]+), version (.+) \(empreinte	: I declare that I have read and understood document $1, version $2 (fingerprint
+en qualité de (.+)	as $1
+Renvoi à l'étape « (.+) »	Return at the “$1” step
+— étape « (.+) »\. Le circuit s'arrête ; il reprendra sur le texte corrigé\.	— “$1” step. The workflow stops; it will resume on the corrected text.
+Document suivant : (.+) ›	Next document: $1 ›
+Vous avez rédigé cette version : une autre personne ayant la fonction « (.+) » doit la viser \(règle des quatre yeux\)\.	You drafted this version: another person holding the “$1” function must sign it off (four-eyes rule).
+Vous avez déjà visé cette étape ; elle attend encore (\d+) visas?\.	You have already signed off this step; it still needs $1 sign-off(s).
+Vous avez déjà visé une autre étape de cette version : une autre personne ayant la fonction « (.+) » doit viser \(règle des quatre yeux\)\.	You have already signed off another step of this version: another person holding the “$1” function must sign off (four-eyes rule).
+(PC-[A-Z0-9-]+) abrogé : il est désormais dans les Archives\.	$1 repealed: it is now in the Archives.
+(PC-[A-Z0-9-]+) supprimé du registre\.	$1 deleted from the register.
+(PC-[A-Z0-9-]+) rétabli dans le registre\.	$1 restored to the register.
+Abroger et archiver (PC-[A-Z0-9-]+)	Repeal and archive $1
+Supprimer (PC-[A-Z0-9-]+)	Delete $1
+visé le (.+)	signed off on $1
+séance du (.+)	meeting of $1
+Lu et attesté le (.+)	Read and acknowledged on $1
+Fonctions attribuées depuis le (.+)	Functions assigned since $1
+Projet de révision, version (.+)	Draft revision, version $1
+Révision v(.+)	Revision v$1
+révision v(.+)	revision v$1
+(.+) · v(\d.*)	$1 · v$2
+# Éditeur
+Brouillon enregistré · (.+)	Draft saved · $1
+Modification · (.+)	Change · $1
+← (PC-[A-Z0-9-]+) · retour au document	← $1 · back to the document
+Texte de travail v(.+) \((.+)\) → le projet reste en version (.+) ; le circuit recommence sur le texte modifié\.	Working text v$1 ($2) → the draft stays at version $3; the workflow starts again on the edited text.
+Texte de travail v(.+) \((.+)\) → nouvelle version (.+)\. La version (.+) reste en vigueur jusqu'à l'adoption\.	Working text v$1 ($2) → new version $3. Version $4 remains in force until adoption.
+Titre ([IVXLC]+) —	Title $1 —
+Article (\d+) —	Article $1 —
+Intitulé de l'article (\d+)	Heading of article $1
+Texte de l'article (\d+)	Text of article $1
+([IVXLC]+)\. (.+)	$1. $2
+Soumettre la modification de (PC-[A-Z0-9-]+)	Submit the change to $1
+Abandonner le brouillon de (PC-[A-Z0-9-]+)	Abandon the draft of $1
+Brouillon créé : (.+)	Draft created: $1
+Modifications de la v(.+) par rapport à la v(.+)	Changes in v$1 compared with v$2
+La modification porte sur le projet de révision v(.+)\.?	The change concerns the draft revision v$1.
+(\d+) article\(s\) ou passage\(s\)\.	$1 article(s) or passage(s).
+Supprimer l'article « (.+) » \?	Delete the article “$1”?
+Nouveau document — il sera créé en projet v0\.9 à la soumission, puis suivra le circuit des documents de type « (.+) »\.?	New document — it will be created as draft v0.9 on submission, then follow the workflow for documents of type “$1”.
+(\d+) élément\(s\) de mise en forme n'ont pas pu être repris \(couleurs, encadrés, styles inconnus\)\.	$1 formatting element(s) could not be kept (colours, boxes, unknown styles).
+« (.+) » ressemble à un titre ou à un article, mais n'a pas le style Word « Titre 1 » / « Titre 2 » : il reste un paragraphe\.	“$1” looks like a title or an article, but does not have the Word style “Heading 1” / “Heading 2”: it stays a paragraph.
+# Membres et journal
+Accès ouvert pour (.+)\. Prévenez la personne : elle se connecte sur (.+) avec son compte Microsoft 365\.	Access granted to $1. Let them know: they sign in at $2 with their Microsoft 365 account.
+Accès de (.+) mis à jour\.	Access for $1 updated.
+Modifier l'accès de (.+)	Change the access of $1
+connecté\(e\) le (.+)	signed in on $1
+invité\(e\) le (.+)	invited on $1
+Seul titulaire actif de : (.+)\. Désignez un remplaçant avant toute suspension\.	Only active holder of: $1. Appoint a replacement before any suspension.
+Fonction sans titulaire actif : (.+)\. Les documents qui en dépendent ne pourront pas être visés\.	Function without an active holder: $1. Documents that depend on it cannot be signed off.
+(.+) ne s'est jamais connecté\(e\)\.	$1 has never signed in.
+⚠ plus aucun titulaire actif de la fonction « (.+) » : les documents qui en dépendent ne pourront plus être visés	⚠ no active holder of the “$1” function any more: documents that depend on it can no longer be signed off
+⚠ Adresse hors de @(.+) : seuls les comptes de votre annuaire Microsoft 365 peuvent se connecter\.	⚠ Address outside @$1: only accounts in your Microsoft 365 directory can sign in.
+Fonctions : (.+)	Functions: $1
+Administrateur — prérogatives : (.+)	Administrator — powers: $1
+Accès : complet \(tout le référentiel\)	Access: full (the entire repository)
+Accès : employé \(seulement les documents attribués\)	Access: employee (assigned documents only)
+nom : (.+)	name: $1
+poste : (.+)	position: $1
+attribue (.+)	assigns $1
+retire (.+)	removes $1
+réactive l'accès	reactivates access
+suspend l'accès \(départ ou absence\)	suspends access (departure or absence)
+nomme administrateur	appoints as administrator
+retire les droits d'administration	removes administration rights
+prérogatives : (.+)	powers: $1
+accès employé \(documents attribués\)	employee access (assigned documents)
+accès complet	full access
+accès employé	employee access
+ouvre le tableau de bord	opens the dashboard
+retire le tableau de bord	removes the dashboard
+(PC-[A-Z0-9-]+) : à lire et attester	$1: to read and acknowledge
+(PC-[A-Z0-9-]+) : en consultation	$1: view only
+(PC-[A-Z0-9-]+) : retiré	$1: removed
+\+ (.+)	+ $1
+− (.+)	− $1
+réactivé	reactivated
+suspendu	suspended
+nommé administrateur	appointed administrator
+n'est plus administrateur	no longer an administrator
+super administrateur	super administrator
+n'est plus super administrateur	no longer super administrator
+tableau de bord ouvert	dashboard opened
+tableau de bord retiré	dashboard removed
+état : (.+)	state: $1
+sans changement visible	no visible change
+aucune fonction	no function
+aucune prérogative	no powers
+(.+), suspendu	$1, suspended
+Toutes	All
+Accès modifié : (.+)	Access changed: $1
+Accès ouvert : (.+)	Access granted: $1
+Invitation retirée : (.+)	Invitation withdrawn: $1
+(.+) s'est connecté\(e\)	$1 signed in
+— par (.+)	— by $1
+(\d+) actifs?	$1 active
+(.+) : donne (.+)	$1: grants $2
+(.+) : nommé\(e\) administrateur ; (.+)	$1: appointed administrator; $2
+(.+) : droits d'administration retirés	$1: administration rights removed
+(.+) : aucune prérogative	$1: no powers
+# Sélection et recueil
+(\d+) pièces? · (\d+) pages · extrait le (.+)	$1 item(s) · $2 pages · extracted on $3
+Référentiel documentaire Purpose Capital S\.A\. — extrait du (.+)	Purpose Capital S.A. document repository — extract of $1
+Fichier prêt : (.+)	File ready: $1
+Fichier enregistré : (.+)	File saved: $1
+La génération a échoué : (.+)	Generation failed: $1
+Dossier mis à jour par (.+)	File updated by $1
+Ce dossier a été créé avec la version (.+) · modèle v(.+)	This file was created with version $1 · template v$2
+Projet pour négociation du (.+)	Draft for negotiation of $1
+Établi le (.+)	Prepared on $1
+Facultatif\. À défaut : « (.+) »	Optional. Default: “$1”
+Modèle introuvable : (.+)	Template not found: $1
+# Génériques (en dernier)
+(.+) — par (.+)	$1 — by $2
+(.+?) ; (.+)	$1; $2
+(-?\d+),(\d+) j	$1.$2 d
+« (.+) »	“$1”
+(.+) — (.+)	$1 — $2
+# Compléments
+Nouveau document — il sera créé en projet v0\.9 à la soumission, puis suivra le circuit des documents de type « (.+) »\. (.+)	New document — it will be created as draft v0.9 on submission, then follow the workflow for documents of type “$1”. $2
+propriétaire : (.+)	owner: $1
+vérifié par : (.+)	reviewed by: $1
+approuvé par : (.+)	approved by: $1
+Texte de travail v(.+) \((.+)\) → nouvelle version (.+) après publication ; la version (.+) reste en vigueur jusqu'à l'adoption\.	Working text v$1 ($2) → new version $3 after publication; version $4 remains in force until adoption.
+Texte de travail v(.+) \((.+)\)	Working text v$1 ($2)
+a modifié ce brouillon le (.+)\.	changed this draft on $1.
+(\d+) passages? modifiés?, (\d+) ajoutés?, (\d+) supprimés?, titre ou résumé modifié\.	$1 passage(s) changed, $2 added, $3 deleted, title or summary changed.
+(\d+) passages? modifiés?, (\d+) ajoutés?, (\d+) supprimés?\.	$1 passage(s) changed, $2 added, $3 deleted.
+Le document (PC-[A-Z0-9-]+) est créé en projet \(version 0\.9\), avec les informations saisies à sa création\.	Document $1 is created as a draft (version 0.9), with the information entered at creation.
+La version (.+) reste en vigueur jusqu'à l'adoption de la nouvelle\.	Version $1 remains in force until the new one is adopted.
+Modifications de la v(.+) par rapport à la v(.+) en vigueur	Changes in v$1 compared with v$2 in force
+visé le (.+) sur une version antérieure	signed off on $1 on an earlier version
+(.+) · séance du (.+), (.+)	$1 · meeting of $2, $3
+(.+) · séance du (.+)	$1 · meeting of $2
+(PC-[A-Z0-9-]+) : (.+)	$1: $2
+lecture demandée à tous ; (.+)	reading requested from everyone; $1
+ajout de (.+)	adding $1
+retrait de (.+)	removing $1
+Ajouter (.+)	Add $1
+Fonctions attribuées depuis le (.+)	Functions assigned since $1
+(\d+) personnes? concernées?	$1 people concerned
+(\d+) / (\d+)	$1 / $2
+\(dans la limite de vos prérogatives : (.+)\)	(within the limits of your powers: $1)

@@ -1,0 +1,349 @@
+Code	Code
+Politique	Policy
+Procédure	Procedure
+Modèle de contrat	Contract template
+Mode opératoire	Operating instruction
+Formulaire	Form
+Déontologie	Ethics
+Gouvernance	Governance
+Conformité	Compliance
+Marchés de capitaux	Capital markets
+Clientèle	Clients
+LBC/FT	AML/CFT
+Risques	Risk
+Ressources humaines	Human resources
+Systèmes d'information	Information systems
+Opérations	Operations
+Marchés	Markets
+Président du Conseil	Chairman of the Board
+Président du Conseil d'Administration	Chairman of the Board of Directors
+Administrateur du Conseil	Board member
+Administrateur (membre du Conseil)	Director (Board member)
+Directeur Général	Chief Executive Officer
+RCCI	Compliance Officer
+Directeur Commercial	Head of Sales
+Directeur des Marchés de Capitaux	Head of Capital Markets
+Responsable de la conformité et du contrôle interne (RCCI)	Head of Compliance and Internal Control (RCCI)
+Conseil d'Administration	Board of Directors
+Conseil d'Administration (enregistrée par le Président)	Board of Directors (recorded by the Chairman)
+Propriétaire du domaine	Domain owner
+Responsable du processus	Process owner
+Directeur de la direction concernée	Head of the department concerned
+RCCI et conseil juridique	Compliance Officer and legal counsel
+Responsable du service	Head of the unit
+Propriétaire du document parent	Owner of the parent document
+Approbateur du document parent	Approver of the parent document
+Annuelle	Annual
+annuelle	annual
+1 à 2 ans	1 to 2 years
+Au fil de l'eau	Ongoing
+Avec le document parent	With the parent document
+12 mois après adoption	12 months after adoption
+après adoption	after adoption
+Employé	Employee
+Complet	Full
+Super admin	Super admin
+Actif	Active
+Invité	Invited
+Suspendu	Suspended
+← Dossiers d'opération	← Deal files
+Préambule	Preamble
+Aucune modification du texte.	No change to the text.
+Ajouté	Added
+Intitulé :	Heading:
+Chargement du texte…	Loading the text…
+Document introuvable.	Document not found.
+La modification des documents est réservée aux personnes ayant la fonction « Rédacteur » et à l'administrateur.	Editing documents is reserved for people with the “Drafter” function and for the administrator.
+La modification des documents se fait sur le site du référentiel, referentiel.purposecapital.africa.	Documents are edited on the repository site, referentiel.purposecapital.africa.
+Le texte source n'est pas disponible dans cette vue. La modification se fait sur referentiel.purposecapital.africa.	The source text is not available in this view. Editing is done on referentiel.purposecapital.africa.
+Modification publiée	Change published
+Recharger le référentiel	Reload the repository
+Modifications non enregistrées…	Unsaved changes…
+Aucune modification	No changes
+Revenir à l'édition	Back to editing
+Reprendre le brouillon	Resume the draft
+Le texte a changé depuis la création de ce brouillon	The text has changed since this draft was created
+Repartir du texte publié	Restart from the published text
+le texte a changé entre-temps	the text has changed in the meantime
+le texte a changé depuis la création du brouillon	the text has changed since the draft was created
+le texte a changé depuis la création du brouillon ; repartez du texte publié	the text has changed since the draft was created; restart from the published text
+Charger sa version	Load their version
+(vos modifications non enregistrées seront perdues)	(your unsaved changes will be lost)
+Nature de la modification	Type of change
+Correction mineure	Minor correction
+Révision	Revision
+Modifications par rapport au texte publié	Changes compared with the published text
+Markdown : « ## Titre I — … » pour un titre, « ### Article 1 — … » pour un article. La numérotation n'est pas refaite dans ce mode.	Markdown: “## Titre I — …” for a title, “### Article 1 — …” for an article. Numbering is not redone in this mode.
+Sans titre	Untitled
+Introduction du titre	Title introduction
+Indiquez l'objet de la modification.	Enter the purpose of the change.
+Aucune modification à soumettre.	No change to submit.
+Titre, résumé et texte sont nécessaires pour créer le document.	A title, summary and text are needed to create the document.
+Aperçu indisponible.	Preview unavailable.
+Créer le document	Create the document
+Le projet est remplacé par le texte modifié.	The draft is replaced by the edited text.
+Le circuit d'approbation commence sur le nouveau texte.	The approval workflow starts on the new text.
+Vous ne pourrez viser aucune étape de cette version, puisque vous l'avez rédigée (règle des quatre yeux).	You will not be able to sign off any step of this version, since you drafted it (four-eyes rule).
+La publication (texte, PDF, Word) prend quelques minutes.	Publishing (text, PDF, Word) takes a few minutes.
+Document complet	Full document
+Créer et soumettre au circuit	Create and submit to the workflow
+Soumettre au circuit	Submit to the workflow
+Soumettre au circuit…	Submit to the workflow…
+Enregistrement refusé : la modification est réservée aux Rédacteurs et à l'administrateur.	Saving refused: editing is reserved for Drafters and the administrator.
+Modification soumise : publication en cours.	Change submitted: publishing.
+Modification soumise	Change submitted
+Les modifications de ce brouillon seront remplacées par le texte actuellement publié.	The changes in this draft will be replaced by the currently published text.
+Les modifications non soumises seront perdues.	Unsubmitted changes will be lost.
+Le document publié n'est pas touché.	The published document is not affected.
+Abandonner le brouillon	Abandon the draft
+Abandonner	Abandon
+Brouillon abandonné.	Draft abandoned.
+Opération refusée.	Operation refused.
+Nouvel article	New article
+Nouveau titre	New title
+Choisissez un fichier Word (.docx).	Choose a Word file (.docx).
+Lecture du fichier Word…	Reading the Word file…
+Les outils de lecture des fichiers Word n'ont pas pu être chargés. Réessayez.	The Word reading tools could not be loaded. Please try again.
+Remplacer le texte par celui du fichier Word	Replace the text with that of the Word file
+Remplacer le texte du brouillon par celui d'un fichier Word	Replace the draft text with that of a Word file
+Contenu lu	Content read
+Les commentaires et les modifications suivies de Word ne sont pas repris : acceptez-les dans Word avant l'import.	Word comments and tracked changes are not imported: accept them in Word before importing.
+Le titre et le résumé du document restent ceux des champs ci-dessus.	The document title and summary stay as in the fields above.
+À vérifier :	To check:
+Une image n'a pas pu être enregistrée.	An image could not be saved.
+Fichier Word importé : vérifiez les modifications, puis soumettez.	Word file imported: check the changes, then submit.
+Importer	Import
+Importer un Word…	Import a Word file…
+Voir les modifications	See the changes
+Objet de la modification (repris dans l'historique)	Purpose of the change (shown in the history)
+Ex. : mise à jour des seuils de déclaration	E.g.: update of reporting thresholds
+Titre du document	Document title
+Texte, article par article	Text, article by article
+Les articles et les titres sont renumérotés automatiquement. Les renvois écrits dans le texte (« l'article 12 ») ne le sont pas : vérifiez-les après avoir ajouté, supprimé ou déplacé un article.	Articles and titles are renumbered automatically. Cross-references written in the text (“article 12”) are not: check them after adding, deleting or moving an article.
+Plan du document	Document outline
+Plan	Outline
+Intitulé du titre	Title heading
+Monter le titre	Move the title up
+Descendre le titre	Move the title down
+Monter l'article	Move the article up
+Descendre l'article	Move the article down
+Supprimer l'article	Delete the article
++ Article après	+ Article after
++ Titre après	+ Title after
++ Article	+ Article
++ Titre	+ Title
+Aperçu	Preview
+Par article	By article
+Texte intégral	Full text
+La création de documents est réservée aux Rédacteurs et à l'administrateur.	Creating documents is reserved for Drafters and the administrator.
+Le code doit compter 2 à 4 lettres.	The code must have 2 to 4 letters.
+Création du document	Creation of the document
+Création refusée : réservée aux Rédacteurs et à l'administrateur.	Creation refused: reserved for Drafters and the administrator.
+Comparaison en cours…	Comparing…
+La comparaison n'est pas disponible dans cette vue.	The comparison is not available in this view.
+Brouillon de modification en cours	Change draft in progress
+Bibliothèque indisponible :	Library unavailable:
+Chargement impossible :	Unable to load:
+Capacité de stockage atteinte : supprimez d'anciens dossiers.	Storage full: delete old files.
+Vous n'avez pas les droits d'écriture sur ce référentiel.	You do not have write access to this repository.
+Enregistrement impossible pour l'instant. Nouvel essai automatique.	Cannot save right now. Retrying automatically.
+Ce dossier a été supprimé.	This file has been deleted.
+un collègue	a colleague
+Vous consultez ce référentiel en lecture seule.	You are viewing this repository in read-only mode.
+Création impossible : vérifiez vos droits d'écriture.	Cannot create: check your write access.
+Confirmer la suppression	Confirm deletion
+Dossier supprimé.	File deleted.
+Suppression impossible : vérifiez vos droits.	Cannot delete: check your rights.
+Chargement des dossiers…	Loading files…
+à compléter	to be completed
+À compléter	To be completed
+Prêt à générer	Ready to generate
+Dossiers enregistrés sur cet appareil uniquement.	Files saved on this device only.
+Ouvrez le référentiel dans claude.ai pour les partager avec l'équipe.	Open the repository in claude.ai to share them with the team.
+Votre accès ne permet pas de créer ou modifier des dossiers.	Your access does not allow you to create or edit files.
+Ce dossier n'existe pas ou a été supprimé.	This file does not exist or has been deleted.
+Chargement du dossier…	Loading the file…
+Modèle introuvable :	Template not found:
+Repris des paramètres de la Société.	Taken from the Company settings.
+Modèle mis à jour.	Template updated.
+Aperçu de la convention	Agreement preview
+Modifications non enregistrées	Unsaved changes
+Enregistré	Saved
+sur cet appareil	on this device
+à corriger	to correct
+Complétude	Completeness
+Édition	Edition
+Projet pour négociation	Draft for negotiation
+Version pour signature	Version for signature
+Word (.docx)	Word (.docx)
+Génération bloquée :	Generation blocked:
+Tous les champs requis sont renseignés et cohérents.	All required fields are complete and consistent.
+Points d'attention	Points of attention
+Calculé automatiquement	Calculated automatically
+Aucun export	No export
+Créé	Created
+Aperçu : les zones surlignées restent à compléter. Le document final est produit par les boutons Word et PDF.	Preview: highlighted areas still need to be completed. The final document is produced with the Word and PDF buttons.
+L'aperçu nécessite une connexion pour charger son moteur de mise en page.	The preview needs a connection to load its layout engine.
+Génération impossible : complétez les champs signalés.	Cannot generate: complete the flagged fields.
+Préparation…	Preparing…
+Le téléchargement n'est pas disponible dans cette vue. Ouvrez le référentiel dans claude.ai.	Download is not available in this view. Open the repository in claude.ai.
+erreur inconnue	unknown error
+Rien à télécharger : cochez des documents ou des annexes.	Nothing to download: tick documents or appendices.
+Choisissez au moins un format : PDF ou Word.	Choose at least one format: PDF or Word.
+Préparation du ZIP…	Preparing the ZIP…
+Un fichier est introuvable dans cette version du référentiel.	A file is missing from this version of the repository.
+La préparation du ZIP a échoué. Réessayez.	Preparing the ZIP failed. Please try again.
+Rien à réunir : cochez des documents ou des annexes.	Nothing to compile: tick documents or appendices.
+Préparation du recueil…	Preparing the compilation…
+La préparation du recueil a échoué. Réessayez.	Preparing the compilation failed. Please try again.
+Annexes : seulement celles cochées.	Appendices: only those ticked.
+Dupliquer	Duplicate
+Reprendre	Resume
+Formulaire	Form
+Membre	Member
+Poste	Position
+Fonctions	Functions
+Niveau	Level
+Dernière connexion	Last sign-in
++ Nouveau membre	+ New member
+Exporter les habilitations	Export access rights
+Exporter les habilitations (CSV)	Export access rights (CSV)
+actifs	active
+invités	invited
+suspendus	suspended
+administrateurs	administrators
+Toutes les fonctions	All functions
+Administrateurs	Administrators
+Actifs et invités	Active and invited
+Actifs	Active
+Invités	Invited
+Suspendus	Suspended
+Rechercher : nom, adresse, poste, fonction…	Search: name, address, position, function…
+Rechercher un membre	Search for a member
+Fonction	Function
+Statut	Status
+Une personne qui s'est déjà connectée ne se supprime pas : on la suspend, pour garder la trace de ses visas.	Someone who has already signed in is not deleted: they are suspended, to keep a record of their sign-offs.
+Journal des accès	Access log
+Exporter la sélection	Export the selection
+Rechercher : personne, fonction, « suspendu », date…	Search: person, function, “suspended”, date…
+Rechercher dans le journal	Search the log
+Événement	Event
+Tous les événements	All events
+24 heures	24 hours
+7 jours	7 days
+30 jours	30 days
+90 jours	90 days
+Effacer les filtres	Clear filters
+Détail	Detail
+Connexion	Sign-in
+Accès ouvert	Access granted
+Modification	Change
+Invitation retirée	Invitation withdrawn
+Aucun événement.	No events.
+Aucun événement ne correspond.	No matching events.
+Aucun membre ne correspond.	No matching members.
+Aucun membre.	No members.
+en afficher plus	show more
+Fiche du membre	Member profile
+Nouveau membre	New member
+Ouvrir un accès	Grant access
+Identité	Identity
+Adresse Microsoft 365	Microsoft 365 address
+Nom	Name
+Prénom Nom	First name Last name
+ex. Chargé de clientèle	e.g. Client relationship officer
+Choisir les fonctions	Choose functions
+Accès	Access
+Type d'accès	Type of access
+Employé — seulement les documents attribués	Employee — assigned documents only
+Complet — tout le référentiel	Full — the entire repository
+Accès complet (administrateur).	Full access (administrator).
+Suspendre l'accès (départ, absence prolongée)	Suspend access (departure, extended absence)
+Prérogatives (vous ne pouvez donner que les vôtres) :	Powers (you can only grant your own):
+Super administrateur : toutes les prérogatives.	Super administrator: all powers.
+Documents attribués	Assigned documents
+« Lire et attester » : lecture à confirmer une fois le document adopté. « Consultation » : visible sans attestation. Le reste du site lui est invisible.	“Read and acknowledge”: reading to be confirmed once the document is adopted. “View”: visible without acknowledgement. The rest of the site is hidden from them.
+Aucun	None
+Consultation	View
+Historique de l'accès	Access history
+Ouvrir l'accès…	Grant access…
+Ouvrir l'accès	Grant access
+Enregistrer…	Save…
+Retirer l'invitation	Withdraw the invitation
+Retirer	Remove
+Accès ouvert le	Access granted on
+Documents à lire	Documents to read
+jamais	never
+oui	yes
+non	no
+vous	you
+Votre propre accès se modifie par un autre administrateur.	Your own access is changed by another administrator.
+Seul le super administrateur modifie un administrateur.	Only the super administrator can change an administrator.
+Fonction sans titulaire actif :	Function without an active holder:
+Au moins une fonction est nécessaire.	At least one function is required.
+Adresse invalide.	Invalid address.
+Choisissez au moins une fonction.	Choose at least one function.
+Cette adresse a déjà un accès.	This address already has access.
+Invitation retirée.	Invitation withdrawn.
+Opération refusée : vous n'avez pas la prérogative nécessaire.	Operation refused: you do not have the required power.
+Retirer une invitation	Withdraw an invitation
+Ouvrir un accès au référentiel	Grant access to the repository
+La personne pourra se connecter avec son compte Microsoft 365 dès maintenant.	The person can sign in with their Microsoft 365 account right away.
+Une personne suspendue ne peut plus ouvrir le référentiel ; ses visas restent au registre.	A suspended person can no longer open the repository; their sign-offs remain in the register.
+L'invitation est supprimée ; vous pourrez en ouvrir une nouvelle.	The invitation is deleted; you can issue a new one.
+Gérer les membres	Manage members
+Attribuer les documents	Assign documents
+Ouvrir le tableau de bord	Open the dashboard
+Nommer des administrateurs	Appoint administrators
+Rédiger	Draft
+Abroger et archiver	Repeal and archive
+Supprimer des documents	Delete documents
+inviter, modifier fonctions, poste et accès, suspendre	invite, change functions, position and access, suspend
+lectures obligatoires et documents visibles des employés	mandatory readings and documents visible to employees
+à d'autres membres	to other members
+avec, au plus, ses propres prérogatives	with, at most, their own powers
+modifier les circuits d'approbation et les délais	change approval workflows and deadlines
+modifier et créer des documents en ligne	edit and create documents online
+comme le RCCI	like the Compliance Officer
+retrait du registre	removal from the register
+Vous ne détenez pas cette prérogative	You do not hold this power
+Inclus pour les administrateurs	Included for administrators
+Réservé aux accès complets	Reserved for full access
+Super administrateur	Super administrator
+Qui administre le référentiel et avec quelles prérogatives. Les administrateurs gèrent à leur tour les autres membres dans la page Membres, sans pouvoir dépasser ce que vous leur donnez ici.	Who administers the repository and with which powers. Administrators in turn manage the other members on the Members page, without going beyond what you give them here.
+Administrateurs et prérogatives	Administrators and powers
+Aucun autre administrateur.	No other administrator.
+Nommer un administrateur parmi les membres…	Appoint an administrator from the members…
+Membre à nommer administrateur	Member to appoint as administrator
+Ajouter	Add
+Prérogatives proposées : gérer les membres et attribuer les documents ; ajustez-les dans le tableau.	Suggested powers: manage members and assign documents; adjust them in the table.
+Règles appliquées par la base	Rules enforced by the database
+Il reste toujours au moins un super administrateur actif. En dernier recours, l'accès se rétablit depuis la console Supabase (à protéger par une double authentification).	There is always at least one active super administrator. As a last resort, access is restored from the Supabase console (to be protected by two-factor authentication).
+Un administrateur ne donne que les prérogatives qu'il détient lui-même, et ne modifie ni un autre administrateur ni le super administrateur.	An administrator can only grant powers they hold themselves, and cannot change another administrator or the super administrator.
+Personne ne modifie son propre accès ni ne se retire d'une lecture obligatoire, à l'exception du super administrateur.	Nobody can change their own access or remove themselves from a mandatory reading, except the super administrator.
+Les administrateurs sont des salariés comme les autres : ils visent, lisent et attestent selon leurs fonctions, et la règle des quatre yeux s'applique à eux.	Administrators are employees like everyone else: they sign off, read and acknowledge according to their functions, and the four-eyes rule applies to them.
+Une personne qui s'est déjà connectée ne se supprime pas : elle est suspendue, ses visas restent au registre.	Someone who has already signed in is not deleted: they are suspended, and their sign-offs remain in the register.
+Paramètres du référentiel	Repository settings
+Circuits d'approbation et délais	Approval workflows and deadlines
+— étapes, fonctions, règles de visa, délais par étape et délai de prise de connaissance.	— steps, functions, sign-off rules, step deadlines and acknowledgement deadline.
+— documents à lire et attester, par personne.	— documents to read and acknowledge, per person.
+— suivi des visas, retards, lectures et modifications.	— sign-off tracking, delays, readings and changes.
+— accès, fonctions, suspensions, export des habilitations.	— access, functions, suspensions, export of access rights.
+Journal complet	Full log
+Catégorie	Category
+Connexions	Sign-ins
+Visas et lectures	Sign-offs and readings
+Circuits	Workflows
+Attributions	Assignments
+Le journal est écrit par la base à chaque opération ; il ne peut être ni modifié ni effacé depuis le site. 1 000 dernières entrées, export de la sélection.	The log is written by the database at each operation; it cannot be changed or erased from the site. Last 1,000 entries, export of the selection.
+Enregistrer les administrateurs	Save administrators
+Administrateurs et prérogatives enregistrés.	Administrators and powers saved.
+Codes, politiques et procédures. Accès réservé au personnel et aux administrateurs, avec votre compte Microsoft 365 de Purpose Capital.	Codes, policies and procedures. Access reserved for staff and directors, with your Purpose Capital Microsoft 365 account.
+Votre compte n'a pas, ou plus, accès au référentiel. Adressez-vous à l'administrateur.	Your account does not, or no longer, have access to the repository. Contact the administrator.
+Se connecter avec Microsoft 365	Sign in with Microsoft 365
+Redirection…	Redirecting…
+Seules les personnes inscrites ici, et actives, ouvrent le référentiel avec leur compte Microsoft 365. Cliquez une ligne pour voir la fiche et la modifier.	Only people registered here, and active, can open the repository with their Microsoft 365 account. Click a row to see the profile and edit it.
+Membres — Référentiel Purpose Capital	Members — Purpose Capital repository
+Paramétrage — Référentiel Purpose Capital	Settings — Purpose Capital repository
+Modifications enregistrées.	Changes saved.
+Enregistrement…	Saving…

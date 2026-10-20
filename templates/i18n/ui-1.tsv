@@ -1,0 +1,234 @@
+Ouvrir le menu	Open the menu
+Navigation	Navigation
+Registre des documents	Document register
+Référentiel documentaire	Document repository
+Référentiel Purpose Capital	Purpose Capital repository
+Référentiel documentaire — Purpose Capital	Document repository — Purpose Capital
+Masquer le menu	Hide the menu
+Afficher le menu	Show the menu
+Garder le menu affiché	Keep the menu open
+Sections	Sections
+Mes documents	My documents
+À traiter	To do
+Documents	Documents
+Dossiers	Deal files
+Suivi des visas	Sign-off tracking
+Circuit d'approbation	Approval workflow
+Textes de référence	Reference texts
+Glossaire	Glossary
+Archives	Archives
+Guide	Guide
+Membres	Members
+Paramétrage	Settings
+Tableau de bord	Dashboard
+Super administrateur	Super administrator
+Administrateur	Administrator
+à viser	to sign off
+à lire	to read
+Se déconnecter	Sign out
+Langue / Language	Language
+Codes, politiques et procédures	Codes, policies and procedures
+Seule la version publiée ici fait foi. Les copies imprimées ou téléchargées sont des versions non maîtrisées. Cliquez sur une ligne pour un aperçu ; cochez-en plusieurs pour les recevoir ensemble, en ZIP ou en recueil PDF.	Only the version published here is authoritative. Printed or downloaded copies are uncontrolled. Click a row for a preview; tick several to receive them together, as a ZIP or a PDF compilation.
+en vigueur	in force
+en projet	in draft
+à rédiger	to be drafted
+prioritaires à rédiger	priority, to be drafted
+Rechercher une référence, un titre, un domaine	Search a reference, a title, a domain
+Rechercher	Search
+Type	Type
+Tous les types	All types
+Domaine	Domain
+Tous les domaines	All domains
+Statut	Status
+Tous les statuts	All statuses
+En vigueur	In force
+Projet	Draft
+À rédiger	To be drafted
+Abrogé	Repealed
+Supprimé	Deleted
+Archivé	Archived
++ Nouveau document	+ New document
+Sélectionner tous les documents affichés	Select all documents shown
+Référence	Reference
+Document	Document
+Version	Version
+Prochaine revue	Next review
+Ouvrir	Open
+PDF	PDF
+Word	Word
+Priorité	Priority
+Aucun document ne correspond à ces critères.	No document matches these criteria.
+Dossiers d'opération	Deal files
+Chaque convention est préparée à partir d'un formulaire unique. Le Word et le PDF ne sont produits que lorsque tous les champs requis sont renseignés et cohérents. Les dossiers sont conservés ici et peuvent être repris ou dupliqués.	Each agreement is prepared from a single form. The Word and PDF files are produced only when all required fields are complete and consistent. Files are kept here and can be reopened or duplicated.
+Nouvelle convention de mandat d'arrangement et de placement	New arrangement and placement mandate agreement
+Nouvelle convention de prise ferme et de garantie de bonne fin	New underwriting and performance guarantee agreement
+Nouvelle convention de syndicat de placement	New placement syndicate agreement
+Nouvelle convention d'ouverture de compte-titres	New securities account opening agreement
+Nouvelle convention (à compléter)	New agreement (to be completed)
+Dossier	File
+Montant	Amount
+État	Status
+Modifié	Modified
+Dernier export	Last export
+Aucun dossier pour l'instant. Créez la première convention avec le bouton ci-dessus.	No files yet. Create the first agreement with the button above.
+Mon espace	My workspace
+Les documents qui attendent une action de votre part. Ouvrez-les un par un : la barre en haut du document propose de viser, d'approuver ou de renvoyer avec un commentaire, puis passe au suivant.	Documents awaiting action from you. Open them one by one: the bar at the top of the document lets you sign off, approve or return with a comment, then moves on to the next one.
+À viser ou approuver	To sign off or approve
+Rien en attente de votre visa.	Nothing awaiting your sign-off.
+À lire	To read
+Lire	Read
+Rédaction	Drafting
+Corriger	Correct
+Suivi du référentiel	Repository follow-up
+Renvoyés pour modification	Returned for changes
+Renvoyé pour modification	Returned for changes
+Renvoyé pour modification :	Returned for changes:
+Conformité réglementaire	Regulatory compliance
+Pour chaque texte applicable, les documents internes qui le mettent en œuvre. Cette table se met à jour automatiquement à partir des références déclarées dans chaque document.	For each applicable text, the internal documents that implement it. This table updates automatically from the references declared in each document.
+Texte	Text
+Documents internes	Internal documents
+Texte officiel	Official text
+Page officielle	Official page
+Présentation	Overview
+Émetteur	Issuer
+Vocabulaire commun	Common vocabulary
+Définitions applicables à l'ensemble des codes, politiques et procédures de la Société.	Definitions that apply to all codes, policies and procedures of the Company.
+Purpose Capital S.A. · Rue Joseph Essono Balla, Elig-Essono, Yaoundé (Cameroun)	Purpose Capital S.A. · Rue Joseph Essono Balla, Elig-Essono, Yaoundé (Cameroon)
+Première visite ?	First visit?
+Découvrez le référentiel en une minute, selon vos accès.	Discover the repository in one minute, based on your access.
+Lancer la visite	Start the tour
+Plus tard	Later
+Administration	Administration
+Exporter (CSV)	Export (CSV)
+Imprimer	Print
+Période	Period
+7 derniers jours	Last 7 days
+30 derniers jours	Last 30 days
+90 derniers jours	Last 90 days
+12 derniers mois	Last 12 months
+Depuis l'origine	All time
+Personne	Person
+Toutes les personnes	All people
+Inclure les projets	Include drafts
+Visas en attente	Pending sign-offs
+Renvois ouverts	Open returns
+Lectures attestées	Acknowledged readings
+Modifications	Changes
+Revue échue	Overdue review
+Revues échues	Overdue reviews
+Où en sont les documents	Where documents stand
+Circuits et délais	Workflows and deadlines
+Étape	Step
+Délai moyen	Average time
+Plus longue attente	Longest wait
+Objectif	Target
+Alertes	Alerts
+Ce qui empêche le circuit d'avancer	What is holding up the workflow
+Accès jamais utilisés :	Access never used:
+Visas en retard :	Overdue sign-offs:
+Lectures en retard :	Overdue readings:
+Sans lecteur désigné :	No designated reader:
+Rien ne bloque le circuit.	Nothing is blocking the workflow.
+En attente d'une action	Awaiting action
+Par ancienneté ; en rouge au-delà du délai fixé pour l'étape	Oldest first; in red when past the deadline set for the step
+Attendu de	Expected from
+Depuis	Since
+Relancer	Send a reminder
+aujourd'hui	today
+hier	yesterday
+depuis hier	since yesterday
+Par personne	By person
+Ce qui attend chacun ; cliquez un nom pour filtrer	What awaits each person; click a name to filter
+À viser	To sign off
+Plus ancienne	Oldest
+Rédacteur	Drafter
+Modifications en cours	Changes in progress
+Brouillons, soumissions et publications refusées	Drafts, submissions and rejected publications
+Rédigé par	Drafted by
+Ampleur	Extent
+Brouillon	Draft
+Soumis · publication en cours	Submitted · publishing
+Publication refusée	Publication rejected
+Lectures obligatoires	Mandatory readings
+Gérer les lectures	Manage readings
+Attestations par document en vigueur	Acknowledgements per document in force
+Activité	Activity
+Qui a fait quoi, et quand	Who did what, and when
+Tout	All
+Visas	Sign-offs
+Renvois	Returns
+Adoptions	Adoptions
+Lectures	Readings
+Abrogations	Repeals
+Accès et circuits	Access and workflows
+Revues périodiques	Periodic reviews
+Échéances de revue des documents en vigueur	Review due dates of documents in force
+Aucun document en vigueur : les revues apparaîtront après les adoptions.	No document in force yet: reviews will appear after adoption.
+Le tableau de bord est réservé à l'administrateur et aux personnes à qui il l'a ouvert.	The dashboard is reserved for the administrator and the people they have given access to.
+Chargement…	Loading…
+aucun retard	no delays
+aucun	none
+aucune lecture demandée	no reading requested
+Aucun visa en attente.	No pending sign-offs.
+Aucune modification en cours.	No changes in progress.
+Aucune lecture demandée sur un document en vigueur.	No reading requested on a document in force.
+Aucune opération sur la période.	No activity in this period.
+personne ne peut viser	nobody can sign off
+Message copié.	Message copied.
+Aucun message n'est envoyé par le site : copiez le texte ou ouvrez votre messagerie.	The site does not send any message: copy the text or open your email.
+Copier le message	Copy the message
+Ouvrir dans la messagerie	Open in email
+Fermer	Close
+À	To
+Étape en cours	Current step
+Depuis (jours)	Since (days)
+Délai (jours)	Deadline (days)
+En retard	Overdue
+Lectures attendues	Expected readings
+Brouillon en cours	Draft in progress
+Révision en cours	Revision in progress
+Révision en cours.	Revision in progress.
+Publication automatique	Automatic publication
+Chaque visa est enregistré par la personne elle-même, avec la date, l'heure et l'empreinte du texte visé. Si le texte change, le circuit recommence.	Each sign-off is recorded by the person themselves, with the date, time and fingerprint of the text signed off. If the text changes, the workflow starts again.
+Avancement du circuit	Workflow progress
+Renvoyé	Returned
+Les accès et les fonctions se gèrent dans la page	Access and functions are managed on the page
+Cochez les personnes qui doivent lire et attester chaque document. « Tous » vise toutes les personnes ayant une fonction active. Les changements s'enregistrent ensemble, après vérification.	Tick the people who must read and acknowledge each document. “All” covers everyone with an active function. Changes are saved together, after review.
+Tous	All
+Registre des visas	Sign-off register
+Export de tous les visas et renvois enregistrés, pour le dossier de conformité ou une inspection.	Export of all recorded sign-offs and returns, for the compliance file or an inspection.
+Exporter le registre (CSV)	Export the register (CSV)
+Gouvernance documentaire	Document governance
+Où en est chaque document, et qui doit agir. Les étapes se visent dans l'ordre ; une même personne ne vise pas deux étapes d'une même version (règle des quatre yeux). Si le texte change, le circuit recommence.	Where each document stands, and who needs to act. Steps are signed off in order; the same person does not sign off two steps of the same version (four-eyes rule). If the text changes, the workflow starts again.
+Circuits par type de document	Workflows by document type
+Vous pouvez modifier le circuit de chaque type. Le nouveau circuit s'applique aux versions dont le circuit n'a pas commencé ; une version déjà visée garde le circuit de son premier visa.	You can change the workflow of each type. The new workflow applies to versions whose workflow has not started; a version already signed off keeps the workflow of its first sign-off.
+Définis par l'administrateur. Une version déjà visée garde le circuit de son premier visa.	Set by the administrator. A version already signed off keeps the workflow of its first sign-off.
+Modifier	Edit
+Personnes désignées	Designated people
+Les documents de ce type déclarent des circuits différents ; le premier est affiché. Définir le circuit du type l'appliquera à tous.	Documents of this type declare different workflows; the first one is shown. Setting the type's workflow will apply it to all of them.
+Numérotation des versions : 0.x pour un projet, 1.0 à l'adoption, 1.1 pour une correction mineure (forme, coquille : les lectures restent valables), 2.0 pour une révision de fond, soumise de nouveau au circuit et à la lecture.	Version numbering: 0.x for a draft, 1.0 on adoption, 1.1 for a minor correction (wording, typo: readings remain valid), 2.0 for a substantive revision, submitted again to the workflow and to reading.
+Référentiel	Repository
+Documents abrogés ou supprimés du registre. Ils restent consultables avec leur historique et leurs visas ; ils ne s'appliquent plus.	Documents repealed or removed from the register. They remain available with their history and sign-offs; they no longer apply.
+Documents abrogés	Repealed documents
+Motif	Reason
+Consulter	View
+Rétablir	Restore
+Aucun document archivé.	No archived documents.
+Mode d'emploi	User guide
+Guide du référentiel	Repository guide
+Votre profil	Your profile
+Ce guide ne présente que ce que vos accès vous permettent de faire.	This guide only covers what your access allows you to do.
+▶ Lancer la visite guidée	▶ Start the guided tour
+Sommaire du guide	Guide contents
+Prendre connaissance d'un document	Acknowledging a document
+Trouver et consulter un document	Finding and viewing a document
+Viser, approuver ou renvoyer	Signing off, approving or returning
+Suivre les circuits	Following workflows
+Rédiger et modifier	Drafting and editing
+Le tableau de bord	The dashboard
+Administrer	Administering
+Paramétrer (super administrateur)	Settings (super administrator)
+▶ Montrer	▶ Show me
+Collaborateur — accès aux documents attribués	Staff member — access to assigned documents
+Accès complet en consultation	Full read access
+Lire et attester vos documents	Reading and acknowledging your documents

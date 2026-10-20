@@ -41,7 +41,7 @@
     s = s.replace(/^\s*·\s*|\s*·\s*$/g, "");
     return s || "Nouvelle convention (à compléter)";
   }
-  function heure(iso) { if (!iso) return ""; var d = new Date(iso); return d.toLocaleDateString("fr-FR", { day: "numeric", month: "short" }) + " à " + d.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }); }
+  function heure(iso) { if (!iso) return ""; var d = new Date(iso); return d.toLocaleDateString((window.PCI18N ? PCI18N.locale : "fr-FR"), { day: "numeric", month: "short" }) + (window.PCI18N && PCI18N.lang === "en" ? ", " : " à ") + d.toLocaleTimeString((window.PCI18N ? PCI18N.locale : "fr-FR"), { hour: "2-digit", minute: "2-digit" }); }
 
   // ---------- Stockage ----------
   function lsRead() { try { return JSON.parse(localStorage.getItem(LS_KEY) || "[]"); } catch (e) { return []; } }

@@ -125,7 +125,7 @@
       '<div class="eyebrow">Modification · ' + esc(d.type) + " · " + esc(d.id) + '</div><h1 class="title">' + esc(E.f.titre) + "</h1>" +
       (E.nouveau ? '<p class="cite-src">Nouveau document — il sera créé en projet v0.9 à la soumission, puis suivra le circuit des documents de type « ' + esc(d.type) + " ». " + esc([E.meta.domaine, "propriétaire : " + (E.meta.proprietaire || "—"), "vérifié par : " + (E.meta.verifie_par || "—"), "approuvé par : " + (E.meta.approuve_par || "—")].join(" · ")) + "</p>" :
       '<p class="cite-src">Texte de travail v' + esc(E.src.version) + " (" + esc(E.src.statut) + ")") + (E.nouveau ? "" : (enVigueur() ? " → nouvelle version " + esc(nextVersion()) + " après publication ; la version " + esc(E.src.version) + " reste en vigueur jusqu'à l'adoption." : " → le projet reste en version " + esc(E.src.version) + " ; le circuit recommence sur le texte modifié.") + "</p>");
-    var bar = '<div class="edbar"><span class="ed-state">' + (sub ? "Soumis le " + esc(fmtDT(dr.soumis_le)) + " — publication en cours (quelques minutes)" : E.dirty ? "Modifications non enregistrées…" : E.saved ? "Brouillon enregistré · " + esc(fmtDT(E.saved).split(" à ")[1] || "") : "Aucune modification") + "</span>" +
+    var bar = '<div class="edbar"><span class="ed-state">' + (sub ? "Soumis le " + esc(fmtDT(dr.soumis_le)) + " — publication en cours (quelques minutes)" : E.dirty ? "Modifications non enregistrées…" : E.saved ? "Brouillon enregistré · " + esc(fmtDT(E.saved).split(/ à |, (?=\d\d:)/)[1] || "") : "Aucune modification") + "</span>" +
       '<div class="ed-btns">' +
       (E.model.structured && !d.modele ? '<span class="seg"><button type="button" data-ed="mode|articles" aria-pressed="' + (E.mode === "articles") + '">Par article</button><button type="button" data-ed="mode|texte" aria-pressed="' + (E.mode === "texte") + '">Texte intégral</button></span>' : "") +
       '<label class="btn" title="Remplacer le texte du brouillon par celui d\'un fichier Word">Importer un Word…<input type="file" id="ed-word" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden></label>' +
@@ -221,7 +221,7 @@
     try {
       await V.db.doc("redaction/" + E.id).set(body);
       E.draft = body; E.maj = body.maj; E.saved = body.maj; E.dirty = false; E.rebased = false;
-      var s = $(".ed-state"); if (s && !statut) s.textContent = "Brouillon enregistré · " + (fmtDT(body.maj).split(" à ")[1] || "");
+      var s = $(".ed-state"); if (s && !statut) s.textContent = "Brouillon enregistré · " + (fmtDT(body.maj).split(/ à |, (?=\d\d:)/)[1] || "");
       return true;
     } catch (e) { toast("Enregistrement refusé : la modification est réservée aux Rédacteurs et à l'administrateur."); return false; }
   }
@@ -280,7 +280,7 @@
         loadLib("marked").then(function (mk) { box.innerHTML = '<div class="doc-body">' + mk.parse(avecMedias(m.titres[i].articles[j].body || "")) + "</div>"; box.hidden = false; }).catch(function () { toast("Aperçu indisponible."); });
         return;
       case "a-add": T[i].articles.splice(j + 1, 0, { uid: uid(), titre: "Nouvel article", numbered: true, body: "" }); sync(); setTimeout(function () { var x = $("#ed-a" + i + "-" + (j + 1) + " input"); if (x) { x.focus(); x.select(); x.scrollIntoView({ block: "center" }); } }, 30); return;
-      case "a-del": if ((T[i].articles[j].body || "").trim() && !confirm("Supprimer l'article « " + T[i].articles[j].titre + " » ?")) return; T[i].articles.splice(j, 1); sync(); return;
+      case "a-del": if ((T[i].articles[j].body || "").trim() && !confirm(window.PCI18N && PCI18N.lang === "en" ? "Delete the article “" + T[i].articles[j].titre + "”?" : "Supprimer l'article « " + T[i].articles[j].titre + " » ?")) return; T[i].articles.splice(j, 1); sync(); return;
       case "a-up": if (j > 0) { var x1 = T[i].articles[j]; T[i].articles[j] = T[i].articles[j - 1]; T[i].articles[j - 1] = x1; } else if (i > 0) { T[i - 1].articles.push(T[i].articles.shift()); } sync(); return;
       case "a-down": if (j < T[i].articles.length - 1) { var x2 = T[i].articles[j]; T[i].articles[j] = T[i].articles[j + 1]; T[i].articles[j + 1] = x2; } else if (i < T.length - 1) { T[i + 1].articles.unshift(T[i].articles.pop()); } sync(); return;
       case "t-add": T.splice(i + 1, 0, { uid: uid(), label: "Nouveau titre", numbered: true, pre: "", articles: [{ uid: uid(), titre: "Nouvel article", numbered: true, body: "" }] }); sync(); return;

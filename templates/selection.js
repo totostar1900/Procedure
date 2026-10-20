@@ -1,3 +1,4 @@
+  var Tr = function (s) { return window.PCI18N ? PCI18N.t(s) : s; };
   // ---------- Sélection et téléchargement groupé (ZIP ou recueil PDF) ----------
   LIBS.jszip = { url: "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js", global: "JSZip" };
   LIBS.pdflib = { url: "https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js", global: "PDFLib" };
@@ -88,7 +89,7 @@
           }
         }
       }
-      zip.file("LISEZ-MOI.txt", lignes.join("\r\n"));
+      zip.file(window.PCI18N && PCI18N.lang === "en" ? "README.txt" : "LISEZ-MOI.txt", lignes.map(function (l) { var m = l.match(/^(\s*)(.*)$/); return m[1] + (window.PCI18N ? PCI18N.t(m[2]) : m[2]); }).join("\r\n"));
       var blob = await zip.generateAsync({ type: "blob", compression: "DEFLATE", compressionOptions: { level: 6 } });
       selBusy(false);
       await saveBlob("Purpose-Capital_referentiel_" + stamp() + ".zip", blob);
@@ -127,15 +128,15 @@
       cover.drawRectangle({ x: 0, y: 0, width: 595.28, height: 841.89, color: NAVY });
       cover.drawRectangle({ x: 56, y: 600, width: 34, height: 2.5, color: GOLD });
       cover.drawText("PURPOSE CAPITAL", { x: 56, y: 620, size: 11, font: fSemi, color: L.rgb(1, 1, 1) });
-      cover.drawText("Recueil de documents", { x: 56, y: 540, size: 30, font: fDisp, color: L.rgb(1, 1, 1) });
-      cover.drawText("Codes, politiques, procédures et modèles", { x: 56, y: 512, size: 13, font: fReg, color: L.rgb(0.73, 0.78, 0.85) });
-      cover.drawText(parts.length + " pièce" + (parts.length > 1 ? "s" : "") + " · " + (out.getPageCount()) + " pages · extrait le " + new Date().toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" }), { x: 56, y: 470, size: 10.5, font: fReg, color: L.rgb(0.73, 0.78, 0.85) });
-      cover.drawText("Copie non maîtrisée : seule la version en ligne du référentiel fait foi.", { x: 56, y: 70, size: 9, font: fReg, color: L.rgb(0.73, 0.78, 0.85) });
-      cover.drawText(DATA.societe.raison_sociale + " · Agrément " + DATA.societe.agrement, { x: 56, y: 54, size: 9, font: fReg, color: L.rgb(0.73, 0.78, 0.85) });
+      cover.drawText(Tr("Recueil de documents"), { x: 56, y: 540, size: 30, font: fDisp, color: L.rgb(1, 1, 1) });
+      cover.drawText(Tr("Codes, politiques, procédures et modèles"), { x: 56, y: 512, size: 13, font: fReg, color: L.rgb(0.73, 0.78, 0.85) });
+      cover.drawText(Tr(parts.length + " pièce" + (parts.length > 1 ? "s" : "") + " · " + (out.getPageCount()) + " pages · extrait le ") + new Date().toLocaleDateString((window.PCI18N ? PCI18N.locale : "fr-FR"), { day: "numeric", month: "long", year: "numeric" }), { x: 56, y: 470, size: 10.5, font: fReg, color: L.rgb(0.73, 0.78, 0.85) });
+      cover.drawText(Tr("Copie non maîtrisée : seule la version en ligne du référentiel fait foi."), { x: 56, y: 70, size: 9, font: fReg, color: L.rgb(0.73, 0.78, 0.85) });
+      cover.drawText(Tr(DATA.societe.raison_sociale + " · Agrément " + DATA.societe.agrement), { x: 56, y: 54, size: 9, font: fReg, color: L.rgb(0.73, 0.78, 0.85) });
       // Sommaire
       var fit = function (s, font, size, w) { if (font.widthOfTextAtSize(s, size) <= w) return s; while (s.length > 3 && font.widthOfTextAtSize(s + "…", size) > w) s = s.slice(0, -1); return s.replace(/\s+$/, "") + "…"; };
       tocP.forEach(function (pg, n) {
-        pg.drawText(n ? "Sommaire (suite)" : "Sommaire", { x: 56, y: 770, size: 20, font: fDisp, color: NAVY });
+        pg.drawText(Tr(n ? "Sommaire (suite)" : "Sommaire"), { x: 56, y: 770, size: 20, font: fDisp, color: NAVY });
         pg.drawRectangle({ x: 56, y: 756, width: 26, height: 2, color: GOLD });
         parts.slice(n * perPage, (n + 1) * perPage).forEach(function (x, k) {
           var y = 724 - k * 22, indent = x.ann ? 14 : 0;

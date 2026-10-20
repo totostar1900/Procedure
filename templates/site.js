@@ -14,7 +14,7 @@
   var fmtDate = function (iso) {
     if (!iso) return "";
     var d = new Date(iso + "T00:00:00");
-    return d.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+    return d.toLocaleDateString((window.PCI18N ? PCI18N.locale : "fr-FR"), { day: "numeric", month: "long", year: "numeric" });
   };
 
   // ---------- Téléchargements (capacité "downloads") ----------
@@ -44,7 +44,7 @@
       document.body.appendChild(el); document.body.classList.add("has-drawer");
       var inp = el.querySelector("#cfm-in"), ok = el.querySelector("#cfm-ok");
       var fin = function (v) { el.remove(); if (!document.querySelector(".cfm-scrim") && $("#drawer").hidden) document.body.classList.remove("has-drawer"); if (prev && prev.focus) try { prev.focus(); } catch (e) { /* élément disparu */ } resolve(v); };
-      inp.addEventListener("input", function () { ok.disabled = normTxt(inp.value) !== normTxt(o.phrase); });
+      inp.addEventListener("input", function () { ok.disabled = (window.PCI18N ? PCI18N.phrases(o.phrase) : [o.phrase]).map(normTxt).indexOf(normTxt(inp.value)) < 0; });
       inp.addEventListener("paste", function (e) { e.preventDefault(); toast("Écrivez la phrase vous-même : c'est ce qui confirme votre intention."); });
       el.addEventListener("keydown", function (e) { e.stopPropagation(); if (e.key === "Escape") fin(false); if (e.key === "Enter" && !ok.disabled && e.target === inp) fin(true); });
       el.addEventListener("click", function (e) {

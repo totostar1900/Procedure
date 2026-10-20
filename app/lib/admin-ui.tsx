@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Éléments communs aux pages Membres et Paramétrage
 export type Membre = {
@@ -29,7 +29,11 @@ export const PREROGS: [string, string, string][] = [
 export const PL: Record<string, string> = Object.fromEntries(PREROGS.map((p) => [p[0], p[1]]));
 export const peutDe = (moi: MoiC) => (p: string) => moi.super || moi.prerogatives.includes(p);
 export const statutDe = (m: Membre) => (!m.actif ? "Suspendu" : !m.user_id ? "Invité" : "Actif");
-export const date = (s: string | null) => (s ? new Date(s).toLocaleString("fr-FR", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" }) : "");
+type I18N = { lang: string; t: (s: string) => string; locale: string; phrases: (p: string) => string[] };
+const i18n = (): I18N | null => (typeof window !== "undefined" ? ((window as unknown as { PCI18N?: I18N }).PCI18N || null) : null);
+export const t = (s: string) => { const x = i18n(); return x ? x.t(s) : s; };
+export const loc = () => { const x = i18n(); return x ? x.locale : "fr-FR"; };
+export const date = (s: string | null) => (s ? new Date(s).toLocaleString(loc(), { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" }) : "");
 export const msg = (e: { message?: string } | null) => {
   const m = (e && e.message) || "Erreur inconnue";
   if (/duplicate key|membres_pkey/.test(m)) return "Cette adresse a déjà un accès.";
@@ -46,7 +50,7 @@ const normTxt = (t: string) => t.toLowerCase().normalize("NFD").replace(/[̀-ͯ]
 // Double validation : récapitulatif, puis la personne écrit elle-même l'action à réaliser
 export function Confirmation({ c, fermer }: { c: Cfm; fermer: () => void }) {
   const [v, setV] = useState("");
-  const pret = normTxt(v) === normTxt(c.phrase);
+  const x = i18n(); const pret = (x ? x.phrases(c.phrase) : [c.phrase]).map(normTxt).includes(normTxt(v));
   return (
     <div className="cfm-scrim" onClick={(e) => { if (e.target === e.currentTarget) fermer(); }} onKeyDown={(e) => { if (e.key === "Escape") fermer(); }}>
       <div className="cfm" role="dialog" aria-modal="true" aria-labelledby="cfm-t">
@@ -72,21 +76,29 @@ export function Prerogatives({ val, moi, onChange, disabled }: { val: string[]; 
   );
 }
 
+// Libellé d'une entrée du journal ; les fragments passent par t() (re-rendu quand la traduction est chargée)
 export function libelle(e: Evt) {
   const d = e.data || {}; const qui = (d.nom as string) || e.path;
-  const par = e.par_email ? ` — par ${e.par_email}` : "";
-  if (e.action === "CONNEXION") return `${qui} s'est connecté(e)`;
-  if (e.action === "MEMBRE_INSERT") return `Accès ouvert : ${e.path} (${(d.fonctions || []).map((c) => FL[c] || c).join(", ")})${d.admin ? ", administrateur" : ""}${par}`;
-  if (e.action === "MEMBRE_DELETE") return `Invitation retirée : ${e.path}${par}`;
-  if (e.action === "MEMBRE_UPDATE") return `Accès modifié : ${qui} — ${d.actif ? "actif" : "suspendu"}${d.super ? ", super administrateur" : d.admin ? ", administrateur" + (Array.isArray(d.prerogatives) ? " (" + (d.prerogatives.map((p) => PL[p] || p).join(", ") || "aucune prérogative") + ")" : "") : ""} ; ${(d.fonctions || []).map((c) => FL[c] || c).join(", ") || "aucune fonction"}${par}`;
+  const par = e.par_email ? " — " + t("par") + " " + e.par_email : "";
+  const fl = (xs?: string[]) => (xs || []).map((c) => t(FL[c] || c)).join(", ");
+  if (e.action === "CONNEXION") return qui + " " + t("s'est connecté(e)");
+  if (e.action === "MEMBRE_INSERT") return t("Accès ouvert") + " : " + e.path + " (" + fl(d.fonctions) + ")" + (d.admin ? ", " + t("administrateur") : "") + par;
+  if (e.action === "MEMBRE_DELETE") return t("Invitation retirée") + " : " + e.path + par;
+  if (e.action === "MEMBRE_UPDATE") return t("Accès modifié") + " : " + qui + " — " + t(d.actif ? "actif" : "suspendu") + (d.super ? ", " + t("super administrateur") : d.admin ? ", " + t("administrateur") + (Array.isArray(d.prerogatives) ? " (" + (d.prerogatives.map((p) => t(PL[p] || p)).join(", ") || t("aucune prérogative")) + ")" : "") : "") + " ; " + (fl(d.fonctions) || t("aucune fonction")) + par;
   const seg = e.path.split("/");
-  if (seg[0] === "sig") return `${d.etape === "lecture" ? "Lecture attestée" : d.etape === "renvoi" ? "Renvoi" : "Visa"} : ${d.doc || ""} v${d.version || ""}${par}`;
-  if (seg[0] === "circuits") return `Circuit « ${(d.type as string) || seg[1]} » ${e.action === "DELETE" ? "rétabli" : "modifié"}${par}`;
-  if (seg[0] === "lectures") return `Lectures obligatoires de ${seg[1]} modifiées${par}`;
-  if (seg[0] === "etats") return `${seg[1]} ${e.action === "DELETE" ? "rétabli" : d.statut === "supprime" ? "supprimé" : "abrogé"}${par}`;
-  if (seg[0] === "redaction") return `Rédaction ${seg[1]} : ${(d.statut as string) || e.action.toLowerCase()}${par}`;
-  if (seg[0] === "adoptions") return `Adoption ${seg[1].split("~")[0]} : ${(d.statut as string) || ""}${par}`;
-  return `${e.action} ${e.path}${par}`;
+  if (seg[0] === "sig") return t(d.etape === "lecture" ? "Lecture attestée" : d.etape === "renvoi" ? "Renvoi" : "Visa") + " : " + (d.doc || "") + " v" + (d.version || "") + par;
+  if (seg[0] === "circuits") return t("Circuit") + " « " + t((d.type as string) || seg[1]) + " » " + t(e.action === "DELETE" ? "rétabli" : "modifié") + par;
+  if (seg[0] === "lectures") return t("Lectures obligatoires") + " — " + seg[1] + " " + t("modifiées") + par;
+  if (seg[0] === "etats") return seg[1] + " " + t(e.action === "DELETE" ? "rétabli" : d.statut === "supprime" ? "supprimé" : "abrogé") + par;
+  if (seg[0] === "redaction") return t("Rédaction") + " " + seg[1] + " : " + t((d.statut as string) || e.action.toLowerCase()) + par;
+  if (seg[0] === "adoptions") return t("Adoption") + " " + seg[1].split("~")[0] + " : " + t((d.statut as string) || "") + par;
+  return e.action + " " + e.path + par;
+}
+// Re-rendu une fois la traduction chargée (elle est injectée après l'hydratation)
+export function useLangue() {
+  const [, setN] = useState(0);
+  useEffect(() => { const f = () => setN((n) => n + 1); window.addEventListener("pci18n", f); if (i18n()) f(); return () => window.removeEventListener("pci18n", f); }, []);
+  return i18n()?.lang || "fr";
 }
 
 export const CSS = `

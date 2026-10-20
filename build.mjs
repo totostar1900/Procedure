@@ -334,6 +334,7 @@ function buildSite() {
   const strip = (d) => { const { _source, ...rest } = d; return d.projet ? { ...rest, projet: strip(d.projet) } : rest; };
   const data = { societe: cfg.societe, niveaux: cfg.niveaux, references: cfg.references, glossaire: cfg.glossaire, docs: docs.map(strip), prevus, generated: TODAY };
   const html = read(P("templates/index.tpl.html"))
+    .replace("{{I18N_JS}}", () => i18nJs())
     .replace("{{SITE_CSS}}", () => read(P("templates/site.css")))
     .replace("{{CONTENT_CSS}}", () => read(P("templates/content.css")))
     .replaceAll("{{SOCIETE}}", esc(cfg.societe.raison_sociale))
@@ -344,6 +345,7 @@ function buildSite() {
     .replace("{{ENGINE_JS}}", () => read(P("templates/engine.cjs")))
     .replace("{{SITE_JS}}", () => read(P("templates/site.js")).replace("/*GENERATOR*/", () => read(P("templates/generator.js"))).replace("/*VISAS*/", () => read(P("templates/visas.js"))).replace("/*SELECTION*/", () => read(P("templates/selection.js"))).replace("/*EDITEUR*/", () => read(P("templates/editeur.js"))).replace("/*TABLEAU*/", () => read(P("templates/tableau.js"))).replace("/*GUIDE*/", () => read(P("templates/guide.js"))));
   fs.writeFileSync(P("dist/index.html"), html);
+  fs.writeFileSync(P("dist/i18n.js"), i18nJs());
   fs.mkdirSync(P("dist/fonts"), { recursive: true });
   for (const f of fs.readdirSync(P("templates/fonts"))) fs.copyFileSync(P("templates/fonts", f), P("dist/fonts", f));
   console.log("HTML dist/index.html", (html.length / 1024).toFixed(0) + " Ko");
@@ -353,4 +355,26 @@ if (process.argv[1] && process.argv[1].endsWith("build.mjs")) {
 if (!NO_PDF) await buildPdfs();
 await buildWord();
 buildSite();
+}
+
+// Interface anglaise : moteur + dictionnaire (templates/i18n-en.json : chaînes de l'interface et motifs)
+export function i18nDict() {
+  // templates/i18n/*.tsv : « français<TAB>anglais » ; motifs.tsv : « expression<TAB>traduction » (lignes # ignorées)
+  const dir = P("templates/i18n"), dict = {}, patterns = [];
+  const lignes = (f) => fs.readFileSync(path.join(dir, f), "utf8").split("\n").filter((l) => l.trim() && !l.startsWith("#")).map((l) => l.split("\t"));
+  for (const f of fs.readdirSync(dir).filter((f) => f.endsWith(".tsv") && f !== "motifs.tsv").sort()) {
+    for (const [fr, en] of lignes(f)) {
+      if (en === undefined) { console.warn("i18n : ligne sans traduction dans " + f + " : " + fr); continue; }
+      const k = fr.replace(/\s+/g, " ").trim();
+      if (dict[k] !== undefined && dict[k] !== en.trim()) console.warn("i18n : traductions différentes pour « " + k + " »");
+      dict[k] = en.trim();
+    }
+  }
+  if (fs.existsSync(path.join(dir, "motifs.tsv"))) for (const [re, en] of lignes("motifs.tsv")) { try { new RegExp(re); patterns.push([re, (en || "").trim()]); } catch (e) { console.warn("i18n : motif invalide " + re); } }
+  return { dict, patterns };
+}
+function i18nJs() {
+  const d = i18nDict();
+  const js = (o) => JSON.stringify(o).replace(/</g, "\\u003c");
+  return fs.readFileSync(P("templates/i18n.js"), "utf8").replace("/*I18N_DICT*/{}", () => js(d.dict)).replace("/*I18N_PATTERNS*/[]", () => js(d.patterns));
 }

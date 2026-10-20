@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 // Toute la page et tous les fichiers sont réservés aux personnes connectées par Microsoft 365
 // ET activées par l'administrateur (table membres, actif = vrai).
-const LIBRE = [/^\/connexion/, /^\/auth\//, /^\/_next\//, /^\/favicon/, /^\/shim\.js$/];
+const LIBRE = [/^\/connexion/, /^\/auth\//, /^\/_next\//, /^\/favicon/, /^\/shim\.js$/, /^\/i18n\.js$/];
 
 export async function middleware(req: NextRequest) {
   let res = NextResponse.next({ request: req });

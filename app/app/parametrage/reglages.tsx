@@ -1,7 +1,7 @@
 "use client";
 import { createBrowserClient } from "@supabase/ssr";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { COLS, CSS, Cfm, Confirmation, Evt, FL, Membre, MoiC, PL, PREROGS, date, libelle, msg, telecharger } from "../../lib/admin-ui";
+import { useLangue, COLS, CSS, Cfm, Confirmation, Evt, FL, Membre, MoiC, PL, PREROGS, date, libelle, msg, telecharger } from "../../lib/admin-ui";
 
 // Paramétrage : réservé au super administrateur. Administrateurs et prérogatives, règles, journal complet.
 const CATS: [string, string, (e: Evt) => boolean][] = [
@@ -15,6 +15,7 @@ const CATS: [string, string, (e: Evt) => boolean][] = [
 ];
 
 export default function Reglages({ moi }: { moi: MoiC }) {
+  useLangue();
   const sb = useMemo(() => createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!), []);
   const [ms, setMs] = useState<Membre[]>([]);
   const [evts, setEvts] = useState<Evt[]>([]);

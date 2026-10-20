@@ -1,7 +1,7 @@
 "use client";
 import { createBrowserClient } from "@supabase/ssr";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { COLS, CSS, Cfm, Confirmation, Evt, FL, FONCTIONS, Membre, MoiC, PL, Prerogatives, date, msg, peutDe, statutDe, telecharger } from "../../lib/admin-ui";
+import { loc, t, useLangue, COLS, CSS, Cfm, Confirmation, Evt, FL, FONCTIONS, Membre, MoiC, PL, Prerogatives, date, msg, peutDe, statutDe, telecharger } from "../../lib/admin-ui";
 
 type Doc = { id: string; titre: string; type: string };
 type Lect = { ids?: string[]; consult?: string[]; tous?: boolean; maj?: string };
@@ -9,7 +9,7 @@ const DOMAINE = "purposecapital.africa";
 const SITE = "https://referentiel.purposecapital.africa";
 const VIERGE: Membre = { email: "", user_id: null, nom: "", poste: "", fonctions: ["collab"], actif: true, admin: false, super: false, prerogatives: [], cree_le: "", derniere_connexion: null, acces: "employe", tableau: false };
 const norm = (t: string) => t.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
-const jour = (s: string | null) => (s ? new Date(s).toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" }) : "—");
+const jour = (s: string | null) => (s ? new Date(s).toLocaleDateString(loc(), { day: "2-digit", month: "short", year: "numeric" }) : "—");
 
 // Liste déroulante à choix multiples (fonctions)
 function ChoixFonctions({ val, onChange, disabled }: { val: string[]; onChange: (v: string[]) => void; disabled?: boolean }) {
@@ -68,6 +68,7 @@ function lignes(evts: Evt[], nomDe: (e: string) => string): Ligne[] {
 
 export default function Gestion({ moi, docs }: { moi: MoiC; docs: Doc[] }) {
   const sb = useMemo(() => createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!), []);
+  useLangue();
   const peut = peutDe(moi);
   const [ms, setMs] = useState<Membre[]>([]);
   const [evts, setEvts] = useState<Evt[]>([]);
@@ -247,7 +248,7 @@ export default function Gestion({ moi, docs }: { moi: MoiC; docs: Doc[] }) {
               <select className="sel" value={fFonction} onChange={(e) => setFFonction(e.target.value)} aria-label="Fonction"><option value="">Toutes les fonctions</option><option value="__admin">Administrateurs</option>{FONCTIONS.map(([c, l]) => <option key={c} value={c}>{l}</option>)}</select>
               <select className="sel" value={fStatut} onChange={(e) => setFStatut(e.target.value)} aria-label="Statut"><option value="">Actifs et invités</option><option value="Actif">Actifs</option><option value="Invité">Invités</option><option value="Suspendu">Suspendus</option></select>
             </div>
-            <span className="mail">{liste.length} membre{liste.length > 1 ? "s" : ""}</span>
+            <span className="mail">{liste.length + (liste.length > 1 ? " membres" : " membre")}</span>
           </div>
           <div className="tbl">
             <table className="ml">
@@ -288,7 +289,7 @@ export default function Gestion({ moi, docs }: { moi: MoiC; docs: Doc[] }) {
               </tbody>
             </table>
           </div>
-          <p className="fine">{jListe.length} événement{jListe.length > 1 ? "s" : ""}{jListe.length > jNb ? <> · <button type="button" className="lnk" onClick={() => setJNb(jNb + 100)}>en afficher plus</button></> : null}</p>
+          <p className="fine">{jListe.length + (jListe.length > 1 ? " événements" : " événement")}{jListe.length > jNb ? <> · <button type="button" className="lnk" onClick={() => setJNb(jNb + 100)}>en afficher plus</button></> : null}</p>
         </section>
       </main>
 
@@ -349,7 +350,7 @@ export default function Gestion({ moi, docs }: { moi: MoiC; docs: Doc[] }) {
 
             {orig ? <>
               <h3>Historique de l&apos;accès</h3>
-              <ul className="journal" style={{ maxHeight: 220 }}>{hist.map((l) => <li key={l.id}><time>{date(l.le)}</time><span><b>{l.type}</b>{l.detail ? " — " + l.detail : ""}{l.par ? " · " + l.par : ""}</span></li>)}{!hist.length ? <li className="vide">Aucun événement.</li> : null}</ul>
+              <ul className="journal" style={{ maxHeight: 220 }}>{hist.map((l) => <li key={l.id}><time>{date(l.le)}</time><span><b>{l.type}</b>{l.detail ? <> — <span>{l.detail}</span></> : null}{l.par ? " · " + l.par : ""}</span></li>)}{!hist.length ? <li className="vide">Aucun événement.</li> : null}</ul>
             </> : null}
           </div>
           <footer className="sd-f">
