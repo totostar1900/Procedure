@@ -111,7 +111,7 @@
   var RESTREINT = !!DATA.restreint;
   if (RESTREINT) {
     document.body.classList.add("restreint");
-    document.querySelectorAll(".nav [data-open]").forEach(function (b) { b.hidden = b.getAttribute("data-open") !== "mesdocs"; });
+    document.querySelectorAll(".nav [data-open]").forEach(function (b) { b.hidden = b.getAttribute("data-open") !== "mesdocs" && b.getAttribute("data-open") !== "guide"; });
     document.querySelectorAll('.brand[data-open], .mbar-brand').forEach(function (b) { b.setAttribute("data-open", "mesdocs"); });
   }
   var rows = docs.map(function (d) { return Object.assign({ live: true }, d); })
@@ -341,7 +341,7 @@
 
 
   // ---------- Navigation ----------
-  var VIEWS = ["registre", "doc", "glossaire", "correspondance", "circuit", "dossiers", "dossier", "visas", "atraiter", "archives", "edition", "mesdocs", "nouveau", "tableau"];
+  var VIEWS = ["registre", "doc", "glossaire", "correspondance", "circuit", "dossiers", "dossier", "visas", "atraiter", "archives", "edition", "mesdocs", "nouveau", "tableau", "guide"];
   function go(target) {
     if (target === "registre") target = "";
     if (location.hash.slice(1) === target) route(); else location.hash = target;
@@ -354,7 +354,7 @@
     var dz = /^d-[A-Za-z0-9_-]+$/.test(h);
     var ed = /^edition\/[A-Za-z0-9-]+$/.test(h);
     var view = doc ? "doc" : dz ? "dossier" : ed ? "edition" : (VIEWS.indexOf(h) > 0 && h !== "dossier" && h !== "edition" ? h : "registre");
-    if (RESTREINT && view !== "doc") view = "mesdocs";
+    if (RESTREINT && view !== "doc" && view !== "guide") view = "mesdocs";
     if (view !== "edition" && E) { if (E.dirty) saveDraft(); E = null; }
     if (view !== "dossier" && cur) { if (cur.dirty) saveNow(); cur = null; }
     VIEWS.forEach(function (v) { $("#v-" + v).hidden = v !== view; });
@@ -369,6 +369,7 @@
     if (view === "visas") renderVisas();
     if (view === "atraiter") renderATraiter();
     if (view === "tableau") renderTableau();
+    if (view === "guide") renderGuide();
     if (view === "circuit") renderCircuit();
     if (view === "archives") renderArchives();
     if (view === "edition") openEditor(h.slice(8));
@@ -382,6 +383,7 @@
 /*SELECTION*/
 /*EDITEUR*/
 /*TABLEAU*/
+/*GUIDE*/
   window.addEventListener("hashchange", route);
   renderRegistre();
   route();

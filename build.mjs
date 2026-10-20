@@ -342,7 +342,7 @@ function buildSite() {
     .replaceAll("{{GENERATED}}", frDate(TODAY))
     .replace("{{DATA}}", () => JSON.stringify(data).replace(/</g, "\\u003c"))
     .replace("{{ENGINE_JS}}", () => read(P("templates/engine.cjs")))
-    .replace("{{SITE_JS}}", () => read(P("templates/site.js")).replace("/*GENERATOR*/", () => read(P("templates/generator.js"))).replace("/*VISAS*/", () => read(P("templates/visas.js"))).replace("/*SELECTION*/", () => read(P("templates/selection.js"))).replace("/*EDITEUR*/", () => read(P("templates/editeur.js"))).replace("/*TABLEAU*/", () => read(P("templates/tableau.js"))));
+    .replace("{{SITE_JS}}", () => read(P("templates/site.js")).replace("/*GENERATOR*/", () => read(P("templates/generator.js"))).replace("/*VISAS*/", () => read(P("templates/visas.js"))).replace("/*SELECTION*/", () => read(P("templates/selection.js"))).replace("/*EDITEUR*/", () => read(P("templates/editeur.js"))).replace("/*TABLEAU*/", () => read(P("templates/tableau.js"))).replace("/*GUIDE*/", () => read(P("templates/guide.js"))));
   fs.writeFileSync(P("dist/index.html"), html);
   fs.mkdirSync(P("dist/fonts"), { recursive: true });
   for (const f of fs.readdirSync(P("templates/fonts"))) fs.copyFileSync(P("templates/fonts", f), P("dist/fonts", f));

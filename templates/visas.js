@@ -693,7 +693,7 @@
       '<div class="me-roles">' + (f.length ? f.map(function (x) { return '<span class="me-chip">' + esc(FLABEL[x] || x) + "</span>"; }).join("") : '<span class="me-none">Aucune fonction attribuée</span>') + (V.owner ? '<span class="me-chip gold">' + (HOSTED && estSuper() ? "Super administrateur" : "Administrateur") + '</span>' : "") + "</div>" +
       (RESTREINT ? '<button type="button" class="me-todo" data-open="mesdocs"><span><b>' + n + "</b> à lire</span><span><b>" + docs.length + "</b> document" + (docs.length > 1 ? "s" : "") + "</span></button>" : '<button type="button" class="me-todo" data-open="atraiter"><span><b>' + nv + "</b> à viser</span><span><b>" + (n - nv) + "</b> à lire</span></button>") +
       (r.depuis ? '<div class="me-since">Fonctions attribuées depuis le ' + esc(fmtDate(r.depuis)) + "</div>" : "") +
-      (HOSTED ? '<div class="me-links"><a href="/deconnexion">Se déconnecter</a></div>' : "") +
+      (HOSTED ? '<div class="me-links"><a href="#guide" data-guide="1">Guide</a><a href="/deconnexion">Se déconnecter</a></div>' : "") +
       "</div>";
   }
 

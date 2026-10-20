@@ -698,6 +698,47 @@ table.mini .acts2 { white-space: nowrap; text-align: right; }
 @media (max-width: 560px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } .kpi { border-right: 0; border-bottom: 1px solid var(--rule); } .feed li { grid-template-columns: 1fr; } .feed .ic { display: none; } }
 @media print { .rail, .rail-show, .rail-edge, .topbar, .db-filters, .db-head .row-actions, .chips { display: none !important; } .shell { margin-left: 0 !important; } #v-tableau .card { break-inside: avoid; } .feed { max-height: none; } }
 
+/* ---------- Guide et visite ---------- */
+.gd-hero { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding: 14px 16px; background: var(--surface); border: 1px solid var(--rule); border-left: 3px solid var(--gold); border-radius: var(--radius); margin: 4px 0 16px; }
+.gd-hero b { display: block; font-size: var(--fs-2xs); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.gd-hero span { font-weight: 600; color: var(--heading); font-size: var(--fs-lg); }
+.gd-hero small { display: block; color: var(--muted); font-size: var(--fs-xs); }
+.gd-som { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+.gd-som a { display: inline-flex; gap: 6px; align-items: center; padding: 5px 10px; border: 1px solid var(--rule); border-radius: var(--radius); color: var(--ink); text-decoration: none; font-size: var(--fs-sm); background: var(--bg); }
+.gd-som a:hover { border-color: var(--heading); }
+.gd-som a span { font-weight: 700; color: var(--gold-deep); font-variant-numeric: tabular-nums; }
+.gd-sec { border: 1px solid var(--rule); border-radius: var(--radius); padding: 14px 18px; margin-bottom: 14px; background: var(--bg); scroll-margin-top: 16px; }
+.gd-sec header { display: flex; align-items: center; gap: 10px; }
+.gd-sec h2 { font-family: var(--font-body); font-size: var(--fs-lg); font-weight: 650; color: var(--heading); margin: 0; flex: 1; }
+.gd-n { width: 24px; height: 24px; display: grid; place-items: center; background: var(--navy); color: var(--gold); font-weight: 700; font-size: var(--fs-sm); flex: none; }
+.gd-steps { margin: 10px 0 0; padding: 0; list-style: none; counter-reset: gd; }
+.gd-steps li { counter-increment: gd; position: relative; padding: 6px 0 6px 30px; border-top: 1px solid var(--rule); font-size: var(--fs-read); line-height: 1.55; animation: gdin .35s ease both; animation-delay: var(--d, 0ms); }
+.gd-steps li::before { content: counter(gd); position: absolute; left: 0; top: 7px; width: 20px; height: 20px; display: grid; place-items: center; border: 1px solid var(--rule-strong); color: var(--muted); font-size: var(--fs-xs); font-weight: 600; }
+@keyframes gdin { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.gt { position: fixed; inset: 0; z-index: 70; }
+.gt-block { position: absolute; inset: 0; }
+.gt-spot { position: fixed; border-radius: 3px; box-shadow: 0 0 0 9999px rgba(4, 16, 32, .58); outline: 2px solid var(--gold); outline-offset: 2px; transition: left .35s ease, top .35s ease, width .35s ease, height .35s ease, opacity .25s; pointer-events: none; }
+.gt-spot::after { content: ""; position: absolute; inset: -6px; border: 2px solid var(--gold); border-radius: 4px; animation: gtpulse 1.6s ease-out infinite; }
+@keyframes gtpulse { from { opacity: .8; transform: scale(1); } to { opacity: 0; transform: scale(1.08); } }
+.gt-card { position: fixed; background: var(--raised); color: var(--ink); border-top: 3px solid var(--gold); box-shadow: 0 18px 50px rgba(2, 12, 24, .35); padding: 16px 18px 14px; transition: left .35s ease, top .35s ease; }
+.gt-card.in { animation: gtcard .3s ease both; }
+@keyframes gtcard { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.gt-card h3 { margin: 6px 0 6px; font-family: var(--font-display); color: var(--heading); font-size: var(--fs-xl); }
+.gt-txt { margin: 0 0 14px; font-size: var(--fs-read); line-height: 1.55; color: var(--ink-soft); }
+.gt-prog { display: flex; align-items: center; gap: 4px; }
+.gt-prog i { width: 14px; height: 3px; background: var(--rule-strong); }
+.gt-prog i.vu { background: var(--heading); } .gt-prog i.on { background: var(--gold); width: 22px; }
+.gt-prog span { margin-left: auto; font-size: var(--fs-xs); color: var(--muted); }
+.gt-btns { display: flex; gap: 8px; align-items: center; }
+.gt-btns [hidden] { display: none; }
+.gt-skip { margin-left: auto; background: none; border: 0; color: var(--muted); font: inherit; font-size: var(--fs-sm); cursor: pointer; text-decoration: underline; }
+.gt-invite { position: fixed; z-index: 65; right: 20px; bottom: 20px; width: min(340px, calc(100vw - 32px)); background: var(--raised); border-top: 3px solid var(--gold); box-shadow: 0 14px 40px rgba(2, 12, 24, .28); padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; animation: gtcard .35s ease both; }
+.gt-invite b { font-family: var(--font-display); color: var(--heading); font-size: var(--fs-lg); }
+.gt-invite span { color: var(--ink-soft); font-size: var(--fs-sm); }
+.gt-invite div { display: flex; gap: 8px; margin-top: 8px; }
+@media (prefers-reduced-motion: reduce) { .gt-spot, .gt-card, .gd-steps li, .gt-invite { transition: none; animation: none; } .gt-spot::after { display: none; } }
+@media print { .gt, .gt-invite { display: none !important; } }
+
 /* Styles du corps des documents — partagés par le site et les PDF.
    Les couleurs viennent des jetons définis par chaque gabarit. */
 
@@ -779,7 +820,7 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
     </button>
     <button type="button" class="rail-fold" id="rail-fold" aria-label="Masquer le menu" title="Masquer le menu"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="1.5"/><path d="M7.5 3.5v13"/></svg></button>
   </div>
-  <nav class="nav" aria-label="Sections"><button type="button" data-open="tableau" title="Tableau de bord" id="nav-tableau" hidden><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="6.5" height="8" rx="1"/><rect x="11" y="2.5" width="6.5" height="5" rx="1"/><rect x="2.5" y="12.5" width="6.5" height="5" rx="1"/><rect x="11" y="9.5" width="6.5" height="8" rx="1"/></svg><span class="rl">Tableau de bord</span></button><button type="button" data-open="mesdocs" title="Mes documents" class="nav-emp" hidden><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 2.5h7l3 3v12H5z"/><path d="M12 2.5v3h3M7.5 11l1.8 1.8 3.2-3.6"/></svg><span class="rl">Mes documents</span><span class="badge" id="nav-badge-emp" hidden></span></button><button type="button" data-open="atraiter" title="À traiter"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="14" height="14" rx="2.5"/><path d="M6.5 10.2l2.4 2.3 4.6-5"/></svg><span class="rl">À traiter</span><span class="badge" id="nav-badge" hidden></span></button><button type="button" data-open="registre" title="Documents"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 2.5h7l3 3v12H5z"/><path d="M12 2.5v3h3M7.5 9.5h5M7.5 12.5h5M7.5 15h3"/></svg><span class="rl">Documents</span></button><button type="button" data-open="dossiers" title="Dossiers"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5.5v10h15v-8h-7l-2-2z"/></svg><span class="rl">Dossiers</span></button><button type="button" data-open="visas" title="Suivi des visas"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 14.5c2-1 3-4 4.5-4s.5 3 2 3 2-2 3-2 1 1.5 3.5 1.5"/><path d="M3 17.5h14"/></svg><span class="rl">Suivi des visas</span></button><button type="button" data-open="circuit" title="Circuit d'approbation"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="4.5" cy="10" r="2"/><circle cx="15.5" cy="4.5" r="2"/><circle cx="15.5" cy="15.5" r="2"/><path d="M6.4 9.1l7.2-3.7M6.4 10.9l7.2 3.7"/></svg><span class="rl">Circuit d'approbation</span></button><button type="button" data-open="correspondance" title="Textes de référence"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v14M4 6h12M4 6l-2 5h4zM16 6l-2 5h4zM7 17h6"/></svg><span class="rl">Textes de référence</span></button><button type="button" data-open="glossaire" title="Glossaire"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3.5h9.5a2 2 0 012 2v11H6a2 2 0 01-2-2z"/><path d="M4 14.5a2 2 0 012-2h9.5"/></svg><span class="rl">Glossaire</span></button><button type="button" data-open="archives" title="Archives"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="4" rx="1"/><path d="M4 7.5v9h12v-9M8 11h4"/></svg><span class="rl">Archives</span></button><a href="/membres" class="nav-link" id="nav-membres" title="Membres" hidden><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="7" r="2.6"/><path d="M2.5 16c.6-2.8 2.6-4.3 5-4.3s4.4 1.5 5 4.3"/><circle cx="14" cy="8" r="2"/><path d="M13 12.2c2 0 3.6 1.2 4.2 3.3"/></svg><span class="rl">Membres</span></a><a href="/parametrage" class="nav-link" id="nav-parametrage" title="Paramétrage" hidden><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5h8M14.5 5.5H17M3 10h2.5M9 10h8M3 14.5h8M14.5 14.5H17"/><circle cx="12.8" cy="5.5" r="1.7"/><circle cx="7.2" cy="10" r="1.7"/><circle cx="12.8" cy="14.5" r="1.7"/></svg><span class="rl">Paramétrage</span></a></nav>
+  <nav class="nav" aria-label="Sections"><button type="button" data-open="tableau" title="Tableau de bord" id="nav-tableau" hidden><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="6.5" height="8" rx="1"/><rect x="11" y="2.5" width="6.5" height="5" rx="1"/><rect x="2.5" y="12.5" width="6.5" height="5" rx="1"/><rect x="11" y="9.5" width="6.5" height="8" rx="1"/></svg><span class="rl">Tableau de bord</span></button><button type="button" data-open="mesdocs" title="Mes documents" class="nav-emp" hidden><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 2.5h7l3 3v12H5z"/><path d="M12 2.5v3h3M7.5 11l1.8 1.8 3.2-3.6"/></svg><span class="rl">Mes documents</span><span class="badge" id="nav-badge-emp" hidden></span></button><button type="button" data-open="atraiter" title="À traiter"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="14" height="14" rx="2.5"/><path d="M6.5 10.2l2.4 2.3 4.6-5"/></svg><span class="rl">À traiter</span><span class="badge" id="nav-badge" hidden></span></button><button type="button" data-open="registre" title="Documents"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 2.5h7l3 3v12H5z"/><path d="M12 2.5v3h3M7.5 9.5h5M7.5 12.5h5M7.5 15h3"/></svg><span class="rl">Documents</span></button><button type="button" data-open="dossiers" title="Dossiers"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5.5v10h15v-8h-7l-2-2z"/></svg><span class="rl">Dossiers</span></button><button type="button" data-open="visas" title="Suivi des visas"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 14.5c2-1 3-4 4.5-4s.5 3 2 3 2-2 3-2 1 1.5 3.5 1.5"/><path d="M3 17.5h14"/></svg><span class="rl">Suivi des visas</span></button><button type="button" data-open="circuit" title="Circuit d'approbation"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="4.5" cy="10" r="2"/><circle cx="15.5" cy="4.5" r="2"/><circle cx="15.5" cy="15.5" r="2"/><path d="M6.4 9.1l7.2-3.7M6.4 10.9l7.2 3.7"/></svg><span class="rl">Circuit d'approbation</span></button><button type="button" data-open="correspondance" title="Textes de référence"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v14M4 6h12M4 6l-2 5h4zM16 6l-2 5h4zM7 17h6"/></svg><span class="rl">Textes de référence</span></button><button type="button" data-open="glossaire" title="Glossaire"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3.5h9.5a2 2 0 012 2v11H6a2 2 0 01-2-2z"/><path d="M4 14.5a2 2 0 012-2h9.5"/></svg><span class="rl">Glossaire</span></button><button type="button" data-open="archives" title="Archives"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="4" rx="1"/><path d="M4 7.5v9h12v-9M8 11h4"/></svg><span class="rl">Archives</span></button><button type="button" data-open="guide" title="Guide"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="7.5"/><path d="M7.8 7.8a2.3 2.3 0 0 1 4.4 1c0 1.5-2.2 1.9-2.2 3.2M10 14.6v.1"/></svg><span class="rl">Guide</span></button><a href="/membres" class="nav-link" id="nav-membres" title="Membres" hidden><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="7" r="2.6"/><path d="M2.5 16c.6-2.8 2.6-4.3 5-4.3s4.4 1.5 5 4.3"/><circle cx="14" cy="8" r="2"/><path d="M13 12.2c2 0 3.6 1.2 4.2 3.3"/></svg><span class="rl">Membres</span></a><a href="/parametrage" class="nav-link" id="nav-parametrage" title="Paramétrage" hidden><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5h8M14.5 5.5H17M3 10h2.5M9 10h8M3 14.5h8M14.5 14.5H17"/><circle cx="12.8" cy="5.5" r="1.7"/><circle cx="7.2" cy="10" r="1.7"/><circle cx="12.8" cy="14.5" r="1.7"/></svg><span class="rl">Paramétrage</span></a></nav>
   <div class="rail-foot">
     <div class="rail-me" id="rail-me" aria-live="polite"></div>
   </div>
@@ -816,7 +857,8 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
   <section class="view wrap" id="v-visas" hidden></section>
 
   <section class="view wrap" id="v-circuit" hidden></section>
-  <section class="view wrap" id="v-tableau" hidden></section>
+  <section class="view wrap" id="v-guide" hidden></section>
+<section class="view wrap" id="v-tableau" hidden></section>
 <section class="view wrap" id="v-atraiter" hidden></section>
   <section class="view wrap" id="v-archives" hidden></section>
   <section class="view wrap" id="v-edition" hidden></section>
@@ -1254,7 +1296,7 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
   var RESTREINT = !!DATA.restreint;
   if (RESTREINT) {
     document.body.classList.add("restreint");
-    document.querySelectorAll(".nav [data-open]").forEach(function (b) { b.hidden = b.getAttribute("data-open") !== "mesdocs"; });
+    document.querySelectorAll(".nav [data-open]").forEach(function (b) { b.hidden = b.getAttribute("data-open") !== "mesdocs" && b.getAttribute("data-open") !== "guide"; });
     document.querySelectorAll('.brand[data-open], .mbar-brand').forEach(function (b) { b.setAttribute("data-open", "mesdocs"); });
   }
   var rows = docs.map(function (d) { return Object.assign({ live: true }, d); })
@@ -1484,7 +1526,7 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
 
 
   // ---------- Navigation ----------
-  var VIEWS = ["registre", "doc", "glossaire", "correspondance", "circuit", "dossiers", "dossier", "visas", "atraiter", "archives", "edition", "mesdocs", "nouveau", "tableau"];
+  var VIEWS = ["registre", "doc", "glossaire", "correspondance", "circuit", "dossiers", "dossier", "visas", "atraiter", "archives", "edition", "mesdocs", "nouveau", "tableau", "guide"];
   function go(target) {
     if (target === "registre") target = "";
     if (location.hash.slice(1) === target) route(); else location.hash = target;
@@ -1497,7 +1539,7 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
     var dz = /^d-[A-Za-z0-9_-]+$/.test(h);
     var ed = /^edition\/[A-Za-z0-9-]+$/.test(h);
     var view = doc ? "doc" : dz ? "dossier" : ed ? "edition" : (VIEWS.indexOf(h) > 0 && h !== "dossier" && h !== "edition" ? h : "registre");
-    if (RESTREINT && view !== "doc") view = "mesdocs";
+    if (RESTREINT && view !== "doc" && view !== "guide") view = "mesdocs";
     if (view !== "edition" && E) { if (E.dirty) saveDraft(); E = null; }
     if (view !== "dossier" && cur) { if (cur.dirty) saveNow(); cur = null; }
     VIEWS.forEach(function (v) { $("#v-" + v).hidden = v !== view; });
@@ -1512,6 +1554,7 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
     if (view === "visas") renderVisas();
     if (view === "atraiter") renderATraiter();
     if (view === "tableau") renderTableau();
+    if (view === "guide") renderGuide();
     if (view === "circuit") renderCircuit();
     if (view === "archives") renderArchives();
     if (view === "edition") openEditor(h.slice(8));
@@ -2796,7 +2839,7 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
       '<div class="me-roles">' + (f.length ? f.map(function (x) { return '<span class="me-chip">' + esc(FLABEL[x] || x) + "</span>"; }).join("") : '<span class="me-none">Aucune fonction attribuée</span>') + (V.owner ? '<span class="me-chip gold">' + (HOSTED && estSuper() ? "Super administrateur" : "Administrateur") + '</span>' : "") + "</div>" +
       (RESTREINT ? '<button type="button" class="me-todo" data-open="mesdocs"><span><b>' + n + "</b> à lire</span><span><b>" + docs.length + "</b> document" + (docs.length > 1 ? "s" : "") + "</span></button>" : '<button type="button" class="me-todo" data-open="atraiter"><span><b>' + nv + "</b> à viser</span><span><b>" + (n - nv) + "</b> à lire</span></button>") +
       (r.depuis ? '<div class="me-since">Fonctions attribuées depuis le ' + esc(fmtDate(r.depuis)) + "</div>" : "") +
-      (HOSTED ? '<div class="me-links"><a href="/deconnexion">Se déconnecter</a></div>' : "") +
+      (HOSTED ? '<div class="me-links"><a href="#guide" data-guide="1">Guide</a><a href="/deconnexion">Se déconnecter</a></div>' : "") +
       "</div>";
   }
 
@@ -3745,6 +3788,201 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
     if (g === "registre") { go("registre"); return; }
     var el = document.getElementById(g); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   });
+
+  // ---------- Guide : page écrite et visite animée, adaptées aux accès de la personne connectée ----------
+  var INTRO = "Le référentiel documentaire réunit, en un seul endroit, les codes, politiques, procédures et modèles de contrat de Purpose Capital. " +
+    "Chaque texte y suit un circuit d'approbation tracé : il est rédigé, vérifié, approuvé puis adopté par les personnes désignées, chacune par un visa électronique daté. " +
+    "Une fois en vigueur, il est porté à la connaissance des collaborateurs concernés, qui attestent l'avoir lu. " +
+    "Vous y trouvez toujours la version applicable, son historique et la preuve de son adoption, en ligne, en PDF et en Word.";
+  function profilGuide() {
+    var r = (V.me && V.roles[V.me]) || {}, f = r.fonctions || [];
+    var appro = f.filter(function (x) { return ["pca", "adm", "dg", "rcci", "dcom", "dmc"].indexOf(x) >= 0; });
+    return {
+      employe: RESTREINT, complet: !RESTREINT, approbateur: !RESTREINT && appro.length > 0, fonctions: appro,
+      redacteur: !RESTREINT && canEdit(), tableau: !RESTREINT && accesTableau(), admin: !RESTREINT && !!V.owner,
+      superAdmin: !RESTREINT && !!V.owner && (!HOSTED || estSuper()), circuits: peut("circuits"), lectures: peut("lectures"), archiver: canArchive(),
+    };
+  }
+  // Étapes de la visite : cible (sélecteur), vue à ouvrir, condition d'affichage
+  var ETAPES = [
+    { titre: "Bienvenue dans le référentiel", texte: INTRO },
+    { sel: "#rail-me", titre: "Votre carte", texte: "Votre nom, vos fonctions et ce qui vous attend. Les compteurs ouvrent directement la liste de vos actions." },
+    { si: "employe", vue: "mesdocs", sel: '.nav [data-open="mesdocs"]', titre: "Mes documents", texte: "Les documents que l'on vous a attribués, et rien d'autre. Un badge indique le nombre de lectures à attester." },
+    { si: "employe", vue: "mesdocs", sel: "#v-mesdocs .md-list, #v-mesdocs", titre: "Lire et attester", texte: "Ouvrez un document, lisez-le jusqu'au bout, puis attestez votre lecture en bas de page. Votre attestation est datée et conservée au registre." },
+    { si: "approbateur", vue: "atraiter", sel: '.nav [data-open="atraiter"]', titre: "À traiter", texte: "Votre point d'entrée : les documents qui attendent votre visa, dans l'ordre du circuit. Un badge rouge compte vos actions." },
+    { si: "approbateur", vue: "atraiter", sel: "#v-atraiter .tt-list, #v-atraiter", titre: "Examiner, viser ou renvoyer", texte: "Ouvrez un document : la barre en haut propose de viser, ou de renvoyer avec un commentaire. Chaque visa demande d'écrire l'action pour éviter les erreurs. Une même personne ne vise pas deux étapes d'une même version (règle des quatre yeux)." },
+    { si: "complet", vue: "registre", sel: '.nav [data-open="registre"]', titre: "Documents", texte: "Le registre de tous les textes, avec leur statut, leur version et leur prochaine revue." },
+    { si: "complet", vue: "registre", sel: "#f-q", titre: "Rechercher et filtrer", texte: "Cherchez par mot, filtrez par type, domaine ou statut. Cliquez une ligne pour un aperçu ; ouvrez le document pour le texte complet, le PDF ou le Word." },
+    { si: "redacteur", vue: "registre", sel: "#btn-nouveau", titre: "Rédiger", texte: "Créez un document, ou ouvrez un document existant et choisissez « Modifier ». Vous pouvez aussi repartir d'un fichier Word. Une fois soumis, le texte est publié automatiquement et repart dans son circuit ; vous ne pouvez pas viser votre propre version." },
+    { si: "complet", sel: '.nav [data-open="visas"]', titre: "Suivi des visas", texte: "Qui a visé quoi et quand, document par document, et l'état des lectures obligatoires." },
+    { si: "complet", sel: '.nav [data-open="circuit"]', titre: "Circuit d'approbation", texte: "Où en est chaque document et qui doit agir." + "" },
+    { si: "circuits", vue: "circuit", sel: "#v-circuit .section-h ~ .lead, #v-circuit", titre: "Modifier les circuits", texte: "Par type de document : étapes, fonctions, règles de visa et délais. Une version déjà visée garde le circuit de son premier visa." },
+    { si: "tableau", sel: '.nav [data-open="tableau"]', titre: "Tableau de bord", texte: "La vue d'ensemble : visas en attente et retards, alertes, charge par personne, modifications en cours, lectures et revues." },
+    { si: "admin", sel: "#nav-membres", titre: "Membres", texte: "Ouvrir un accès, modifier les fonctions, suspendre, attribuer les documents aux employés — dans la limite de vos prérogatives." },
+    { si: "superAdmin", sel: "#nav-parametrage", titre: "Paramétrage", texte: "Réservé au super administrateur : administrateurs et prérogatives, règles, journal complet." },
+    { si: "complet", sel: "#rail-fold", titre: "Replier le menu", texte: "Ce bouton masque le menu pour lire en pleine largeur. Approchez la souris du bord gauche pour le faire réapparaître." },
+    { sel: '.nav [data-open="guide"]', titre: "Retrouver ce guide", texte: "Le guide écrit et cette visite restent accessibles ici à tout moment." },
+  ];
+  var G = null;
+  var visible = function (el) { if (!el) return false; var r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0 && getComputedStyle(el).visibility !== "hidden"; };
+  function cible(sel) { if (!sel) return null; var l = sel.split(", "); for (var i = 0; i < l.length; i++) { var el = document.querySelector(l[i]); if (visible(el) || (el && el.closest(".rail"))) return el; } return null; }
+  function visite(filtre) {
+    var p = profilGuide();
+    var etapes = ETAPES.filter(function (e) { return (!e.si || p[e.si]) && (!filtre || filtre(e)); });
+    if (!etapes.length) return;
+    fermerVisite();
+    var el = document.createElement("div"); el.className = "gt";
+    el.innerHTML = '<div class="gt-block"></div><div class="gt-spot"></div><div class="gt-card" role="dialog" aria-live="polite" aria-labelledby="gt-t"><div class="gt-prog"></div><h3 id="gt-t"></h3><p class="gt-txt"></p><div class="gt-btns"><button type="button" class="btn" data-gt="prev">Précédent</button><button type="button" class="btn primary" data-gt="next">Suivant</button><button type="button" class="gt-skip" data-gt="fin">Quitter la visite</button></div></div>';
+    document.body.appendChild(el);
+    G = { el: el, etapes: etapes, i: 0, retour: location.hash };
+    el.addEventListener("click", function (ev) {
+      var b = ev.target.closest("[data-gt]"); if (!b) return;
+      var a = b.getAttribute("data-gt");
+      if (a === "next") { if (G.i < G.etapes.length - 1) montrer(G.i + 1); else fermerVisite(true); }
+      if (a === "prev" && G.i > 0) montrer(G.i - 1);
+      if (a === "fin") fermerVisite(true);
+    });
+    montrer(0);
+  }
+  function montrer(i, sens) {
+    if (!G) return;
+    sens = sens || (i >= G.i ? 1 : -1);
+    G.i = i; var e = G.etapes[i], el = G.el;
+    var suite = function () {
+      if (!G) return;
+      var t = cible(e.sel), mobile = window.innerWidth <= 860;
+      // Élément absent (accès, écran) : on passe à l'étape suivante plutôt que d'afficher une bulle dans le vide
+      if (e.sel && !t && !e.vue) { var j = i + sens; if (j >= 0 && j < G.etapes.length) { G.etapes.splice(i, 1); montrer(sens > 0 ? i : j, sens); } else if (G.etapes.length > 1) { G.etapes.splice(i, 1); montrer(Math.max(0, i - 1), -1); } return; }
+      var dansRail = t && t.closest && t.closest(".rail");
+      document.body.classList.toggle("rail-peek", !!(dansRail && document.body.classList.contains("rail-folded")));
+      if (mobile) railMobile(!!dansRail);
+      var spot = el.querySelector(".gt-spot"), card = el.querySelector(".gt-card");
+      el.querySelector("#gt-t").textContent = e.titre;
+      el.querySelector(".gt-txt").textContent = e.texte;
+      el.querySelector(".gt-prog").innerHTML = G.etapes.map(function (x, k) { return "<i" + (k === i ? ' class="on"' : k < i ? ' class="vu"' : "") + "></i>"; }).join("") + "<span>" + (i + 1) + " / " + G.etapes.length + "</span>";
+      el.querySelector('[data-gt="prev"]').hidden = i === 0;
+      el.querySelector('[data-gt="next"]').textContent = i === G.etapes.length - 1 ? "Terminer" : "Suivant";
+      card.classList.remove("in"); void card.offsetWidth; card.classList.add("in");
+      setTimeout(function () {
+        if (!G) return;
+        var W = window.innerWidth, H = window.innerHeight, cw = Math.min(360, W - 32);
+        card.style.width = cw + "px";
+        if (!t) { spot.style.cssText = "left:" + W / 2 + "px;top:" + H / 2 + "px;width:0;height:0;opacity:0"; card.style.left = (W - cw) / 2 + "px"; card.style.top = Math.max(16, H / 2 - card.offsetHeight / 2) + "px"; return; }
+        if (!dansRail) t.scrollIntoView({ block: "center", behavior: "smooth" });
+        setTimeout(function () {
+          if (!G) return;
+          var r = t.getBoundingClientRect(), m = 6, ch = card.offsetHeight;
+          var h = Math.min(r.height + 2 * m, H * 0.6);
+          spot.style.cssText = "left:" + (r.left - m) + "px;top:" + (r.top - m) + "px;width:" + (r.width + 2 * m) + "px;height:" + h + "px;opacity:1";
+          var x, y;
+          if (r.right + 16 + cw < W && r.width < W / 2) { x = r.right + 16; y = Math.min(Math.max(16, r.top + r.height / 2 - ch / 2), H - ch - 16); }
+          else { x = Math.min(Math.max(16, r.left), W - cw - 16); y = r.top - m + h + 14 + ch < H ? r.top - m + h + 14 : Math.max(16, r.top - ch - 20); }
+          card.style.left = x + "px"; card.style.top = y + "px";
+        }, dansRail ? 220 : 380);
+      }, 30);
+    };
+    if (e.vue && location.hash.slice(1) !== e.vue && !(e.vue === "registre" && !location.hash.slice(1))) { go(e.vue); setTimeout(suite, 300); } else suite();
+  }
+  function fermerVisite(fini) {
+    if (!G) return;
+    G.el.remove(); document.body.classList.remove("rail-peek"); if (window.innerWidth <= 860) railMobile(false);
+    var retour = G.retour; G = null;
+    if (fini) { try { localStorage.setItem("pc-ref-guide-vu-" + (V.me || ""), "1"); } catch (e) { /* stockage indisponible */ } if (location.hash !== retour && retour !== undefined) location.hash = retour || ""; }
+  }
+  document.addEventListener("keydown", function (ev) {
+    if (!G) return;
+    if (ev.key === "Escape") fermerVisite(true);
+    if (ev.key === "ArrowRight" || ev.key === "Enter") { ev.preventDefault(); G.el.querySelector('[data-gt="next"]').click(); }
+    if (ev.key === "ArrowLeft" && G.i > 0) montrer(G.i - 1);
+  });
+  window.addEventListener("resize", function () { if (G) montrer(G.i); });
+
+  // Page « Guide » : le mode d'emploi écrit, limité à ce que la personne peut faire
+  var SECTIONS = [
+    { si: "employe", id: "lire", titre: "Lire et attester vos documents", etapes: [
+      "Ouvrez « Mes documents » : seuls les textes qui vous ont été attribués y figurent.",
+      "Ouvrez un document à lire et lisez-le jusqu'au bout. Le PDF et le Word sont disponibles en haut de page.",
+      "En bas du document, attestez votre lecture. L'attestation est datée et conservée ; elle vaut engagement à respecter le texte.",
+      "Quand une nouvelle version entre en vigueur, il vous est demandé de la lire à nouveau."], visite: function (e) { return e.si === "employe" || !e.sel || e.sel === "#rail-me"; } },
+    { si: "complet", id: "lire-complet", titre: "Prendre connaissance d'un document", etapes: [
+      "Quand un document qui vous concerne entre en vigueur, il apparaît dans « À traiter », rubrique « À lire ».",
+      "Lisez-le, puis attestez votre lecture en bas de page. L'attestation est datée et conservée au registre.",
+      "Une nouvelle version vous est de nouveau proposée à la lecture."], visite: function (e) { return /atraiter/.test(e.sel || "") && !/viser/i.test(e.titre); } },
+    { si: "complet", id: "consulter", titre: "Trouver et consulter un document", etapes: [
+      "« Documents » présente le registre : statut, version, prochaine revue. Cliquez un en-tête de colonne pour trier.",
+      "Cherchez par mot-clé, filtrez par type, domaine ou statut. Cliquez une ligne pour un aperçu rapide.",
+      "La page du document donne le texte applicable, la fiche de maîtrise (circuit, visas, historique) et les téléchargements PDF et Word.",
+      "« Textes de référence » relie chaque document aux textes CEMAC/COSUMAF ; le « Glossaire » définit les termes."], visite: function (e) { return /registre|f-q/.test(e.sel || "") || e.vue === "registre" && !e.si; } },
+    { si: "approbateur", id: "viser", titre: "Viser, approuver ou renvoyer", etapes: [
+      "« À traiter » liste les documents qui attendent votre visa, dans l'ordre du circuit.",
+      "Ouvrez le document : la barre en haut indique l'étape et ce qui est attendu de vous.",
+      "Pour viser, cliquez le bouton puis écrivez l'action demandée (double validation). Pour renvoyer, indiquez ce qui doit être corrigé : le document repart en rédaction.",
+      "Les étapes se visent dans l'ordre ; une même personne ne vise pas deux étapes d'une même version (règle des quatre yeux).",
+      "Quand la dernière étape est visée, le document est adopté et publié automatiquement."], visite: function (e) { return e.si === "approbateur"; } },
+    { si: "complet", id: "suivre", titre: "Suivre les circuits", etapes: [
+      "« Circuit d'approbation » montre où en est chaque document et qui doit agir.",
+      "« Suivi des visas » donne, document par document, les visas obtenus et les lectures attestées.",
+      "« Archives » conserve les documents abrogés et les versions antérieures."], visite: function (e) { return /visas|circuit/.test(e.sel || ""); } },
+    { si: "redacteur", id: "rediger", titre: "Rédiger et modifier", etapes: [
+      "Sur la page d'un document, « Modifier » ouvre l'éditeur : article par article, ou le texte complet.",
+      "Vous pouvez repartir d'un Word : téléchargez le document en Word, modifiez-le, puis importez-le. Titres, articles, listes, tableaux et images sont repris.",
+      "Votre brouillon est enregistré au fur et à mesure. Avant soumission, la vue d'ensemble montre toutes les modifications.",
+      "Une fois soumis, le texte est publié automatiquement et repart dans son circuit. Vous ne pouvez pas viser une version que vous avez rédigée.",
+      "« + Nouveau document » crée un texte à partir d'un modèle vierge."], visite: function (e) { return e.si === "redacteur"; } },
+    { si: "tableau", id: "tableau", titre: "Le tableau de bord", etapes: [
+      "Six indicateurs : documents, visas en attente, renvois, lectures, modifications, revues échues.",
+      "« En attente d'une action » classe les visas par ancienneté ; en rouge au-delà du délai fixé. « Relancer » prépare un message à envoyer vous-même.",
+      "Filtrez par période, type, domaine ou personne ; exportez en CSV ou imprimez."], visite: function (e) { return e.si === "tableau"; } },
+    { si: "admin", id: "administrer", titre: "Administrer", etapes: [
+      "« Membres » : ouvrir un accès, modifier une fiche (nom, poste, fonctions, accès), suspendre, attribuer les documents aux employés.",
+      "Vous agissez dans la limite des prérogatives que le super administrateur vous a données ; vous ne modifiez ni votre propre accès ni celui d'un autre administrateur.",
+      "« Suivi des visas » : lectures obligatoires par document et export du registre des visas.",
+      "« Circuit d'approbation » : modification des circuits et des délais (si vous en avez la prérogative)."], visite: function (e) { return e.si === "admin" || e.si === "circuits" || e.si === "superAdmin"; } },
+    { si: "superAdmin", id: "parametrer", titre: "Paramétrer (super administrateur)", etapes: [
+      "« Paramétrage » : nommer les administrateurs et choisir leurs prérogatives.",
+      "Les règles sont appliquées par la base : on ne donne que ce que l'on détient, personne ne se dispense d'une lecture obligatoire, il reste toujours un super administrateur.",
+      "Le journal complet retrace toutes les opérations ; il ne peut être modifié depuis le site."], visite: function (e) { return e.si === "superAdmin"; } },
+  ];
+  function renderGuide() {
+    var v = $("#v-guide"); if (!v) return;
+    var p = profilGuide();
+    var qui = p.employe ? "Collaborateur — accès aux documents attribués" : [p.superAdmin ? "Super administrateur" : p.admin ? "Administrateur" : "", p.fonctions.map(function (f) { return FLABEL[f] || f; }).join(", "), p.redacteur ? "Rédacteur" : ""].filter(Boolean).join(" · ") || "Accès complet en consultation";
+    var secs = SECTIONS.filter(function (s) { return p[s.si]; });
+    v.innerHTML = '<div class="eyebrow">Mode d\'emploi</div><h1 class="title">Guide du référentiel</h1>' +
+      '<p class="lead">' + esc(INTRO) + "</p>" +
+      '<div class="gd-hero"><div><b>Votre profil</b><span>' + esc(qui) + '</span><small>Ce guide ne présente que ce que vos accès vous permettent de faire.</small></div><button type="button" class="btn primary" data-gvis="">▶ Lancer la visite guidée</button></div>' +
+      '<nav class="gd-som" aria-label="Sommaire du guide">' + secs.map(function (s, k) { return '<a href="#guide" data-gsec="' + s.id + '"><span>' + (k + 1) + "</span>" + esc(s.titre) + "</a>"; }).join("") + "</nav>" +
+      secs.map(function (s, k) {
+        return '<section class="gd-sec" id="gd-' + s.id + '"><header><span class="gd-n">' + (k + 1) + "</span><h2>" + esc(s.titre) + '</h2><button type="button" class="btn" data-gvis="' + s.id + '">▶ Montrer</button></header><ol class="gd-steps">' +
+          s.etapes.map(function (t, j) { return '<li style="--d:' + j * 70 + 'ms">' + esc(t) + "</li>"; }).join("") + "</ol></section>";
+      }).join("") +
+      '<p class="cite-src">Une question sur un texte ? Adressez-vous au RCCI. Un problème d\'accès ? À un administrateur.</p>';
+  }
+  document.addEventListener("click", function (ev) {
+    var b = ev.target.closest("[data-gvis],[data-gsec],[data-guide]"); if (!b) return;
+    ev.preventDefault();
+    if (b.hasAttribute("data-guide")) { go("guide"); return; }
+    if (b.hasAttribute("data-gsec")) { var s = document.getElementById("gd-" + b.getAttribute("data-gsec")); if (s) s.scrollIntoView({ behavior: "smooth", block: "start" }); return; }
+    var id = b.getAttribute("data-gvis"), sec = SECTIONS.filter(function (s) { return s.id === id; })[0];
+    visite(sec ? sec.visite : null);
+  });
+  // Première connexion : proposer la visite (une fois par personne et par navigateur)
+  (function inviter(n) {
+    if (n > 60) return;
+    if (!V.ready || !V.me || G) { setTimeout(function () { inviter(n + 1); }, 1000); return; }
+    var k = "pc-ref-guide-vu-" + V.me, vu = false;
+    try { vu = !!localStorage.getItem(k); } catch (e) { vu = true; }
+    if (vu) return;
+    var el = document.createElement("div"); el.className = "gt-invite"; el.setAttribute("role", "dialog");
+    el.innerHTML = "<b>Première visite ?</b><span>Découvrez le référentiel en une minute, selon vos accès.</span><div><button type=\"button\" class=\"btn primary\" data-gi=\"go\">Lancer la visite</button><button type=\"button\" class=\"btn\" data-gi=\"non\">Plus tard</button></div>";
+    document.body.appendChild(el);
+    el.addEventListener("click", function (ev) {
+      var a = ev.target.closest("[data-gi]"); if (!a) return;
+      try { localStorage.setItem(k, "1"); } catch (e) { /* stockage indisponible */ }
+      el.remove();
+      if (a.getAttribute("data-gi") === "go") visite();
+    });
+  })(0);
 
   window.addEventListener("hashchange", route);
   renderRegistre();
