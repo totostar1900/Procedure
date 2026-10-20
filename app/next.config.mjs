@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 export default {
   // Les fichiers du référentiel (générés par build.mjs) sont servis par des routes protégées
-  outputFileTracingIncludes: { "/": ["./site/index.html"], "/fichier/[...chemin]": ["./site/**/*"] },
+  outputFileTracingIncludes: { "/": ["./site/index.html"], "/membres": ["./site/index.html"], "/parametrage": ["./site/index.html"], "/fichier/[...chemin]": ["./site/**/*"] },
   async rewrites() {
     return [
       { source: "/pdf/:f*", destination: "/fichier/pdf/:f*" },

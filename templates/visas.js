@@ -70,7 +70,11 @@
   var hasRole = function (id, role) { var r = V.roles[id]; return !!(r && r.actif !== false && (r.fonctions || []).indexOf(role) >= 0); };
   var holders = function (role) { return Object.keys(V.roles).filter(function (id) { return hasRole(id, role); }); };
   var myRoles = function () { return V.me && V.roles[V.me] && V.roles[V.me].actif !== false ? V.roles[V.me].fonctions || [] : []; };
-  var canArchive = function () { return !!(V.db && V.me && (V.owner || hasRole(V.me, "rcci"))); };
+  // Prérogatives d'administration (site hébergé) : le super administrateur a tout, un administrateur ce qui lui a été donné.
+  // Dans la page claude.ai, le propriétaire a tout. La base vérifie de nouveau chaque écriture.
+  var estSuper = function () { var r = V.me && V.roles[V.me]; return !!(V.owner && (!HOSTED || (r && r.super))); };
+  var peut = function (p) { var r = V.me && V.roles[V.me]; return !!(V.db && V.owner && (!HOSTED || (r && (r.super || (r.prerogatives || []).indexOf(p) >= 0)))); };
+  var canArchive = function () { return !!(V.db && V.me && (peut("abroger") || hasRole(V.me, "rcci"))); };
   var fmtDT = function (s) { if (!s) return ""; var d = new Date(s); return isNaN(d) ? s : d.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" }) + " à " + d.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }); };
   var fmtD = function (s) { return fmtDT(s).split(" à ")[0]; };
   var since = function (s) { if (!s) return ""; var n = Math.floor((Date.now() - new Date(s).getTime()) / 86400000); return n <= 0 ? "aujourd'hui" : n === 1 ? "depuis hier" : "depuis " + n + " jours"; };
@@ -194,9 +198,9 @@
 
   // ---------- Abrogation (administrateur ou RCCI), suppression (administrateur seul) ----------
   function etatOf(id) { var e = V.etats && V.etats[id]; return e && (e.statut === "abroge" || e.statut === "supprime") ? e : null; }
-  var canRestore = function (e) { return e && (e.statut === "abroge" ? canArchive() : V.owner); };
+  var canRestore = function (e) { return e && (e.statut === "abroge" ? canArchive() || peut("supprimer") : peut("supprimer")); };
   async function setEtat(id, statut, motif) {
-    if (!canArchive() || (statut === "supprime" && !V.owner)) { toast("Opération réservée à l'administrateur" + (statut === "supprime" ? "." : " et au RCCI.")); return; }
+    if ((statut === "supprime" && !peut("supprimer")) || (statut !== "supprime" && !canArchive())) { toast("Opération réservée à l'administrateur" + (statut === "supprime" ? "." : " et au RCCI.")); return; }
     var d0 = docs.filter(function (x) { return x.id === id; })[0] || { titre: "" };
     var verbe = statut === "abroge" ? "abroger" : statut === "supprime" ? "supprimer" : "rétablir";
     var ok = await confirmer({
@@ -288,7 +292,7 @@
 
   // Gestion d'un document : abroger (administrateur ou RCCI), supprimer (administrateur), rétablir
   function docAdminHtml(d) {
-    if (!canArchive() || d.estProjet) return "";
+    if ((!canArchive() && !peut("supprimer")) || d.estProjet) return "";
     var e = etatOf(d.id);
     if (V.edit && V.edit.etat === d.id) {
       var sup = V.edit.mode === "supprime";
@@ -299,8 +303,8 @@
     }
     if (e) return '<div class="admin-act warn"><b>' + (e.statut === "abroge" ? "Document abrogé" : "Document supprimé du registre") + "</b> le " + esc(fmtD(e.date)) + (e.motif ? " — " + esc(e.motif) : "") + (canRestore(e) ? ' <button type="button" class="btn" data-vetat="' + esc(d.id) + '|restaurer">Rétablir</button>' : "") + "</div>";
     return '<details class="admin-menu"><summary>Gérer le document</summary><div class="admin-menu-in">' +
-      '<button type="button" class="btn" data-vetat="' + esc(d.id) + '|abroge">Abroger et archiver…</button>' +
-      (V.owner ? '<button type="button" class="btn danger" data-vetat="' + esc(d.id) + '|supprime">Supprimer…</button>' : "") +
+      (canArchive() ? '<button type="button" class="btn" data-vetat="' + esc(d.id) + '|abroge">Abroger et archiver…</button>' : "") +
+      (peut("supprimer") ? '<button type="button" class="btn danger" data-vetat="' + esc(d.id) + '|supprime">Supprimer…</button>' : "") +
       '<span class="cite-src">La modification du texte arrivera avec l\'édition en ligne.</span></div></details>';
   }
 
@@ -405,9 +409,10 @@
       var L = lectOf(d.id);
       return "<tr" + (V.lectEdits[d.id] ? ' class="edited"' : "") + "><td><div class=\"doc-title\">" + esc(d.id) + "</div><div class=\"doc-sum\">" + esc(d.titre) + "</div></td>" +
         '<td class="c"><input type="checkbox" aria-label="Tous" data-vlect="' + esc(d.id) + '|__tous"' + (L.tous ? " checked" : "") + "></td>" +
-        collabs.map(function (id) { return '<td class="c"><input type="checkbox" aria-label="' + esc(vName(id)) + '" data-vlect="' + esc(d.id) + "|" + esc(id) + '"' + ((L.ids || []).indexOf(id) >= 0 || L.tous ? " checked" : "") + (L.tous ? " disabled" : "") + "></td>"; }).join("") + "</tr>";
+        collabs.map(function (id) { return '<td class="c"><input type="checkbox" aria-label="' + esc(vName(id)) + '" data-vlect="' + esc(d.id) + "|" + esc(id) + '"' + ((L.ids || []).indexOf(id) >= 0 || L.tous ? " checked" : "") + (L.tous || (HOSTED && id === V.me && !estSuper() && (L.ids || []).indexOf(id) >= 0) ? " disabled" : "") + "></td>"; }).join("") + "</tr>";
     }).join("");
     var fonctions = HOSTED ? '<p class="lead">Les accès et les fonctions se gèrent dans la page <a href="/membres">Membres</a>.</p>' : vRolesHtml();
+    if (!peut("lectures")) return '<h2 class="section-h">Administration</h2>' + fonctions + '<h3 class="sub-h">Registre des visas</h3><p class="lead">Export de tous les visas et renvois enregistrés, pour le dossier de conformité ou une inspection.</p><button type="button" class="btn" data-vcsv="1">Exporter le registre (CSV)</button>';
     return '<h2 class="section-h">Administration</h2>' + fonctions +
       '<h3 class="sub-h">Lectures obligatoires</h3><p class="lead">Cochez les personnes qui doivent lire et attester chaque document. « Tous » vise toutes les personnes ayant une fonction active. Les changements s\'enregistrent ensemble, après vérification.</p>' +
       (Object.keys(V.lectEdits).length ? '<div class="pending-bar"><span>' + Object.keys(V.lectEdits).length + " document(s) modifié(s), non enregistré(s)</span><button type=\"button\" class=\"btn primary\" data-vlectsave=\"1\">Vérifier et enregistrer…</button><button type=\"button\" class=\"btn\" data-vlectsave=\"annuler\">Annuler</button></div>" : "") +
@@ -491,7 +496,7 @@
       var varies = !cfg && ofType.some(function (d) { return JSON.stringify(d.circuit) !== JSON.stringify(ofType[0].circuit); });
       var issues = circuitIssues(steps);
       return '<article class="ccard"><header><div><h3>' + esc(t) + '</h3><span class="cite-src">' + ofType.length + " document" + (ofType.length > 1 ? "s" : "") + (niv[t] ? " · revue " + esc(String(niv[t].revue).toLowerCase()) : "") + " · " + (cfg ? "défini par l'administrateur" + (cfg.maj ? " le " + esc(fmtD(cfg.maj)) : "") : "déclaré dans les documents") + "</span></div>" +
-        (V.owner && V.db ? '<button type="button" class="btn" data-vcirc="' + esc(k) + '|edit">Modifier</button>' : "") + "</header>" +
+        (peut("circuits") ? '<button type="button" class="btn" data-vcirc="' + esc(k) + '|edit">Modifier</button>' : "") + "</header>" +
         '<ol class="csteps">' + steps.map(function (s, i) { return '<li class="' + (s.obligatoire ? "" : "opt") + '"><span class="stepn">' + (i + 1) + "</span><div><b>" + esc(s.label) + "</b><span>" + esc(FLABEL[s.role] || s.fonction) + (s.regle !== "un" ? " · " + esc(REGLES[s.regle]) : "") + (s.obligatoire ? "" : " · facultative") + (s.seance ? " · date de séance et PV" : "") + " · délai " + (s.delai || 7) + " j</span></div></li>"; }).join("") +
         '<li class="end"><span class="stepn">✓</span><div><b>Prise de connaissance</b><span>Personnes désignées · délai ' + delaiLecture(t) + " j</span></div></li></ol>" +
         (varies ? '<p class="cite-src">Les documents de ce type déclarent des circuits différents ; le premier est affiché. Définir le circuit du type l\'appliquera à tous.</p>' : "") +
@@ -500,7 +505,7 @@
     v.innerHTML = '<div class="eyebrow">Gouvernance documentaire</div><h1 class="title">Circuit d\'approbation</h1>' +
       '<p class="lead">Où en est chaque document, et qui doit agir. Les étapes se visent dans l\'ordre ; une même personne ne vise pas deux étapes d\'une même version (règle des quatre yeux). Si le texte change, le circuit recommence.</p>' +
       '<h2 class="section-h">Où en sont les documents</h2>' + board +
-      '<h2 class="section-h">Circuits par type de document</h2><p class="lead">' + (V.owner ? "Vous pouvez modifier le circuit de chaque type. Le nouveau circuit s'applique aux versions dont le circuit n'a pas commencé ; une version déjà visée garde le circuit de son premier visa." : "Définis par l'administrateur. Une version déjà visée garde le circuit de son premier visa.") + '</p><div class="ccards">' + cards + "</div>" +
+      '<h2 class="section-h">Circuits par type de document</h2><p class="lead">' + (peut("circuits") ? "Vous pouvez modifier le circuit de chaque type. Le nouveau circuit s'applique aux versions dont le circuit n'a pas commencé ; une version déjà visée garde le circuit de son premier visa." : "Définis par l'administrateur. Une version déjà visée garde le circuit de son premier visa.") + '</p><div class="ccards">' + cards + "</div>" +
       '<p class="cite-src panel-gap">Numérotation des versions : 0.x pour un projet, 1.0 à l\'adoption, 1.1 pour une correction mineure (forme, coquille : les lectures restent valables), 2.0 pour une révision de fond, soumise de nouveau au circuit et à la lecture.</p>';
   }
   function circEditorHtml(t, steps) {
@@ -669,6 +674,7 @@
     var box = $("#rail-me"); if (!box) return;
     var badge = $(RESTREINT ? "#nav-badge-emp" : "#nav-badge");
     var lm = $("#nav-membres"); if (lm) lm.hidden = !(HOSTED && V.owner);
+    var lp = $("#nav-parametrage"); if (lp) lp.hidden = !(HOSTED && estSuper());
     var lt = $("#nav-tableau"); if (lt) lt.hidden = !accesTableau();
     var bn = $("#btn-nouveau"); if (bn) bn.hidden = !(HOSTED && typeof canEdit === "function" && canEdit());
     if (!V.ready && !V.me) { box.innerHTML = '<div class="me-load">Chargement…</div>'; return; }

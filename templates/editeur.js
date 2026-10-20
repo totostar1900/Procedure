@@ -6,7 +6,7 @@
   // au dépôt (tools/appliquer.mjs), régénère PDF et Word et le circuit recommence sur la nouvelle empreinte.
   var E = null; // brouillon ouvert
   var IMPORT_APRES = false; // nouveau document « à partir d'un Word » : ouvrir le choix du fichier à l'arrivée dans l'éditeur
-  var canEdit = function () { return !!(V.db && V.me && V.canWrite && (V.owner || hasRole(V.me, "redac"))); };
+  var canEdit = function () { return !!(V.db && V.me && V.canWrite && (peut("rediger") || hasRole(V.me, "redac"))); };
   var draftOf = function (id) { var r = V.redac && V.redac[id]; return r && (r.statut === "brouillon" || r.statut === "soumis" || r.statut === "conflit") ? r : null; };
   var isAuthor = function (d) { var a = V.auteurs && V.auteurs[d.id + "~" + d.empreinte]; return !!(a && V.me && (a.auteurs || []).indexOf(V.me) >= 0); };
   var workOf = function (id) { var d = docs.filter(function (x) { return x.id === id; })[0]; return d ? d.projet || d : null; };
