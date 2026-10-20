@@ -54,7 +54,7 @@
         if (e.target === el || e.target.closest("#cfm-no")) fin(false);
         else if (e.target.closest("#cfm-ok") && !ok.disabled) fin(true);
       });
-      setTimeout(function () { inp.focus(); }, 30);
+      setTimeout(function () { inp.focus({ preventScroll: true }); }, 30);
     });
   }
 
@@ -311,14 +311,14 @@
     requestAnimationFrame(function () { dr.classList.add("open"); });
     document.querySelectorAll("tr[data-peek]").forEach(function (t) { t.classList.toggle("peeked", t.getAttribute("data-peek") === id); });
     selSync();
-    var x = dr.querySelector(".dr-x"); if (x) x.focus();
+    var x = dr.querySelector(".dr-x"); if (x) x.focus({ preventScroll: true });
   }
   function closeDrawer() {
     var dr = $("#drawer"); if (dr.hidden) return;
     dr.classList.remove("open"); $("#drawer-scrim").hidden = true; document.body.classList.remove("has-drawer");
     document.querySelectorAll("tr.peeked").forEach(function (t) { t.classList.remove("peeked"); });
     setTimeout(function () { dr.hidden = true; }, 200);
-    if (drawerFrom && drawerFrom.focus && document.contains(drawerFrom)) drawerFrom.focus();
+    if (drawerFrom && drawerFrom.focus && document.contains(drawerFrom)) drawerFrom.focus({ preventScroll: true });
   }
   $("#drawer-scrim").addEventListener("click", closeDrawer);
   document.addEventListener("keydown", function (ev) {

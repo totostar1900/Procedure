@@ -94,9 +94,54 @@
     obs.observe(document.documentElement, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTRS });
     arbre(document.documentElement);
   }
+  // Changement de langue : la page est rechargée ; on note ce qui est à l'écran (élément repère et son décalage,
+  // à défaut la proportion de défilement) pour revenir exactement au même endroit, même si les textes changent de longueur.
+  var POS = "pc-ref-lang-pos";
+  function chemin(el) {
+    if (el.id) return "#" + CSS.escape(el.id);
+    var p = [];
+    while (el && el.nodeType === 1 && el !== document.body) {
+      if (el.id) { p.unshift("#" + CSS.escape(el.id)); break; }
+      var i = 1, f = el; while ((f = f.previousElementSibling)) i++;
+      p.unshift(el.tagName.toLowerCase() + ":nth-child(" + i + ")"); el = el.parentElement;
+    }
+    return p.join(">");
+  }
+  function repere() {
+    var y = window.scrollY, h = Math.max(1, document.documentElement.scrollHeight - innerHeight), el = null;
+    var main = document.querySelector("main") || document.body, r0 = main.getBoundingClientRect();
+    var x = Math.min(innerWidth - 20, Math.max(r0.left + 40, innerWidth / 2));
+    for (var t = 70; t < innerHeight * 0.6 && !el; t += 30) {
+      var e = document.elementFromPoint(x, t);
+      while (e && e !== document.body && !(e.id || /^(H[1-6]|TR|LI|P|SECTION|ARTICLE|TABLE)$/.test(e.tagName))) e = e.parentElement;
+      if (e && e !== document.body && !e.closest(".rail,.lang-float,.selbar,.mbar")) el = e;
+    }
+    return { y: y, ratio: y / h, hash: location.hash, sel: el ? chemin(el) : "", top: el ? el.getBoundingClientRect().top : 0 };
+  }
   function choisir(l) {
-    try { localStorage.setItem(KEY, l === "en" ? "en" : "fr"); } catch (e) { /* stockage indisponible */ }
+    try { localStorage.setItem(KEY, l === "en" ? "en" : "fr"); sessionStorage.setItem(POS, JSON.stringify(repere())); } catch (e) { /* stockage indisponible */ }
     location.reload();
+  }
+  var pos = null;
+  try { pos = JSON.parse(sessionStorage.getItem(POS) || "null"); sessionStorage.removeItem(POS); } catch (e) { pos = null; }
+  if (pos && pos.hash !== location.hash) pos = null;
+  if (pos) {
+    try { history.scrollRestoration = "manual"; } catch (e) { /* ancien navigateur */ }
+    document.documentElement.classList.add("i18n-attente");
+    var touche = false, stop = function () { touche = true; };
+    ["wheel", "touchstart", "keydown", "mousedown"].forEach(function (t) { addEventListener(t, stop, { passive: true, once: true }); });
+    var replacer = function () {
+      if (touche) return;
+      var el = null; try { el = pos.sel ? document.querySelector(pos.sel) : null; } catch (e) { el = null; }
+      var h = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+      var y = el ? window.scrollY + el.getBoundingClientRect().top - pos.top : Math.round(pos.ratio * h);
+      if (Math.abs(window.scrollY - y) > 1) window.scrollTo(0, Math.max(0, y));
+    };
+    var montrer = function () { replacer(); document.documentElement.classList.remove("i18n-attente"); };
+    // La page se construit en plusieurs temps (registre, données de la base) : on recale quelques fois
+    var lancer = function () { requestAnimationFrame(function () { montrer(); [120, 350, 800, 1600].forEach(function (d) { setTimeout(replacer, d); }); }); };
+    if (document.readyState === "complete") lancer(); else addEventListener("load", lancer);
+    setTimeout(function () { document.documentElement.classList.remove("i18n-attente"); }, 2500);
   }
   // Sélecteur : tout élément [data-lang] bascule la langue
   document.addEventListener("click", function (ev) {
@@ -108,9 +153,9 @@
   if (lang === "en") {
     document.documentElement.classList.add("i18n-attente");
     demarrer();
-    var fin = function () { arbre(document.documentElement); marquer(); document.documentElement.classList.remove("i18n-attente"); };
+    var fin = function () { arbre(document.documentElement); marquer(); if (!pos) document.documentElement.classList.remove("i18n-attente"); };
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fin); else fin();
-    setTimeout(function () { document.documentElement.classList.remove("i18n-attente"); }, 1500);
+    if (!pos) setTimeout(function () { document.documentElement.classList.remove("i18n-attente"); }, 1500);
   } else if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", marquer); else marquer();
   window.PCI18N = {
     lang: lang, t: tr, locale: lang === "en" ? "en-GB" : "fr-FR", choisir: choisir, marquer: marquer,
@@ -282,6 +327,9 @@ th[aria-sort="descending"] .sortb i::before { opacity: .25; }
 .dr-steps small { color: var(--muted); font-size: var(--fs-sm); text-align: right; }
 .dr-todo { margin: 10px 0 0; padding: 10px 12px; background: var(--warn-bg); border-radius: var(--radius); font-size: var(--fs-base); }
 body.has-drawer { overflow: hidden; }
+/* La barre de défilement garde toujours sa place : ouvrir un panneau, filtrer ou cocher ne décale pas la page */
+html { scrollbar-gutter: stable; overflow-anchor: auto; }
+.lang-sw button { min-width: 2.7em; text-align: center; }
 @media (max-width: 560px) { .dr-meta { grid-template-columns: 1fr; } .dr-meta div:nth-child(odd) { border-right: 0; } .dr-meta div:nth-last-child(2) { border-bottom: 1px solid var(--rule); } }
 
 /* ---------- En-tête de vue ---------- */
@@ -527,9 +575,10 @@ td.selc input, th.selc input, .selchk input { width: 17px; height: 17px; accent-
 .selgrp label { display: inline-flex; gap: 5px; align-items: center; cursor: pointer; }
 .selgrp select { font: inherit; font-size: var(--fs-base); color: var(--ink); background: var(--bg); border: 1px solid var(--rule-strong); border-radius: var(--radius); padding: 4px 6px; }
 .selbar-go { display: flex; gap: 8px; margin-left: auto; }
-body.has-selbar { padding-bottom: 96px; }
+/* L'espace sous la page reste réservé une fois la barre de sélection apparue : décocher ne fait pas sauter l'écran */
+body.has-selbar, body.selbar-reserve { padding-bottom: 96px; }
 body.has-selbar .toast { bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
-@media (max-width: 640px) { .selbar-go { margin-left: 0; width: 100%; } .selbar-go .btn { flex: 1; justify-content: center; } body.has-selbar { padding-bottom: 170px; } }
+@media (max-width: 640px) { .selbar-go { margin-left: 0; width: 100%; } .selbar-go .btn { flex: 1; justify-content: center; } body.has-selbar, body.selbar-reserve { padding-bottom: 170px; } }
 .rev-banner { margin: 18px 0 0; padding: 12px 14px; border-radius: var(--radius); background: var(--ok-bg); color: var(--ink); font-size: var(--fs-base); border-left: 3px solid var(--ok); }
 .rev-banner.proj { background: var(--warn-bg); border-left-color: var(--warn); }
 .rev-banner b { color: var(--heading); }
@@ -1414,7 +1463,7 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
         if (e.target === el || e.target.closest("#cfm-no")) fin(false);
         else if (e.target.closest("#cfm-ok") && !ok.disabled) fin(true);
       });
-      setTimeout(function () { inp.focus(); }, 30);
+      setTimeout(function () { inp.focus({ preventScroll: true }); }, 30);
     });
   }
 
@@ -1671,14 +1720,14 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
     requestAnimationFrame(function () { dr.classList.add("open"); });
     document.querySelectorAll("tr[data-peek]").forEach(function (t) { t.classList.toggle("peeked", t.getAttribute("data-peek") === id); });
     selSync();
-    var x = dr.querySelector(".dr-x"); if (x) x.focus();
+    var x = dr.querySelector(".dr-x"); if (x) x.focus({ preventScroll: true });
   }
   function closeDrawer() {
     var dr = $("#drawer"); if (dr.hidden) return;
     dr.classList.remove("open"); $("#drawer-scrim").hidden = true; document.body.classList.remove("has-drawer");
     document.querySelectorAll("tr.peeked").forEach(function (t) { t.classList.remove("peeked"); });
     setTimeout(function () { dr.hidden = true; }, 200);
-    if (drawerFrom && drawerFrom.focus && document.contains(drawerFrom)) drawerFrom.focus();
+    if (drawerFrom && drawerFrom.focus && document.contains(drawerFrom)) drawerFrom.focus({ preventScroll: true });
   }
   $("#drawer-scrim").addEventListener("click", closeDrawer);
   document.addEventListener("keydown", function (ev) {
@@ -3131,7 +3180,7 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
     var bar = $("#selbar"); if (!bar) return;
     var nd = nSel(), na = nAnn();
     if (!nd && !na) { bar.hidden = true; document.body.classList.remove("has-selbar"); return; }
-    bar.hidden = false; document.body.classList.add("has-selbar");
+    bar.hidden = false; document.body.classList.add("has-selbar", "selbar-reserve");
     var what = (nd ? nd + " document" + (nd > 1 ? "s" : "") : "") + (nd && na ? " et " : "") + (na ? na + " annexe" + (na > 1 ? "s" : "") + " cochée" + (na > 1 ? "s" : "") : "");
     bar.innerHTML = '<div class="wrap selbar-in">' +
       '<div class="selbar-what"><b>' + esc(what) + '</b><button type="button" class="doclink" data-selact="clear">Tout désélectionner</button></div>' +

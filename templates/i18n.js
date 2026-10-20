@@ -93,9 +93,54 @@
     obs.observe(document.documentElement, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTRS });
     arbre(document.documentElement);
   }
+  // Changement de langue : la page est rechargée ; on note ce qui est à l'écran (élément repère et son décalage,
+  // à défaut la proportion de défilement) pour revenir exactement au même endroit, même si les textes changent de longueur.
+  var POS = "pc-ref-lang-pos";
+  function chemin(el) {
+    if (el.id) return "#" + CSS.escape(el.id);
+    var p = [];
+    while (el && el.nodeType === 1 && el !== document.body) {
+      if (el.id) { p.unshift("#" + CSS.escape(el.id)); break; }
+      var i = 1, f = el; while ((f = f.previousElementSibling)) i++;
+      p.unshift(el.tagName.toLowerCase() + ":nth-child(" + i + ")"); el = el.parentElement;
+    }
+    return p.join(">");
+  }
+  function repere() {
+    var y = window.scrollY, h = Math.max(1, document.documentElement.scrollHeight - innerHeight), el = null;
+    var main = document.querySelector("main") || document.body, r0 = main.getBoundingClientRect();
+    var x = Math.min(innerWidth - 20, Math.max(r0.left + 40, innerWidth / 2));
+    for (var t = 70; t < innerHeight * 0.6 && !el; t += 30) {
+      var e = document.elementFromPoint(x, t);
+      while (e && e !== document.body && !(e.id || /^(H[1-6]|TR|LI|P|SECTION|ARTICLE|TABLE)$/.test(e.tagName))) e = e.parentElement;
+      if (e && e !== document.body && !e.closest(".rail,.lang-float,.selbar,.mbar")) el = e;
+    }
+    return { y: y, ratio: y / h, hash: location.hash, sel: el ? chemin(el) : "", top: el ? el.getBoundingClientRect().top : 0 };
+  }
   function choisir(l) {
-    try { localStorage.setItem(KEY, l === "en" ? "en" : "fr"); } catch (e) { /* stockage indisponible */ }
+    try { localStorage.setItem(KEY, l === "en" ? "en" : "fr"); sessionStorage.setItem(POS, JSON.stringify(repere())); } catch (e) { /* stockage indisponible */ }
     location.reload();
+  }
+  var pos = null;
+  try { pos = JSON.parse(sessionStorage.getItem(POS) || "null"); sessionStorage.removeItem(POS); } catch (e) { pos = null; }
+  if (pos && pos.hash !== location.hash) pos = null;
+  if (pos) {
+    try { history.scrollRestoration = "manual"; } catch (e) { /* ancien navigateur */ }
+    document.documentElement.classList.add("i18n-attente");
+    var touche = false, stop = function () { touche = true; };
+    ["wheel", "touchstart", "keydown", "mousedown"].forEach(function (t) { addEventListener(t, stop, { passive: true, once: true }); });
+    var replacer = function () {
+      if (touche) return;
+      var el = null; try { el = pos.sel ? document.querySelector(pos.sel) : null; } catch (e) { el = null; }
+      var h = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+      var y = el ? window.scrollY + el.getBoundingClientRect().top - pos.top : Math.round(pos.ratio * h);
+      if (Math.abs(window.scrollY - y) > 1) window.scrollTo(0, Math.max(0, y));
+    };
+    var montrer = function () { replacer(); document.documentElement.classList.remove("i18n-attente"); };
+    // La page se construit en plusieurs temps (registre, données de la base) : on recale quelques fois
+    var lancer = function () { requestAnimationFrame(function () { montrer(); [120, 350, 800, 1600].forEach(function (d) { setTimeout(replacer, d); }); }); };
+    if (document.readyState === "complete") lancer(); else addEventListener("load", lancer);
+    setTimeout(function () { document.documentElement.classList.remove("i18n-attente"); }, 2500);
   }
   // Sélecteur : tout élément [data-lang] bascule la langue
   document.addEventListener("click", function (ev) {
@@ -107,9 +152,9 @@
   if (lang === "en") {
     document.documentElement.classList.add("i18n-attente");
     demarrer();
-    var fin = function () { arbre(document.documentElement); marquer(); document.documentElement.classList.remove("i18n-attente"); };
+    var fin = function () { arbre(document.documentElement); marquer(); if (!pos) document.documentElement.classList.remove("i18n-attente"); };
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fin); else fin();
-    setTimeout(function () { document.documentElement.classList.remove("i18n-attente"); }, 1500);
+    if (!pos) setTimeout(function () { document.documentElement.classList.remove("i18n-attente"); }, 1500);
   } else if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", marquer); else marquer();
   window.PCI18N = {
     lang: lang, t: tr, locale: lang === "en" ? "en-GB" : "fr-FR", choisir: choisir, marquer: marquer,

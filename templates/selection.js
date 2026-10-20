@@ -39,7 +39,7 @@
     var bar = $("#selbar"); if (!bar) return;
     var nd = nSel(), na = nAnn();
     if (!nd && !na) { bar.hidden = true; document.body.classList.remove("has-selbar"); return; }
-    bar.hidden = false; document.body.classList.add("has-selbar");
+    bar.hidden = false; document.body.classList.add("has-selbar", "selbar-reserve");
     var what = (nd ? nd + " document" + (nd > 1 ? "s" : "") : "") + (nd && na ? " et " : "") + (na ? na + " annexe" + (na > 1 ? "s" : "") + " cochée" + (na > 1 ? "s" : "") : "");
     bar.innerHTML = '<div class="wrap selbar-in">' +
       '<div class="selbar-what"><b>' + esc(what) + '</b><button type="button" class="doclink" data-selact="clear">Tout désélectionner</button></div>' +

@@ -148,6 +148,9 @@ th[aria-sort="descending"] .sortb i::before { opacity: .25; }
 .dr-steps small { color: var(--muted); font-size: var(--fs-sm); text-align: right; }
 .dr-todo { margin: 10px 0 0; padding: 10px 12px; background: var(--warn-bg); border-radius: var(--radius); font-size: var(--fs-base); }
 body.has-drawer { overflow: hidden; }
+/* La barre de défilement garde toujours sa place : ouvrir un panneau, filtrer ou cocher ne décale pas la page */
+html { scrollbar-gutter: stable; overflow-anchor: auto; }
+.lang-sw button { min-width: 2.7em; text-align: center; }
 @media (max-width: 560px) { .dr-meta { grid-template-columns: 1fr; } .dr-meta div:nth-child(odd) { border-right: 0; } .dr-meta div:nth-last-child(2) { border-bottom: 1px solid var(--rule); } }
 
 /* ---------- En-tête de vue ---------- */
@@ -393,9 +396,10 @@ td.selc input, th.selc input, .selchk input { width: 17px; height: 17px; accent-
 .selgrp label { display: inline-flex; gap: 5px; align-items: center; cursor: pointer; }
 .selgrp select { font: inherit; font-size: var(--fs-base); color: var(--ink); background: var(--bg); border: 1px solid var(--rule-strong); border-radius: var(--radius); padding: 4px 6px; }
 .selbar-go { display: flex; gap: 8px; margin-left: auto; }
-body.has-selbar { padding-bottom: 96px; }
+/* L'espace sous la page reste réservé une fois la barre de sélection apparue : décocher ne fait pas sauter l'écran */
+body.has-selbar, body.selbar-reserve { padding-bottom: 96px; }
 body.has-selbar .toast { bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
-@media (max-width: 640px) { .selbar-go { margin-left: 0; width: 100%; } .selbar-go .btn { flex: 1; justify-content: center; } body.has-selbar { padding-bottom: 170px; } }
+@media (max-width: 640px) { .selbar-go { margin-left: 0; width: 100%; } .selbar-go .btn { flex: 1; justify-content: center; } body.has-selbar, body.selbar-reserve { padding-bottom: 170px; } }
 .rev-banner { margin: 18px 0 0; padding: 12px 14px; border-radius: var(--radius); background: var(--ok-bg); color: var(--ink); font-size: var(--fs-base); border-left: 3px solid var(--ok); }
 .rev-banner.proj { background: var(--warn-bg); border-left-color: var(--warn); }
 .rev-banner b { color: var(--heading); }
