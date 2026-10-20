@@ -32,6 +32,10 @@ references:
 historique:
   - version: "0.9"
     date: 2026-10-20
+    objet: "Mise en forme : dates d'adoption et signatures reportées dans la fiche de maîtrise documentaire"
+    par: RCCI
+  - version: "0.9"
+    date: 2026-10-20
     objet: Projet initial
     par: RCCI
 notes_redaction:
@@ -157,11 +161,5 @@ Le RCCI rend compte chaque trimestre au Conseil d'Administration des transmissio
 
 ### Article 18 — Entrée en vigueur
 
-La présente procédure, approuvée par le Directeur Général le ____________, entre en vigueur à compter du ____________. Le calendrier de l'Annexe 1 est mis à jour à chaque nouvelle instruction des autorités.
+La présente procédure entre en vigueur à la date de son approbation, indiquée dans la fiche de maîtrise documentaire. Le calendrier de l'Annexe 1 est mis à jour à chaque nouvelle instruction des autorités.
 
-<div class="signatures">
-<div class="sig-row">
-<div class="sig"><span>Le RCCI (rédaction)</span></div>
-<div class="sig"><span>Le Directeur Général (approbation)</span></div>
-</div>
-</div>

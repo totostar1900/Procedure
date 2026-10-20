@@ -5,6 +5,7 @@
   // Le texte source vient de source/<ID>.json (publié avec le site). La publication automatique applique le brouillon
   // au dépôt (tools/appliquer.mjs), régénère PDF et Word et le circuit recommence sur la nouvelle empreinte.
   var E = null; // brouillon ouvert
+  var IMPORT_APRES = false; // nouveau document « à partir d'un Word » : ouvrir le choix du fichier à l'arrivée dans l'éditeur
   var canEdit = function () { return !!(V.db && V.me && V.canWrite && (V.owner || hasRole(V.me, "redac"))); };
   var draftOf = function (id) { var r = V.redac && V.redac[id]; return r && (r.statut === "brouillon" || r.statut === "soumis" || r.statut === "conflit") ? r : null; };
   var isAuthor = function (d) { var a = V.auteurs && V.auteurs[d.id + "~" + d.empreinte]; return !!(a && V.me && (a.auteurs || []).indexOf(V.me) >= 0); };
@@ -88,11 +89,14 @@
     var v = $("#v-edition"); if (!v) return;
     var d = workOf(id);
     v.innerHTML = '<p class="lead">Chargement du texte…</p>';
-    if (!d) { v.innerHTML = '<p class="lead">Document introuvable.</p>'; return; }
     if (!V.ready) { setTimeout(function () { if (location.hash.indexOf("#edition/") === 0) openEditor(id); }, 400); return; }
+    var nv = !d && V.redac[id] && V.redac[id].nouveau ? V.redac[id] : null;
+    if (nv) d = nouveauDoc(id, nv.meta || {});
+    if (!d) { v.innerHTML = '<p class="lead">Document introuvable.</p>'; return; }
     if (!canEdit()) { v.innerHTML = '<div class="eyebrow">Modification</div><h1 class="title">' + esc(d.titre) + '</h1><p class="lead">' + (V.db ? "La modification des documents est réservée aux personnes ayant la fonction « Rédacteur » et à l'administrateur." : "La modification des documents se fait sur le site du référentiel, referentiel.purposecapital.africa.") + ' <button type="button" class="doclink" data-open="' + esc(d.id) + '">Revenir au document</button></p>'; return; }
     var src;
-    try { src = await fetchSource(id); } catch (e) { v.innerHTML = '<p class="lead">Le texte source n\'est pas disponible dans cette vue. La modification se fait sur referentiel.purposecapital.africa.</p>'; return; }
+    if (nv) src = { id: id, version: "0.9", statut: "Nouveau", empreinte: "nouveau", titre: "", resume: "", body: "" };
+    else try { src = await fetchSource(id); } catch (e) { v.innerHTML = '<p class="lead">Le texte source n\'est pas disponible dans cette vue. La modification se fait sur referentiel.purposecapital.africa.</p>'; return; }
     var dr = draftOf(id);
     var stale = dr && dr.base !== src.empreinte && dr.statut !== "soumis";
     var body = dr ? dr.body : src.body;
@@ -100,8 +104,13 @@
       f: { nature: dr ? dr.nature : "mineure", objet: dr ? dr.objet || "" : "", titre: dr ? dr.titre || src.titre : src.titre, resume: dr ? dr.resume || src.resume : src.resume },
       model: parseBody(body), raw: body, view: "edit", saved: dr ? dr.maj : null, dirty: false, confirm: false };
     E.mode = (dr && dr.mode) || (E.model.structured && !d.modele ? "articles" : "texte");
+    E.nouveau = !!nv; E.meta = nv ? nv.meta || {} : null; E.medias = {};
+    await chargerMedias(body);
     renderEditor();
+    if (IMPORT_APRES) { IMPORT_APRES = false; var fi = $("#ed-word"); if (fi) try { fi.click(); } catch (e) { /* le bouton « Importer un Word » reste disponible */ } }
   }
+  // Document en création : pas encore de fichier, ses informations viennent du brouillon
+  function nouveauDoc(id, m) { return { id: id, type: m.type || "", domaine: m.domaine || "", titre: m.titre || id, version: "0.9", statut: "Projet", circuit: [], empreinte: "nouveau", annexes: [], toc: [], historique: [], nouveau: true }; }
   var enVigueur = function () { return E && E.src.statut === "En vigueur"; };
   var curBody = function () { return E.mode === "articles" ? serialize(E.model) : E.raw.replace(/\s*$/, "\n"); };
   var nextVersion = function () { var p = String(E.src.version).split(".").map(Number); return enVigueur() ? (E.f.nature === "mineure" ? p[0] + "." + ((p[1] || 0) + 1) : (p[0] + 1) + ".0") : E.src.version; };
@@ -112,12 +121,14 @@
     var other = dr && E.maj && dr.maj !== E.maj && dr.par !== V.me;
     var pub = V.redac[E.id] && V.redac[E.id].statut === "applique" && E.draft && E.draft.statut === "soumis";
     if (pub) { v.innerHTML = '<div class="eyebrow">Modification · ' + esc(d.id) + '</div><h1 class="title">' + esc(E.f.titre) + '</h1><div class="revbar ok"><div class="rb-main"><b>Modification publiée</b> — version ' + esc(V.redac[E.id].version || "") + ', empreinte <code>' + esc(V.redac[E.id].empreinte || "") + '</code>. Le circuit d\'approbation commence.</div><div class="rb-btns"><button type="button" class="btn primary" onclick="location.reload()">Recharger le référentiel</button></div></div>'; return; }
-    var head = '<button type="button" class="crumb" data-open="' + esc(d.id + (d.estProjet ? "~projet" : "")) + '">← ' + esc(d.id) + " · retour au document</button>" +
+    var head = (E.nouveau ? '<button type="button" class="crumb" data-open="registre">← Registre des documents</button>' : '<button type="button" class="crumb" data-open="' + esc(d.id + (d.estProjet ? "~projet" : "")) + '">← ' + esc(d.id) + " · retour au document</button>") +
       '<div class="eyebrow">Modification · ' + esc(d.type) + " · " + esc(d.id) + '</div><h1 class="title">' + esc(E.f.titre) + "</h1>" +
-      '<p class="cite-src">Texte de travail v' + esc(E.src.version) + " (" + esc(E.src.statut) + ")" + (enVigueur() ? " → nouvelle version " + esc(nextVersion()) + " après publication ; la version " + esc(E.src.version) + " reste en vigueur jusqu'à l'adoption." : " → le projet reste en version " + esc(E.src.version) + " ; le circuit recommence sur le texte modifié.") + "</p>";
+      (E.nouveau ? '<p class="cite-src">Nouveau document — il sera créé en projet v0.9 à la soumission, puis suivra le circuit des documents de type « ' + esc(d.type) + " ». " + esc([E.meta.domaine, "propriétaire : " + (E.meta.proprietaire || "—"), "vérifié par : " + (E.meta.verifie_par || "—"), "approuvé par : " + (E.meta.approuve_par || "—")].join(" · ")) + "</p>" :
+      '<p class="cite-src">Texte de travail v' + esc(E.src.version) + " (" + esc(E.src.statut) + ")") + (E.nouveau ? "" : (enVigueur() ? " → nouvelle version " + esc(nextVersion()) + " après publication ; la version " + esc(E.src.version) + " reste en vigueur jusqu'à l'adoption." : " → le projet reste en version " + esc(E.src.version) + " ; le circuit recommence sur le texte modifié.") + "</p>");
     var bar = '<div class="edbar"><span class="ed-state">' + (sub ? "Soumis le " + esc(fmtDT(dr.soumis_le)) + " — publication en cours (quelques minutes)" : E.dirty ? "Modifications non enregistrées…" : E.saved ? "Brouillon enregistré · " + esc(fmtDT(E.saved).split(" à ")[1] || "") : "Aucune modification") + "</span>" +
       '<div class="ed-btns">' +
       (E.model.structured && !d.modele ? '<span class="seg"><button type="button" data-ed="mode|articles" aria-pressed="' + (E.mode === "articles") + '">Par article</button><button type="button" data-ed="mode|texte" aria-pressed="' + (E.mode === "texte") + '">Texte intégral</button></span>' : "") +
+      '<label class="btn" title="Remplacer le texte du brouillon par celui d\'un fichier Word">Importer un Word…<input type="file" id="ed-word" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden></label>' +
       '<button type="button" class="btn" data-ed="view|' + (E.view === "diff" ? "edit" : "diff") + '">' + (E.view === "diff" ? "Revenir à l'édition" : "Voir les modifications") + "</button>" +
       (sub ? '<button type="button" class="btn" data-ed="reprendre">Reprendre le brouillon</button>' : '<button type="button" class="btn primary" data-ed="soumettre">Soumettre au circuit…</button>') +
       (dr ? '<button type="button" class="btn ghost danger" data-ed="abandon">Abandonner</button>' : "") + "</div></div>";
@@ -172,23 +183,24 @@
   // Vue d'ensemble avant soumission : récapitulatif, modifications mot à mot et document complet tel qu'il sera publié
   async function openSubmit() {
     if (!E.f.objet.trim()) { toast("Indiquez l'objet de la modification."); var o = $('[data-ef="objet"]'); if (o) o.focus(); return; }
-    if (curBody() === E.src.body && E.f.titre === E.src.titre && E.f.resume === E.src.resume) { toast("Aucune modification à soumettre."); return; }
+    if (!E.nouveau && curBody() === E.src.body && E.f.titre === E.src.titre && E.f.resume === E.src.resume) { toast("Aucune modification à soumettre."); return; }
+    if (E.nouveau && (!E.f.titre.trim() || !E.f.resume.trim() || !curBody().trim())) { toast("Titre, résumé et texte sont nécessaires pour créer le document."); return; }
     var ch = diffBodies(E.src.body, curBody());
     var c = { ajout: 0, modif: 0, retrait: 0 }; ch.forEach(function (x) { c[x.type]++; });
     var meta = (E.f.titre !== E.src.titre ? 1 : 0) + (E.f.resume !== E.src.resume ? 1 : 0);
     var st = docState(E.d), started = st.steps.some(function (x) { return x.sigs.length; });
     var complet = '<p class="cite-src">Aperçu indisponible.</p>';
-    try { var mk = await loadLib("marked"); complet = '<div class="eyebrow">' + esc(E.d.type) + " · " + esc(E.id) + " · v" + esc(nextVersion()) + '</div><h1 class="title" style="font-size:var(--fs-xl)">' + esc(E.f.titre) + '</h1><p class="lead">' + esc(E.f.resume) + '</p><div class="doc-body">' + mk.parse(curBody()) + "</div>"; } catch (e) { /* aperçu indisponible */ }
+    try { var mk = await loadLib("marked"); await chargerMedias(curBody()); complet = '<div class="eyebrow">' + esc(E.d.type) + " · " + esc(E.id) + " · v" + esc(nextVersion()) + '</div><h1 class="title" style="font-size:var(--fs-xl)">' + esc(E.f.titre) + '</h1><p class="lead">' + esc(E.f.resume) + '</p><div class="doc-body">' + mk.parse(avecMedias(curBody())) + "</div>"; } catch (e) { /* aperçu indisponible */ }
     var ok = await confirmer({
-      titre: "Soumettre la modification de " + E.id, large: true,
+      titre: (E.nouveau ? "Créer le document " : "Soumettre la modification de ") + E.id, large: true,
       html: "<dl><dt>Document</dt><dd><b>" + esc(E.id) + "</b> — " + esc(E.f.titre) + "</dd><dt>Objet</dt><dd>" + esc(E.f.objet) + "</dd><dt>Version</dt><dd>" + (enVigueur() ? esc(E.src.version) + " → " + esc(nextVersion()) + " (" + (E.f.nature === "mineure" ? "correction mineure" : "révision") + ")" : esc(E.src.version) + " (projet)") + "</dd></dl>",
-      points: [c.modif + " passage" + (c.modif > 1 ? "s" : "") + " modifié" + (c.modif > 1 ? "s" : "") + ", " + c.ajout + " ajouté" + (c.ajout > 1 ? "s" : "") + ", " + c.retrait + " supprimé" + (c.retrait > 1 ? "s" : "") + (meta ? ", titre ou résumé modifié" : "") + ".",
-        enVigueur() ? "La version " + esc(E.src.version) + " reste en vigueur jusqu'à l'adoption de la nouvelle." : "Le projet est remplacé par le texte modifié.",
+      points: [E.nouveau ? c.ajout + " article(s) ou passage(s)." : c.modif + " passage" + (c.modif > 1 ? "s" : "") + " modifié" + (c.modif > 1 ? "s" : "") + ", " + c.ajout + " ajouté" + (c.ajout > 1 ? "s" : "") + ", " + c.retrait + " supprimé" + (c.retrait > 1 ? "s" : "") + (meta ? ", titre ou résumé modifié" : "") + ".",
+        E.nouveau ? "Le document " + esc(E.id) + " est créé en projet (version 0.9), avec les informations saisies à sa création." : enVigueur() ? "La version " + esc(E.src.version) + " reste en vigueur jusqu'à l'adoption de la nouvelle." : "Le projet est remplacé par le texte modifié.",
         started ? "<b>Les visas déjà donnés sur le texte actuel tombent</b> : le circuit recommence au début." : "Le circuit d'approbation commence sur le nouveau texte.",
         "Vous ne pourrez viser aucune étape de cette version, puisque vous l'avez rédigée (règle des quatre yeux).",
         "La publication (texte, PDF, Word) prend quelques minutes."],
       onglets: [{ titre: "Modifications", html: metaDiff() + diffHtml(ch) }, { titre: "Document complet", html: complet }],
-      phrase: "soumettre " + E.id, bouton: "Soumettre au circuit"
+      phrase: (E.nouveau ? "créer " : "soumettre ") + E.id, bouton: E.nouveau ? "Créer et soumettre au circuit" : "Soumettre au circuit"
     });
     if (ok) submitDraft();
   }
@@ -201,7 +213,7 @@
     if (!E) return;
     clearTimeout(saveTimer);
     var prev = draftOf(E.id);
-    var body = { base: E.draft && E.draft.base && !E.rebased ? E.draft.base : E.src.empreinte, version: E.src.version, statut: statut || "brouillon", mode: E.mode,
+    var body = { nouveau: E.nouveau || undefined, meta: E.meta || undefined, base: E.nouveau ? "nouveau" : E.draft && E.draft.base && !E.rebased ? E.draft.base : E.src.empreinte, version: E.src.version, statut: statut || "brouillon", mode: E.mode,
       nature: enVigueur() ? E.f.nature : null, objet: E.f.objet.trim(), titre: E.f.titre.trim(), resume: E.f.resume.trim(), body: curBody(),
       auteurs: ((prev && prev.auteurs) || []).concat(V.me).filter(function (x, i, a) { return x && a.indexOf(x) === i; }),
       cree_le: (prev && prev.cree_le) || new Date().toISOString(), maj: new Date().toISOString(), par: V.me };
@@ -265,7 +277,7 @@
       case "preview":
         var box = $("#ed-p" + i + "-" + j); if (!box) return;
         if (!box.hidden) { box.hidden = true; return; }
-        loadLib("marked").then(function (mk) { box.innerHTML = '<div class="doc-body">' + mk.parse(m.titres[i].articles[j].body || "") + "</div>"; box.hidden = false; }).catch(function () { toast("Aperçu indisponible."); });
+        loadLib("marked").then(function (mk) { box.innerHTML = '<div class="doc-body">' + mk.parse(avecMedias(m.titres[i].articles[j].body || "")) + "</div>"; box.hidden = false; }).catch(function () { toast("Aperçu indisponible."); });
         return;
       case "a-add": T[i].articles.splice(j + 1, 0, { uid: uid(), titre: "Nouvel article", numbered: true, body: "" }); sync(); setTimeout(function () { var x = $("#ed-a" + i + "-" + (j + 1) + " input"); if (x) { x.focus(); x.select(); x.scrollIntoView({ block: "center" }); } }, 30); return;
       case "a-del": if ((T[i].articles[j].body || "").trim() && !confirm("Supprimer l'article « " + T[i].articles[j].titre + " » ?")) return; T[i].articles.splice(j, 1); sync(); return;
@@ -278,6 +290,124 @@
     }
   });
   window.addEventListener("beforeunload", function (ev) { if (E && E.dirty) { saveDraft(); ev.preventDefault(); ev.returnValue = ""; } });
+
+  // ---------- Images (importées d'un Word) ----------
+  // Dans le brouillon, une image s'écrit ![légende](media:<empreinte>) ; son contenu est rangé à part (medias/<empreinte>)
+  // et la publication l'enregistre dans le dossier du document (images/<empreinte>.<ext>).
+  function hashTxt(t) { var h1 = 0x811c9dc5, h2 = 0; for (var i = 0; i < t.length; i++) { h1 ^= t.charCodeAt(i); h1 = Math.imul(h1, 16777619) >>> 0; h2 = (h2 * 31 + t.charCodeAt(i)) >>> 0; } return h1.toString(16).padStart(8, "0") + h2.toString(16).padStart(8, "0"); }
+  async function chargerMedias(md) {
+    var ids = (String(md || "").match(/media:[0-9a-f]{16}/g) || []).map(function (x) { return x.slice(6); }).filter(function (x, i, a) { return a.indexOf(x) === i && !(E.medias || {})[x]; });
+    for (var i = 0; i < ids.length; i++) { try { var r = await V.db.doc("medias/" + ids[i]).get(); if (r.exists) E.medias[ids[i]] = r.data(); } catch (e) { /* image indisponible */ } }
+  }
+  function avecMedias(md) { return String(md || "").replace(/\(media:([0-9a-f]{16})\)/g, function (m, h) { var x = E && E.medias && E.medias[h]; return x ? "(data:" + x.type + ";base64," + x.data + ")" : m; }).replace(/\(images\/([^)\s]+)\)/g, function (m, f) { return "(img/" + E.id + "/" + f + ")"; }); }
+
+  // ---------- Import d'un fichier Word ----------
+  async function importerWord(file) {
+    if (!E) return;
+    if (!/\.docx$/i.test(file.name)) { toast("Choisissez un fichier Word (.docx)."); return; }
+    toast("Lecture du fichier Word…");
+    var mm, TD, G;
+    try { mm = await loadLib("mammoth"); TD = await loadLib("turndown"); G = await loadLib("gfm"); } catch (e) { toast("Les outils de lecture des fichiers Word n'ont pas pu être chargés. Réessayez."); return; }
+    var res = await mm.convertToHtml({ arrayBuffer: await file.arrayBuffer() }, { styleMap: ["p[style-name='Title'] => p.titre-doc:fresh", "p[style-name='Titre'] => p.titre-doc:fresh"] });
+    var div = document.createElement("div"); div.innerHTML = res.value;
+    // On écarte la page de garde, la fiche de maîtrise et le sommaire : le texte commence après le repère, sinon au premier titre
+    var kids = Array.prototype.slice.call(div.children), cut = -1;
+    kids.forEach(function (k, i) { if (/Mettre à jour les champs|Rédigez le texte du document ci-dessous/i.test(k.textContent)) cut = i; });
+    if (cut < 0) kids.forEach(function (k, i) { if (cut < 0 && /^H1$/.test(k.tagName)) cut = i - 1; });
+    for (var i = 0; i <= cut; i++) kids[i].remove();
+    div.querySelectorAll("p.titre-doc").forEach(function (p) { p.remove(); });
+    // Cellules de tableau : une seule ligne de texte par cellule (sinon le tableau Markdown se casse)
+    div.querySelectorAll("td, th").forEach(function (c) { var ps = c.querySelectorAll(":scope > p"); if (ps.length) c.innerHTML = Array.prototype.map.call(ps, function (p) { return p.innerHTML; }).join("<br>"); });
+    var alertes = [];
+    div.querySelectorAll("p").forEach(function (p) { if (/^\s*(Article\s+\d+|Titre\s+[IVXLC]+)\s*[—–-]/.test(p.textContent)) alertes.push("« " + p.textContent.trim().slice(0, 70) + " » ressemble à un titre ou à un article, mais n'a pas le style Word « Titre 1 » / « Titre 2 » : il reste un paragraphe."); });
+    var td = new TD({ headingStyle: "atx", bulletListMarker: "-", emDelimiter: "*", strongDelimiter: "**" });
+    td.use(G.gfm);
+    var strip = function (t) { return t.replace(/^\s*(Titre\s+[IVXLC]+|Article\s+\d+)\s*[—–-]\s*/i, "").replace(/\s+/g, " ").trim(); };
+    td.addRule("titres", { filter: ["h1"], replacement: function (c, n) { return "\n\n## Titre I — " + strip(n.textContent) + "\n\n"; } });
+    td.addRule("articles", { filter: ["h2"], replacement: function (c, n) { return "\n\n### Article 1 — " + strip(n.textContent) + "\n\n"; } });
+    td.addRule("sous-titres", { filter: ["h3", "h4"], replacement: function (c, n) { return "\n\n#### " + n.textContent.trim() + "\n\n"; } });
+    var md = td.turndown(div.innerHTML);
+    // Images : extraites du texte et rangées à part
+    var nImg = 0, medias = {};
+    md = md.replace(/\(data:(image\/[a-z+.-]+);base64,([A-Za-z0-9+/=]+)\)/g, function (m, type, data) { var h = hashTxt(data); medias[h] = { type: type, data: data }; nImg++; return "(media:" + h + ")"; });
+    md = normaliserMd(md);
+    var model = parseBody(md); md = serialize(model);
+    var nTab = (div.querySelectorAll("table") || []).length;
+    var ignore = (res.messages || []).filter(function (x) { return x.type === "warning"; }).length;
+    var ok = await confirmer({
+      titre: "Remplacer le texte par celui du fichier Word", large: true,
+      html: "<dl><dt>Fichier</dt><dd>" + esc(file.name) + "</dd><dt>Contenu lu</dt><dd>" + model.titres.length + " titre(s), " + model.titres.reduce(function (n, t) { return n + t.articles.length; }, 0) + " article(s), " + nTab + " tableau(x), " + nImg + " image(s)</dd></dl>",
+      points: ["Le texte du brouillon est remplacé par celui du fichier ; titres et articles sont renumérotés.", "Les commentaires et les modifications suivies de Word ne sont pas repris : acceptez-les dans Word avant l'import.", "Le titre et le résumé du document restent ceux des champs ci-dessus."].concat(alertes.slice(0, 8).map(function (a) { return "<b>À vérifier :</b> " + esc(a); })).concat(ignore ? ["<b>À vérifier :</b> " + ignore + " élément(s) de mise en forme n'ont pas pu être repris (couleurs, encadrés, styles inconnus)."] : []),
+      onglets: [{ titre: "Modifications", html: diffHtml(diffBodies(E.src.body, md)) }],
+      phrase: "importer le fichier", bouton: "Importer"
+    });
+    if (!ok) return;
+    for (var h in medias) { try { await V.db.doc("medias/" + h).set({ type: medias[h].type, data: medias[h].data, doc: E.id, at: new Date().toISOString() }); E.medias[h] = medias[h]; } catch (e) { toast("Une image n'a pas pu être enregistrée."); } }
+    E.raw = md; E.model = parseBody(md); E.mode = E.model.structured && !E.d.modele ? "articles" : "texte"; E.view = "diff";
+    markDirty(); renderEditor();
+    toast("Fichier Word importé : vérifiez les modifications, puis soumettez.");
+  }
+  document.addEventListener("change", function (ev) { if (ev.target && ev.target.id === "ed-word" && ev.target.files && ev.target.files[0]) { var f = ev.target.files[0]; ev.target.value = ""; importerWord(f); } });
+
+  // Mise au propre du Markdown issu de Word, pour qu'un fichier exporté puis réimporté sans changement ne produise aucune différence
+  function normaliserMd(md) {
+    var lignes = md.replace(/\r/g, "").split("\n"), out = [], dansTable = false, sep = false;
+    for (var i = 0; i < lignes.length; i++) {
+      var l = lignes[i].replace(/^(\s*)([-*+])\s{2,}/, "$1- ").replace(/^(\s*)(\d+\.)\s{2,}/, "$1$2 ").replace(/\s+$/, "");
+      if (/^\|/.test(l)) {
+        var estSep = /^\|(\s*:?-{3,}:?\s*\|)+$/.test(l);
+        if (!dansTable) { dansTable = true; sep = false; l = l.replace(/\*\*([^*|]+?)\*\*/g, "$1"); }
+        else if (estSep) { if (sep) continue; sep = true; }
+      } else dansTable = false;
+      out.push(l);
+    }
+    return out.join("\n").replace(/\n{3,}/g, "\n\n").trim() + "\n";
+  }
+
+  // ---------- Nouveau document ----------
+  var FONCTIONS_TXT = ["Responsable de la conformité et du contrôle interne (RCCI)", "Directeur Général", "Conseil d'Administration", "Directeur Commercial", "Directeur des Marchés de Capitaux"];
+  var SQUELETTE = "## Titre I — Dispositions générales\n\n### Article 1 — Objet\n\nCe que le document organise, en une ou deux phrases.\n\n### Article 2 — Champ d'application\n\nÀ qui et à quelles activités il s'applique.\n\n### Article 3 — Définitions\n\nLes termes employés renvoient au glossaire du référentiel.\n\n## Titre II — Règles\n\n### Article 4 — Principe\n\n…\n\n## Titre III — Dispositions finales\n\n### Article 5 — Entrée en vigueur\n\nLe présent document entre en vigueur à la date de son adoption, indiquée dans la fiche de maîtrise documentaire.\n";
+  function renderNouveau() {
+    var v = $("#v-nouveau"); if (!v) return;
+    if (!canEdit()) { v.innerHTML = '<div class="eyebrow">Référentiel</div><h1 class="title">Nouveau document</h1><p class="lead">La création de documents est réservée aux Rédacteurs et à l\'administrateur.</p>'; return; }
+    var types = (DATA.niveaux || []).filter(function (n) { return ["COD", "POL", "PRO"].indexOf(n.prefixe) >= 0; });
+    var doms = docs.map(function (d) { return d.domaine; }).filter(function (x, i, a) { return x && a.indexOf(x) === i; }).sort();
+    var opt = function (l, def) { return l.map(function (x) { return "<option" + (x === def ? " selected" : "") + ">" + esc(x) + "</option>"; }).join(""); };
+    v.innerHTML = '<button type="button" class="crumb" data-open="registre">← Registre des documents</button><div class="eyebrow">Référentiel</div><h1 class="title">Nouveau document</h1>' +
+      '<p class="lead">Le document est créé en projet (version 0.9). Rédigez-le en ligne ou importez un Word ; à la soumission, il suit le circuit d\'approbation de son type, puis est adopté et publié comme les autres. <a href="#" data-dl="word/MODELE-VIERGE.docx">Télécharger le modèle Word vierge</a>.</p>' +
+      '<form class="nvform" id="nv-form">' +
+      '<label class="vf">Type<select name="type">' + types.map(function (n) { return '<option value="' + esc(n.type) + '" data-prefixe="' + esc(n.prefixe) + '">' + esc(n.type) + "</option>"; }).join("") + "</select></label>" +
+      '<label class="vf">Code (2 à 4 lettres, ex. ESG)<input name="code" maxlength="4" pattern="[A-Za-z]{2,4}" required></label>' +
+      '<label class="vf wide">Titre<input name="titre" maxlength="160" required></label>' +
+      '<label class="vf wide">Résumé (affiché dans le registre)<textarea name="resume" rows="3" maxlength="800" required></textarea></label>' +
+      '<label class="vf">Domaine<input name="domaine" list="nv-doms" required><datalist id="nv-doms">' + doms.map(function (x) { return "<option>" + esc(x) + "</option>"; }).join("") + "</datalist></label>" +
+      '<label class="vf">Confidentialité<select name="confidentialite">' + opt(["Interne", "Public", "Confidentiel"], "Interne") + "</select></label>" +
+      '<label class="vf">Propriétaire<select name="proprietaire">' + opt(FONCTIONS_TXT, FONCTIONS_TXT[0]) + "</select></label>" +
+      '<label class="vf">Rédigé par<select name="redige_par">' + opt(FONCTIONS_TXT, FONCTIONS_TXT[0]) + "</select></label>" +
+      '<label class="vf">Vérifié par<select name="verifie_par">' + opt(FONCTIONS_TXT, FONCTIONS_TXT[0]) + "</select></label>" +
+      '<label class="vf">Approuvé par<select name="approuve_par">' + opt(FONCTIONS_TXT, "Directeur Général") + "</select></label>" +
+      '<label class="vf">Diffusion<input name="diffusion" value="Tous les collaborateurs"></label>' +
+      '<label class="vf">Prochaine revue<input name="prochaine_revue" value="12 mois après adoption"></label>' +
+      '<fieldset class="vf wide"><legend>Point de départ</legend><label class="radio"><input type="radio" name="depart" value="ligne" checked> <span><b>Rédiger en ligne</b>, à partir d\'un plan type (titres et articles)</span></label><label class="radio"><input type="radio" name="depart" value="word"> <span><b>Importer un Word</b> rédigé à partir du modèle vierge</span></label></fieldset>' +
+      '<div class="visa-btns wide"><button type="submit" class="btn primary">Créer le brouillon</button></div></form>';
+  }
+  document.addEventListener("submit", async function (ev) {
+    if (ev.target.id !== "nv-form") return;
+    ev.preventDefault();
+    var f = ev.target, g = function (n) { return (f.elements[n].value || "").trim(); };
+    var pre = f.elements.type.selectedOptions[0].getAttribute("data-prefixe"), code = g("code").toUpperCase();
+    if (!/^[A-Z]{2,4}$/.test(code)) { toast("Le code doit compter 2 à 4 lettres."); return; }
+    var n = 1, id; do { id = "PC-" + pre + "-" + code + "-" + String(n).padStart(3, "0"); n++; } while (docs.some(function (d) { return d.id === id; }) || V.redac[id]);
+    var meta = { type: g("type"), titre: g("titre"), domaine: g("domaine"), confidentialite: g("confidentialite"), proprietaire: g("proprietaire"), redige_par: g("redige_par"), verifie_par: g("verifie_par"), approuve_par: g("approuve_par"), diffusion: g("diffusion"), prochaine_revue: g("prochaine_revue") };
+    var word = f.elements.depart.value === "word";
+    try {
+      await V.db.doc("redaction/" + id).set({ nouveau: true, meta: meta, base: "nouveau", version: "0.9", statut: "brouillon", mode: "articles", nature: null, objet: "Création du document", titre: meta.titre, resume: g("resume"), body: word ? "" : SQUELETTE, auteurs: [V.me], cree_le: new Date().toISOString(), maj: new Date().toISOString(), par: V.me });
+      V.redac[id] = { nouveau: true, meta: meta, statut: "brouillon", body: word ? "" : SQUELETTE, titre: meta.titre, resume: g("resume"), objet: "Création du document", base: "nouveau", auteurs: [V.me], maj: new Date().toISOString(), par: V.me };
+      toast("Brouillon créé : " + id + ".");
+      if (word) IMPORT_APRES = true;
+      go("edition/" + id);
+    } catch (e) { toast("Création refusée : réservée aux Rédacteurs et à l'administrateur."); }
+  });
 
   // ---------- Sur la page d'un document ----------
   function renderDocEdit(d) {
@@ -308,7 +438,7 @@
     var mine = Object.keys(V.redac || {}).map(function (id) { return { id: id, r: draftOf(id) }; }).filter(function (x) { return x.r; });
     var ren = VARIANTS().filter(function (d) { return !etatOf(d.id) && docState(d).renvois.length && !draftOf(d.id); });
     if (!mine.length && !ren.length) return "";
-    var li = function (id, sub, btn) { var d = workOf(id); return '<li class="tt-item"><div class="tt-main"><div class="tt-ref">' + esc(id) + '</div><div class="tt-title">' + esc(d ? d.titre : id) + '</div><div class="cite-src">' + sub + '</div></div><button type="button" class="btn' + (btn === "Corriger" ? " primary" : "") + '" data-edit-doc="' + esc(id) + '">' + btn + "</button></li>"; };
+    var li = function (id, sub, btn) { var d = workOf(id); return '<li class="tt-item"><div class="tt-main"><div class="tt-ref">' + esc(id) + (d ? "" : ' <span class="pill projet">nouveau</span>') + '</div><div class="tt-title">' + esc(d ? d.titre : (V.redac[id] && V.redac[id].titre) || id) + '</div><div class="cite-src">' + sub + '</div></div><button type="button" class="btn' + (btn === "Corriger" ? " primary" : "") + '" data-edit-doc="' + esc(id) + '">' + btn + "</button></li>"; };
     return '<h2 class="section-h">Rédaction <span class="count-chip">' + (mine.length + ren.length) + "</span></h2>" +
       '<ul class="tt-list">' + ren.map(function (d) { var r = docState(d).renvois[0]; return li(d.id, "Renvoyé par " + esc(vName(r.by)) + " : « " + esc(r.commentaire || "") + " »", "Corriger"); }).join("") +
       mine.map(function (x) { return li(x.id, (x.r.statut === "soumis" ? "Soumis le " + esc(fmtDT(x.r.soumis_le)) + ", publication en cours" : x.r.statut === "conflit" ? "Publication refusée : " + esc(x.r.message || "") : "Brouillon · " + esc(fmtDT(x.r.maj))) + (x.r.objet ? " · « " + esc(x.r.objet) + " »" : ""), "Ouvrir"); }).join("") + "</ul>";

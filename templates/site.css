@@ -226,7 +226,7 @@ table.reg { width: 100%; border-collapse: collapse; font-size: var(--fs-base); m
   padding: 5px 10px; color: var(--ink-soft); font-size: var(--fs-sm); line-height: 1.35; cursor: pointer;
 }
 .side li button:hover { color: var(--heading); }
-.side li button.on { color: var(--heading); border-left-color: var(--gold); font-weight: 500; }
+.side li button.on { color: var(--heading); border-left-color: var(--heading); font-weight: 600; }
 .side li small { display: block; color: var(--muted); font-size: var(--fs-xs); }
 
 .doc-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
@@ -364,8 +364,8 @@ table.plain { width: 100%; border-collapse: collapse; font-size: var(--fs-base);
 }
 @media (max-width: 620px) { .fld-grid { grid-template-columns: minmax(0, 1fr); } }
 
-.ref-link { color: var(--link); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
-.ref-link:hover { color: var(--heading); }
+.ref-link { color: var(--link); text-decoration: none; }
+.ref-link:hover { color: var(--heading); text-decoration: underline; }
 .ref-link + .cite-src { margin-top: 2px; }
 
 /* Visas et approbations */
@@ -620,3 +620,11 @@ body.rail-folded .nav a.nav-link { justify-content: center; padding: 10px 0; }
 .pending-bar { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--warn-bg); border: 1px solid var(--gold); border-radius: 6px; padding: 8px 12px; margin: 0 0 10px; font-size: var(--fs-base); }
 .pending-bar span { margin-right: auto; font-weight: 600; color: var(--warn); }
 tr.edited td { background: var(--warn-bg) !important; }
+
+.nvform { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 18px; max-width: 900px; margin-top: 18px; }
+.nvform .wide { grid-column: 1 / -1; }
+.nvform input, .nvform select, .nvform textarea { font: inherit; font-size: var(--fs-base); padding: 7px 9px; border: 1px solid var(--rule-strong); border-radius: var(--radius); background: var(--bg); color: var(--ink); }
+.nvform fieldset { border: 1px solid var(--rule); border-radius: var(--radius); padding: 8px 12px; display: flex; flex-direction: column; gap: 6px; }
+.doc-body img { max-width: 100%; height: auto; }
+@media (max-width: 700px) { .nvform { grid-template-columns: 1fr; } }
+.btn[hidden], label.btn[hidden] { display: none; }

@@ -13,6 +13,10 @@ body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(
 body.landscape { page: landscape; }
 
 .doc-body h2 { break-after: avoid; font-size: 15pt; }
+.doc-body h2, .doc-body h3, .doc-body h4 { break-after: avoid; }
+.keep { break-inside: avoid; }
+.toc-page ~ .doc-body .keep.t1 { break-before: page; }
+.toc-page ~ .doc-body > .keep.t1:first-child { break-before: auto; }
 .doc-body h3 { break-after: avoid; font-size: 10pt; }
 .doc-body p, .doc-body li { orphans: 3; widows: 3; }
 .sig-row, .form-table tr, .office-use { break-inside: avoid; }
@@ -87,3 +91,16 @@ body.landscape .doc-body table:not(.form-table) td, .annex-landscape .doc-body t
 .annex .office-use { margin-top: 1.1em; padding: 8px 14px; }
 .annex-head { padding-bottom: 3.5mm; margin-bottom: 4mm; }
 .annex-usage { margin-bottom: 3.5mm; }
+
+/* Sommaire : page dédiée, liens vers les titres et articles, sans filets décoratifs */
+.toc-page { break-before: page; break-after: page; }
+.toc-page h1 { font-family: var(--font-display); font-weight: 600; color: var(--navy); font-size: 16pt; margin: 0 0 5mm; }
+.toc2, .toc2 ol { list-style: none; margin: 0; padding: 0; }
+.toc2 > li { margin: 0 0 2.4mm; font-weight: 600; font-size: 9.6pt; break-inside: avoid; }
+.toc2 > li > ol { margin: 1mm 0 0 6mm; font-weight: 400; font-size: 8.8pt; columns: 2; column-gap: 8mm; }
+.toc2 > li > ol > li { padding: .6mm 0; break-inside: avoid; }
+.toc2 a { color: var(--ink); text-decoration: none; }
+.toc2 li.annexes { color: var(--ink); }
+/* Fiche : case de signature manuscrite */
+.ctable td.sig-box { height: 15mm; vertical-align: bottom; color: var(--muted); font-size: 6.8pt; }
+.ctable td.na { background: #F6F8FB; }

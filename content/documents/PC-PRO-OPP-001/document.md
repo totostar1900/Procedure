@@ -32,6 +32,10 @@ references:
 historique:
   - version: "0.9"
     date: 2026-10-20
+    objet: "Mise en forme : dates d'adoption et signatures reportées dans la fiche de maîtrise documentaire"
+    par: RCCI
+  - version: "0.9"
+    date: 2026-10-20
     objet: Projet initial, en application des articles 25, 27 et 28 du Code de bonne conduite et de l'article 9 de la Politique de gestion des conflits d'intérêts
     par: RCCI
 notes_redaction:
@@ -202,11 +206,5 @@ Les déclarations, demandes, autorisations, relevés et registres sont conservé
 
 ### Article 22 — Entrée en vigueur
 
-La présente procédure, approuvée par le Directeur Général le ____________, entre en vigueur à compter du ____________. Chaque Collaborateur en reçoit un exemplaire et remet sa déclaration de comptes (Annexe 1) dans les dix jours.
+La présente procédure entre en vigueur à la date de son approbation, indiquée dans la fiche de maîtrise documentaire. Chaque Collaborateur en reçoit un exemplaire et remet sa déclaration de comptes (Annexe 1) dans les dix jours.
 
-<div class="signatures">
-<div class="sig-row">
-<div class="sig"><span>Le RCCI (rédaction)</span></div>
-<div class="sig"><span>Le Directeur Général (approbation)</span></div>
-</div>
-</div>

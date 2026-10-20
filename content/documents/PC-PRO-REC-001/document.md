@@ -30,6 +30,10 @@ references:
 historique:
   - version: "0.9"
     date: 2026-10-20
+    objet: "Mise en forme : dates d'adoption et signatures reportées dans la fiche de maîtrise documentaire"
+    par: RCCI
+  - version: "0.9"
+    date: 2026-10-20
     objet: Projet initial, aligné sur le dépôt de réclamation du Guichet
     par: RCCI
 notes_redaction:
@@ -205,11 +209,5 @@ Le RCCI contrôle chaque trimestre le respect des délais et la qualité des ré
 
 ### Article 20 — Entrée en vigueur
 
-La présente procédure, approuvée par le Directeur Général le ____________, entre en vigueur à compter du ____________. Elle est revue chaque année.
+La présente procédure entre en vigueur à la date de son approbation, indiquée dans la fiche de maîtrise documentaire. Elle est revue chaque année.
 
-<div class="signatures">
-<div class="sig-row">
-<div class="sig"><span>Le RCCI (vérification)</span></div>
-<div class="sig"><span>Le Directeur Général (approbation)</span></div>
-</div>
-</div>

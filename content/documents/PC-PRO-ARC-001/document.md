@@ -34,6 +34,10 @@ references:
 historique:
   - version: "0.9"
     date: 2026-10-20
+    objet: "Mise en forme : dates d'adoption et signatures reportées dans la fiche de maîtrise documentaire"
+    par: RCCI
+  - version: "0.9"
+    date: 2026-10-20
     objet: Projet initial
     par: Directeur Général
 notes_redaction:
@@ -181,11 +185,5 @@ Elle est constatée par le procès-verbal de l'Annexe 4. Les données personnell
 
 ### Article 19 — Entrée en vigueur
 
-La présente procédure, approuvée par le Directeur Général le ____________, entre en vigueur à compter du ____________. Elle est revue chaque année et à chaque changement de système d'archivage.
+La présente procédure entre en vigueur à la date de son approbation, indiquée dans la fiche de maîtrise documentaire. Elle est revue chaque année et à chaque changement de système d'archivage.
 
-<div class="signatures">
-<div class="sig-row">
-<div class="sig"><span>Le RCCI (vérification)</span></div>
-<div class="sig"><span>Le Directeur Général (approbation)</span></div>
-</div>
-</div>

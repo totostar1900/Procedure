@@ -33,6 +33,10 @@ references:
     articles: Pouvoir disciplinaire de l'employeur
 historique:
   - version: "0.9"
+    date: 2026-10-20
+    objet: "Mise en forme : dates d'adoption et signatures reportées dans la fiche de maîtrise documentaire"
+    par: RCCI
+  - version: "0.9"
     date: 2026-10-19
     objet: Projet initial soumis au Conseil d'Administration
     par: RCCI
@@ -46,7 +50,7 @@ notes_redaction:
 
 ### Article 1 — Objet
 
-Le présent Code fixe les règles de déontologie et de bonne conduite applicables à Purpose Capital S.A., société de bourse agréée par la COSUMAF sous le n° COSUMAF-SDB-01/2026, au capital de 317 500 000 FCFA, siège social à Yaoundé (Cameroun). Il a pour but de garantir l'intégrité du marché, la protection des investisseurs et la réputation de la Société.
+Le présent Code fixe les règles de déontologie et de bonne conduite applicables à Purpose Capital S.A. Il a pour but de garantir l'intégrité du marché, la protection des investisseurs et la réputation de la Société.
 
 ### Article 2 — Fondements
 
@@ -316,12 +320,5 @@ Le Code est revu au moins une fois par an par le RCCI et à chaque évolution r�
 
 ### Article 52 — Entrée en vigueur
 
-Le présent Code, adopté par le Conseil d'Administration lors de sa séance du ____________, entre en vigueur à compter du ____________. Il est communiqué à la COSUMAF.
+Le présent Code entre en vigueur à la date de son adoption par le Conseil d'Administration, indiquée dans la fiche de maîtrise documentaire. Il est communiqué à la COSUMAF.
 
-<div class="signatures">
-<p>Fait à Yaoundé, le ____________</p>
-<div class="sig-row">
-<div class="sig"><span>Le Président du Conseil d'Administration</span></div>
-<div class="sig"><span>Le Directeur Général</span></div>
-</div>
-</div>

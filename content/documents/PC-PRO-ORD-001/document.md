@@ -35,6 +35,10 @@ references:
     articles: "Bonne pratique internationale : traitement équitable des ordres des clients"
 historique:
   - version: "0.9"
+    date: 2026-10-20
+    objet: "Mise en forme : dates d'adoption et signatures reportées dans la fiche de maîtrise documentaire"
+    par: RCCI
+  - version: "0.9"
     date: 2026-10-19
     objet: Projet initial, aligné sur les parcours d'ordres du Guichet et sur la Politique de meilleure exécution
     par: Directeur des Marchés de Capitaux
@@ -198,11 +202,5 @@ Les bulletins, signatures, preuves de paiement, bordereaux, cotations, avis et e
 
 ### Article 23 — Entrée en vigueur
 
-La présente procédure, approuvée par le Directeur Général le ____________, entre en vigueur à compter du ____________. Elle est revue chaque année et à chaque changement des règles de marché.
+La présente procédure entre en vigueur à la date de son approbation, indiquée dans la fiche de maîtrise documentaire. Elle est revue chaque année et à chaque changement des règles de marché.
 
-<div class="signatures">
-<div class="sig-row">
-<div class="sig"><span>Le RCCI (vérification)</span></div>
-<div class="sig"><span>Le Directeur Général (approbation)</span></div>
-</div>
-</div>

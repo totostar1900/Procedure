@@ -18,4 +18,4 @@ export async function profilAcces(sb: SupabaseClient) {
 }
 
 // Un fichier (PDF, Word) appartient-il à l'un des documents autorisés ? PC-XXX-001_v1.0.pdf, PC-XXX-001-A1_v1.0.pdf…
-export const fichierAutorise = (nom: string, docs: Set<string>) => [...docs].some((id) => nom.startsWith(id + "_") || nom.startsWith(id + "-"));
+export const fichierAutorise = (nom: string, docs: Set<string>) => [...docs].some((id) => nom.startsWith(id + "_") || nom.startsWith(id + "-") || nom.startsWith(id + "/"));

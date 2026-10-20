@@ -662,6 +662,7 @@
     var box = $("#rail-me"); if (!box) return;
     var badge = $(RESTREINT ? "#nav-badge-emp" : "#nav-badge");
     var lm = $("#nav-membres"); if (lm) lm.hidden = !(HOSTED && V.owner);
+    var bn = $("#btn-nouveau"); if (bn) bn.hidden = !(HOSTED && typeof canEdit === "function" && canEdit());
     if (!V.ready && !V.me) { box.innerHTML = '<div class="me-load">Chargement…</div>'; return; }
     if (!V.me) {
       box.innerHTML = '<div class="me-card"><div class="me-av">?</div><div class="me-id"><b>Lecture seule</b><span>' + (HOSTED ? "Session expirée" : "Connectez-vous à claude.ai pour viser") + "</span></div></div>";

@@ -32,6 +32,10 @@ references:
 historique:
   - version: "0.9"
     date: 2026-10-20
+    objet: "Mise en forme : dates d'adoption et signatures reportées dans la fiche de maîtrise documentaire"
+    par: RCCI
+  - version: "0.9"
+    date: 2026-10-20
     objet: Projet initial soumis au Conseil d'Administration
     par: RCCI
 notes_redaction:
@@ -207,12 +211,5 @@ Le présent règlement est revu chaque année, lors de l'évaluation du Conseil.
 
 ### Article 25 — Entrée en vigueur
 
-Le présent règlement, adopté par le Conseil d'Administration lors de sa séance du ____________, entre en vigueur à compter du ____________.
+Le présent règlement entre en vigueur à la date de son adoption par le Conseil d'Administration, indiquée dans la fiche de maîtrise documentaire.
 
-<div class="signatures">
-<p>Fait à Yaoundé, le ____________</p>
-<div class="sig-row">
-<div class="sig"><span>Le Président du Conseil d'Administration</span></div>
-<div class="sig"><span>Le Secrétaire du Conseil</span></div>
-</div>
-</div>

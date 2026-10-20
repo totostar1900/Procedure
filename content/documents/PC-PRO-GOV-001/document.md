@@ -26,6 +26,10 @@ references:
 historique:
   - version: "0.9"
     date: 2026-10-20
+    objet: "Mise en forme : dates d'adoption et signatures reportées dans la fiche de maîtrise documentaire"
+    par: RCCI
+  - version: "0.9"
+    date: 2026-10-20
     objet: Projet initial décrivant le référentiel tel qu'il fonctionne
     par: RCCI
 notes_redaction:
@@ -212,11 +216,5 @@ Les écarts sont traités selon la Charte du contrôle interne et de la conformi
 
 ### Article 21 — Entrée en vigueur
 
-La présente procédure, approuvée par le Directeur Général le ____________, entre en vigueur à compter du ____________.
+La présente procédure entre en vigueur à la date de son approbation, indiquée dans la fiche de maîtrise documentaire.
 
-<div class="signatures">
-<div class="sig-row">
-<div class="sig"><span>Le RCCI (rédaction)</span></div>
-<div class="sig"><span>Le Directeur Général (vérification et approbation)</span></div>
-</div>
-</div>

@@ -29,6 +29,10 @@ references:
     articles: "Bonne pratique étrangère : fonctions critiques, analyse préalable, clauses contractuelles, registre, stratégies de sortie"
 historique:
   - version: "0.9"
+    date: 2026-10-20
+    objet: "Mise en forme : dates d'adoption et signatures reportées dans la fiche de maîtrise documentaire"
+    par: RCCI
+  - version: "0.9"
     date: 2026-10-19
     objet: Projet initial soumis au Conseil d'Administration
     par: RCCI
@@ -190,12 +194,5 @@ Les contrats en cours à la date d'adoption de la présente politique sont inscr
 
 La politique est revue au moins une fois par an, et à chaque évolution significative de la réglementation ou du recours de la Société à des prestataires. Toute modification est approuvée par le Conseil d'Administration.
 
-La présente politique, adoptée par le Conseil d'Administration lors de sa séance du ____________, entre en vigueur à compter du ____________.
+La présente politique entre en vigueur à la date de son adoption par le Conseil d'Administration, indiquée dans la fiche de maîtrise documentaire.
 
-<div class="signatures">
-<p>Fait à Yaoundé, le ____________</p>
-<div class="sig-row">
-<div class="sig"><span>Le Président du Conseil d'Administration</span></div>
-<div class="sig"><span>Le Directeur Général</span></div>
-</div>
-</div>

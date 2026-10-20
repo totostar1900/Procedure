@@ -7,7 +7,10 @@
   var LIBS = {
     marked: { url: "https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js", global: "marked" },
     docx: { url: "https://cdn.jsdelivr.net/npm/docx@9.0.2/build/index.umd.js", global: "docx" },
-    pdfmake: { url: "https://cdn.jsdelivr.net/npm/pdfmake@0.2.10/build/pdfmake.min.js", global: "pdfMake" }
+    pdfmake: { url: "https://cdn.jsdelivr.net/npm/pdfmake@0.2.10/build/pdfmake.min.js", global: "pdfMake" },
+    mammoth: { url: "https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js", global: "mammoth" },
+    turndown: { url: "https://cdn.jsdelivr.net/npm/turndown@7.2.0/dist/turndown.js", global: "TurndownService" },
+    gfm: { url: "https://cdn.jsdelivr.net/npm/turndown-plugin-gfm@1.0.2/dist/turndown-plugin-gfm.js", global: "turndownPluginGfm" }
   };
   var libP = {};
   function loadLib(name) {

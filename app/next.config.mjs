@@ -8,6 +8,7 @@ export default {
       { source: "/word/:f*", destination: "/fichier/word/:f*" },
       { source: "/fonts/:f*", destination: "/fichier/fonts/:f*" },
       { source: "/source/:f*", destination: "/fichier/source/:f*" },
+      { source: "/img/:f*", destination: "/fichier/img/:f*" },
     ];
   },
   async headers() {

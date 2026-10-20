@@ -27,6 +27,10 @@ references:
     articles: Pouvoir disciplinaire de l'employeur
 historique:
   - version: "0.9"
+    date: 2026-10-20
+    objet: "Mise en forme : dates d'adoption et signatures reportées dans la fiche de maîtrise documentaire"
+    par: RCCI
+  - version: "0.9"
     date: 2026-10-19
     objet: Projet initial soumis au Conseil d'Administration
     par: RCCI
@@ -196,12 +200,5 @@ Tout manquement à la présente politique expose son auteur aux sanctions prévu
 
 La politique est revue au moins une fois par an par le RCCI et à chaque évolution significative des activités ou de la réglementation. Toute modification est approuvée par le Conseil d'Administration.
 
-La présente politique, adoptée par le Conseil d'Administration lors de sa séance du ____________, entre en vigueur à compter du ____________.
+La présente politique entre en vigueur à la date de son adoption par le Conseil d'Administration, indiquée dans la fiche de maîtrise documentaire.
 
-<div class="signatures">
-<p>Fait à Yaoundé, le ____________</p>
-<div class="sig-row">
-<div class="sig"><span>Le Président du Conseil d'Administration</span></div>
-<div class="sig"><span>Le Directeur Général</span></div>
-</div>
-</div>

@@ -330,7 +330,7 @@
 
 
   // ---------- Navigation ----------
-  var VIEWS = ["registre", "doc", "glossaire", "correspondance", "circuit", "dossiers", "dossier", "visas", "atraiter", "archives", "edition", "mesdocs"];
+  var VIEWS = ["registre", "doc", "glossaire", "correspondance", "circuit", "dossiers", "dossier", "visas", "atraiter", "archives", "edition", "mesdocs", "nouveau"];
   function go(target) {
     if (target === "registre") target = "";
     if (location.hash.slice(1) === target) route(); else location.hash = target;
@@ -361,6 +361,7 @@
     if (view === "archives") renderArchives();
     if (view === "edition") openEditor(h.slice(8));
     if (view === "mesdocs") renderMesDocs();
+    if (view === "nouveau") renderNouveau();
     if (view === "dossier") openDossier(h.slice(2));
     window.scrollTo(0, 0);
   }

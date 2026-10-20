@@ -11,7 +11,7 @@ import { Marked } from "marked";
 import { chromium } from "playwright";
 import { PDFDocument } from "pdf-lib";
 import { createRequire } from "node:module";
-import { docxCorps, docxAnnexe } from "./templates/docx.mjs";
+import { docxCorps, docxAnnexe, docxModeleVierge } from "./templates/docx.mjs";
 import JSZip from "jszip";
 // Rend un .docx reproductible : dates du paquet et des propriétés fixées à la date de la version
 async function docxFixe(buf, d) {
@@ -87,6 +87,7 @@ export const circuitOf = (fm) => {
 
 // ---------- Lecture des documents ----------
 const DOC_DIR = P("content/documents");
+export const IMAGES = {}; // "ID/fichier" -> chemin sur disque
 // Un document = la version en vigueur. Si une révision est en cours, la version en vigueur
 // est figée dans vigueur/ et le texte de travail (racine du dossier) devient d.projet.
 function loadVariant(base, fallbackHist) {
@@ -95,7 +96,11 @@ function loadVariant(base, fallbackHist) {
   const schema = fs.existsSync(schemaFile) ? yaml.load(read(schemaFile)) : null;
   const societe = cfg.societe;
   const asModel = (md) => Engine.render(md, schema || { sections: [] }, {}, "modele", { societe });
-  const { html, toc } = renderMarkdown(asModel(content));
+  // Images du document (dossier images/ à côté du texte) : servies sous img/<ID>/ par le site
+  const { html: html0, toc } = renderMarkdown(asModel(content));
+  const html = html0.replace(/src="images\/([^"]+)"/g, (m, f) => `src="img/${fm.id}/${f}"`);
+  const imgDir = path.join(base, "images");
+  if (fs.existsSync(imgDir)) for (const f of fs.readdirSync(imgDir)) IMAGES[`${fm.id}/${f}`] = path.join(imgDir, f);
   const annexDir = path.join(base, "annexes");
   const annexFiles = fs.existsSync(annexDir) ? fs.readdirSync(annexDir).filter((f) => f.endsWith(".md")).sort() : [];
   const annexes = annexFiles.map((f) => {
@@ -162,9 +167,13 @@ async function buildWord() {
   for (const d of variants) {
     // Le service de publication ne sert pas les .docx : chaque Word est publié encodé en base64
     // dans un .txt, et la page le décode avant de le proposer au téléchargement.
-    fs.writeFileSync(P("dist/word", d.word.file + ".txt"), (await docxFixe(await docxCorps(d), d)).toString("base64"));
+    // Données de la fiche de maîtrise : visas électroniques et textes de référence
+    const fiche = { images: IMAGES, approb: (APPROB[d.id] || {})[d.empreinte] || {}, refs: (d.references || []).map((r) => ({ titre: (cfg.references[r.ref] || {}).titre || r.ref, articles: r.articles })) };
+    fs.writeFileSync(P("dist/word", d.word.file + ".txt"), (await docxFixe(await docxCorps(d, fiche), d)).toString("base64"));
     for (const a of d.annexes) fs.writeFileSync(P("dist/word", a.word.file + ".txt"), (await docxFixe(await docxAnnexe(d, a), d)).toString("base64"));
   }
+  // Modèle Word vierge pour rédiger un nouveau document hors ligne, puis l'importer
+  fs.writeFileSync(P("dist/word", "MODELE-VIERGE.docx.txt"), (await docxModeleVierge()).toString("base64"));
   console.log("WORD", fs.readdirSync(P("dist/word")).length, "fichiers");
 }
 const liveIds = new Set(docs.map((d) => d.id));
@@ -188,16 +197,12 @@ const refCell = (k) => {
   const t = cfg.references[k]; if (!t) return esc(k);
   if (!t.lien) return esc(t.titre);
   const host = t.lien.replace(/^https?:\/\/(www\.)?/, "").split("/")[0];
-  return `<a href="${esc(t.lien)}" style="color:#0E4C86;text-decoration:underline">${esc(t.titre)}</a><br><span style="color:#5B6B80;font-size:7pt">${esc(t.lien_type || "Lien")} · ${esc(host)}</span>`;
+  return `<a href="${esc(t.lien)}" style="color:#0E4C86;text-decoration:none">${esc(t.titre)}</a><br><span style="color:#5B6B80;font-size:7pt">${esc(t.lien_type || "Lien")} · ${esc(host)}</span>`;
 };
 
 function coverHtml(d) {
-  const rows = [
-    ["Propriétaire", d.proprietaire], ["Approuvé par", d.approuve_par],
-    ["Date d'approbation", d.date_approbation ? frDate(d.date_approbation) : "À compléter à l'adoption"],
-    ["Date d'effet", d.date_effet ? frDate(d.date_effet) : "À compléter à l'adoption"],
-    ["Prochaine revue", d.prochaine_revue_label], ["Confidentialité", d.confidentialite],
-  ];
+  // Dates et visas : uniquement dans la fiche de maîtrise (pas de doublon sur la page de garde)
+  const rows = [["Propriétaire", d.proprietaire], ["Prochaine revue", d.prochaine_revue_label], ["Confidentialité", d.confidentialite]];
   return `<div class="cover">${watermark(d)}
   <div class="cover-band"><div class="wordmark">PURPOSE CAPITAL</div><div class="wordmark-rule"></div><div class="wordmark-sub">Référentiel documentaire · ${esc(cfg.societe.raison_sociale)}</div></div>
   <div class="cover-main">
@@ -207,13 +212,13 @@ function coverHtml(d) {
     <table class="cover-meta">${rows.map(([k, v]) => `<tr><th>${k}</th><td>${esc(v)}</td></tr>`).join("")}</table>
   </div>
   <div class="cover-foot">
-    <div><strong>${esc(cfg.societe.raison_sociale)}</strong><br>Société de bourse agréée par la COSUMAF n° ${esc(cfg.societe.agrement)}<br>Capital de ${esc(cfg.societe.capital)} · ${esc(cfg.societe.siege)}</div>
+    <div><strong>${esc(cfg.societe.raison_sociale)}</strong></div>
     <div style="text-align:right">Document maîtrisé : seule la version publiée<br>dans le référentiel en ligne fait foi.<br>Édité le ${frDate(TODAY)}</div>
   </div></div>`;
 }
 
 function annexBlock(d, a, standalone) {
-  return `<div class="annex${standalone ? "" : " page-break"}${!standalone && a.orientation === "paysage" ? " annex-landscape" : ""}">
+  return `<div${standalone ? "" : ` id="annexe-${a.num}"`} class="annex${standalone ? "" : " page-break"}${!standalone && a.orientation === "paysage" ? " annex-landscape" : ""}">
   <div class="annex-head"><div>${standalone ? '<div class="mini-mark">PURPOSE CAPITAL<i></i></div><div style="height:2mm"></div>' : ""}
     <div class="annex-eyebrow">Annexe ${a.num} au ${esc(d.type.toLowerCase())} ${esc(d.id)} · ${esc(a.nature)}</div>
     <div class="annex-title">${esc(a.titre)}</div></div>
@@ -224,8 +229,9 @@ function annexBlock(d, a, standalone) {
 
 function bodyHtml(d, withAnnexes = true) {
   const ap = (APPROB[d.id] || {})[d.empreinte] || {};
-  const visa = (e) => (e ? `<td class="visa">${frDate(e.date)}</td><td class="visa">Visa électronique<br><small>empreinte ${esc(d.empreinte)}</small></td>` : `<td class="visa"></td><td class="visa"></td>`);
-  const step = (k, v, e) => `<tr><td>${k}</td><td>${esc(v)}</td>${visa(e)}</tr>`;
+  // Une ligne par étape : visa électronique (date, empreinte) et case de signature manuscrite, pour l'exemplaire papier
+  const visa = (e, sans) => sans ? `<td class="visa na" colspan="2"></td>` : `<td class="visa">${e ? `${frDate(e.date)}<br><small>Visa électronique · empreinte ${esc(d.empreinte)}</small>` : ""}</td><td class="visa sig-box"><small>Date et signature</small></td>`;
+  const step = (k, v, e, sans) => `<tr><td>${k}</td><td>${esc(v)}</td>${visa(e, sans)}</tr>`;
   const control = `<section class="control">
   <h1>Fiche de maîtrise documentaire</h1>
   <table class="ctable"><tbody>
@@ -234,11 +240,11 @@ function bodyHtml(d, withAnnexes = true) {
     <tr><th>Type · domaine</th><td>${esc(d.type)} · ${esc(d.domaine)}</td><th>Confidentialité</th><td>${esc(d.confidentialite)}</td></tr>
     <tr><th>Propriétaire</th><td colspan="3">${esc(d.proprietaire)}</td></tr>
     <tr><th>Diffusion</th><td colspan="3">${esc(d.diffusion)}</td></tr>
-    <tr><th>Prochaine revue</th><td colspan="3">${esc(d.prochaine_revue_label)}</td></tr>
+    <tr><th>Date d'effet</th><td>${d.date_effet ? frDate(d.date_effet) : "À l'adoption"}</td><th>Prochaine revue</th><td>${esc(d.prochaine_revue_label)}</td></tr>
   </tbody></table>
   <h4>Circuit d'approbation</h4>
-  <table class="ctable"><thead><tr><th style="width:18%">Étape</th><th>Fonction</th><th style="width:20%">Date</th><th style="width:22%">Visa</th></tr></thead><tbody>
-    ${step("Rédaction", d.redige_par)}${ap._circuit ? ap._circuit.map((c) => step(c.label, c.fonction, ap[c.etape])).join("") : step("Vérification", d.verifie_par, ap.verification) + step("Approbation", d.approuve_par, ap.adoption || ap.approbation)}
+  <table class="ctable"><thead><tr><th style="width:17%">Étape</th><th>Fonction</th><th style="width:27%">Visa électronique</th><th style="width:24%">Signature manuscrite</th></tr></thead><tbody>
+    ${step("Rédaction", d.redige_par, null, true)}${ap._circuit ? ap._circuit.map((c) => step(c.label, c.fonction, ap[c.etape])).join("") : step("Vérification", d.verifie_par, ap.verification) + step("Approbation", d.approuve_par, ap.adoption || ap.approbation)}
   </tbody></table>
   <h4>Historique des révisions</h4>
   <table class="ctable"><thead><tr><th style="width:12%">Version</th><th style="width:22%">Date</th><th>Objet</th><th style="width:18%">Par</th></tr></thead><tbody>
@@ -247,11 +253,11 @@ function bodyHtml(d, withAnnexes = true) {
   <h4>Textes de référence</h4>
   <table class="ctable"><tbody>${(d.references || []).map((r) => `<tr><td style="width:52%">${refCell(r.ref)}</td><td>${esc(r.articles)}</td></tr>`).join("")}</tbody></table>
 </section>`;
-  return `${watermark(d)}${control}<section class="control toc-block" style="margin-top:7mm">  <h4>Sommaire</h4>
-  <div class="toc">
-    ${d.toc.map((t) => `<div><span>${esc(t.label)}</span><span>${t.articles.length ? `Art. ${t.articles[0].n}–${t.articles.at(-1).n}` : ""}</span></div>`).join("")}
-    ${withAnnexes ? d.annexes.map((a) => `<div><span>Annexe ${a.num} — ${esc(a.titre)}</span><span>${esc(a.id)}</span></div>`).join("") : '<div><span>Annexes publiées séparément</span><span></span></div>'}
-  </div></section><div class="doc-body">${d.html}</div>${withAnnexes ? d.annexes.map((a) => annexBlock(d, a, false)).join("") : ""}`;
+  // Sommaire sur une page dédiée, cliquable (titres et articles) ; chaque titre commence une nouvelle page
+  const toc = `<section class="toc-page"><h1>Sommaire</h1><ol class="toc2">${d.toc.map((t) => `<li><a href="#${t.id}">${esc(t.label)}</a>${t.articles.length ? `<ol>${t.articles.map((a) => `<li><a href="#${a.id}">${esc(a.label)}</a></li>`).join("")}</ol>` : ""}</li>`).join("")}${withAnnexes && d.annexes.length ? `<li class="annexes">Annexes<ol>${d.annexes.map((a) => `<li><a href="#annexe-${a.num}">Annexe ${a.num} — ${esc(a.titre)}</a></li>`).join("")}</ol></li>` : ""}${!withAnnexes && d.annexes.length ? '<li class="annexes">Annexes publiées séparément</li>' : ""}</ol></section>`;
+  // Un titre ou un article n'est jamais laissé seul en bas de page : il reste avec le paragraphe qui le suit
+  const body = d.html.replace(/src="img\/([^"]+)"/g, (m, k) => IMAGES[k] ? `src="data:image/${path.extname(k).slice(1).replace("jpg", "jpeg")};base64,${fs.readFileSync(IMAGES[k]).toString("base64")}"` : m).replace(/((?:<h[234][^>]*>[\s\S]*?<\/h[234]>\s*)+)(<p[\s>][\s\S]*?<\/p>)?/g, (m, hs, p) => `<div class="keep${/<h2/.test(hs) ? " t1" : ""}">${hs}${p || ""}</div>`);
+  return `${watermark(d)}${control}${toc}<div class="doc-body">${body}</div>${withAnnexes ? d.annexes.map((a) => annexBlock(d, a, false)).join("") : ""}`;
 }
 
 const hf = (d, label) => ({
@@ -281,20 +287,19 @@ async function buildPdfs() {
   };
   for (const d of variants) {
     const cover = await render(page(coverHtml(d), "", "@page{margin:0}"), d.id + "-cover", { margin: { top: 0, bottom: 0, left: 0, right: 0 } });
-    const body = await render(page(bodyHtml(d)), d.id + "-body", { displayHeaderFooter: true, margin: MARGIN, ...hf(d, `${d.id} — ${d.titre}`) });
-    const out = await PDFDocument.create();
-    for (const src of [cover, body]) {
-      const s = await PDFDocument.load(src);
-      (await out.copyPages(s, s.getPageIndices())).forEach((p) => out.addPage(p));
-    }
+    const body = await render(page(bodyHtml(d)), d.id + "-body", { displayHeaderFooter: true, margin: MARGIN, outline: true, tagged: true, ...hf(d, `${d.id} — ${d.titre}`) });
+    // La couverture est insérée dans le PDF du corps : liens du sommaire et signets restent valables
+    const coverDoc = await PDFDocument.load(cover);
+    const out = await PDFDocument.load(body);
+    out.insertPage(0, (await out.copyPages(coverDoc, [0]))[0]);
     out.setTitle(`${d.id} — ${d.titre} (v${d.version})`); out.setAuthor(cfg.societe.raison_sociale); out.setSubject(`${d.type} · ${d.statut}`); fixe(out, d);
     const bytes = await out.save();
     fs.writeFileSync(P("dist/pdf", d.pdf.file), bytes);
     console.log("PDF", d.pdf.file, (bytes.length / 1024).toFixed(0) + " Ko");
     // Version sans annexes : couverture, fiche de maîtrise et corps seuls, numérotation propre
-    const bodyOnly = await render(page(bodyHtml(d, false)), d.id + "-corps", { displayHeaderFooter: true, margin: MARGIN, ...hf(d, `${d.id} — ${d.titre}`) });
-    const out2 = await PDFDocument.create();
-    for (const src of [cover, bodyOnly]) { const s = await PDFDocument.load(src); (await out2.copyPages(s, s.getPageIndices())).forEach((p) => out2.addPage(p)); }
+    const bodyOnly = await render(page(bodyHtml(d, false)), d.id + "-corps", { displayHeaderFooter: true, margin: MARGIN, outline: true, tagged: true, ...hf(d, `${d.id} — ${d.titre}`) });
+    const out2 = await PDFDocument.load(bodyOnly);
+    out2.insertPage(0, (await out2.copyPages(coverDoc, [0]))[0]);
     out2.setTitle(`${d.id} — ${d.titre} (v${d.version}, sans annexes)`); out2.setAuthor(cfg.societe.raison_sociale); fixe(out2, d);
     fs.writeFileSync(P("dist/pdf", d.pdfCorps.file), await out2.save());
     for (const a of d.annexes) {
@@ -318,6 +323,8 @@ function buildSite() {
   const wsize = (f) => (fs.existsSync(P("dist/word", f + ".txt")) ? Math.round(fs.statSync(P("dist/word", f + ".txt")).size * 3 / 4) : 0);
   for (const d of variants0) { d.pdf.size = size(d.pdf.file); d.pdfCorps.size = size(d.pdfCorps.file); d.word.size = wsize(d.word.file); for (const a of d.annexes) { a.pdf.size = size(a.pdf.file); a.word.size = wsize(a.word.file); } }
   // Textes sources pour l'édition en ligne : texte de travail (<ID>.json) et version en vigueur pendant une révision (<ID>.vigueur.json)
+  fs.rmSync(P("dist/img"), { recursive: true, force: true });
+  for (const [k, f] of Object.entries(IMAGES)) { fs.mkdirSync(path.dirname(P("dist/img", k)), { recursive: true }); fs.copyFileSync(f, P("dist/img", k)); }
   fs.rmSync(P("dist/source"), { recursive: true, force: true });
   fs.mkdirSync(P("dist/source"), { recursive: true });
   for (const d of docs) {
