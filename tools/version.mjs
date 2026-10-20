@@ -96,7 +96,7 @@ if (cmd === "etat") {
     const items = path.join(sigDir, uid, "items"); if (!fs.existsSync(items)) continue;
     for (const f of fs.readdirSync(items)) {
       const s = body(path.join(items, f));
-      if (!s.doc || !s.empreinte || s.etape === "lecture") continue;
+      if (!s.doc || !s.empreinte || s.etape === "lecture" || s.etape === "renvoi") continue;
       const r = roles[uid]; if (!r || r.actif === false || !(r.fonctions || []).includes(s.role)) { console.warn("visa ignoré (fonction non détenue) :", f); continue; }
       const slot = ((out[s.doc] ||= {})[s.empreinte] ||= {});
       const prev = slot[s.etape];

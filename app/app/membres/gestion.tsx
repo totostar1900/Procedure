@@ -6,7 +6,7 @@ type Membre = { email: string; user_id: string | null; nom: string | null; poste
 type Evt = { id: number; le: string; par_email: string | null; action: string; path: string; data: Partial<Membre> };
 
 const FONCTIONS: [string, string][] = [
-  ["pca", "Président du Conseil"], ["dg", "Directeur Général"], ["rcci", "RCCI"],
+  ["pca", "Président du Conseil"], ["adm", "Administrateur du Conseil"], ["dg", "Directeur Général"], ["rcci", "RCCI"],
   ["dcom", "Directeur Commercial"], ["dmc", "Directeur des Marchés de Capitaux"], ["collab", "Collaborateur"],
 ];
 const FL: Record<string, string> = Object.fromEntries(FONCTIONS);

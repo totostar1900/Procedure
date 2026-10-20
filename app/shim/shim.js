@@ -95,7 +95,7 @@ function doc(p) {
           ? await sb.from("membres").upsert({ email: id.slice(6).toLowerCase(), ...row }, { onConflict: "email" })
           : await sb.from("membres").update(row).eq("user_id", id);
         if (r.error) throw err(r.error);
-      } else if (p.startsWith("sig/")) {
+      } else if (p.startsWith("sig/") || p.startsWith("figes/")) {
         const r = await sb.from("kv").insert({ path: p, data: body });
         if (r.error) throw err(r.error);
       } else {

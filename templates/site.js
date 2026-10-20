@@ -107,6 +107,7 @@
     var q = $("#f-q").value.trim().toLowerCase();
     var t = $("#f-type").value, dm = $("#f-dom").value, st = $("#f-stat").value;
     var list = rows.filter(function (r) {
+      if (etatOf(r.id)) return false; // abrogés et supprimés : page Archives
       if (t && r.type !== t) return false;
       if (dm && r.domaine !== dm) return false;
       if (st && r.statut !== st) return false;
@@ -176,12 +177,13 @@
       '<div class="doc-layout">' +
       '<aside class="side" aria-label="Sommaire"><p class="side-title t-titres">Sommaire</p><ol class="titres">' + tocHtml + "</ol>" +
       '<p class="side-title">Annexes</p><ol>' + annexToc + '<li><button type="button" data-jump="maitrise">Maîtrise du document<small>Historique et références</small></button></li></ol></aside>' +
-      '<article style="min-width:0">' +
+      '<article style="min-width:0"><div id="doc-revbar" class="revbar-slot" aria-live="polite"></div>' +
       '<div class="doc-head"><div><div class="eyebrow">' + esc(d.type) + " · " + esc(d.id) + '</div><h1 class="title">' + esc(d.titre) + "</h1>" +
       '<div>' + pill(d.statut) + ' <span class="cite-src">Version ' + esc(d.version) + " · mise à jour le " + fmtDate(d.historique[0].date) + "</span></div></div>" +
       '<div class="doc-actions">' + (d.modele ? '<button type="button" class="btn primary" data-new="' + esc(d.id) + '">Préparer une convention</button>' + dlBtn(d.pdf.file, "Modèle PDF · " + kb(d.pdf.size)) : dlBtn(d.pdf.file, "PDF complet · " + kb(d.pdf.size), true)) +
         dlBtn("word/" + d.word.file, "Word · " + kb(d.word.size)) +
         '<label class="selchk"><input type="checkbox" data-sel="doc|' + esc(d.id) + '"> Ajouter à la sélection</label>' + "</div></div>" +
+      '<div id="doc-admin"></div>' +
       (d.modele ? '<p class="model-note">Ce modèle se remplit par formulaire : chaque donnée est saisie une seule fois, les variantes sont choisies et le Word ou le PDF ne sont produits que lorsque la convention est complète et cohérente. <button type="button" class="doclink" data-open="dossiers">Voir les dossiers en cours</button></p>' : "") +
       (d.projet ? '<div class="rev-banner"><b>Révision en cours.</b> Un projet de version ' + esc(d.projet.version) + " (" + (d.projet.nature_revision === "mineure" ? "correction mineure" : "révision") + ') est en cours de visa. Cette version ' + esc(d.version) + ' reste celle qui fait foi jusqu\'à son adoption. <button type="button" class="doclink" data-open="' + esc(d.id) + '~projet">Voir le projet de révision</button></div>' : "") +
       (d.estProjet ? '<div class="rev-banner proj"><b>Projet de révision, version ' + esc(d.version) + ".</b> " + (d.nature_revision === "mineure" ? "Correction mineure : les lectures déjà faites restent valables." : "Révision : une nouvelle lecture sera demandée aux personnes concernées après l'adoption.") + ' La version en vigueur reste la ' + esc(docs.filter(function (x) { return x.projet === d; })[0].version) + '. <button type="button" class="doclink" data-open="' + esc(d.id) + '">Voir la version en vigueur</button></div>' : "") +
@@ -287,12 +289,9 @@
   }).join("");
   $("#corr-body").innerHTML = corr;
 
-  $("#niv-body").innerHTML = DATA.niveaux.map(function (l) {
-    return "<tr><td><b>" + esc(l.type) + '</b><div class="cite-src">PC-' + esc(l.prefixe) + "-…</div></td><td>" + esc(l.redaction) + "</td><td>" + esc(l.verification) + "</td><td>" + esc(l.approbation) + "</td><td>" + esc(l.revue) + "</td></tr>";
-  }).join("");
 
   // ---------- Navigation ----------
-  var VIEWS = ["registre", "doc", "glossaire", "correspondance", "circuit", "dossiers", "dossier", "visas"];
+  var VIEWS = ["registre", "doc", "glossaire", "correspondance", "circuit", "dossiers", "dossier", "visas", "atraiter", "archives"];
   function go(target) {
     if (target === "registre") target = "";
     if (location.hash.slice(1) === target) route(); else location.hash = target;
@@ -315,6 +314,9 @@
     selSync();
     if (view === "dossiers") renderDossiers();
     if (view === "visas") renderVisas();
+    if (view === "atraiter") renderATraiter();
+    if (view === "circuit") renderCircuit();
+    if (view === "archives") renderArchives();
     if (view === "dossier") openDossier(h.slice(2));
     window.scrollTo(0, 0);
   }
