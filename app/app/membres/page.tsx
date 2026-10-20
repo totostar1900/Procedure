@@ -34,7 +34,7 @@ export default async function Membres() {
   const ini = nom.split(/[\s.@]+/).filter(Boolean).slice(0, 2).map((x: string) => x[0].toUpperCase()).join("");
   const carte = `<div class="me-card" title="${esc(nom)} · ${esc(email)}"><div class="me-av">${esc(ini)}</div><div class="me-id"><b>${esc(nom)}</b><span>${esc(email)}</span></div></div>` +
     `<div class="me-more"><div class="me-roles">${(moi?.fonctions || []).map((f: string) => `<span class="me-chip">${esc(FL[f] || f)}</span>`).join("")}<span class="me-chip gold">Administrateur</span></div>` +
-    `<div class="me-links"><a href="/membres">Membres</a><a href="/deconnexion">Se déconnecter</a></div></div>`;
+    `<div class="me-links"><a href="/deconnexion">Se déconnecter</a></div></div>`;
   rail = rail
     .replace('id="nav-membres" title="Membres" hidden', 'id="nav-membres" title="Membres" aria-current="page"')
     .replace('<div class="rail-me" id="rail-me" aria-live="polite"></div>', `<div class="rail-me" id="rail-me">${carte}</div>`);
