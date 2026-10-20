@@ -12,14 +12,14 @@
   var HOSTED = !!window.__REF_CFG;
   var FONCTIONS = [
     ["pca", "Président du Conseil d'Administration"], ["adm", "Administrateur (membre du Conseil)"], ["dg", "Directeur Général"], ["rcci", "RCCI"],
-    ["dcom", "Directeur Commercial"], ["dmc", "Directeur des Marchés de Capitaux"], ["collab", "Collaborateur"]
+    ["dcom", "Directeur Commercial"], ["dmc", "Directeur des Marchés de Capitaux"], ["redac", "Rédacteur"], ["collab", "Collaborateur"]
   ];
   var REGLES = { un: "une personne", tous: "toutes les personnes", majorite: "la majorité" };
   var VARIANTS = function () { var out = []; docs.forEach(function (d) { out.push(d); if (d.projet) out.push(d.projet); }); return out; };
   var variantByKey = function (k) { return VARIANTS().filter(function (x) { return x.id + "@" + x.empreinte === k; })[0]; };
   var FLABEL = {}; FONCTIONS.forEach(function (f) { FLABEL[f[0]] = f[1]; });
   var V = { db: null, user: null, me: null, owner: false, canWrite: false, ready: false, roles: {}, lectures: {}, annuaire: {}, sigs: {}, names: {}, emails: {}, subs: {},
-    circuits: {}, figes: {}, etats: {}, pending: null, done: null, edit: null, search: [], landed: false };
+    circuits: {}, figes: {}, etats: {}, redac: {}, auteurs: {}, pending: null, done: null, edit: null, search: [], landed: false };
 
   Promise.all([dbP, userP]).then(async function (r) {
     V.db = r[0]; V.user = r[1];
@@ -38,6 +38,8 @@
     watch("circuits", "circuits");
     watch("figes", "figes");
     watch("etats", "etats", function () { if (typeof renderRegistre === "function") renderRegistre(); });
+    watch("redaction", "redac");
+    watch("auteurs", "auteurs");
     if (V.me && V.canWrite) {
       try { var a = await V.db.doc("annuaire/" + V.me).get(); var last = a.exists ? a.data().vu : ""; if (!last || last.slice(0, 10) !== new Date().toISOString().slice(0, 10)) await V.db.doc("annuaire/" + V.me).set({ vu: new Date().toISOString() }); } catch (e) { /* lecture seule */ }
     }
@@ -138,6 +140,7 @@
     if (!V.me || !V.canWrite || etatOf(d.id)) return [];
     var st = docState(d), acts = [];
     if (st.renvois.length) return [];
+    if (isAuthor(d)) { if (!d.estProjet && st.approved && st.readers.indexOf(V.me) >= 0 && st.read.indexOf(V.me) < 0) acts.push({ etape: "lecture", label: "Prise de connaissance", role: "lecture" }); return acts; }
     for (var i = 0; i < st.steps.length; i++) {
       var x = st.steps[i];
       if (x.done) continue;
@@ -152,6 +155,7 @@
     if (!V.me) return "";
     var x = docState(d).current;
     if (!x || !hasRole(V.me, x.st.role)) return "";
+    if (isAuthor(d)) return "Vous avez rédigé cette version : une autre personne ayant la fonction « " + (FLABEL[x.st.role] || x.st.role) + " » doit la viser (règle des quatre yeux).";
     var reste = x.need - x.by.length;
     if (x.by.indexOf(V.me) >= 0) return "Vous avez déjà visé cette étape ; elle attend encore " + reste + " visa" + (reste > 1 ? "s" : "") + ".";
     if (signedOther(d, x.st.etape)) return "Vous avez déjà visé une autre étape de cette version : une autre personne ayant la fonction « " + (FLABEL[x.st.role] || x.st.role) + " » doit viser (règle des quatre yeux).";
@@ -234,6 +238,7 @@
   function renderDocVisas(d) {
     var bar = $("#doc-revbar"); if (bar) bar.innerHTML = revbarHtml(d);
     var adm = $("#doc-admin"); if (adm) adm.innerHTML = docAdminHtml(d);
+    var ed = $("#doc-edit"); if (ed && !(ed.querySelector(".diffbox"))) renderDocEdit(d);
     var box = $("#doc-visas"); if (!box) return;
     if (!V.db) { box.innerHTML = V.ready ? '<p class="visa-note">Les visas électroniques ne sont pas disponibles dans cette vue. Reconnectez-vous au référentiel.</p>' : ""; return; }
     var st = docState(d);
@@ -316,6 +321,7 @@
     var html = head + '<p class="lead">Les documents qui attendent une action de votre part. Ouvrez-les un par un : la barre en haut du document propose de viser, d\'approuver ou de renvoyer avec un commentaire, puis passe au suivant.</p>';
     html += '<h2 class="section-h">À viser ou approuver <span class="count-chip">' + visas.length + "</span></h2>" + (visas.length ? '<ul class="tt-list">' + visas.map(item).join("") + "</ul>" : '<p class="tt-empty">Rien en attente de votre visa.</p>');
     html += '<h2 class="section-h">À lire <span class="count-chip">' + lect.length + "</span></h2>" + (lect.length ? '<ul class="tt-list">' + lect.map(item).join("") + "</ul>" : '<p class="tt-empty">Aucune lecture en attente.</p>');
+    html += myDraftsHtml();
     if (canArchive()) {
       var ren = VARIANTS().filter(function (d) { return !etatOf(d.id) && docState(d).renvois.length; });
       var bloq = []; TYPES.forEach(function (t) { var d = docs.filter(function (x) { return x.type === t; })[0]; circuitIssues(circOf(d)).forEach(function (m) { bloq.push(t + " — " + m); }); });
@@ -608,6 +614,7 @@
     if (h === "atraiter") renderATraiter();
     if (h === "circuit") renderCircuit();
     if (h === "archives") renderArchives();
+    if (h.indexOf("edition/") === 0 && E && !(act && act.closest && act.closest("#v-edition"))) renderEditor();
     var d = currentVariant(h);
     if (d && !V.pending && !(V.edit && V.edit.etat)) renderDocVisas(d);
   }

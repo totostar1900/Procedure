@@ -123,6 +123,8 @@ function loadVariant(base, fallbackHist) {
     circuit: circuitOf(fm),
     modele: schema ? { schema, template: content } : null,
     pdf: { file: `${fm.id}_v${fm.version}.pdf`, size: 0 },
+    // Texte source (Markdown), publié à part dans dist/source/ pour l'édition en ligne ; retiré des données de la page
+    _source: { id: fm.id, version: String(fm.version), statut: fm.statut, empreinte, titre: fm.titre, resume: fm.resume || "", body: content },
   };
 }
 export function textHash(base) {
@@ -315,7 +317,15 @@ function buildSite() {
   const size = (f) => (fs.existsSync(P("dist/pdf", f)) ? fs.statSync(P("dist/pdf", f)).size : 0);
   const wsize = (f) => (fs.existsSync(P("dist/word", f + ".txt")) ? Math.round(fs.statSync(P("dist/word", f + ".txt")).size * 3 / 4) : 0);
   for (const d of variants0) { d.pdf.size = size(d.pdf.file); d.pdfCorps.size = size(d.pdfCorps.file); d.word.size = wsize(d.word.file); for (const a of d.annexes) { a.pdf.size = size(a.pdf.file); a.word.size = wsize(a.word.file); } }
-  const data = { societe: cfg.societe, niveaux: cfg.niveaux, references: cfg.references, glossaire: cfg.glossaire, docs, prevus, generated: TODAY };
+  // Textes sources pour l'édition en ligne : texte de travail (<ID>.json) et version en vigueur pendant une révision (<ID>.vigueur.json)
+  fs.rmSync(P("dist/source"), { recursive: true, force: true });
+  fs.mkdirSync(P("dist/source"), { recursive: true });
+  for (const d of docs) {
+    if (d.projet) { fs.writeFileSync(P("dist/source", d.id + ".json"), JSON.stringify(d.projet._source)); fs.writeFileSync(P("dist/source", d.id + ".vigueur.json"), JSON.stringify(d._source)); }
+    else fs.writeFileSync(P("dist/source", d.id + ".json"), JSON.stringify(d._source));
+  }
+  const strip = (d) => { const { _source, ...rest } = d; return d.projet ? { ...rest, projet: strip(d.projet) } : rest; };
+  const data = { societe: cfg.societe, niveaux: cfg.niveaux, references: cfg.references, glossaire: cfg.glossaire, docs: docs.map(strip), prevus, generated: TODAY };
   const html = read(P("templates/index.tpl.html"))
     .replace("{{SITE_CSS}}", () => read(P("templates/site.css")))
     .replace("{{CONTENT_CSS}}", () => read(P("templates/content.css")))
@@ -325,7 +335,7 @@ function buildSite() {
     .replaceAll("{{GENERATED}}", frDate(TODAY))
     .replace("{{DATA}}", () => JSON.stringify(data).replace(/</g, "\\u003c"))
     .replace("{{ENGINE_JS}}", () => read(P("templates/engine.cjs")))
-    .replace("{{SITE_JS}}", () => read(P("templates/site.js")).replace("/*GENERATOR*/", () => read(P("templates/generator.js"))).replace("/*VISAS*/", () => read(P("templates/visas.js"))).replace("/*SELECTION*/", () => read(P("templates/selection.js"))));
+    .replace("{{SITE_JS}}", () => read(P("templates/site.js")).replace("/*GENERATOR*/", () => read(P("templates/generator.js"))).replace("/*VISAS*/", () => read(P("templates/visas.js"))).replace("/*SELECTION*/", () => read(P("templates/selection.js"))).replace("/*EDITEUR*/", () => read(P("templates/editeur.js"))));
   fs.writeFileSync(P("dist/index.html"), html);
   fs.mkdirSync(P("dist/fonts"), { recursive: true });
   for (const f of fs.readdirSync(P("templates/fonts"))) fs.copyFileSync(P("templates/fonts", f), P("dist/fonts", f));

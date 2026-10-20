@@ -7,6 +7,7 @@ export default {
       { source: "/pdf/:f*", destination: "/fichier/pdf/:f*" },
       { source: "/word/:f*", destination: "/fichier/word/:f*" },
       { source: "/fonts/:f*", destination: "/fichier/fonts/:f*" },
+      { source: "/source/:f*", destination: "/fichier/source/:f*" },
     ];
   },
   async headers() {

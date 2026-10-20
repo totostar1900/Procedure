@@ -61,3 +61,13 @@ Un document qui possède un fichier `variables.yaml` devient un modèle à rempl
 - Le moteur commun est `templates/engine.cjs` : il produit le modèle imprimable (zones surlignées, variantes signalées) et, dans le référentiel, la convention remplie.
 - Le générateur (`templates/generator.js`) produit le Word et le PDF dans le navigateur et conserve chaque dossier d'opération dans la base du référentiel.
 - `content/referentiel.yaml` → `societe.rccm` : à renseigner une fois ; il est ensuite repris dans toutes les conventions.
+
+## Modifier un document en ligne
+
+Sur referentiel.purposecapital.africa, une personne ayant la fonction « Rédacteur » (ou l'administrateur) ouvre un document et clique sur « Modifier le texte ». Le brouillon s'enregistre au fil de la saisie (article par article, ou texte intégral). « Voir les modifications » montre les changements mot à mot ; « Soumettre au circuit » les envoie à la publication automatique :
+
+1. `tools/appliquer.mjs` vérifie que le brouillon part du texte actuel (sinon : « conflit »), ouvre la révision si le document est en vigueur (`version.mjs reviser`), remplace le texte et ajoute la ligne d'historique ;
+2. `node build.mjs` régénère le site, les PDF et les Word ; le dépôt est enregistré ;
+3. `tools/appliquer.mjs --confirmer` marque le brouillon « publié » et note ses rédacteurs pour la nouvelle empreinte : ils ne peuvent viser aucune étape de cette version.
+
+Le circuit d'approbation recommence sur le nouveau texte. Les annexes (formulaires) se modifient toujours dans le dépôt.

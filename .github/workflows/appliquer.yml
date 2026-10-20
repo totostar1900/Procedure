@@ -1,0 +1,46 @@
+# Applique au dépôt les modifications de documents faites en ligne (brouillons soumis),
+# régénère le site, les PDF et les Word, puis marque les brouillons comme publiés.
+# Déclenché par le site au moment de la soumission, et chaque heure en secours.
+name: Appliquer les modifications en ligne
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "17 * * * *"
+permissions:
+  contents: write
+concurrency:
+  group: publier
+  cancel-in-progress: false
+jobs:
+  appliquer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      SUPABASE_URL: https://qrmoozapvnfmbtibofup.supabase.co
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - name: Y a-t-il des modifications soumises ?
+        id: n
+        run: |
+          n=$(curl -sf "$SUPABASE_URL/rest/v1/kv?select=path&path=like.redaction%2F*&data->>statut=eq.soumis" -H "apikey: $SUPABASE_SERVICE_ROLE_KEY" -H "Authorization: Bearer $SUPABASE_SERVICE_ROLE_KEY" | grep -o '"path"' | wc -l)
+          echo "n=$n" >> "$GITHUB_OUTPUT"; echo "$n modification(s) soumise(s)"
+      - if: steps.n.outputs.n != '0'
+        uses: actions/checkout@v4
+      - if: steps.n.outputs.n != '0'
+        uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - if: steps.n.outputs.n != '0'
+        run: npm ci && npx playwright install --with-deps chromium
+      - if: steps.n.outputs.n != '0'
+        run: node tools/appliquer.mjs
+      - if: steps.n.outputs.n != '0'
+        run: node build.mjs
+      - if: steps.n.outputs.n != '0'
+        name: Enregistrer
+        run: |
+          git config user.name "Publication référentiel"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A content dist
+          if git diff --cached --quiet; then echo "Rien à enregistrer"; else git commit -m "Modifications en ligne : $(node -e 'console.log(require("./build/appliques.json").map(a=>a.id+" v"+a.version).join(", "))')" && git push; fi
+      - if: steps.n.outputs.n != '0'
+        run: node tools/appliquer.mjs --confirmer

@@ -55,7 +55,7 @@
     if (dz) { ev.preventDefault(); closeDrawer(); return; }
     var b = ev.target.closest("[data-dl]");
     if (b) { ev.preventDefault(); ev.stopPropagation(); download(b.getAttribute("data-dl")); return; }
-    if (ev.target.closest("[data-dup],[data-del],[data-new],[data-gen],[data-focus],[data-tab],[data-vact],[data-vrole],[data-vlect],[data-vcsv],[data-vgo],[data-sel],[data-selact],.selchk")) return;
+    if (ev.target.closest("[data-ed],[data-edit-doc],[data-ediff],[data-dup],[data-del],[data-new],[data-gen],[data-focus],[data-tab],[data-vact],[data-vrole],[data-vlect],[data-vcsv],[data-vgo],[data-sel],[data-selact],.selchk")) return;
     var pk = ev.target.closest("[data-peek]");
     if (pk && !ev.target.closest("[data-open]")) { ev.preventDefault(); openDrawer(pk.getAttribute("data-peek"), pk); return; }
     var o = ev.target.closest("[data-open]");
@@ -183,7 +183,7 @@
       '<div class="doc-actions">' + (d.modele ? '<button type="button" class="btn primary" data-new="' + esc(d.id) + '">Préparer une convention</button>' + dlBtn(d.pdf.file, "Modèle PDF · " + kb(d.pdf.size)) : dlBtn(d.pdf.file, "PDF complet · " + kb(d.pdf.size), true)) +
         dlBtn("word/" + d.word.file, "Word · " + kb(d.word.size)) +
         '<label class="selchk"><input type="checkbox" data-sel="doc|' + esc(d.id) + '"> Ajouter à la sélection</label>' + "</div></div>" +
-      '<div id="doc-admin"></div>' +
+      '<div id="doc-edit"></div><div id="doc-admin"></div>' +
       (d.modele ? '<p class="model-note">Ce modèle se remplit par formulaire : chaque donnée est saisie une seule fois, les variantes sont choisies et le Word ou le PDF ne sont produits que lorsque la convention est complète et cohérente. <button type="button" class="doclink" data-open="dossiers">Voir les dossiers en cours</button></p>' : "") +
       (d.projet ? '<div class="rev-banner"><b>Révision en cours.</b> Un projet de version ' + esc(d.projet.version) + " (" + (d.projet.nature_revision === "mineure" ? "correction mineure" : "révision") + ') est en cours de visa. Cette version ' + esc(d.version) + ' reste celle qui fait foi jusqu\'à son adoption. <button type="button" class="doclink" data-open="' + esc(d.id) + '~projet">Voir le projet de révision</button></div>' : "") +
       (d.estProjet ? '<div class="rev-banner proj"><b>Projet de révision, version ' + esc(d.version) + ".</b> " + (d.nature_revision === "mineure" ? "Correction mineure : les lectures déjà faites restent valables." : "Révision : une nouvelle lecture sera demandée aux personnes concernées après l'adoption.") + ' La version en vigueur reste la ' + esc(docs.filter(function (x) { return x.projet === d; })[0].version) + '. <button type="button" class="doclink" data-open="' + esc(d.id) + '">Voir la version en vigueur</button></div>' : "") +
@@ -291,7 +291,7 @@
 
 
   // ---------- Navigation ----------
-  var VIEWS = ["registre", "doc", "glossaire", "correspondance", "circuit", "dossiers", "dossier", "visas", "atraiter", "archives"];
+  var VIEWS = ["registre", "doc", "glossaire", "correspondance", "circuit", "dossiers", "dossier", "visas", "atraiter", "archives", "edition"];
   function go(target) {
     if (target === "registre") target = "";
     if (location.hash.slice(1) === target) route(); else location.hash = target;
@@ -302,7 +302,9 @@
     var doc = docs.filter(function (d) { return d.id === hid; })[0];
     if (doc && /~projet$/.test(h) && doc.projet) doc = doc.projet;
     var dz = /^d-[A-Za-z0-9_-]+$/.test(h);
-    var view = doc ? "doc" : dz ? "dossier" : (VIEWS.indexOf(h) > 0 && h !== "dossier" ? h : "registre");
+    var ed = /^edition\/[A-Za-z0-9-]+$/.test(h);
+    var view = doc ? "doc" : dz ? "dossier" : ed ? "edition" : (VIEWS.indexOf(h) > 0 && h !== "dossier" && h !== "edition" ? h : "registre");
+    if (view !== "edition" && E) { if (E.dirty) saveDraft(); E = null; }
     if (view !== "dossier" && cur) { if (cur.dirty) saveNow(); cur = null; }
     VIEWS.forEach(function (v) { $("#v-" + v).hidden = v !== view; });
     document.querySelectorAll(".nav button").forEach(function (b) {
@@ -317,12 +319,14 @@
     if (view === "atraiter") renderATraiter();
     if (view === "circuit") renderCircuit();
     if (view === "archives") renderArchives();
+    if (view === "edition") openEditor(h.slice(8));
     if (view === "dossier") openDossier(h.slice(2));
     window.scrollTo(0, 0);
   }
 /*GENERATOR*/
 /*VISAS*/
 /*SELECTION*/
+/*EDITEUR*/
   window.addEventListener("hashchange", route);
   renderRegistre();
   route();
