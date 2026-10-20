@@ -179,7 +179,7 @@ function libelle(e: Evt) {
 }
 
 const CSS = `
-.pg{--navy:#0B2E52;--gold:#E8A020;--ink:#1C2B3A;--muted:#5A6B80;--line:#DCE3EC;--bg:#F5F7FA;--card:#fff;min-height:100vh;background:var(--bg);color:var(--ink);font:13.5px/1.5 Inter,"Helvetica Neue",Arial,sans-serif}
+.pg{--navy:#0B2E52;--gold:#E8A020;--ink:#1C2B3A;--muted:#5A6B80;--line:#DCE3EC;--bg:#F5F7FA;--card:#fff;min-height:100vh;background:var(--bg);color:var(--ink);font:13px/1.5 Inter,"Helvetica Neue",Arial,sans-serif}
 .wrap{max-width:1080px;margin:0 auto;padding:0 16px}
 .top{background:var(--navy);color:#fff;padding:18px 0 16px}
 .tophead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
