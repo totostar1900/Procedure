@@ -47,6 +47,9 @@ export function Notifications({ sb, note }: { sb: SupabaseClient; note: (t: "ok"
     setOccupe(""); charger();
   }
   const basc = (k: "types" | "fonctions", c: string, v: boolean) => setR({ ...r, [k]: { ...r[k], [c]: v } });
+  // Interrupteur général : allume ou éteint tous les avis ; un avis rallumé rallume le général, le dernier éteint l'éteint
+  const tous = (v: boolean) => setR({ ...r, actif: v, types: Object.fromEntries(CATEGORIES.map(([c]) => [c, v])) });
+  const unType = (c: string, v: boolean) => { const types = { ...r.types, [c]: v }; setR({ ...r, types, actif: CATEGORIES.some(([k]) => types[k] !== false) }); };
   const etiquette = (s: string) => s === "envoye" ? <span className="tag vert">{t("envoyé")}</span> : s === "erreur" ? <span className="tag rouge">{t("erreur")}</span> : <span className="tag">{t(s)}</span>;
 
   return (
@@ -65,19 +68,19 @@ export function Notifications({ sb, note }: { sb: SupabaseClient; note: (t: "ok"
       </div>
 
       <div className="nt-main">
-        <div className="nt-ligne"><Inter id="nt-actif" on={r.actif} set={(v) => setR({ ...r, actif: v })} label="Envois automatiques" /><div><b>{t("Envois automatiques")}</b><span>{t("Interrupteur général. Éteint, aucun avis ne part.")}</span></div></div>
-        <div className="nt-ligne"><Inter id="nt-test" on={r.test} set={(v) => setR({ ...r, test: v })} label="Mode test" /><div><b>{t("Mode test")}</b><span>{t("Tous les avis partent vers la boîte partagée, avec le destinataire prévu en tête. À utiliser avant la mise en service.")}</span></div></div>
+        <div className="nt-ligne"><Inter id="nt-actif" on={r.actif} set={tous} label="Envois automatiques" /><div><b>{t("Envois automatiques")}</b><span>{t("Allume ou éteint d'un coup tous les avis de la liste ci-dessous. Éteint, aucun e-mail ne part.")}</span></div></div>
+        <div className="nt-ligne"><Inter id="nt-test" on={r.test} set={(v) => setR({ ...r, test: v })} label="Rediriger vers la boîte partagée" /><div><b>{t("Rediriger vers la boîte partagée (période d'essai)")}</b><span>{t("Les destinataires ne reçoivent rien : chaque e-mail est détourné vers la boîte partagée, avec le nom du destinataire prévu en tête. Pour relire les avis avant la mise en service ; éteignez-le pour envoyer réellement.")}</span></div></div>
         <label className="nt-boite">{t("Boîte partagée (expéditeur, copies et résumé)")}<input id="nt-boite" type="email" value={r.boite} onChange={(e) => setR({ ...r, boite: e.target.value.trim() })} /></label>
       </div>
 
       <h3 className="nt-h">{t("Avis")}</h3>
       <div className="tbl"><table className="nt-tab">
         <thead><tr><th>{t("Avis")}</th><th>{t("Destinataires")}</th><th>{t("Moment")}</th><th style={{ textAlign: "center" }}>{t("Envoi")}</th></tr></thead>
-        <tbody>{CATEGORIES.map(([c, l, d, m]) => <tr key={c} className={r.types[c] ? "" : "off"}><td><b>{l}</b></td><td>{d}</td><td>{m}</td><td style={{ textAlign: "center" }}><Inter id={"nt-t-" + c} on={r.types[c] !== false} set={(v) => basc("types", c, v)} label={l} /></td></tr>)}</tbody>
+        <tbody>{CATEGORIES.map(([c, l, d, m]) => <tr key={c} className={r.types[c] ? "" : "off"}><td><b>{l}</b></td><td>{d}</td><td>{m}</td><td style={{ textAlign: "center" }}><Inter id={"nt-t-" + c} on={r.types[c] !== false} set={(v) => unType(c, v)} label={l} /></td></tr>)}</tbody>
       </table></div>
 
-      <h3 className="nt-h">{t("Destinataires par fonction")}</h3>
-      <p className="zp">{t("Une personne reçoit les avis si au moins une de ses fonctions est allumée. La boîte partagée reçoit toujours les siens.")}</p>
+      <h3 className="nt-h">{t("Fonctions qui reçoivent les avis")}</h3>
+      <p className="zp">{t("Pour réserver les e-mails à certaines fonctions. Exemple : éteindre « Collaborateur » pour que seuls les dirigeants et le RCCI soient prévenus par e-mail ; les collaborateurs voient toujours leurs actions sur le site. Une personne qui a plusieurs fonctions reçoit les avis si l'une d'elles est allumée. Tout allumé : chacun reçoit ce qui le concerne.")}</p>
       <div className="nt-fn">{FONCTIONS_N.map(([c, l]) => <label key={c} className={r.fonctions[c] !== false ? "" : "off"}><Inter id={"nt-f-" + c} on={r.fonctions[c] !== false} set={(v) => basc("fonctions", c, v)} label={l} /><span>{l}</span></label>)}</div>
 
       <h3 className="nt-h">{t("Escalade des retards")}</h3>

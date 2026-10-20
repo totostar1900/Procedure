@@ -191,3 +191,9 @@ envois désactivés	sending disabled
 hors des heures d'envoi	outside sending hours
 exécution récente	run too recent, try again in a few seconds
 configuration Microsoft 365 absente	Microsoft 365 configuration missing
+Allume ou éteint d'un coup tous les avis de la liste ci-dessous. Éteint, aucun e-mail ne part.	Switches all the notices listed below on or off at once. When off, no e-mail is sent.
+Rediriger vers la boîte partagée (période d'essai)	Redirect to the shared mailbox (trial period)
+Les destinataires ne reçoivent rien : chaque e-mail est détourné vers la boîte partagée, avec le nom du destinataire prévu en tête. Pour relire les avis avant la mise en service ; éteignez-le pour envoyer réellement.	Recipients receive nothing: each e-mail is diverted to the shared mailbox, with the intended recipient shown at the top. Use it to review notices before going live; switch it off to send for real.
+Fonctions qui reçoivent les avis	Functions that receive notices
+Pour réserver les e-mails à certaines fonctions. Exemple : éteindre « Collaborateur » pour que seuls les dirigeants et le RCCI soient prévenus par e-mail ; les collaborateurs voient toujours leurs actions sur le site. Une personne qui a plusieurs fonctions reçoit les avis si l'une d'elles est allumée. Tout allumé : chacun reçoit ce qui le concerne.	To limit e-mails to certain functions. Example: switch off “Staff Member” so that only senior management and the RCCI are notified by e-mail; staff members still see their actions on the site. A person with several functions receives notices if one of them is on. All on: everyone receives what concerns them.
+Rediriger vers la boîte partagée	Redirect to the shared mailbox
