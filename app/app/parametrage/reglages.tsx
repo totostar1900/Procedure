@@ -65,7 +65,7 @@ export default function Reglages({ moi }: { moi: MoiC }) {
         <h1 className="title">Paramétrage</h1>
         <p className="lead">Qui administre le référentiel et avec quelles prérogatives. Les administrateurs gèrent à leur tour les autres membres dans la page Membres, sans pouvoir dépasser ce que vous leur donnez ici.</p>
         {note ? <p role="status" className={note.t === "ok" ? "ok" : "err"}>{note.m}</p> : null}
-        {Object.keys(pend).length ? <div className="pending-bar"><span>{Object.keys(pend).length} modification(s) non enregistrée(s)</span><button type="button" className="btn primary" onClick={() => setCfm({ titre: "Enregistrer les administrateurs", points: points(), phrase: "enregistrer les prerogatives", bouton: "Enregistrer", ok: enregistrer })}>Vérifier et enregistrer…</button><button type="button" className="btn ghost-l" onClick={() => setPend({})}>Annuler</button></div> : null}
+        {Object.keys(pend).length ? <div className="pending-bar"><span>{Object.keys(pend).length} modification(s) non enregistrée(s)</span><button type="button" className="btn primary" onClick={() => setCfm({ titre: "Enregistrer les administrateurs", points: points(), phrase: "enregistrer les prérogatives", bouton: "Enregistrer", ok: enregistrer })}>Vérifier et enregistrer…</button><button type="button" className="btn ghost-l" onClick={() => setPend({})}>Annuler</button></div> : null}
         {cfm ? <Confirmation c={cfm} fermer={() => setCfm(null)} /> : null}
 
         <section className="card">
