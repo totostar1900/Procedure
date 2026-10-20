@@ -333,3 +333,5 @@ Fonctions attribuées depuis le (.+)	Functions assigned since $1
 (PC-[A-Z0-9-]+) — (.+) \(version (.+), (.+), empreinte (.+)\)	$1 — $2 (version $3, $4, fingerprint $5)
 Annexe (\d+) — (.+)	Appendix $1 — $2
 annexe (\d+) au (PC-[A-Z0-9-]+)	appendix $1 to $2
+Manuel des procédures · (\d+) Ko	Procedures manual · $1 KB
+([\d.]+) Mo	$1 MB

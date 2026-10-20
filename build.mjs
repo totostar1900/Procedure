@@ -375,7 +375,41 @@ async function buildPdfs() {
       console.log("PDF", a.pdf.file, (ab.length / 1024).toFixed(0) + " Ko");
     }
   }
+  if (!ONLY) for (const lang of ["fr", "en"]) await buildManuel(render, lang);
   await browser.close();
+}
+
+// ---------- Manuel des procédures : assemblage des documents en vigueur (ou en projet), dans l'ordre de la cartographie ----------
+// Il n'est pas rédigé à part : il est reconstruit à chaque publication à partir des mêmes sources.
+export const MANUEL_ORDRE = ["PC-COD-004", "PC-PRO-GOV-001", "PC-PRO-KYC-001", "PC-PRO-ORD-001", "PC-PRO-PMR-001", "PC-PRO-SEG-001", "PC-PRO-REC-001", "PC-PRO-OPP-001", "PC-PRO-COM-001", "PC-PRO-CPT-001", "PC-PRO-REP-001", "PC-PRO-ARC-001", "PC-PRO-INC-001"];
+export const MANUEL = { fr: { file: "Manuel-des-procedures.pdf", size: 0 }, en: { file: "Procedures-manual_EN.pdf", size: 0 } };
+function manuelDocs() {
+  const ids = MANUEL_ORDRE.concat(docs.map((d) => d.id).filter((id) => /^PC-PRO-/.test(id) && !MANUEL_ORDRE.includes(id)));
+  return ids.map((id) => docs.find((d) => d.id === id)).filter(Boolean);
+}
+async function buildManuel(render, lang) {
+  const list = manuelDocs().map((d) => (lang === "en" ? (d.en ? vueEn(d) : null) : d)).filter(Boolean);
+  if (!list.length) return;
+  const v = { lang: lang === "en" ? "en" : undefined, statut: "En vigueur", version: "", confidentialite: "Interne" };
+  const pdfs = [];
+  for (const d of list) { const f = P("dist/pdf", d.pdf.file); if (fs.existsSync(f)) pdfs.push({ d, doc: await PDFDocument.load(fs.readFileSync(f)) }); }
+  let page = 3; const rows = pdfs.map((x, i) => { const r = { n: i + 1, d: x.d, page }; page += x.doc.getPageCount(); return r; });
+  const EN = lang === "en";
+  const html = `<div class="cover"><div class="cover-band"><div class="wordmark">PURPOSE CAPITAL</div><div class="wordmark-rule"></div><div class="wordmark-sub">${L(v, "Référentiel documentaire")} · ${esc(cfg.societe.raison_sociale)}</div></div>
+  <div class="cover-main"><div class="cover-eyebrow">${EN ? "Compilation" : "Recueil"}</div><div class="cover-title">${EN ? "Procedures manual" : "Manuel des procédures"}</div>
+  <div class="cover-ref">${EN ? "Assembled on" : "Assemblé le"} <b>${EN ? enDate(TODAY) : frDate(TODAY)}</b> · ${pdfs.length} ${EN ? "documents" : "documents"}</div>
+  <p style="max-width:120mm;color:#B9C8DA;font-size:9.5pt;line-height:1.5;margin-top:10mm">${EN ? "This manual is assembled automatically from the documents published in the online repository: organisation and delegations, then each procedure in the order of the process map. Each document keeps its own version, status and control sheet. Courtesy translation — the French version prevails." : "Ce manuel est assemblé automatiquement à partir des documents publiés dans le référentiel en ligne : organisation et délégations, puis chaque procédure dans l'ordre de la cartographie des processus. Chaque document garde sa version, son statut et sa fiche de maîtrise."}</p></div>
+  <div class="cover-foot"><div><strong>${esc(cfg.societe.raison_sociale)}</strong></div><div style="text-align:right">${EN ? "Uncontrolled copy: only the online version is authoritative." : "Copie non maîtrisée : seule la version en ligne fait foi."}</div></div></div>`;
+  const cover = await render(page(html, "", "@page{margin:0}", lang), "manuel-cover-" + lang, { margin: { top: 0, bottom: 0, left: 0, right: 0 } });
+  const somm = `<section class="toc-page" style="break-after:auto"><h1>${EN ? "Contents" : "Sommaire"}</h1><table class="ctable"><thead><tr><th style="width:8%">N°</th><th style="width:22%">${EN ? "Reference" : "Référence"}</th><th>${EN ? "Document" : "Document"}</th><th style="width:16%">Version</th><th style="width:9%">Page</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${r.n}</td><td>${esc(r.d.id)}</td><td>${esc(r.d.titre)}</td><td>${esc(r.d.version)} · ${esc(L(r.d, r.d.statut))}</td><td>${r.page}</td></tr>`).join("")}</tbody></table></section>`;
+  const sp = await render(page(somm, "", "", lang), "manuel-sommaire-" + lang, { margin: MARGIN });
+  const out = await PDFDocument.create();
+  for (const src of [await PDFDocument.load(cover), await PDFDocument.load(sp), ...pdfs.map((x) => x.doc)]) (await out.copyPages(src, src.getPageIndices())).forEach((pg) => out.addPage(pg));
+  out.setTitle(EN ? "Purpose Capital — Procedures manual" : "Purpose Capital — Manuel des procédures"); out.setAuthor(cfg.societe.raison_sociale);
+  const dt = new Date(TODAY + "T00:00:00Z"); out.setCreationDate(dt); out.setModificationDate(dt); out.setProducer("Référentiel Purpose Capital");
+  const bytes = await out.save();
+  fs.writeFileSync(P("dist/pdf", MANUEL[lang].file), bytes);
+  console.log("PDF", MANUEL[lang].file, (bytes.length / 1024).toFixed(0) + " Ko", pdfs.length, "documents");
 }
 
 // ---------- Site ----------
@@ -393,7 +427,8 @@ function buildSite() {
     else fs.writeFileSync(P("dist/source", d.id + ".json"), JSON.stringify(d._source));
   }
   const strip = (d) => { const { _source, ...rest } = d; return d.projet ? { ...rest, projet: strip(d.projet) } : rest; };
-  const data = { societe: cfg.societe, niveaux: cfg.niveaux, references: cfg.references, glossaire: cfg.glossaire, docs: docs.map(strip), prevus, generated: TODAY };
+  const manuel = { docs: manuelDocs().map((d) => d.id), fr: { ...MANUEL.fr, size: size(MANUEL.fr.file) }, en: { ...MANUEL.en, size: size(MANUEL.en.file) } };
+  const data = { societe: cfg.societe, niveaux: cfg.niveaux, references: cfg.references, glossaire: cfg.glossaire, docs: docs.map(strip), prevus, generated: TODAY, manuel };
   const html = read(P("templates/index.tpl.html"))
     .replace("{{I18N_JS}}", () => i18nJs())
     .replace("{{SITE_CSS}}", () => read(P("templates/site.css")))

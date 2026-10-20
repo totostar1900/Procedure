@@ -109,6 +109,7 @@
   var docs = DATA.docs;
   // Accès « employé » : la page ne contient que ses documents ; le menu se réduit à « Mes documents »
   var RESTREINT = !!DATA.restreint;
+  document.addEventListener("DOMContentLoaded", function () { var b = document.getElementById("manuel-dl"); if (b) b.innerHTML = manuelHtml(); });
   // Version anglaise (traduction de courtoisie) : texte, sommaire, annexes et fichiers anglais ; les libellés courts sont traduits par le dictionnaire
   var EN = !!(window.PCI18N && PCI18N.lang === "en");
   if (EN) DATA.docs.forEach(function (d) { [d, d.projet].forEach(function (x) { if (x && x.en) PCI18N.ajouter(x.en.dict); }); });
@@ -117,6 +118,12 @@
     var e = d.en;
     return Object.assign({}, d, { html: e.html, toc: e.toc, pdf: e.pdf || d.pdf, pdfCorps: e.pdfCorps || d.pdfCorps, word: e.word || d.word, _en: e,
       annexes: d.annexes.map(function (a, i) { var x = e.annexes[i] || {}; return Object.assign({}, a, { html: x.html || a.html, pdf: x.pdf || a.pdf, word: x.word || a.word }); }) });
+  }
+  // Manuel des procédures : PDF assemblé à chaque publication (organisation et procédures, dans l'ordre de la cartographie)
+  function manuelHtml() {
+    var m = DATA.manuel; if (!m || RESTREINT) return "";
+    var f = EN && m.en && m.en.size ? m.en : m.fr; if (!f || !f.size) return "";
+    return '<span class="cite-src">Manuel des procédures : l\'organisation et toutes les procédures, assemblées en un seul PDF à chaque publication.</span> ' + dlBtn(f.file, "Manuel des procédures · " + kb(f.size));
   }
   function bandeauEn(d) {
     if (!EN) return "";

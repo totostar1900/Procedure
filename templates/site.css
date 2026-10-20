@@ -739,3 +739,5 @@ html.i18n-attente body { visibility: hidden; }
 .lang-sw button:hover { color: var(--on-navy); }
 .lang-sw button.on { background: rgba(232,160,32,.22); color: #F3C66B; }
 .mbar-lang { margin: 0 0 0 auto; }
+.manuel-dl { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: -4px 0 14px; }
+.manuel-dl:empty { display: none; }
