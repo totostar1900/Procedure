@@ -240,6 +240,7 @@
     var adm = $("#doc-admin"); if (adm) adm.innerHTML = docAdminHtml(d);
     var ed = $("#doc-edit"); if (ed && !(ed.querySelector(".diffbox"))) renderDocEdit(d);
     var box = $("#doc-visas"); if (!box) return;
+    if (RESTREINT) { box.innerHTML = maLectureHtml(d); return; }
     if (!V.db) { box.innerHTML = V.ready ? '<p class="visa-note">Les visas électroniques ne sont pas disponibles dans cette vue. Reconnectez-vous au référentiel.</p>' : ""; return; }
     var st = docState(d);
     var rows = st.steps.map(function (x, i) {
@@ -377,6 +378,41 @@
     return '<h3 class="sub-h">Fonctions</h3><div class="vsearch"><input type="search" id="v-q" placeholder="Rechercher une personne par nom ou adresse" aria-label="Rechercher une personne">' +
       '<div id="v-hits"></div></div>' +
       '<div class="table-scroll"><table class="reg vadm"><thead><tr><th>Personne</th>' + FONCTIONS.map(function (f) { return '<th class="c">' + esc(f[1]) + "</th>"; }).join("") + '<th class="c">Actif</th></tr></thead><tbody>' + (roleRows || '<tr><td colspan="9">Personne pour l\'instant.</td></tr>') + "</tbody></table></div>";
+  }
+
+  // ---------- Accès employé : mes documents ----------
+  function maLecture(d) {
+    var st = docState(d), L = V.lectures[d.id] || {};
+    var ids = [V.me]; var lecteur = st.readers.indexOf(V.me) >= 0;
+    var consult = !lecteur && (L.consult || []).some(function (x) { return ids.indexOf(x) >= 0; });
+    var ok = d.lectureOK || [d.empreinte];
+    var sig = sigsOf(d.id, "lecture").filter(function (s) { return s.by === V.me && ok.indexOf(s.empreinte) >= 0; })[0];
+    var etat = !lecteur ? "consult" : sig ? "lu" : st.approved ? "alire" : "attente";
+    return { etat: etat, sig: sig, consult: consult };
+  }
+  function maLectureHtml(d) {
+    if (!V.db || !V.me) return "";
+    var m = maLecture(d);
+    var txt = m.etat === "lu" ? '<span class="pill vigueur">Lu et attesté</span> le ' + esc(fmtDT(m.sig.at)) + " (version " + esc(m.sig.version || d.version) + ")"
+      : m.etat === "alire" ? '<span class="pill projet">À lire et attester</span> Lisez le document, puis confirmez avec le bouton en haut de la page.'
+      : m.etat === "attente" ? '<span class="pill prevu">En cours d\'approbation</span> Vous serez invité à le lire et à l\'attester dès son adoption.'
+      : '<span class="pill prevu">Consultation</span> Ce document est mis à votre disposition ; aucune attestation n\'est demandée.';
+    return '<div class="visas-head"><h3>Votre prise de connaissance</h3></div><p class="visa-note" style="margin:0">' + txt + "</p>";
+  }
+  function renderMesDocs() {
+    var v = $("#v-mesdocs"); if (!v) return;
+    var head = '<div class="eyebrow">' + esc(DATA.societe && DATA.societe.raison_sociale || "") + '</div><h1 class="title">Mes documents</h1>';
+    if (!V.db || !V.me) { v.innerHTML = head + '<p class="lead">' + (V.ready ? "Session expirée : reconnectez-vous." : "Chargement…") + "</p>"; return; }
+    if (!docs.length) { v.innerHTML = head + '<p class="lead">Aucun document ne vous est attribué pour le moment. L\'administrateur vous préviendra lorsqu\'un document vous concernera.</p>'; return; }
+    var order = { alire: 0, attente: 1, lu: 2, consult: 3 };
+    var list = docs.map(function (d) { return { d: d, m: maLecture(d) }; }).sort(function (a, b) { return order[a.m.etat] - order[b.m.etat] || a.d.id.localeCompare(b.d.id); });
+    var n = list.filter(function (x) { return x.m.etat === "alire"; }).length;
+    v.innerHTML = head + '<p class="lead">' + (n ? "Vous avez " + n + " document" + (n > 1 ? "s" : "") + " à lire et à attester. Ouvrez-le, lisez-le, puis confirmez votre lecture avec le bouton en haut de la page." : "Vous êtes à jour : aucune lecture en attente.") + "</p>" +
+      '<ul class="md-list panel-gap">' + list.map(function (x) {
+        var d = x.d, m = x.m;
+        var st = m.etat === "lu" ? "Lu et attesté le " + fmtD(m.sig.at) : m.etat === "alire" ? "À lire et attester" : m.etat === "attente" ? "En cours d'approbation — lecture demandée après l'adoption" : "Consultation";
+        return '<li class="md-item ' + (m.etat === "alire" ? "todo" : m.etat === "lu" ? "ok" : "") + '"><div class="eyebrow">' + esc(d.type) + " · " + esc(d.id) + " · v" + esc(d.version) + "</div><h3>" + esc(d.titre) + '</h3><div class="md-state">' + esc(st) + '</div><p class="cite-src" style="margin:0">' + esc(d.resume || "") + '</p><div class="row-actions"><button type="button" class="btn' + (m.etat === "alire" ? " primary" : "") + '" data-open="' + esc(d.id) + '">' + (m.etat === "alire" ? "Lire et attester" : "Ouvrir") + "</button>" + dlBtn(d.pdf.file, "PDF") + "</div></li>";
+      }).join("") + "</ul>";
   }
 
   // ---------- Page « Circuit d'approbation » (dynamique) ----------
@@ -558,7 +594,8 @@
   // ---------- Membre connecté (bas du rail) ----------
   function vRenderMe() {
     var box = $("#rail-me"); if (!box) return;
-    var badge = $("#nav-badge");
+    var badge = $(RESTREINT ? "#nav-badge-emp" : "#nav-badge");
+    var lm = $("#nav-membres"); if (lm) lm.hidden = !(HOSTED && V.owner);
     if (!V.ready && !V.me) { box.innerHTML = '<div class="me-load">Chargement…</div>'; return; }
     if (!V.me) {
       box.innerHTML = '<div class="me-card"><div class="me-av">?</div><div class="me-id"><b>Lecture seule</b><span>' + (HOSTED ? "Session expirée" : "Connectez-vous à claude.ai pour viser") + "</span></div></div>";
@@ -573,7 +610,7 @@
       '<div class="me-card" title="' + esc(nom + (mail ? " · " + mail : "")) + '"><div class="me-av">' + esc(ini || "?") + (n ? '<i class="me-dot"></i>' : "") + '</div><div class="me-id"><b>' + esc(nom || mail || "Vous") + "</b>" + (mail && nom ? "<span>" + esc(mail) + "</span>" : "") + "</div></div>" +
       '<div class="me-more">' +
       '<div class="me-roles">' + (f.length ? f.map(function (x) { return '<span class="me-chip">' + esc(FLABEL[x] || x) + "</span>"; }).join("") : '<span class="me-none">Aucune fonction attribuée</span>') + (V.owner ? '<span class="me-chip gold">Administrateur</span>' : "") + "</div>" +
-      '<button type="button" class="me-todo" data-open="atraiter"><span><b>' + nv + "</b> à viser</span><span><b>" + (n - nv) + "</b> à lire</span></button>" +
+      (RESTREINT ? '<button type="button" class="me-todo" data-open="mesdocs"><span><b>' + n + "</b> à lire</span><span><b>" + docs.length + "</b> document" + (docs.length > 1 ? "s" : "") + "</span></button>" : '<button type="button" class="me-todo" data-open="atraiter"><span><b>' + nv + "</b> à viser</span><span><b>" + (n - nv) + "</b> à lire</span></button>") +
       (r.depuis ? '<div class="me-since">Fonctions attribuées depuis le ' + esc(fmtDate(r.depuis)) + "</div>" : "") +
       (HOSTED ? '<div class="me-links">' + (V.owner ? '<a href="/membres">Membres</a>' : "") + '<a href="/deconnexion">Se déconnecter</a></div>' : "") +
       "</div>";
@@ -605,7 +642,7 @@
     if (!V.landed && V.ready && V.me && Object.keys(V.roles).length) {
       V.landed = true;
       var first = true; try { first = !sessionStorage.getItem("pc-ref-atraiter"); sessionStorage.setItem("pc-ref-atraiter", "1"); } catch (e) { /* stockage indisponible */ }
-      if (first && !location.hash.slice(1) && vTodoList().length) { go("atraiter"); return; }
+      if (first && !location.hash.slice(1) && vTodoList().length && !RESTREINT) { go("atraiter"); return; }
     }
     var h = decodeURIComponent(location.hash.slice(1));
     var act = document.activeElement;
@@ -614,6 +651,7 @@
     if (h === "atraiter") renderATraiter();
     if (h === "circuit") renderCircuit();
     if (h === "archives") renderArchives();
+    if (RESTREINT && (h === "" || h === "mesdocs")) renderMesDocs();
     if (h.indexOf("edition/") === 0 && E && !(act && act.closest && act.closest("#v-edition"))) renderEditor();
     var d = currentVariant(h);
     if (d && !V.pending && !(V.edit && V.edit.etat)) renderDocVisas(d);

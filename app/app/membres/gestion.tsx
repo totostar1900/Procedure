@@ -2,7 +2,9 @@
 import { createBrowserClient } from "@supabase/ssr";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-type Membre = { email: string; user_id: string | null; nom: string | null; poste: string | null; fonctions: string[]; actif: boolean; admin: boolean; cree_le: string; derniere_connexion: string | null };
+type Membre = { email: string; user_id: string | null; nom: string | null; poste: string | null; fonctions: string[]; actif: boolean; admin: boolean; cree_le: string; derniere_connexion: string | null; acces: "complet" | "employe" };
+type Doc = { id: string; titre: string; type: string };
+type Lect = { ids?: string[]; consult?: string[]; tous?: boolean; maj?: string };
 type Evt = { id: number; le: string; par_email: string | null; action: string; path: string; data: Partial<Membre> };
 
 const FONCTIONS: [string, string][] = [
@@ -20,7 +22,7 @@ const msg = (e: { message?: string } | null) => {
   return m;
 };
 
-export default function Gestion({ moi }: { moi: string }) {
+export default function Gestion({ moi, docs }: { moi: string; docs: Doc[] }) {
   const sb = useMemo(() => createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!), []);
   const [ms, setMs] = useState<Membre[]>([]);
   const [evts, setEvts] = useState<Evt[]>([]);
@@ -28,16 +30,32 @@ export default function Gestion({ moi }: { moi: string }) {
   const [inactifs, setInactifs] = useState(false);
   const [note, setNote] = useState<{ t: "ok" | "err"; m: string } | null>(null);
   const [occupe, setOccupe] = useState<string | null>(null);
-  const [f, setF] = useState({ email: "", nom: "", poste: "", fonctions: ["collab"] as string[], admin: false });
+  const [f, setF] = useState({ email: "", nom: "", poste: "", fonctions: ["collab"] as string[], admin: false, acces: "employe" as "complet" | "employe" });
+  const [lects, setLects] = useState<Record<string, Lect>>({});
+  const [ouvert, setOuvert] = useState<string | null>(null);
 
   const charger = useCallback(async () => {
     const [a, b] = await Promise.all([
-      sb.from("membres").select("email,user_id,nom,poste,fonctions,actif,admin,cree_le,derniere_connexion").order("nom", { nullsFirst: false }),
+      sb.from("membres").select("email,user_id,nom,poste,fonctions,actif,admin,cree_le,derniere_connexion,acces").order("nom", { nullsFirst: false }),
       sb.from("journal").select("id,le,par_email,action,path,data").or("action.like.MEMBRE_%,action.eq.CONNEXION").order("le", { ascending: false }).limit(40),
     ]);
     if (a.error) setNote({ t: "err", m: msg(a.error) }); else setMs(a.data as Membre[]);
     if (!b.error) setEvts(b.data as Evt[]);
+    const c = await sb.from("kv").select("path,data").like("path", "lectures/%");
+    if (!c.error) setLects(Object.fromEntries((c.data || []).map((r) => [String(r.path).slice(9), (r.data || {}) as Lect])));
   }, [sb]);
+  const idDe = (m: Membre) => m.user_id || "email:" + m.email;
+  const designe = (m: Membre, d: string): "lire" | "consult" | "" => { const L = lects[d] || {}; const ids = [m.user_id, "email:" + m.email]; return (L.ids || []).some((x) => ids.includes(x)) ? "lire" : (L.consult || []).some((x) => ids.includes(x)) ? "consult" : ""; };
+  async function designer(m: Membre, d: string, mode: "lire" | "consult" | "") {
+    const L: Lect = JSON.parse(JSON.stringify(lects[d] || { ids: [], consult: [], tous: false }));
+    const ids = [m.user_id, "email:" + m.email].filter(Boolean) as string[];
+    L.ids = (L.ids || []).filter((x) => !ids.includes(x)); L.consult = (L.consult || []).filter((x) => !ids.includes(x));
+    if (mode === "lire") L.ids.push(idDe(m)); if (mode === "consult") L.consult.push(idDe(m));
+    L.maj = new Date().toISOString();
+    setLects({ ...lects, [d]: L });
+    const { error } = await sb.from("kv").upsert({ path: "lectures/" + d, data: L }, { onConflict: "path" });
+    if (error) { setNote({ t: "err", m: msg(error) }); charger(); }
+  }
   useEffect(() => { charger(); }, [charger]);
   useEffect(() => { if (!note) return; const t = setTimeout(() => setNote(null), 5000); return () => clearTimeout(t); }, [note]);
 
@@ -55,11 +73,12 @@ export default function Gestion({ moi }: { moi: string }) {
     if (!email.endsWith("@" + DOMAINE) && !confirm(`Cette adresse n'est pas en @${DOMAINE}. Seuls les comptes de votre annuaire Microsoft 365 peuvent se connecter. Ajouter quand même ?`)) return;
     if (!f.fonctions.length) return setNote({ t: "err", m: "Cochez au moins une fonction." });
     setOccupe("__ajout");
-    const { error } = await sb.from("membres").insert({ email, nom: f.nom.trim() || null, poste: f.poste.trim() || null, fonctions: f.fonctions, admin: f.admin, actif: true });
+    const { error } = await sb.from("membres").insert({ email, nom: f.nom.trim() || null, poste: f.poste.trim() || null, fonctions: f.fonctions, admin: f.admin, actif: true, acces: f.admin ? "complet" : f.acces });
     setOccupe(null);
     if (error) return setNote({ t: "err", m: msg(error) });
     setNote({ t: "ok", m: `Accès ouvert pour ${email}. Prévenez la personne : elle se connecte sur ${SITE} avec son compte Microsoft 365.` });
-    setF({ email: "", nom: "", poste: "", fonctions: ["collab"], admin: false });
+    if (f.acces === "employe" && !f.admin) setOuvert(email);
+    setF({ email: "", nom: "", poste: "", fonctions: ["collab"], admin: false, acces: "employe" });
     charger();
   }
   async function supprimer(m: Membre) {
@@ -110,6 +129,10 @@ export default function Gestion({ moi }: { moi: string }) {
               ))}
               <label className="chk adm"><input type="checkbox" checked={f.admin} onChange={() => setF({ ...f, admin: !f.admin })} />Administrateur (gère les membres)</label>
             </fieldset>
+            <fieldset><legend>Accès au référentiel</legend>
+              <label className="chk"><input type="radio" name="acces" checked={f.acces === "employe"} onChange={() => setF({ ...f, acces: "employe" })} /><span><b>Employé</b> — voit seulement les documents que vous lui attribuez</span></label>
+              <label className="chk"><input type="radio" name="acces" checked={f.acces === "complet"} onChange={() => setF({ ...f, acces: "complet" })} /><span><b>Complet</b> — tout le référentiel (dirigeants, RCCI, rédacteurs, administrateurs du Conseil)</span></label>
+            </fieldset>
             <button className="btn" disabled={occupe === "__ajout"}>{occupe === "__ajout" ? "Enregistrement…" : "Ouvrir l'accès"}</button>
           </form>
         </section>
@@ -128,7 +151,7 @@ export default function Gestion({ moi }: { moi: string }) {
               <tbody>
                 {filtre.map((m) => {
                   const soi = m.email === moi;
-                  return (
+                  return [
                     <tr key={m.email} className={(m.actif ? "" : "off ") + (occupe === m.email ? "busy" : "")}>
                       <td>
                         <div className="nom">{m.nom || "—"}{soi ? <span className="tag">vous</span> : null}{m.admin ? <span className="tag gold">admin</span> : null}</div>
@@ -143,10 +166,21 @@ export default function Gestion({ moi }: { moi: string }) {
                       <td className="acts">
                         <label className="chk"><input type="checkbox" checked={m.actif} disabled={soi} onChange={() => maj(m.email, { actif: !m.actif }, `${m.nom || m.email} ${m.actif ? "désactivé : son accès est coupé immédiatement" : "réactivé"}.`)} />Actif</label>
                         <label className="chk"><input type="checkbox" checked={m.admin} disabled={soi} onChange={() => maj(m.email, { admin: !m.admin }, `Droits d'administration ${m.admin ? "retirés à" : "donnés à"} ${m.nom || m.email}.`)} />Admin</label>
+                        <label className="vfl">Accès<select value={m.admin ? "complet" : m.acces} disabled={m.admin} onChange={(e) => maj(m.email, { acces: e.target.value as Membre["acces"] }, `Accès de ${m.nom || m.email} : ${e.target.value === "employe" ? "employé (documents attribués)" : "complet"}.`)}><option value="complet">Complet</option><option value="employe">Employé</option></select></label>
+                        {m.acces === "employe" && !m.admin ? <button type="button" className="lnk doc" onClick={() => setOuvert(ouvert === m.email ? null : m.email)}>Documents attribués ({docs.filter((d) => designe(m, d.id)).length}) {ouvert === m.email ? "▴" : "▾"}</button> : null}
                         {!m.user_id && !soi ? <button type="button" className="lnk" onClick={() => supprimer(m)}>Retirer l&apos;invitation</button> : null}
                       </td>
                     </tr>
-                  );
+                  , ouvert === m.email && m.acces === "employe" && !m.admin ? (
+                    <tr key={m.email + "-docs"} className="docs-row"><td colSpan={4}>
+                      <p className="fine" style={{ margin: "0 0 8px" }}>Documents visibles par {m.nom || m.email}. « Lire et attester » : la personne devra confirmer sa lecture une fois le document adopté. « Consultation » : visible sans attestation. Les autres documents, et le reste du site, lui sont invisibles.</p>
+                      <table className="dtab"><thead><tr><th>Document</th><th className="c">Aucun</th><th className="c">Lire et attester</th><th className="c">Consultation</th></tr></thead><tbody>
+                        {docs.map((d) => { const v = designe(m, d.id); const tous = !!(lects[d.id] || {}).tous; return (
+                          <tr key={d.id}><td><b>{d.id}</b> {d.titre}<span className="mail"> · {d.type}{tous ? " · lecture demandée à tous" : ""}</span></td>
+                            {(["", "lire", "consult"] as const).map((k) => <td key={k} className="c"><input type="radio" name={"d-" + m.email + "-" + d.id} checked={tous ? k === "lire" : v === k} disabled={tous} onChange={() => designer(m, d.id, k)} aria-label={d.id + " " + (k || "aucun")} /></td>)}
+                          </tr>); })}
+                      </tbody></table>
+                    </td></tr>) : null];
                 })}
                 {!filtre.length ? <tr><td colSpan={4} className="vide">Aucun membre.</td></tr> : null}
               </tbody>
@@ -217,9 +251,11 @@ tr.off td{opacity:.55}tr.busy{opacity:.6;pointer-events:none}
 .acts{display:flex;flex-direction:column;gap:4px;white-space:nowrap}
 .lnk{background:none;border:0;padding:0;color:#8A2219;text-decoration:underline;font:inherit;font-size:12.5px;cursor:pointer;text-align:left}
 .fine{color:var(--muted);font-size:12.5px;margin:10px 0 0}
+.vfl{display:flex;flex-direction:column;gap:2px;font-size:12px;color:var(--muted);margin-top:4px}.vfl select{font:inherit;font-size:13px;padding:3px 6px;border:1px solid var(--line);border-radius:4px}.lnk.doc{color:var(--navy);font-weight:600}.docs-row td{background:#F8FAFC}.dtab{width:100%;min-width:0;border-collapse:collapse}.dtab th,.dtab td{padding:5px 8px;font-size:13px}.dtab .c{text-align:center;width:110px}.add fieldset .chk span{font-weight:400}
 .journal{list-style:none;margin:0;padding:0;max-height:360px;overflow:auto}
 .journal li{display:flex;gap:14px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13.5px}
 .journal time{color:var(--muted);white-space:nowrap;min-width:150px}
 .vide{color:var(--muted)}
 @media (max-width:720px){.add{grid-template-columns:1fr}.journal li{flex-direction:column;gap:0}}
 `;
+

@@ -54,9 +54,10 @@ body { margin: 0; }
 .brand-sub { font-size: var(--fs-2xs); letter-spacing: .1em; text-transform: uppercase; color: var(--on-navy-muted); white-space: nowrap; }
 .brand-mono { display: none; font-family: var(--font-display); font-weight: 700; font-size: var(--fs-lg); letter-spacing: .06em; border-bottom: 2px solid var(--gold); padding-bottom: 2px; }
 .nav { display: flex; flex-direction: column; gap: 2px; padding: 14px 10px; flex: 1; overflow-y: auto; }
-.nav button { position: relative; display: flex; align-items: center; gap: 11px; width: 100%; background: none; border: 0; color: var(--on-navy-muted); padding: 7px 10px; border-radius: 6px; font-size: var(--fs-base); text-align: left; cursor: pointer; white-space: nowrap; }
-.nav button svg { width: 17px; height: 17px; flex: none; }
-.nav button:hover { color: var(--on-navy); background: rgba(255,255,255,.06); }
+.nav button, .nav a.nav-link { position: relative; text-decoration: none; box-sizing: border-box; display: flex; align-items: center; gap: 11px; width: 100%; background: none; border: 0; color: var(--on-navy-muted); padding: 7px 10px; border-radius: 6px; font-size: var(--fs-base); text-align: left; cursor: pointer; white-space: nowrap; }
+.nav a.nav-link svg, .nav button svg { width: 17px; height: 17px; flex: none; }
+.nav button:hover, .nav a.nav-link:hover { color: var(--on-navy); background: rgba(255,255,255,.06); }
+.nav [hidden] { display: none !important; }
 .nav button[aria-current="page"] { color: var(--on-navy); background: rgba(255,255,255,.1); }
 .nav button[aria-current="page"]::before { content: ""; position: absolute; left: -10px; top: 8px; bottom: 8px; width: 3px; border-radius: 0 3px 3px 0; background: var(--gold); }
 .badge { margin-left: auto; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 10px; background: var(--gold); color: #1A1200; font-size: var(--fs-xs); font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
@@ -415,10 +416,10 @@ body.has-selbar .toast { bottom: calc(96px + env(safe-area-inset-bottom, 0px)); 
 .rev-banner b { color: var(--heading); }
 @media (max-width: 860px) { .selbar { left: 0; } .toast { left: 50%; } .side { top: 70px; } }
 /* Contenu aligné sur le rail plutôt que centré dans l'espace restant */
-.shell .wrap { max-width: 1320px; margin-left: 0; padding-left: max(32px, env(safe-area-inset-left, 0px)); padding-right: 32px; }
+.shell .wrap { max-width: none; margin: 0; padding-left: max(32px, env(safe-area-inset-left, 0px)); padding-right: max(32px, env(safe-area-inset-right, 0px)); }
 @media (max-width: 860px) { .shell .wrap { padding-left: 16px; padding-right: 16px; } }
 /* Rail réduit : se déplie temporairement au survol, par-dessus le contenu */
-@media (min-width: 861px) and (hover: hover) {
+@media (min-width: 861px) {
   body.rail-folded .rail:hover, body.rail-folded .rail:focus-within { width: 214px; box-shadow: 8px 0 30px rgba(2,12,24,.25); }
   body.rail-folded .rail:hover .rl, body.rail-folded .rail:focus-within .rl,
   body.rail-folded .rail:hover .me-id, body.rail-folded .rail:focus-within .me-id,
@@ -585,3 +586,14 @@ body.has-selbar .toast { bottom: calc(96px + env(safe-area-inset-bottom, 0px)); 
 .diffbox { margin: 12px 0 0; padding: 14px; border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); }
 .diffbox h3 { margin: 0 0 10px; font-family: var(--font-display); color: var(--heading); font-size: var(--fs-lg); }
 @media (max-width: 900px) { .edfields { grid-template-columns: 1fr; } .ed-layout { grid-template-columns: 1fr; } .ed-outline { display: none; } }
+
+body.rail-folded .nav a.nav-link { justify-content: center; padding: 10px 0; }
+@media (min-width: 861px) { body.rail-folded .rail:hover .nav a.nav-link { justify-content: flex-start; padding: 7px 10px; } }
+/* Accès employé : mes documents */
+.md-list { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+.md-item { border: 1px solid var(--rule); border-radius: 6px; padding: 14px 16px; background: var(--raised); display: flex; flex-direction: column; gap: 6px; }
+.md-item.todo { border-color: var(--gold); box-shadow: inset 3px 0 0 var(--gold); }
+.md-item.ok { box-shadow: inset 3px 0 0 var(--ok); }
+.md-item h3 { margin: 0; font-family: var(--font-display); font-size: var(--fs-lg); color: var(--heading); }
+.md-state { font-size: var(--fs-sm); color: var(--ink-soft); }
+.md-item .row-actions { justify-content: flex-start; margin-top: 4px; }

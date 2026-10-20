@@ -75,6 +75,13 @@
 
   // ---------- Registre ----------
   var docs = DATA.docs;
+  // Accès « employé » : la page ne contient que ses documents ; le menu se réduit à « Mes documents »
+  var RESTREINT = !!DATA.restreint;
+  if (RESTREINT) {
+    document.body.classList.add("restreint");
+    document.querySelectorAll(".nav [data-open]").forEach(function (b) { b.hidden = b.getAttribute("data-open") !== "mesdocs"; });
+    document.querySelectorAll('.brand[data-open], .mbar-brand').forEach(function (b) { b.setAttribute("data-open", "mesdocs"); });
+  }
   var rows = docs.map(function (d) { return Object.assign({ live: true }, d); })
     .concat(DATA.prevus.map(function (p) { return Object.assign({ live: false, statut: "À rédiger" }, p); }));
   var uniq = function (k) { return rows.map(function (r) { return r[k]; }).filter(function (v, i, a) { return v && a.indexOf(v) === i; }).sort(); };
@@ -173,7 +180,7 @@
       return '<li><button type="button" data-jump="annexe-' + a.num + '">Annexe ' + a.num + "<small>" + esc(a.titre) + "</small></button></li>";
     }).join("");
     v.innerHTML =
-      '<button type="button" class="crumb" data-open="registre">← Registre des documents</button>' +
+      (RESTREINT ? '<button type="button" class="crumb" data-open="mesdocs">← Mes documents</button>' : '<button type="button" class="crumb" data-open="registre">← Registre des documents</button>') +
       '<div class="doc-layout">' +
       '<aside class="side" aria-label="Sommaire"><p class="side-title t-titres">Sommaire</p><ol class="titres">' + tocHtml + "</ol>" +
       '<p class="side-title">Annexes</p><ol>' + annexToc + '<li><button type="button" data-jump="maitrise">Maîtrise du document<small>Historique et références</small></button></li></ol></aside>' +
@@ -291,7 +298,7 @@
 
 
   // ---------- Navigation ----------
-  var VIEWS = ["registre", "doc", "glossaire", "correspondance", "circuit", "dossiers", "dossier", "visas", "atraiter", "archives", "edition"];
+  var VIEWS = ["registre", "doc", "glossaire", "correspondance", "circuit", "dossiers", "dossier", "visas", "atraiter", "archives", "edition", "mesdocs"];
   function go(target) {
     if (target === "registre") target = "";
     if (location.hash.slice(1) === target) route(); else location.hash = target;
@@ -304,6 +311,7 @@
     var dz = /^d-[A-Za-z0-9_-]+$/.test(h);
     var ed = /^edition\/[A-Za-z0-9-]+$/.test(h);
     var view = doc ? "doc" : dz ? "dossier" : ed ? "edition" : (VIEWS.indexOf(h) > 0 && h !== "dossier" && h !== "edition" ? h : "registre");
+    if (RESTREINT && view !== "doc") view = "mesdocs";
     if (view !== "edition" && E) { if (E.dirty) saveDraft(); E = null; }
     if (view !== "dossier" && cur) { if (cur.dirty) saveNow(); cur = null; }
     VIEWS.forEach(function (v) { $("#v-" + v).hidden = v !== view; });
@@ -320,6 +328,7 @@
     if (view === "circuit") renderCircuit();
     if (view === "archives") renderArchives();
     if (view === "edition") openEditor(h.slice(8));
+    if (view === "mesdocs") renderMesDocs();
     if (view === "dossier") openDossier(h.slice(2));
     window.scrollTo(0, 0);
   }
