@@ -192,6 +192,17 @@
   var canRestore = function (e) { return e && (e.statut === "abroge" ? canArchive() : V.owner); };
   async function setEtat(id, statut, motif) {
     if (!canArchive() || (statut === "supprime" && !V.owner)) { toast("Opération réservée à l'administrateur" + (statut === "supprime" ? "." : " et au RCCI.")); return; }
+    var d0 = docs.filter(function (x) { return x.id === id; })[0] || { titre: "" };
+    var verbe = statut === "abroge" ? "abroger" : statut === "supprime" ? "supprimer" : "rétablir";
+    var ok = await confirmer({
+      titre: statut === "abroge" ? "Abroger et archiver un document" : statut === "supprime" ? "Supprimer un document du registre" : "Rétablir un document dans le registre",
+      html: "<dl><dt>Document</dt><dd><b>" + esc(id) + "</b> — " + esc(d0.titre) + "</dd>" + (motif ? "<dt>Motif</dt><dd>" + esc(motif) + "</dd>" : "") + "</dl>",
+      points: statut === "abroge" ? ["Le document cesse de s'appliquer et quitte le registre.", "Il reste consultable dans les Archives, avec ses versions et ses visas."]
+        : statut === "supprime" ? ["Le document disparaît du registre et des archives visibles.", "Il reste dans l'historique du dépôt et dans le journal ; l'administrateur peut le rétablir."]
+        : ["Le document revient dans le registre, avec son état d'avant."],
+      phrase: verbe + " " + id, bouton: verbe.charAt(0).toUpperCase() + verbe.slice(1), danger: statut === "supprime"
+    });
+    if (!ok) return;
     try {
       if (statut) await V.db.doc("etats/" + id).set({ statut: statut, motif: motif || "", date: new Date().toISOString(), par: V.me });
       else await V.db.doc("etats/" + id).delete();
@@ -221,14 +232,14 @@
       if (p.mode === "renvoi") {
         return '<div class="revbar open"><div class="rb-main"><b>Renvoyer pour modification</b> — étape « ' + esc(a.label) + " ». Le circuit s'arrête ; il reprendra sur le texte corrigé.</div>" +
           '<label class="vf">Motif du renvoi (obligatoire)<textarea id="v-com" rows="2" maxlength="600" placeholder="Ce qui doit être corrigé avant de viser"></textarea></label>' +
-          '<div class="rb-btns"><button type="button" class="btn primary" data-vact="' + esc(docKey(d)) + "|renvoi|ok|" + esc(a.etape) + '">Confirmer le renvoi</button><button type="button" class="btn" data-vact="cancel">Annuler</button></div></div>';
+          '<div class="rb-btns"><button type="button" class="btn primary" data-vact="' + esc(docKey(d)) + "|renvoi|ok|" + esc(a.etape) + '">Continuer…</button><button type="button" class="btn" data-vact="cancel">Annuler</button></div></div>';
       }
       var role = a.etape === "lecture" ? "" : " en qualité de " + (FLABEL[a.role] || a.role);
       var phrase = a.etape === "lecture" ? "je déclare avoir lu et compris" : a.seance ? "j'atteste que le Conseil d'Administration a adopté" : a.etape === "verification" ? "je vise, après vérification," : "j'approuve, à l'étape « " + a.label + " »,";
       return '<div class="revbar open"><div class="rb-main"><b>' + esc(vName(V.me).replace(" (vous)", "")) + "</b>" + esc(role) + " : " + phrase + " le document " + esc(d.id) + ", version " + esc(d.version) + ' (empreinte <code>' + esc(d.empreinte) + "</code>).</div>" +
         (a.seance ? '<div class="rb-row"><label class="vf">Date de la séance<input type="date" id="v-seance" required></label><label class="vf">Référence du procès-verbal<input type="text" id="v-pv" placeholder="PV n°…"></label></div>' : "") +
         '<label class="vf">Commentaire (facultatif)<input type="text" id="v-com" maxlength="300"></label>' +
-        '<div class="rb-btns"><button type="button" class="btn primary" data-vact="' + esc(docKey(d)) + "|" + a.etape + '|ok">Confirmer</button><button type="button" class="btn" data-vact="cancel">Annuler</button></div></div>';
+        '<div class="rb-btns"><button type="button" class="btn primary" data-vact="' + esc(docKey(d)) + "|" + a.etape + '|ok">Continuer…</button><button type="button" class="btn" data-vact="cancel">Annuler</button></div></div>';
     }
     var main = acts[0];
     var btnLabel = main.etape === "lecture" ? "J'ai lu et compris" : main.seance ? "Enregistrer l'adoption" : main.etape === "verification" ? "Viser" : "Approuver";
@@ -279,8 +290,7 @@
       return '<div class="admin-act"><b>' + (sup ? "Supprimer " : "Abroger et archiver ") + esc(d.id) + "</b>" +
         '<p class="cite-src">' + (sup ? "Le document disparaît du registre et des archives visibles. Il reste dans l'historique du dépôt et dans le journal ; l'administrateur peut le rétablir." : "Le document cesse de s'appliquer. Il reste consultable dans les Archives, avec ses versions et ses visas.") + "</p>" +
         '<label class="vf">Motif (obligatoire)<input type="text" id="v-motif" maxlength="200"></label>' +
-        (sup ? '<label class="vf">Pour confirmer, tapez la référence ' + esc(d.id) + '<input type="text" id="v-confirm" autocomplete="off"></label>' : "") +
-        '<div class="visa-btns"><button type="button" class="btn primary' + (sup ? " danger" : "") + '" data-vetat="' + esc(d.id) + "|" + V.edit.mode + '|ok">' + (sup ? "Supprimer définitivement du registre" : "Abroger") + '</button><button type="button" class="btn" data-vetat="cancel">Annuler</button></div></div>';
+        '<div class="visa-btns"><button type="button" class="btn primary' + (sup ? " danger" : "") + '" data-vetat="' + esc(d.id) + "|" + V.edit.mode + '|ok">' + (sup ? "Supprimer du registre…" : "Abroger…") + '</button><button type="button" class="btn" data-vetat="cancel">Annuler</button></div></div>';
     }
     if (e) return '<div class="admin-act warn"><b>' + (e.statut === "abroge" ? "Document abrogé" : "Document supprimé du registre") + "</b> le " + esc(fmtD(e.date)) + (e.motif ? " — " + esc(e.motif) : "") + (canRestore(e) ? ' <button type="button" class="btn" data-vetat="' + esc(d.id) + '|restaurer">Rétablir</button>' : "") + "</div>";
     return '<details class="admin-menu"><summary>Gérer le document</summary><div class="admin-menu-in">' +
@@ -302,6 +312,19 @@
       if (se.value > new Date().toISOString().slice(0, 10)) { toast("La date de séance ne peut pas être dans le futur."); return; }
       body.seance = se.value; if (pv && pv.value.trim()) body.pv = pv.value.trim().slice(0, 80);
     }
+    var verbe = etape === "lecture" ? "j'ai lu" : etape === "renvoi" ? "renvoyer" : a.seance ? "adopter" : etape === "verification" ? "viser" : "approuver";
+    var ok = await confirmer({
+      titre: etape === "lecture" ? "Attester votre lecture" : etape === "renvoi" ? "Renvoyer le document pour modification" : a.seance ? "Enregistrer l'adoption par le Conseil" : "Donner votre visa",
+      html: '<dl><dt>Document</dt><dd><b>' + esc(d.id) + "</b> — " + esc(d.titre) + "</dd><dt>Version</dt><dd>" + esc(d.version) + ' · empreinte <code>' + esc(d.empreinte) + "</code></dd>" +
+        (etape === "lecture" ? "" : "<dt>Étape</dt><dd>" + esc(etape === "renvoi" ? "Renvoi à l'étape « " + a.label + " »" : a.label) + "</dd><dt>En qualité de</dt><dd>" + esc(FLABEL[a.role] || a.role) + "</dd>") +
+        (body.seance ? "<dt>Séance</dt><dd>" + esc(fmtDate(body.seance)) + (body.pv ? " · " + esc(body.pv) : "") + "</dd>" : "") +
+        (body.commentaire ? "<dt>" + (etape === "renvoi" ? "Motif" : "Commentaire") + "</dt><dd>" + esc(body.commentaire) + "</dd>" : "") + "</dl>",
+      points: etape === "lecture" ? ["Vous déclarez avoir lu et compris ce document, dans cette version.", "L'attestation est enregistrée à votre nom, avec la date et l'heure."]
+        : etape === "renvoi" ? ["Le circuit s'arrête pour cette version.", "Les rédacteurs voient votre motif ; le circuit reprendra sur le texte corrigé."]
+        : ["Votre visa est enregistré à votre nom, avec la date, l'heure et l'empreinte du texte.", "Il ne vaut que pour ce texte : toute modification ultérieure demandera un nouveau visa."],
+      phrase: verbe + " " + d.id, bouton: etape === "lecture" ? "Attester" : etape === "renvoi" ? "Renvoyer" : a.seance ? "Enregistrer l'adoption" : verbe === "viser" ? "Viser" : "Approuver", danger: etape === "renvoi"
+    });
+    if (!ok) return;
     try {
       // Le circuit de cette version est figé au premier visa : un changement ultérieur du circuit du type ne s'y applique pas
       if (etape !== "lecture" && !V.figes[d.id + "~" + d.empreinte]) {
@@ -374,14 +397,15 @@
   function vAdminHtml() {
     var collabs = Object.keys(V.roles).filter(function (id) { return V.roles[id].actif !== false; });
     var lectRows = docs.filter(function (d) { return !etatOf(d.id); }).map(function (d) {
-      var L = V.lectures[d.id] || {};
-      return "<tr><td><div class=\"doc-title\">" + esc(d.id) + "</div><div class=\"doc-sum\">" + esc(d.titre) + "</div></td>" +
+      var L = lectOf(d.id);
+      return "<tr" + (V.lectEdits[d.id] ? ' class="edited"' : "") + "><td><div class=\"doc-title\">" + esc(d.id) + "</div><div class=\"doc-sum\">" + esc(d.titre) + "</div></td>" +
         '<td class="c"><input type="checkbox" aria-label="Tous" data-vlect="' + esc(d.id) + '|__tous"' + (L.tous ? " checked" : "") + "></td>" +
         collabs.map(function (id) { return '<td class="c"><input type="checkbox" aria-label="' + esc(vName(id)) + '" data-vlect="' + esc(d.id) + "|" + esc(id) + '"' + ((L.ids || []).indexOf(id) >= 0 || L.tous ? " checked" : "") + (L.tous ? " disabled" : "") + "></td>"; }).join("") + "</tr>";
     }).join("");
     var fonctions = HOSTED ? '<p class="lead">Les accès et les fonctions se gèrent dans la page <a href="/membres">Membres</a>.</p>' : vRolesHtml();
     return '<h2 class="section-h">Administration</h2>' + fonctions +
-      '<h3 class="sub-h">Lectures obligatoires</h3><p class="lead">Cochez les personnes qui doivent lire et attester chaque document. « Tous » vise toutes les personnes ayant une fonction active.</p>' +
+      '<h3 class="sub-h">Lectures obligatoires</h3><p class="lead">Cochez les personnes qui doivent lire et attester chaque document. « Tous » vise toutes les personnes ayant une fonction active. Les changements s\'enregistrent ensemble, après vérification.</p>' +
+      (Object.keys(V.lectEdits).length ? '<div class="pending-bar"><span>' + Object.keys(V.lectEdits).length + " document(s) modifié(s), non enregistré(s)</span><button type=\"button\" class=\"btn primary\" data-vlectsave=\"1\">Vérifier et enregistrer…</button><button type=\"button\" class=\"btn\" data-vlectsave=\"annuler\">Annuler</button></div>" : "") +
       (collabs.length ? '<div class="table-scroll"><table class="reg vadm"><thead><tr><th>Document</th><th class="c">Tous</th>' + collabs.map(function (id) { return '<th class="c">' + esc(vName(id)) + "</th>"; }).join("") + "</tr></thead><tbody>" + lectRows + "</tbody></table></div>" : '<p class="lead">Attribuez d\'abord des fonctions.</p>') +
       '<h3 class="sub-h">Registre des visas</h3><p class="lead">Export de tous les visas et renvois enregistrés, pour le dossier de conformité ou une inspection.</p><button type="button" class="btn" data-vcsv="1">Exporter le registre (CSV)</button>';
   }
@@ -504,7 +528,9 @@
     if (act === "down" && i < s.length - 1) { var b = s[i + 1]; s[i + 1] = s[i]; s[i] = b; }
     if (act === "del") s.splice(i, 1);
     if (act === "add") s.push({ label: "Nouvelle étape", role: "dg", regle: "un", obligatoire: true, seance: false });
-    if (act === "reset") { try { await V.db.doc("circuits/" + k).delete(); V.edit = null; toast("Le type « " + t + " » reprend le circuit déclaré dans chaque document."); } catch (e) { toast("Opération refusée : réservée à l'administrateur."); } return; }
+    if (act === "reset") {
+      if (!(await confirmer({ titre: "Revenir au circuit déclaré dans les documents", html: "<p>Type : <b>" + esc(t) + "</b></p>", points: ["Chaque document de ce type reprend le circuit inscrit dans son en-tête.", "Les versions déjà visées gardent le circuit de leur premier visa."], phrase: "rétablir le circuit " + t, bouton: "Rétablir" }))) return;
+      try { await V.db.doc("circuits/" + k).delete(); V.edit = null; toast("Le type « " + t + " » reprend le circuit déclaré dans chaque document."); } catch (e) { toast("Opération refusée : réservée à l'administrateur."); } return; }
     if (act === "save") {
       var used = {};
       var steps = s.map(function (x) {
@@ -514,6 +540,13 @@
       });
       if (!steps.length || steps.some(function (x) { return !x.label; })) { toast("Chaque étape doit avoir un nom."); return; }
       if (!steps.some(function (x) { return x.obligatoire; })) { toast("Le circuit doit comporter au moins une étape obligatoire."); return; }
+      var ok = await confirmer({
+        titre: "Modifier le circuit des documents de type « " + t + " »",
+        html: '<ol class="csteps">' + steps.map(function (x, i) { return '<li class="' + (x.obligatoire ? "" : "opt") + '"><span class="stepn">' + (i + 1) + "</span><div><b>" + esc(x.label) + "</b><span>" + esc(x.fonction) + (x.regle !== "un" ? " · " + esc(REGLES[x.regle]) : "") + (x.obligatoire ? "" : " · facultative") + (x.seance ? " · date de séance et PV" : "") + "</span></div></li>"; }).join("") + "</ol>",
+        points: ["S'applique aux versions dont le circuit n'a pas encore commencé.", "Une version déjà visée garde le circuit de son premier visa.", "La Procédure de maîtrise documentaire doit rester cohérente avec ce circuit."].concat(circuitIssues(steps).map(function (m) { return "<b>Attention :</b> " + esc(m); })),
+        phrase: "modifier le circuit " + t, bouton: "Enregistrer le circuit"
+      });
+      if (!ok) return;
       try { await V.db.doc("circuits/" + k).set({ type: t, etapes: steps, maj: new Date().toISOString(), par: V.me }); V.edit = null; toast("Circuit des documents de type « " + t + " » enregistré."); }
       catch (e) { toast("Enregistrement refusé : réservé à l'administrateur."); }
       return;
@@ -540,12 +573,27 @@
     r.maj = new Date().toISOString();
     try { await V.db.doc("roles/" + id).set(r); } catch (e) { toast("Modification refusée : seul l'administrateur peut attribuer les fonctions."); renderVisas(); }
   }
-  async function vSetLect(docId, key, on) {
-    var L = V.lectures[docId] ? JSON.parse(JSON.stringify(V.lectures[docId])) : { ids: [], tous: false };
+  // Lectures obligatoires : les changements sont préparés, puis enregistrés ensemble après double validation
+  V.lectEdits = {};
+  var lectOf = function (docId) { return V.lectEdits[docId] || V.lectures[docId] || {}; };
+  function vSetLect(docId, key, on) {
+    var L = JSON.parse(JSON.stringify(lectOf(docId))); L.ids = L.ids || [];
     if (key === "__tous") L.tous = on;
-    else { L.ids = (L.ids || []).filter(function (x) { return x !== key; }); if (on) L.ids.push(key); }
-    L.maj = new Date().toISOString();
-    try { await V.db.doc("lectures/" + docId).set(L); } catch (e) { toast("Modification refusée : seul l'administrateur peut désigner les lecteurs."); renderVisas(); }
+    else { L.ids = L.ids.filter(function (x) { return x !== key; }); if (on) L.ids.push(key); }
+    V.lectEdits[docId] = L; renderVisas();
+  }
+  async function vSaveLect() {
+    var ids = Object.keys(V.lectEdits); if (!ids.length) return;
+    var desc = ids.map(function (id) {
+      var a = V.lectures[id] || {}, b = V.lectEdits[id], av = a.ids || [], bv = b.ids || [];
+      var plus = bv.filter(function (x) { return av.indexOf(x) < 0; }).map(vName), moins = av.filter(function (x) { return bv.indexOf(x) < 0; }).map(vName);
+      return "<b>" + esc(id) + "</b> : " + [(!!a.tous !== !!b.tous ? (b.tous ? "lecture demandée à tous" : "plus à tous") : ""), plus.length ? "ajout de " + esc(plus.join(", ")) : "", moins.length ? "retrait de " + esc(moins.join(", ")) : ""].filter(Boolean).join(" ; ");
+    });
+    if (!(await confirmer({ titre: "Enregistrer les lectures obligatoires", points: desc.concat(["Les personnes ajoutées devront attester leur lecture une fois le document en vigueur."]), phrase: "enregistrer les lectures", bouton: "Enregistrer" }))) return;
+    try {
+      for (var i = 0; i < ids.length; i++) { var L = V.lectEdits[ids[i]]; L.maj = new Date().toISOString(); await V.db.doc("lectures/" + ids[i]).set(L); }
+      V.lectEdits = {}; toast("Lectures obligatoires enregistrées."); renderVisas();
+    } catch (e) { toast("Modification refusée : seul l'administrateur peut désigner les lecteurs."); }
   }
   async function vCsv() {
     var lines = [["Document", "Version", "Empreinte visée", "Empreinte en ligne", "Étape", "Fonction", "Personne", "Adresse", "Date et heure (UTC)", "Séance", "PV", "Fonction détenue", "Commentaire"].join(";")];
@@ -581,8 +629,9 @@
     if (t.matches("[data-vlect]")) { var q = t.getAttribute("data-vlect").split("|"); vSetLect(q[0], q[1], t.checked); }
   });
   document.addEventListener("click", function (ev) {
-    var b = ev.target.closest("[data-vact],[data-vcsv],[data-vgo],button[data-vrole],[data-vcirc],[data-vetat]"); if (!b) return;
+    var b = ev.target.closest("[data-vact],[data-vcsv],[data-vgo],button[data-vrole],[data-vcirc],[data-vetat],[data-vlectsave]"); if (!b) return;
     ev.preventDefault();
+    if (b.hasAttribute("data-vlectsave")) { if (b.getAttribute("data-vlectsave") === "annuler") { V.lectEdits = {}; renderVisas(); } else vSaveLect(); return; }
     if (b.hasAttribute("data-vgo")) { V.done = null; V.pending = null; go(b.getAttribute("data-vgo")); return; }
     if (b.hasAttribute("data-vcsv")) { vCsv(); return; }
     if (b.hasAttribute("data-vcirc")) { var c = b.getAttribute("data-vcirc").split("|"); circAction(c[0], c[1], c[2]); return; }
@@ -593,7 +642,6 @@
       else if (e[2] === "ok") {
         var motif = (($("#v-motif") || {}).value || "").trim();
         if (!motif) { toast("Indiquez le motif."); return; }
-        if (e[1] === "supprime" && (($("#v-confirm") || {}).value || "").trim() !== e[0]) { toast("Tapez la référence exacte pour confirmer la suppression."); return; }
         V.edit = null; setEtat(e[0], e[1], motif);
       } else V.edit = { etat: e[0], mode: e[1] };
       var cur = currentVariant(decodeURIComponent(location.hash.slice(1)));

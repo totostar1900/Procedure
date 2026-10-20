@@ -26,6 +26,38 @@
     var t = $("#toast"); t.textContent = msg; t.hidden = false;
     clearTimeout(toastTimer); toastTimer = setTimeout(function () { t.hidden = true; }, 3800);
   }
+  // ---------- Double validation ----------
+  // Toute action qui engage un document, le référentiel ou son organisation passe par cette fenêtre :
+  // récapitulatif de ce qui va se passer, puis la personne écrit elle-même l'action à réaliser pour l'activer.
+  var normTxt = function (t) { return String(t || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[’'`]/g, "'").replace(/\s+/g, " ").trim(); };
+  function confirmer(o) {
+    return new Promise(function (resolve) {
+      var prev = document.activeElement;
+      var el = document.createElement("div"); el.className = "cfm-scrim";
+      var tabs = o.onglets && o.onglets.length ? '<div class="cfm-tabs" role="tablist">' + o.onglets.map(function (t, i) { return '<button type="button" role="tab" data-cfmtab="' + i + '" aria-selected="' + (i === 0) + '">' + esc(t.titre) + "</button>"; }).join("") + "</div>" +
+        o.onglets.map(function (t, i) { return '<div class="cfm-pane" data-cfmpane="' + i + '"' + (i ? " hidden" : "") + ">" + t.html + "</div>"; }).join("") : "";
+      el.innerHTML = '<div class="cfm' + (o.large ? " large" : "") + '" role="dialog" aria-modal="true" aria-labelledby="cfm-t">' +
+        '<h2 id="cfm-t">' + esc(o.titre) + "</h2>" + (o.html || "") +
+        (o.points && o.points.length ? '<ul class="cfm-pts">' + o.points.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul>" : "") + tabs +
+        '<div class="cfm-sign"><label for="cfm-in">Pour confirmer, écrivez : <b class="cfm-phrase">' + esc(o.phrase) + '</b></label><input id="cfm-in" type="text" autocomplete="off" spellcheck="false"></div>' +
+        '<div class="visa-btns"><button type="button" class="btn primary' + (o.danger ? " danger" : "") + '" id="cfm-ok" disabled>' + esc(o.bouton || "Confirmer") + '</button><button type="button" class="btn" id="cfm-no">Annuler</button></div></div>';
+      document.body.appendChild(el); document.body.classList.add("has-drawer");
+      var inp = el.querySelector("#cfm-in"), ok = el.querySelector("#cfm-ok");
+      var fin = function (v) { el.remove(); if (!document.querySelector(".cfm-scrim") && $("#drawer").hidden) document.body.classList.remove("has-drawer"); if (prev && prev.focus) try { prev.focus(); } catch (e) { /* élément disparu */ } resolve(v); };
+      inp.addEventListener("input", function () { ok.disabled = normTxt(inp.value) !== normTxt(o.phrase); });
+      inp.addEventListener("paste", function (e) { e.preventDefault(); toast("Écrivez la phrase vous-même : c'est ce qui confirme votre intention."); });
+      el.addEventListener("keydown", function (e) { e.stopPropagation(); if (e.key === "Escape") fin(false); if (e.key === "Enter" && !ok.disabled && e.target === inp) fin(true); });
+      el.addEventListener("click", function (e) {
+        e.stopPropagation();
+        var t = e.target.closest("[data-cfmtab]");
+        if (t) { var i = t.getAttribute("data-cfmtab"); el.querySelectorAll("[data-cfmtab]").forEach(function (b) { b.setAttribute("aria-selected", String(b === t)); }); el.querySelectorAll("[data-cfmpane]").forEach(function (p) { p.hidden = p.getAttribute("data-cfmpane") !== i; }); return; }
+        if (e.target === el || e.target.closest("#cfm-no")) fin(false);
+        else if (e.target.closest("#cfm-ok") && !ok.disabled) fin(true);
+      });
+      setTimeout(function () { inp.focus(); }, 30);
+    });
+  }
+
   // Les Word sont publiés en base64 (.docx.txt) : décodage avant téléchargement
   async function fetchWord(name) {
     var r = await fetch("word/" + name + ".txt"); if (!r.ok) throw { code: "missing" };
@@ -55,7 +87,7 @@
     if (dz) { ev.preventDefault(); closeDrawer(); return; }
     var b = ev.target.closest("[data-dl]");
     if (b) { ev.preventDefault(); ev.stopPropagation(); download(b.getAttribute("data-dl")); return; }
-    if (ev.target.closest("[data-ed],[data-edit-doc],[data-ediff],[data-dup],[data-del],[data-new],[data-gen],[data-focus],[data-tab],[data-vact],[data-vrole],[data-vlect],[data-vcsv],[data-vgo],[data-sel],[data-selact],.selchk")) return;
+    if (ev.target.closest("[data-vlectsave],[data-ed],[data-edit-doc],[data-ediff],[data-dup],[data-del],[data-new],[data-gen],[data-focus],[data-tab],[data-vact],[data-vrole],[data-vlect],[data-vcsv],[data-vgo],[data-sel],[data-selact],.selchk")) return;
     var pk = ev.target.closest("[data-peek]");
     if (pk && !ev.target.closest("[data-open]")) { ev.preventDefault(); openDrawer(pk.getAttribute("data-peek"), pk); return; }
     var o = ev.target.closest("[data-open]");

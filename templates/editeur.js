@@ -125,7 +125,7 @@
       (conf ? '<div class="rev-banner proj"><b>Publication refusée :</b> ' + esc(dr.message || "le texte a changé entre-temps") + "</div>" : "") +
       (other ? '<div class="rev-banner proj"><b>' + esc(vName(dr.par)) + "</b> a modifié ce brouillon le " + esc(fmtDT(dr.maj)) + '. <button type="button" class="doclink" data-ed="recharger">Charger sa version</button> (vos modifications non enregistrées seront perdues)</div>' : "") +
       (d.modele ? '<div class="notice"><b>Modèle de contrat.</b> Ne modifiez pas les zones entre accolades ({{…}}, {% … %}) : elles alimentent le formulaire des conventions.</div>' : "");
-    var confirm = E.confirm ? confirmHtml() : "";
+    var confirm = "";
     var fields = '<div class="edfields">' +
       (enVigueur() ? '<fieldset class="ed-nature"><legend>Nature de la modification</legend>' +
         '<label class="radio"><input type="radio" name="ed-nat" value="mineure"' + (E.f.nature === "mineure" ? " checked" : "") + '> <span><b>Correction mineure</b> — forme, coquille : version ' + esc(String(E.src.version).split(".")[0] + "." + ((+String(E.src.version).split(".")[1] || 0) + 1)) + ", les lectures restent valables</span></label>" +
@@ -169,18 +169,28 @@
       }).join("") + "</div>";
     return '<h2 class="section-h">Texte, article par article</h2><p class="cite-src">Les articles et les titres sont renumérotés automatiquement. Les renvois écrits dans le texte (« l\'article 12 ») ne le sont pas : vérifiez-les après avoir ajouté, supprimé ou déplacé un article.</p><div class="ed-layout">' + outline + body + "</div>";
   }
-  function confirmHtml() {
+  // Vue d'ensemble avant soumission : récapitulatif, modifications mot à mot et document complet tel qu'il sera publié
+  async function openSubmit() {
+    if (!E.f.objet.trim()) { toast("Indiquez l'objet de la modification."); var o = $('[data-ef="objet"]'); if (o) o.focus(); return; }
+    if (curBody() === E.src.body && E.f.titre === E.src.titre && E.f.resume === E.src.resume) { toast("Aucune modification à soumettre."); return; }
     var ch = diffBodies(E.src.body, curBody());
     var c = { ajout: 0, modif: 0, retrait: 0 }; ch.forEach(function (x) { c[x.type]++; });
     var meta = (E.f.titre !== E.src.titre ? 1 : 0) + (E.f.resume !== E.src.resume ? 1 : 0);
     var st = docState(E.d), started = st.steps.some(function (x) { return x.sigs.length; });
-    return '<div class="edconfirm"><h3>Soumettre au circuit</h3><ul>' +
-      "<li>" + c.modif + " passage" + (c.modif > 1 ? "s" : "") + " modifié" + (c.modif > 1 ? "s" : "") + ", " + c.ajout + " ajouté" + (c.ajout > 1 ? "s" : "") + ", " + c.retrait + " supprimé" + (c.retrait > 1 ? "s" : "") + (meta ? ", titre ou résumé modifié" : "") + ".</li>" +
-      "<li>" + (enVigueur() ? "Une " + (E.f.nature === "mineure" ? "correction mineure" : "révision") + " v" + esc(nextVersion()) + " est ouverte ; la version " + esc(E.src.version) + " reste en vigueur jusqu'à l'adoption." : "Le projet est remplacé par le texte modifié.") + "</li>" +
-      (started ? "<li><b>Les visas déjà donnés sur le texte actuel tombent</b> : le circuit recommence au début.</li>" : "<li>Le circuit d'approbation commence sur le nouveau texte.</li>") +
-      "<li>Vous ne pourrez viser aucune étape de cette version, puisque vous l'avez rédigée (règle des quatre yeux).</li>" +
-      "<li>La publication (texte, PDF, Word) prend quelques minutes.</li></ul>" +
-      '<div class="visa-btns"><button type="button" class="btn primary" data-ed="soumettre-ok">Soumettre</button><button type="button" class="btn" data-ed="soumettre-annuler">Annuler</button></div></div>';
+    var complet = '<p class="cite-src">Aperçu indisponible.</p>';
+    try { var mk = await loadLib("marked"); complet = '<div class="eyebrow">' + esc(E.d.type) + " · " + esc(E.id) + " · v" + esc(nextVersion()) + '</div><h1 class="title" style="font-size:var(--fs-xl)">' + esc(E.f.titre) + '</h1><p class="lead">' + esc(E.f.resume) + '</p><div class="doc-body">' + mk.parse(curBody()) + "</div>"; } catch (e) { /* aperçu indisponible */ }
+    var ok = await confirmer({
+      titre: "Soumettre la modification de " + E.id, large: true,
+      html: "<dl><dt>Document</dt><dd><b>" + esc(E.id) + "</b> — " + esc(E.f.titre) + "</dd><dt>Objet</dt><dd>" + esc(E.f.objet) + "</dd><dt>Version</dt><dd>" + (enVigueur() ? esc(E.src.version) + " → " + esc(nextVersion()) + " (" + (E.f.nature === "mineure" ? "correction mineure" : "révision") + ")" : esc(E.src.version) + " (projet)") + "</dd></dl>",
+      points: [c.modif + " passage" + (c.modif > 1 ? "s" : "") + " modifié" + (c.modif > 1 ? "s" : "") + ", " + c.ajout + " ajouté" + (c.ajout > 1 ? "s" : "") + ", " + c.retrait + " supprimé" + (c.retrait > 1 ? "s" : "") + (meta ? ", titre ou résumé modifié" : "") + ".",
+        enVigueur() ? "La version " + esc(E.src.version) + " reste en vigueur jusqu'à l'adoption de la nouvelle." : "Le projet est remplacé par le texte modifié.",
+        started ? "<b>Les visas déjà donnés sur le texte actuel tombent</b> : le circuit recommence au début." : "Le circuit d'approbation commence sur le nouveau texte.",
+        "Vous ne pourrez viser aucune étape de cette version, puisque vous l'avez rédigée (règle des quatre yeux).",
+        "La publication (texte, PDF, Word) prend quelques minutes."],
+      onglets: [{ titre: "Modifications", html: metaDiff() + diffHtml(ch) }, { titre: "Document complet", html: complet }],
+      phrase: "soumettre " + E.id, bouton: "Soumettre au circuit"
+    });
+    if (ok) submitDraft();
   }
   function autoGrow(root) { (root || document).querySelectorAll(".ed-card textarea, .ed-titre > textarea").forEach(function (t) { t.style.height = "auto"; t.style.height = Math.max(70, t.scrollHeight + 2) + "px"; }); }
 
@@ -204,10 +214,7 @@
     } catch (e) { toast("Enregistrement refusé : la modification est réservée aux Rédacteurs et à l'administrateur."); return false; }
   }
   async function submitDraft() {
-    if (!E.f.objet.trim()) { E.confirm = false; renderEditor(); toast("Indiquez l'objet de la modification."); var o = $('[data-ef="objet"]'); if (o) o.focus(); return; }
-    if (curBody() === E.src.body && E.f.titre === E.src.titre && E.f.resume === E.src.resume) { toast("Aucune modification à soumettre."); return; }
     if (!(await saveDraft("soumis"))) return;
-    E.confirm = false;
     if (HOSTED) { try { await fetch("/api/appliquer", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ doc: E.id }) }); } catch (e) { /* la publication horaire prendra le relais */ } }
     toast("Modification soumise : publication en cours.");
     renderEditor();
@@ -242,15 +249,18 @@
     switch (p[0]) {
       case "mode": if (p[1] === "articles") { E.model = parseBody(E.raw); } else { E.raw = serialize(E.model); } E.mode = p[1]; renderEditor(); return;
       case "view": E.view = p[1]; renderEditor(); return;
-      case "soumettre": E.confirm = true; renderEditor(); window.scrollTo(0, 0); return;
-      case "soumettre-annuler": E.confirm = false; renderEditor(); return;
+      case "soumettre": openSubmit(); return;
       case "soumettre-ok": submitDraft(); return;
       case "reprendre": saveDraft().then(renderEditor); return;
       case "recharger": E = null; openEditor(decodeURIComponent(location.hash.slice(9))); return;
-      case "rebase": if (!confirm("Repartir du texte publié ? Les modifications de ce brouillon seront perdues.")) return; E.model = parseBody(E.src.body); E.raw = E.src.body; E.f.titre = E.src.titre; E.f.resume = E.src.resume; E.stale = false; E.rebased = true; markDirty(); renderEditor(); return;
+      case "rebase":
+        confirmer({ titre: "Repartir du texte publié", points: ["Les modifications de ce brouillon seront remplacées par le texte actuellement publié."], phrase: "repartir du texte publié", bouton: "Repartir du texte publié", danger: true }).then(function (ok) { if (!ok) return; E.model = parseBody(E.src.body); E.raw = E.src.body; E.f.titre = E.src.titre; E.f.resume = E.src.resume; E.stale = false; E.rebased = true; markDirty(); renderEditor(); });
+        return;
       case "abandon":
-        if (!confirm("Abandonner ce brouillon ? Les modifications non publiées seront perdues.")) return;
-        V.db.doc("redaction/" + E.id).delete().then(function () { var id = E.id; E = null; toast("Brouillon abandonné."); go(id); }).catch(function () { toast("Opération refusée."); });
+        confirmer({ titre: "Abandonner le brouillon de " + E.id, points: ["Les modifications non soumises seront perdues.", "Le document publié n'est pas touché."], phrase: "abandonner " + E.id, bouton: "Abandonner le brouillon", danger: true }).then(function (ok) {
+          if (!ok) return;
+          V.db.doc("redaction/" + E.id).delete().then(function () { var id = E.id; E = null; toast("Brouillon abandonné."); go(id); }).catch(function () { toast("Opération refusée."); });
+        });
         return;
       case "preview":
         var box = $("#ed-p" + i + "-" + j); if (!box) return;

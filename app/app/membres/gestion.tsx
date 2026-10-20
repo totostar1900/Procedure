@@ -22,6 +22,25 @@ const msg = (e: { message?: string } | null) => {
   return m;
 };
 
+type Cfm = { titre: string; points: string[]; phrase: string; bouton: string; danger?: boolean; ok: () => void };
+const normTxt = (t: string) => t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[’'`]/g, "'").replace(/\s+/g, " ").trim();
+// Double validation : récapitulatif, puis la personne écrit elle-même l'action à réaliser
+function Confirmation({ c, fermer }: { c: Cfm; fermer: () => void }) {
+  const [v, setV] = useState("");
+  const pret = normTxt(v) === normTxt(c.phrase);
+  return (
+    <div className="cfm-scrim" onClick={(e) => { if (e.target === e.currentTarget) fermer(); }} onKeyDown={(e) => { if (e.key === "Escape") fermer(); }}>
+      <div className="cfm" role="dialog" aria-modal="true" aria-labelledby="cfm-t">
+        <h2 id="cfm-t">{c.titre}</h2>
+        <ul className="cfm-pts">{c.points.map((p, i) => <li key={i}>{p}</li>)}</ul>
+        <div className="cfm-sign"><label htmlFor="cfm-in">Pour confirmer, écrivez : <b className="cfm-phrase">{c.phrase}</b></label>
+          <input id="cfm-in" autoFocus autoComplete="off" spellCheck={false} value={v} onChange={(e) => setV(e.target.value)} onPaste={(e) => e.preventDefault()} onKeyDown={(e) => { if (e.key === "Enter" && pret) { fermer(); c.ok(); } }} /></div>
+        <div className="visa-btns"><button type="button" className={"btn primary" + (c.danger ? " danger" : "")} disabled={!pret} onClick={() => { fermer(); c.ok(); }}>{c.bouton}</button><button type="button" className="btn ghost-l" onClick={fermer}>Annuler</button></div>
+      </div>
+    </div>
+  );
+}
+
 export default function Gestion({ moi, docs }: { moi: string; docs: Doc[] }) {
   const sb = useMemo(() => createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!), []);
   const [ms, setMs] = useState<Membre[]>([]);
@@ -30,6 +49,9 @@ export default function Gestion({ moi, docs }: { moi: string; docs: Doc[] }) {
   const [inactifs, setInactifs] = useState(false);
   const [note, setNote] = useState<{ t: "ok" | "err"; m: string } | null>(null);
   const [occupe, setOccupe] = useState<string | null>(null);
+  const [cfm, setCfm] = useState<Cfm | null>(null);
+  const [pend, setPend] = useState<Record<string, Partial<Membre>>>({});
+  const [pendL, setPendL] = useState<Record<string, Lect>>({});
   const [f, setF] = useState({ email: "", nom: "", poste: "", fonctions: ["collab"] as string[], admin: false, acces: "employe" as "complet" | "employe" });
   const [lects, setLects] = useState<Record<string, Lect>>({});
   const [ouvert, setOuvert] = useState<string | null>(null);
@@ -45,33 +67,56 @@ export default function Gestion({ moi, docs }: { moi: string; docs: Doc[] }) {
     if (!c.error) setLects(Object.fromEntries((c.data || []).map((r) => [String(r.path).slice(9), (r.data || {}) as Lect])));
   }, [sb]);
   const idDe = (m: Membre) => m.user_id || "email:" + m.email;
-  const designe = (m: Membre, d: string): "lire" | "consult" | "" => { const L = lects[d] || {}; const ids = [m.user_id, "email:" + m.email]; return (L.ids || []).some((x) => ids.includes(x)) ? "lire" : (L.consult || []).some((x) => ids.includes(x)) ? "consult" : ""; };
-  async function designer(m: Membre, d: string, mode: "lire" | "consult" | "") {
-    const L: Lect = JSON.parse(JSON.stringify(lects[d] || { ids: [], consult: [], tous: false }));
+  const lectOf = (d: string): Lect => pendL[d] || lects[d] || {};
+  const designe = (m: Membre, d: string): "lire" | "consult" | "" => { const L = lectOf(d); const ids = [m.user_id, "email:" + m.email]; return (L.ids || []).some((x) => ids.includes(x)) ? "lire" : (L.consult || []).some((x) => ids.includes(x)) ? "consult" : ""; };
+  function designer(m: Membre, d: string, mode: "lire" | "consult" | "") {
+    const L: Lect = JSON.parse(JSON.stringify(lectOf(d)));
     const ids = [m.user_id, "email:" + m.email].filter(Boolean) as string[];
     L.ids = (L.ids || []).filter((x) => !ids.includes(x)); L.consult = (L.consult || []).filter((x) => !ids.includes(x));
     if (mode === "lire") L.ids.push(idDe(m)); if (mode === "consult") L.consult.push(idDe(m));
-    L.maj = new Date().toISOString();
-    setLects({ ...lects, [d]: L });
-    const { error } = await sb.from("kv").upsert({ path: "lectures/" + d, data: L }, { onConflict: "path" });
-    if (error) { setNote({ t: "err", m: msg(error) }); charger(); }
+    setPendL({ ...pendL, [d]: L });
   }
-  useEffect(() => { charger(); }, [charger]);
-  useEffect(() => { if (!note) return; const t = setTimeout(() => setNote(null), 5000); return () => clearTimeout(t); }, [note]);
-
-  async function maj(email: string, part: Partial<Membre>, quoi: string) {
-    setOccupe(email);
-    const { error } = await sb.from("membres").update(part).eq("email", email);
-    setOccupe(null);
-    if (error) setNote({ t: "err", m: msg(error) }); else setNote({ t: "ok", m: quoi });
-    charger();
+  // Les changements sont préparés, puis enregistrés ensemble après double validation
+  function maj(email: string, part: Partial<Membre>, _quoi?: string) { setPend({ ...pend, [email]: { ...(pend[email] || {}), ...part } }); }
+  const nbPend = Object.keys(pend).length + Object.keys(pendL).length;
+  function descriptions() {
+    const out: string[] = [];
+    for (const [email, p] of Object.entries(pend)) {
+      const m = ms.find((x) => x.email === email); if (!m) continue; const qui = m.nom || m.email; const d: string[] = [];
+      if (p.fonctions) { const plus = p.fonctions.filter((f) => !m.fonctions.includes(f)), moins = m.fonctions.filter((f) => !p.fonctions!.includes(f)); if (plus.length) d.push("attribue " + plus.map((f) => FL[f]).join(", ")); if (moins.length) d.push("retire " + moins.map((f) => FL[f]).join(", ")); }
+      if (p.actif !== undefined && p.actif !== m.actif) d.push(p.actif ? "réactive l'accès" : "coupe l'accès");
+      if (p.admin !== undefined && p.admin !== m.admin) d.push(p.admin ? "donne les droits d'administration" : "retire les droits d'administration");
+      if (p.acces && p.acces !== m.acces) d.push("accès " + (p.acces === "employe" ? "employé (documents attribués)" : "complet"));
+      if (p.poste !== undefined && p.poste !== m.poste) d.push("poste : " + (p.poste || "—"));
+      if (d.length) out.push(qui + " : " + d.join(" ; "));
+    }
+    for (const [doc, L] of Object.entries(pendL)) {
+      const a = lects[doc] || {}; const nom = (id: string) => { const m = ms.find((x) => x.user_id === id || "email:" + x.email === id); return m ? m.nom || m.email : id; };
+      const diff = (k: "ids" | "consult", lab: string) => { const av = a[k] || [], bv = L[k] || []; const plus = bv.filter((x) => !av.includes(x)).map(nom), moins = av.filter((x) => !bv.includes(x)).map(nom); return [plus.length ? lab + " pour " + plus.join(", ") : "", moins.length ? "plus " + lab + " pour " + moins.join(", ") : ""]; };
+      const d = [...diff("ids", "à lire et attester"), ...diff("consult", "en consultation")].filter(Boolean);
+      if (d.length) out.push(doc + " : " + d.join(" ; "));
+    }
+    return out;
   }
+  async function enregistrer() {
+    setOccupe("__pend");
+    for (const [email, p] of Object.entries(pend)) { const { error } = await sb.from("membres").update(p).eq("email", email); if (error) { setOccupe(null); setNote({ t: "err", m: msg(error) }); charger(); return; } }
+    for (const [doc, L] of Object.entries(pendL)) { const { error } = await sb.from("kv").upsert({ path: "lectures/" + doc, data: { ...L, maj: new Date().toISOString() } }, { onConflict: "path" }); if (error) { setOccupe(null); setNote({ t: "err", m: msg(error) }); charger(); return; } }
+    setOccupe(null); setPend({}); setPendL({}); setNote({ t: "ok", m: "Modifications enregistrées." }); charger();
+  }
+  const verifier = () => setCfm({ titre: "Enregistrer les modifications des accès", points: [...descriptions(), "Une personne dont l'accès est coupé ne peut plus ouvrir le référentiel ; ses visas restent au registre."], phrase: "enregistrer les modifications", bouton: "Enregistrer", ok: enregistrer });
   async function ajouter(e: React.FormEvent) {
     e.preventDefault();
     const email = f.email.trim().toLowerCase();
     if (!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/.test(email)) return setNote({ t: "err", m: "Adresse invalide." });
     if (!email.endsWith("@" + DOMAINE) && !confirm(`Cette adresse n'est pas en @${DOMAINE}. Seuls les comptes de votre annuaire Microsoft 365 peuvent se connecter. Ajouter quand même ?`)) return;
     if (!f.fonctions.length) return setNote({ t: "err", m: "Cochez au moins une fonction." });
+    setCfm({ titre: "Ouvrir un accès au référentiel", phrase: "ouvrir l'accès", bouton: "Ouvrir l'accès", points: [
+      email + (f.nom.trim() ? " (" + f.nom.trim() + ")" : ""), "Fonctions : " + f.fonctions.map((c) => FL[c]).join(", ") + (f.admin ? " ; administrateur" : ""),
+      "Accès : " + (f.admin || f.acces === "complet" ? "complet (tout le référentiel)" : "employé (seulement les documents que vous lui attribuerez)"),
+      "La personne pourra se connecter avec son compte Microsoft 365 dès maintenant."], ok: () => ouvrir(email) });
+  }
+  async function ouvrir(email: string) {
     setOccupe("__ajout");
     const { error } = await sb.from("membres").insert({ email, nom: f.nom.trim() || null, poste: f.poste.trim() || null, fonctions: f.fonctions, admin: f.admin, actif: true, acces: f.admin ? "complet" : f.acces });
     setOccupe(null);
@@ -82,7 +127,9 @@ export default function Gestion({ moi, docs }: { moi: string; docs: Doc[] }) {
     charger();
   }
   async function supprimer(m: Membre) {
-    if (!confirm(`Retirer l'invitation de ${m.email} ? (Cette personne ne s'est jamais connectée.)`)) return;
+    setCfm({ titre: "Retirer une invitation", phrase: "retirer l'invitation", bouton: "Retirer", danger: true, points: [m.email + " ne s'est jamais connecté(e).", "L'invitation est supprimée ; vous pourrez en ouvrir une nouvelle."], ok: () => retirer(m) });
+  }
+  async function retirer(m: Membre) {
     const { error } = await sb.from("membres").delete().eq("email", m.email);
     if (error) setNote({ t: "err", m: msg(error) }); else setNote({ t: "ok", m: "Invitation retirée." });
     charger();
@@ -92,7 +139,8 @@ export default function Gestion({ moi, docs }: { moi: string; docs: Doc[] }) {
     maj(m.email, { fonctions: fs }, `${FL[code]} ${m.fonctions.includes(code) ? "retiré" : "attribué"} à ${m.nom || m.email}.`);
   };
 
-  const filtre = ms.filter((m) => (inactifs || m.actif) && (!q || (m.email + " " + (m.nom || "") + " " + (m.poste || "")).toLowerCase().includes(q.toLowerCase())));
+  const vue = ms.map((m) => ({ ...m, ...(pend[m.email] || {}) }));
+  const filtre = vue.filter((m) => (inactifs || m.actif) && (!q || (m.email + " " + (m.nom || "") + " " + (m.poste || "")).toLowerCase().includes(q.toLowerCase())));
   const nb = { actifs: ms.filter((m) => m.actif).length, attente: ms.filter((m) => m.actif && !m.user_id).length, inactifs: ms.filter((m) => !m.actif).length };
   const titulaires = (code: string) => ms.filter((m) => m.actif && m.fonctions.includes(code));
   const alertes = (["dg", "rcci", "pca"] as const).filter((c) => !titulaires(c).length);
@@ -112,6 +160,8 @@ export default function Gestion({ moi, docs }: { moi: string; docs: Doc[] }) {
         </div>
         {alertes.length ? <p className="warn">Fonction sans titulaire actif : {alertes.map((c) => FL[c]).join(", ")}. Les documents qui en dépendent ne pourront pas être visés.</p> : null}
         {note ? <p role="status" className={note.t === "ok" ? "ok" : "err"}>{note.m}</p> : null}
+        {nbPend ? <div className="pending-bar"><span>{nbPend} modification{nbPend > 1 ? "s" : ""} non enregistrée{nbPend > 1 ? "s" : ""}</span><button type="button" className="btn primary" disabled={occupe === "__pend"} onClick={verifier}>Vérifier et enregistrer…</button><button type="button" className="btn ghost-l" onClick={() => { setPend({}); setPendL({}); }}>Annuler</button></div> : null}
+        {cfm ? <Confirmation c={cfm} fermer={() => setCfm(null)} /> : null}
 
         <section className="card">
           <h2>Ouvrir un accès</h2>
@@ -148,7 +198,7 @@ export default function Gestion({ moi, docs }: { moi: string; docs: Doc[] }) {
                 {filtre.map((m) => {
                   const soi = m.email === moi;
                   return [
-                    <tr key={m.email} className={(m.actif ? "" : "off ") + (occupe === m.email ? "busy" : "")}>
+                    <tr key={m.email} className={(m.actif ? "" : "off ") + (occupe === m.email ? "busy" : "") + (pend[m.email] ? " edited" : "")}>
                       <td>
                         <div className="nom">{m.nom || "—"}{soi ? <span className="tag">vous</span> : null}{m.admin ? <span className="tag gold">admin</span> : null}</div>
                         <div className="mail">{m.email}</div>
@@ -248,6 +298,7 @@ tr.off td{opacity:.55}tr.busy{opacity:.6;pointer-events:none}
 .lnk{background:none;border:0;padding:0;color:#8A2219;text-decoration:underline;font:inherit;font-size:12.5px;cursor:pointer;text-align:left}
 .fine{color:var(--muted);font-size:12.5px;margin:10px 0 0}
 .vfl{display:flex;flex-direction:column;gap:2px;font-size:12px;color:var(--muted);margin-top:4px}.vfl select{font:inherit;font-size:13px;padding:3px 6px;border:1px solid var(--line);border-radius:4px}.lnk.doc{color:var(--navy);font-weight:600}.docs-row td{background:#F8FAFC}.dtab{width:100%;min-width:0;border-collapse:collapse}.dtab th,.dtab td{padding:5px 8px;font-size:13px}.dtab .c{text-align:center;width:110px}.add fieldset .chk span{font-weight:400}
+.ghost-l{background:#fff!important;color:var(--navy)!important;border:1px solid var(--line)!important}.pending-bar .btn,.cfm .btn{grid-column:auto}tr.edited td{background:#FBF1DC}
 .journal{list-style:none;margin:0;padding:0;max-height:360px;overflow:auto}
 .journal li{display:flex;gap:14px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13.5px}
 .journal time{color:var(--muted);white-space:nowrap;min-width:150px}
