@@ -1978,7 +1978,7 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
   var variantByKey = function (k) { return VARIANTS().filter(function (x) { return x.id + "@" + x.empreinte === k; })[0]; };
   var FLABEL = {}; FONCTIONS.forEach(function (f) { FLABEL[f[0]] = f[1]; });
   var V = { db: null, user: null, me: null, owner: false, canWrite: false, ready: false, roles: {}, lectures: {}, annuaire: {}, sigs: {}, names: {}, emails: {}, subs: {},
-    circuits: {}, figes: {}, etats: {}, redac: {}, auteurs: {}, pending: null, done: null, edit: null, search: [], landed: false };
+    circuits: {}, figes: {}, etats: {}, redac: {}, auteurs: {}, adoptions: {}, pending: null, done: null, edit: null, search: [], landed: false };
 
   Promise.all([dbP, userP]).then(async function (r) {
     V.db = r[0]; V.user = r[1];
@@ -1999,6 +1999,7 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
     watch("etats", "etats", function () { if (typeof renderRegistre === "function") renderRegistre(); });
     watch("redaction", "redac");
     watch("auteurs", "auteurs");
+    watch("adoptions", "adoptions", vAdoptionsManquantes);
     if (V.me && V.canWrite) {
       try { var a = await V.db.doc("annuaire/" + V.me).get(); var last = a.exists ? a.data().vu : ""; if (!last || last.slice(0, 10) !== new Date().toISOString().slice(0, 10)) await V.db.doc("annuaire/" + V.me).set({ vu: new Date().toISOString() }); } catch (e) { /* lecture seule */ }
     }
@@ -2126,8 +2127,18 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
     if (st.renvois.length) return { k: "renvoi", label: "Renvoyés pour modification" };
     if (st.current) return { k: "etape:" + st.current.st.label, label: st.current.st.label, step: st.current };
     if (st.approved && !d.estProjet && st.readers.length && st.read.length < st.readers.length) return { k: "lecture", label: "Prise de connaissance" };
-    if (st.approved) return { k: "ok", label: "Approuvés" };
+    if (st.approved) return { k: "ok", label: "Approuvés" + (d.statut !== "En vigueur" || d.estProjet ? " (mise en vigueur en cours)" : "") };
     return { k: "attente", label: "Circuit à configurer" };
+  }
+  // Filet de sécurité : un document approuvé mais pas encore en vigueur, sans demande d'adoption, en reçoit une
+  var adoptionsDemandees = false;
+  function vAdoptionsManquantes() {
+    if (adoptionsDemandees || !HOSTED || !canArchive() || !V.ready) return;
+    var manque = VARIANTS().filter(function (d) { return (d.statut !== "En vigueur" || d.estProjet) && !etatOf(d.id) && !V.adoptions[d.id + "~" + d.empreinte] && docState(d).approved; });
+    if (!manque.length) return;
+    adoptionsDemandees = true;
+    Promise.all(manque.map(function (d) { return V.db.doc("adoptions/" + d.id + "~" + d.empreinte).set({ statut: "demande", at: new Date().toISOString(), par: V.me }).catch(function () {}); }))
+      .then(function () { try { fetch("/api/appliquer", { method: "POST" }); } catch (e) { /* publication horaire */ } });
   }
   function vTodoList() {
     var out = [];
@@ -2260,6 +2271,13 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
       V.pending = null;
       V.done = { key: docKey(d), msg: etape === "renvoi" ? "Document renvoyé pour modification." : etape === "lecture" ? "Prise de connaissance enregistrée." : a.seance ? "Adoption enregistrée." : "Visa enregistré." };
       toast(V.done.msg); renderDocVisas(d); window.scrollTo(0, 0);
+      // Dernière étape visée : demande d'adoption (passage en vigueur), vérifiée puis traitée par la publication automatique
+      if (etape !== "lecture" && etape !== "renvoi" && docState(d).approved && HOSTED) {
+        try { await V.db.doc("adoptions/" + d.id + "~" + d.empreinte).set({ statut: "demande", at: new Date().toISOString(), par: V.me }); } catch (e) { /* déjà demandée */ }
+        try { fetch("/api/appliquer", { method: "POST" }); } catch (e) { /* la publication horaire prendra le relais */ }
+        V.done.msg += " Le circuit est complet : le document passe en vigueur (publication en cours, quelques minutes).";
+        renderDocVisas(d);
+      }
     } catch (e) {
       toast(e && e.code === "invalid_argument" ? (HOSTED ? "Votre accès ne permet pas d'enregistrer ce visa. Adressez-vous à l'administrateur." : "Votre niveau de partage ne permet pas d'enregistrer un visa. Demandez à l'administrateur de vous donner accès en tant que contributeur.") : "L'enregistrement a échoué. Réessayez.");
     }
@@ -2597,6 +2615,7 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
   // Rafraîchit la vue ouverte sans toucher un champ en cours de saisie
   function vRefresh() {
     vRenderMe();
+    vAdoptionsManquantes();
     // À la première ouverture de la session, une personne qui a des actions en attente arrive sur « À traiter »
     if (!V.landed && V.ready && V.me && Object.keys(V.roles).length) {
       V.landed = true;

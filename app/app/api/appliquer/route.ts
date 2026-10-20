@@ -2,11 +2,11 @@ import { NextResponse } from "next/server";
 import { supabaseServeur } from "../../../lib/supabase-serveur";
 
 // Déclenche la publication automatique (workflow « Appliquer les modifications en ligne ») juste après la soumission
-// d'un brouillon. Sans jeton GitHub configuré, la publication horaire prend le relais.
+// d'un brouillon ou le dernier visa d'un circuit (la publication revérifie tout avant d'agir). Sans jeton GitHub configuré, la publication horaire prend le relais.
 export async function POST() {
   const sb = await supabaseServeur();
-  const [{ data: redac }, { data: admin }] = await Promise.all([sb.rpc("a_fonction", { f: "redac" }), sb.rpc("est_admin")]);
-  if (!redac && !admin) return NextResponse.json({ ok: false, message: "réservé aux Rédacteurs" }, { status: 403 });
+  const { data: actif } = await sb.rpc("est_actif");
+  if (!actif) return NextResponse.json({ ok: false }, { status: 403 });
   const token = process.env.GITHUB_DISPATCH_TOKEN;
   if (!token) return NextResponse.json({ ok: true, differe: true, message: "publication à la prochaine heure" });
   const r = await fetch("https://api.github.com/repos/totostar1900/Procedure/actions/workflows/appliquer.yml/dispatches", {

@@ -76,7 +76,7 @@ function renderMarkdown(md) {
 // Qui vise quoi, déduit des champs verifie_par et approuve_par du document.
 const roleOf = (t = "") => /Conseil d'Administration/i.test(t) ? "pca" : /Directeur Général/i.test(t) ? "dg" : /RCCI|conformité/i.test(t) ? "rcci"
   : /Directeur Commercial/i.test(t) ? "dcom" : /Marchés de Capitaux/i.test(t) ? "dmc" : null;
-const circuitOf = (fm) => {
+export const circuitOf = (fm) => {
   const out = [];
   const v = roleOf(fm.verifie_par); if (v) out.push({ etape: "verification", label: "Vérification", fonction: fm.verifie_par, role: v });
   const a = roleOf(fm.approuve_par);
@@ -115,7 +115,7 @@ function loadVariant(base, fallbackHist) {
   return {
     ...fm,
     version: String(fm.version),
-    date_approbation: iso(fm.date_approbation) || ((ap.adoption || ap.approbation || {}).date || ""),
+    date_approbation: iso(fm.date_approbation) || ((ap._decision || ap.adoption || ap.approbation || {}).date || ""),
     date_effet: iso(fm.date_effet),
     prochaine_revue_label: /^\d{4}-\d{2}-\d{2}$/.test(revue) ? frDate(revue) : revue || "—",
     historique, html, toc, annexes, empreinte, lectureOK,
@@ -238,7 +238,7 @@ function bodyHtml(d, withAnnexes = true) {
   </tbody></table>
   <h4>Circuit d'approbation</h4>
   <table class="ctable"><thead><tr><th style="width:18%">Étape</th><th>Fonction</th><th style="width:20%">Date</th><th style="width:22%">Visa</th></tr></thead><tbody>
-    ${step("Rédaction", d.redige_par)}${step("Vérification", d.verifie_par, ap.verification)}${step("Approbation", d.approuve_par, ap.adoption || ap.approbation)}
+    ${step("Rédaction", d.redige_par)}${ap._circuit ? ap._circuit.map((c) => step(c.label, c.fonction, ap[c.etape])).join("") : step("Vérification", d.verifie_par, ap.verification) + step("Approbation", d.approuve_par, ap.adoption || ap.approbation)}
   </tbody></table>
   <h4>Historique des révisions</h4>
   <table class="ctable"><thead><tr><th style="width:12%">Version</th><th style="width:22%">Date</th><th>Objet</th><th style="width:18%">Par</th></tr></thead><tbody>
