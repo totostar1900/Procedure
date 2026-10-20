@@ -197,3 +197,9 @@ Les destinataires ne reçoivent rien : chaque e-mail est détourné vers la boî
 Fonctions qui reçoivent les avis	Functions that receive notices
 Pour réserver les e-mails à certaines fonctions. Exemple : éteindre « Collaborateur » pour que seuls les dirigeants et le RCCI soient prévenus par e-mail ; les collaborateurs voient toujours leurs actions sur le site. Une personne qui a plusieurs fonctions reçoit les avis si l'une d'elles est allumée. Tout allumé : chacun reçoit ce qui le concerne.	To limit e-mails to certain functions. Example: switch off “Staff Member” so that only senior management and the RCCI are notified by e-mail; staff members still see their actions on the site. A person with several functions receives notices if one of them is on. All on: everyone receives what concerns them.
 Rediriger vers la boîte partagée	Redirect to the shared mailbox
+Se connecter avec un autre compte	Sign in with another account
+Utilisez votre adresse @purposecapital.africa. Si c'est déjà le cas, adressez-vous à l'administrateur.	Use your @purposecapital.africa address. If you already did, contact the administrator.
+Microsoft vous demande de choisir le compte : prenez celui de Purpose Capital.	Microsoft asks you to choose an account: pick your Purpose Capital one.
+Vous vous êtes connecté avec	You signed in with
+, qui n'a pas, ou plus, accès au référentiel.	, which does not (or no longer) have access to the repository.
+Votre compte n'a pas, ou plus, accès au référentiel.	Your account does not (or no longer) have access to the repository.
