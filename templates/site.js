@@ -194,7 +194,7 @@
       (d.modele ? '<p class="model-note">Ce modèle se remplit par formulaire : chaque donnée est saisie une seule fois, les variantes sont choisies et le Word ou le PDF ne sont produits que lorsque la convention est complète et cohérente. <button type="button" class="doclink" data-open="dossiers">Voir les dossiers en cours</button></p>' : "") +
       (d.projet ? '<div class="rev-banner"><b>Révision en cours.</b> Un projet de version ' + esc(d.projet.version) + " (" + (d.projet.nature_revision === "mineure" ? "correction mineure" : "révision") + ') est en cours de visa. Cette version ' + esc(d.version) + ' reste celle qui fait foi jusqu\'à son adoption. <button type="button" class="doclink" data-open="' + esc(d.id) + '~projet">Voir le projet de révision</button></div>' : "") +
       (d.estProjet ? '<div class="rev-banner proj"><b>Projet de révision, version ' + esc(d.version) + ".</b> " + (d.nature_revision === "mineure" ? "Correction mineure : les lectures déjà faites restent valables." : "Révision : une nouvelle lecture sera demandée aux personnes concernées après l'adoption.") + ' La version en vigueur reste la ' + esc(docs.filter(function (x) { return x.projet === d; })[0].version) + '. <button type="button" class="doclink" data-open="' + esc(d.id) + '">Voir la version en vigueur</button></div>' : "") +
-      (d.notes_redaction && d.notes_redaction.length ? '<div class="notice"><b>Points à valider avant adoption</b><ul>' + d.notes_redaction.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul></div>" : "") +
+      (d.notes_redaction && d.notes_redaction.length && d.statut !== "En vigueur" ? '<div class="notice"><b>Points à valider avant adoption</b><ul>' + d.notes_redaction.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul></div>" : "") +
       '<dl class="meta">' + meta.map(function (m) { return "<div><dt>" + m[0] + "</dt><dd" + (m[1] ? "" : ' class="unset"') + ">" + esc(m[1] || "À compléter à l'adoption") + "</dd></div>"; }).join("") + "</dl>" +
       '<div id="doc-visas" class="visas-box" aria-live="polite"></div>' +
       '<div class="doc-body">' + d.html + "</div>" +
@@ -249,7 +249,7 @@
       (d.annexes.length ? '<p class="side-title">Annexes</p><ul class="dr-ann">' + d.annexes.map(function (a) {
         return '<li><div><b>Annexe ' + a.num + "</b> " + esc(a.titre) + '</div><div class="dr-ann-dl">' + dlBtn(a.pdf.file, "PDF") + dlBtn("word/" + a.word.file, "Word") + "</div></li>";
       }).join("") + "</ul>" : "") +
-      (d.notes_redaction && d.notes_redaction.length ? '<div class="notice"><b>' + d.notes_redaction.length + " point" + (d.notes_redaction.length > 1 ? "s" : "") + " à valider avant adoption</b></div>" : "") +
+      (d.notes_redaction && d.notes_redaction.length && d.statut !== "En vigueur" ? '<div class="notice"><b>' + d.notes_redaction.length + " point" + (d.notes_redaction.length > 1 ? "s" : "") + " à valider avant adoption</b></div>" : "") +
       "</div>";
     dr.hidden = false; $("#drawer-scrim").hidden = false;
     document.body.classList.add("has-drawer");
