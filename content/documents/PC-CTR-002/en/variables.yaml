@@ -1,0 +1,164 @@
+# Fields of agreement PC-CTR-002.
+# Each field is entered only once in the repository form;
+# the template (document.md and appendices) calls it by {{id}}.
+# Types: texte (text), long (long text), montant (amount), entier (integer), pourcentage (percentage), date, choix (choice).
+
+intitule: "{{emetteur_nom}} · {{engagement|label}} · {{montant_garanti}}"
+partie: "{{emetteur_nom}}"
+
+sections:
+  - id: emetteur
+    titre: "Issuer"
+    aide: "Identity of the company issuing the Securities, as shown in the RCCM (Trade and Personal Property Credit Register) and in the mandate agreement."
+    champs:
+      - { id: emetteur_nom, label: "Issuer's corporate name", type: texte, requis: true }
+      - id: emetteur_forme
+        label: "Legal form"
+        type: choix
+        requis: true
+        options:
+          - { valeur: sa_ca, label: "Public limited company with a Board of Directors", texte: "a public limited company (société anonyme) with a board of directors" }
+          - { valeur: sa_ag, label: "Public limited company with a Managing Director (Administrateur Général)", texte: "a public limited company (société anonyme) with a managing director (administrateur général)" }
+          - { valeur: sas, label: "Simplified joint-stock company", texte: "a simplified joint-stock company (société par actions simplifiée)" }
+          - { valeur: autre, label: "Other form", texte: "" }
+      - { id: emetteur_forme_autre, label: "Legal form (please specify)", type: texte, requis: true, si: { champ: emetteur_forme, egal: autre } }
+      - { id: emetteur_capital, label: "Share capital", type: montant, requis: true }
+      - id: emetteur_pays
+        label: "Country of registered office"
+        type: choix
+        requis: true
+        defaut: cameroun
+        options:
+          - { valeur: cameroun, label: "Cameroon", texte: "Cameroon" }
+          - { valeur: gabon, label: "Gabon", texte: "Gabon" }
+          - { valeur: congo, label: "Congo", texte: "Congo" }
+          - { valeur: tchad, label: "Chad", texte: "Chad" }
+          - { valeur: rca, label: "Central African Republic", texte: "Central African Republic" }
+          - { valeur: guinee, label: "Equatorial Guinea", texte: "Equatorial Guinea" }
+      - { id: emetteur_siege, label: "Registered office address", type: texte, requis: true }
+      - { id: emetteur_rccm_ville, label: "City of RCCM registration", type: texte, requis: true }
+      - { id: emetteur_rccm, label: "Issuer's RCCM number", type: texte, requis: true, aide: "Example: RC/YAO/2015/B/1234" }
+      - { id: emetteur_representant, label: "Name of the Issuer's representative", type: texte, requis: true }
+      - { id: emetteur_qualite, label: "Capacity of the representative", type: texte, requis: true, defaut: "Chief Executive Officer" }
+
+  - id: operation
+    titre: "Transaction"
+    aide: "Use the features set out in the mandate agreement and the Information Memorandum."
+    champs:
+      - { id: date_mandat, label: "Date of the arrangement and placement mandate agreement", type: date, requis: true }
+      - id: titres_nature
+        label: "Type of Securities"
+        type: choix
+        requis: true
+        options:
+          - { valeur: actions, label: "Shares", texte: "shares" }
+          - { valeur: obligations, label: "Bonds", texte: "bonds" }
+          - { valeur: convertibles, label: "Convertible bonds", texte: "bonds convertible into shares" }
+          - { valeur: autres, label: "Other financial securities", texte: "financial securities" }
+      - { id: titres_autre, label: "Description of the securities", type: texte, requis: true, si: { champ: titres_nature, egal: autres } }
+      - { id: montant, label: "Transaction Amount", type: montant, requis: true }
+      - { id: prix, label: "Unit Subscription Price of the Securities", type: montant, requis: true, aide: "Issue price set in the Information Memorandum." }
+      - { id: souscription_fin, label: "Close of the Subscription Period", type: date, requis: true }
+      - { id: date_reglement, label: "Settlement Date", type: date, requis: true }
+
+  - id: garantie
+    titre: "Underwriter's commitment"
+    aide: "The commitment draws on the Company's own funds. Above 15% of own funds, the Board of Directors is informed; above 25%, its prior approval is required (PC-POL-RIS-001, Appendix 1)."
+    champs:
+      - id: engagement
+        label: "Nature of the commitment"
+        type: choix
+        requis: true
+        defaut: bonne_fin
+        options:
+          - { valeur: bonne_fin, label: "Standby underwriting commitment", texte: "standby underwriting" }
+          - { valeur: prise_ferme, label: "Firm underwriting", texte: "firm underwriting" }
+      - { id: montant_garanti, label: "Underwritten Amount", type: montant, requis: true, aide: "Standby underwriting: cap on the unsubscribed balance that the Underwriter undertakes to subscribe for. Firm underwriting: amount that the Underwriter subscribes for in full." }
+      - id: syndicat
+        label: "Underwriting syndicate"
+        type: choix
+        requis: true
+        defaut: seul
+        options:
+          - { valeur: seul, label: "Purpose Capital as sole underwriter" }
+          - { valeur: syndicat, label: "Underwriting syndicate" }
+      - { id: cogarants, label: "Other members of the underwriting syndicate and their shares", type: long, requis: true, si: { champ: syndicat, egal: syndicat } }
+      - { id: part_pc, label: "Share of the Underwritten Amount assumed by Purpose Capital", type: pourcentage, requis: true, defaut: 100, aide: "100% if Purpose Capital is the sole underwriter." }
+      - { id: fonds_propres, label: "Own funds of Purpose Capital (latest closed statement)", type: montant, requis: true }
+      - { id: date_fonds_propres, label: "Date of that statement", type: date, requis: true }
+      - { id: accord_conseil, label: "Date of the Board of Directors' approval", type: texte, vide: "Not required", aide: "Mandatory if Purpose Capital's commitment exceeds 25% of its own funds." }
+      - { id: delai_paiement, label: "Payment period for the underwritten balance after closing (business days)", type: entier, requis: true, defaut: 3 }
+
+  - id: clauses
+    titre: "Clauses"
+    aide: "The default values reflect the Company's practice. Any change is negotiated with the Issuer."
+    champs:
+      - { id: date_limite, label: "Long-Stop Date for fulfilment of the conditions precedent", type: date, requis: true }
+      - { id: lockup_mois, label: "Issuer's undertaking not to issue similar securities (months after settlement)", type: entier, requis: true, defaut: 6 }
+      - { id: delai_force_majeure, label: "Duration of force majeure giving rise to a right of termination (days)", type: entier, requis: true, defaut: 30 }
+      - { id: delai_amiable, label: "Duration of the amicable settlement phase (days)", type: entier, requis: true, defaut: 30 }
+      - id: droit
+        label: "National law applicable on a subsidiary basis"
+        type: choix
+        requis: true
+        defaut: cameroun
+        options:
+          - { valeur: cameroun, label: "Cameroonian law", texte: "Cameroonian" }
+          - { valeur: gabon, label: "Gabonese law", texte: "Gabonese" }
+          - { valeur: congo, label: "Congolese law", texte: "Congolese" }
+          - { valeur: tchad, label: "Chadian law", texte: "Chadian" }
+          - { valeur: rca, label: "Central African law", texte: "Central African" }
+          - { valeur: guinee, label: "Equatorial Guinean law", texte: "Equatorial Guinean" }
+      - id: litiges
+        label: "Dispute resolution"
+        type: choix
+        requis: true
+        defaut: arbitrage
+        options:
+          - { valeur: arbitrage, label: "CCJA arbitration" }
+          - { valeur: juridictions, label: "State courts" }
+      - id: arbitres
+        label: "Composition of the arbitral tribunal"
+        type: choix
+        requis: true
+        defaut: un
+        si: { champ: litiges, egal: arbitrage }
+        options:
+          - { valeur: un, label: "Sole arbitrator", texte: "a sole arbitrator" }
+          - { valeur: trois, label: "Three arbitrators", texte: "three arbitrators" }
+      - { id: lieu_arbitrage, label: "Seat of arbitration", type: texte, requis: true, defaut: Yaoundé, si: { champ: litiges, egal: arbitrage } }
+      - { id: juridiction_ville, label: "Competent courts of", type: texte, requis: true, defaut: Yaoundé, si: { champ: litiges, egal: juridictions } }
+
+  - id: remuneration
+    titre: "Remuneration"
+    aide: "Amounts exclusive of taxes. The underwriting commission is invoiced separately from the commissions under the mandate agreement."
+    champs:
+      - { id: com_garantie, label: "Underwriting commission (% of the Underwritten Amount)", type: pourcentage, requis: true }
+
+  - id: signature
+    titre: "Signature"
+    champs:
+      - { id: pc_rccm, label: "RCCM number of Purpose Capital S.A.", type: texte, requis: true, source: rccm, aide: "Taken automatically from the Company's settings where it has been entered there." }
+      - { id: lieu_signature, label: "Place of signature", type: texte, requis: true, defaut: Yaoundé }
+      - { id: date_signature, label: "Date of signature", type: date, requis: true }
+      - { id: nb_exemplaires, label: "Number of original counterparts", type: entier, requis: true, defaut: 2 }
+
+calculs:
+  - { id: nb_titres_garantis, label: "Number of Securities underwritten", type: entier, op: div, a: montant_garanti, b: prix }
+  - { id: ratio_garanti, label: "Portion of the Transaction underwritten", type: pourcentage, op: ratio, a: montant_garanti, b: montant }
+  - { id: engagement_pc, label: "Maximum commitment of Purpose Capital", type: montant, op: pct, a: montant_garanti, b: part_pc }
+  - { id: ratio_fp, label: "Purpose Capital's commitment as % of its own funds", type: pourcentage, op: ratio, a: engagement_pc, b: fonds_propres }
+  - { id: com_garantie_montant, label: "Underwriting commission", type: montant, op: pct, a: montant_garanti, b: com_garantie }
+
+regles:
+  - { a: montant_garanti, op: "<=", b: montant, message: "The Underwritten Amount cannot exceed the Transaction Amount." }
+  - { a: montant_garanti, op: multiple, b: prix, message: "The Underwritten Amount must be a multiple of the subscription price: the number of Securities underwritten must be a whole number." }
+  - { a: ratio_fp, op: "<=", valeur: 15, niveau: attention, message: "Purpose Capital's commitment exceeds 15% of its own funds (alert threshold of PC-POL-RIS-001): inform the Board of Directors." }
+  - { a: ratio_fp, op: "<=", valeur: 25, niveau: attention, message: "Purpose Capital's commitment exceeds 25% of its own funds: prior approval of the Board of Directors is required before signature (PC-POL-RIS-001, Appendix 1). Enter the date of that approval." }
+  - { a: ratio_fp, op: "<=", valeur: 100, message: "Purpose Capital's commitment exceeds its own funds: the agreement cannot be concluded as it stands." }
+  - { a: com_garantie, op: "<=", valeur: 4, niveau: attention, message: "Underwriting commission above 4%: unusual level, to be justified." }
+  - { a: date_reglement, op: ">", b: souscription_fin, type: date, message: "Settlement must follow the close of subscription." }
+  - { a: souscription_fin, op: ">", b: date_signature, type: date, message: "The close of subscription must follow the signature of the agreement." }
+  - { a: date_limite, op: "<=", b: souscription_fin, type: date, niveau: attention, message: "The Long-Stop Date for the conditions precedent falls after the close of subscription: check the timetable." }
+  - { a: date_signature, op: ">=", b: date_mandat, type: date, message: "The underwriting agreement cannot precede the mandate agreement." }
+  - { a: nb_exemplaires, op: ">=", valeur: 2, message: "Provide for at least two original counterparts, one per Party." }

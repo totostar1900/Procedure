@@ -330,3 +330,6 @@ Fonctions attribuées depuis le (.+)	Functions assigned since $1
 (\d+) personnes? concernées?	$1 people concerned
 (\d+) / (\d+)	$1 / $2
 \(dans la limite de vos prérogatives : (.+)\)	(within the limits of your powers: $1)
+(PC-[A-Z0-9-]+) — (.+) \(version (.+), (.+), empreinte (.+)\)	$1 — $2 (version $3, $4, fingerprint $5)
+Annexe (\d+) — (.+)	Appendix $1 — $2
+annexe (\d+) au (PC-[A-Z0-9-]+)	appendix $1 to $2

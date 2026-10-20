@@ -181,7 +181,34 @@
   function escHtml(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function ph(label) { return '<span class="ph">[' + escHtml(label) + "]</span>"; }
 
-  function formatValue(f, val, filtre) {
+  // ---------- Anglais (version de courtoisie des modèles) ----------
+  var UNITS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
+  var TENS = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
+  function en999(n) {
+    var h = Math.floor(n / 100), r = n % 100, out = [];
+    if (h) out.push(UNITS[h] + " hundred");
+    if (r) out.push((h ? "and " : "") + (r < 20 ? UNITS[r] : TENS[Math.floor(r / 10)] + (r % 10 ? "-" + UNITS[r % 10] : "")));
+    return out.join(" ");
+  }
+  function wordsEn(n) {
+    n = Math.round(Math.abs(Number(n))); if (!n) return "zero";
+    var parts = [], scales = [[1e12, "trillion"], [1e9, "billion"], [1e6, "million"], [1e3, "thousand"]];
+    scales.forEach(function (sc) { var q = Math.floor(n / sc[0]); if (q) { parts.push(en999(q) + " " + sc[1]); n -= q * sc[0]; } });
+    if (n) parts.push((parts.length && n < 100 ? "and " : "") + en999(n));
+    return parts.join(" ");
+  }
+  var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  function fmtIntEn(n) { var s = String(Math.round(Math.abs(Number(n)))); return (Number(n) < 0 ? "-" : "") + s.replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+  function fmtDecEn(n, max) { var s = Number(n).toFixed(max == null ? 2 : max).replace(/\.?0+$/, ""); var p = s.split("."); return fmtIntEn(p[0]) + (p[1] ? "." + p[1] : ""); }
+  function fmtDateEn(iso) { var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso || "")); return m ? Number(m[3]) + " " + MONTHS[Number(m[2]) - 1] + " " + m[1] : ""; }
+
+  function formatValue(f, val, filtre, lang) {
+    if (lang === "en") {
+      if (f.type === "montant") return filtre === "lettres" ? wordsEn(val) + " CFA francs (FCFA " + fmtIntEn(val) + ")" : "FCFA " + fmtIntEn(val);
+      if (f.type === "entier") return filtre === "nombre" ? wordsEn(val) + " (" + fmtIntEn(val) + ")" : fmtIntEn(val);
+      if (f.type === "pourcentage") return fmtDecEn(val, 2) + "%";
+      if (f.type === "date") return fmtDateEn(val);
+    }
     if (f.type === "montant") return filtre === "lettres" ? montantLettres(val) : fmtMontant(val);
     if (f.type === "entier") return filtre === "nombre" ? nombreLettres(val) : fmtInt(val);
     if (f.type === "pourcentage") return fmtPct(val);
@@ -210,7 +237,7 @@
         if (!isEmpty(f.vide) && mode === "apercu" && !f.requis) return escMd(f.vide);
         return ph(f.label);
       }
-      return escMd(formatValue(f, val, filtre));
+      return escMd(formatValue(f, val, filtre, ctx && ctx.lang));
     });
   }
 

@@ -109,6 +109,20 @@
   var docs = DATA.docs;
   // Accès « employé » : la page ne contient que ses documents ; le menu se réduit à « Mes documents »
   var RESTREINT = !!DATA.restreint;
+  // Version anglaise (traduction de courtoisie) : texte, sommaire, annexes et fichiers anglais ; les libellés courts sont traduits par le dictionnaire
+  var EN = !!(window.PCI18N && PCI18N.lang === "en");
+  if (EN) DATA.docs.forEach(function (d) { [d, d.projet].forEach(function (x) { if (x && x.en) PCI18N.ajouter(x.en.dict); }); });
+  function vueLangue(d) {
+    if (!EN || !d || !d.en) return d;
+    var e = d.en;
+    return Object.assign({}, d, { html: e.html, toc: e.toc, pdf: e.pdf || d.pdf, pdfCorps: e.pdfCorps || d.pdfCorps, word: e.word || d.word, _en: e,
+      annexes: d.annexes.map(function (a, i) { var x = e.annexes[i] || {}; return Object.assign({}, a, { html: x.html || a.html, pdf: x.pdf || a.pdf, word: x.word || a.word }); }) });
+  }
+  function bandeauEn(d) {
+    if (!EN) return "";
+    if (!d._en) return '<div class="notice" data-i18n="no"><b>No English translation yet.</b> This document is shown in French, the authoritative version.</div>';
+    return '<div class="notice en-note" data-i18n="no"><b>Courtesy translation.</b> The French version prevails. ' + (d._en.a_jour ? "" : "<b>This translation is being updated after the latest change to the French text; until then, the French version applies.</b> ") + '<button type="button" class="doclink" data-lang="fr">Read in French</button></div>';
+  }
   if (RESTREINT) {
     document.body.classList.add("restreint");
     document.querySelectorAll(".nav [data-open]").forEach(function (b) { b.hidden = b.getAttribute("data-open") !== "mesdocs" && b.getAttribute("data-open") !== "guide"; });
@@ -172,7 +186,7 @@
           "<td>" + esc(r.type) + "</td><td>" + esc(r.domaine) + "</td>" +
           '<td class="num">v' + esc(r.version) + "</td><td>" + pill(r.statut) + (r.projet ? '<div class="cite-src">révision v' + esc(r.projet.version) + " en cours</div>" : "") + "</td>" +
           '<td class="num">' + esc(r.prochaine_revue_label) + "</td>" +
-          '<td><div class="row-actions"><button type="button" class="btn" data-open="' + esc(r.id) + '">Ouvrir</button>' + dlBtn(r.pdf.file, "PDF") + "</div></td></tr>";
+          '<td><div class="row-actions"><button type="button" class="btn" data-open="' + esc(r.id) + '">Ouvrir</button>' + dlBtn((vueLangue(r).pdf || r.pdf).file, "PDF") + "</div></td></tr>";
       }
       return '<tr class="planned"><td class="selc"></td><td class="ref">' + esc(r.id) + '</td><td><div class="doc-title">' + esc(r.titre) + "</div></td>" +
         "<td>" + esc(r.type) + "</td><td>" + esc(r.domaine) + '</td><td class="num">—</td><td>' + pill(r.statut) + "</td>" +
@@ -196,7 +210,8 @@
 
   // ---------- Page document ----------
   var spy;
-  function renderDoc(d) {
+  function renderDoc(d0) {
+    var d = vueLangue(d0);
     var v = $("#v-doc");
     var meta = [
       ["Référence", d.id], ["Version", "v" + d.version], ["Statut", d.statut], ["Confidentialité", d.confidentialite],
@@ -226,6 +241,7 @@
       (d.modele ? '<p class="model-note">Ce modèle se remplit par formulaire : chaque donnée est saisie une seule fois, les variantes sont choisies et le Word ou le PDF ne sont produits que lorsque la convention est complète et cohérente. <button type="button" class="doclink" data-open="dossiers">Voir les dossiers en cours</button></p>' : "") +
       (d.projet ? '<div class="rev-banner"><b>Révision en cours.</b> Un projet de version ' + esc(d.projet.version) + " (" + (d.projet.nature_revision === "mineure" ? "correction mineure" : "révision") + ') est en cours de visa. Cette version ' + esc(d.version) + ' reste celle qui fait foi jusqu\'à son adoption. <button type="button" class="doclink" data-open="' + esc(d.id) + '~projet">Voir le projet de révision</button></div>' : "") +
       (d.estProjet ? '<div class="rev-banner proj"><b>Projet de révision, version ' + esc(d.version) + ".</b> " + (d.nature_revision === "mineure" ? "Correction mineure : les lectures déjà faites restent valables." : "Révision : une nouvelle lecture sera demandée aux personnes concernées après l'adoption.") + ' La version en vigueur reste la ' + esc(docs.filter(function (x) { return x.projet === d; })[0].version) + '. <button type="button" class="doclink" data-open="' + esc(d.id) + '">Voir la version en vigueur</button></div>' : "") +
+      bandeauEn(d) +
       (d.notes_redaction && d.notes_redaction.length && d.statut !== "En vigueur" ? '<div class="notice"><b>Points à valider avant adoption</b><ul>' + d.notes_redaction.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul></div>" : "") +
       '<dl class="meta">' + meta.map(function (m) { return "<div><dt>" + m[0] + "</dt><dd" + (m[1] ? "" : ' class="unset"') + ">" + esc(m[1] || "À compléter à l'adoption") + "</dd></div>"; }).join("") + "</dl>" +
       '<div id="doc-visas" class="visas-box" aria-live="polite"></div>' +
@@ -261,7 +277,7 @@
   // ---------- Aperçu d'un document (panneau latéral) ----------
   var drawerFrom = null;
   function openDrawer(id, from) {
-    var d = docs.filter(function (x) { return x.id === id; })[0]; if (!d) return;
+    var d = vueLangue(docs.filter(function (x) { return x.id === id; })[0]); if (!d) return;
     drawerFrom = from || document.activeElement;
     var dr = $("#drawer");
     var meta = [["Type", d.type], ["Domaine", d.domaine], ["Propriétaire", d.proprietaire], ["Approuvé par", d.approuve_par],

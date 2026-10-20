@@ -15,10 +15,11 @@ concurrency:
 jobs:
   appliquer:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 50
     env:
       SUPABASE_URL: https://qrmoozapvnfmbtibofup.supabase.co
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
     steps:
       - name: Y a-t-il des modifications ou des adoptions en attente ?
         id: n
@@ -47,3 +48,13 @@ jobs:
           if git diff --cached --quiet; then echo "Rien à enregistrer"; else git commit -m "Publication automatique : $(node -e 'const r=(f)=>{try{return require(f)}catch{return []}};console.log([...r("./build/appliques.json").map(a=>a.id+" v"+a.version+" modifié"),...r("./build/adoptes.json").map(a=>a.id+" v"+a.version+" adopté")].join(", ")||"régénération")')" && git push; fi
       - if: steps.n.outputs.n != '0'
         run: node tools/appliquer.mjs --confirmer && node tools/adopter-auto.mjs --confirmer
+      # Version anglaise : les documents modifiés sont retraduits (traduction de courtoisie), puis republiés
+      - if: steps.n.outputs.n != '0'
+        name: Traduire en anglais les documents modifiés
+        run: |
+          node tools/traduire.mjs
+          if [ -n "$(git status --porcelain content)" ]; then
+            node build.mjs
+            git add -A content dist
+            git commit -m "Traduction anglaise mise à jour" && git push
+          fi

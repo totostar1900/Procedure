@@ -106,7 +106,7 @@ sections:
     aide: Les dates de souscription peuvent rester vides ; elles seront fixées dans le Document d'information.
     champs:
       - { id: date_signature, label: Date de signature prévue, type: date, requis: true }
-      - { id: validite_mois, label: Délai d'obtention du visa (mois), type: entier, requis: true, defaut: 12, aide: Au-delà, la convention expire sauf prorogation écrite. }
+      - { id: validite_mois, label: Délai d'obtention du visa (mois), type: entier, requis: true, defaut: 12, aide: "Au-delà, la convention expire sauf prorogation écrite." }
       - { id: souscription_debut, label: Ouverture de la Période de souscription, type: date, vide: À fixer dans le Document d'information }
       - { id: souscription_fin, label: Clôture de la Période de souscription, type: date, vide: À fixer dans le Document d'information }
       - { id: date_reglement, label: Date de règlement-livraison, type: date, vide: À fixer dans le Document d'information }

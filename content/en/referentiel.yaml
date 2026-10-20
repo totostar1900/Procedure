@@ -1,0 +1,368 @@
+# General parameters of the document repository — Purpose Capital S.A. (English courtesy translation)
+# Roles are designated by their title, never by the person's name.
+
+societe:
+  forme: "Public limited company (société anonyme) with a Board of Directors"
+  siege: "Rue Joseph Essono Balla, Elig-Essono, Yaoundé (Cameroon)"
+
+# Approval workflow by document level
+niveaux:
+  - type: "Code"
+    prefixe: "COD"
+    redaction: "RCCI"
+    verification: "Chief Executive Officer"
+    approbation: "Board of Directors"
+    revue: "Annual"
+  - type: "Policy"
+    prefixe: "POL"
+    redaction: "Domain owner"
+    verification: "RCCI"
+    approbation: "Board of Directors"
+    revue: "Annual"
+  - type: "Procedure"
+    prefixe: "PRO"
+    redaction: "Process owner"
+    verification: "RCCI"
+    approbation: "Chief Executive Officer"
+    revue: "Every 1 to 2 years"
+  - type: "Contract template"
+    prefixe: "CTR"
+    redaction: "Head of the department concerned"
+    verification: "RCCI and legal counsel"
+    approbation: "Chief Executive Officer"
+    revue: "Annual"
+  - type: "Operating instructions"
+    prefixe: "MOP"
+    redaction: "Head of the unit"
+    verification: "RCCI"
+    approbation: "Head of the unit"
+    revue: "As needed"
+  - type: "Form"
+    prefixe: "FRM"
+    redaction: "Owner of the parent document"
+    verification: "RCCI"
+    approbation: "Approver of the parent document"
+    revue: "With the parent document"
+
+# Planned documents, not yet drafted.
+prevus:
+  - { id: "PC-PRO-GOV-001", titre: "Document Control Procedure", type: "Procedure", domaine: "Governance", priorite: 1 }
+  - { id: "PC-POL-LBC-001", titre: "Anti-Money Laundering and Counter-Terrorist Financing Policy", type: "Policy", domaine: "AML/CFT", priorite: 1 }
+  - { id: "PC-POL-CI-001", titre: "Conflicts of Interest Management Policy", type: "Policy", domaine: "Ethics", priorite: 1 }
+  - { id: "PC-POL-EXE-001", titre: "Order Best Execution Policy", type: "Policy", domaine: "Clients", priorite: 1 }
+  - { id: "PC-PRO-KYC-001", titre: "Client Onboarding and Know Your Customer Procedure", type: "Procedure", domaine: "Clients", priorite: 1 }
+  - { id: "PC-PRO-ORD-001", titre: "Order Reception, Transmission and Execution Procedure", type: "Procedure", domaine: "Markets", priorite: 1 }
+  - { id: "PC-PRO-REC-001", titre: "Complaints Handling Procedure", type: "Procedure", domaine: "Clients", priorite: 2 }
+  - { id: "PC-PRO-OPP-001", titre: "Personal Transactions Procedure", type: "Procedure", domaine: "Ethics", priorite: 2 }
+  - { id: "PC-PRO-SEG-001", titre: "Client Asset Segregation and Reconciliation Procedure", type: "Procedure", domaine: "Operations", priorite: 2 }
+  - { id: "PC-PRO-REP-001", titre: "Regulatory Reporting Procedure", type: "Procedure", domaine: "Compliance", priorite: 2 }
+  - { id: "PC-POL-RIS-001", titre: "Risk Management Policy", type: "Policy", domaine: "Risk", priorite: 2 }
+  - { id: "PC-POL-SSI-001", titre: "Information Systems Security Policy", type: "Policy", domaine: "Information systems", priorite: 2 }
+  - { id: "PC-POL-PCA-001", titre: "Business Continuity Plan", type: "Policy", domaine: "Risk", priorite: 2 }
+  - { id: "PC-POL-EXT-001", titre: "Outsourcing Policy", type: "Policy", domaine: "Governance", priorite: 3 }
+  - { id: "PC-POL-REM-001", titre: "Remuneration Policy", type: "Policy", domaine: "Human resources", priorite: 3 }
+  - { id: "PC-PRO-ARC-001", titre: "Archiving and Retention Procedure", type: "Procedure", domaine: "Operations", priorite: 3 }
+  - { id: "PC-PRO-COM-001", titre: "Marketing Communications Approval Procedure", type: "Procedure", domaine: "Compliance", priorite: 3 }
+  - { id: "PC-CTR-002", titre: "Firm Underwriting and Standby Underwriting Agreement", type: "Contract template", domaine: "Capital markets", priorite: 2 }
+  - { id: "PC-CTR-003", titre: "Placement Syndicate Agreement", type: "Contract template", domaine: "Capital markets", priorite: 2 }
+  - { id: "PC-COD-002", titre: "Internal Rules of the Board of Directors", type: "Code", domaine: "Governance", priorite: 2 }
+  - { id: "PC-COD-003", titre: "Internal Control and Compliance Charter", type: "Code", domaine: "Compliance", priorite: 2 }
+
+# Reference texts (used by the cross-reference table). Links are kept in the French file only.
+references:
+  REG-01-22:
+    titre: "Regulation No. 01/22/CEMAC/UMAC/CM/COSUMAF of 21 July 2022"
+    objet: "Organisation and functioning of the Central African financial market"
+    emetteur: "CEMAC — Council of Ministers"
+    lien_type: "Official page"
+  RG-COSUMAF-2023:
+    titre: "COSUMAF General Regulation of 23 May 2023"
+    objet: "Rules applicable to participants in the regional financial market"
+    emetteur: "COSUMAF"
+    lien_type: "Official text"
+  REG-02-24:
+    titre: "Regulation No. 02/24/CEMAC/UMAC/CM of 20 December 2024"
+    objet: "Prevention and suppression of money laundering, terrorist financing and proliferation financing; revises the Regulation of 11 April 2016"
+    emetteur: "CEMAC — Council of Ministers"
+    lien_type: "Overview"
+  REG-04-24:
+    titre: "Regulation No. 04/24/CEMAC/UMAC/CM of 20 December 2024"
+    objet: "Implementation of targeted financial sanctions relating to terrorism and proliferation"
+    emetteur: "CEMAC — Council of Ministers"
+    lien_type: "Overview"
+  COSUMAF-LD-LBC-2025:
+    titre: "COSUMAF AML/CFT Guidelines (September 2025)"
+    objet: "Implementation of Regulation No. 02/24 by participants in the regional financial market"
+    emetteur: "COSUMAF"
+    lien_type: "Overview"
+  COBAC-LD-LBC-2025:
+    titre: "COBAC AML/CFT Guidelines (February 2025)"
+    objet: "Identification, beneficial owners, PEPs, correspondent relationships, suspicious transaction reports (banking sector)"
+    emetteur: "COBAC"
+    lien_type: "Overview"
+  GAFI-JUR:
+    titre: "FATF — Jurisdictions under Increased Monitoring and High-Risk Jurisdictions"
+    objet: "Lists published after each plenary (February, June, October)"
+    emetteur: "FATF"
+    lien_type: "Official page"
+  GAFI-VM:
+    titre: "FATF — Guidance for a Risk-Based Approach for the Securities Sector (2018)"
+    objet: "International good practice for market intermediaries"
+    emetteur: "FATF"
+    lien_type: "Overview"
+  AMF-LCB-RISQUES:
+    titre: "AMF (France) — Guidelines on the risk-based approach to AML/CFT"
+    objet: "Foreign good practice: risk classification and due diligence by intermediaries"
+    emetteur: "Autorité des marchés financiers (France)"
+    lien_type: "Official text"
+  AMF-LCB-PPE:
+    titre: "AMF (France) — Guidelines on the concept of politically exposed person"
+    objet: "Foreign good practice: identification and monitoring of PEPs"
+    emetteur: "Autorité des marchés financiers (France)"
+    lien_type: "Official text"
+  OICV-PRINCIPES:
+    titre: "IOSCO — Objectives and Principles of Securities Regulation"
+    objet: "Principles applicable to market intermediaries (capital, internal control, risk management)"
+    emetteur: "International Organization of Securities Commissions"
+    lien_type: "Official text"
+  BCBS-RO:
+    titre: "Basel Committee — Revisions to the Principles for the Sound Management of Operational Risk (2021)"
+    objet: "Governance, identification, control and resilience in respect of operational risk"
+    emetteur: "Basel Committee on Banking Supervision"
+    lien_type: "Official text"
+  ISO-31000:
+    titre: "ISO 31000 — Risk management — Guidelines"
+    objet: "Approach to identifying, assessing and treating risks"
+    emetteur: "International Organization for Standardization"
+  LOI-CM-2024-017:
+    titre: "Law No. 2024/017 of 23 December 2024 on the protection of personal data in Cameroon"
+    objet: "Obligations of controllers and processors, security, transfers outside Cameroon (in force since 23 June 2026)"
+    emetteur: "Republic of Cameroon"
+    lien_type: "Overview"
+  OICV-EXT-2021:
+    titre: "IOSCO — Principles on Outsourcing (October 2021)"
+    objet: "Seven principles and guidance for outsourcing by market intermediaries and market infrastructures"
+    emetteur: "International Organization of Securities Commissions"
+    lien_type: "Official text"
+  OICV-CONF-2006:
+    titre: "IOSCO — Compliance Function at Market Intermediaries (March 2006)"
+    objet: "Mission, independence, resources, competence and assessment of the compliance function"
+    emetteur: "International Organization of Securities Commissions"
+    lien_type: "Official text"
+  BCBS-CONF-2005:
+    titre: "Basel Committee — Compliance and the compliance function in banks (2005)"
+    objet: "Responsibilities of the board and senior management, independence and resources of the compliance function"
+    emetteur: "Basel Committee on Banking Supervision"
+    lien_type: "Official text"
+  COSO-2013:
+    titre: "COSO — Internal Control — Integrated Framework (2013)"
+    objet: "Five components and seventeen principles of internal control"
+    emetteur: "Committee of Sponsoring Organizations of the Treadway Commission"
+  IIA-3L-2020:
+    titre: "IIA — The IIA's Three Lines Model (2020)"
+    objet: "Respective roles of management, risk control functions and internal audit"
+    emetteur: "Institute of Internal Auditors"
+  COBAC-CANEVAS-CI:
+    titre: "COBAC — Indicative template for the annual report on the conduct of internal control and the measurement and monitoring of risks"
+    objet: "Standard outline of the annual internal control report of CEMAC credit institutions"
+    emetteur: "Banking Commission of Central Africa (COBAC)"
+    lien_type: "Official text"
+  OICV-PCA-2015:
+    titre: "IOSCO — Market Intermediary Business Continuity and Recovery Planning (December 2015)"
+    objet: "Written plan, critical functions and staff, client access to their assets, communication, testing and annual review"
+    emetteur: "International Organization of Securities Commissions"
+    lien_type: "Official text"
+  FINRA-4370:
+    titre: "FINRA — Rule 4370, Business Continuity Plans and Emergency Contact Information (United States)"
+    objet: "Minimum content of a brokerage firm's business continuity plan, including client access to their funds and securities"
+    emetteur: "Financial Industry Regulatory Authority"
+    lien_type: "Official text"
+  ISO-22301:
+    titre: "ISO 22301 — Business continuity management systems"
+    objet: "Business impact analysis, continuity strategies, exercises and continual improvement"
+    emetteur: "International Organization for Standardization"
+  ABE-EXT-2019:
+    titre: "EBA — Guidelines on outsourcing arrangements (EBA/GL/2019/02)"
+    objet: "Critical or important functions, pre-outsourcing analysis, contractual clauses, register, exit strategies"
+    emetteur: "European Banking Authority"
+    lien_type: "Official text"
+  BVMAC-RM:
+    titre: "BVMAC General Regulation (in force since April 2025)"
+    objet: "Admission, trading, order transmission, market members"
+    emetteur: "BVMAC"
+    lien_type: "Official page"
+  BVMAC-AVIS-057-2023:
+    titre: "Notice No. 057/2023/BVMAC/DG of 29 November 2023"
+    objet: "Move to daily fixing-based trading, with effect from 1 December 2023"
+    emetteur: "BVMAC"
+    lien_type: "Official page"
+  BVMAC-AVIS-058-2023:
+    titre: "Notice No. 058/2023/BVMAC/DG"
+    objet: "Introduction of the market order, with effect from 1 December 2023"
+    emetteur: "BVMAC"
+    lien_type: "Overview"
+  BVMAC-INST-02:
+    titre: "Instruction No. 2 on the BVMAC market rules"
+    objet: "Trading sessions, order types and validity, priority, price variation thresholds (to be confirmed in light of the 2025 General Regulation)"
+    emetteur: "BVMAC"
+    lien_type: "Official text"
+  DC-RG:
+    titre: "General Regulation of the Single Central Securities Depository"
+    objet: "Book-entry registration, custody, settlement of securities"
+    emetteur: "Single Central Securities Depository"
+    lien_type: "Overview"
+  AUSCGIE:
+    titre: "OHADA Uniform Act on Commercial Companies and Economic Interest Groups (AUSCGIE)"
+    objet: "Governance of public limited companies, issuance of securities"
+    emetteur: "OHADA"
+    lien_type: "Official page"
+  AUS:
+    titre: "OHADA Uniform Act Organising Securities (Sûretés)"
+    objet: "Guarantees and security interests attached to issues"
+    emetteur: "OHADA"
+    lien_type: "Official page"
+  AUA:
+    titre: "OHADA Uniform Act on Arbitration"
+    objet: "Arbitration, jurisdiction of the CCJA (Common Court of Justice and Arbitration)"
+    emetteur: "OHADA"
+    lien_type: "Official page"
+  CT-CM:
+    titre: "Cameroon Labour Code (Law No. 92/007 of 14 August 1992)"
+    objet: "Employment relations, disciplinary authority"
+    emetteur: "Republic of Cameroon"
+    lien_type: "Official text"
+  OCDE-G20-GOUV-2023:
+    titre: "G20/OECD Principles of Corporate Governance (2023)"
+    objet: "Responsibilities of the board of directors, independence, disclosure, evaluation and equitable treatment of shareholders"
+    emetteur: "Organisation for Economic Co-operation and Development"
+    lien_type: "Official text"
+  BCBS-GOUV-2015:
+    titre: "Basel Committee — Corporate governance principles for banks (2015)"
+    objet: "Role of the board in overseeing risk, compliance and internal control; committees; evaluation"
+    emetteur: "Basel Committee on Banking Supervision"
+    lien_type: "Official text"
+  AFEP-MEDEF:
+    titre: "AFEP-MEDEF Corporate Governance Code of Listed Corporations (France)"
+    objet: "Board internal rules, independent directors, committees, board evaluation, directors' code of conduct"
+    emetteur: "AFEP and MEDEF"
+  ICMA-AGREEMENT:
+    titre: "ICMA — Primary Market Handbook and model agreements between lead managers and syndicate members"
+    objet: "International practice for syndicated issues — role of the lead manager, members' commitments, selling restrictions, allocation"
+    emetteur: "International Capital Market Association"
+    lien_type: "Official page"
+  CCN-BEF-CM-2024:
+    titre: "National Collective Agreement for Banks and Other Financial Institutions of Cameroon (revised, signed on 18 November 2024)"
+    objet: "Job classifications, minimum wages, salary supplements and working conditions in the sector"
+    emetteur: "Social partners of the banking and financial sector, Cameroon"
+    lien_type: "Overview"
+  ESMA-REM-2023:
+    titre: "ESMA — Guidelines on certain aspects of the MiFID II remuneration requirements (ESMA35-43-3565, 2023)"
+    objet: "Remuneration of client-facing staff, qualitative criteria, prevention of conflicts of interest"
+    emetteur: "European Securities and Markets Authority"
+    lien_type: "Official text"
+  FSB-REM-2009:
+    titre: "Financial Stability Board — Principles for Sound Compensation Practices (2009)"
+    objet: "Governance of remuneration, alignment with risk, reduction of variable remuneration"
+    emetteur: "Financial Stability Board"
+    lien_type: "Official text"
+  LOI-CM-2010-012:
+    titre: "Law No. 2010/012 of 21 December 2010 on cybersecurity and cybercrime in Cameroon"
+    objet: "Framework for the security of networks and information systems, offences, role of ANTIC (National Agency for Information and Communication Technologies)"
+    emetteur: "Republic of Cameroon"
+    lien_type: "Overview"
+  ISO-27001:
+    titre: "ISO/IEC 27001 and 27002 (2022) — Information security"
+    objet: "Information security management system and catalogue of security controls"
+    emetteur: "International Organization for Standardization"
+  NIST-CSF-2:
+    titre: "NIST — Cybersecurity Framework 2.0 (2024)"
+    objet: "Six cybersecurity functions, adaptable to small organisations"
+    emetteur: "National Institute of Standards and Technology (United States)"
+    lien_type: "Official text"
+  ANSSI-HYGIENE:
+    titre: "ANSSI — IT Hygiene Guide"
+    objet: "Essential IT security measures for organisations"
+    emetteur: "National Cybersecurity Agency of France (ANSSI)"
+    lien_type: "Official text"
+  AUDCIF:
+    titre: "OHADA Uniform Act on Accounting Law and Financial Reporting (26 January 2017)"
+    objet: "Bookkeeping, retention of accounting records and supporting documents"
+    emetteur: "OHADA"
+    lien_type: "Overview"
+  LOI-CM-2010-021:
+    titre: "Law No. 2010/021 of 21 December 2010 governing electronic commerce in Cameroon"
+    objet: "Legal validity of electronic documents and signatures, retention of electronic documents"
+    emetteur: "Republic of Cameroon"
+  ISO-9001-DOC:
+    titre: "ISO 9001 — Quality management systems, control of documented information (§ 7.5)"
+    objet: "Creation, updating, distribution, protection and retention of documents"
+    emetteur: "International Organization for Standardization"
+  MIFID-RD-2017-565:
+    titre: "Commission Delegated Regulation (EU) 2017/565 of 25 April 2016 supplementing MiFID II"
+    objet: "Organisation of investment firms, including personal transactions (Articles 28 and 29)"
+    emetteur: "European Commission"
+    lien_type: "Official text"
+  MAR-596-2014:
+    titre: "Regulation (EU) No 596/2014 on market abuse (MAR)"
+    objet: "Inside information, insider lists (Article 18) and managers' transactions (Article 19)"
+    emetteur: "European Parliament and Council of the European Union"
+    lien_type: "Official text"
+  FINRA-3210:
+    titre: "FINRA — Rule 3210, Accounts At Other Broker-Dealers and Financial Institutions (United States)"
+    objet: "Prior consent of the employer and transmission of statements for Staff Members' accounts held elsewhere"
+    emetteur: "Financial Industry Regulatory Authority"
+    lien_type: "Official text"
+  ESMA-EBA-REC-2018:
+    titre: "ESMA and EBA — Joint Committee Guidelines on complaints-handling (JC 2018 35)"
+    objet: "Complaints-handling policy and function, registration, time limits, response, root-cause analysis and reporting"
+    emetteur: "European Securities and Markets Authority and European Banking Authority"
+    lien_type: "Official page"
+  FCA-CASS:
+    titre: "FCA Handbook — CASS, Client Assets sourcebook (United Kingdom)"
+    objet: "Segregation of client securities and money, daily and monthly reconciliations, acknowledgement letters, handling of discrepancies"
+    emetteur: "Financial Conduct Authority"
+    lien_type: "Official text"
+  SEC-15C3-3:
+    titre: "SEC — Rule 15c3-3, Customer Protection — Reserves and Custody of Securities (United States)"
+    objet: "Possession and control of customer securities, special reserve bank account for the exclusive benefit of customers"
+    emetteur: "Securities and Exchange Commission"
+    lien_type: "Official text"
+  FINRA-2210:
+    titre: "FINRA — Rule 2210, Communications with the Public (United States)"
+    objet: "Prior approval, fair and balanced content that is not misleading, retention of brokerage firms' communications"
+    emetteur: "Financial Industry Regulatory Authority"
+    lien_type: "Official text"
+
+glossaire:
+  - terme: "Beneficial owner"
+    definition: "The natural person who ultimately owns or controls the client, or on whose behalf a transaction is carried out."
+  - terme: "Staff Member"
+    definition: "Any person acting on behalf of the Company — director, senior manager, employee, intern, temporary worker, service provider or agent."
+  - terme: "Conflict of interest"
+    definition: "A situation in which the interest of the Company, of a Staff Member or of a client may conflict with the interest of another client."
+  - terme: "Arranger"
+    definition: "A brokerage firm appointed by an issuer to structure a fundraising, prepare the application for COSUMAF approval (visa) and organise the placement of the securities."
+  - terme: "Information memorandum"
+    definition: "A prospectus describing the issuer and the transaction, submitted to COSUMAF for approval (visa) before any distribution to the public."
+  - terme: "Blackout period"
+    definition: "A period during which Staff Members refrain from any personal transaction in a given security."
+  - terme: "Front running"
+    definition: "Executing an order for own or personal account ahead of a client order in the same security, in order to profit from its impact on the price."
+  - terme: "Standby underwriting commitment"
+    definition: "An intermediary's commitment to subscribe, or procure subscribers, for the securities not placed at the end of the subscription period."
+  - terme: "Inside information"
+    definition: "Information of a precise nature, not made public, relating to an issuer or a security, which would be likely to have a significant effect on its price if it were made public."
+  - terme: "Chinese wall"
+    definition: "A set of organisational and IT measures preventing the flow of sensitive information between separated activities."
+  - terme: "Personal transaction"
+    definition: "Any transaction in a financial instrument carried out by a Staff Member for their own account, for the account of their spouse, their dependent children or any intermediary person."
+  - terme: "Politically exposed person (PEP)"
+    definition: "A person who holds or has held a prominent public function, together with their family members and close associates."
+  - terme: "Firm underwriting"
+    definition: "Subscription by the intermediary for all or part of the securities at issue, before their resale to investors; it commits the intermediary's own funds."
+  - terme: "RCCI"
+    definition: "Head of Compliance and Internal Control; holder of the ethics (compliance) function, appointed by the Board of Directors and notified to COSUMAF."
+  - terme: "Placement syndicate"
+    definition: "A group of brokerage firms and credit institutions formed by the lead manager to place the securities of an issue."
+  - terme: "Controlled version"
+    definition: "The version of a document published in the online repository; only that version is authoritative. Any printed or downloaded copy is deemed uncontrolled."

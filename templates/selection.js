@@ -73,16 +73,16 @@
       var Z = await loadLib("jszip"), zip = new Z();
       var lignes = ["Référentiel documentaire Purpose Capital S.A. — extrait du " + stamp(), "Copies non maîtrisées : seule la version en ligne fait foi.", ""];
       for (var i = 0; i < p.length; i++) {
-        var it = p[i], d = it.d, dir = zip.folder(safe(d.id + " — " + d.titre));
+        var it = p[i], d = vueLangue(it.d), ann = it.annexes.map(function (a) { return d.annexes.filter(function (x) { return x.num === a.num; })[0] || a; }), dir = zip.folder(safe(d.id + " — " + Tr(d.titre)));
         lignes.push(d.id + " — " + d.titre + " (version " + d.version + ", " + d.statut + ", empreinte " + d.empreinte + ")");
         if (it.corps) {
           if (OPT.pdf) dir.file(d.id + "_v" + d.version + ".pdf", await fetchBin("pdf/" + d.pdfCorps.file));
           if (OPT.word) dir.file(d.word.file, await fetchWord(d.word.file));
         }
-        if (it.annexes.length) {
+        if (ann.length) {
           var ad = dir.folder("Annexes");
-          for (var k = 0; k < it.annexes.length; k++) {
-            var a = it.annexes[k];
+          for (var k = 0; k < ann.length; k++) {
+            var a = ann[k];
             if (OPT.pdf) ad.file(a.pdf.file, await fetchBin("pdf/" + a.pdf.file));
             if (OPT.word) ad.file(a.word.file, await fetchWord(a.word.file));
             lignes.push("   Annexe " + a.num + " — " + a.titre);
@@ -110,9 +110,9 @@
       var cover = out.addPage([595.28, 841.89]);
       var parts = [];
       for (var i = 0; i < p.length; i++) {
-        var it = p[i], d = it.d, files = [];
-        if (it.corps) files.push(it.annexes.length === d.annexes.length && d.annexes.length ? { f: "pdf/" + d.pdf.file, t: d.id + " — " + d.titre, sub: "avec ses annexes" } : { f: "pdf/" + d.pdfCorps.file, t: d.id + " — " + d.titre, sub: "" });
-        if (!(it.corps && it.annexes.length === d.annexes.length)) it.annexes.forEach(function (a) { files.push({ f: "pdf/" + a.pdf.file, t: a.id + " — " + a.titre, sub: "annexe " + a.num + " au " + d.id, ann: true }); });
+        var it = p[i], d = vueLangue(it.d), ann = it.annexes.map(function (a) { return d.annexes.filter(function (x) { return x.num === a.num; })[0] || a; }), files = [];
+        if (it.corps) files.push(it.annexes.length === d.annexes.length && d.annexes.length ? { f: "pdf/" + d.pdf.file, t: d.id + " — " + Tr(d.titre), sub: Tr("avec ses annexes") } : { f: "pdf/" + d.pdfCorps.file, t: d.id + " — " + Tr(d.titre), sub: "" });
+        if (!(it.corps && it.annexes.length === d.annexes.length)) ann.forEach(function (a) { files.push({ f: "pdf/" + a.pdf.file, t: a.id + " — " + Tr(a.titre), sub: "annexe " + a.num + " au " + d.id, ann: true }); });
         parts = parts.concat(files);
       }
       var tocLines = parts.length, perPage = 30, tocPages = Math.max(1, Math.ceil(tocLines / perPage));

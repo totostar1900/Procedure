@@ -1,0 +1,71 @@
+# Fields of agreement PC-CTR-004.
+# Each field is entered only once in the repository form;
+# the template (document.md and appendices) calls it by {{id}}.
+# The text of the articles reproduces that of the Guichet agreement (version 2026-09).
+
+intitule: "{{titulaire_nom}} · compte-titres"
+partie: "{{titulaire_nom}}"
+
+sections:
+  - id: titulaire
+    titre: "Holder"
+    aide: "Identity as shown on the identity document or in the RCCM, and in the client onboarding file."
+    champs:
+      - id: titulaire_type
+        label: "Type of holder"
+        type: choix
+        requis: true
+        defaut: physique
+        options:
+          - { valeur: physique, label: "Natural person", texte: "natural person" }
+          - { valeur: morale, label: "Legal person", texte: "legal person" }
+          - { valeur: groupement, label: "Group, association or joint ownership", texte: "group" }
+      - { id: titulaire_nom, label: "Surname and first names, or corporate name", type: texte, requis: true }
+      - { id: naissance, label: "Date and place of birth", type: texte, requis: true, si: { champ: titulaire_type, egal: physique }, aide: "Example: 12 March 1985 in Douala" }
+      - { id: nationalite, label: "Nationality", type: texte, requis: true, si: { champ: titulaire_type, egal: physique } }
+      - { id: piece, label: "Identity document (type, number, expiry date)", type: texte, requis: true, si: { champ: titulaire_type, egal: physique } }
+      - { id: profession, label: "Occupation", type: texte, requis: true, si: { champ: titulaire_type, egal: physique } }
+      - { id: forme, label: "Legal form", type: texte, requis: true, si: { champ: titulaire_type, parmi: [morale, groupement] } }
+      - { id: immatriculation, label: "Registration (RCCM, registration receipt or constitutive instrument)", type: texte, requis: true, si: { champ: titulaire_type, parmi: [morale, groupement] } }
+      - { id: representant, label: "Name of the legal representative", type: texte, requis: true, si: { champ: titulaire_type, parmi: [morale, groupement] } }
+      - { id: representant_qualite, label: "Capacity of the representative", type: texte, requis: true, si: { champ: titulaire_type, parmi: [morale, groupement] } }
+      - { id: cotitulaires, label: "Designated joint holders and decision-making rule", type: long, requis: true, si: { champ: titulaire_type, egal: groupement }, aide: "Names of the persons authorised to give orders and the applicable rule (joint signature, majority…)" }
+      - { id: adresse, label: "Address", type: texte, requis: true }
+      - { id: ville, label: "City and country of residence", type: texte, requis: true }
+      - { id: telephone, label: "Telephone", type: texte, requis: true }
+      - { id: email, label: "Email address", type: texte, requis: true }
+
+  - id: compte
+    titre: "Account"
+    aide: "Data taken from client onboarding. The declared bank account is the only account to which the Holder's sums may be paid."
+    champs:
+      - { id: numero_compte, label: "Securities account number assigned", type: texte, requis: true }
+      - id: categorie
+        label: "Client category"
+        type: choix
+        requis: true
+        defaut: non_professionnel
+        options:
+          - { valeur: non_professionnel, label: "Non-professional", texte: "non-professional" }
+          - { valeur: professionnel, label: "Professional", texte: "professional" }
+      - { id: banque, label: "Bank of the declared bank account", type: texte, requis: true }
+      - { id: rib, label: "Number of the declared bank account (RIB)", type: texte, requis: true }
+      - id: whatsapp
+        label: "The Holder accepts WhatsApp notifications"
+        type: choix
+        requis: true
+        defaut: non
+        options:
+          - { valeur: oui, label: "Yes" }
+          - { valeur: non, label: "No" }
+
+  - id: signature
+    titre: "Signature"
+    champs:
+      - { id: pc_rccm, label: "RCCM number of Purpose Capital S.A.", type: texte, requis: true, source: rccm, aide: "Taken automatically from the Company's settings when it has been entered there." }
+      - { id: lieu_signature, label: "Place of signature", type: texte, requis: true, defaut: Yaoundé }
+      - { id: date_signature, label: "Date of signature", type: date, requis: true }
+      - { id: nb_exemplaires, label: "Number of original copies", type: entier, requis: true, defaut: 2 }
+
+regles:
+  - { a: nb_exemplaires, op: ">=", valeur: 2, message: "Provide at least two original copies, one per Party." }

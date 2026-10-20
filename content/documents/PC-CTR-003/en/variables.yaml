@@ -1,0 +1,149 @@
+# Fields of agreement PC-CTR-003.
+# Each field is entered only once in the repository form;
+# the template (document.md and appendices) calls it by {{id}}.
+# Types: texte (text), long, montant (amount), entier (integer), pourcentage (percentage), date, choix (choice).
+
+intitule: "{{emetteur_nom}} · syndicat de placement · {{montant}}"
+partie: "{{membre1_nom}}"
+
+sections:
+  - id: operation
+    titre: "Offering"
+    aide: "Use the data from the mandate agreement (PC-CTR-001) and from the Information Memorandum approved (visa) by COSUMAF."
+    champs:
+      - { id: emetteur_nom, label: "Issuer's corporate name", type: texte, requis: true }
+      - { id: emetteur_pays, label: "Country of the Issuer's registered office", type: texte, requis: true, defaut: "Cameroon" }
+      - id: titres_nature
+        label: "Nature of the Securities"
+        type: choix
+        requis: true
+        options:
+          - { valeur: actions, label: "Shares", texte: "shares" }
+          - { valeur: obligations, label: "Bonds", texte: "bonds" }
+          - { valeur: convertibles, label: "Convertible bonds", texte: "bonds convertible into shares" }
+          - { valeur: autres, label: "Other financial securities", texte: "financial securities" }
+      - { id: titres_autre, label: "Description of the securities", type: texte, requis: true, si: { champ: titres_nature, egal: autres } }
+      - { id: montant, label: "Offering Amount", type: montant, requis: true }
+      - { id: nominal, label: "Unit nominal value", type: montant, requis: true }
+      - { id: prix_emission, label: "Unit issue price", type: montant, requis: true }
+      - { id: date_mandat, label: "Date of the mandate agreement between the Issuer and Purpose Capital", type: date, requis: true }
+      - { id: visa_ref, label: "COSUMAF approval (visa) number", type: texte, vide: "to be obtained; this agreement only takes effect once it has been obtained" }
+      - { id: souscription_debut, label: "Opening of the Subscription Period", type: date, requis: true }
+      - { id: souscription_fin, label: "Close of the Subscription Period", type: date, requis: true }
+      - { id: date_reglement, label: "Settlement Date", type: date, requis: true }
+      - { id: compte_banque, label: "Institution holding the Centralisation Account", type: texte, requis: true }
+      - { id: compte_numero, label: "Centralisation Account number", type: texte, requis: true }
+
+  - id: membres
+    titre: "Members of the Syndicate"
+    aide: "One to three members. Each member must be a brokerage firm licensed by COSUMAF or a credit institution licensed in the CEMAC."
+    champs:
+      - id: nb_membres
+        label: "Number of members (excluding Purpose Capital)"
+        type: choix
+        requis: true
+        defaut: un
+        options:
+          - { valeur: un, label: "One member", texte: "one member" }
+          - { valeur: deux, label: "Two members", texte: "two members" }
+          - { valeur: trois, label: "Three members", texte: "three members" }
+      - { id: membre1_nom, label: "Member 1: corporate name", type: texte, requis: true }
+      - id: membre1_type
+        label: "Member 1: status"
+        type: choix
+        requis: true
+        options: &statut
+          - { valeur: sdb, label: "Brokerage firm", texte: "a brokerage firm (société de bourse) licensed by COSUMAF" }
+          - { valeur: banque, label: "Credit institution", texte: "a licensed credit institution" }
+      - { id: membre1_agrement, label: "Member 1: licence number", type: texte, requis: true }
+      - { id: membre1_siege, label: "Member 1: registered office", type: texte, requis: true }
+      - { id: membre1_representant, label: "Member 1: representative and capacity", type: texte, requis: true }
+      - { id: membre1_quota, label: "Member 1: indicative placement quota", type: montant, requis: true }
+      - { id: membre2_nom, label: "Member 2: corporate name", type: texte, requis: true, si: { champ: nb_membres, parmi: [deux, trois] } }
+      - { id: membre2_type, label: "Member 2: status", type: choix, requis: true, options: *statut, si: { champ: nb_membres, parmi: [deux, trois] } }
+      - { id: membre2_agrement, label: "Member 2: licence number", type: texte, requis: true, si: { champ: nb_membres, parmi: [deux, trois] } }
+      - { id: membre2_siege, label: "Member 2: registered office", type: texte, requis: true, si: { champ: nb_membres, parmi: [deux, trois] } }
+      - { id: membre2_representant, label: "Member 2: representative and capacity", type: texte, requis: true, si: { champ: nb_membres, parmi: [deux, trois] } }
+      - { id: membre2_quota, label: "Member 2: indicative placement quota", type: montant, requis: true, si: { champ: nb_membres, parmi: [deux, trois] } }
+      - { id: membre3_nom, label: "Member 3: corporate name", type: texte, requis: true, si: { champ: nb_membres, egal: trois } }
+      - { id: membre3_type, label: "Member 3: status", type: choix, requis: true, options: *statut, si: { champ: nb_membres, egal: trois } }
+      - { id: membre3_agrement, label: "Member 3: licence number", type: texte, requis: true, si: { champ: nb_membres, egal: trois } }
+      - { id: membre3_siege, label: "Member 3: registered office", type: texte, requis: true, si: { champ: nb_membres, egal: trois } }
+      - { id: membre3_representant, label: "Member 3: representative and capacity", type: texte, requis: true, si: { champ: nb_membres, egal: trois } }
+      - { id: membre3_quota, label: "Member 3: indicative placement quota", type: montant, requis: true, si: { champ: nb_membres, egal: trois } }
+      - { id: pc_quota, label: "Indicative quota retained by Purpose Capital", type: montant, requis: true }
+
+  - id: fonctionnement
+    titre: "Operation"
+    aide: "The default values reflect the Company's practice."
+    champs:
+      - { id: heure_etat, label: "Cut-off time for sending the daily subscription statement", type: texte, requis: true, defaut: "4 p.m. (Yaoundé time)" }
+      - { id: delai_fonds, label: "Time limit for transferring the funds collected to the Centralisation Account (business days)", type: entier, requis: true, defaut: 1 }
+      - { id: delai_cloture, label: "Time limit for delivering the final statement after the close (business days)", type: entier, requis: true, defaut: 1 }
+      - id: allocation
+        label: "Allocation rule in the event of oversubscription"
+        type: choix
+        requis: true
+        defaut: prorata
+        options:
+          - { valeur: prorata, label: "Proportional", texte: "pro rata to the quantities applied for, with odd lots allocated in the chronological order of receipt" }
+          - { valeur: priorite, label: "As set out in the Information Memorandum", texte: "according to the investor categories and priorities set by the Information Memorandum, then pro rata within each category" }
+      - { id: delai_restitution, label: "Time limit for refunding funds not allocated or if the Offering fails (business days)", type: entier, requis: true, defaut: 10 }
+      - { id: delai_amiable, label: "Length of the amicable settlement phase (days)", type: entier, requis: true, defaut: 30 }
+      - id: litiges
+        label: "Dispute resolution"
+        type: choix
+        requis: true
+        defaut: arbitrage
+        options:
+          - { valeur: arbitrage, label: "CCJA arbitration" }
+          - { valeur: juridictions, label: "State courts" }
+      - id: arbitres
+        label: "Composition of the arbitral tribunal"
+        type: choix
+        requis: true
+        defaut: un
+        si: { champ: litiges, egal: arbitrage }
+        options:
+          - { valeur: un, label: "Sole arbitrator", texte: "a sole arbitrator" }
+          - { valeur: trois, label: "Three arbitrators", texte: "three arbitrators" }
+      - { id: lieu_arbitrage, label: "Seat of the arbitration", type: texte, requis: true, defaut: Yaoundé, si: { champ: litiges, egal: arbitrage } }
+      - { id: juridiction_ville, label: "Competent courts of", type: texte, requis: true, defaut: Yaoundé, si: { champ: litiges, egal: juridictions } }
+
+  - id: remuneration
+    titre: "Remuneration"
+    aide: "Amounts and rates exclusive of tax. The placement commission is paid by the Issuer to Purpose Capital, which retrocedes part of it to the members."
+    champs:
+      - { id: com_placement, label: "Placement commission paid by the Issuer (% of amounts subscribed and paid up)", type: pourcentage, requis: true }
+      - { id: com_retro, label: "Commission retroceded to the members (% of the amounts they placed that are paid up)", type: pourcentage, requis: true }
+      - { id: delai_paiement, label: "Time limit for paying the commissions after their receipt by Purpose Capital (business days)", type: entier, requis: true, defaut: 10 }
+
+  - id: signature
+    titre: "Signature"
+    champs:
+      - { id: pc_rccm, label: "RCCM number of Purpose Capital S.A.", type: texte, requis: true, source: rccm, aide: "Taken automatically from the Company's settings when it has been entered there." }
+      - { id: lieu_signature, label: "Place of signature", type: texte, requis: true, defaut: Yaoundé }
+      - { id: date_signature, label: "Date of signature", type: date, requis: true }
+      - { id: nb_exemplaires, label: "Number of original copies", type: entier, requis: true, defaut: 2 }
+
+calculs:
+  - { id: nb_titres, label: "Number of Securities", type: entier, op: div, a: montant, b: nominal }
+  - { id: q2, label: "Quota used, member 2", type: montant, op: somme, de: [membre2_quota], si: { champ: nb_membres, parmi: [deux, trois] } }
+  - { id: q3, label: "Quota used, member 3", type: montant, op: somme, de: [membre3_quota], si: { champ: nb_membres, egal: trois } }
+  - { id: quota_membres, label: "Members' quotas", type: montant, op: somme, de: [membre1_quota, q2, q3] }
+  - { id: quota_total, label: "Total indicative quotas", type: montant, op: somme, de: [quota_membres, pc_quota] }
+  - { id: quota_ratio, label: "Quotas as % of the amount", type: pourcentage, op: ratio, a: quota_total, b: montant }
+  - { id: retro1, label: "Member 1: commission if quota placed", type: montant, op: pct, a: membre1_quota, b: com_retro }
+  - { id: retro2, label: "Member 2: commission if quota placed", type: montant, op: pct, a: membre2_quota, b: com_retro, si: { champ: nb_membres, parmi: [deux, trois] } }
+  - { id: retro3, label: "Member 3: commission if quota placed", type: montant, op: pct, a: membre3_quota, b: com_retro, si: { champ: nb_membres, egal: trois } }
+  - { id: marge_chef, label: "Share retained by the lead manager on the amounts placed by the members", type: pourcentage, op: diff, a: com_placement, b: com_retro }
+
+regles:
+  - { a: com_retro, op: "<=", b: com_placement, message: "The retroceded commission may not exceed the placement commission paid by the Issuer." }
+  - { a: quota_total, op: "<=", b: montant, message: "The total of the indicative quotas exceeds the Offering Amount." }
+  - { a: quota_ratio, op: ">=", valeur: 80, niveau: attention, message: "The quotas cover less than 80% of the amount: check the Syndicate's placement capacity." }
+  - { a: montant, op: multiple, b: nominal, message: "The Offering Amount must be a multiple of the nominal value." }
+  - { a: souscription_fin, op: ">", b: souscription_debut, type: date, message: "The close of the subscription must come after its opening." }
+  - { a: date_reglement, op: ">", b: souscription_fin, type: date, message: "Settlement must come after the close of the subscription." }
+  - { a: souscription_debut, op: ">=", b: date_signature, type: date, niveau: attention, message: "The subscription opens before the agreement is signed: check the dates." }
+  - { a: nb_exemplaires, op: ">=", valeur: 2, message: "Provide at least one original copy per Party." }

@@ -115,5 +115,13 @@
     lang: lang, t: tr, locale: lang === "en" ? "en-GB" : "fr-FR", choisir: choisir, marquer: marquer,
     // Phrase de double validation : la personne peut écrire la phrase affichée (traduite) ou l'originale
     phrases: function (p) { return lang === "en" ? [p, tr(p)] : [p]; },
+    // Textes propres aux documents (titres, résumés…) : ajoutés par la page à partir de ses données
+    ajouter: function (dict) {
+      if (!dict) return; var n = 0;
+      for (var k in dict) if (Object.prototype.hasOwnProperty.call(dict, k) && !Object.prototype.hasOwnProperty.call(D, k)) { D[k] = dict[k]; n++; }
+      if (!n || lang !== "en") return;
+      cache = Object.create(null); fait = new WeakMap();
+      if (document.readyState !== "loading") arbre(document.documentElement);
+    },
   };
 })();

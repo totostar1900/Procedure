@@ -3,7 +3,13 @@
   // Inséré dans site.js : partage DATA, docs, $, esc, toast, go, downloadsP.
   // =====================================================================
   var E = window.RefEngine;
-  var MODELS = docs.filter(function (d) { return d.modele; });
+  // En anglais, les conventions sont préparées à partir de la version anglaise du modèle (mêmes champs, mêmes valeurs)
+  var GEN_EN = !!(window.PCI18N && PCI18N.lang === "en");
+  var MODELS = docs.filter(function (d) { return d.modele; }).map(function (d) {
+    if (!GEN_EN || !d.en || !d.en.modele) return d;
+    return Object.assign({}, d, { modele: d.en.modele, titre: d.en.titre, annexes: d.annexes.map(function (a, i) { var x = d.en.annexes[i] || {}; return Object.assign({}, a, { titre: x.titre || a.titre, template: x.template || a.template }); }) });
+  });
+  var CTX = function () { return { societe: DATA.societe, lang: GEN_EN ? "en" : "fr" }; };
   var LIBS = {
     marked: { url: "https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js", global: "marked" },
     docx: { url: "https://cdn.jsdelivr.net/npm/docx@9.0.2/build/index.umd.js", global: "docx" },
@@ -37,7 +43,7 @@
   function plain(s) { return String(s || "").replace(/\\([\\`*_[\]|])/g, "$1").replace(/<[^>]+>/g, "").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&").trim(); }
   function intitule(model, values) {
     var t = model.modele.schema.intitule || "{{emetteur_nom}}";
-    var s = plain(E.render(t, model.modele.schema, values, "rempli", { societe: DATA.societe }));
+    var s = plain(E.render(t, model.modele.schema, values, "rempli", CTX()));
     s = s.replace(/^\s*·\s*|\s*·\s*$/g, "");
     return s || "Nouvelle convention (à compléter)";
   }
@@ -308,7 +314,7 @@
     previewTimer = setTimeout(function () {
       var p = $("#dz-preview"); if (!p || !cur) return;
       loadLib("marked").then(function (mk) {
-        var m = cur.model, sch = m.modele.schema, ctx = { societe: DATA.societe };
+        var m = cur.model, sch = m.modele.schema, ctx = CTX();
         var md = function (src) { return mk.parse(E.render(src, sch, cur.data.valeurs, "apercu", ctx)).replace(/<p><em>ci-après/g, '<p class="party-role"><em>ci-après'); };
         p.innerHTML = '<p class="paper-note">Aperçu : les zones surlignées restent à compléter. Le document final est produit par les boutons Word et PDF.</p>' +
           '<div class="doc-body"><div class="eyebrow">Convention</div><h1 class="title" style="font-size:var(--fs-xl)">' + esc(m.titre) + "</h1>" + md(m.modele.template) +
@@ -366,7 +372,7 @@
   }
 
   async function buildParts() {
-    var mk = await loadLib("marked"), m = cur.model, sch = m.modele.schema, v = cur.data.valeurs, ctx = { societe: DATA.societe };
+    var mk = await loadLib("marked"), m = cur.model, sch = m.modele.schema, v = cur.data.valeurs, ctx = CTX();
     var parts = [{ kind: "contrat", titre: m.titre, blocks: toBlocks(mk.lexer(E.render(m.modele.template, sch, v, "rempli", ctx))) }];
     m.annexes.forEach(function (a) { parts.push({ kind: "annexe", num: a.num, ref: a.id, titre: a.titre, paysage: a.orientation === "paysage", blocks: toBlocks(mk.lexer(E.render(a.template, sch, v, "rempli", ctx))) }); });
     return parts;
@@ -375,9 +381,9 @@
     var m = cur.model, v = cur.data.valeurs, ed = cur.data.edition === "signature" ? "signature" : "projet";
     return {
       ref: m.id, version: m.version, titre: m.titre, ed: ed,
-      edLabel: ed === "signature" ? "Version pour signature" : "Projet pour négociation du " + E.fmtDate(new Date().toISOString().slice(0, 10)),
-      parties: plain(E.render(m.modele.schema.partie || "{{emetteur_nom}}", m.modele.schema, v, "rempli")) + " et Purpose Capital S.A.",
-      etabli: "Établi le " + E.fmtDate(new Date().toISOString().slice(0, 10)) + " à partir du modèle " + m.id + " v" + m.version,
+      edLabel: GEN_EN ? (ed === "signature" ? "Version for signature" : "Draft for negotiation of " + E.formatValue({ type: "date" }, new Date().toISOString().slice(0, 10), null, "en")) : ed === "signature" ? "Version pour signature" : "Projet pour négociation du " + E.fmtDate(new Date().toISOString().slice(0, 10)),
+      parties: plain(E.render(m.modele.schema.partie || "{{emetteur_nom}}", m.modele.schema, v, "rempli", CTX())) + (GEN_EN ? " and Purpose Capital S.A." : " et Purpose Capital S.A."),
+      etabli: GEN_EN ? "Prepared on " + E.formatValue({ type: "date" }, new Date().toISOString().slice(0, 10), null, "en") + " from template " + m.id + " v" + m.version + " (courtesy translation — the French version prevails)" : "Établi le " + E.fmtDate(new Date().toISOString().slice(0, 10)) + " à partir du modèle " + m.id + " v" + m.version,
       file: function (ext) {
         var slug = plain(E.render(m.modele.schema.partie || "{{emetteur_nom}}", m.modele.schema, v, "rempli")).normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^A-Za-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40).replace(/-+$/, "") || "Partie";
         return m.id + "_" + slug + "_" + (ed === "signature" ? "signature" : "projet") + "_" + new Date().toISOString().slice(0, 10) + "." + ext;
@@ -451,11 +457,11 @@
     var margins = { top: 1300, bottom: 1134, left: 1134, right: 1020, header: 560, footer: 480 };
     var sections = parts.map(function (p) {
       var head = p.kind === "contrat"
-        ? [new D.Paragraph({ spacing: { after: 60 }, children: [new D.TextRun({ text: "CONVENTION", color: GOLD, bold: true, size: 16, characterSpacing: 40 })] }),
+        ? [new D.Paragraph({ spacing: { after: 60 }, children: [new D.TextRun({ text: GEN_EN ? "AGREEMENT" : "CONVENTION", color: GOLD, bold: true, size: 16, characterSpacing: 40 })] }),
           new D.Paragraph({ style: "DocTitle", children: [new D.TextRun(p.titre)] }),
           new D.Paragraph({ spacing: { after: 80 }, children: [new D.TextRun({ text: M.parties, italics: true, color: GREY })] }),
           new D.Paragraph({ spacing: { after: 360 }, border: { bottom: { style: D.BorderStyle.SINGLE, size: 12, color: "E8A020", space: 6 } }, children: [new D.TextRun({ text: M.edLabel, color: GREY, size: 18 })] })]
-        : [new D.Paragraph({ spacing: { after: 40 }, children: [new D.TextRun({ text: "ANNEXE " + p.num + " · " + p.ref, color: GOLD, bold: true, size: 16, characterSpacing: 30 })] }),
+        : [new D.Paragraph({ spacing: { after: 40 }, children: [new D.TextRun({ text: (GEN_EN ? "APPENDIX " : "ANNEXE ") + p.num + " · " + p.ref, color: GOLD, bold: true, size: 16, characterSpacing: 30 })] }),
           new D.Paragraph({ style: "AnnexTitle", children: [new D.TextRun(p.titre)] })];
       return {
         properties: { page: { margin: margins, size: p.paysage ? { orientation: D.PageOrientation.LANDSCAPE, width: 11906, height: 16838 } : { width: 11906, height: 16838 } } },
@@ -529,7 +535,7 @@
         content.push({ canvas: [{ type: "line", x1: 0, y1: 8, x2: 40, y2: 8, lineWidth: 1.6, lineColor: "#E8A020" }], margin: [0, 0, 0, 4] });
         content.push({ text: M.edLabel, color: "#5B6B80", fontSize: 8, margin: [0, 0, 0, 18] });
       } else {
-        content.push({ pageBreak: "before", pageOrientation: p.paysage ? "landscape" : "portrait", text: "ANNEXE " + p.num + " · " + p.ref, color: "#8A6413", bold: true, fontSize: 7.5, characterSpacing: 1.4 });
+        content.push({ pageBreak: "before", pageOrientation: p.paysage ? "landscape" : "portrait", text: (GEN_EN ? "APPENDIX " : "ANNEXE ") + p.num + " · " + p.ref, color: "#8A6413", bold: true, fontSize: 7.5, characterSpacing: 1.4 });
         content.push({ text: p.titre, font: "Playfair", fontSize: 15, color: "#0B2E52", margin: [0, 3, 0, 4] });
         content.push({ canvas: [{ type: "line", x1: 0, y1: 2, x2: p.paysage ? 735 : 488, y2: 2, lineWidth: 1, lineColor: "#0B2E52" }], margin: [0, 0, 0, 12] });
       }
@@ -540,7 +546,7 @@
       info: { title: M.titre + " — " + M.parties, author: "Purpose Capital S.A.", subject: M.etabli },
       defaultStyle: { font: "Inter", fontSize: 9.4, lineHeight: 1.32, color: "#0A2540" },
       styles: { h2: { font: "Playfair", fontSize: 13, color: "#0B2E52", margin: [0, 14, 0, 6] }, h3: { bold: true, fontSize: 9.4, color: "#0B2E52", margin: [0, 8, 0, 2] } },
-      watermark: M.ed === "projet" ? { text: "PROJET", color: "#0B2E52", opacity: 0.05, font: "Playfair", bold: true } : undefined,
+      watermark: M.ed === "projet" ? { text: GEN_EN ? "DRAFT" : "PROJET", color: "#0B2E52", opacity: 0.05, font: "Playfair", bold: true } : undefined,
       header: function () { return { margin: [56, 26, 51, 0], fontSize: 6.8, color: "#5B6B80", columns: [{ text: [{ text: "PURPOSE CAPITAL", bold: true, color: "#0B2E52", characterSpacing: 1 }, { text: "  ·  " + M.ref + " — " + M.titre }] }, { text: M.edLabel, alignment: "right", width: "auto" }] }; },
       footer: function (page, count) { return { margin: [56, 18, 51, 0], fontSize: 6.8, color: "#5B6B80", columns: [{ text: M.etabli }, { text: "Page " + page + " / " + count, alignment: "right", width: "auto" }] }; },
       pageBreakBefore: function (node, following) { return (node.headlineLevel === 1 && following.length < 4) || (node.headlineLevel === 2 && following.length < 2); },

@@ -170,7 +170,7 @@ function blocks(node, width, ctx = {}) {
     if (tag === "img") { out.push(...image(n, width)); continue; }
     if (tag === "h1" || tag === "h2") {
       // « Titre I — … » : numérotation automatique de Word (supprimer ou ajouter un titre renumérote les autres)
-      const t = decode(n.text).match(/^Titre\s+[IVXLC]+\s+—\s+(.+)$/);
+      const t = decode(n.text).match(/^(?:Titre|Title)\s+[IVXLC]+\s+—\s+(.+)$/);
       out.push(new D.Paragraph({ heading: D.HeadingLevel.HEADING_1, children: t ? [new D.TextRun(t[1])] : runs(n), keepNext: true, ...(t ? { numbering: { reference: "titres", level: 0 } } : {}) }));
     } else if (tag === "h3") {
       const a = decode(n.text).match(/^Article\s+\d+\s+—\s+(.+)$/);
@@ -208,11 +208,11 @@ function blocks(node, width, ctx = {}) {
 
 const header = (label, d) => new D.Header({ children: [new D.Paragraph({
   tabStops: [{ type: D.TabStopType.RIGHT, position: D.TabStopPosition.MAX }], border: { bottom: border("D5DEE9", 4) },
-  children: [new D.TextRun({ text: "PURPOSE CAPITAL", bold: true, color: NAVY, size: 15, characterSpacing: 30 }), new D.TextRun({ text: "   ·   " + label, color: GREY, size: 15 }), new D.TextRun({ text: `\tVersion ${d.version} · ${d.statut}`, color: GREY, size: 15 })],
+  children: [new D.TextRun({ text: "PURPOSE CAPITAL", bold: true, color: NAVY, size: 15, characterSpacing: 30 }), new D.TextRun({ text: "   ·   " + label, color: GREY, size: 15 }), new D.TextRun({ text: `\tVersion ${d.version} · ${LG(d.statut)}`, color: GREY, size: 15 })],
 })] });
 const footer = (d) => new D.Footer({ children: [new D.Paragraph({
   tabStops: [{ type: D.TabStopType.RIGHT, position: D.TabStopPosition.MAX }],
-  children: [new D.TextRun({ text: `Copie non maîtrisée — seule la version en ligne fait foi · empreinte ${d.empreinte} · ${d.confidentialite}`, color: GREY, size: 14 }), new D.TextRun({ children: ["\tPage ", D.PageNumber.CURRENT, " / ", D.PageNumber.TOTAL_PAGES], color: GREY, size: 14 })],
+  children: [new D.TextRun({ text: EN ? `Uncontrolled copy — only the online version is authoritative · fingerprint ${d.empreinte} · ${LG(d.confidentialite)}` : `Copie non maîtrisée — seule la version en ligne fait foi · empreinte ${d.empreinte} · ${d.confidentialite}`, color: GREY, size: 14 }), new D.TextRun({ children: ["\tPage ", D.PageNumber.CURRENT, " / ", D.PageNumber.TOTAL_PAGES], color: GREY, size: 14 })],
 })] });
 
 const styles = {
@@ -226,59 +226,65 @@ const styles = {
     { id: "Title", name: "Title", basedOn: "Normal", run: { font: "Cambria", size: 40, bold: true, color: NAVY }, paragraph: { spacing: { after: 120 } } },
   ],
 };
-const numbering = { config: [
-  { reference: "titres", levels: [{ level: 0, format: D.LevelFormat.UPPER_ROMAN, text: "Titre %1 —", alignment: D.AlignmentType.LEFT, suffix: D.LevelSuffix.SPACE }] },
+const numerotation = () => ({ config: [
+  { reference: "titres", levels: [{ level: 0, format: D.LevelFormat.UPPER_ROMAN, text: EN ? "Title %1 —" : "Titre %1 —", alignment: D.AlignmentType.LEFT, suffix: D.LevelSuffix.SPACE }] },
   { reference: "articles", levels: [{ level: 0, format: D.LevelFormat.DECIMAL, text: "Article %1 —", alignment: D.AlignmentType.LEFT, suffix: D.LevelSuffix.SPACE }] },
   { reference: "puce", levels: [0, 1].map((l) => ({ level: l, format: D.LevelFormat.BULLET, text: l ? "–" : "•", alignment: D.AlignmentType.LEFT, style: { paragraph: { indent: { left: 360 * (l + 1), hanging: 260 } } } })) },
   { reference: "num", levels: [0, 1].map((l) => ({ level: l, format: l ? D.LevelFormat.LOWER_LETTER : D.LevelFormat.DECIMAL, text: l ? "%2)" : "%1.", alignment: D.AlignmentType.LEFT, style: { paragraph: { indent: { left: 360 * (l + 1), hanging: 300 } } } })) },
-] };
+] });
 
 // Cartouche d'en-tête : type, référence, titre, statut ; fiche de maîtrise résumée
 function titleBlock(d, eyebrow, titre, extra) {
   const out = [
     para([new D.TextRun({ text: eyebrow.toUpperCase(), color: GOLD, bold: true, size: 16, characterSpacing: 20 })], { spacing: { after: 60 } }),
     new D.Paragraph({ style: "Title", children: [new D.TextRun(titre)] }),
-    para([new D.TextRun({ text: `Version ${d.version} · ${d.statut} · ${d.confidentialite} · empreinte ${d.empreinte}`, color: GREY, size: 17 })], { border: { bottom: border(NAVY, 12) }, spacing: { after: 240 } }),
+    para([new D.TextRun({ text: `Version ${d.version} · ${LG(d.statut)} · ${LG(d.confidentialite)} · ${LG("empreinte")} ${d.empreinte}`, color: GREY, size: 17 })], { border: { bottom: border(NAVY, 12) }, spacing: { after: 240 } }),
   ];
-  if (d.statut !== "En vigueur") out.splice(1, 0, para([new D.TextRun({ text: "PROJET — document non approuvé", bold: true, color: "8A5A06", size: 18 })], { spacing: { after: 40 } }));
+  if (d.statut !== "En vigueur") out.splice(1, 0, para([new D.TextRun({ text: EN ? "DRAFT — document not approved" : "PROJET — document non approuvé", bold: true, color: "8A5A06", size: 18 })], { spacing: { after: 40 } }));
   return out.concat(extra || []);
 }
 
+// Langue des fichiers produits : français par défaut ; langue("en", dictionnaire) pour la version anglaise
+let EN = false, LG = (t) => t;
+const enD = (iso) => { if (!iso) return ""; const [y, m, j] = String(iso).slice(0, 10).split("-"); return `${+j} ${["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][+m - 1]} ${y}`; };
+export function langue(l, dict = {}) { EN = l === "en"; LG = EN ? (t) => (dict[t] !== undefined ? dict[t] : t) : (t) => t; }
 const escH = (v) => String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-const frD = (iso) => { if (!iso) return ""; const [y, m, j] = String(iso).slice(0, 10).split("-"); return `${+j} ${["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"][+m - 1]} ${y}`; };
+const frD0 = (iso) => { if (!iso) return ""; const [y, m, j] = String(iso).slice(0, 10).split("-"); return `${+j} ${["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"][+m - 1]} ${y}`; };
+
+const frD = (iso) => (EN ? enD(iso) : frD0(iso));
 
 // Fiche de maîtrise (une seule fois les dates et les visas : rien en fin de document) puis sommaire Word sur une page dédiée
 export async function docxCorps(d, fiche = {}) {
   const W = contentWidth(false), ap = fiche.approb || {};
   IMG = fiche.images || {};
   const info = parse(`<table><tbody>
-    <tr><th style="width:22%">Référence</th><td>${escH(d.id)}</td><th style="width:18%">Version</th><td>${escH(d.version)} — ${escH(d.statut)}</td></tr>
-    <tr><th>Propriétaire</th><td colspan="3">${escH(d.proprietaire)}</td></tr>
-    <tr><th>Diffusion</th><td colspan="3">${escH(d.diffusion)}</td></tr>
-    <tr><th>Date d'effet</th><td>${d.date_effet ? frD(d.date_effet) : "À l'adoption"}</td><th>Prochaine revue</th><td>${escH(d.prochaine_revue_label)}</td></tr></tbody></table>`).querySelector("table");
-  const etapes = ap._circuit || [{ etape: "verification", label: "Vérification", fonction: d.verifie_par }, { etape: ap.adoption ? "adoption" : "approbation", label: "Approbation", fonction: d.approuve_par }];
-  const circuit = parse(`<table><tbody><tr><th style="width:17%">Étape</th><th>Fonction</th><th style="width:27%">Visa électronique</th><th style="width:24%">Signature manuscrite</th></tr>
-    <tr><td>Rédaction</td><td>${escH(d.redige_par)}</td><td></td><td></td></tr>
-    ${etapes.map((e) => { const v = ap[e.etape]; return `<tr><td>${escH(e.label)}</td><td>${escH(e.fonction)}</td><td>${v ? escH(frD(v.date)) + "<br><small>Visa électronique · empreinte " + escH(d.empreinte) + "</small>" : ""}</td><td><br><br><small>Date et signature</small></td></tr>`; }).join("")}</tbody></table>`).querySelector("table");
-  const hist = parse(`<table><tbody><tr><th style="width:12%">Version</th><th style="width:22%">Date</th><th>Objet</th><th style="width:18%">Par</th></tr>${(d.historique || []).map((h) => `<tr><td>${escH(h.version)}</td><td>${escH(frD(h.date))}</td><td>${escH(h.objet)}</td><td>${escH(h.par)}</td></tr>`).join("")}</tbody></table>`).querySelector("table");
+    <tr><th style="width:22%">${LG("Référence")}</th><td>${escH(d.id)}</td><th style="width:18%">Version</th><td>${escH(d.version)} — ${escH(LG(d.statut))}</td></tr>
+    <tr><th>${LG("Propriétaire")}</th><td colspan="3">${escH(LG(d.proprietaire))}</td></tr>
+    <tr><th>${LG("Diffusion")}</th><td colspan="3">${escH(d.diffusion)}</td></tr>
+    <tr><th>${LG("Date d'effet")}</th><td>${d.date_effet ? frD(d.date_effet) : LG("À l'adoption")}</td><th>${LG("Prochaine revue")}</th><td>${escH(LG(d.prochaine_revue_label))}</td></tr></tbody></table>`).querySelector("table");
+  const etapes = ap._circuit || [{ etape: "verification", label: LG("Vérification"), fonction: LG(d.verifie_par) }, { etape: ap.adoption ? "adoption" : "approbation", label: LG("Approbation"), fonction: LG(d.approuve_par) }];
+  const circuit = parse(`<table><tbody><tr><th style="width:17%">${LG("Étape")}</th><th>${LG("Fonction")}</th><th style="width:27%">${LG("Visa électronique")}</th><th style="width:24%">${LG("Signature manuscrite")}</th></tr>
+    <tr><td>${LG("Rédaction")}</td><td>${escH(LG(d.redige_par))}</td><td></td><td></td></tr>
+    ${etapes.map((e) => { const v = ap[e.etape]; return `<tr><td>${escH(LG(e.label))}</td><td>${escH(LG(e.fonction))}</td><td>${v ? escH(frD(v.date)) + "<br><small>" + LG("Visa électronique") + " · " + LG("empreinte") + " " + escH(d.empreinte) + "</small>" : ""}</td><td><br><br><small>${LG("Date et signature")}</small></td></tr>`; }).join("")}</tbody></table>`).querySelector("table");
+  const hist = parse(`<table><tbody><tr><th style="width:12%">Version</th><th style="width:22%">Date</th><th>${LG("Objet")}</th><th style="width:18%">${LG("Par")}</th></tr>${(d.historique || []).map((h) => `<tr><td>${escH(h.version)}</td><td>${escH(frD(h.date))}</td><td>${escH(h.objet)}</td><td>${escH(LG(h.par))}</td></tr>`).join("")}</tbody></table>`).querySelector("table");
   const refs = (fiche.refs || []).length ? parse(`<table><tbody>${fiche.refs.map((r) => `<tr><td style="width:52%">${escH(r.titre)}</td><td>${escH(r.articles)}</td></tr>`).join("")}</tbody></table>`).querySelector("table") : null;
   const sub = (t) => para([new D.TextRun({ text: t.toUpperCase(), bold: true, size: 15, color: GREY, characterSpacing: 20 })], { spacing: { before: 240, after: 80 }, keepNext: true });
   const body = parse("<div>" + d.html + "</div>").querySelector("div");
   const doc = new D.Document({
-    creator: "Purpose Capital S.A.", title: `${d.id} — ${d.titre}`, description: `${d.type} · version ${d.version}`, styles, numbering,
+    creator: "Purpose Capital S.A.", title: `${d.id} — ${d.titre}`, description: `${LG(d.type)} · version ${d.version}`, styles, numbering: numerotation(),
     features: { updateFields: true },
     sections: [{
       properties: { page: { size: { width: PAGE_W, height: PAGE_H }, margin: MARG } },
       headers: { default: header(`${d.id} — ${d.titre}`, d) }, footers: { default: footer(d) },
       children: [
-        ...titleBlock(d, `${d.type} · ${d.id}`, d.titre),
-        sub("Fiche de maîtrise documentaire"), ...htmlTable(info, W),
-        sub("Circuit d'approbation"), ...htmlTable(circuit, W),
-        sub("Historique des révisions"), ...htmlTable(hist, W),
-        ...(refs ? [sub("Textes de référence"), ...htmlTable(refs, W)] : []),
-        new D.Paragraph({ style: "Title", pageBreakBefore: true, children: [new D.TextRun("Sommaire")] }),
-        new D.TableOfContents("Sommaire", { hyperlink: true, headingStyleRange: "1-2" }),
-        para([new D.TextRun({ text: "Si le sommaire est vide : clic droit dessus, puis « Mettre à jour les champs ».", italics: true, size: 15, color: GREY })]),
+        ...titleBlock(d, `${LG(d.type)} · ${d.id}`, d.titre),
+        sub(LG("Fiche de maîtrise documentaire")), ...htmlTable(info, W),
+        sub(LG("Circuit d'approbation")), ...htmlTable(circuit, W),
+        sub(LG("Historique des révisions")), ...htmlTable(hist, W),
+        ...(refs ? [sub(LG("Textes de référence")), ...htmlTable(refs, W)] : []),
+        new D.Paragraph({ style: "Title", pageBreakBefore: true, children: [new D.TextRun(LG("Sommaire"))] }),
+        new D.TableOfContents(LG("Sommaire"), { hyperlink: true, headingStyleRange: "1-2" }),
+        para([new D.TextRun({ text: EN ? "If the table of contents is empty: right-click it, then “Update Field”." : "Si le sommaire est vide : clic droit dessus, puis « Mettre à jour les champs ».", italics: true, size: 15, color: GREY })]),
         // Le texte commence sur une nouvelle page (un titre le fait de lui-même)
         ...(/^\s*<h2/.test(d.html) ? [] : [new D.Paragraph({ children: [new D.PageBreak()] })]),
         ...blocks(body, W),
@@ -292,16 +298,16 @@ export async function docxAnnexe(d, a) {
   const land = a.orientation === "paysage", W = contentWidth(land);
   const body = parse("<div>" + a.html + "</div>").querySelector("div");
   const usage = para([
-    new D.TextRun({ text: "Renseigné par ", bold: true, size: 16, color: GREY }), new D.TextRun({ text: (a.renseigne_par || "") + "     ", size: 16, color: GREY }),
-    new D.TextRun({ text: "Fréquence ", bold: true, size: 16, color: GREY }), new D.TextRun({ text: (a.frequence || "") + "     ", size: 16, color: GREY }),
-    new D.TextRun({ text: "Conservé par ", bold: true, size: 16, color: GREY }), new D.TextRun({ text: a.conserve_par || "", size: 16, color: GREY }),
+    new D.TextRun({ text: LG("Renseigné par") + " ", bold: true, size: 16, color: GREY }), new D.TextRun({ text: (a.renseigne_par || "") + "     ", size: 16, color: GREY }),
+    new D.TextRun({ text: LG("Fréquence") + " ", bold: true, size: 16, color: GREY }), new D.TextRun({ text: (a.frequence || "") + "     ", size: 16, color: GREY }),
+    new D.TextRun({ text: LG("Conservé par") + " ", bold: true, size: 16, color: GREY }), new D.TextRun({ text: a.conserve_par || "", size: 16, color: GREY }),
   ], { spacing: { after: 200 } });
   const doc = new D.Document({
-    creator: "Purpose Capital S.A.", title: `${a.id} — ${a.titre}`, styles, numbering,
+    creator: "Purpose Capital S.A.", title: `${a.id} — ${a.titre}`, styles, numbering: numerotation(),
     sections: [{
       properties: { page: { size: { width: PAGE_W, height: PAGE_H, orientation: land ? D.PageOrientation.LANDSCAPE : D.PageOrientation.PORTRAIT }, margin: MARG } },
-      headers: { default: header(`${a.id} — Annexe ${a.num} au ${d.id}`, d) }, footers: { default: footer(d) },
-      children: [...titleBlock(d, `Annexe ${a.num} au ${d.type.toLowerCase()} ${d.id} · ${a.nature || ""}`, a.titre, [usage]), ...blocks(body, W)],
+      headers: { default: header(EN ? `${a.id} — Appendix ${a.num} to ${d.id}` : `${a.id} — Annexe ${a.num} au ${d.id}`, d) }, footers: { default: footer(d) },
+      children: [...titleBlock(d, EN ? `Appendix ${a.num} to ${LG(d.type).toLowerCase()} ${d.id} · ${a.nature || ""}` : `Annexe ${a.num} au ${d.type.toLowerCase()} ${d.id} · ${a.nature || ""}`, a.titre, [usage]), ...blocks(body, W)],
     }],
   });
   return D.Packer.toBuffer(doc);
@@ -313,7 +319,7 @@ export async function docxModeleVierge() {
   const H2 = (t) => new D.Paragraph({ heading: D.HeadingLevel.HEADING_2, numbering: { reference: "articles", level: 0 }, children: [new D.TextRun(t)] });
   const P = (t, o = {}) => para([new D.TextRun({ text: t, ...o })]);
   const doc = new D.Document({
-    creator: "Purpose Capital S.A.", title: "Modèle de document du référentiel", styles, numbering,
+    creator: "Purpose Capital S.A.", title: "Modèle de document du référentiel", styles, numbering: numerotation(),
     sections: [{
       properties: { page: { size: { width: PAGE_W, height: PAGE_H }, margin: MARG } },
       children: [

@@ -1,0 +1,224 @@
+# Fields of agreement PC-CTR-001.
+# Each field is entered only once in the repository form;
+# the template (document.md and appendices) calls it by {{id}}.
+# Types: texte (text), long (long text), montant (amount), entier (integer), pourcentage (percentage), date, choix (choice).
+# requis: the agreement cannot be generated while the field is missing.
+# si: the field only appears (and is only required) if the condition is met.
+# vide: text used in the agreement when an optional field is left empty.
+
+intitule: "{{emetteur_nom}} · {{titres_nature|label}} · {{montant}}"
+
+sections:
+  - id: emetteur
+    titre: "Issuer"
+    aide: "Identity of the company raising the funds, as shown in the RCCM (Trade and Personal Property Credit Register)."
+    champs:
+      - { id: emetteur_nom, label: "Issuer's corporate name", type: texte, requis: true }
+      - id: emetteur_forme
+        label: "Legal form"
+        type: choix
+        requis: true
+        options:
+          - { valeur: sa_ca, label: "Public limited company with a Board of Directors", texte: "a public limited company (société anonyme) with a board of directors" }
+          - { valeur: sa_ag, label: "Public limited company with a Managing Director (Administrateur Général)", texte: "a public limited company (société anonyme) with a managing director (administrateur général)" }
+          - { valeur: sas, label: "Simplified joint-stock company", texte: "a simplified joint-stock company (société par actions simplifiée)" }
+          - { valeur: autre, label: "Other form", texte: "" }
+      - { id: emetteur_forme_autre, label: "Legal form (please specify)", type: texte, requis: true, si: { champ: emetteur_forme, egal: autre } }
+      - { id: emetteur_capital, label: "Share capital", type: montant, requis: true }
+      - id: emetteur_pays
+        label: "Country of registered office"
+        type: choix
+        requis: true
+        defaut: cameroun
+        options: &pays
+          - { valeur: cameroun, label: "Cameroon", texte: "Cameroon" }
+          - { valeur: gabon, label: "Gabon", texte: "Gabon" }
+          - { valeur: congo, label: "Congo", texte: "Congo" }
+          - { valeur: tchad, label: "Chad", texte: "Chad" }
+          - { valeur: rca, label: "Central African Republic", texte: "Central African Republic" }
+          - { valeur: guinee, label: "Equatorial Guinea", texte: "Equatorial Guinea" }
+      - { id: emetteur_siege, label: "Registered office address", type: texte, requis: true }
+      - { id: emetteur_rccm_ville, label: "City of RCCM registration", type: texte, requis: true }
+      - { id: emetteur_rccm, label: "Issuer's RCCM number", type: texte, requis: true, aide: "Example: RC/YAO/2015/B/1234" }
+      - { id: emetteur_representant, label: "Name of the Issuer's representative", type: texte, requis: true }
+      - { id: emetteur_qualite, label: "Capacity of the representative", type: texte, requis: true, defaut: "Chief Executive Officer" }
+      - { id: emetteur_secteur, label: "Business sector", type: texte, requis: true }
+
+  - id: operation
+    titre: "Transaction"
+    aide: "Indicative features, used in Article 1 and Appendix 1. They will be finalised in the Information Memorandum approved by COSUMAF."
+    champs:
+      - id: titres_nature
+        label: "Type of Securities"
+        type: choix
+        requis: true
+        options:
+          - { valeur: actions, label: "Shares", texte: "shares" }
+          - { valeur: obligations, label: "Bonds", texte: "bonds" }
+          - { valeur: convertibles, label: "Convertible bonds", texte: "bonds convertible into shares" }
+          - { valeur: autres, label: "Other financial securities", texte: "financial securities" }
+      - { id: titres_autre, label: "Description of the securities", type: texte, requis: true, si: { champ: titres_nature, egal: autres } }
+      - id: mode_placement
+        label: "Placement method"
+        type: choix
+        requis: true
+        options:
+          - { valeur: ape, label: "Public offering", texte: "by way of public offering" }
+          - { valeur: prive, label: "Private placement", texte: "by way of private placement" }
+      - { id: montant, label: "Transaction Amount", type: montant, requis: true }
+      - { id: seuil, label: "Minimum Subscription Threshold", type: montant, requis: true, aide: "Minimum amount of subscriptions below which the Transaction is cancelled." }
+      - { id: nominal, label: "Unit nominal value", type: montant, requis: true }
+      - { id: taux, label: "Annual interest rate", type: pourcentage, requis: true, si: { champ: titres_nature, parmi: [obligations, convertibles] } }
+      - { id: maturite, label: "Maturity (years)", type: entier, requis: true, si: { champ: titres_nature, parmi: [obligations, convertibles] } }
+      - { id: differe, label: "Grace period on principal (years)", type: entier, vide: "None", si: { champ: titres_nature, parmi: [obligations, convertibles] } }
+      - id: remboursement
+        label: "Repayment profile"
+        type: choix
+        requis: true
+        si: { champ: titres_nature, parmi: [obligations, convertibles] }
+        options:
+          - { valeur: in_fine, label: "Bullet (in fine)", texte: "in a single instalment at maturity (in fine)" }
+          - { valeur: constant, label: "Constant amortisation", texte: "by constant amortisation of principal" }
+          - { valeur: annuites, label: "Constant annuities", texte: "by constant annuities" }
+      - { id: garanties, label: "Guarantees and security", type: long, vide: "None" }
+      - id: notation
+        label: "Credit rating"
+        type: choix
+        requis: true
+        defaut: non
+        options:
+          - { valeur: oui, label: "Yes", texte: "Yes" }
+          - { valeur: non, label: "No", texte: "No" }
+      - { id: notation_agence, label: "Rating agency", type: texte, requis: true, si: { champ: notation, egal: oui } }
+      - id: admission
+        label: "Admission to listing on the BVMAC"
+        type: choix
+        requis: true
+        options:
+          - { valeur: oui, label: "Yes", texte: "Yes" }
+          - { valeur: non, label: "No", texte: "No" }
+      - { id: investisseurs, label: "Target investors", type: texte, requis: true }
+      - { id: utilisation, label: "Use of proceeds", type: long, requis: true }
+      - { id: syndicat, label: "Proposed Placement Syndicate", type: texte, vide: "To be formed by the Arranger" }
+
+  - id: calendrier
+    titre: "Timetable"
+    aide: "The subscription dates may be left blank; they will be set in the Information Memorandum."
+    champs:
+      - { id: date_signature, label: "Scheduled signature date", type: date, requis: true }
+      - { id: validite_mois, label: "Deadline for obtaining COSUMAF approval (months)", type: entier, requis: true, defaut: 12, aide: "Beyond this, the agreement expires unless extended in writing." }
+      - { id: souscription_debut, label: "Opening of the Subscription Period", type: date, vide: "To be set in the Information Memorandum" }
+      - { id: souscription_fin, label: "Close of the Subscription Period", type: date, vide: "To be set in the Information Memorandum" }
+      - { id: date_reglement, label: "Settlement Date", type: date, vide: "To be set in the Information Memorandum" }
+
+  - id: clauses
+    titre: "Clauses"
+    aide: "The default values reflect the Company's practice. Any change is negotiated with the Issuer."
+    champs:
+      - id: exclusivite
+        label: "Exclusivity"
+        type: choix
+        requis: true
+        defaut: exclusif
+        options:
+          - { valeur: exclusif, label: "Exclusive mandate" }
+          - { valeur: coarrangement, label: "Co-arrangement" }
+      - { id: coarrangeur, label: "Co-arranging brokerage firm", type: texte, requis: true, si: { champ: exclusivite, egal: coarrangement } }
+      - id: compte_titulaire
+        label: "Holder of the Centralisation Account"
+        type: choix
+        requis: true
+        defaut: arrangeur
+        options:
+          - { valeur: arrangeur, label: "The Arranger on behalf of the Issuer", texte: "the Arranger on behalf of the Issuer" }
+          - { valeur: emetteur, label: "The Issuer", texte: "the Issuer" }
+      - { id: compte_banque, label: "Institution holding the Centralisation Account", type: texte, requis: true }
+      - { id: delai_restitution, label: "Period for returning funds if unsuccessful (business days)", type: entier, requis: true, defaut: 10 }
+      - { id: delai_rapport, label: "Period for delivering the closing report (business days)", type: entier, requis: true, defaut: 15 }
+      - { id: nb_exercices, label: "Number of financial years of certified financial statements", type: entier, requis: true, defaut: 3 }
+      - { id: conflits, label: "Conflicts of interest disclosed by the Arranger", type: long, requis: true, defaut: "None" }
+      - { id: seuil_frais, label: "Advanced expenses requiring prior consent above", type: montant, requis: true, defaut: 1000000 }
+      - { id: delai_mise_en_demeure, label: "Remedy period after formal notice (days)", type: entier, requis: true, defaut: 30 }
+      - { id: delai_tail, label: "Arranger's protection period after termination (months)", type: entier, requis: true, defaut: 12 }
+      - { id: delai_force_majeure, label: "Duration of force majeure giving rise to a right of termination (days)", type: entier, requis: true, defaut: 60 }
+      - { id: delai_amiable, label: "Duration of the amicable settlement phase (days)", type: entier, requis: true, defaut: 30 }
+      - id: droit
+        label: "National law applicable on a subsidiary basis"
+        type: choix
+        requis: true
+        defaut: cameroun
+        options:
+          - { valeur: cameroun, label: "Cameroonian law", texte: "Cameroonian" }
+          - { valeur: gabon, label: "Gabonese law", texte: "Gabonese" }
+          - { valeur: congo, label: "Congolese law", texte: "Congolese" }
+          - { valeur: tchad, label: "Chadian law", texte: "Chadian" }
+          - { valeur: rca, label: "Central African law", texte: "Central African" }
+          - { valeur: guinee, label: "Equatorial Guinean law", texte: "Equatorial Guinean" }
+      - id: litiges
+        label: "Dispute resolution"
+        type: choix
+        requis: true
+        defaut: arbitrage
+        options:
+          - { valeur: arbitrage, label: "CCJA arbitration" }
+          - { valeur: juridictions, label: "State courts" }
+      - id: arbitres
+        label: "Composition of the arbitral tribunal"
+        type: choix
+        requis: true
+        defaut: un
+        si: { champ: litiges, egal: arbitrage }
+        options:
+          - { valeur: un, label: "Sole arbitrator", texte: "a sole arbitrator" }
+          - { valeur: trois, label: "Three arbitrators", texte: "three arbitrators" }
+      - { id: lieu_arbitrage, label: "Seat of arbitration", type: texte, requis: true, defaut: Yaoundé, si: { champ: litiges, egal: arbitrage } }
+      - { id: juridiction_ville, label: "Competent courts of", type: texte, requis: true, defaut: Yaoundé, si: { champ: litiges, egal: juridictions } }
+
+  - id: remuneration
+    titre: "Remuneration"
+    aide: "Amounts exclusive of taxes. Each commission is invoiced separately."
+    champs:
+      - { id: com_arrangement, label: "Arrangement commission (flat fee)", type: montant, requis: true }
+      - { id: com_arr_part, label: "Portion of the arrangement commission payable on signature", type: pourcentage, requis: true, defaut: 50 }
+      - { id: com_placement, label: "Placement commission (% of amounts subscribed and paid up)", type: pourcentage, requis: true }
+      - id: com_succes
+        label: "Success commission"
+        type: choix
+        requis: true
+        defaut: non
+        options:
+          - { valeur: oui, label: "Yes" }
+          - { valeur: non, label: "No" }
+      - { id: com_succes_seuil, label: "Amount placed above which the success commission is due", type: montant, requis: true, si: { champ: com_succes, egal: oui } }
+      - { id: com_succes_taux, label: "Success commission rate", type: pourcentage, requis: true, si: { champ: com_succes, egal: oui } }
+      - { id: com_admission, label: "Listing commission (flat fee)", type: montant, vide: "None", si: { champ: admission, egal: oui } }
+
+  - id: signature
+    titre: "Signature"
+    champs:
+      - { id: pc_rccm, label: "RCCM number of Purpose Capital S.A.", type: texte, requis: true, source: rccm, aide: "Taken automatically from the Company's settings where it has been entered there." }
+      - { id: lieu_signature, label: "Place of signature", type: texte, requis: true, defaut: Yaoundé }
+      - { id: nb_exemplaires, label: "Number of original counterparts", type: entier, requis: true, defaut: 2 }
+
+calculs:
+  - { id: nb_titres, label: "Number of Securities", type: entier, op: div, a: montant, b: nominal }
+  - { id: seuil_ratio, label: "Threshold as % of the amount", type: pourcentage, op: ratio, a: seuil, b: montant }
+  - { id: com_placement_estimee, label: "Placement commission if fully placed", type: montant, op: pct, a: montant, b: com_placement }
+  - { id: com_arr_signature, label: "Arrangement commission payable on signature", type: montant, op: pct, a: com_arrangement, b: com_arr_part }
+  - { id: com_arr_solde, label: "Balance payable on approval (visa)", type: montant, op: diff, a: com_arrangement, b: com_arr_signature }
+  - { id: com_total_estime, label: "Estimated total remuneration (excl. taxes)", type: montant, op: somme, de: [com_arrangement, com_placement_estimee, com_admission] }
+
+regles:
+  - { a: seuil, op: "<=", b: montant, message: "The Minimum Subscription Threshold cannot exceed the Transaction Amount." }
+  - { a: montant, op: multiple, b: nominal, message: "The Transaction Amount must be a multiple of the nominal value: the number of Securities must be a whole number." }
+  - { a: seuil_ratio, op: ">=", valeur: 50, niveau: attention, message: "The Minimum Subscription Threshold is less than half of the amount. Check that the Issuer can carry out its project with this amount." }
+  - { a: com_placement, op: "<=", valeur: 5, niveau: attention, message: "Placement commission above 5%: unusual level, to be justified." }
+  - { a: taux, op: "<=", valeur: 15, niveau: attention, message: "Interest rate above 15%: check the entry." }
+  - { a: maturite, op: ">=", valeur: 1, message: "The maturity must be at least one year." }
+  - { a: differe, op: "<", b: maturite, message: "The grace period on principal must be shorter than the maturity." }
+  - { a: souscription_debut, op: ">", b: date_signature, type: date, message: "The opening of subscription must follow the signature of the agreement." }
+  - { a: souscription_fin, op: ">", b: souscription_debut, type: date, message: "The close of subscription must follow its opening." }
+  - { a: date_reglement, op: ">", b: souscription_fin, type: date, message: "Settlement must follow the close of subscription." }
+  - { a: com_succes_seuil, op: "<", b: montant, niveau: attention, message: "The success commission threshold exceeds the Transaction Amount: this commission will never be due." }
+  - { a: com_arr_part, op: "<=", valeur: 100, message: "The portion payable on signature cannot exceed 100%." }
+  - { a: nb_exemplaires, op: ">=", valeur: 2, message: "Provide for at least two original counterparts, one per Party." }
