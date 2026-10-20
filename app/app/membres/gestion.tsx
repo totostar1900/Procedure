@@ -100,13 +100,9 @@ export default function Gestion({ moi, docs }: { moi: string; docs: Doc[] }) {
   return (
     <div className="pg">
       <style>{CSS}</style>
-      <header className="top">
-        <div className="wrap tophead">
-          <div><div className="brand">PURPOSE CAPITAL</div><div className="rule" /><div className="ttl">Référentiel documentaire · Membres</div></div>
-          <nav><a href="/">← Retour au référentiel</a><a href="/deconnexion">Se déconnecter</a></nav>
-        </div>
-      </header>
-      <main className="wrap">
+      <main className="wrap view">
+        <div className="eyebrow">Administration</div>
+        <h1 className="title">Membres</h1>
         <p className="lead">Seules les personnes inscrites ici, et actives, peuvent ouvrir le référentiel avec leur compte Microsoft 365. Les fonctions déterminent qui vise quoi : le RCCI vérifie, le Directeur Général approuve, le Président du Conseil enregistre l&apos;adoption ; les collaborateurs attestent leur lecture.</p>
 
         <div className="stats">
@@ -213,7 +209,7 @@ function libelle(e: Evt) {
 }
 
 const CSS = `
-.pg{--navy:#0B2E52;--gold:#E8A020;--ink:#1C2B3A;--muted:#5A6B80;--line:#DCE3EC;--bg:#F5F7FA;--card:#fff;min-height:100vh;background:var(--bg);color:var(--ink);font:13px/1.5 Inter,"Helvetica Neue",Arial,sans-serif}
+.pg{--navy:#0B2E52;--gold:#E8A020;--ink:#1C2B3A;--muted:#5A6B80;--line:#DCE3EC;--bg:#F5F7FA;--card:#fff;color:var(--ink);font:13px/1.5 Inter,"Helvetica Neue",Arial,sans-serif}
 .wrap{max-width:1080px;margin:0 auto;padding:0 16px}
 .top{background:var(--navy);color:#fff;padding:18px 0 16px}
 .tophead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}

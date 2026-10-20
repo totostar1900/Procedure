@@ -415,8 +415,8 @@ body.has-selbar .toast { bottom: calc(96px + env(safe-area-inset-bottom, 0px)); 
 .rev-banner.proj { background: var(--warn-bg); border-left-color: var(--warn); }
 .rev-banner b { color: var(--heading); }
 @media (max-width: 860px) { .selbar { left: 0; } .toast { left: 50%; } .side { top: 70px; } }
-/* Contenu aligné sur le rail plutôt que centré dans l'espace restant */
-.shell .wrap { max-width: none; margin: 0; padding-left: max(32px, env(safe-area-inset-left, 0px)); padding-right: max(32px, env(safe-area-inset-right, 0px)); }
+/* Contenu centré dans l'espace à droite du rail, largeur de lecture d'origine */
+.shell .wrap { max-width: 1200px; margin: 0 auto; padding-left: max(32px, env(safe-area-inset-left, 0px)); padding-right: max(32px, env(safe-area-inset-right, 0px)); }
 @media (max-width: 860px) { .shell .wrap { padding-left: 16px; padding-right: 16px; } }
 /* Rail réduit : se déplie temporairement au survol, par-dessus le contenu */
 @media (min-width: 861px) {
