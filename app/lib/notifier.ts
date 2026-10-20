@@ -398,7 +398,7 @@ export async function executer(opts: { force?: boolean } = {}) {
   for (const e of envois) {
     const a = R.test ? [R.boite] : [e.a];
     const html = R.test ? e.html.replace('<tr><td style="padding:20px 22px', `<tr><td style="background:#FBF1DC;color:#6B4A0E;padding:10px 22px;font:12.5px Arial,sans-serif">Période d'essai (redirigé) — destinataire prévu : ${esc(e.a)}</td></tr><tr><td style="padding:20px 22px`) : e.html;
-    const sujet = (R.test ? "[TEST → " + e.a + "] " : "") + e.sujet;
+    const sujet = (R.test ? "[ESSAI → " + e.a + "] " : "") + e.sujet;
     const { data: n } = await sb.from("notifications").insert({ categorie: e.cat, a, sujet, html }).select("id").single();
     try { await envoyerGraph(R.boite, a, sujet, html); ok++; if (n) await sb.from("notifications").update({ statut: "envoye", envoye_le: new Date().toISOString(), tentatives: 1 }).eq("id", n.id); }
     catch (er) { ko++; if (n) await sb.from("notifications").update({ statut: "erreur", erreur: String((er as Error).message).slice(0, 500), tentatives: 1 }).eq("id", n.id); }
