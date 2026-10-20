@@ -17,7 +17,7 @@ const meP = (async () => {
 let membresCache = [];
 const idOf = (m) => m.user_id || "email:" + m.email;
 async function lireMembres() {
-  const { data, error } = await sb.from("membres").select("email,user_id,nom,fonctions,actif,admin").order("email");
+  const { data, error } = await sb.from("membres").select("email,user_id,nom,fonctions,actif,admin,acces,tableau,cree_le").order("email");
   if (error) throw { code: "unavailable", message: error.message };
   membresCache = data || [];
   return membresCache;
@@ -33,7 +33,13 @@ const lastSeg = (p) => p.split("/").pop();
 async function lireCollection(coll, opts) {
   if (coll === "roles") {
     const ms = await lireMembres();
-    return ms.map((m) => ({ id: idOf(m), data: { fonctions: m.fonctions, actif: m.actif, admin: m.admin } }));
+    return ms.map((m) => ({ id: idOf(m), data: { fonctions: m.fonctions, actif: m.actif, admin: m.admin, acces: m.acces, tableau: m.tableau, cree_le: m.cree_le, connecte: !!m.user_id } }));
+  }
+  if (coll === "journal") {
+    // Journal des opérations (administrateur et personnes ayant le tableau de bord) : 400 dernières entrées
+    const { data, error } = await sb.from("journal").select("id,le,par,par_email,action,path,data").order("le", { ascending: false }).limit(400);
+    if (error) throw err(error);
+    return (data || []).map((r) => ({ id: String(r.id), data: r }));
   }
   let q = sb.from("kv").select("path,data,maj_le").eq("collection", coll);
   if (opts && opts.limit) q = q.limit(opts.limit);

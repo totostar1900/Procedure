@@ -17,7 +17,7 @@
   --ph-bg: #FBF1DC; --ph-ink: #6B4A0E; --ok: #1E6B45; --ok-bg: #E4F2EA; --warn: #8A5A06; --warn-bg: #FBF1DC; --idle: #5B6B80; --idle-bg: #EDF1F6;
   --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
   --font-body: "Inter", "Helvetica Neue", Arial, sans-serif;
-  --radius: 4px;
+  --radius: 2px;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -49,7 +49,6 @@ button { font: inherit; }
 
 /* ---------- Rail de navigation (gauche) ---------- */
 :root { --rail: 214px; }
-body.rail-folded { --rail: 68px; }
 body { margin: 0; }
 .rail { position: fixed; z-index: 12; top: 0; bottom: 0; left: 0; width: var(--rail); background: var(--navy); color: var(--on-navy); display: flex; flex-direction: column; padding-top: env(safe-area-inset-top, 0px); transition: width .18s ease; overflow: hidden; }
 .shell { margin-left: var(--rail); min-width: 0; transition: margin-left .18s ease; }
@@ -60,13 +59,13 @@ body { margin: 0; }
 .brand-sub { font-size: var(--fs-2xs); letter-spacing: .1em; text-transform: uppercase; color: var(--on-navy-muted); white-space: nowrap; }
 .brand-mono { display: none; font-family: var(--font-display); font-weight: 700; font-size: var(--fs-lg); letter-spacing: .06em; border-bottom: 2px solid var(--gold); padding-bottom: 2px; }
 .nav { display: flex; flex-direction: column; gap: 2px; padding: 14px 10px; flex: 1; overflow-y: auto; }
-.nav button, .nav a.nav-link { position: relative; text-decoration: none; box-sizing: border-box; display: flex; align-items: center; gap: 11px; width: 100%; background: none; border: 0; color: var(--on-navy-muted); padding: 7px 10px; border-radius: 6px; font-size: var(--fs-base); text-align: left; cursor: pointer; white-space: nowrap; }
+.nav button, .nav a.nav-link { position: relative; text-decoration: none; box-sizing: border-box; display: flex; align-items: center; gap: 11px; width: 100%; background: none; border: 0; color: var(--on-navy-muted); padding: 7px 10px; border-radius: 3px; font-size: var(--fs-base); text-align: left; cursor: pointer; white-space: nowrap; }
 .nav a.nav-link svg, .nav button svg { width: 17px; height: 17px; flex: none; }
 .nav button:hover, .nav a.nav-link:hover { color: var(--on-navy); background: rgba(255,255,255,.06); }
 .nav [hidden] { display: none !important; }
 .nav button[aria-current="page"] { color: var(--on-navy); background: rgba(255,255,255,.1); }
 .nav button[aria-current="page"]::before { content: ""; position: absolute; left: -10px; top: 8px; bottom: 8px; width: 3px; border-radius: 0 3px 3px 0; background: var(--gold); }
-.badge { margin-left: auto; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 10px; background: var(--gold); color: #1A1200; font-size: var(--fs-xs); font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
+.badge { margin-left: auto; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 3px; background: var(--gold); color: #1A1200; font-size: var(--fs-xs); font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
 .rail-foot { border-top: 1px solid rgba(255,255,255,.08); padding: 12px 10px calc(10px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 8px; }
 .rail-me { font-size: var(--fs-sm); color: var(--on-navy-muted); }
 .me-load { padding: 6px 8px; }
@@ -78,28 +77,18 @@ body { margin: 0; }
 .me-id span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: var(--fs-xs); }
 .me-more { display: flex; flex-direction: column; gap: 8px; padding: 8px 6px 0; }
 .me-roles { display: flex; flex-wrap: wrap; gap: 4px; }
-.me-chip { font-size: var(--fs-xs); padding: 2px 8px; border-radius: 10px; background: rgba(255,255,255,.1); color: var(--on-navy); line-height: 1.35; max-width: 100%; }
+.me-chip { font-size: var(--fs-xs); padding: 2px 8px; border-radius: 3px; background: rgba(255,255,255,.1); color: var(--on-navy); line-height: 1.35; max-width: 100%; }
 .me-chip.gold { background: rgba(232,160,32,.2); color: #F3C66B; }
 .me-none { font-style: italic; }
 .me-todo { display: flex; gap: 6px; background: none; border: 0; padding: 0; cursor: pointer; color: inherit; font: inherit; }
-.me-todo span { flex: 1; border: 1px solid rgba(255,255,255,.14); border-radius: 6px; padding: 6px 8px; text-align: left; white-space: nowrap; }
+.me-todo span { flex: 1; border: 1px solid rgba(255,255,255,.14); border-radius: 3px; padding: 6px 8px; text-align: left; white-space: nowrap; }
 .me-todo b { color: var(--on-navy); font-size: var(--fs-read); margin-right: 4px; font-variant-numeric: tabular-nums; }
 .me-todo:hover span { border-color: var(--gold); }
 .me-since { font-size: var(--fs-xs); }
 .me-links { display: flex; gap: 14px; }
 .me-links a { color: var(--on-navy-muted); font-size: var(--fs-sm); }
 .me-links a:hover { color: var(--on-navy); }
-.rail-fold { align-self: flex-end; background: none; border: 0; color: var(--on-navy-muted); width: 30px; height: 30px; border-radius: 6px; display: grid; place-items: center; cursor: pointer; }
-.rail-fold:hover { background: rgba(255,255,255,.08); color: var(--on-navy); }
-.rail-fold svg { width: 18px; height: 18px; transition: transform .18s; }
-body.rail-folded .rail-fold { align-self: center; }
-body.rail-folded .rail-fold svg { transform: rotate(180deg); }
-body.rail-folded .rail-top { padding: 22px 0 16px; display: flex; justify-content: center; }
-body.rail-folded .brand-mark, body.rail-folded .brand-rule, body.rail-folded .brand-sub, body.rail-folded .rl, body.rail-folded .me-id, body.rail-folded .me-more, body.rail-folded .me-load { display: none; }
-body.rail-folded .brand-mono { display: block; }
-body.rail-folded .nav button { justify-content: center; padding: 10px 0; }
-body.rail-folded .badge { position: absolute; top: 2px; right: 6px; min-width: 16px; height: 16px; font-size: var(--fs-2xs); padding: 0 4px; }
-body.rail-folded .me-card { justify-content: center; padding: 4px 0; }
+
 .mbar { display: none; }
 .badge[hidden], .drawer[hidden] { display: none; }
 .rail-scrim { position: fixed; inset: 0; z-index: 11; background: rgba(2,12,24,.45); }
@@ -108,12 +97,8 @@ body.rail-folded .me-card { justify-content: center; padding: 4px 0; }
   .shell { margin-left: 0; }
   .rail { width: 272px; transform: translateX(-100%); transition: transform .2s ease; box-shadow: 0 0 40px rgba(0,0,0,.3); }
   body.rail-open .rail { transform: none; }
-  body.rail-folded { --rail: 214px; }
-  body.rail-folded .rl, body.rail-folded .me-id, body.rail-folded .me-more, body.rail-folded .brand-mark, body.rail-folded .brand-rule, body.rail-folded .brand-sub { display: revert; }
-  body.rail-folded .brand-mono { display: none; }
-  .rail-fold { display: none; }
   .mbar { display: flex; align-items: center; gap: 10px; position: sticky; top: 0; z-index: 10; background: var(--navy); color: var(--on-navy); padding: calc(8px + env(safe-area-inset-top, 0px)) 12px 8px; }
-  .mbar-menu { background: none; border: 0; color: inherit; width: 38px; height: 38px; display: grid; place-items: center; cursor: pointer; border-radius: 6px; }
+  .mbar-menu { background: none; border: 0; color: inherit; width: 38px; height: 38px; display: grid; place-items: center; cursor: pointer; border-radius: 3px; }
   .mbar-menu svg { width: 22px; height: 22px; }
   .mbar-brand { background: none; border: 0; color: inherit; font-family: var(--font-display); letter-spacing: .2em; font-size: var(--fs-base); font-weight: 600; cursor: pointer; }
 }
@@ -140,7 +125,7 @@ th[aria-sort="descending"] .sortb i::before { opacity: .25; }
 .drawer { position: fixed; z-index: 31; top: 0; right: 0; bottom: 0; width: min(480px, 100vw); background: var(--bg); border-left: 1px solid var(--rule); box-shadow: -18px 0 40px rgba(6,27,51,.18); display: flex; flex-direction: column; transform: translateX(100%); transition: transform .2s ease; padding-top: env(safe-area-inset-top, 0px); }
 .drawer.open { transform: none; }
 .dr-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 22px 12px; border-bottom: 1px solid var(--rule); }
-.dr-x { background: none; border: 0; color: var(--muted); width: 34px; height: 34px; border-radius: 6px; display: grid; place-items: center; cursor: pointer; }
+.dr-x { background: none; border: 0; color: var(--muted); width: 34px; height: 34px; border-radius: 3px; display: grid; place-items: center; cursor: pointer; }
 .dr-x:hover { background: var(--surface); color: var(--heading); }
 .dr-x svg { width: 18px; height: 18px; }
 .dr-body { overflow-y: auto; padding: 18px 22px calc(28px + env(safe-area-inset-bottom, 0px)); }
@@ -203,7 +188,7 @@ table.reg { width: 100%; border-collapse: collapse; font-size: var(--fs-base); m
 .prio { font-size: var(--fs-xs); color: var(--muted); white-space: nowrap; }
 .prio i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; background: var(--rule-strong); vertical-align: 1px; }
 .prio.p1 i { background: var(--gold); }
-.pill { display: inline-block; font-size: var(--fs-xs); font-weight: 600; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+.pill { display: inline-block; font-size: var(--fs-xs); font-weight: 600; padding: 2px 8px; border-radius: 2px; white-space: nowrap; }
 .pill.projet { color: var(--warn); background: var(--warn-bg); }
 .pill.vigueur { color: var(--ok); background: var(--ok-bg); }
 .pill.prevu { color: var(--idle); background: var(--idle-bg); }
@@ -425,23 +410,6 @@ body.has-selbar .toast { bottom: calc(96px + env(safe-area-inset-bottom, 0px)); 
 .shell .wrap { max-width: 1200px; margin: 0 auto; padding-left: max(32px, env(safe-area-inset-left, 0px)); padding-right: max(32px, env(safe-area-inset-right, 0px)); }
 @media (max-width: 860px) { .shell .wrap { padding-left: 16px; padding-right: 16px; } }
 /* Rail réduit : se déplie temporairement au survol, par-dessus le contenu */
-@media (min-width: 861px) {
-  body.rail-folded .rail:hover, body.rail-folded .rail:focus-within { width: 214px; box-shadow: 8px 0 30px rgba(2,12,24,.25); }
-  body.rail-folded .rail:hover .rl, body.rail-folded .rail:focus-within .rl,
-  body.rail-folded .rail:hover .me-id, body.rail-folded .rail:focus-within .me-id,
-  body.rail-folded .rail:hover .me-more, body.rail-folded .rail:focus-within .me-more,
-  body.rail-folded .rail:hover .brand-mark, body.rail-folded .rail:hover .brand-rule, body.rail-folded .rail:hover .brand-sub { display: revert; }
-  body.rail-folded .rail:hover .me-more, body.rail-folded .rail:focus-within .me-more { display: flex; }
-  body.rail-folded .rail:hover .me-id, body.rail-folded .rail:focus-within .me-id { display: flex; }
-  body.rail-folded .rail:hover .brand, body.rail-folded .rail:focus-within .brand { display: flex; }
-  body.rail-folded .rail:hover .brand-mono { display: none; }
-  body.rail-folded .rail:hover .rail-top { padding: 18px 16px 14px; display: block; }
-  body.rail-folded .rail:hover .nav button { justify-content: flex-start; padding: 7px 10px; }
-  body.rail-folded .rail:hover .badge { position: static; min-width: 20px; height: 20px; font-size: var(--fs-xs); }
-  body.rail-folded .rail:hover .me-card { justify-content: flex-start; padding: 4px 6px; }
-  body.rail-folded .rail:hover .rail-fold { align-self: flex-end; }
-  body.rail-folded .rail { transition: width .15s ease .12s; }
-}
 
 /* ---------- Barre de revue (haut du document) ---------- */
 .revbar-slot { position: sticky; top: 0; z-index: 6; margin: 0 0 14px; }
@@ -484,7 +452,7 @@ body.has-selbar .toast { bottom: calc(96px + env(safe-area-inset-bottom, 0px)); 
 .admin-act p { margin: 4px 0 8px; }
 
 /* À traiter */
-.count-chip { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 7px; border-radius: 11px; background: var(--band); color: var(--heading); font-family: var(--font-body); font-size: var(--fs-sm); font-weight: 600; vertical-align: 3px; margin-left: 6px; }
+.count-chip { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 7px; border-radius: 3px; background: var(--band); color: var(--heading); font-family: var(--font-body); font-size: var(--fs-sm); font-weight: 600; vertical-align: 3px; margin-left: 6px; }
 .tt-list { list-style: none; margin: 0; padding: 0; border: 1px solid var(--rule); border-radius: var(--radius); }
 .tt-item { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 14px; border-bottom: 1px solid var(--rule); }
 .tt-item:last-child { border-bottom: 0; }
@@ -510,7 +478,7 @@ body.has-selbar .toast { bottom: calc(96px + env(safe-area-inset-bottom, 0px)); 
 
 /* Circuit : tableau de suivi et cartes de circuit */
 .kanban { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(220px, 1fr); gap: 12px; overflow-x: auto; padding-bottom: 6px; }
-.kcol { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 10px; min-width: 0; }
+.kcol { background: var(--surface); border: 1px solid var(--rule); border-radius: 3px; padding: 10px; min-width: 0; }
 .kcol h3 { margin: 0 0 8px; font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: .06em; color: var(--heading); display: flex; align-items: center; justify-content: space-between; }
 .kcol.k-renvoi { background: var(--warn-bg); border-color: var(--gold); }
 .kcol.k-ok { background: var(--ok-bg); }
@@ -521,7 +489,7 @@ body.has-selbar .toast { bottom: calc(96px + env(safe-area-inset-bottom, 0px)); 
 .k-title { font-size: var(--fs-sm); font-weight: 600; color: var(--heading); line-height: 1.3; }
 .k-who { font-size: var(--fs-xs); color: var(--ink-soft); }
 .ccards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; margin-top: 14px; }
-.ccard { border: 1px solid var(--rule); border-radius: 6px; padding: 14px 16px; background: var(--raised); min-width: 0; }
+.ccard { border: 1px solid var(--rule); border-radius: 3px; padding: 14px 16px; background: var(--raised); min-width: 0; }
 .ccard.editing { grid-column: 1 / -1; border-color: var(--gold); }
 .ccard header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
 .ccard h3 { margin: 0; font-family: var(--font-display); font-size: var(--fs-lg); color: var(--heading); }
@@ -535,8 +503,8 @@ body.has-selbar .toast { bottom: calc(96px + env(safe-area-inset-bottom, 0px)); 
 .csteps li.end .stepn { background: var(--ok-bg); color: var(--ok); }
 .cedit { list-style: none; margin: 0 0 10px; padding: 0; }
 .cedit li { display: flex; gap: 10px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--rule); }
-.ce-fields { display: grid; grid-template-columns: 1.4fr 1.2fr 1fr auto auto; gap: 8px 12px; align-items: end; flex: 1; min-width: 0; }
-.ce-fields select, .ce-fields input[type=text] { font: inherit; font-size: var(--fs-base); color: var(--ink); background: var(--bg); border: 1px solid var(--rule-strong); border-radius: var(--radius); padding: 6px 8px; width: 100%; }
+.ce-fields { display: grid; grid-template-columns: 1.4fr 1.2fr 1fr 90px auto auto; gap: 8px 12px; align-items: end; flex: 1; min-width: 0; }
+.ce-fields select, .ce-fields input[type=text], .ce-fields input[type=number], .ccard input[type=number] { font: inherit; font-size: var(--fs-base); color: var(--ink); background: var(--bg); border: 1px solid var(--rule-strong); border-radius: var(--radius); padding: 6px 8px; width: 100%; }
 .chkl { display: inline-flex; gap: 6px; align-items: center; font-size: var(--fs-sm); white-space: nowrap; padding-bottom: 7px; cursor: pointer; }
 .ce-move { display: flex; gap: 4px; padding-top: 18px; }
 .icon-btn { width: 28px; height: 28px; border: 1px solid var(--rule-strong); background: var(--raised); color: var(--heading); border-radius: 4px; cursor: pointer; font-size: 13px; }
@@ -568,19 +536,19 @@ body.has-selbar .toast { bottom: calc(96px + env(safe-area-inset-bottom, 0px)); 
 .ed-thead input { font-family: var(--font-display); font-size: var(--fs-lg) !important; font-weight: 600; color: var(--heading) !important; }
 .ed-num { white-space: nowrap; font-weight: 600; color: var(--heading); font-size: var(--fs-sm); }
 .ed-tools { display: flex; gap: 4px; flex: none; }
-.ed-card { border: 1px solid var(--rule); border-radius: 6px; background: var(--raised); padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; scroll-margin-top: 70px; }
+.ed-card { border: 1px solid var(--rule); border-radius: 3px; background: var(--raised); padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; scroll-margin-top: 70px; }
 .ed-card:focus-within { border-color: var(--gold); box-shadow: 0 0 0 2px var(--warn-bg); }
 .ed-ahead input { font-weight: 600; }
 .ed-card textarea { resize: vertical; line-height: 1.55; min-height: 70px; }
 .ed-afoot, .ed-tfoot { display: flex; gap: 14px; flex-wrap: wrap; font-size: var(--fs-sm); }
 .ed-prev { border-top: 1px dashed var(--rule-strong); padding-top: 8px; }
 .ed-prev .doc-body { font-size: var(--fs-base); max-width: none; }
-.edconfirm { border: 2px solid var(--gold); border-radius: 6px; padding: 14px 16px; background: var(--warn-bg); margin: 0 0 14px; max-width: 900px; }
+.edconfirm { border: 2px solid var(--gold); border-radius: 3px; padding: 14px 16px; background: var(--warn-bg); margin: 0 0 14px; max-width: 900px; }
 .edconfirm h3 { margin: 0 0 6px; font-family: var(--font-display); color: var(--heading); font-size: var(--fs-lg); }
 .edconfirm ul { margin: 0 0 6px; padding-left: 1.2em; font-size: var(--fs-base); }
 .doc-edit-btns { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 12px 0 0; }
 .dlist { list-style: none; margin: 0 0 14px; padding: 0; display: flex; flex-direction: column; gap: 10px; max-width: 900px; }
-.dlist li { border: 1px solid var(--rule); border-radius: 6px; padding: 10px 12px; background: var(--raised); }
+.dlist li { border: 1px solid var(--rule); border-radius: 3px; padding: 10px 12px; background: var(--raised); }
 .dlist li.d-ajout { border-left: 3px solid var(--ok); }
 .dlist li.d-retrait { border-left: 3px solid #9B2C1F; }
 .dlist li.d-modif { border-left: 3px solid var(--gold); }
@@ -589,15 +557,13 @@ body.has-selbar .toast { bottom: calc(96px + env(safe-area-inset-bottom, 0px)); 
 .d-t { margin-bottom: 6px; }
 .d-body ins, .diffbox ins { background: #DCF2E3; color: #145232; text-decoration: none; border-radius: 2px; }
 .d-body del, .diffbox del { background: #F8DEDA; color: #8A2219; border-radius: 2px; }
-.diffbox { margin: 12px 0 0; padding: 14px; border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); }
+.diffbox { margin: 12px 0 0; padding: 14px; border: 1px solid var(--rule); border-radius: 3px; background: var(--surface); }
 .diffbox h3 { margin: 0 0 10px; font-family: var(--font-display); color: var(--heading); font-size: var(--fs-lg); }
 @media (max-width: 900px) { .edfields { grid-template-columns: 1fr; } .ed-layout { grid-template-columns: 1fr; } .ed-outline { display: none; } }
 
-body.rail-folded .nav a.nav-link { justify-content: center; padding: 10px 0; }
-@media (min-width: 861px) { body.rail-folded .rail:hover .nav a.nav-link { justify-content: flex-start; padding: 7px 10px; } }
 /* Accès employé : mes documents */
 .md-list { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
-.md-item { border: 1px solid var(--rule); border-radius: 6px; padding: 14px 16px; background: var(--raised); display: flex; flex-direction: column; gap: 6px; }
+.md-item { border: 1px solid var(--rule); border-radius: 3px; padding: 14px 16px; background: var(--raised); display: flex; flex-direction: column; gap: 6px; }
 .md-item.todo { border-color: var(--gold); box-shadow: inset 3px 0 0 var(--gold); }
 .md-item.ok { box-shadow: inset 3px 0 0 var(--ok); }
 .md-item h3 { margin: 0; font-family: var(--font-display); font-size: var(--fs-lg); color: var(--heading); }
@@ -606,7 +572,7 @@ body.rail-folded .nav a.nav-link { justify-content: center; padding: 10px 0; }
 
 /* ---------- Double validation ---------- */
 .cfm-scrim { position: fixed; inset: 0; z-index: 50; background: rgba(2,12,24,.5); display: grid; place-items: center; padding: 16px; }
-.cfm { background: var(--bg); color: var(--ink); border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,.35); width: min(560px, 100%); max-height: calc(100vh - 32px); overflow: auto; padding: 20px 22px; border-top: 4px solid var(--gold); }
+.cfm { background: var(--bg); color: var(--ink); border-radius: 3px; box-shadow: 0 20px 60px rgba(0,0,0,.35); width: min(560px, 100%); max-height: calc(100vh - 32px); overflow: auto; padding: 20px 22px; border-top: 4px solid var(--gold); }
 .cfm.large { width: min(980px, 100%); }
 .cfm h2 { margin: 0 0 10px; font-family: var(--font-display); color: var(--heading); font-size: var(--fs-xl); }
 .cfm-pts { margin: 0 0 12px; padding-left: 1.2em; font-size: var(--fs-base); }
@@ -614,16 +580,16 @@ body.rail-folded .nav a.nav-link { justify-content: center; padding: 10px 0; }
 .cfm dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; margin: 0 0 12px; font-size: var(--fs-base); }
 .cfm dt { color: var(--muted); }
 .cfm dd { margin: 0; }
-.cfm-sign { background: var(--warn-bg); border-radius: 6px; padding: 10px 12px; margin: 12px 0; display: flex; flex-direction: column; gap: 6px; font-size: var(--fs-base); }
+.cfm-sign { background: var(--warn-bg); border-radius: 3px; padding: 10px 12px; margin: 12px 0; display: flex; flex-direction: column; gap: 6px; font-size: var(--fs-base); }
 .cfm-phrase { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: var(--raised); padding: 1px 6px; border-radius: 3px; }
 .cfm-sign input { font: inherit; font-size: var(--fs-base); padding: 8px 10px; border: 1px solid var(--rule-strong); border-radius: var(--radius); background: var(--raised); color: var(--ink); }
 .cfm-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--rule); margin: 6px 0 10px; }
 .cfm-tabs button { background: none; border: 0; border-bottom: 2px solid transparent; padding: 7px 10px; color: var(--muted); cursor: pointer; font-size: var(--fs-base); margin-bottom: -1px; }
 .cfm-tabs button[aria-selected="true"] { color: var(--heading); border-bottom-color: var(--gold); font-weight: 600; }
-.cfm-pane { max-height: 52vh; overflow: auto; border: 1px solid var(--rule); border-radius: 6px; padding: 12px 14px; background: var(--raised); }
+.cfm-pane { max-height: 52vh; overflow: auto; border: 1px solid var(--rule); border-radius: 3px; padding: 12px 14px; background: var(--raised); }
 .cfm-pane .doc-body { max-width: none; font-size: var(--fs-base); }
 .cfm-pane .dlist { max-width: none; }
-.pending-bar { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--warn-bg); border: 1px solid var(--gold); border-radius: 6px; padding: 8px 12px; margin: 0 0 10px; font-size: var(--fs-base); }
+.pending-bar { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--warn-bg); border: 1px solid var(--gold); border-radius: 3px; padding: 8px 12px; margin: 0 0 10px; font-size: var(--fs-base); }
 .pending-bar span { margin-right: auto; font-weight: 600; color: var(--warn); }
 tr.edited td { background: var(--warn-bg) !important; }
 
@@ -634,6 +600,103 @@ tr.edited td { background: var(--warn-bg) !important; }
 .doc-body img { max-width: 100%; height: auto; }
 @media (max-width: 700px) { .nvform { grid-template-columns: 1fr; } }
 .btn[hidden], label.btn[hidden] { display: none; }
+
+/* ---------- Rail repliable (comme la barre latérale de claude.ai) ----------
+   Bouton en haut du rail pour le masquer ; rail masqué : un bouton en haut à gauche le rouvre,
+   et le survol du bord gauche (ou de ce bouton) l'affiche temporairement par-dessus la page. */
+.rail-top { position: relative; }
+.rail-top .rail-fold { position: absolute; top: 12px; right: 6px; width: 28px; height: 28px; margin: 0; }
+.rail-fold, .rail-show { background: none; border: 0; width: 30px; height: 30px; border-radius: 4px; display: grid; place-items: center; cursor: pointer; flex: none; }
+.rail-fold { color: var(--on-navy-muted); margin: -4px -6px 0 0; }
+.rail-fold:hover { background: rgba(255,255,255,.1); color: var(--on-navy); }
+.rail-fold svg, .rail-show svg { width: 18px; height: 18px; }
+.rail-show { position: fixed; z-index: 13; top: calc(10px + env(safe-area-inset-top, 0px)); left: 10px; color: var(--heading); background: var(--raised); border: 1px solid var(--rule); box-shadow: 0 2px 8px rgba(6,27,51,.12); display: none; }
+.rail-show:hover { border-color: var(--heading); }
+.rail-edge { position: fixed; z-index: 12; top: 0; bottom: 0; left: 0; width: 10px; display: none; }
+@media (min-width: 861px) {
+  .rail { transition: transform .18s ease, box-shadow .18s ease; }
+  body.rail-folded { --rail: 0px; }
+  body.rail-folded .rail { transform: translateX(-100%); width: 214px; }
+  body.rail-folded .rail-show, body.rail-folded .rail-edge { display: grid; }
+  body.rail-folded.rail-peek .rail { transform: none; box-shadow: 10px 0 34px rgba(2,12,24,.3); }
+  body.rail-folded.rail-peek .rail-show { display: none; }
+  body.rail-folded .shell .wrap { padding-left: max(56px, env(safe-area-inset-left, 0px)); }
+}
+
+/* ---------- Tableau de bord ---------- */
+#v-tableau { --bad: #9B2C1F; --bad-bg: #F8E6E3; }
+:root[data-theme="dark"] #v-tableau { --bad: #F0A196; --bad-bg: #3A1B18; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) #v-tableau { --bad: #F0A196; --bad-bg: #3A1B18; } }
+.db-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+.db-head .lead { margin-bottom: 0; }
+.db-filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 18px 0 16px; padding: 10px 12px; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); }
+.db-filters select { font: inherit; font-size: var(--fs-sm); padding: 5px 8px; border: 1px solid var(--rule-strong); border-radius: var(--radius); background: var(--bg); color: var(--ink); }
+.kpis { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0; border: 1px solid var(--rule); border-radius: var(--radius); margin-bottom: 16px; background: var(--bg); }
+.kpi { text-align: left; font: inherit; color: inherit; background: none; border: 0; border-right: 1px solid var(--rule); padding: 12px 14px; cursor: pointer; display: flex; flex-direction: column; gap: 2px; border-top: 3px solid transparent; }
+.kpi:last-child { border-right: 0; }
+.kpi:hover { background: var(--surface); }
+.kpi b { font-family: var(--font-display); font-size: 26px; line-height: 1.1; color: var(--heading); font-weight: 600; }
+.kpi .l { font-size: var(--fs-sm); font-weight: 600; color: var(--ink); }
+.kpi .s { font-size: var(--fs-xs); color: var(--muted); }
+.kpi.alert { border-top-color: var(--gold); }
+.kpi.bad { border-top-color: var(--bad); }
+.kpi.bad b { color: var(--bad); }
+.g2, .g2b { display: grid; gap: 16px; margin-bottom: 16px; }
+.g2 { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); }
+.g2b { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+#v-tableau .card { border: 1px solid var(--rule); border-radius: var(--radius); background: var(--bg); padding: 14px 16px; min-width: 0; }
+#v-tableau .card .ch { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+#v-tableau .card h2 { font-family: var(--font-body); font-size: var(--fs-lg); font-weight: 650; margin: 0; color: var(--heading); }
+#v-tableau .card .sub { color: var(--muted); font-size: var(--fs-xs); margin: 2px 0 10px; }
+.lnk { background: none; border: 0; padding: 0; font: inherit; font-size: var(--fs-sm); color: var(--link); cursor: pointer; text-decoration: none; }
+.lnk:hover { text-decoration: underline; }
+.lnk.strong { font-weight: 600; color: var(--ink); font-size: var(--fs-base); }
+.pipe { display: flex; height: 26px; border-radius: var(--radius); overflow: hidden; margin: 4px 0 8px; }
+.pipe div { color: #fff; font-size: var(--fs-xs); font-weight: 600; display: grid; place-items: center; min-width: 20px; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: var(--fs-xs); color: var(--ink-soft); margin-bottom: 12px; }
+.legend i { display: inline-block; width: 9px; height: 9px; margin-right: 5px; vertical-align: -1px; }
+table.mini { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
+table.mini th { text-align: left; font-weight: 600; font-size: var(--fs-2xs); text-transform: uppercase; letter-spacing: .05em; color: var(--muted); border-bottom: 1px solid var(--rule-strong); padding: 6px 8px 6px 0; }
+table.mini td { border-bottom: 1px solid var(--rule); padding: 7px 8px 7px 0; vertical-align: top; }
+table.mini tr:last-child td { border-bottom: 0; }
+table.mini .n { text-align: right; white-space: nowrap; }
+table.mini small { display: block; color: var(--muted); font-size: var(--fs-xs); }
+table.mini .ref { font-weight: 600; color: var(--ink); }
+table.mini .acts2 { white-space: nowrap; text-align: right; }
+.age { font-variant-numeric: tabular-nums; }
+.age.warn { color: var(--warn); font-weight: 600; }
+.age.late { color: var(--bad); font-weight: 600; }
+.alerts { list-style: none; margin: 0; padding: 0; }
+.alerts li { padding: 8px 10px; border-left: 3px solid var(--gold); background: var(--surface); margin-bottom: 6px; font-size: var(--fs-sm); }
+.alerts li.bad { border-left-color: var(--bad); background: var(--bad-bg); }
+.tag2 { font-size: var(--fs-xs); padding: 1px 6px; border-radius: var(--radius); white-space: nowrap; }
+.tag2.b { background: var(--idle-bg); color: var(--idle); }
+.tag2.s { background: var(--ok-bg); color: var(--ok); }
+.tag2.c { background: var(--bad-bg); color: var(--bad); }
+.diffn { white-space: nowrap; font-variant-numeric: tabular-nums; font-size: var(--fs-xs); }
+.diffn .p { color: var(--ok); } .diffn .e { color: var(--warn); } .diffn .m { color: var(--bad); }
+.prog-row { padding: 8px 0; border-bottom: 1px solid var(--rule); }
+.prog-row:last-child { border-bottom: 0; }
+.prog-row .t { display: flex; justify-content: space-between; gap: 10px; font-size: var(--fs-sm); }
+.prog-row .t small { color: var(--muted); }
+.prog-row .who { font-size: var(--fs-xs); color: var(--ink-soft); margin-top: 4px; }
+.bar { height: 5px; background: var(--band); margin-top: 5px; }
+.bar i { display: block; height: 100%; background: var(--ok); }
+.bar i.mid { background: var(--gold); } .bar i.low { background: var(--bad); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.chip { font: inherit; font-size: var(--fs-xs); padding: 3px 9px; border: 1px solid var(--rule-strong); background: var(--bg); color: var(--ink-soft); border-radius: var(--radius); cursor: pointer; }
+.chip.on { background: var(--navy); border-color: var(--navy); color: var(--on-navy); }
+.feed { list-style: none; margin: 0; padding: 0; max-height: 440px; overflow: auto; }
+.feed li { display: grid; grid-template-columns: 120px 22px 1fr; gap: 8px; align-items: start; padding: 7px 0; border-bottom: 1px solid var(--rule); font-size: var(--fs-sm); }
+.feed time { color: var(--muted); font-size: var(--fs-xs); padding-top: 2px; }
+.feed .ic { width: 20px; height: 20px; display: grid; place-items: center; font-size: 11px; border-radius: var(--radius); background: var(--band); color: var(--ink-soft); }
+.feed .ic.v { background: var(--ok-bg); color: var(--ok); } .feed .ic.r { background: var(--bad-bg); color: var(--bad); }
+.feed .ic.m { background: var(--warn-bg); color: var(--warn); } .feed .ic.a { background: var(--navy); color: var(--gold); }
+.rl-txt { width: 100%; font: inherit; font-size: var(--fs-sm); padding: 8px; border: 1px solid var(--rule-strong); border-radius: var(--radius); background: var(--bg); color: var(--ink); margin: 8px 0 4px; }
+@media (max-width: 1100px) { .kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); } .kpi:nth-child(3) { border-right: 0; } .kpi:nth-child(-n+3) { border-bottom: 1px solid var(--rule); } }
+@media (max-width: 900px) { .g2, .g2b { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } .kpi { border-right: 0; border-bottom: 1px solid var(--rule); } .feed li { grid-template-columns: 1fr; } .feed .ic { display: none; } }
+@media print { .rail, .rail-show, .rail-edge, .topbar, .db-filters, .db-head .row-actions, .chips { display: none !important; } .shell { margin-left: 0 !important; } #v-tableau .card { break-inside: avoid; } .feed { max-height: none; } }
 
 /* Styles du corps des documents — partagés par le site et les PDF.
    Les couleurs viennent des jetons définis par chaque gabarit. */
@@ -714,14 +777,16 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
       <span class="brand-mark">PURPOSE CAPITAL</span><span class="brand-rule"></span><span class="brand-sub">Référentiel documentaire</span>
       <span class="brand-mono" aria-hidden="true">PC</span>
     </button>
+    <button type="button" class="rail-fold" id="rail-fold" aria-label="Masquer le menu" title="Masquer le menu"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="1.5"/><path d="M7.5 3.5v13"/></svg></button>
   </div>
-  <nav class="nav" aria-label="Sections"><button type="button" data-open="mesdocs" title="Mes documents" class="nav-emp" hidden><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 2.5h7l3 3v12H5z"/><path d="M12 2.5v3h3M7.5 11l1.8 1.8 3.2-3.6"/></svg><span class="rl">Mes documents</span><span class="badge" id="nav-badge-emp" hidden></span></button><button type="button" data-open="atraiter" title="À traiter"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="14" height="14" rx="2.5"/><path d="M6.5 10.2l2.4 2.3 4.6-5"/></svg><span class="rl">À traiter</span><span class="badge" id="nav-badge" hidden></span></button><button type="button" data-open="registre" title="Documents"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 2.5h7l3 3v12H5z"/><path d="M12 2.5v3h3M7.5 9.5h5M7.5 12.5h5M7.5 15h3"/></svg><span class="rl">Documents</span></button><button type="button" data-open="dossiers" title="Dossiers"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5.5v10h15v-8h-7l-2-2z"/></svg><span class="rl">Dossiers</span></button><button type="button" data-open="visas" title="Suivi des visas"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 14.5c2-1 3-4 4.5-4s.5 3 2 3 2-2 3-2 1 1.5 3.5 1.5"/><path d="M3 17.5h14"/></svg><span class="rl">Suivi des visas</span></button><button type="button" data-open="circuit" title="Circuit d'approbation"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="4.5" cy="10" r="2"/><circle cx="15.5" cy="4.5" r="2"/><circle cx="15.5" cy="15.5" r="2"/><path d="M6.4 9.1l7.2-3.7M6.4 10.9l7.2 3.7"/></svg><span class="rl">Circuit d'approbation</span></button><button type="button" data-open="correspondance" title="Textes de référence"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v14M4 6h12M4 6l-2 5h4zM16 6l-2 5h4zM7 17h6"/></svg><span class="rl">Textes de référence</span></button><button type="button" data-open="glossaire" title="Glossaire"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3.5h9.5a2 2 0 012 2v11H6a2 2 0 01-2-2z"/><path d="M4 14.5a2 2 0 012-2h9.5"/></svg><span class="rl">Glossaire</span></button><button type="button" data-open="archives" title="Archives"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="4" rx="1"/><path d="M4 7.5v9h12v-9M8 11h4"/></svg><span class="rl">Archives</span></button><a href="/membres" class="nav-link" id="nav-membres" title="Membres" hidden><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="7" r="2.6"/><path d="M2.5 16c.6-2.8 2.6-4.3 5-4.3s4.4 1.5 5 4.3"/><circle cx="14" cy="8" r="2"/><path d="M13 12.2c2 0 3.6 1.2 4.2 3.3"/></svg><span class="rl">Membres</span></a></nav>
+  <nav class="nav" aria-label="Sections"><button type="button" data-open="tableau" title="Tableau de bord" id="nav-tableau" hidden><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="6.5" height="8" rx="1"/><rect x="11" y="2.5" width="6.5" height="5" rx="1"/><rect x="2.5" y="12.5" width="6.5" height="5" rx="1"/><rect x="11" y="9.5" width="6.5" height="8" rx="1"/></svg><span class="rl">Tableau de bord</span></button><button type="button" data-open="mesdocs" title="Mes documents" class="nav-emp" hidden><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 2.5h7l3 3v12H5z"/><path d="M12 2.5v3h3M7.5 11l1.8 1.8 3.2-3.6"/></svg><span class="rl">Mes documents</span><span class="badge" id="nav-badge-emp" hidden></span></button><button type="button" data-open="atraiter" title="À traiter"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="14" height="14" rx="2.5"/><path d="M6.5 10.2l2.4 2.3 4.6-5"/></svg><span class="rl">À traiter</span><span class="badge" id="nav-badge" hidden></span></button><button type="button" data-open="registre" title="Documents"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 2.5h7l3 3v12H5z"/><path d="M12 2.5v3h3M7.5 9.5h5M7.5 12.5h5M7.5 15h3"/></svg><span class="rl">Documents</span></button><button type="button" data-open="dossiers" title="Dossiers"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5.5v10h15v-8h-7l-2-2z"/></svg><span class="rl">Dossiers</span></button><button type="button" data-open="visas" title="Suivi des visas"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 14.5c2-1 3-4 4.5-4s.5 3 2 3 2-2 3-2 1 1.5 3.5 1.5"/><path d="M3 17.5h14"/></svg><span class="rl">Suivi des visas</span></button><button type="button" data-open="circuit" title="Circuit d'approbation"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="4.5" cy="10" r="2"/><circle cx="15.5" cy="4.5" r="2"/><circle cx="15.5" cy="15.5" r="2"/><path d="M6.4 9.1l7.2-3.7M6.4 10.9l7.2 3.7"/></svg><span class="rl">Circuit d'approbation</span></button><button type="button" data-open="correspondance" title="Textes de référence"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v14M4 6h12M4 6l-2 5h4zM16 6l-2 5h4zM7 17h6"/></svg><span class="rl">Textes de référence</span></button><button type="button" data-open="glossaire" title="Glossaire"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3.5h9.5a2 2 0 012 2v11H6a2 2 0 01-2-2z"/><path d="M4 14.5a2 2 0 012-2h9.5"/></svg><span class="rl">Glossaire</span></button><button type="button" data-open="archives" title="Archives"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="4" rx="1"/><path d="M4 7.5v9h12v-9M8 11h4"/></svg><span class="rl">Archives</span></button><a href="/membres" class="nav-link" id="nav-membres" title="Membres" hidden><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="7" r="2.6"/><path d="M2.5 16c.6-2.8 2.6-4.3 5-4.3s4.4 1.5 5 4.3"/><circle cx="14" cy="8" r="2"/><path d="M13 12.2c2 0 3.6 1.2 4.2 3.3"/></svg><span class="rl">Membres</span></a></nav>
   <div class="rail-foot">
     <div class="rail-me" id="rail-me" aria-live="polite"></div>
-    <button type="button" class="rail-fold" id="rail-fold" aria-label="Réduire le menu" title="Réduire le menu"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5l-5 5 5 5"/></svg></button>
   </div>
 </aside>
 <div class="rail-scrim" id="rail-scrim" hidden></div>
+<div class="rail-edge" id="rail-edge" aria-hidden="true"></div>
+<button type="button" class="rail-show" id="rail-show" aria-label="Afficher le menu" title="Afficher le menu"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="1.5"/><path d="M7.5 3.5v13"/></svg></button>
 <div class="shell">
 <main>
   <section class="view wrap" id="v-registre">
@@ -751,7 +816,8 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
   <section class="view wrap" id="v-visas" hidden></section>
 
   <section class="view wrap" id="v-circuit" hidden></section>
-  <section class="view wrap" id="v-atraiter" hidden></section>
+  <section class="view wrap" id="v-tableau" hidden></section>
+<section class="view wrap" id="v-atraiter" hidden></section>
   <section class="view wrap" id="v-archives" hidden></section>
   <section class="view wrap" id="v-edition" hidden></section>
   <section class="view wrap" id="v-mesdocs" hidden></section>
@@ -1381,14 +1447,25 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
   });
 
   // ---------- Rail de navigation ----------
+  // Rail : masquer / afficher (mémorisé) ; rail masqué, le survol du bord gauche l'affiche temporairement
   function railFold(on) {
-    document.body.classList.toggle("rail-folded", on);
-    var b = $("#rail-fold"); b.setAttribute("aria-label", on ? "Déplier le menu" : "Réduire le menu"); b.title = b.getAttribute("aria-label");
+    document.body.classList.toggle("rail-folded", on); document.body.classList.remove("rail-peek");
+    var b = $("#rail-fold"); b.setAttribute("aria-label", on ? "Garder le menu affiché" : "Masquer le menu"); b.title = b.getAttribute("aria-label");
     try { localStorage.setItem("pc-ref-rail", on ? "1" : "0"); } catch (e) { /* stockage indisponible */ }
   }
   function railMobile(on) { document.body.classList.toggle("rail-open", on); $("#rail-scrim").hidden = !on; }
   try { if (localStorage.getItem("pc-ref-rail") === "1") railFold(true); } catch (e) { /* stockage indisponible */ }
-  $("#rail-fold").addEventListener("click", function () { railFold(!document.body.classList.contains("rail-folded")); });
+  var peekT = null;
+  var peek = function (on) { clearTimeout(peekT); peekT = null; if (on) document.body.classList.add("rail-peek"); else peekT = setTimeout(function () { document.body.classList.remove("rail-peek"); peekT = null; }, 250); };
+  $("#rail-fold").addEventListener("click", function () { railFold(!document.body.classList.contains("rail-folded") ? true : false); });
+  $("#rail-show").addEventListener("click", function () { railFold(false); });
+  $("#rail-edge").addEventListener("mouseenter", function () { peek(true); });
+  // Le menu reste ouvert tant que la souris est dessus ; il se replie dès qu'elle s'en éloigne (suivi de la position, plus fiable que mouseleave quand le menu glisse sous le pointeur)
+  document.addEventListener("mousemove", function (ev) {
+    var b = document.body; if (!b.classList.contains("rail-folded") || !b.classList.contains("rail-peek")) return;
+    var r = $("#rail").getBoundingClientRect();
+    if (ev.clientX <= r.right + 16) { clearTimeout(peekT); peekT = null; } else if (!peekT) peek(false);
+  });
   $("#rail-open").addEventListener("click", function () { railMobile(true); });
   $("#rail-scrim").addEventListener("click", function () { railMobile(false); });
 
@@ -1407,7 +1484,7 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
 
 
   // ---------- Navigation ----------
-  var VIEWS = ["registre", "doc", "glossaire", "correspondance", "circuit", "dossiers", "dossier", "visas", "atraiter", "archives", "edition", "mesdocs", "nouveau"];
+  var VIEWS = ["registre", "doc", "glossaire", "correspondance", "circuit", "dossiers", "dossier", "visas", "atraiter", "archives", "edition", "mesdocs", "nouveau", "tableau"];
   function go(target) {
     if (target === "registre") target = "";
     if (location.hash.slice(1) === target) route(); else location.hash = target;
@@ -1434,6 +1511,7 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
     if (view === "dossiers") renderDossiers();
     if (view === "visas") renderVisas();
     if (view === "atraiter") renderATraiter();
+    if (view === "tableau") renderTableau();
     if (view === "circuit") renderCircuit();
     if (view === "archives") renderArchives();
     if (view === "edition") openEditor(h.slice(8));
@@ -2106,8 +2184,10 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
   var typeKey = function (t) { return String(t || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); };
   var TYPES = docs.map(function (d) { return d.type; }).filter(function (t, i, a) { return a.indexOf(t) === i; });
   function normStep(s) {
-    return { etape: s.etape, label: s.label, role: s.role, fonction: s.fonction || FLABEL[s.role] || s.role, regle: s.regle || "un", obligatoire: s.obligatoire !== false, seance: s.seance != null ? !!s.seance : s.etape === "adoption" };
+    return { etape: s.etape, label: s.label, role: s.role, fonction: s.fonction || FLABEL[s.role] || s.role, regle: s.regle || "un", obligatoire: s.obligatoire !== false, seance: s.seance != null ? !!s.seance : s.etape === "adoption", delai: +s.delai > 0 ? +s.delai : 7 };
   }
+  // Délai de prise de connaissance (jours) fixé par l'administrateur pour un type de document
+  var delaiLecture = function (type) { var c = V.circuits[typeKey(type)]; return c && +c.delaiLecture > 0 ? +c.delaiLecture : 15; };
   // Circuit d'une version : figé au premier visa ; sinon celui du type ; sinon celui déclaré dans le document
   function circOf(d) {
     var f = V.figes[d.id + "~" + d.empreinte]; if (f && f.etapes && f.etapes.length) return f.etapes.map(normStep);
@@ -2158,24 +2238,27 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
     return { steps: steps, approved: approved, current: current, renvois: renvois, readers: readers, read: read };
   }
   // Règle des quatre yeux : une même personne ne vise pas deux étapes d'une même version
-  function signedOther(d, etape) {
-    return sigsOf(d.id).some(function (s) { return s.by === V.me && s.empreinte === d.empreinte && s.etape !== etape && s.etape !== "lecture" && s.etape !== "renvoi"; });
+  function signedOther(d, etape, who) {
+    who = who || V.me;
+    return sigsOf(d.id).some(function (s) { return s.by === who && s.empreinte === d.empreinte && s.etape !== etape && s.etape !== "lecture" && s.etape !== "renvoi"; });
   }
-  // Ce que la personne connectée peut faire maintenant, dans l'ordre du circuit
-  function myActions(d) {
-    if (!V.me || !V.canWrite || etatOf(d.id)) return [];
+  var authorOf = function (d, who) { var a = V.auteurs && V.auteurs[d.id + "~" + d.empreinte]; return !!(a && who && (a.auteurs || []).indexOf(who) >= 0); };
+  // Ce qu'une personne peut faire maintenant sur un document, dans l'ordre du circuit
+  function actionsFor(d, who) {
+    if (!who || etatOf(d.id)) return [];
     var st = docState(d), acts = [];
     if (st.renvois.length) return [];
-    if (isAuthor(d)) { if (!d.estProjet && st.approved && st.readers.indexOf(V.me) >= 0 && st.read.indexOf(V.me) < 0) acts.push({ etape: "lecture", label: "Prise de connaissance", role: "lecture" }); return acts; }
-    for (var i = 0; i < st.steps.length; i++) {
+    var lecture = !d.estProjet && st.approved && st.readers.indexOf(who) >= 0 && st.read.indexOf(who) < 0;
+    if (!authorOf(d, who)) for (var i = 0; i < st.steps.length; i++) {
       var x = st.steps[i];
       if (x.done) continue;
-      if (hasRole(V.me, x.st.role) && x.by.indexOf(V.me) < 0 && !signedOther(d, x.st.etape)) acts.push({ etape: x.st.etape, label: x.st.label, role: x.st.role, seance: x.st.seance });
+      if (hasRole(who, x.st.role) && x.by.indexOf(who) < 0 && !signedOther(d, x.st.etape, who)) acts.push({ etape: x.st.etape, label: x.st.label, role: x.st.role, seance: x.st.seance });
       if (x.st.obligatoire) break; // une étape obligatoire à la fois, dans l'ordre
     }
-    if (!d.estProjet && st.approved && st.readers.indexOf(V.me) >= 0 && st.read.indexOf(V.me) < 0) acts.push({ etape: "lecture", label: "Prise de connaissance", role: "lecture" });
+    if (lecture) acts.push({ etape: "lecture", label: "Prise de connaissance", role: "lecture" });
     return acts;
   }
+  function myActions(d) { return V.me && V.canWrite ? actionsFor(d, V.me) : []; }
   // Pourquoi la personne ne peut pas agir sur l'étape en cours : on l'explique plutôt que de la laisser chercher
   function myBlock(d) {
     if (!V.me) return "";
@@ -2512,8 +2595,8 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
       var issues = circuitIssues(steps);
       return '<article class="ccard"><header><div><h3>' + esc(t) + '</h3><span class="cite-src">' + ofType.length + " document" + (ofType.length > 1 ? "s" : "") + (niv[t] ? " · revue " + esc(String(niv[t].revue).toLowerCase()) : "") + " · " + (cfg ? "défini par l'administrateur" + (cfg.maj ? " le " + esc(fmtD(cfg.maj)) : "") : "déclaré dans les documents") + "</span></div>" +
         (V.owner && V.db ? '<button type="button" class="btn" data-vcirc="' + esc(k) + '|edit">Modifier</button>' : "") + "</header>" +
-        '<ol class="csteps">' + steps.map(function (s, i) { return '<li class="' + (s.obligatoire ? "" : "opt") + '"><span class="stepn">' + (i + 1) + "</span><div><b>" + esc(s.label) + "</b><span>" + esc(FLABEL[s.role] || s.fonction) + (s.regle !== "un" ? " · " + esc(REGLES[s.regle]) : "") + (s.obligatoire ? "" : " · facultative") + (s.seance ? " · date de séance et PV" : "") + "</span></div></li>"; }).join("") +
-        '<li class="end"><span class="stepn">✓</span><div><b>Prise de connaissance</b><span>Personnes désignées</span></div></li></ol>' +
+        '<ol class="csteps">' + steps.map(function (s, i) { return '<li class="' + (s.obligatoire ? "" : "opt") + '"><span class="stepn">' + (i + 1) + "</span><div><b>" + esc(s.label) + "</b><span>" + esc(FLABEL[s.role] || s.fonction) + (s.regle !== "un" ? " · " + esc(REGLES[s.regle]) : "") + (s.obligatoire ? "" : " · facultative") + (s.seance ? " · date de séance et PV" : "") + " · délai " + (s.delai || 7) + " j</span></div></li>"; }).join("") +
+        '<li class="end"><span class="stepn">✓</span><div><b>Prise de connaissance</b><span>Personnes désignées · délai ' + delaiLecture(t) + " j</span></div></li></ol>" +
         (varies ? '<p class="cite-src">Les documents de ce type déclarent des circuits différents ; le premier est affiché. Définir le circuit du type l\'appliquera à tous.</p>' : "") +
         (issues.length ? '<ul class="tt-warn">' + issues.map(function (m) { return "<li>" + esc(m) + "</li>"; }).join("") + "</ul>" : "") + "</article>";
     }).join("");
@@ -2534,18 +2617,20 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
           '<label class="vf">Étape<input type="text" data-cedit="' + i + '|label" value="' + esc(s.label) + '" maxlength="80"></label>' +
           '<label class="vf">Fonction<select data-cedit="' + i + '|role">' + opt(FONCTIONS, s.role) + "</select></label>" +
           '<label class="vf">Qui doit viser<select data-cedit="' + i + '|regle">' + opt(regles, s.regle || "un") + "</select></label>" +
+          '<label class="vf">Délai (jours)<input type="number" min="1" max="180" data-cedit="' + i + '|delai" value="' + esc(s.delai || 7) + '"></label>' +
           '<label class="chkl"><input type="checkbox" data-cedit="' + i + '|obligatoire"' + (s.obligatoire !== false ? " checked" : "") + "> Obligatoire</label>" +
           '<label class="chkl"><input type="checkbox" data-cedit="' + i + '|seance"' + (s.seance ? " checked" : "") + "> Date de séance et PV</label></div>" +
           '<div class="ce-move"><button type="button" class="icon-btn" data-vcirc="' + k + "|up|" + i + '" aria-label="Monter"' + (i ? "" : " disabled") + '>↑</button><button type="button" class="icon-btn" data-vcirc="' + k + "|down|" + i + '" aria-label="Descendre"' + (i < steps.length - 1 ? "" : " disabled") + '>↓</button><button type="button" class="icon-btn" data-vcirc="' + k + "|del|" + i + '" aria-label="Supprimer l\'étape">✕</button></div></li>';
       }).join("") + "</ol>" +
       '<button type="button" class="btn" data-vcirc="' + k + '|add">+ Ajouter une étape</button>' +
+      '<label class="vf" style="max-width:320px;margin-top:12px">Délai de prise de connaissance après adoption (jours)<input type="number" min="1" max="180" data-cedit="L|delaiLecture" value="' + esc(V.edit.delaiLecture || 15) + '"></label>' +
       (issues.length ? '<ul class="tt-warn">' + issues.map(function (m) { return "<li>" + esc(m) + "</li>"; }).join("") + "</ul>" : "") +
       '<div class="visa-btns"><button type="button" class="btn primary" data-vcirc="' + k + '|save">Enregistrer le circuit</button><button type="button" class="btn" data-vcirc="' + k + '|cancel">Annuler</button>' +
       (V.circuits[k] ? '<button type="button" class="btn ghost" data-vcirc="' + k + '|reset">Revenir au circuit déclaré dans les documents</button>' : "") + "</div></article>";
   }
   async function circAction(k, act, i) {
     var t = TYPES.filter(function (x) { return typeKey(x) === k; })[0];
-    if (act === "edit") { var c = V.circuits[k]; V.edit = { type: k, steps: JSON.parse(JSON.stringify(c && c.etapes && c.etapes.length ? c.etapes.map(normStep) : defaultTypeCircuit(t))) }; renderCircuit(); return; }
+    if (act === "edit") { var c = V.circuits[k]; V.edit = { type: k, delaiLecture: (c && c.delaiLecture) || 15, steps: JSON.parse(JSON.stringify(c && c.etapes && c.etapes.length ? c.etapes.map(normStep) : defaultTypeCircuit(t))) }; renderCircuit(); return; }
     if (!V.edit || V.edit.type !== k) return;
     var s = V.edit.steps; i = +i;
     if (act === "cancel") { V.edit = null; renderCircuit(); return; }
@@ -2561,7 +2646,7 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
       var steps = s.map(function (x) {
         var base = x.etape || (x.seance ? "adoption" : /v[ée]rif/i.test(x.label) ? "verification" : /approb/i.test(x.label) ? "approbation" : typeKey(x.label) || "etape");
         var e = base, n = 2; while (used[e]) e = base + "-" + n++; used[e] = 1;
-        return { etape: e, label: String(x.label || "").trim(), role: x.role, fonction: FLABEL[x.role] || x.role, regle: x.regle || "un", obligatoire: x.obligatoire !== false, seance: !!x.seance };
+        return { etape: e, label: String(x.label || "").trim(), role: x.role, fonction: FLABEL[x.role] || x.role, regle: x.regle || "un", obligatoire: x.obligatoire !== false, seance: !!x.seance, delai: Math.max(1, Math.min(180, +x.delai || 7)) };
       });
       if (!steps.length || steps.some(function (x) { return !x.label; })) { toast("Chaque étape doit avoir un nom."); return; }
       if (!steps.some(function (x) { return x.obligatoire; })) { toast("Le circuit doit comporter au moins une étape obligatoire."); return; }
@@ -2572,7 +2657,7 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
         phrase: "modifier le circuit " + t, bouton: "Enregistrer le circuit"
       });
       if (!ok) return;
-      try { await V.db.doc("circuits/" + k).set({ type: t, etapes: steps, maj: new Date().toISOString(), par: V.me }); V.edit = null; toast("Circuit des documents de type « " + t + " » enregistré."); }
+      try { await V.db.doc("circuits/" + k).set({ type: t, etapes: steps, delaiLecture: Math.max(1, Math.min(180, +V.edit.delaiLecture || 15)), maj: new Date().toISOString(), par: V.me }); V.edit = null; toast("Circuit des documents de type « " + t + " » enregistré."); }
       catch (e) { toast("Enregistrement refusé : réservé à l'administrateur."); }
       return;
     }
@@ -2637,7 +2722,7 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
   var vSearchTimer = null;
   document.addEventListener("input", function (ev) {
     var t = ev.target;
-    if (t.matches && t.matches("[data-cedit]") && V.edit && V.edit.steps) { var p = t.getAttribute("data-cedit").split("|"); var s = V.edit.steps[+p[0]]; if (s && t.type !== "checkbox") s[p[1]] = t.value; return; }
+    if (t.matches && t.matches("[data-cedit]") && V.edit && V.edit.steps) { var p = t.getAttribute("data-cedit").split("|"); if (p[0] === "L") { V.edit.delaiLecture = t.value; return; } var s = V.edit.steps[+p[0]]; if (s && t.type !== "checkbox") s[p[1]] = t.value; return; }
     if (t.id !== "v-q" || !V.user) return;
     var q = t.value;
     clearTimeout(vSearchTimer);
@@ -2649,7 +2734,7 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
   });
   document.addEventListener("change", function (ev) {
     var t = ev.target;
-    if (t.matches("[data-cedit]") && V.edit && V.edit.steps) { var c = t.getAttribute("data-cedit").split("|"); var s = V.edit.steps[+c[0]]; if (s) { s[c[1]] = t.type === "checkbox" ? t.checked : t.value; renderCircuit(); } return; }
+    if (t.matches("[data-cedit]") && V.edit && V.edit.steps) { var c = t.getAttribute("data-cedit").split("|"); if (c[0] === "L") { V.edit.delaiLecture = t.value; return; } var s = V.edit.steps[+c[0]]; if (s) { s[c[1]] = t.type === "checkbox" ? t.checked : t.value; renderCircuit(); } return; }
     if (t.matches("[data-vrole]")) { var p = t.getAttribute("data-vrole").split("|"); vSetRole(p[0], p[1], t.checked); }
     if (t.matches("[data-vlect]")) { var q = t.getAttribute("data-vlect").split("|"); vSetLect(q[0], q[1], t.checked); }
   });
@@ -2687,6 +2772,7 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
     var box = $("#rail-me"); if (!box) return;
     var badge = $(RESTREINT ? "#nav-badge-emp" : "#nav-badge");
     var lm = $("#nav-membres"); if (lm) lm.hidden = !(HOSTED && V.owner);
+    var lt = $("#nav-tableau"); if (lt) lt.hidden = !accesTableau();
     var bn = $("#btn-nouveau"); if (bn) bn.hidden = !(HOSTED && typeof canEdit === "function" && canEdit());
     if (!V.ready && !V.me) { box.innerHTML = '<div class="me-load">Chargement…</div>'; return; }
     if (!V.me) {
@@ -2743,6 +2829,7 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
     if (h === "visas") renderVisas();
     if (h === "atraiter") renderATraiter();
     if (h === "circuit") renderCircuit();
+    if (h === "tableau" && !(act && act.closest && act.closest("#v-tableau"))) renderTableau();
     if (h === "archives") renderArchives();
     if (RESTREINT && (h === "" || h === "mesdocs")) renderMesDocs();
     if (h.indexOf("edition/") === 0 && E && !(act && act.closest && act.closest("#v-edition"))) renderEditor();
@@ -3373,6 +3460,285 @@ td .opt-inline, th .opt-inline { font-size: .85em; color: var(--muted); border: 
       '<ul class="tt-list">' + ren.map(function (d) { var r = docState(d).renvois[0]; return li(d.id, "Renvoyé par " + esc(vName(r.by)) + " : « " + esc(r.commentaire || "") + " »", "Corriger"); }).join("") +
       mine.map(function (x) { return li(x.id, (x.r.statut === "soumis" ? "Soumis le " + esc(fmtDT(x.r.soumis_le)) + ", publication en cours" : x.r.statut === "conflit" ? "Publication refusée : " + esc(x.r.message || "") : "Brouillon · " + esc(fmtDT(x.r.maj))) + (x.r.objet ? " · « " + esc(x.r.objet) + " »" : ""), "Ouvrir"); }).join("") + "</ul>";
   }
+
+  // ---------- Tableau de bord ----------
+  // Vue d'ensemble pour l'administrateur et les personnes à qui il l'ouvre (page Membres) :
+  // documents par étape, visas attendus et retards (délais fixés par type dans la page Circuit), alertes,
+  // charge par personne, modifications en cours, lectures, journal des opérations, revues périodiques.
+  var T = { periode: 30, type: "", domaine: "", personne: "", projets: true, flux: "tout", journal: null, ampleur: {}, relance: null };
+  var JOUR = 86400000;
+  var jours = function (iso) { return iso ? Math.max(0, Math.floor((Date.now() - new Date(iso).getTime()) / JOUR)) : 0; };
+  var jTxt = function (n) { return n === 0 ? "aujourd'hui" : n + " j"; };
+  var accesTableau = function () { var r = V.me && V.roles[V.me]; return !!(V.db && V.me && (V.owner || (r && r.actif !== false && r.tableau && r.acces !== "employe"))); };
+  var fonctionsDe = function (id) { var r = V.roles[id]; return r ? (r.fonctions || []).filter(function (f) { return f !== "collab" || (r.fonctions || []).length === 1; }).map(function (f) { return FLABEL[f] || f; }).join(", ") : ""; };
+  var nomCourt = function (id) { return vName(id).replace(" (vous)", ""); };
+
+  function docsSuivis() {
+    return VARIANTS().filter(function (d) {
+      if (etatOf(d.id)) return false;
+      if (T.type && d.type !== T.type) return false;
+      if (T.domaine && d.domaine !== T.domaine) return false;
+      if (!T.projets && d.statut !== "En vigueur" && !d.estProjet) return false;
+      return true;
+    });
+  }
+  // Début de l'étape en cours : dernier visa de l'étape précédente, sinon date du texte (historique)
+  function debutEtape(d, st, x) {
+    var i = st.steps.indexOf(x), t = null;
+    for (var k = 0; k < i; k++) { var s = st.steps[k]; if (s.done) s.sigs.forEach(function (g) { if (!t || g.at > t) t = g.at; }); }
+    return t || (d.historique && d.historique[0] && d.historique[0].date) || null;
+  }
+  function dateApprobation(d, st) {
+    var t = null; st.steps.forEach(function (s) { if (s.st.obligatoire) s.sigs.forEach(function (g) { if (!t || g.at > t) t = g.at; }); });
+    return t || d.date_approbation || null;
+  }
+  function attentes(list) {
+    var out = [];
+    list.forEach(function (d) {
+      var st = docState(d), x = st.current; if (!x) return;
+      var qui = x.holders.filter(function (h) { return x.by.indexOf(h) < 0 && !authorOf(d, h) && !signedOther(d, x.st.etape, h); });
+      var dep = debutEtape(d, st, x), age = jours(dep);
+      out.push({ d: d, x: x, qui: qui, depuis: dep, age: age, delai: x.st.delai || 7, retard: age > (x.st.delai || 7) });
+    });
+    return out.sort(function (a, b) { return b.age - a.age; });
+  }
+  function lectures(list) {
+    return list.filter(function (d) { return !d.estProjet; }).map(function (d) {
+      var st = docState(d); if (!st.approved || !st.readers.length) return null;
+      var dep = dateApprobation(d, st), lim = delaiLecture(d.type), age = jours(dep);
+      var manquants = st.readers.filter(function (r) { return st.read.indexOf(r) < 0; });
+      return { d: d, lus: st.read.length, attendus: st.readers.length, manquants: manquants, retard: age > lim ? manquants : [], age: age, delai: lim };
+    }).filter(Boolean);
+  }
+  function echeance(d) {
+    var v = String(d.prochaine_revue || "");
+    if (/^\d{4}-\d{2}-\d{2}$/.test(v)) return v;
+    var m = v.match(/(\d+)\s*mois/), base = d.date_effet || d.date_approbation;
+    if (m && base && d.statut === "En vigueur") { var x = new Date(base + "T00:00:00"); x.setMonth(x.getMonth() + +m[1]); return x.toISOString().slice(0, 10); }
+    return null;
+  }
+
+  async function chargerJournal() {
+    if (!V.db || T.journal) return;
+    T.journal = [];
+    try { var s = await V.db.collection("journal").get(); T.journal = s.docs.map(function (x) { return x.data(); }); }
+    catch (e) { T.journal = null; }
+    if (location.hash === "#tableau") renderTableau();
+  }
+  var idParEmail = function (mail) { mail = String(mail || "").toLowerCase(); var id = Object.keys(V.emails).filter(function (k) { return String(V.emails[k]).toLowerCase() === mail; })[0]; return id || null; };
+  function evenements() {
+    var out = [], lim = T.periode ? Date.now() - T.periode * JOUR : 0;
+    var push = function (at, cat, qui, texte) { if (!at || new Date(at).getTime() < lim) return; out.push({ at: at, cat: cat, qui: qui, texte: texte }); };
+    if (T.journal) T.journal.forEach(function (j) {
+      var p = String(j.path || ""), dt = j.data || {}, par = j.par_email ? (idParEmail(j.par_email) ? nomCourt(idParEmail(j.par_email)) : j.par_email) : "Publication automatique";
+      var seg = p.split("/");
+      if (seg[0] === "sig" && j.action === "INSERT") {
+        var who = nomCourt(seg[1]) + (fonctionsDe(seg[1]) ? " (" + fonctionsDe(seg[1]) + ")" : "");
+        if (dt.etape === "lecture") push(j.le, "lectures", who, "a attesté sa lecture de <b>" + esc(dt.doc) + "</b> v" + esc(dt.version));
+        else if (dt.etape === "renvoi") push(j.le, "renvois", who, "a <b>renvoyé</b> " + esc(dt.doc) + " : « " + esc(dt.commentaire || "") + " »");
+        else push(j.le, "visas", who, "a donné son visa (" + esc(FLABEL[dt.role] || dt.role) + ") à <b>" + esc(dt.doc) + "</b> v" + esc(dt.version));
+      } else if (seg[0] === "redaction") {
+        if (dt.statut === "soumis" && j.action !== "DELETE") push(j.le, "modifications", par, "a <b>soumis</b> " + (dt.nouveau ? "la création de " : "une modification de ") + esc(seg[1]) + (dt.objet ? " : « " + esc(dt.objet) + " »" : ""));
+        else if (dt.statut === "applique") push(j.le, "modifications", "Publication automatique", esc(seg[1]) + (dt.nouveau ? " <b>créé</b>" : " <b>modifié</b>") + " (v" + esc(dt.version || "") + ")");
+        else if (dt.statut === "conflit") push(j.le, "modifications", "Publication automatique", "publication de " + esc(seg[1]) + " <b>refusée</b> : " + esc(dt.message || ""));
+        else if (j.action === "INSERT") push(j.le, "modifications", par, "a ouvert un brouillon de " + esc(seg[1]));
+        else if (j.action === "DELETE") push(j.le, "modifications", par, "a abandonné le brouillon de " + esc(seg[1]));
+      } else if (seg[0] === "adoptions" && dt.statut === "adopte") push(j.le, "adoptions", "Publication automatique", "<b>" + esc(seg[1].split("~")[0]) + "</b> adopté : v" + esc(dt.version) + " en vigueur");
+      else if (seg[0] === "etats") push(j.le, "abrogations", par, j.action === "DELETE" ? "a <b>rétabli</b> " + esc(seg[1]) : "a <b>" + (dt.statut === "supprime" ? "supprimé" : "abrogé") + "</b> " + esc(seg[1]) + (dt.motif ? " : « " + esc(dt.motif) + " »" : ""));
+      else if (seg[0] === "circuits") push(j.le, "acces", par, (j.action === "DELETE" ? "a rétabli" : "a <b>modifié</b>") + " le circuit des documents de type « " + esc(dt.type || seg[1]) + " »");
+      else if (seg[0] === "lectures") push(j.le, "acces", par, "a modifié les lectures obligatoires de " + esc(seg[1]));
+      else if (/^MEMBRE_/.test(j.action)) push(j.le, "acces", par, (j.action === "MEMBRE_INSERT" ? "a <b>ouvert un accès</b> pour " : j.action === "MEMBRE_DELETE" ? "a retiré l'invitation de " : "a modifié l'accès de ") + esc((dt.nom || "") + (dt.nom ? " · " : "") + (dt.email || p)));
+    });
+    else Object.keys(V.sigs).forEach(function (id) { (V.sigs[id] || []).forEach(function (g) { push(g.at, g.etape === "lecture" ? "lectures" : g.etape === "renvoi" ? "renvois" : "visas", nomCourt(id), (g.etape === "lecture" ? "a attesté sa lecture de " : g.etape === "renvoi" ? "a renvoyé " : "a visé ") + "<b>" + esc(g.doc) + "</b>"); }); });
+    return out.sort(function (a, b) { return a.at < b.at ? 1 : -1; });
+  }
+
+  var COULEURS = { renvoi: "#9B2C1F", lecture: "#3E8E7E", ok: "#1E6B45", attente: "#8FA2B8" };
+  var PALETTE = ["#1E4A78", "#0B2E52", "#5A3E8A", "#2F6E9E", "#4B5D73"];
+  function renderTableau() {
+    var v = $("#v-tableau"); if (!v) return;
+    if (!accesTableau()) { v.innerHTML = '<div class="eyebrow">Administration</div><h1 class="title">Tableau de bord</h1><p class="lead">' + (V.ready ? "Le tableau de bord est réservé à l'administrateur et aux personnes à qui il l'a ouvert." : "Chargement…") + "</p>"; return; }
+    chargerJournal();
+    var list = docsSuivis(), att = attentes(list), lec = lectures(list);
+    if (T.personne) att = att.filter(function (a) { return a.qui.indexOf(T.personne) >= 0; });
+    var principaux = docs.filter(function (d) { return !etatOf(d.id) && (!T.type || d.type === T.type) && (!T.domaine || d.domaine === T.domaine); });
+    var nV = principaux.filter(function (d) { return d.statut === "En vigueur"; }).length, nP = principaux.filter(function (d) { return d.statut !== "En vigueur"; }).length, nR = principaux.filter(function (d) { return d.projet; }).length;
+    var renv = list.filter(function (d) { return docState(d).renvois.length; });
+    var lus = lec.reduce(function (n, l) { return n + l.lus; }, 0), att2 = lec.reduce(function (n, l) { return n + l.attendus; }, 0), enRetardL = lec.reduce(function (n, l) { return n + l.retard.length; }, 0);
+    var drafts = Object.keys(V.redac || {}).map(function (id) { return { id: id, r: V.redac[id] }; }).filter(function (x) { return x.r && ["brouillon", "soumis", "conflit"].indexOf(x.r.statut) >= 0; });
+    var rev = principaux.map(function (d) { return { d: d, e: echeance(d) }; }).filter(function (x) { return x.e; }).sort(function (a, b) { return a.e < b.e ? -1 : 1; });
+    var auj = new Date().toISOString().slice(0, 10), dans60 = new Date(Date.now() + 60 * JOUR).toISOString().slice(0, 10);
+    var echues = rev.filter(function (x) { return x.e < auj; }).length, bientot = rev.filter(function (x) { return x.e >= auj && x.e <= dans60; }).length;
+    var retards = att.filter(function (a) { return a.retard; }).length;
+
+    var kpi = function (val, lab, sub, cls, go) { return '<button type="button" class="kpi ' + (cls || "") + '"' + (go ? ' data-tgo="' + go + '"' : "") + "><b>" + val + '</b><span class="l">' + lab + '</span><span class="s">' + sub + "</span></button>"; };
+    var kpis = '<div class="kpis">' +
+      kpi(principaux.length, "Documents", nV + " en vigueur · " + nP + " en projet" + (nR ? " · " + nR + " en révision" : ""), "", "registre") +
+      kpi(att.length, "Visas en attente", retards ? retards + " au-delà du délai" : "aucun retard", retards ? "alert" : "", "t-att") +
+      kpi(renv.length, "Renvois ouverts", renv.length ? renv.map(function (d) { return d.id.replace(/^PC-/, ""); }).slice(0, 3).join(", ") : "aucun", renv.length ? "bad" : "", "t-att") +
+      kpi(att2 ? Math.round(100 * lus / att2) + " %" : "—", "Lectures attestées", att2 ? lus + " / " + att2 + (enRetardL ? " · " + enRetardL + " en retard" : "") : "aucune lecture demandée", enRetardL ? "alert" : "", "t-lec") +
+      kpi(drafts.length, "Modifications", drafts.filter(function (x) { return x.r.statut === "brouillon"; }).length + " brouillon(s) · " + drafts.filter(function (x) { return x.r.statut === "soumis"; }).length + " soumis" + (drafts.some(function (x) { return x.r.statut === "conflit"; }) ? " · refus" : ""), drafts.some(function (x) { return x.r.statut === "conflit"; }) ? "bad" : "", "t-mod") +
+      kpi(echues, "Revue" + (echues > 1 ? "s" : "") + " échue" + (echues > 1 ? "s" : ""), bientot + " autre(s) sous 60 jours", echues ? "bad" : "", "t-rev") + "</div>";
+
+    // Étapes
+    var groupes = {}, ordre = [];
+    list.forEach(function (d) { var s = stageOf(d); var k = s.k.indexOf("etape:") === 0 ? s.label : s.k; if (!groupes[k]) { groupes[k] = { k: k, label: s.label, n: 0, o: s.k === "renvoi" ? 90 : s.k === "lecture" ? 91 : s.k === "ok" ? 92 : s.k === "attente" ? -1 : (s.step ? circOf(d).map(function (x) { return x.label; }).indexOf(s.label) : 50) }; ordre.push(groupes[k]); } groupes[k].n++; });
+    ordre.sort(function (a, b) { return a.o - b.o; });
+    var pi = 0, col = function (g) { return g.k === "renvoi" ? COULEURS.renvoi : g.k === "lecture" ? COULEURS.lecture : g.k === "ok" ? COULEURS.ok : g.k === "attente" ? COULEURS.attente : PALETTE[pi++ % PALETTE.length]; };
+    ordre.forEach(function (g) { g.c = col(g); });
+    var pipe = '<div class="pipe">' + ordre.map(function (g) { return '<div style="flex:' + g.n + ";background:" + g.c + '" title="' + esc(g.label) + " : " + g.n + '">' + g.n + "</div>"; }).join("") + '</div><div class="legend">' + ordre.map(function (g) { return '<span><i style="background:' + g.c + '"></i>' + esc(g.label) + " <b>" + g.n + "</b></span>"; }).join("") + "</div>";
+    // Délais par étape : moyenne des étapes terminées dans la période, plus longue attente en cours
+    var lim = T.periode ? Date.now() - T.periode * JOUR : 0, dl = {};
+    list.forEach(function (d) {
+      var st = docState(d);
+      st.steps.forEach(function (x, i) {
+        var k = x.st.label, e = dl[k] || (dl[k] = { label: k, durees: [], max: 0, delais: [] });
+        if (e.delais.indexOf(x.st.delai) < 0) e.delais.push(x.st.delai);
+        if (x.done && x.sigs.length) { var fin = x.sigs[0].at; if (new Date(fin).getTime() >= lim) { var deb = debutEtape(d, st, x); if (deb) e.durees.push((new Date(fin) - new Date(deb)) / JOUR); } }
+        if (st.current === x) e.max = Math.max(e.max, jours(debutEtape(d, st, x)));
+      });
+    });
+    var dlRows = Object.keys(dl).map(function (k) { return dl[k]; });
+    var dMoy = function (e) { return e.durees.length ? (e.durees.reduce(function (a, b) { return a + b; }, 0) / e.durees.length).toFixed(1).replace(".", ",") + " j" : "—"; };
+    var delais = '<table class="mini"><thead><tr><th>Étape</th><th class="n">Délai moyen</th><th class="n">Plus longue attente</th><th class="n">Objectif</th></tr></thead><tbody>' +
+      dlRows.map(function (e) { var obj = Math.min.apply(null, e.delais); return "<tr><td>" + esc(e.label) + '</td><td class="n">' + dMoy(e) + '</td><td class="n"><span class="age ' + (e.max > obj ? "late" : e.max > obj * 0.7 ? "warn" : "") + '">' + (e.max ? e.max + " j" : "—") + '</span></td><td class="n">' + (e.delais.length > 1 ? Math.min.apply(null, e.delais) + "–" + Math.max.apply(null, e.delais) : obj) + " j</td></tr>"; }).join("") +
+      '<tr><td>Prise de connaissance</td><td class="n">—</td><td class="n"><span class="age ' + (lec.some(function (l) { return l.retard.length; }) ? "late" : "") + '">' + (lec.length ? Math.max.apply(null, lec.map(function (l) { return l.manquants.length ? l.age : 0; })) + " j" : "—") + '</span></td><td class="n">' + TYPES.map(delaiLecture).filter(function (x, i, a) { return a.indexOf(x) === i; }).join("–") + " j</td></tr></tbody></table>";
+
+    // Alertes
+    var al = [];
+    var vus = {};
+    TYPES.forEach(function (t) { var d = docs.filter(function (x) { return x.type === t; })[0]; circuitIssues(circOf(d)).forEach(function (m) { if (!vus[m]) { vus[m] = 1; al.push({ bad: /aucune personne/.test(m), t: "<b>" + esc(t) + " :</b> " + esc(m) }); } }); });
+    var sansLecteur = principaux.filter(function (d) { return d.statut === "En vigueur" && !readersOf(d).length; });
+    if (sansLecteur.length) al.push({ t: "<b>Sans lecteur désigné :</b> " + sansLecteur.length + " document(s) en vigueur n'ont aucune lecture obligatoire (" + esc(sansLecteur.slice(0, 4).map(function (d) { return d.id; }).join(", ")) + (sansLecteur.length > 4 ? "…" : "") + ")." });
+    var dormants = Object.keys(V.roles).filter(function (id) { var r = V.roles[id]; return r.actif !== false && r.connecte === false && r.cree_le && jours(r.cree_le) > 30; });
+    if (dormants.length) al.push({ t: "<b>Accès jamais utilisés :</b> " + dormants.length + " invitation(s) de plus de 30 jours (" + esc(dormants.map(nomCourt).slice(0, 3).join(", ")) + ")." });
+    if (retards) al.push({ bad: true, t: "<b>Visas en retard :</b> " + retards + " étape(s) au-delà du délai fixé." });
+    if (enRetardL) al.push({ t: "<b>Lectures en retard :</b> " + enRetardL + " attestation(s) au-delà du délai de prise de connaissance." });
+    var alertes = al.length ? '<ul class="alerts">' + al.map(function (a) { return '<li class="' + (a.bad ? "bad" : "") + '">' + a.t + "</li>"; }).join("") + "</ul>" : '<p class="tt-empty">Rien ne bloque le circuit.</p>';
+
+    // En attente
+    T.lignes = att;
+    var attHtml = att.length ? '<table class="mini"><thead><tr><th>Document</th><th>Étape</th><th>Attendu de</th><th class="n">Depuis</th><th></th></tr></thead><tbody>' + att.slice(0, T.tout ? 999 : 10).map(function (a, i) {
+      return '<tr><td><span class="ref">' + esc(a.d.id) + (a.d.estProjet ? " · révision" : "") + "</span><small>" + esc(a.d.titre) + "</small></td><td>" + esc(a.x.st.label) + (a.x.need > 1 ? "<small>" + a.x.by.length + " / " + a.x.need + " visas</small>" : "") + "</td><td>" + (a.qui.length ? esc(a.qui.map(nomCourt).join(", ")) : '<span class="age late">personne ne peut viser</span>') + "<small>" + esc(FLABEL[a.x.st.role] || a.x.st.role) + '</small></td><td class="n"><span class="age ' + (a.retard ? "late" : a.age > a.delai * 0.7 ? "warn" : "") + '">' + jTxt(a.age) + "</span><small>objectif " + a.delai + ' j</small></td><td class="acts2"><button type="button" class="lnk" data-open="' + esc(docHash(a.d)) + '">Ouvrir</button>' + (a.qui.length ? ' · <button type="button" class="lnk" data-trel="a|' + i + '">Relancer</button>' : "") + "</td></tr>";
+    }).join("") + "</tbody></table>" + (att.length > 10 && !T.tout ? '<p><button type="button" class="lnk" data-tgo="tout">Afficher les ' + att.length + " attentes</button></p>" : "") : '<p class="tt-empty">Aucun visa en attente.</p>';
+
+    // Par personne
+    var gens = Object.keys(V.roles).filter(function (id) { var r = V.roles[id]; return r.actif !== false; });
+    var parP = gens.map(function (id) {
+      var av = att.filter(function (a) { return a.qui.indexOf(id) >= 0; }), al2 = lec.filter(function (l) { return l.manquants.indexOf(id) >= 0; });
+      var plus = Math.max.apply(null, [0].concat(av.map(function (a) { return a.age; })).concat(al2.map(function (l) { return l.age; })));
+      var late = av.some(function (a) { return a.retard; }) || al2.some(function (l) { return l.retard.indexOf(id) >= 0; });
+      return { id: id, v: av.length, l: al2.length, plus: plus, late: late };
+    }).filter(function (p) { return p.v || p.l || fonctionsDe(p.id) !== "Collaborateur"; }).sort(function (a, b) { return (b.v + b.l) - (a.v + a.l) || b.plus - a.plus; });
+    var persHtml = '<table class="mini"><thead><tr><th>Personne</th><th class="n">À viser</th><th class="n">À lire</th><th class="n">Plus ancienne</th></tr></thead><tbody>' + parP.map(function (p) {
+      return '<tr><td><button type="button" class="lnk strong" data-tpers="' + esc(p.id) + '">' + esc(nomCourt(p.id)) + "</button><small>" + esc(fonctionsDe(p.id)) + '</small></td><td class="n">' + (p.v || "—") + '</td><td class="n">' + (p.l || "—") + '</td><td class="n"><span class="age ' + (p.late ? "late" : "") + '">' + (p.v || p.l ? jTxt(p.plus) : "—") + "</span></td></tr>";
+    }).join("") + "</tbody></table>";
+
+    // Modifications en cours
+    var modsHtml = drafts.length ? '<table class="mini"><thead><tr><th>Document</th><th>Rédigé par</th><th class="n">Depuis</th><th>État</th><th>Ampleur</th></tr></thead><tbody>' + drafts.map(function (x) {
+      var r = x.r, d = workOf(x.id), amp = T.ampleur[x.id];
+      if (amp === undefined) { T.ampleur[x.id] = null; ampleur(x.id, r); }
+      var etat = r.statut === "soumis" ? '<span class="tag2 s">Soumis · publication en cours</span>' : r.statut === "conflit" ? '<span class="tag2 c">Publication refusée</span>' : '<span class="tag2 b">Brouillon</span>';
+      return '<tr><td><button type="button" class="lnk strong" data-edit-doc="' + esc(x.id) + '">' + esc(x.id) + "</button><small>" + esc(r.objet || (d ? d.titre : r.titre) || "") + (r.statut === "conflit" && r.message ? " · " + esc(r.message) : "") + "</small></td><td>" + esc((r.auteurs || [r.par]).map(nomCourt).join(", ")) + '</td><td class="n">' + jTxt(jours(r.cree_le || r.maj)) + "</td><td>" + etat + '</td><td class="diffn">' + (amp || "…") + "</td></tr>";
+    }).join("") + "</tbody></table>" : '<p class="tt-empty">Aucune modification en cours.</p>';
+
+    // Lectures
+    T.lecLignes = lec;
+    var barre = function (a, b) { var p = b ? Math.round(100 * a / b) : 0; return '<div class="bar"><i class="' + (p >= 80 ? "" : p >= 50 ? "mid" : "low") + '" style="width:' + p + '%"></i></div>'; };
+    var lecHtml = lec.length ? lec.map(function (l, i) {
+      return '<div class="prog-row"><div class="t"><span><b>' + esc(l.d.id) + "</b> " + esc(l.d.titre) + ' <small>v' + esc(l.d.version) + "</small></span><span>" + l.lus + " / " + l.attendus + "</span></div>" + barre(l.lus, l.attendus) +
+        (l.manquants.length ? '<div class="who">' + (l.retard.length ? '<span class="age late">En retard (' + l.age + " j, délai " + l.delai + " j)</span> : " : "Pas encore lu : ") + esc(l.manquants.map(nomCourt).slice(0, 6).join(", ")) + (l.manquants.length > 6 ? "…" : "") + ' · <button type="button" class="lnk" data-trel="l|' + i + '">Relancer</button></div>' : "") + "</div>";
+    }).join("") : '<p class="tt-empty">Aucune lecture demandée sur un document en vigueur.</p>';
+
+    // Activité
+    var ev = evenements().filter(function (e) { return T.flux === "tout" || e.cat === T.flux; });
+    var CAT = [["tout", "Tout"], ["visas", "Visas"], ["renvois", "Renvois"], ["modifications", "Modifications"], ["adoptions", "Adoptions"], ["lectures", "Lectures"], ["abrogations", "Abrogations"], ["acces", "Accès et circuits"]];
+    var IC = { visas: ["v", "✓"], renvois: ["r", "↩"], modifications: ["m", "✎"], adoptions: ["a", "★"], lectures: ["l", "◉"], abrogations: ["x", "⌫"], acces: ["x", "⚙"] };
+    var fluxHtml = '<div class="chips">' + CAT.map(function (c) { return '<button type="button" class="chip' + (T.flux === c[0] ? " on" : "") + '" data-tflux="' + c[0] + '">' + c[1] + "</button>"; }).join("") + "</div>" +
+      (T.journal === null && !V.owner ? "" : "") +
+      (ev.length ? '<ul class="feed">' + ev.slice(0, 60).map(function (e) { var ic = IC[e.cat] || ["x", "•"]; return "<li><time>" + esc(fmtDT(e.at).replace(" à ", " · ")) + '</time><span class="ic ' + ic[0] + '">' + ic[1] + "</span><span><b>" + esc(e.qui) + "</b> " + e.texte + "</span></li>"; }).join("") + "</ul>" : '<p class="tt-empty">Aucune opération sur la période.</p>');
+
+    // Revues
+    var revHtml = rev.length ? '<table class="mini"><thead><tr><th>Document</th><th>Prochaine revue</th><th class="n"></th></tr></thead><tbody>' + rev.map(function (x) {
+      var n = Math.round((new Date(x.e + "T00:00:00") - Date.now()) / JOUR);
+      return '<tr><td><span class="ref">' + esc(x.d.id) + "</span><small>" + esc(x.d.titre) + (x.d.date_effet ? " · en vigueur depuis le " + esc(fmtDate(x.d.date_effet)) : "") + "</small></td><td>" + esc(fmtDate(x.e)) + '</td><td class="n"><span class="age ' + (n < 0 ? "late" : n <= 60 ? "warn" : "") + '">' + (n < 0 ? "échue depuis " + -n + " j" : "dans " + n + " j") + "</span></td></tr>";
+    }).join("") + "</tbody></table>" : '<p class="tt-empty">Aucun document en vigueur : les revues apparaîtront après les adoptions.</p>';
+
+    var opt = function (vals, cur, all) { return '<option value="">' + all + "</option>" + vals.map(function (x) { return '<option value="' + esc(x[0]) + '"' + (x[0] === cur ? " selected" : "") + ">" + esc(x[1]) + "</option>"; }).join(""); };
+    var doms = docs.map(function (d) { return d.domaine; }).filter(function (x, i, a) { return x && a.indexOf(x) === i; }).sort();
+    v.innerHTML =
+      '<div class="db-head"><div><div class="eyebrow">Administration</div><h1 class="title">Tableau de bord</h1><p class="lead">Situation au ' + esc(fmtDT(new Date().toISOString())) + " · mise à jour en continu.</p></div>" +
+      '<div class="row-actions"><button type="button" class="btn" data-tgo="csv">Exporter (CSV)</button><button type="button" class="btn" data-tgo="imprimer">Imprimer</button></div></div>' +
+      '<div class="db-filters">' +
+      '<select data-tf="periode" aria-label="Période"><option value="7"' + (T.periode === 7 ? " selected" : "") + '>7 derniers jours</option><option value="30"' + (T.periode === 30 ? " selected" : "") + '>30 derniers jours</option><option value="90"' + (T.periode === 90 ? " selected" : "") + '>90 derniers jours</option><option value="365"' + (T.periode === 365 ? " selected" : "") + '>12 derniers mois</option><option value="0"' + (T.periode === 0 ? " selected" : "") + ">Depuis l'origine</option></select>" +
+      '<select data-tf="type" aria-label="Type">' + opt(TYPES.map(function (t) { return [t, t]; }), T.type, "Tous les types") + "</select>" +
+      '<select data-tf="domaine" aria-label="Domaine">' + opt(doms.map(function (t) { return [t, t]; }), T.domaine, "Tous les domaines") + "</select>" +
+      '<select data-tf="personne" aria-label="Personne">' + opt(gens.map(function (id) { return [id, nomCourt(id)]; }), T.personne, "Toutes les personnes") + "</select>" +
+      '<label class="selchk"><input type="checkbox" data-tf="projets"' + (T.projets ? " checked" : "") + "> Inclure les projets</label></div>" +
+      kpis +
+      '<div class="g2"><section class="card"><div class="ch"><h2>Où en sont les documents</h2><button type="button" class="lnk" data-open="circuit">Circuits et délais</button></div><p class="sub">' + list.length + " version(s) suivie(s), par étape du circuit</p>" + pipe + delais + "</section>" +
+      '<section class="card"><div class="ch"><h2>Alertes</h2></div><p class="sub">Ce qui empêche le circuit d\'avancer</p>' + alertes + "</section></div>" +
+      '<div class="g2"><section class="card" id="t-att"><div class="ch"><h2>En attente d\'une action</h2></div><p class="sub">Par ancienneté ; en rouge au-delà du délai fixé pour l\'étape</p>' + attHtml + "</section>" +
+      '<section class="card"><div class="ch"><h2>Par personne</h2>' + (V.owner && HOSTED ? '<a class="lnk" href="/membres">Membres</a>' : "") + '</div><p class="sub">Ce qui attend chacun ; cliquez un nom pour filtrer</p>' + persHtml + "</section></div>" +
+      '<div class="g2b"><section class="card" id="t-mod"><div class="ch"><h2>Modifications en cours</h2></div><p class="sub">Brouillons, soumissions et publications refusées</p>' + modsHtml + "</section>" +
+      '<section class="card" id="t-lec"><div class="ch"><h2>Lectures obligatoires</h2><button type="button" class="lnk" data-open="visas">Gérer les lectures</button></div><p class="sub">Attestations par document en vigueur</p>' + lecHtml + "</section></div>" +
+      '<div class="g2"><section class="card"><div class="ch"><h2>Activité</h2></div><p class="sub">Qui a fait quoi, et quand' + (T.journal ? "" : " (visas et lectures)") + "</p>" + fluxHtml + "</section>" +
+      '<section class="card" id="t-rev"><div class="ch"><h2>Revues périodiques</h2></div><p class="sub">Échéances de revue des documents en vigueur</p>' + revHtml + "</section></div>";
+  }
+  async function ampleur(id, r) {
+    try {
+      if (r.nouveau) { var p = parseBody(r.body || ""); T.ampleur[id] = "nouveau · " + p.titres.reduce(function (n, t) { return n + t.articles.length; }, 0) + " article(s)"; }
+      else { var src = await fetchSource(id); var ch = diffBodies(src.body, r.body || ""); var c = { ajout: 0, modif: 0, retrait: 0 }; ch.forEach(function (x) { c[x.type]++; }); T.ampleur[id] = '<span class="p">+' + c.ajout + '</span> <span class="e">~' + c.modif + '</span> <span class="m">−' + c.retrait + "</span>"; }
+    } catch (e) { T.ampleur[id] = "—"; }
+    if (location.hash === "#tableau") renderTableau();
+  }
+
+  // Relance : message prêt à envoyer (pas d'envoi automatique)
+  function relancer(kind, i) {
+    var to = [], sujet = "", corps = "", lien = location.origin + location.pathname;
+    if (kind === "a") { var a = T.lignes[i]; to = a.qui; sujet = "Référentiel : " + a.d.id + " attend votre " + a.x.st.label.toLowerCase(); corps = "Bonjour,\n\nLe document " + a.d.id + " — " + a.d.titre + " (version " + a.d.version + ") attend votre " + a.x.st.label.toLowerCase() + " depuis " + a.age + " jour(s) (délai fixé : " + a.delai + " jours).\n\nVous pouvez le viser ici : " + lien + "#" + docHash(a.d) + "\n\nMerci."; }
+    else { var l = T.lecLignes[i]; to = l.manquants; sujet = "Référentiel : lecture de " + l.d.id + " à attester"; corps = "Bonjour,\n\nLe document " + l.d.id + " — " + l.d.titre + " (version " + l.d.version + ") est en vigueur. Merci de le lire et d'attester votre lecture (délai : " + l.delai + " jours) : " + lien + "#" + l.d.id + "\n\nMerci."; }
+    var mails = to.map(function (id) { return V.emails[id]; }).filter(Boolean);
+    var el = document.createElement("div"); el.className = "cfm-scrim";
+    el.innerHTML = '<div class="cfm" role="dialog" aria-modal="true" aria-labelledby="rl-t"><h2 id="rl-t">Relancer</h2><dl><dt>À</dt><dd>' + esc(to.map(nomCourt).join(", ")) + (mails.length ? "<br><small>" + esc(mails.join(", ")) + "</small>" : "") + "</dd><dt>Objet</dt><dd>" + esc(sujet) + '</dd></dl><textarea class="rl-txt" rows="9">' + esc(corps) + '</textarea><p class="cite-src">Aucun message n\'est envoyé par le site : copiez le texte ou ouvrez votre messagerie.</p><div class="visa-btns"><button type="button" class="btn primary" data-rl="copier">Copier le message</button>' + (mails.length ? '<a class="btn" href="mailto:' + encodeURIComponent(mails.join(",")).replace(/%40/g, "@").replace(/%2C/g, ",") + "?subject=" + encodeURIComponent(sujet) + "&body=" + encodeURIComponent(corps) + '">Ouvrir dans la messagerie</a>' : "") + '<button type="button" class="btn" data-rl="fermer">Fermer</button></div></div>';
+    document.body.appendChild(el);
+    el.addEventListener("click", function (e) {
+      e.stopPropagation();
+      if (e.target === el || e.target.closest('[data-rl="fermer"]')) el.remove();
+      if (e.target.closest('[data-rl="copier"]')) { var t = el.querySelector(".rl-txt"); try { navigator.clipboard.writeText(sujet + "\n\n" + t.value); toast("Message copié."); } catch (er) { t.select(); document.execCommand("copy"); toast("Message copié."); } }
+    });
+    el.addEventListener("keydown", function (e) { if (e.key === "Escape") el.remove(); });
+  }
+
+  async function exporterTableau() {
+    var lignes = [["Référence", "Titre", "Type", "Statut", "Version", "Étape en cours", "Attendu de", "Depuis (jours)", "Délai (jours)", "En retard", "Lectures attestées", "Lectures attendues", "Brouillon en cours", "Prochaine revue"].join(";")];
+    var att = attentes(docsSuivis()), lec = lectures(docsSuivis());
+    docsSuivis().forEach(function (d) {
+      var a = att.filter(function (x) { return x.d === d; })[0], l = lec.filter(function (x) { return x.d === d; })[0], dr = V.redac && V.redac[d.id];
+      lignes.push([d.id, d.titre, d.type, d.estProjet ? "Révision en cours" : d.statut, d.version, a ? a.x.st.label : stageOf(d).label, a ? a.qui.map(nomCourt).join(", ") : "", a ? a.age : "", a ? a.delai : "", a && a.retard ? "oui" : "", l ? l.lus : "", l ? l.attendus : "", dr && ["brouillon", "soumis", "conflit"].indexOf(dr.statut) >= 0 ? dr.statut : "", echeance(d) || ""].map(function (x) { return String(x == null ? "" : x).replace(/[;\n]/g, " "); }).join(";"));
+    });
+    var dl = await downloadsP; if (!dl) { toast("Le téléchargement n'est pas disponible dans cette vue."); return; }
+    try { await dl.save({ filename: "tableau-de-bord_" + new Date().toISOString().slice(0, 10) + ".csv", data: "﻿" + lignes.join("\r\n") }); } catch (e) { if (!(e && e.code === "declined")) toast("Le téléchargement a échoué."); }
+  }
+
+  document.addEventListener("change", function (ev) {
+    var f = ev.target.getAttribute && ev.target.getAttribute("data-tf"); if (!f) return;
+    if (f === "projets") T.projets = ev.target.checked; else if (f === "periode") T.periode = +ev.target.value; else T[f] = ev.target.value;
+    renderTableau();
+  });
+  document.addEventListener("click", function (ev) {
+    var b = ev.target.closest("[data-tgo],[data-tflux],[data-trel],[data-tpers]"); if (!b) return;
+    ev.preventDefault();
+    if (b.hasAttribute("data-tflux")) { T.flux = b.getAttribute("data-tflux"); renderTableau(); return; }
+    if (b.hasAttribute("data-tpers")) { T.personne = T.personne === b.getAttribute("data-tpers") ? "" : b.getAttribute("data-tpers"); renderTableau(); return; }
+    if (b.hasAttribute("data-trel")) { var r = b.getAttribute("data-trel").split("|"); relancer(r[0], +r[1]); return; }
+    var g = b.getAttribute("data-tgo");
+    if (g === "csv") { exporterTableau(); return; }
+    if (g === "imprimer") { window.print(); return; }
+    if (g === "tout") { T.tout = true; renderTableau(); return; }
+    if (g === "registre") { go("registre"); return; }
+    var el = document.getElementById(g); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
 
   window.addEventListener("hashchange", route);
   renderRegistre();

@@ -2,7 +2,7 @@
 import { createBrowserClient } from "@supabase/ssr";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-type Membre = { email: string; user_id: string | null; nom: string | null; poste: string | null; fonctions: string[]; actif: boolean; admin: boolean; cree_le: string; derniere_connexion: string | null; acces: "complet" | "employe" };
+type Membre = { email: string; user_id: string | null; nom: string | null; poste: string | null; fonctions: string[]; actif: boolean; admin: boolean; cree_le: string; derniere_connexion: string | null; acces: "complet" | "employe"; tableau?: boolean };
 type Doc = { id: string; titre: string; type: string };
 type Lect = { ids?: string[]; consult?: string[]; tous?: boolean; maj?: string };
 type Evt = { id: number; le: string; par_email: string | null; action: string; path: string; data: Partial<Membre> };
@@ -58,7 +58,7 @@ export default function Gestion({ moi, docs }: { moi: string; docs: Doc[] }) {
 
   const charger = useCallback(async () => {
     const [a, b] = await Promise.all([
-      sb.from("membres").select("email,user_id,nom,poste,fonctions,actif,admin,cree_le,derniere_connexion,acces").order("nom", { nullsFirst: false }),
+      sb.from("membres").select("email,user_id,nom,poste,fonctions,actif,admin,cree_le,derniere_connexion,acces,tableau").order("nom", { nullsFirst: false }),
       sb.from("journal").select("id,le,par_email,action,path,data").or("action.like.MEMBRE_%,action.eq.CONNEXION").order("le", { ascending: false }).limit(40),
     ]);
     if (a.error) setNote({ t: "err", m: msg(a.error) }); else setMs(a.data as Membre[]);
@@ -87,6 +87,7 @@ export default function Gestion({ moi, docs }: { moi: string; docs: Doc[] }) {
       if (p.actif !== undefined && p.actif !== m.actif) d.push(p.actif ? "réactive l'accès" : "coupe l'accès");
       if (p.admin !== undefined && p.admin !== m.admin) d.push(p.admin ? "donne les droits d'administration" : "retire les droits d'administration");
       if (p.acces && p.acces !== m.acces) d.push("accès " + (p.acces === "employe" ? "employé (documents attribués)" : "complet"));
+      if (p.tableau !== undefined && p.tableau !== !!m.tableau) d.push(p.tableau ? "ouvre le tableau de bord" : "retire le tableau de bord");
       if (p.poste !== undefined && p.poste !== m.poste) d.push("poste : " + (p.poste || "—"));
       if (d.length) out.push(qui + " : " + d.join(" ; "));
     }
@@ -213,6 +214,7 @@ export default function Gestion({ moi, docs }: { moi: string; docs: Doc[] }) {
                         <label className="chk"><input type="checkbox" checked={m.actif} disabled={soi} onChange={() => maj(m.email, { actif: !m.actif }, `${m.nom || m.email} ${m.actif ? "désactivé : son accès est coupé immédiatement" : "réactivé"}.`)} />Actif</label>
                         <label className="chk"><input type="checkbox" checked={m.admin} disabled={soi} onChange={() => maj(m.email, { admin: !m.admin }, `Droits d'administration ${m.admin ? "retirés à" : "donnés à"} ${m.nom || m.email}.`)} />Admin</label>
                         <label className="vfl">Accès<select value={m.admin ? "complet" : m.acces} disabled={m.admin} onChange={(e) => maj(m.email, { acces: e.target.value as Membre["acces"] }, `Accès de ${m.nom || m.email} : ${e.target.value === "employe" ? "employé (documents attribués)" : "complet"}.`)}><option value="complet">Complet</option><option value="employe">Employé</option></select></label>
+                        <label className="chk" title={m.admin ? "Inclus pour les administrateurs" : m.acces === "employe" ? "Réservé aux accès complets" : ""}><input type="checkbox" checked={m.admin || !!m.tableau} disabled={m.admin || m.acces === "employe"} onChange={() => maj(m.email, { tableau: !m.tableau })} />Tableau de bord</label>
                         {m.acces === "employe" && !m.admin ? <button type="button" className="lnk doc" onClick={() => setOuvert(ouvert === m.email ? null : m.email)}>Documents attribués ({docs.filter((d) => designe(m, d.id)).length}) {ouvert === m.email ? "▴" : "▾"}</button> : null}
                         {!m.user_id && !soi ? <button type="button" className="lnk" onClick={() => supprimer(m)}>Retirer l&apos;invitation</button> : null}
                       </td>

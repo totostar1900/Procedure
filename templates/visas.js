@@ -81,8 +81,10 @@
   var typeKey = function (t) { return String(t || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); };
   var TYPES = docs.map(function (d) { return d.type; }).filter(function (t, i, a) { return a.indexOf(t) === i; });
   function normStep(s) {
-    return { etape: s.etape, label: s.label, role: s.role, fonction: s.fonction || FLABEL[s.role] || s.role, regle: s.regle || "un", obligatoire: s.obligatoire !== false, seance: s.seance != null ? !!s.seance : s.etape === "adoption" };
+    return { etape: s.etape, label: s.label, role: s.role, fonction: s.fonction || FLABEL[s.role] || s.role, regle: s.regle || "un", obligatoire: s.obligatoire !== false, seance: s.seance != null ? !!s.seance : s.etape === "adoption", delai: +s.delai > 0 ? +s.delai : 7 };
   }
+  // Délai de prise de connaissance (jours) fixé par l'administrateur pour un type de document
+  var delaiLecture = function (type) { var c = V.circuits[typeKey(type)]; return c && +c.delaiLecture > 0 ? +c.delaiLecture : 15; };
   // Circuit d'une version : figé au premier visa ; sinon celui du type ; sinon celui déclaré dans le document
   function circOf(d) {
     var f = V.figes[d.id + "~" + d.empreinte]; if (f && f.etapes && f.etapes.length) return f.etapes.map(normStep);
@@ -133,24 +135,27 @@
     return { steps: steps, approved: approved, current: current, renvois: renvois, readers: readers, read: read };
   }
   // Règle des quatre yeux : une même personne ne vise pas deux étapes d'une même version
-  function signedOther(d, etape) {
-    return sigsOf(d.id).some(function (s) { return s.by === V.me && s.empreinte === d.empreinte && s.etape !== etape && s.etape !== "lecture" && s.etape !== "renvoi"; });
+  function signedOther(d, etape, who) {
+    who = who || V.me;
+    return sigsOf(d.id).some(function (s) { return s.by === who && s.empreinte === d.empreinte && s.etape !== etape && s.etape !== "lecture" && s.etape !== "renvoi"; });
   }
-  // Ce que la personne connectée peut faire maintenant, dans l'ordre du circuit
-  function myActions(d) {
-    if (!V.me || !V.canWrite || etatOf(d.id)) return [];
+  var authorOf = function (d, who) { var a = V.auteurs && V.auteurs[d.id + "~" + d.empreinte]; return !!(a && who && (a.auteurs || []).indexOf(who) >= 0); };
+  // Ce qu'une personne peut faire maintenant sur un document, dans l'ordre du circuit
+  function actionsFor(d, who) {
+    if (!who || etatOf(d.id)) return [];
     var st = docState(d), acts = [];
     if (st.renvois.length) return [];
-    if (isAuthor(d)) { if (!d.estProjet && st.approved && st.readers.indexOf(V.me) >= 0 && st.read.indexOf(V.me) < 0) acts.push({ etape: "lecture", label: "Prise de connaissance", role: "lecture" }); return acts; }
-    for (var i = 0; i < st.steps.length; i++) {
+    var lecture = !d.estProjet && st.approved && st.readers.indexOf(who) >= 0 && st.read.indexOf(who) < 0;
+    if (!authorOf(d, who)) for (var i = 0; i < st.steps.length; i++) {
       var x = st.steps[i];
       if (x.done) continue;
-      if (hasRole(V.me, x.st.role) && x.by.indexOf(V.me) < 0 && !signedOther(d, x.st.etape)) acts.push({ etape: x.st.etape, label: x.st.label, role: x.st.role, seance: x.st.seance });
+      if (hasRole(who, x.st.role) && x.by.indexOf(who) < 0 && !signedOther(d, x.st.etape, who)) acts.push({ etape: x.st.etape, label: x.st.label, role: x.st.role, seance: x.st.seance });
       if (x.st.obligatoire) break; // une étape obligatoire à la fois, dans l'ordre
     }
-    if (!d.estProjet && st.approved && st.readers.indexOf(V.me) >= 0 && st.read.indexOf(V.me) < 0) acts.push({ etape: "lecture", label: "Prise de connaissance", role: "lecture" });
+    if (lecture) acts.push({ etape: "lecture", label: "Prise de connaissance", role: "lecture" });
     return acts;
   }
+  function myActions(d) { return V.me && V.canWrite ? actionsFor(d, V.me) : []; }
   // Pourquoi la personne ne peut pas agir sur l'étape en cours : on l'explique plutôt que de la laisser chercher
   function myBlock(d) {
     if (!V.me) return "";
@@ -487,8 +492,8 @@
       var issues = circuitIssues(steps);
       return '<article class="ccard"><header><div><h3>' + esc(t) + '</h3><span class="cite-src">' + ofType.length + " document" + (ofType.length > 1 ? "s" : "") + (niv[t] ? " · revue " + esc(String(niv[t].revue).toLowerCase()) : "") + " · " + (cfg ? "défini par l'administrateur" + (cfg.maj ? " le " + esc(fmtD(cfg.maj)) : "") : "déclaré dans les documents") + "</span></div>" +
         (V.owner && V.db ? '<button type="button" class="btn" data-vcirc="' + esc(k) + '|edit">Modifier</button>' : "") + "</header>" +
-        '<ol class="csteps">' + steps.map(function (s, i) { return '<li class="' + (s.obligatoire ? "" : "opt") + '"><span class="stepn">' + (i + 1) + "</span><div><b>" + esc(s.label) + "</b><span>" + esc(FLABEL[s.role] || s.fonction) + (s.regle !== "un" ? " · " + esc(REGLES[s.regle]) : "") + (s.obligatoire ? "" : " · facultative") + (s.seance ? " · date de séance et PV" : "") + "</span></div></li>"; }).join("") +
-        '<li class="end"><span class="stepn">✓</span><div><b>Prise de connaissance</b><span>Personnes désignées</span></div></li></ol>' +
+        '<ol class="csteps">' + steps.map(function (s, i) { return '<li class="' + (s.obligatoire ? "" : "opt") + '"><span class="stepn">' + (i + 1) + "</span><div><b>" + esc(s.label) + "</b><span>" + esc(FLABEL[s.role] || s.fonction) + (s.regle !== "un" ? " · " + esc(REGLES[s.regle]) : "") + (s.obligatoire ? "" : " · facultative") + (s.seance ? " · date de séance et PV" : "") + " · délai " + (s.delai || 7) + " j</span></div></li>"; }).join("") +
+        '<li class="end"><span class="stepn">✓</span><div><b>Prise de connaissance</b><span>Personnes désignées · délai ' + delaiLecture(t) + " j</span></div></li></ol>" +
         (varies ? '<p class="cite-src">Les documents de ce type déclarent des circuits différents ; le premier est affiché. Définir le circuit du type l\'appliquera à tous.</p>' : "") +
         (issues.length ? '<ul class="tt-warn">' + issues.map(function (m) { return "<li>" + esc(m) + "</li>"; }).join("") + "</ul>" : "") + "</article>";
     }).join("");
@@ -509,18 +514,20 @@
           '<label class="vf">Étape<input type="text" data-cedit="' + i + '|label" value="' + esc(s.label) + '" maxlength="80"></label>' +
           '<label class="vf">Fonction<select data-cedit="' + i + '|role">' + opt(FONCTIONS, s.role) + "</select></label>" +
           '<label class="vf">Qui doit viser<select data-cedit="' + i + '|regle">' + opt(regles, s.regle || "un") + "</select></label>" +
+          '<label class="vf">Délai (jours)<input type="number" min="1" max="180" data-cedit="' + i + '|delai" value="' + esc(s.delai || 7) + '"></label>' +
           '<label class="chkl"><input type="checkbox" data-cedit="' + i + '|obligatoire"' + (s.obligatoire !== false ? " checked" : "") + "> Obligatoire</label>" +
           '<label class="chkl"><input type="checkbox" data-cedit="' + i + '|seance"' + (s.seance ? " checked" : "") + "> Date de séance et PV</label></div>" +
           '<div class="ce-move"><button type="button" class="icon-btn" data-vcirc="' + k + "|up|" + i + '" aria-label="Monter"' + (i ? "" : " disabled") + '>↑</button><button type="button" class="icon-btn" data-vcirc="' + k + "|down|" + i + '" aria-label="Descendre"' + (i < steps.length - 1 ? "" : " disabled") + '>↓</button><button type="button" class="icon-btn" data-vcirc="' + k + "|del|" + i + '" aria-label="Supprimer l\'étape">✕</button></div></li>';
       }).join("") + "</ol>" +
       '<button type="button" class="btn" data-vcirc="' + k + '|add">+ Ajouter une étape</button>' +
+      '<label class="vf" style="max-width:320px;margin-top:12px">Délai de prise de connaissance après adoption (jours)<input type="number" min="1" max="180" data-cedit="L|delaiLecture" value="' + esc(V.edit.delaiLecture || 15) + '"></label>' +
       (issues.length ? '<ul class="tt-warn">' + issues.map(function (m) { return "<li>" + esc(m) + "</li>"; }).join("") + "</ul>" : "") +
       '<div class="visa-btns"><button type="button" class="btn primary" data-vcirc="' + k + '|save">Enregistrer le circuit</button><button type="button" class="btn" data-vcirc="' + k + '|cancel">Annuler</button>' +
       (V.circuits[k] ? '<button type="button" class="btn ghost" data-vcirc="' + k + '|reset">Revenir au circuit déclaré dans les documents</button>' : "") + "</div></article>";
   }
   async function circAction(k, act, i) {
     var t = TYPES.filter(function (x) { return typeKey(x) === k; })[0];
-    if (act === "edit") { var c = V.circuits[k]; V.edit = { type: k, steps: JSON.parse(JSON.stringify(c && c.etapes && c.etapes.length ? c.etapes.map(normStep) : defaultTypeCircuit(t))) }; renderCircuit(); return; }
+    if (act === "edit") { var c = V.circuits[k]; V.edit = { type: k, delaiLecture: (c && c.delaiLecture) || 15, steps: JSON.parse(JSON.stringify(c && c.etapes && c.etapes.length ? c.etapes.map(normStep) : defaultTypeCircuit(t))) }; renderCircuit(); return; }
     if (!V.edit || V.edit.type !== k) return;
     var s = V.edit.steps; i = +i;
     if (act === "cancel") { V.edit = null; renderCircuit(); return; }
@@ -536,7 +543,7 @@
       var steps = s.map(function (x) {
         var base = x.etape || (x.seance ? "adoption" : /v[ée]rif/i.test(x.label) ? "verification" : /approb/i.test(x.label) ? "approbation" : typeKey(x.label) || "etape");
         var e = base, n = 2; while (used[e]) e = base + "-" + n++; used[e] = 1;
-        return { etape: e, label: String(x.label || "").trim(), role: x.role, fonction: FLABEL[x.role] || x.role, regle: x.regle || "un", obligatoire: x.obligatoire !== false, seance: !!x.seance };
+        return { etape: e, label: String(x.label || "").trim(), role: x.role, fonction: FLABEL[x.role] || x.role, regle: x.regle || "un", obligatoire: x.obligatoire !== false, seance: !!x.seance, delai: Math.max(1, Math.min(180, +x.delai || 7)) };
       });
       if (!steps.length || steps.some(function (x) { return !x.label; })) { toast("Chaque étape doit avoir un nom."); return; }
       if (!steps.some(function (x) { return x.obligatoire; })) { toast("Le circuit doit comporter au moins une étape obligatoire."); return; }
@@ -547,7 +554,7 @@
         phrase: "modifier le circuit " + t, bouton: "Enregistrer le circuit"
       });
       if (!ok) return;
-      try { await V.db.doc("circuits/" + k).set({ type: t, etapes: steps, maj: new Date().toISOString(), par: V.me }); V.edit = null; toast("Circuit des documents de type « " + t + " » enregistré."); }
+      try { await V.db.doc("circuits/" + k).set({ type: t, etapes: steps, delaiLecture: Math.max(1, Math.min(180, +V.edit.delaiLecture || 15)), maj: new Date().toISOString(), par: V.me }); V.edit = null; toast("Circuit des documents de type « " + t + " » enregistré."); }
       catch (e) { toast("Enregistrement refusé : réservé à l'administrateur."); }
       return;
     }
@@ -612,7 +619,7 @@
   var vSearchTimer = null;
   document.addEventListener("input", function (ev) {
     var t = ev.target;
-    if (t.matches && t.matches("[data-cedit]") && V.edit && V.edit.steps) { var p = t.getAttribute("data-cedit").split("|"); var s = V.edit.steps[+p[0]]; if (s && t.type !== "checkbox") s[p[1]] = t.value; return; }
+    if (t.matches && t.matches("[data-cedit]") && V.edit && V.edit.steps) { var p = t.getAttribute("data-cedit").split("|"); if (p[0] === "L") { V.edit.delaiLecture = t.value; return; } var s = V.edit.steps[+p[0]]; if (s && t.type !== "checkbox") s[p[1]] = t.value; return; }
     if (t.id !== "v-q" || !V.user) return;
     var q = t.value;
     clearTimeout(vSearchTimer);
@@ -624,7 +631,7 @@
   });
   document.addEventListener("change", function (ev) {
     var t = ev.target;
-    if (t.matches("[data-cedit]") && V.edit && V.edit.steps) { var c = t.getAttribute("data-cedit").split("|"); var s = V.edit.steps[+c[0]]; if (s) { s[c[1]] = t.type === "checkbox" ? t.checked : t.value; renderCircuit(); } return; }
+    if (t.matches("[data-cedit]") && V.edit && V.edit.steps) { var c = t.getAttribute("data-cedit").split("|"); if (c[0] === "L") { V.edit.delaiLecture = t.value; return; } var s = V.edit.steps[+c[0]]; if (s) { s[c[1]] = t.type === "checkbox" ? t.checked : t.value; renderCircuit(); } return; }
     if (t.matches("[data-vrole]")) { var p = t.getAttribute("data-vrole").split("|"); vSetRole(p[0], p[1], t.checked); }
     if (t.matches("[data-vlect]")) { var q = t.getAttribute("data-vlect").split("|"); vSetLect(q[0], q[1], t.checked); }
   });
@@ -662,6 +669,7 @@
     var box = $("#rail-me"); if (!box) return;
     var badge = $(RESTREINT ? "#nav-badge-emp" : "#nav-badge");
     var lm = $("#nav-membres"); if (lm) lm.hidden = !(HOSTED && V.owner);
+    var lt = $("#nav-tableau"); if (lt) lt.hidden = !accesTableau();
     var bn = $("#btn-nouveau"); if (bn) bn.hidden = !(HOSTED && typeof canEdit === "function" && canEdit());
     if (!V.ready && !V.me) { box.innerHTML = '<div class="me-load">Chargement…</div>'; return; }
     if (!V.me) {
@@ -718,6 +726,7 @@
     if (h === "visas") renderVisas();
     if (h === "atraiter") renderATraiter();
     if (h === "circuit") renderCircuit();
+    if (h === "tableau" && !(act && act.closest && act.closest("#v-tableau"))) renderTableau();
     if (h === "archives") renderArchives();
     if (RESTREINT && (h === "" || h === "mesdocs")) renderMesDocs();
     if (h.indexOf("edition/") === 0 && E && !(act && act.closest && act.closest("#v-edition"))) renderEditor();

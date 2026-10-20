@@ -304,14 +304,25 @@
   });
 
   // ---------- Rail de navigation ----------
+  // Rail : masquer / afficher (mémorisé) ; rail masqué, le survol du bord gauche l'affiche temporairement
   function railFold(on) {
-    document.body.classList.toggle("rail-folded", on);
-    var b = $("#rail-fold"); b.setAttribute("aria-label", on ? "Déplier le menu" : "Réduire le menu"); b.title = b.getAttribute("aria-label");
+    document.body.classList.toggle("rail-folded", on); document.body.classList.remove("rail-peek");
+    var b = $("#rail-fold"); b.setAttribute("aria-label", on ? "Garder le menu affiché" : "Masquer le menu"); b.title = b.getAttribute("aria-label");
     try { localStorage.setItem("pc-ref-rail", on ? "1" : "0"); } catch (e) { /* stockage indisponible */ }
   }
   function railMobile(on) { document.body.classList.toggle("rail-open", on); $("#rail-scrim").hidden = !on; }
   try { if (localStorage.getItem("pc-ref-rail") === "1") railFold(true); } catch (e) { /* stockage indisponible */ }
-  $("#rail-fold").addEventListener("click", function () { railFold(!document.body.classList.contains("rail-folded")); });
+  var peekT = null;
+  var peek = function (on) { clearTimeout(peekT); peekT = null; if (on) document.body.classList.add("rail-peek"); else peekT = setTimeout(function () { document.body.classList.remove("rail-peek"); peekT = null; }, 250); };
+  $("#rail-fold").addEventListener("click", function () { railFold(!document.body.classList.contains("rail-folded") ? true : false); });
+  $("#rail-show").addEventListener("click", function () { railFold(false); });
+  $("#rail-edge").addEventListener("mouseenter", function () { peek(true); });
+  // Le menu reste ouvert tant que la souris est dessus ; il se replie dès qu'elle s'en éloigne (suivi de la position, plus fiable que mouseleave quand le menu glisse sous le pointeur)
+  document.addEventListener("mousemove", function (ev) {
+    var b = document.body; if (!b.classList.contains("rail-folded") || !b.classList.contains("rail-peek")) return;
+    var r = $("#rail").getBoundingClientRect();
+    if (ev.clientX <= r.right + 16) { clearTimeout(peekT); peekT = null; } else if (!peekT) peek(false);
+  });
   $("#rail-open").addEventListener("click", function () { railMobile(true); });
   $("#rail-scrim").addEventListener("click", function () { railMobile(false); });
 
@@ -330,7 +341,7 @@
 
 
   // ---------- Navigation ----------
-  var VIEWS = ["registre", "doc", "glossaire", "correspondance", "circuit", "dossiers", "dossier", "visas", "atraiter", "archives", "edition", "mesdocs", "nouveau"];
+  var VIEWS = ["registre", "doc", "glossaire", "correspondance", "circuit", "dossiers", "dossier", "visas", "atraiter", "archives", "edition", "mesdocs", "nouveau", "tableau"];
   function go(target) {
     if (target === "registre") target = "";
     if (location.hash.slice(1) === target) route(); else location.hash = target;
@@ -357,6 +368,7 @@
     if (view === "dossiers") renderDossiers();
     if (view === "visas") renderVisas();
     if (view === "atraiter") renderATraiter();
+    if (view === "tableau") renderTableau();
     if (view === "circuit") renderCircuit();
     if (view === "archives") renderArchives();
     if (view === "edition") openEditor(h.slice(8));
@@ -369,6 +381,7 @@
 /*VISAS*/
 /*SELECTION*/
 /*EDITEUR*/
+/*TABLEAU*/
   window.addEventListener("hashchange", route);
   renderRegistre();
   route();
