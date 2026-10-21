@@ -85,6 +85,7 @@ export function libelle(e: Evt) {
   const fl = (xs?: string[]) => (xs || []).map((c) => t(FL[c] || c)).join(", ");
   if (e.action === "CONNEXION") return qui + " " + t("s'est connecté(e)");
   if (e.action === "MEMBRE_INSERT") return t("Accès ouvert") + " : " + e.path + " (" + fl(d.fonctions) + ")" + (d.admin ? ", " + t("administrateur") : "") + par;
+  if (e.action === "VUE_DEBUT" || e.action === "VUE_FIN") return t(e.action === "VUE_DEBUT" ? "Voir comme : début" : "Voir comme : fin") + " — " + String(d.cible || e.path.slice(4)).replace(/^profil:/, t("profil type") + " ") + par;
   if (e.action === "MEMBRE_DELETE") return t("Invitation retirée") + " : " + e.path + par;
   if (e.action === "MEMBRE_UPDATE") return t("Accès modifié") + " : " + qui + " — " + t(d.actif ? "actif" : "suspendu") + (d.super ? ", " + t("super administrateur") : d.admin ? ", " + t("administrateur") + (Array.isArray(d.prerogatives) ? " (" + (d.prerogatives.map((p) => t(PL[p] || p)).join(", ") || t("aucune prérogative")) + ")" : "") : "") + " ; " + (fl(d.fonctions) || t("aucune fonction")) + par;
   const seg = e.path.split("/");

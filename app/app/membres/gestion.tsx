@@ -233,7 +233,7 @@ export default function Gestion({ moi, docs }: { moi: MoiC; docs: Doc[] }) {
       <main className="wrap view">
         <div className="mhead">
           <div><div className="eyebrow">Administration</div><h1 className="title">Membres</h1></div>
-          <div className="tools">{peut("membres") || peut("admins") ? <button type="button" className="btn" onClick={ouvrirNouveau}>+ Nouveau membre</button> : null}<button type="button" className="btn sec" onClick={exporter}>Exporter les habilitations</button></div>
+          <div className="tools">{moi.super ? <a className="btn sec" href="/comme" style={{ textDecoration: "none" }}>Voir comme…</a> : null}{peut("membres") || peut("admins") ? <button type="button" className="btn" onClick={ouvrirNouveau}>+ Nouveau membre</button> : null}<button type="button" className="btn sec" onClick={exporter}>Exporter les habilitations</button></div>
         </div>
         <p className="lead">Seules les personnes inscrites ici, et actives, ouvrent le référentiel avec leur compte Microsoft 365. Cliquez une ligne pour voir la fiche et la modifier{moi.super ? "" : " (dans la limite de vos prérogatives : " + (moi.prerogatives.map((p) => PL[p]).join(", ") || "aucune") + ")"}.</p>
         <div className="stats">
@@ -297,7 +297,7 @@ export default function Gestion({ moi, docs }: { moi: MoiC; docs: Doc[] }) {
         <div className="sd-scrim" onClick={() => setVolet(null)} />
         <aside className="sd" role="dialog" aria-modal="true" aria-label={nouveau ? "Nouveau membre" : "Fiche du membre"}>
           <header className="sd-h">
-            <div><div className="eyebrow">{nouveau ? "Nouveau membre" : "Fiche du membre"}</div><h2>{nouveau ? "Ouvrir un accès" : orig?.nom || orig?.email}</h2>{orig ? <div className="mail">{orig.email}</div> : null}</div>
+            <div><div className="eyebrow">{nouveau ? "Nouveau membre" : "Fiche du membre"}</div><h2>{nouveau ? "Ouvrir un accès" : orig?.nom || orig?.email}</h2>{orig ? <div className="mail">{orig.email}</div> : null}{orig && moi.super ? <a className="lnk" style={{ display: "inline-block", marginTop: 6, fontSize: 12.5 }} href={"/comme/activer?cible=" + encodeURIComponent(orig.email)}>Voir le référentiel comme cette personne</a> : null}</div>
             <button type="button" className="sd-x" onClick={() => setVolet(null)} aria-label="Fermer">✕</button>
           </header>
           <div className="sd-b">

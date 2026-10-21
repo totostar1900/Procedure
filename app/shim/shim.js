@@ -4,12 +4,29 @@
 import { createBrowserClient } from "@supabase/ssr";
 
 const CFG = window.__REF_CFG || {};
+const VC = window.__VOIR_COMME || null;
+const lectureSeule = () => { const e = new Error("Lecture seule : vous voyez le référentiel comme une autre personne."); e.code = "permission-denied"; return e; };
+if (VC) {
+  document.documentElement.classList.add("voir-comme");
+  // Les boutons qui écriraient restent visibles mais ne font rien : on le dit plutôt que d'ouvrir une confirmation inutile
+  const ACT = "[data-vact],[data-vlectsave],[data-vetat],[data-edit-doc],[data-ed],[data-new],[data-del],[data-dup],[data-vcirc],#btn-nouveau";
+  document.addEventListener("click", (ev) => {
+    const b = ev.target.closest && ev.target.closest(ACT); if (!b) return;
+    ev.preventDefault(); ev.stopImmediatePropagation();
+    let t = document.getElementById("vc-toast");
+    if (!t) { t = document.createElement("div"); t.id = "vc-toast"; t.setAttribute("role", "status"); t.style.cssText = "position:fixed;z-index:90;left:50%;bottom:24px;transform:translateX(-50%);background:#0B2E52;color:#fff;padding:9px 14px;font:500 13px Inter,Arial,sans-serif;box-shadow:0 6px 20px rgba(6,27,51,.3);max-width:calc(100vw - 32px)"; document.body.appendChild(t); }
+    t.textContent = "Lecture seule : cette action serait proposée à " + VC.nom + ", mais elle n'est pas possible en « Voir comme ».";
+    clearTimeout(t._h); t._h = setTimeout(() => t.remove(), 4000);
+  }, true);
+}
 const sb = createBrowserClient(CFG.url, CFG.key);
 let ME = null; // { id, nom, email, admin, fonctions }
 const meP = (async () => {
   const { data } = await sb.rpc("rattacher");
   const { data: u } = await sb.auth.getUser();
   if (data && data.autorise) ME = { id: data.id, nom: data.nom || "", email: (u && u.user && u.user.email) || "", admin: !!data.admin, fonctions: data.fonctions || [] };
+  // « Voir comme » (super administrateur) : la page se comporte comme pour la personne visée, sans pouvoir écrire
+  if (ME && VC) ME = { id: VC.id, nom: VC.nom, email: VC.email, admin: VC.admin, fonctions: VC.fonctions };
   return ME;
 })();
 
@@ -33,7 +50,9 @@ const lastSeg = (p) => p.split("/").pop();
 async function lireCollection(coll, opts) {
   if (coll === "roles") {
     const ms = await lireMembres();
-    return ms.map((m) => ({ id: idOf(m), data: { fonctions: m.fonctions, actif: m.actif, admin: m.admin, super: !!m.super, prerogatives: m.prerogatives || [], acces: m.acces, tableau: m.tableau, cree_le: m.cree_le, connecte: !!m.user_id } }));
+    const rs = ms.map((m) => ({ id: idOf(m), data: { fonctions: m.fonctions, actif: m.actif, admin: m.admin, super: !!m.super, prerogatives: m.prerogatives || [], acces: m.acces, tableau: m.tableau, cree_le: m.cree_le, connecte: !!m.user_id } }));
+    if (VC && VC.profil) rs.push({ id: VC.id, data: { fonctions: VC.fonctions, actif: true, admin: VC.admin, super: false, prerogatives: VC.prerogatives, acces: VC.acces, tableau: VC.tableau, cree_le: new Date().toISOString(), connecte: true } });
+    return rs;
   }
   if (coll === "journal") {
     // Journal des opérations (administrateur et personnes ayant le tableau de bord) : 400 dernières entrées
@@ -97,6 +116,7 @@ function doc(p) {
       return { id: lastSeg(p), exists: !!data, data: () => (data ? data.data : undefined), metadata: { fromCache: false, hasPendingWrites: false } };
     },
     async set(body) {
+      if (VC) throw lectureSeule();
       if (p.startsWith("roles/")) {
         const id = lastSeg(p);
         const row = { fonctions: body.fonctions || [], actif: body.actif !== false, maj_le: new Date().toISOString() };
@@ -115,7 +135,7 @@ function doc(p) {
       if (!p.startsWith("annuaire/") && !p.startsWith("dossiers/") && !p.startsWith("brouillons/")) avis();
     },
     async update(part) { const cur = await this.get(); await this.set({ ...(cur.data() || {}), ...part }); },
-    async delete() { const r = await sb.from("kv").delete().eq("path", p); if (r.error) throw err(r.error); refreshAll(); avis(); },
+    async delete() { if (VC) throw lectureSeule(); const r = await sb.from("kv").delete().eq("path", p); if (r.error) throw err(r.error); refreshAll(); avis(); },
     onSnapshot(next, error) {
       return collection(p.replace(/\/[^/]+$/, "")).onSnapshot((s) => { const d = s.docs.find((x) => x.id === lastSeg(p)); next(d || { id: lastSeg(p), exists: false, data: () => undefined }); }, error);
     },
@@ -133,7 +153,7 @@ const user = {
   async profiles(ids) {
     const ms = membresCache.length ? membresCache : await lireMembres().catch(() => []);
     const out = {};
-    ids.forEach((id) => { const m = ms.find((x) => idOf(x) === id || x.user_id === id); out[id] = { id, name: m ? m.nom || m.email : id.startsWith("email:") ? id.slice(6) : "", email: m ? m.email : null, isMe: !!(ME && id === ME.id), guest: false }; });
+    ids.forEach((id) => { const m = ms.find((x) => idOf(x) === id || x.user_id === id); out[id] = { id, name: m ? m.nom || m.email : VC && id === VC.id ? VC.nom : id.startsWith("email:") ? id.slice(6) : "", email: m ? m.email : null, isMe: !!(ME && id === ME.id), guest: false }; });
     return out;
   },
   async search(q) {

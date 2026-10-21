@@ -15,6 +15,7 @@ const CATS: [string, string, (e: Evt) => boolean][] = [
   ["circuits", "Circuits", (e) => e.path.startsWith("circuits/")],
   ["documents", "Documents", (e) => /^(redaction|adoptions|etats)\//.test(e.path)],
   ["lectures", "Attributions", (e) => e.path.startsWith("lectures/")],
+  ["vue", "Voir comme", (e) => e.action.startsWith("VUE_")],
 ];
 
 export default function Reglages({ moi, docs }: { moi: MoiC; docs: DocC[] }) {
@@ -139,6 +140,7 @@ export default function Reglages({ moi, docs }: { moi: MoiC; docs: DocC[] }) {
             <li>Personne ne modifie son propre accès ni ne se retire d&apos;une lecture obligatoire, à l&apos;exception du super administrateur.</li>
             <li>Les administrateurs sont des salariés comme les autres : ils visent, lisent et attestent selon leurs fonctions, et la règle des quatre yeux s&apos;applique à eux.</li>
             <li>Une personne qui s&apos;est déjà connectée ne se supprime pas : elle est suspendue, ses visas restent au registre.</li>
+            <li>« Voir comme » : le super administrateur peut afficher le référentiel tel qu&apos;un membre ou un profil type le voit, en lecture seule ; chaque consultation est inscrite au journal. <a href="/comme">Voir comme…</a></li>
             <li>Règle des quatre yeux : une même personne ne vise pas deux étapes d&apos;une même version ; le rédacteur ne vise pas sa version. Si le texte change, le circuit recommence.</li>
             <li>Numérotation des versions : 0.x pour un projet, 1.0 à l&apos;adoption, 1.1 pour une correction de forme (les lectures restent valables), 2.0 pour une révision de fond, soumise de nouveau au circuit et à la lecture.</li>
           </ul>

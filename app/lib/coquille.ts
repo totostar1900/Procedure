@@ -11,7 +11,7 @@ const esc = (s: string) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&
 
 // Paramétrage : super administrateur, ou administrateur ayant la prérogative « circuits » (il n'y voit que ses sections)
 export const accesParametrage = (m: { super?: boolean; prerogatives?: string[] | null }) => !!m.super || (m.prerogatives || []).includes("circuits");
-export async function coquille(page: "membres" | "parametrage", exigeSuper: boolean) {
+export async function coquille(page: "membres" | "parametrage" | "comme", exigeSuper: boolean) {
   const sb = await supabaseServeur();
   const { data: { user } } = await sb.auth.getUser();
   const email = (user?.email || "").toLowerCase();
