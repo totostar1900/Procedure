@@ -9,7 +9,7 @@ const lectureSeule = () => { const e = new Error("Lecture seule : vous voyez le 
 if (VC) {
   document.documentElement.classList.add("voir-comme");
   // Les boutons qui écriraient restent visibles mais ne font rien : on le dit plutôt que d'ouvrir une confirmation inutile
-  const ACT = "[data-vact],[data-vlectsave],[data-vetat],[data-edit-doc],[data-ed],[data-new],[data-del],[data-dup],[data-vcirc],#btn-nouveau";
+  const ACT = "[data-vact],[data-vrole],[data-vlectsave],[data-vetat],[data-edit-doc],[data-ed],[data-new],[data-del],[data-dup],[data-vcirc],#btn-nouveau";
   document.addEventListener("click", (ev) => {
     const b = ev.target.closest && ev.target.closest(ACT); if (!b) return;
     ev.preventDefault(); ev.stopImmediatePropagation();
