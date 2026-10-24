@@ -271,10 +271,6 @@ export default function Gestion({ moi, docs }: { moi: MoiC; docs: Doc[] }) {
           <p className="fine">Une personne qui s&apos;est déjà connectée ne se supprime pas : on la suspend, pour garder la trace de ses visas.</p>
         </section>
 
-        {moi.super || moi.prerogatives.includes("activite") ? <section className="card">
-          <div className="listhead"><h2>Historique</h2><a className="btn sec" href="/activite" style={{ textDecoration: "none" }}>Ouvrir la page Activité</a></div>
-          <p className="fine" style={{ margin: 0 }}>Connexions, accès ouverts, droits modifiés, visas, consultations et téléchargements sont réunis dans la page Activité, par personne et par séance de travail.</p>
-        </section> : null}
       </main>
 
       {volet ? <>
