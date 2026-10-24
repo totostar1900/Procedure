@@ -1,6 +1,6 @@
 "use client";
 import { createBrowserClient } from "@supabase/ssr";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { CSS, FL, MoiC, loc, t, telecharger, useLangue } from "../../lib/admin-ui";
 
 // Journal d'activité : présence (séances), écritures (journal de la base), consultations et téléchargements
@@ -32,6 +32,10 @@ export default function Activite({ moi, docs }: { moi: MoiC; docs: { id: string;
   const [ouv, setOuv] = useState<Record<string, boolean>>({});
   const [objSel, setObjSel] = useState("");
   const [maintenant, setMaintenant] = useState(Date.now());
+  // L'écran ne bouge pas quand on change d'onglet ou qu'on replie une séance : la zone garde au moins sa hauteur précédente
+  const zone = useRef<HTMLDivElement>(null);
+  useEffect(() => { if (zone.current) zone.current.style.minHeight = ""; }, [q, qui, jours, fam]);
+  const figer = () => { const z = zone.current; if (z) z.style.minHeight = Math.max(z.offsetHeight, parseFloat(z.style.minHeight) || 0) + "px"; };
 
   useEffect(() => { const u = new URLSearchParams(location.search).get("qui"); if (u) setQui(u.toLowerCase()); }, []);
   const charger = useCallback(async () => {
@@ -151,7 +155,6 @@ export default function Activite({ moi, docs }: { moi: MoiC; docs: { id: string;
   const hm = (iso: string) => new Date(iso).toLocaleTimeString(loc(), { hour: "2-digit", minute: "2-digit", timeZone: "Africa/Douala" });
   const jourLib = (iso: string) => new Date(iso).toLocaleDateString(loc(), { weekday: "long", day: "numeric", month: "long", timeZone: "Africa/Douala" });
   const detail = (e: Ev) => e.texte + (e.duree != null ? " · " + duree(e.duree) : "") + (e.lu ? " · " + t("lu jusqu'au bout") : "");
-  const exporter = () => telecharger("activite_" + new Date().toISOString().slice(0, 10) + ".csv", [["Date", "Personne", "Famille", "Événement", "Durée (s)", "Lu jusqu'au bout"], ...evs.filter(filtre).map((e) => [e.le, nomDe(e.qui), LIB[e.fam], e.texte, e.duree != null ? String(e.duree) : "", e.lu ? "oui" : ""])]);
   const exporterObjet = () => objCourant && telecharger("acces_" + objCourant.cle.replace(":", "_") + ".csv", [["Personne", "Adresse", "Fonctions", "Dernier accès", "Ouvertures", "Durée totale (s)", "Lu jusqu'au bout", "Téléchargements", "Actions"], ...Object.entries(objCourant.pers).map(([p, v]) => [nomDe(p), p, fnDe(p), v.der, String(v.n), String(v.d), v.lu ? "oui" : "", String(v.dl), String(v.act)])]);
   const personnes = [...new Set(evs.map((e) => e.qui))].sort((a, b) => nomDe(a).localeCompare(nomDe(b)));
   const ini = (email: string) => nomDe(email).split(/[\s.@]+/).filter(Boolean).slice(0, 2).map((x) => x[0].toUpperCase()).join("");
@@ -174,15 +177,15 @@ export default function Activite({ moi, docs }: { moi: MoiC; docs: { id: string;
           <h2 className="ac-h">{t("Signaux")} · {jours === 1 ? t("aujourd'hui") : jours + " " + t("derniers jours")}</h2>
           <div className="ac-sig">{signaux.length ? signaux.map((s, i) => <div key={i} className={"ac-s" + (s.grave ? " grave" : "")}><time>{dt(s.le)}</time><span>{s.texte}</span></div>) : <p className="mail">{t("Aucun signal sur la période.")}</p>}</div>
 
-          <div className="ac-tabs" role="tablist">{([["jour", "Par jour et par personne"], ["objet", "Par document ou dossier"], ["chrono", "Chronologie complète"]] as const).map(([k, l]) => <button key={k} role="tab" aria-selected={onglet === k} onClick={() => setOnglet(k)}>{t(l)}</button>)}</div>
+          <div className="ac-tabs" role="tablist">{([["jour", "Par jour et par personne"], ["objet", "Par document ou dossier"], ["chrono", "Chronologie complète"]] as const).map(([k, l]) => <button key={k} role="tab" aria-selected={onglet === k} onClick={() => { figer(); setOnglet(k); }}>{t(l)}</button>)}</div>
           <div className="tools ac-tools">
             <input type="search" placeholder={t("Personne, document, dossier…")} value={q} onChange={(e) => setQ(e.target.value)} aria-label={t("Rechercher")} />
             <select className="sel" value={jours} onChange={(e) => setJours(Number(e.target.value))} aria-label={t("Période")}><option value={1}>{t("Aujourd'hui")}</option><option value={7}>{t("7 derniers jours")}</option><option value={30}>{t("30 derniers jours")}</option><option value={90}>{t("90 derniers jours")}</option></select>
             <select className="sel" value={qui} onChange={(e) => setQui(e.target.value)} aria-label={t("Personne")}><option value="">{t("Toutes les personnes")}</option>{personnes.map((p) => <option key={p} value={p}>{nomDe(p)}</option>)}</select>
             <span className="ac-chips">{(Object.keys(LIB) as Fam[]).map((f) => <button key={f} type="button" className="ac-chip" aria-pressed={fam[f]} onClick={() => setFam({ ...fam, [f]: !fam[f] })}><i style={{ background: COUL[f] }} />{t(LIB[f])}</button>)}</span>
-            <button type="button" className="btn sec" style={{ marginLeft: "auto" }} onClick={exporter}>{t("Exporter (CSV)")}</button>
           </div>
 
+          <div ref={zone}>
           {onglet === "jour" ? <div>
             {cartesVis.length ? cartesVis.map((c) => {
               const jl = jourLib(c.debut); const tete = jl !== jourPrec ? <h3 className="ac-day">{jl}</h3> : null; jourPrec = jl;
@@ -190,11 +193,11 @@ export default function Activite({ moi, docs }: { moi: MoiC; docs: { id: string;
               const sens = c.evs.some((e) => e.sens), o = !!ouv[c.cle];
               const d0 = heureY(c.debut).h, d1 = Math.max(d0 + 0.15, heureY(c.fin).h);
               return <div key={c.cle}>{tete}<div className={"ac-sess" + (o ? " open" : "")}>
-                <div className="ac-sh" role="button" tabIndex={0} aria-expanded={o} onClick={() => setOuv({ ...ouv, [c.cle]: !o })} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setOuv({ ...ouv, [c.cle]: !o }); } }}>
+                <div className="ac-sh" role="button" tabIndex={0} aria-expanded={o} onClick={() => { figer(); setOuv({ ...ouv, [c.cle]: !o }); }} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); figer(); setOuv({ ...ouv, [c.cle]: !o }); } }}>
                   <div className={"ac-av" + (c.enCours ? "" : " off")}>{ini(c.qui)}</div>
                   <div className="ac-p"><b>{nomDe(c.qui)}</b><span>{fnDe(c.qui) || (c.qui === SYS ? "" : c.qui)}</span></div>
                   <div className="ac-sum">{n.action ? <em><i style={{ background: COUL.action }} />{n.action} {t(n.action > 1 ? "actions" : "action")}</em> : null}{n.consult ? <em><i style={{ background: COUL.consult }} />{n.consult} {t(n.consult > 1 ? "ouvertures" : "ouverture")}</em> : null}{n.dl ? <em><i style={{ background: COUL.dl }} />{n.dl} {t(n.dl > 1 ? "téléchargements" : "téléchargement")}</em> : null}{sens ? <em className="ac-sens">{t("dossier sensible")}</em> : null}{!c.evs.length ? <em>{t("présence sans action")}</em> : null}</div>
-                  <div className="ac-span"><b>{hm(c.debut)} – {c.enCours ? t("en cours") : hm(c.fin)}</b>{c.suivi ? duree(c.actif) + " " + t("actif") : t("hors séance suivie")}<div className="ac-bar"><i style={{ left: (d0 / 24) * 100 + "%", width: Math.max(0.8, ((d1 - d0) / 24) * 100) + "%" }} /></div></div>
+                  <div className="ac-span"><b>{hm(c.debut)} – {c.enCours ? t("en cours") : hm(c.fin)}</b>{c.suivi ? duree(c.actif) + " " + t("actif") : null}<div className="ac-bar"><i style={{ left: (d0 / 24) * 100 + "%", width: Math.max(0.8, ((d1 - d0) / 24) * 100) + "%" }} /></div></div>
                   <span className="ac-chev" aria-hidden="true">▶</span>
                 </div>
                 {o ? <ul className="ac-ev">{[...c.vis].reverse().map((e, i) => <li key={i}><time>{hm(e.le)}</time><span className={"ac-tag f-" + e.fam}>{t(LIB[e.fam])}</span><span>{detail(e)}{e.sens ? <b className="ac-sens"> {t("sensible")}</b> : null}</span></li>)}{!c.vis.length ? <li><span /><span /><span className="mail">{t("Aucun événement de ces familles.")}</span></li> : null}</ul> : null}
@@ -214,7 +217,8 @@ export default function Activite({ moi, docs }: { moi: MoiC; docs: { id: string;
 
           {onglet === "chrono" ? <div className="tbl"><table><thead><tr><th>{t("Quand")}</th><th>{t("Qui")}</th><th>{t("Famille")}</th><th>{t("Événement")}</th></tr></thead><tbody>
             {evs.filter(filtre).slice(0, 1500).map((e, i) => <tr key={i}><td style={{ whiteSpace: "nowrap" }}>{dt(e.le)}</td><td>{nomDe(e.qui)}</td><td><span className={"ac-tag f-" + e.fam}>{t(LIB[e.fam])}</span></td><td>{detail(e)}{e.sens ? <b className="ac-sens"> {t("sensible")}</b> : null}</td></tr>)}
-          </tbody></table>{evs.filter(filtre).length > 1500 ? <p className="mail">{t("1 500 premières lignes affichées ; l'export contient tout.")}</p> : null}</div> : null}
+          </tbody></table>{evs.filter(filtre).length > 1500 ? <p className="mail">{t("1 500 premières lignes affichées.")}</p> : null}</div> : null}
+          </div>
 
           <p className="fine" style={{ marginTop: 24 }}>{t("Non enregistré : frappes, mouvements de souris, recherches, aperçus rapides, appareil et adresse IP. Le temps actif ne compte que lorsque l'onglet est au premier plan et utilisé. Conservation : 12 mois pour les consultations et les séances ; les accès aux dossiers d'opération et les actions sont conservés.")}</p>
         </>}
@@ -234,14 +238,14 @@ const AC = `
 .ac-sig{display:grid;gap:6px}
 .ac-s{display:grid;grid-template-columns:170px 1fr;gap:10px;padding:7px 12px;border-left:3px solid #E8A020;background:#FBF1DC;font-size:12.5px}
 .ac-s.grave{border-left-color:#9B2C1F;background:#F8E6E3}.ac-s time{font-size:11.5px;color:var(--muted)}
-.ac-tabs{display:flex;gap:2px;border-bottom:1px solid #B4C2D3;margin:22px 0 12px;flex-wrap:wrap}
+.ac-tabs{display:flex;gap:2px;border-bottom:1px solid #B4C2D3;margin:22px 0 10px;flex-wrap:wrap}
 .ac-tabs button{border:0;background:none;padding:8px 14px;cursor:pointer;color:#3E5068;border-bottom:2px solid transparent;margin-bottom:-1px;font:inherit;font-weight:500}
 .ac-tabs button[aria-selected=true]{color:var(--navy);border-bottom-color:#E8A020;font-weight:600}
-.ac-tools{margin-bottom:14px}.ac-tools input[type=search]{width:230px}
+.ac-tools{margin-bottom:8px}.ac-tools input[type=search]{width:230px}
 .ac-chips{display:flex;gap:6px;flex-wrap:wrap}
 .ac-chip{border:1px solid var(--line);background:#fff;padding:4px 10px;border-radius:12px;cursor:pointer;font:inherit;font-size:12px;display:inline-flex;gap:6px;align-items:center}
 .ac-chip i{width:8px;height:8px;border-radius:50%}.ac-chip[aria-pressed=false]{opacity:.45}
-.ac-day{font-family:"Playfair Display",Georgia,serif;font-size:17px;color:var(--navy);margin:18px 0 8px;text-transform:capitalize}
+.ac-day{font-family:"Playfair Display",Georgia,serif;font-size:17px;color:var(--navy);margin:10px 0 8px;text-transform:capitalize}
 .ac-sess{border:1px solid var(--line);margin-bottom:8px;background:#fff}
 .ac-sh{display:grid;grid-template-columns:34px minmax(0,1.1fr) minmax(0,2fr) 160px 14px;gap:12px;align-items:center;padding:9px 12px;cursor:pointer}
 .ac-sh:hover{background:#F4F7FB}.ac-sh:focus-visible{outline:2px solid #E8A020;outline-offset:-2px}
