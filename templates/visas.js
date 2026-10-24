@@ -813,7 +813,7 @@
     var box = $("#rail-me"); if (!box) return;
     var badge = $(RESTREINT ? "#nav-badge-emp" : "#nav-badge");
     var lm = $("#nav-membres"); if (lm) lm.hidden = !(HOSTED && V.owner);
-    var lp = $("#nav-parametrage"); if (lp) lp.hidden = !(HOSTED && (estSuper() || peut("circuits")));
+    var lp = $("#nav-parametrage"); if (lp) lp.hidden = !(HOSTED && (estSuper() || peut("circuits"))); var la = $("#nav-activite"); if (la) la.hidden = !(HOSTED && (estSuper() || peut("activite")));
     var lt = $("#nav-tableau"); if (lt) lt.hidden = !accesTableau();
     var bn = $("#btn-nouveau"); if (bn) bn.hidden = !(HOSTED && typeof canEdit === "function" && canEdit());
     if (!V.ready && !V.me) { box.innerHTML = '<div class="me-load">Chargement…</div>'; return; }

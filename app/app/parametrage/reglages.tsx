@@ -37,7 +37,7 @@ export default function Reglages({ moi, docs }: { moi: MoiC; docs: DocC[] }) {
     ...(circ ? [["circuits", "Circuits d'approbation", "Prérogative « circuits »"], ["delais", "Délais et alertes", "Prérogative « circuits »"]] as [string, string, string][] : []),
     ...(moi.super ? [["notifications", "Avis par e-mail", "Super administrateur"] as [string, string, string]] : []),
     ["regles", "Règles appliquées", "Pour mémoire"],
-    ...(moi.super ? [["journal", "Journal complet", "Super administrateur"] as [string, string, string]] : []),
+    ...(moi.super ? [["journal", "Journal d'activité", "Super administrateur"] as [string, string, string]] : []),
   ];
   const [actif, setActif] = useState(SECTIONS[0][0]);
   useEffect(() => {
@@ -149,18 +149,8 @@ export default function Reglages({ moi, docs }: { moi: MoiC; docs: DocC[] }) {
 
         {moi.super ? <section className="zone" id="z-journal">
           {tete("journal")}
-          <div className="listhead"><span />
-            <div className="tools">
-              <input type="search" placeholder="Rechercher" value={q} onChange={(e) => setQ(e.target.value)} aria-label="Rechercher dans le journal" />
-              <select className="sel" value={cat} onChange={(e) => setCat(e.target.value)} aria-label="Catégorie">{CATS.map(([c, l]) => <option key={c} value={c}>{l}</option>)}</select>
-              <button type="button" className="btn sec" onClick={exporter}>Exporter (CSV)</button>
-            </div>
-          </div>
-          <ul className="journal">
-            {journal.slice(0, 300).map((e) => <li key={e.id}><time>{date(e.le)}</time><span>{libelle(e)}</span></li>)}
-            {!journal.length ? <li className="vide">Aucun événement.</li> : null}
-          </ul>
-          <p className="fine">Le journal est écrit par la base à chaque opération ; il ne peut être ni modifié ni effacé depuis le site. 1 000 dernières entrées, export de la sélection.</p>
+          <p className="zp">Le journal complet (connexions, accès, droits, visas, modifications, consultations, téléchargements, avis par e-mail, « Voir comme ») est dans la page Activité, avec recherche, filtres et export.</p>
+          <a className="btn sec" href="/activite" style={{ textDecoration: "none" }}>Ouvrir la page Activité</a>
         </section> : null}
         </div>
         </div>

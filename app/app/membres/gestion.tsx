@@ -223,7 +223,7 @@ export default function Gestion({ moi, docs }: { moi: MoiC; docs: Doc[] }) {
   // ---------- Volet ----------
   const dr = orig ? droits(orig) : { soi: false, membres: peut("membres"), tableau: peut("tableau"), admin: peut("admins"), lectures: peut("lectures") };
   const nouveau = volet?.mode === "nouveau";
-  const hist = orig ? toutes.filter((l) => l.email === orig.email).sort((a, b) => (a.le < b.le ? 1 : -1)).slice(0, 15) : [];
+  const hist = orig ? toutes.filter((l) => l.email === orig.email).sort((a, b) => (a.le < b.le ? 1 : -1)).slice(0, 10) : [];
   const seul = orig ? orig.fonctions.filter((c) => c !== "collab" && c !== "redac" && titulaires(c).length === 1 && titulaires(c)[0].email === orig.email) : [];
   const modifiable = nouveau || dr.membres || dr.admin || dr.tableau || dr.lectures;
 
@@ -271,26 +271,10 @@ export default function Gestion({ moi, docs }: { moi: MoiC; docs: Doc[] }) {
           <p className="fine">Une personne qui s&apos;est déjà connectée ne se supprime pas : on la suspend, pour garder la trace de ses visas.</p>
         </section>
 
-        <section className="card">
-          <div className="listhead"><h2>Journal des accès</h2><button type="button" className="btn sec" onClick={jExport}>Exporter la sélection</button></div>
-          <div className="tools" style={{ marginBottom: 10 }}>
-            <input type="search" className="grand" placeholder="Rechercher : personne, fonction, « suspendu », date…" value={jq} onChange={(e) => setJq(e.target.value)} aria-label="Rechercher dans le journal" />
-            <select className="sel" value={jType} onChange={(e) => setJType(e.target.value)} aria-label="Événement"><option value="">Tous les événements</option>{Object.values(TYPES).map((t) => <option key={t}>{t}</option>)}</select>
-            <select className="sel" value={jPers} onChange={(e) => setJPers(e.target.value)} aria-label="Personne"><option value="">Toutes les personnes</option>{ms.map((m) => <option key={m.email} value={m.email}>{m.nom || m.email}</option>)}</select>
-            <select className="sel" value={jPer} onChange={(e) => setJPer(e.target.value)} aria-label="Période"><option value="0">Depuis l&apos;origine</option><option value="1">24 heures</option><option value="7">7 jours</option><option value="30">30 jours</option><option value="90">90 jours</option></select>
-            {jq || jType || jPers || jPer !== "0" ? <button type="button" className="lnk" onClick={() => { setJq(""); setJType(""); setJPers(""); setJPer("0"); }}>Effacer les filtres</button> : null}
-          </div>
-          <div className="tbl">
-            <table className="ml jt">
-              <thead><tr>{jth("le", "Date")}{jth("qui", "Personne")}{jth("type", "Événement")}<th>Détail</th>{jth("par", "Par")}</tr></thead>
-              <tbody>
-                {jListe.slice(0, jNb).map((l) => <tr key={l.id}><td className="cx">{date(l.le)}</td><td><b>{l.qui}</b>{l.qui !== l.email ? <div className="mail">{l.email}</div> : null}</td><td><span className={"ev ev-" + l.type.split(" ")[0]}>{l.type}</span></td><td>{l.detail}</td><td className="mail">{l.par}</td></tr>)}
-                {!jListe.length ? <tr><td colSpan={5} className="vide">Aucun événement ne correspond.</td></tr> : null}
-              </tbody>
-            </table>
-          </div>
-          <p className="fine">{jListe.length + (jListe.length > 1 ? " événements" : " événement")}{jListe.length > jNb ? <> · <button type="button" className="lnk" onClick={() => setJNb(jNb + 100)}>en afficher plus</button></> : null}</p>
-        </section>
+        {moi.super || moi.prerogatives.includes("activite") ? <section className="card">
+          <div className="listhead"><h2>Historique</h2><a className="btn sec" href="/activite" style={{ textDecoration: "none" }}>Ouvrir la page Activité</a></div>
+          <p className="fine" style={{ margin: 0 }}>Connexions, accès ouverts, droits modifiés, visas, consultations et téléchargements sont réunis dans la page Activité, par personne et par séance de travail.</p>
+        </section> : null}
       </main>
 
       {volet ? <>
@@ -350,6 +334,7 @@ export default function Gestion({ moi, docs }: { moi: MoiC; docs: Doc[] }) {
 
             {orig ? <>
               <h3>Historique de l&apos;accès</h3>
+              {moi.super || moi.prerogatives.includes("activite") ? <p style={{ margin: "0 0 6px" }}><a className="lnk" href={"/activite?qui=" + encodeURIComponent(orig.email)}>Voir toute son activité</a></p> : null}
               <ul className="journal">{hist.map((l) => <li key={l.id}><time>{date(l.le)}</time><span><b>{l.type}</b>{l.detail ? <> — <span>{l.detail}</span></> : null}{l.par ? " · " + l.par : ""}</span></li>)}{!hist.length ? <li className="vide">Aucun événement.</li> : null}</ul>
             </> : null}
           </div>

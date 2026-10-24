@@ -11,12 +11,13 @@ const esc = (s: string) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&
 
 // Paramétrage : super administrateur, ou administrateur ayant la prérogative « circuits » (il n'y voit que ses sections)
 export const accesParametrage = (m: { super?: boolean; prerogatives?: string[] | null }) => !!m.super || (m.prerogatives || []).includes("circuits");
-export async function coquille(page: "membres" | "parametrage" | "comme", exigeSuper: boolean) {
+export const accesActivite = (m: { super?: boolean; prerogatives?: string[] | null }) => !!m.super || (m.prerogatives || []).includes("activite");
+export async function coquille(page: "membres" | "parametrage" | "comme" | "activite", exigeSuper: boolean) {
   const sb = await supabaseServeur();
   const { data: { user } } = await sb.auth.getUser();
   const email = (user?.email || "").toLowerCase();
   const { data: m } = await sb.from("membres").select("nom,fonctions,admin,super,prerogatives,actif").eq("email", email).maybeSingle();
-  if (!m || !m.actif || !m.admin || (exigeSuper && !m.super) || (page === "parametrage" && !accesParametrage(m))) redirect("/");
+  if (!m || !m.actif || !m.admin || (exigeSuper && !m.super) || (page === "parametrage" && !accesParametrage(m)) || (page === "activite" && !accesActivite(m))) redirect("/");
   const moi: Moi = { email, nom: m.nom || email, super: !!m.super, admin: !!m.admin, prerogatives: m.prerogatives || [], fonctions: m.fonctions || [] };
 
   let docs: { id: string; titre: string; type: string; circuit: { etape: string; label: string; role: string }[] }[] = [], css = "", rail = "";
@@ -36,6 +37,7 @@ export async function coquille(page: "membres" | "parametrage" | "comme", exigeS
     .replace('id="nav-membres" title="Membres" hidden', 'id="nav-membres" title="Membres"' + (page === "membres" ? ' aria-current="page"' : ""))
     .replace('id="nav-parametrage" title="Paramétrage" hidden', accesParametrage(moi) ? 'id="nav-parametrage" title="Paramétrage"' + (page === "parametrage" ? ' aria-current="page"' : "") : 'id="nav-parametrage" title="Paramétrage" hidden')
     .replace('id="nav-tableau" hidden', 'id="nav-tableau"')
+    .replace('id="nav-activite" title="Activité" hidden', accesActivite(moi) ? 'id="nav-activite" title="Activité"' + (page === "activite" ? ' aria-current="page"' : "") : 'id="nav-activite" title="Activité" hidden')
     .replace('<div class="rail-me" id="rail-me" aria-live="polite"></div>', `<div class="rail-me" id="rail-me">${carte}</div>`);
   css += ".nav a.nav-link[aria-current=page]{color:var(--on-navy);background:rgba(255,255,255,.1)}.nav a.nav-link[aria-current=page]::before{content:\"\";position:absolute;left:-10px;top:8px;bottom:8px;width:3px;border-radius:0 3px 3px 0;background:var(--gold)}";
   return { moi, docs, css, rail };

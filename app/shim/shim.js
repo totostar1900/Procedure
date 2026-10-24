@@ -165,9 +165,68 @@ const user = {
   },
 };
 
+// ---------- activité : présence et consultations (journal d'activité, lu par le super administrateur) ----------
+// Une séance par onglet ; elle se renouvelle après 30 minutes sans activité. La présence n'est signalée que si l'onglet
+// est au premier plan et utilisé (geste dans les 5 dernières minutes). Rien n'est enregistré en « Voir comme ».
+const ACT = (() => {
+  if (VC) return { noter: async () => null, quitter: () => {} };
+  const MIN = 60000; let jeton = "", geste = Date.now(), sid = null, vu = 0;
+  const neuf = () => (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2));
+  const seance = () => {
+    const now = Date.now();
+    if (!sid) { try { const s = JSON.parse(sessionStorage.getItem("pc-ref-seance") || "null"); if (s && now - s.vu < 30 * MIN) { sid = s.id; vu = s.vu; } } catch (e) { /* stockage indisponible */ } }
+    if (!sid || now - vu > 30 * MIN) sid = neuf();
+    vu = now; try { sessionStorage.setItem("pc-ref-seance", JSON.stringify({ id: sid, vu })); } catch (e) { /* idem */ }
+    return sid;
+  };
+  ["pointerdown", "keydown", "scroll", "touchstart", "mousemove"].forEach((t) => addEventListener(t, () => { geste = Date.now(); }, { passive: true }));
+  const actif = () => document.visibilityState === "visible" && Date.now() - geste < 5 * MIN;
+  const vue = () => { const h = decodeURIComponent(location.hash.slice(1)); return h.startsWith("d-") ? "dossier:" + h.slice(2) : /^PC-/.test(h) ? "doc:" + h : "page:" + (h || "registre"); };
+  const battre = async () => {
+    if (!(await meP) || !actif()) return;
+    try { const { data } = await sb.auth.getSession(); jeton = (data && data.session && data.session.access_token) || jeton; } catch (e) { /* hors ligne */ }
+    sb.rpc("battement", { sid: seance(), v: vue() }).then(() => {}, () => {});
+  };
+  setTimeout(battre, 1500); setInterval(battre, MIN);
+  // Ouverture d'un document ou d'un dossier : durée active et lecture jusqu'au bout, notées à la sortie
+  let ouvert = null;
+  const clore = () => {
+    if (!ouvert) return; const o = ouvert; ouvert = null;
+    if (!o.id || !jeton) return;
+    const duree = Math.round(o.actif / 1000), fini = o.max >= 0.9;
+    try { fetch(CFG.url + "/rest/v1/rpc/clore", { method: "POST", keepalive: true, headers: { apikey: CFG.key, Authorization: "Bearer " + jeton, "Content-Type": "application/json" }, body: JSON.stringify({ aid: o.id, duree, fini }) }); } catch (e) { /* perdu */ }
+  };
+  setInterval(() => { if (ouvert && actif()) ouvert.actif += 5000; }, 5000);
+  addEventListener("scroll", () => { if (!ouvert) return; const h = document.documentElement.scrollHeight - innerHeight; const r = h > 0 ? (scrollY + 1) / h : 1; if (r > ouvert.max) ouvert.max = r; }, { passive: true });
+  const DATA = (() => { try { return JSON.parse(document.getElementById("ref-data").textContent); } catch (e) { return null; } });
+  let D = null;
+  const suivre = async () => {
+    clore();
+    const v = vue(); if (v.startsWith("page:")) return;
+    if (!(await meP)) return;
+    D = D || DATA();
+    let typ = "dossier", obj = v.slice(8), ver = null;
+    if (v.startsWith("doc:")) { typ = "doc"; const [id, p] = v.slice(4).split("~"); obj = id; const d = D && D.docs.find((x) => x.id === id); ver = d ? (p && d.projet ? d.projet.version : d.version) : null; }
+    const o = { id: null, actif: 0, max: 0 }; ouvert = o;
+    try { const { data } = await sb.rpc("noter", { sid: seance(), typ, obj, ver }); o.id = data; } catch (e) { /* non noté */ }
+    battre();
+  };
+  addEventListener("hashchange", suivre);
+  addEventListener("pagehide", clore);
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden" && ouvert) { const o = ouvert; clore(); if (o) { /* reprise : nouvelle ouverture au retour */ addEventListener("visibilitychange", function re() { if (document.visibilityState === "visible") { removeEventListener("visibilitychange", re); suivre(); } }); } } });
+  if (document.readyState === "loading") addEventListener("DOMContentLoaded", () => setTimeout(suivre, 800)); else setTimeout(suivre, 800);
+  return {
+    noter: async (typ, obj, ver) => { if (!(await meP)) return null; try { const { data } = await sb.rpc("noter", { sid: seance(), typ, obj, ver }); return data; } catch (e) { return null; } },
+  };
+})();
+
 // ---------- downloads ----------
 const downloads = {
   async save({ filename, data }) {
+    // Téléchargement : noté au journal d'activité (contrat généré depuis un dossier, ou fichier du référentiel)
+    const h = decodeURIComponent(location.hash.slice(1)), lot = window.__PC_DL; window.__PC_DL = null;
+    if (h.startsWith("d-")) ACT.noter("generation", h.slice(2), String(filename).slice(0, 40));
+    else ACT.noter("fichier", lot && lot.length ? filename + " — " + lot.join(", ") : filename, lot && lot.length ? lot.length + " doc." : null);
     const blob = data instanceof Blob ? data : new Blob([data]);
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a"); a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove();

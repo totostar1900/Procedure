@@ -66,7 +66,7 @@
   function selBusy(on, msg) { OPT.busy = on; renderBar(); if (msg) toast(msg); }
 
   async function makeZip() {
-    var p = plan(); if (!p.length) { toast("Rien à télécharger : cochez des documents ou des annexes."); return; }
+    var p = plan(); window.__PC_DL = p.map(function (it) { return it.d.id; }); if (!p.length) { toast("Rien à télécharger : cochez des documents ou des annexes."); return; }
     if (!OPT.pdf && !OPT.word) { toast("Choisissez au moins un format : PDF ou Word."); return; }
     selBusy(true, "Préparation du ZIP…");
     try {
@@ -97,7 +97,7 @@
   }
 
   async function makeRecueil() {
-    var p = plan(); if (!p.length) { toast("Rien à réunir : cochez des documents ou des annexes."); return; }
+    var p = plan(); window.__PC_DL = p.map(function (it) { return it.d.id; }); if (!p.length) { toast("Rien à réunir : cochez des documents ou des annexes."); return; }
     selBusy(true, "Préparation du recueil…");
     try {
       var L = await loadLib("pdflib"), fk = await loadLib("fontkit");

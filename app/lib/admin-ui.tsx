@@ -27,6 +27,7 @@ export const PREROGS: [string, string, string][] = [
   ["rediger", "Rédiger", "modifier et créer des documents en ligne"],
   ["abroger", "Abroger et archiver", "comme le RCCI"],
   ["supprimer", "Supprimer des documents", "retrait du registre"],
+  ["activite", "Journal d'activité", "voir la page Activité (accordée par le super administrateur seul)"],
 ];
 export const PL: Record<string, string> = Object.fromEntries(PREROGS.map((p) => [p[0], p[1]]));
 export const peutDe = (moi: MoiC) => (p: string) => moi.super || moi.prerogatives.includes(p);
@@ -71,7 +72,7 @@ export function Prerogatives({ val, moi, onChange, disabled }: { val: string[]; 
   const peut = peutDe(moi);
   return (
     <div className="prg">{PREROGS.map(([c, l, d]) => {
-      const off = disabled || !peut(c);
+      const off = disabled || !peut(c) || (c === "activite" && !moi.super);
       return <label key={c} className={"chk" + (off ? " dim" : "")} title={!peut(c) ? "Vous ne détenez pas cette prérogative" : d}>
         <input type="checkbox" checked={val.includes(c)} disabled={off} onChange={() => onChange(val.includes(c) ? val.filter((x) => x !== c) : [...val, c])} />{l}</label>;
     })}</div>

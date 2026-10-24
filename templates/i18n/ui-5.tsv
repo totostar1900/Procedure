@@ -219,3 +219,97 @@ Employé (documents attribués)	Employee (assigned documents)
 Affichez le référentiel tel qu'une personne, ou un profil type, le voit : mêmes documents, mêmes menus, mêmes actions. Lecture seule : rien ne peut être visé, attesté ni modifié. Chaque consultation est inscrite au journal.	Display the repository as a person, or a profile, sees it: same documents, same menus, same actions. Read-only: nothing can be signed off, acknowledged or changed. Each viewing is recorded in the log.
 Pour vérifier un écran avant qu'une personne occupe ce rôle. Le profil « accès employé » voit les documents demandés à tous.	To check a screen before someone holds this role. The “employee access” profile sees the documents required of everyone.
 Les pages Membres et Paramétrage restent affichées avec vos propres droits. Pour revenir à votre vue, utilisez « Quitter » dans le bandeau en haut de la page.	The Members and Settings pages are still shown with your own rights. To return to your own view, use “Quit” in the banner at the top of the page.
+Activité	Activity
+Contrôle	Control
+Qui est connecté, qui travaille sur quoi, et qui a eu accès à quel document ou dossier. Les écritures et les consultations sont regroupées par séance de travail.	Who is signed in, who is working on what, and who accessed which document or file. Changes and views are grouped by work session.
+En ce moment	Right now
+Personne n'est connecté en ce moment.	Nobody is signed in right now.
+inactif depuis	idle for
+Signaux	Signals
+aujourd'hui	today
+derniers jours	last days
+Aucun signal sur la période.	No signal over the period.
+Par jour et par personne	By day and person
+Par document ou dossier	By document or file
+Chronologie complète	Full timeline
+Personne, document, dossier…	Person, document, file…
+Toutes les personnes	All persons
+Accès	Access
+Actions	Actions
+Consultations	Views
+Téléchargements	Downloads
+action	action
+ouverture	view
+ouvertures	views
+téléchargement	download
+dossier sensible	sensitive file
+présence sans action	presence without action
+en cours	ongoing
+actif	active
+hors séance suivie	outside a tracked session
+Aucun événement de ces familles.	No event of these kinds.
+Aucune séance ne correspond.	No session matches.
+sensible	sensitive
+personne(s)	person(s)
+Aucun accès sur la période.	No access over the period.
+Dossier d'opération : information privilégiée.	Deal file: inside information.
+Document du référentiel.	Repository document.
+personne(s) sur la période.	person(s) over the period.
+Exporter la liste d'accès	Export the access list
+Dernier accès	Last access
+Ouvertures	Views
+Durée	Duration
+lu	read
+n'a pas contribué au dossier	has not contributed to the file
+Quand	When
+Qui	Who
+Famille	Kind
+Événement	Event
+1 500 premières lignes affichées ; l'export contient tout.	First 1,500 rows shown; the export contains everything.
+Non enregistré : frappes, mouvements de souris, recherches, aperçus rapides, appareil et adresse IP. Le temps actif ne compte que lorsque l'onglet est au premier plan et utilisé. Conservation : 12 mois pour les consultations et les séances ; les accès aux dossiers d'opération et les actions sont conservés.	Not recorded: keystrokes, mouse movements, searches, quick previews, device and IP address. Active time only counts while the tab is in the foreground and in use. Retention: 12 months for views and sessions; access to deal files and actions are kept.
+Système (publication et avis automatiques)	System (automatic publication and notices)
+Ouvre un accès pour	Grants access to
+Retire l'invitation de	Withdraws the invitation of
+Modifie l'accès de	Changes the access of
+Atteste sa lecture de	Acknowledges reading
+Renvoie pour modification	Returns for changes
+Vise	Signs off
+Soumet une modification de	Submits a change to
+Publication de	Publication of
+Publication refusée de	Publication refused for
+Ouvre un brouillon de	Opens a draft of
+Abandonne le brouillon de	Abandons the draft of
+Modifie le brouillon de	Edits the draft of
+adopté	adopted
+Rétablit	Restores
+Supprime	Deletes
+Abroge	Repeals
+Modifie le seuil d'alerte des délais	Changes the deadline alert threshold
+Rétablit le circuit	Restores the workflow
+Modifie le circuit	Changes the workflow
+Modifie les lectures obligatoires de	Changes the mandatory readings of
+Crée le dossier	Creates the file
+Supprime le dossier	Deletes the file
+Modifie le dossier	Edits the file
+Modifie les réglages des avis par e-mail	Changes the e-mail notice settings
+Ouvre	Opens
+Ouvre le dossier	Opens the file
+Génère	Generates
+depuis le dossier	from the file
+Télécharge	Downloads
+lu jusqu'au bout	read to the end
+fichiers téléchargés en moins de 10 minutes	files downloaded in less than 10 minutes
+séance hors des heures ouvrées	session outside working hours
+a ouvert le dossier	opened the file
+sans y avoir contribué	without having contributed to it
+lit	reading
+dossier	file
+page	page
+Historique	History
+Ouvrir la page Activité	Open the Activity page
+Connexions, accès ouverts, droits modifiés, visas, consultations et téléchargements sont réunis dans la page Activité, par personne et par séance de travail.	Sign-ins, access granted, rights changed, sign-offs, views and downloads are gathered on the Activity page, by person and work session.
+Voir toute son activité	View all their activity
+Journal d'activité	Activity log
+Le journal complet (connexions, accès, droits, visas, modifications, consultations, téléchargements, avis par e-mail, « Voir comme ») est dans la page Activité, avec recherche, filtres et export.	The full log (sign-ins, access, rights, sign-offs, changes, views, downloads, e-mail notices, “View as”) is on the Activity page, with search, filters and export.
+voir la page Activité (accordée par le super administrateur seul)	view the Activity page (granted by the super administrator only)
+90 derniers jours	Last 90 days
