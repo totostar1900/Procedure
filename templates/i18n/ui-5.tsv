@@ -313,3 +313,4 @@ Journal d'activité	Activity log
 Le journal complet (connexions, accès, droits, visas, modifications, consultations, téléchargements, avis par e-mail, « Voir comme ») est dans la page Activité, avec recherche, filtres et export.	The full log (sign-ins, access, rights, sign-offs, changes, views, downloads, e-mail notices, “View as”) is on the Activity page, with search, filters and export.
 voir la page Activité (accordée par le super administrateur seul)	view the Activity page (granted by the super administrator only)
 90 derniers jours	Last 90 days
+Journée de 0 h à 24 h ; zone foncée : heures ouvrées, 7 h – 19 h (jours ouvrés)	Day from midnight to midnight; darker area: working hours, 7 a.m. – 7 p.m. (working days)

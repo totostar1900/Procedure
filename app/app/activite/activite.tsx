@@ -197,7 +197,7 @@ export default function Activite({ moi, docs }: { moi: MoiC; docs: { id: string;
                   <div className={"ac-av" + (c.enCours ? "" : " off")}>{ini(c.qui)}</div>
                   <div className="ac-p"><b>{nomDe(c.qui)}</b><span>{fnDe(c.qui) || (c.qui === SYS ? "" : c.qui)}</span></div>
                   <div className="ac-sum">{n.action ? <em><i style={{ background: COUL.action }} />{n.action} {t(n.action > 1 ? "actions" : "action")}</em> : null}{n.consult ? <em><i style={{ background: COUL.consult }} />{n.consult} {t(n.consult > 1 ? "ouvertures" : "ouverture")}</em> : null}{n.dl ? <em><i style={{ background: COUL.dl }} />{n.dl} {t(n.dl > 1 ? "téléchargements" : "téléchargement")}</em> : null}{sens ? <em className="ac-sens">{t("dossier sensible")}</em> : null}{!c.evs.length ? <em>{t("présence sans action")}</em> : null}</div>
-                  <div className="ac-span"><b>{hm(c.debut)} – {c.enCours ? t("en cours") : hm(c.fin)}</b>{c.suivi ? duree(c.actif) + " " + t("actif") : null}<div className="ac-bar"><i style={{ left: (d0 / 24) * 100 + "%", width: Math.max(0.8, ((d1 - d0) / 24) * 100) + "%" }} /></div></div>
+                  <div className="ac-span"><b>{hm(c.debut)} – {c.enCours ? t("en cours") : hm(c.fin)}</b>{c.suivi ? duree(c.actif) + " " + t("actif") : null}<div className={"ac-bar" + (heureY(c.debut).j % 6 === 0 ? " we" : "")} title={t("Journée de 0 h à 24 h ; zone foncée : heures ouvrées, 7 h – 19 h (jours ouvrés)")}><i style={{ left: (d0 / 24) * 100 + "%", width: Math.max(0.8, ((d1 - d0) / 24) * 100) + "%" }} /></div></div>
                   <span className="ac-chev" aria-hidden="true">▶</span>
                 </div>
                 {o ? <ul className="ac-ev">{[...c.vis].reverse().map((e, i) => <li key={i}><time>{hm(e.le)}</time><span className={"ac-tag f-" + e.fam}>{t(LIB[e.fam])}</span><span>{detail(e)}{e.sens ? <b className="ac-sens"> {t("sensible")}</b> : null}</span></li>)}{!c.vis.length ? <li><span /><span /><span className="mail">{t("Aucun événement de ces familles.")}</span></li> : null}</ul> : null}
@@ -252,7 +252,7 @@ const AC = `
 .ac-p b{display:block}.ac-p span{font-size:11.5px;color:var(--muted)}
 .ac-sum{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;color:#3E5068}.ac-sum em{font-style:normal;display:inline-flex;gap:5px;align-items:center}.ac-sum i{width:7px;height:7px;border-radius:50%}
 .ac-span{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}.ac-span b{display:block;color:var(--ink,#0A2540);font-weight:600}
-.ac-bar{position:relative;height:5px;background:#EDF1F6;margin-top:4px}.ac-bar i{position:absolute;top:0;bottom:0;background:#0E4C86}
+.ac-bar{position:relative;height:7px;margin-top:4px;background:linear-gradient(90deg,#F1F4F8 0 29.17%,#D6E0EC 29.17% 79.17%,#F1F4F8 79.17% 100%)}.ac-bar.we{background:#F1F4F8}.ac-bar i{position:absolute;top:0;bottom:0;background:#0E4C86}
 .ac-chev{font-size:9px;color:var(--muted);transition:transform .15s}.ac-sess.open .ac-chev{transform:rotate(90deg)}
 .ac-ev{list-style:none;margin:0;padding:4px 12px 10px 58px;border-top:1px solid var(--line);background:#F4F7FB}
 .ac-ev li{display:grid;grid-template-columns:46px 110px minmax(0,1fr);gap:10px;padding:5px 0;border-bottom:1px dashed var(--line);font-size:12.5px;align-items:baseline}.ac-ev li:last-child{border-bottom:0}
