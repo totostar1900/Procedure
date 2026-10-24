@@ -380,7 +380,7 @@
     if (RESTREINT && view !== "doc" && view !== "guide") view = "mesdocs";
     if (view !== "edition" && E) { if (E.dirty) saveDraft(); E = null; }
     if (view !== "dossier" && cur) { if (cur.dirty) saveNow(); cur = null; }
-    VIEWS.forEach(function (v) { $("#v-" + v).hidden = v !== view; });
+    VIEWS.forEach(function (v) { var el = $("#v-" + v); el.hidden = v !== view; el.style.minHeight = ""; });
     document.querySelectorAll(".nav button").forEach(function (b) {
       var on = b.getAttribute("data-open") === view || (view === "doc" && b.getAttribute("data-open") === "registre") || (view === "dossier" && b.getAttribute("data-open") === "dossiers");
       if (on) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
@@ -407,6 +407,17 @@
 /*EDITEUR*/
 /*TABLEAU*/
 /*GUIDE*/
+  // Écran stable : un clic sur un filtre, un onglet, une case ou un repli redessine la vue sans la raccourcir,
+  // pour que la page ne remonte pas sous le pointeur. La hauteur réservée est libérée au changement de page.
+  var stabiliser = function (ev) {
+    var t = ev.target; if (!t || !t.closest) return;
+    if (t.closest("[data-open], a[href]")) return;
+    var v = t.closest(".view"); if (!v || v.hidden) return;
+    var h = v.offsetHeight, m = parseFloat(v.style.minHeight) || 0;
+    if (h > m) v.style.minHeight = h + "px";
+  };
+  document.addEventListener("click", stabiliser, true);
+  document.addEventListener("change", stabiliser, true);
   window.addEventListener("hashchange", route);
   renderRegistre();
   route();

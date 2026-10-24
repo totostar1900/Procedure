@@ -5,6 +5,18 @@ import { createBrowserClient } from "@supabase/ssr";
 // Comportement du rail sur la page Membres : mêmes boutons que dans le référentiel (ils y renvoient),
 // repli mémorisé, ouverture sur téléphone.
 export default function RailClient() {
+  // Écran stable sur les pages d'administration : un clic sur un filtre, un onglet, une case ou un repli
+  // ne raccourcit pas la page (la page Activité gère elle-même sa zone)
+  useEffect(() => {
+    if (location.pathname.startsWith("/activite")) return;
+    const f = (ev: Event) => {
+      const t = ev.target as HTMLElement | null; if (!t || !t.closest || t.closest("a[href]")) return;
+      const v = t.closest("main.view") as HTMLElement | null; if (!v) return;
+      const h = v.offsetHeight, m = parseFloat(v.style.minHeight) || 0; if (h > m) v.style.minHeight = h + "px";
+    };
+    document.addEventListener("click", f, true); document.addEventListener("change", f, true);
+    return () => { document.removeEventListener("click", f, true); document.removeEventListener("change", f, true); };
+  }, []);
   // Présence sur les pages d'administration (journal d'activité) : même séance que dans le référentiel
   useEffect(() => {
     const sb = createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!);
