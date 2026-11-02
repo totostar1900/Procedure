@@ -166,7 +166,7 @@ export async function executer(opts: { force?: boolean } = {}) {
       const by = cur.map((s) => s.by).filter((x, i, a) => a.indexOf(x) === i), h = holders(st.role);
       let need = st.regle === "tous" ? Math.max(1, h.length) : st.regle === "majorite" ? Math.floor(h.length / 2) + 1 : 1;
       // Étape « Rédaction » : les rédacteurs d'un texte soumis en ligne valent visa
-      if (/^redaction/.test(st.etape || "")) { auteursDe(d).forEach((x) => { if (!by.includes(x)) by.push(x); }); need = 1; }
+      if (/^redaction/.test(st.etape || "")) need = 1;
       return { st, sigs: cur, by, holders: h, done: by.length >= need };
     });
     const renvois = sigsOf(d.id, "renvoi").filter((s) => s.empreinte === d.empreinte);

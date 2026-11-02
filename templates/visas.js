@@ -129,8 +129,8 @@
     var by = cur.map(function (s) { return s.by; }).filter(function (x, i, a) { return a.indexOf(x) === i; });
     var h = holders(step.role);
     var need = step.regle === "tous" ? Math.max(1, h.length) : step.regle === "majorite" ? Math.floor(h.length / 2) + 1 : 1;
-    // Étape « Rédaction » : un texte soumis en ligne l'est par ses rédacteurs, qui valent visa de cette étape
-    if (estRedaction(step)) { var au = V.auteurs && V.auteurs[d.id + "~" + d.empreinte]; ((au && au.auteurs) || []).forEach(function (x) { if (by.indexOf(x) < 0) by.push(x); }); need = 1; }
+    // Étape « Rédaction » : un seul visa « Texte prêt » suffit, quel que soit le mode de rédaction
+    if (estRedaction(step)) need = 1;
     return { st: step, sigs: cur, by: by, need: need, holders: h, done: by.length >= need, cur: cur[0] || null, old: cur.length ? null : all[0] || null };
   }
   function readersOf(d) {

@@ -10,7 +10,7 @@ type Etape = { etape?: string; label: string; role: string; fonction?: string; r
 type Cfg = { type?: string; etapes?: Etape[]; delaiLecture?: number; seuil?: number; maj?: string; par?: string };
 // Vocabulaire des étapes (lexique du référentiel) : le nom de l'étape dit ce qu'elle engage
 export const ETAPES: [string, string, string][] = [
-  ["redaction", "Rédaction", "le rédacteur confirme que le texte est prêt (automatique pour un texte soumis en ligne)"],
+  ["redaction", "Rédaction", "le rédacteur confirme que le texte est prêt pour la suite du circuit"],
   ["relecture", "Relecture", "contrôle de clarté par un pair, sans valeur d'accord"],
   ["verification", "Vérification", "contrôle de conformité et de cohérence"],
   ["avis", "Avis", "position consultative avant la décision d'un organe supérieur"],
