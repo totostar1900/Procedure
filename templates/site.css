@@ -852,3 +852,22 @@ html.i18n-attente body { visibility: hidden; }
 .ed-tfoot .lbl { font-size: var(--fs-sm); color: var(--muted); margin-right: 4px; }
 @media (max-width: 720px) { .ed-xfiche { grid-template-columns: 1fr; } }
 .ed-renvoi { font: inherit; font-size: var(--fs-sm); border: 1px solid var(--rule-strong); border-radius: var(--radius); padding: 5px 8px; background: var(--raised); color: var(--ink); max-width: 230px; }
+
+/* ---------- Barres de défilement du rail : fines, translucides, visibles au survol ----------
+   Pas de défilement horizontal : un libellé trop long se termine par « … ». */
+.rail .nav { overflow-x: hidden; scrollbar-width: thin; scrollbar-color: transparent transparent; scrollbar-gutter: stable; transition: scrollbar-color .2s ease; }
+.rail:hover .nav, .rail .nav:focus-within { scrollbar-color: rgba(255,255,255,.22) transparent; }
+.rail .nav:hover { scrollbar-color: rgba(255,255,255,.34) transparent; }
+.rail .nav::-webkit-scrollbar { width: 6px; height: 6px; }
+.rail .nav::-webkit-scrollbar-track { background: transparent; }
+.rail .nav::-webkit-scrollbar-thumb { background: transparent; border-radius: 6px; }
+.rail:hover .nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,.22); }
+.rail .nav::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+.rail .nav::-webkit-scrollbar-corner { background: transparent; }
+.nav .rl { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+/* Ombres douces en haut et en bas quand la liste dépasse */
+.rail .nav { background:
+  linear-gradient(var(--navy) 30%, transparent) top / 100% 18px no-repeat local,
+  linear-gradient(transparent, var(--navy) 70%) bottom / 100% 18px no-repeat local,
+  radial-gradient(farthest-side at 50% 0, rgba(0,0,0,.35), transparent) top / 100% 8px no-repeat scroll,
+  radial-gradient(farthest-side at 50% 100%, rgba(0,0,0,.35), transparent) bottom / 100% 8px no-repeat scroll; }
