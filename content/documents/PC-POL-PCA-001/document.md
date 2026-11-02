@@ -40,9 +40,9 @@ historique:
     par: RCCI
 notes_redaction:
   - "Remplace les exigences minimales de l'article 20 de la Politique de gestion des risques (PC-POL-RIS-001). Les délais de reprise retenus (ordres dans la demi-journée, reprise complète en un jour ouvré) sont cohérents avec cet article."
-  - Convenir avec la BVMAC et le Dépositaire central de la procédure de secours applicable à un membre qui ne peut plus accéder à leurs systèmes (transmission des ordres, instructions de règlement), puis la reporter dans l'annexe « Activités essentielles ».
+  - Convenir avec la BVMAC et le Dépositaire central de la procédure de secours applicable à un membre qui ne peut plus accéder à leurs systèmes (transmission des ordres, instructions de règlement), puis la reporter dans l'annexe [[annexe:A2]].
   - Choisir le site de repli ponctuel (espace de travail partagé ou salle d'affaires à Yaoundé) et, si possible, un point d'appui à Douala près de la BVMAC.
-  - "Compléter l'annuaire de l'annexe « Annuaire de crise » et en remettre une copie papier à chaque membre de la cellule de crise avant l'entrée en vigueur."
+  - "Compléter l'annuaire de l'annexe [[annexe:A3]] et en remettre une copie papier à chaque membre de la cellule de crise avant l'entrée en vigueur."
 ---
 
 ## Titre I — Dispositions générales
@@ -63,7 +63,7 @@ La Société est une petite équipe dont les outils sont, pour l'essentiel, acce
 
 - **le bureau n'est pas indispensable** : la réponse par défaut à la plupart des perturbations est la poursuite du travail à distance ;
 - **les personnes sont la principale fragilité** : chaque rôle clé a un suppléant formé et des accès prêts à l'emploi ;
-- **le plan doit rester court et utilisable sous pression** : une fiche réflexe (Annexe « Fiche réflexe de crise »), un tableau des activités essentielles (Annexe « Activités essentielles ») et un annuaire (Annexe « Annuaire de crise ») suffisent à agir.
+- **le plan doit rester court et utilisable sous pression** : une fiche réflexe (Annexe [[annexe:A1]]), un tableau des activités essentielles (Annexe [[annexe:A2]]) et un annuaire (Annexe [[annexe:A3]]) suffisent à agir.
 
 ### Article 3 — Définitions
 
@@ -78,7 +78,7 @@ La Société est une petite équipe dont les outils sont, pour l'essentiel, acce
 
 ### Article 4 — Activités essentielles et délais de reprise
 
-Le tableau suivant fixe, pour chaque activité essentielle, le délai maximal d'interruption. Les solutions de secours et les moyens nécessaires figurent à l'annexe « Activités essentielles ».
+Le tableau suivant fixe, pour chaque activité essentielle, le délai maximal d'interruption. Les solutions de secours et les moyens nécessaires figurent à l'annexe [[annexe:A2]].
 
 | Activité | Délai maximal d'interruption | Pourquoi |
 | --- | --- | --- |
@@ -93,7 +93,7 @@ Le tableau suivant fixe, pour chaque activité essentielle, le délai maximal d'
 
 ### Article 5 — Perte de données admissible
 
-- **Ordres et instructions des clients : aucune perte.** Tout ordre est enregistré dès sa réception. Si les systèmes sont indisponibles, il est consigné sur le registre de secours de l'annexe « Registre de secours » puis saisi dès le retour à la normale.
+- **Ordres et instructions des clients : aucune perte.** Tout ordre est enregistré dès sa réception. Si les systèmes sont indisponibles, il est consigné sur le registre de secours de l'annexe [[annexe:A4]] puis saisi dès le retour à la normale.
 - **Documents et messagerie : un jour au plus.** Les sauvegardes sont au moins quotidiennes.
 - **Comptabilité et dossiers clients : un jour au plus.**
 
@@ -119,7 +119,7 @@ Le plan ne cherche pas à prévoir chaque événement. Il prévoit des **conséq
 Incendie, dégât des eaux, inondation, travaux, troubles dans le quartier, fermeture administrative ou simple impossibilité de s'y rendre.
 
 - Chacun travaille depuis son domicile ou un autre lieu sûr, avec son poste portable et son téléphone professionnel.
-- Les rendez-vous avec les clients se tiennent par visioconférence, par téléphone ou dans le lieu de repli ponctuel prévu à l'annexe « Annuaire de crise ».
+- Les rendez-vous avec les clients se tiennent par visioconférence, par téléphone ou dans le lieu de repli ponctuel prévu à l'annexe [[annexe:A3]].
 - Si l'indisponibilité dure plus de deux semaines, le Directeur Général décide d'une solution de locaux provisoires.
 
 ### Article 9 — Coupure d'électricité
@@ -139,7 +139,7 @@ Les coupures peuvent être locales (opérateur, câble du quartier) ou nationale
 
 Maladie, accident, voyage, épidémie, démission soudaine.
 
-- Chaque rôle clé a un **suppléant désigné** à l'annexe « Activités essentielles », formé et doté des accès nécessaires avant d'en avoir besoin.
+- Chaque rôle clé a un **suppléant désigné** à l'annexe [[annexe:A2]], formé et doté des accès nécessaires avant d'en avoir besoin.
 - Les pouvoirs bancaires et les habilitations auprès de la BVMAC et du Dépositaire central sont organisés pour qu'aucune opération ne dépende d'une seule personne.
 - Les mots de passe des comptes partagés et des comptes d'urgence sont conservés dans un coffre-fort numérique, avec un accès de secours placé sous la responsabilité du Directeur Général et du Président du Conseil d'Administration.
 - Les procédures essentielles sont écrites : une personne compétente doit pouvoir les suivre sans formation préalable.
@@ -161,7 +161,7 @@ La Société ne paie pas de rançon.
 Le prestataire informatique, la messagerie en ligne ou un autre prestataire critique ne rend plus son service.
 
 - La cellule de crise contacte le prestataire, obtient un délai de rétablissement et en informe les collaborateurs.
-- Si le délai dépasse celui de l'activité essentielle concernée, elle applique la solution de secours de l'annexe « Activités essentielles » puis, si nécessaire, la stratégie de sortie prévue par la Politique d'externalisation.
+- Si le délai dépasse celui de l'activité essentielle concernée, elle applique la solution de secours de l'annexe [[annexe:A2]] puis, si nécessaire, la stratégie de sortie prévue par la Politique d'externalisation.
 
 ### Article 14 — Défaillance d'une infrastructure de marché ou d'une banque
 
@@ -189,7 +189,7 @@ La continuité se prépare avant la crise. En permanence :
 2. **Accès** : authentification à plusieurs facteurs sur tous les comptes, avec un second moyen d'authentification de secours enregistré.
 3. **Sauvegardes** : au moins trois copies des données importantes, sur deux supports différents, dont une conservée hors ligne ou chez un autre fournisseur que le principal. La restauration est testée chaque trimestre.
 4. **Connexion et énergie** : selon les articles 9 et 10.
-5. **Dossier de crise** : l'annuaire de l'annexe « Annuaire de crise », la fiche réflexe de l'annexe « Fiche réflexe de crise », le registre de secours de l'annexe « Registre de secours », et une copie des documents clés de la Société (agrément, statuts, pouvoirs bancaires, contrats critiques, polices d'assurance). Il est disponible en ligne, sur une clé USB chiffrée et en version papier chez chaque membre de la cellule de crise.
+5. **Dossier de crise** : l'annuaire de l'annexe [[annexe:A3]], la fiche réflexe de l'annexe [[annexe:A1]], le registre de secours de l'annexe [[annexe:A4]], et une copie des documents clés de la Société (agrément, statuts, pouvoirs bancaires, contrats critiques, polices d'assurance). Il est disponible en ligne, sur une clé USB chiffrée et en version papier chez chaque membre de la cellule de crise.
 6. **Prestataires** : les contrats des prestataires critiques comportent des engagements de continuité, conformément à la Politique d'externalisation.
 7. **Assurance** : la Société examine chaque année si ses polices couvrent les dommages aux locaux et au matériel, la perte d'exploitation et les incidents informatiques.
 
@@ -208,7 +208,7 @@ Le travail à distance est un mode de fonctionnement normal, pas seulement un mo
 Lorsque les canaux habituels sont indisponibles :
 
 - un ordre reçu par téléphone n'est accepté qu'après identification du client selon la procédure habituelle et, pour un montant important, après rappel du client au numéro enregistré dans son dossier ;
-- tout ordre est consigné immédiatement sur le registre de secours de l'annexe « Registre de secours », avec la date et l'heure de réception, puis confirmé au client par écrit dès que possible ;
+- tout ordre est consigné immédiatement sur le registre de secours de l'annexe [[annexe:A4]], avec la date et l'heure de réception, puis confirmé au client par écrit dès que possible ;
 - un ordre reçu sur une messagerie personnelle ou un canal non habituel n'est exécuté qu'après la même vérification ;
 - toute demande de virement vers un compte nouveau ou modifié est refusée tant que la situation n'est pas revenue à la normale, sauf vérification renforcée par le RCCI.
 
@@ -216,7 +216,7 @@ Lorsque les canaux habituels sont indisponibles :
 
 Les titres des clients sont inscrits auprès du Dépositaire central ou de leur teneur de comptes, et leurs fonds sont déposés sur des comptes distincts de ceux de la Société. Même si la Société ne pouvait plus poursuivre son activité, les clients conservent leurs avoirs.
 
-Le plan prévoit, à l'annexe « Fiche réflexe de crise », le message à adresser aux clients pour leur indiquer comment accéder à leurs avoirs si la Société devait cesser durablement son activité, en lien avec la COSUMAF.
+Le plan prévoit, à l'annexe [[annexe:A1]], le message à adresser aux clients pour leur indiquer comment accéder à leurs avoirs si la Société devait cesser durablement son activité, en lien avec la COSUMAF.
 
 ## Titre V — Organisation de crise
 
@@ -246,7 +246,7 @@ Dans le doute, le pilote active la cellule de crise : il est plus facile de la d
 
 ### Article 22 — Conduite de la crise
 
-La cellule de crise suit la fiche réflexe de l'annexe « Fiche réflexe de crise ». Elle :
+La cellule de crise suit la fiche réflexe de l'annexe [[annexe:A1]]. Elle :
 
 - s'assure de la sécurité et de la disponibilité de chaque collaborateur ;
 - décide des activités à maintenir, à suspendre ou à reporter ;
@@ -265,7 +265,7 @@ La cellule de crise suit la fiche réflexe de l'annexe « Fiche réflexe de cris
 | Autorité de protection des données | RCCI | En cas de violation de données personnelles, dans le délai légal | Écrit |
 | Presse et public | Directeur Général uniquement | Si nécessaire | Message écrit validé |
 
-Les messages aux clients sont factuels, brefs, et disent toujours ce que le client doit faire et comment joindre la Société. Des modèles figurent à l'annexe « Fiche réflexe de crise ».
+Les messages aux clients sont factuels, brefs, et disent toujours ce que le client doit faire et comment joindre la Société. Des modèles figurent à l'annexe [[annexe:A1]].
 
 ### Article 24 — Retour à la normale et retour d'expérience
 
@@ -275,7 +275,7 @@ Avant de déclarer la fin de la crise, la cellule vérifie que :
 - les données restaurées sont complètes ;
 - les clients et les autorités informés ont reçu un message de fin de perturbation.
 
-Dans les 30 jours, le RCCI rédige un retour d'expérience au moyen de l'annexe « Exercice et retour d'expérience » : ce qui s'est passé, ce qui a fonctionné, ce qui doit changer. Le plan est mis à jour en conséquence.
+Dans les 30 jours, le RCCI rédige un retour d'expérience au moyen de l'annexe [[annexe:A5]] : ce qui s'est passé, ce qui a fonctionné, ce qui doit changer. Le plan est mis à jour en conséquence.
 
 ## Titre VI — Faire vivre le plan
 
@@ -289,7 +289,7 @@ Dans les 30 jours, le RCCI rédige un retour d'expérience au moyen de l'annexe 
 | Remplacement d'une personne clé | Une fois par an | Le suppléant réalise seul les opérations essentielles du titulaire |
 | Exercice sur table, sur un scénario du titre III | Une fois par an | La cellule sait décider et communiquer ; les délais de l'article 4 sont tenables |
 
-Chaque exercice donne lieu à une fiche de l'annexe « Exercice et retour d'expérience ». Les défauts constatés sont suivis comme des plans d'action.
+Chaque exercice donne lieu à une fiche de l'annexe [[annexe:A5]]. Les défauts constatés sont suivis comme des plans d'action.
 
 ### Article 26 — Formation
 
@@ -297,7 +297,7 @@ Chaque nouveau collaborateur reçoit le présent plan à son arrivée et partici
 
 ### Article 27 — Mise à jour
 
-L'annuaire de l'annexe « Annuaire de crise » est vérifié chaque trimestre. Le plan est revu au moins une fois par an, et à chaque changement important : nouveaux locaux, nouvel outil ou prestataire critique, nouvelle activité, départ d'une personne clé, crise réelle.
+L'annuaire de l'annexe [[annexe:A3]] est vérifié chaque trimestre. Le plan est revu au moins une fois par an, et à chaque changement important : nouveaux locaux, nouvel outil ou prestataire critique, nouvelle activité, départ d'une personne clé, crise réelle.
 
 Le RCCI présente chaque année au Conseil d'Administration le bilan des exercices, des incidents et des mises à jour. Ce bilan figure dans le rapport annuel de contrôle interne transmis à la COSUMAF.
 

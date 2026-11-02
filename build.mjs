@@ -92,17 +92,39 @@ export const circuitOf = (fm) => {
 
 // ---------- Lecture des documents ----------
 const DOC_DIR = P("content/documents");
+// Renvois vers une annexe : [[annexe:A1]] (même document) ou [[annexe:PC-POL-RIS-001/A1]], affichés « Nom de l'annexe ».
+// Le texte garde la clé : renommer une annexe ne touche ni les textes, ni les empreintes, ni les visas.
+const NOMS_ANNEXES = (() => {
+  const out = {};
+  for (const id of fs.existsSync(DOC_DIR) ? fs.readdirSync(DOC_DIR) : []) for (const [lang, sub] of [["fr", ""], ["en", "en"]]) {
+    const dir = path.join(DOC_DIR, id, sub, "annexes"); if (!fs.existsSync(dir)) continue;
+    for (const f of fs.readdirSync(dir).filter((x) => /^A\d+\.md$/.test(x))) { const n = matter(read(path.join(dir, f))).data.nom; if (n) (out[id + "/" + f.slice(0, -3)] ||= {})[lang] = n; }
+  }
+  return out;
+})();
+const RENVOIS_INCONNUS = new Set();
+// Même résolution dans les textes courts de l'en-tête (notes, résumé, fiche des annexes…)
+const rfm = (v, docId, lang) => (typeof v === "string" ? renvoisAnnexes(v, docId, lang) : Array.isArray(v) ? v.map((x) => rfm(x, docId, lang)) : v && typeof v === "object" && !(v instanceof Date) ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, rfm(x, docId, lang)])) : v);
+export function renvoisAnnexes(md, docId, lang) {
+  return String(md || "").replace(/\[\[annexe:(?:(PC-[A-Z0-9-]+)\/)?(A\d+)\]\]/g, (m, doc, cle) => {
+    const k = (doc || docId) + "/" + cle, n = NOMS_ANNEXES[k] && (NOMS_ANNEXES[k][lang] || NOMS_ANNEXES[k].fr);
+    if (!n) { RENVOIS_INCONNUS.add(docId + " → " + k); return lang === "en" ? "“(missing appendix)”" : "« (annexe introuvable) »"; }
+    return lang === "en" ? "“" + n + "”" : "« " + n + " »";
+  });
+}
 export const IMAGES = {}; // "ID/fichier" -> chemin sur disque
 // Un document = la version en vigueur. Si une révision est en cours, la version en vigueur
 // est figée dans vigueur/ et le texte de travail (racine du dossier) devient d.projet.
 function loadVariant(base, fallbackHist) {
-  const { data: fm, content } = matter(read(path.join(base, "document.md")));
+  const { data: fm0, content } = matter(read(path.join(base, "document.md")));
+  const fm = rfm(fm0, fm0.id, "fr");
   const schemaFile = path.join(base, "variables.yaml");
   const schema = fs.existsSync(schemaFile) ? yaml.load(read(schemaFile)) : null;
   const societe = cfg.societe;
   const asModel = (md) => Engine.render(md, schema || { sections: [] }, {}, "modele", { societe });
   // Images du document (dossier images/ à côté du texte) : servies sous img/<ID>/ par le site
-  const { html: html0, toc } = renderMarkdown(asModel(content));
+  const R = (md) => renvoisAnnexes(md, fm.id, "fr");
+  const { html: html0, toc } = renderMarkdown(asModel(R(content)));
   const html = html0.replace(/src="images\/([^"]+)"/g, (m, f) => `src="img/${fm.id}/${f}"`);
   const imgDir = path.join(base, "images");
   if (fs.existsSync(imgDir)) for (const f of fs.readdirSync(imgDir)) IMAGES[`${fm.id}/${f}`] = path.join(imgDir, f);
@@ -111,7 +133,7 @@ function loadVariant(base, fallbackHist) {
   // Annexes désignées par leur nom ; l'ordre d'affichage suit « ordre » (sinon la clé A1, A2…), la clé ne change jamais
   const annexes = annexFiles.map((f) => {
     const a = matter(read(path.join(annexDir, f)));
-    return { ...a.data, num: f.match(/A(\d+)/)[1], html: renderMarkdown(asModel(a.content)).html, template: schema ? a.content : undefined, _src: a.content };
+    return { ...rfm(a.data, fm.id, "fr"), _brut: a.data, num: f.match(/A(\d+)/)[1], html: renderMarkdown(asModel(R(a.content))).html, template: schema ? R(a.content) : undefined, _src: a.content };
   }).sort((x, y) => (Number(x.ordre) || Number(x.num)) - (Number(y.ordre) || Number(y.num)) || Number(x.num) - Number(y.num));
   // Empreinte du texte : corps du document, annexes et variables, sans le front-matter
   // (le passage de 0.9 à 1.0 ou la date d'approbation ne la modifient pas).
@@ -133,12 +155,12 @@ function loadVariant(base, fallbackHist) {
     historique, html, toc, annexes, empreinte, lectureOK,
     nature_revision: historique[0] && historique[0].nature === "mineure" ? "mineure" : "revision",
     circuit: circuitOf(fm),
-    modele: schema ? { schema, template: content } : null,
+    modele: schema ? { schema, template: R(content) } : null,
     en,
     pdf: { file: `${fm.id}_v${fm.version}.pdf`, size: 0 },
     // Texte source (Markdown), publié à part dans dist/source/ pour l'édition en ligne ; retiré des données de la page
     _source: { id: fm.id, version: String(fm.version), statut: fm.statut, empreinte, titre: fm.titre, resume: fm.resume || "", body: content,
-      annexes: annexes.map((a) => ({ cle: "A" + a.num, nom: a.nom || "", titre: a.titre || "", nature: a.nature || "", renseigne_par: a.renseigne_par || "", conserve_par: a.conserve_par || "", frequence: a.frequence || "", orientation: a.orientation || "", body: a._src })) },
+      annexes: annexes.map((a) => { const b = a._brut || a; return { cle: "A" + a.num, nom: b.nom || "", titre: b.titre || "", nature: b.nature || "", renseigne_par: b.renseigne_par || "", conserve_par: b.conserve_par || "", frequence: b.frequence || "", orientation: b.orientation || "", body: a._src }; }) },
   };
 }
 // Traduction anglaise (courtoisie) : content/documents/<ID>/en/ — même structure que le texte français.
@@ -146,17 +168,19 @@ function loadVariant(base, fallbackHist) {
 function loadEn(base, fm, empreinte, annexesFr, societe) {
   const dir = path.join(base, "en");
   if (!fs.existsSync(path.join(dir, "document.md"))) return null;
-  const { data: e, content } = matter(read(path.join(dir, "document.md")));
+  const { data: e0, content } = matter(read(path.join(dir, "document.md")));
+  const e = rfm(e0, fm.id, "en");
   const sf = path.join(dir, "variables.yaml");
   const schema = fs.existsSync(sf) ? yaml.load(read(sf)) : null;
   const asModel = (md) => Engine.render(md, schema || { sections: [] }, {}, "modele", { societe: { ...societe, ...(cfgEn && cfgEn.societe ? cfgEn.societe : {}) }, lang: "en" });
-  const { html: h0, toc } = renderMarkdown(asModel(content));
+  const R = (md) => renvoisAnnexes(md, fm.id, "en");
+  const { html: h0, toc } = renderMarkdown(asModel(R(content)));
   const html = h0.replace(/src="images\/([^"]+)"/g, (m, f) => `src="img/${fm.id}/${f}"`);
   const annexes = annexesFr.map((a) => {
     const f = path.join(dir, "annexes", "A" + a.num + ".md");
     if (!fs.existsSync(f)) return { titre: a.titre, nature: a.nature, renseigne_par: a.renseigne_par, conserve_par: a.conserve_par, frequence: a.frequence, html: a.html, manque: true };
     const x = matter(read(f));
-    return { ...x.data, id: a.id, html: renderMarkdown(asModel(x.content)).html, template: schema ? x.content : undefined };
+    return { ...rfm(x.data, fm.id, "en"), id: a.id, html: renderMarkdown(asModel(R(x.content))).html, template: schema ? R(x.content) : undefined };
   });
   const hist = (e.historique || []);
   // Dictionnaire propre au document : ses textes courts apparaissent aussi dans les listes (registre, tableau de bord…)
@@ -171,7 +195,7 @@ function loadEn(base, fm, empreinte, annexesFr, societe) {
     titre: e.titre, resume: e.resume || "", diffusion: e.diffusion || fm.diffusion, html, toc, annexes,
     references: e.references || [], historique: hist.map((h) => ({ objet: h.objet, par: h.par })), notes_redaction: e.notes_redaction || [],
     a_jour: e.source === empreinte, source: e.source || null,
-    modele: schema ? { schema, template: content } : null, dict,
+    modele: schema ? { schema, template: R(content) } : null, dict,
   };
 }
 export function textHash(base) {
@@ -429,8 +453,7 @@ function buildSite() {
   // Renvois d'autres documents vers chaque annexe (signalés dans l'éditeur quand une annexe est renommée ou supprimée)
   const textes = docs.flatMap((d) => [d, d.projet].filter(Boolean)).map((d) => ({ id: d.id, t: [d._source.body, ...d._source.annexes.map((a) => a.body)].join("\n") }));
   for (const d of docs) for (const src of [d._source, d.projet && d.projet._source].filter(Boolean)) for (const a of src.annexes) {
-    if (!a.nom) continue;
-    a.cite_par = [...new Set(textes.filter((x) => x.id !== d.id && x.t.includes("« " + a.nom + " »") && x.t.includes(d.id)).map((x) => x.id))];
+    a.cite_par = [...new Set(textes.filter((x) => x.id !== d.id && x.t.includes("[[annexe:" + d.id + "/" + a.cle + "]]")).map((x) => x.id))];
   }
   for (const d of docs) {
     if (d.projet) { fs.writeFileSync(P("dist/source", d.id + ".json"), JSON.stringify(d.projet._source)); fs.writeFileSync(P("dist/source", d.id + ".vigueur.json"), JSON.stringify(d._source)); }
@@ -455,6 +478,7 @@ function buildSite() {
   fs.mkdirSync(P("dist/fonts"), { recursive: true });
   for (const f of fs.readdirSync(P("templates/fonts"))) fs.copyFileSync(P("templates/fonts", f), P("dist/fonts", f));
   console.log("HTML dist/index.html", (html.length / 1024).toFixed(0) + " Ko");
+  if (RENVOIS_INCONNUS.size) console.warn("Renvois vers des annexes introuvables : " + [...RENVOIS_INCONNUS].join(" ; "));
 }
 
 if (process.argv[1] && process.argv[1].endsWith("build.mjs")) {

@@ -24,7 +24,7 @@ notes_redaction:
   - "The first 163 articles of the COSUMAF General Regulation of 23 May 2023 contain no express provision on conflicts of interest of intermediaries. The policy relies on the general obligations of the regional market, the Code of Conduct (PC-COD-001, Title IV) and international standards. Check the subsequent articles of the General Regulation and the COSUMAF instructions before adoption."
   - "Confirm with the Board of Directors the creation of an audit and risk committee; failing that, the Board rules in plenary session (Articles 12 and 14)."
   - "The combination of the compliance and internal audit functions, and the performance of the operations function by the Chief Executive Officer, are accepted on a transitional basis; the compensating measures in Article 10 are to be reviewed at each recruitment."
-source: bf853da117fe2e1e
+source: b70c204b1912a520
 ---
 
 ## Title I — General provisions
@@ -61,7 +61,7 @@ The policy applies:
 
 ### Article 5 — Conflicts map
 
-The RCCI maintains the map of potential conflicts of interest specific to the Company's activities (Appendix “Conflicts map”). For each situation, it states the interests involved, the risk to the client, the prevention measures and the person responsible for applying them.
+The RCCI maintains the map of potential conflicts of interest specific to the Company's activities (Appendix [[annexe:A1]]). For each situation, it states the interests involved, the risk to the client, the prevention measures and the person responsible for applying them.
 
 The map is reviewed at least once a year, and whenever a new activity, a new product or a significant transaction (initial public offering, bond issue, arranging mandate) is launched.
 
@@ -79,8 +79,8 @@ A relevant person is in a conflict of interest situation in particular where the
 
 Each relevant person declares:
 
-- on recruitment, and every year thereafter, their personal interests by means of the annual declaration of interests (Appendix “Declaration of interests” to the Code of Conduct);
-- without delay, and at the latest within 48 hours, any conflict situation they identify in the performance of their duties, by means of the declaration form (Appendix “Conflict declaration” to this policy).
+- on recruitment, and every year thereafter, their personal interests by means of the annual declaration of interests (Appendix [[annexe:PC-COD-001/A3]] to the Code of Conduct);
+- without delay, and at the latest within 48 hours, any conflict situation they identify in the performance of their duties, by means of the declaration form (Appendix [[annexe:A2]] to this policy).
 
 In case of doubt, the relevant person makes a declaration: the RCCI assesses it. Failure to declare constitutes misconduct within the meaning of Article 49 of the Code of Conduct.
 
@@ -141,7 +141,7 @@ In the event of oversubscription of an issue placed by the Company, the allocati
 
 ### Article 14 — Decision-making process
 
-1. **Reporting**: the relevant person completes the form in Appendix “Conflict declaration” and sends it to the RCCI.
+1. **Reporting**: the relevant person completes the form in Appendix [[annexe:A2]] and sends it to the RCCI.
 2. **Analysis**: the RCCI classifies the situation within 2 business days: no conflict, conflict controlled by existing measures, or conflict requiring a decision.
 3. **Decision**: depending on the case, the RCCI prescribes additional measures, the Chief Executive Officer decides whether the transaction proceeds, or the Board of Directors rules where the conflict involves the Chief Executive Officer, a director or a shareholder.
 4. **Disclosure to the client** if the conflict persists after the measures taken (Article 15).
@@ -151,7 +151,7 @@ Where the conflict involves the RCCI personally, the report is sent to the Chief
 
 ### Article 15 — Disclosure to the client and declining the service
 
-Where the measures taken are not sufficient to ensure, with reasonable confidence, that the risk of damage to the client's interests will be prevented, the Company informs the client in writing, before providing the service, of the nature and source of the conflict and the measures taken to mitigate its effects (template in Appendix “Client information letter”). The client may then decline the service.
+Where the measures taken are not sufficient to ensure, with reasonable confidence, that the risk of damage to the client's interests will be prevented, the Company informs the client in writing, before providing the service, of the nature and source of the conflict and the measures taken to mitigate its effects (template in Appendix [[annexe:A3]]). The client may then decline the service.
 
 The disclosure is sufficiently detailed to enable the client to take an informed decision. A general statement is not sufficient.
 
@@ -161,7 +161,7 @@ If the conflict cannot be managed in a way that protects the client, even once i
 
 ### Article 16 — Conflicts of interest register
 
-The RCCI maintains a register of conflicts of interest that have arisen or may arise (structure in Appendix “Conflicts register”). Each entry states the date, the activity and the persons involved, the nature of the conflict, the measures taken, the decision and, where applicable, the disclosure made to the client.
+The RCCI maintains a register of conflicts of interest that have arisen or may arise (structure in Appendix [[annexe:A4]]). Each entry states the date, the activity and the persons involved, the nature of the conflict, the measures taken, the decision and, where applicable, the disclosure made to the client.
 
 The register and the related documents are kept for at least ten years. They are provided to COSUMAF on request.
 

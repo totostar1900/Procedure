@@ -40,8 +40,8 @@ historique:
     par: Directeur Général
 notes_redaction:
   - "Écart à corriger : le module de rapprochement du Guichet indique que « l'argent propre de la maison est sur les mêmes comptes » que celui des clients. La convention (PC-CTR-004, article 3) et la présente procédure exigent un compte de règlement ségrégué, distinct des fonds propres. Ouvrir au plus vite un compte propre séparé et n'y laisser, sur le compte des clients, qu'un coussin de fonds propres explicitement affecté et tracé (article 7)."
-  - "La banque a refusé le 9 octobre 2026 l'ouverture d'un compte par client : les espèces de tous les clients sont donc sur un compte de règlement global. C'est admis, à condition que le journal des espèces dise à chaque instant à qui appartient chaque franc et que la banque reconnaisse par écrit que ce compte est un compte de fonds de tiers (Annexe « Lettre de reconnaissance »)."
-  - Obtenir de la banque, du ou des SVT et du Dépositaire central la lettre de reconnaissance de l'annexe « Lettre de reconnaissance » ; vérifier avec le conseil juridique la portée de l'insaisissabilité en droit camerounais et OHADA.
+  - "La banque a refusé le 9 octobre 2026 l'ouverture d'un compte par client : les espèces de tous les clients sont donc sur un compte de règlement global. C'est admis, à condition que le journal des espèces dise à chaque instant à qui appartient chaque franc et que la banque reconnaisse par écrit que ce compte est un compte de fonds de tiers (Annexe [[annexe:A4]])."
+  - Obtenir de la banque, du ou des SVT et du Dépositaire central la lettre de reconnaissance de l'annexe [[annexe:A4]] ; vérifier avec le conseil juridique la portée de l'insaisissabilité en droit camerounais et OHADA.
   - Confirmer avec la COSUMAF la forme et le délai d'information en cas d'écart non résolu, et si un rapprochement périodique doit lui être transmis.
 ---
 
@@ -108,7 +108,7 @@ Les commissions et frais dus à la Société ne sont prélevés sur le compte de
 
 ### Article 8 — Comptes ouverts et information des tiers
 
-Le desk tient la liste de tous les comptes où se trouvent des avoirs de clients (Annexe « Comptes des avoirs clients »). Pour chacun, la Société obtient du teneur une **lettre de reconnaissance** (Annexe « Lettre de reconnaissance ») par laquelle il reconnaît que :
+Le desk tient la liste de tous les comptes où se trouvent des avoirs de clients (Annexe [[annexe:A5]]). Pour chacun, la Société obtient du teneur une **lettre de reconnaissance** (Annexe [[annexe:A4]]) par laquelle il reconnaît que :
 
 - le compte contient des avoirs appartenant aux clients de la Société, et non à la Société ;
 - il ne peut les compenser avec une dette de la Société ni exercer sur eux de droit de rétention ou de garantie ;
@@ -125,12 +125,12 @@ Chaque jour ouvré, avant midi, le desk compare :
 - le **dû aux clients** à la clôture de la veille, calculé par le Guichet à partir des journaux des espèces ;
 - le **solde du compte de règlement ségrégué** à la même date, tel que le donne le relevé bancaire, diminué du coussin de fonds propres éventuel.
 
-Il enregistre le rapprochement dans le Guichet avec la pièce justificative (relevé du jour) et l'annexe « Rapprochement des espèces ». Un écart ne s'enregistre jamais sans explication.
+Il enregistre le rapprochement dans le Guichet avec la pièce justificative (relevé du jour) et l'annexe [[annexe:A1]]. Un écart ne s'enregistre jamais sans explication.
 
 ### Article 10 — Rapprochement des titres
 
 - **Chaque jour ouvré** où il y a eu un mouvement : le desk vérifie que chaque achat, vente, souscription, rachat, coupon ou remboursement figure à la fois dans le Guichet et sur l'avis ou le relevé du teneur.
-- **Chaque mois**, au dernier jour ouvré : le desk compare, ligne par ligne et client par client, les positions tenues dans le Guichet avec les relevés du Dépositaire central, des SVT et des registres des OPC (Annexe « Rapprochement des titres »).
+- **Chaque mois**, au dernier jour ouvré : le desk compare, ligne par ligne et client par client, les positions tenues dans le Guichet avec les relevés du Dépositaire central, des SVT et des registres des OPC (Annexe [[annexe:A2]]).
 
 ### Article 11 — Rapprochement mensuel complet
 
@@ -142,8 +142,8 @@ Chaque mois, le desk établit un rapprochement complet des espèces et des titre
 
 | Situation | Délai | Qui | Action |
 | --- | --- | --- | --- |
-| Tout écart | Dans la journée | Desk | Recherche de la cause ; inscription au registre des écarts (Annexe « Registre des écarts ») |
-| Écart non expliqué | 2 jours ouvrés | Desk, puis RCCI | Déclaration d'incident (PC-POL-RIS-001, annexe « Déclaration d'incident ») |
+| Tout écart | Dans la journée | Desk | Recherche de la cause ; inscription au registre des écarts (Annexe [[annexe:A3]]) |
+| Écart non expliqué | 2 jours ouvrés | Desk, puis RCCI | Déclaration d'incident (PC-POL-RIS-001, annexe [[annexe:PC-POL-RIS-001/A4]]) |
 | Manque, quel qu'en soit le montant | Le jour même | Directeur Général | Couverture immédiate sur fonds propres (article 13) |
 | Écart non résolu | 5 jours ouvrés | Directeur Général et RCCI | Information du Président du Conseil d'Administration |
 | Manque non couvert, ou écart non résolu | 10 jours ouvrés | Directeur Général | Information de la COSUMAF |

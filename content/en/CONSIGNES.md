@@ -40,7 +40,7 @@ Quote every YAML string value with double quotes (escape inner double quotes as 
 
 Keep `id` and `ordre` unchanged; translate `titre`, `nom`, `nature`, `renseigne_par`, `conserve_par`, `frequence` (keep any key the French has, translate its value). Quote all values.
 
-Appendices have no numbers: each is designated by its short name (`nom`, 1–4 words). In the text, « l'annexe « Pièces client » » becomes “Appendix “Client documents””, using the English `nom` of that appendix (of the same document, or of the document cited). Never reintroduce “Appendix 1”.
+Appendices have no numbers: each is designated by its short name (`nom`, 1–4 words). In the text, a reference is a code that the site replaces with the appendix name: « l'annexe [[annexe:A1]] » becomes “Appendix [[annexe:A1]]”, and « l'annexe [[annexe:PC-POL-RIS-001/A4]] » becomes “Appendix [[annexe:PC-POL-RIS-001/A4]]”. Copy every `[[annexe:…]]` code exactly as it is; never write the name or a number instead.
 
 ### `en/variables.yaml` (contract templates PC-CTR-*)
 

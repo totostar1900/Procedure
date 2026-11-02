@@ -33,14 +33,14 @@ historique:
     objet: "Initial draft"
     par: "RCCI"
 notes_redaction:
-  - "List of functions subject to a professional card: the policy relies on Articles 13, 14, 24 and 25 of the COSUMAF General Regulation as cited in the other documents of the repository. Check against the official text and the COSUMAF instruction on professional cards the exact list of functions, the validity period of the card, and the conditions and time limit for renewal (including any continuing training requirement), then complete the table in Appendix “Training register”. No reference key exists for this instruction in referentiel.yaml."
+  - "List of functions subject to a professional card: the policy relies on Articles 13, 14, 24 and 25 of the COSUMAF General Regulation as cited in the other documents of the repository. Check against the official text and the COSUMAF instruction on professional cards the exact list of functions, the validity period of the card, and the conditions and time limit for renewal (including any continuing training requirement), then complete the table in Appendix [[annexe:A3]]. No reference key exists for this instruction in referentiel.yaml."
   - "Good repute criteria (Article 6): to be confirmed by legal counsel in light of Regulation No. 01/22, the COSUMAF General Regulation and the OHADA Uniform Act (prohibitions and incompatibilities applying to senior managers). The precise articles of these texts have not been checked."
   - "Proposed minimum continuing professional development hours (Article 18): 20 hours for senior managers and professional card holders, 15 hours for Staff Members in contact with clients or operations, 10 hours for support functions, 6 hours for directors. To be validated by the Chief Executive Officer and the Board."
   - "Training budget (Article 20): proposed indicative benchmark of at least 2% of the gross payroll, and a threshold of FCFA 1,000,000 above which external training may give rise to a written repayment undertaking (training repayment clause). The validity and limits of such a clause under Cameroonian labour law are to be checked with legal counsel."
   - "Knowledge tests (Title VI): the online repository currently records acknowledgements of reading but does not yet offer a questionnaire. The test function (five questions drawn from a bank, 80% pass mark, two attempts, retention of results) is to be developed; in the meantime, the RCCI runs the tests through a Microsoft 365 online form and enters the results in the register."
   - "Criminal record extract: the policy requires a bulletin No. 3 less than three months old on hiring, renewed every three years for senior managers, card holders and directors. Check with legal counsel that Law No. 2024/017 allows this processing by the employer and under what conditions (legal basis, information of the candidate, any notification to the data protection authority)."
   - "The Code of Conduct (Article 46) and the Internal Control Charter (Article 21) require training on the Code \"within the first month\"; this policy keeps that maximum period, adds a period of fifteen working days for the induction programme, and the requirement of the AML/CFT Policy (Article 27) to be trained before handling a client file. Align these three texts at their next revision."
-source: ddcd934830da127a
+source: 00ab2ac837c3afe4
 ---
 
 ## Title I — General provisions
@@ -116,7 +116,7 @@ Any other situation (pending proceedings, major litigation, lasting conflict of 
 
 ### Article 7 — Checks before hiring
 
-Checks are carried out **before the contract is signed**, or at the latest before the person starts work where the offer is conditional. The RCCI records them on the checklist in Appendix “Pre-hiring checklist”; the Chief Executive Officer does not sign the contract until the checklist is complete.
+Checks are carried out **before the contract is signed**, or at the latest before the person starts work where the offer is conditional. The RCCI records them on the checklist in Appendix [[annexe:A5]]; the Chief Executive Officer does not sign the contract until the checklist is complete.
 
 | Check | Staff Members | Senior managers, card holders, directors | Interns | Service providers acting for the Company |
 | --- | --- | --- | --- | --- |
@@ -124,14 +124,14 @@ Checks are carried out **before the contract is signed**, or at the latest befor
 | Criminal record extract (bulletin No. 3) less than three months old, and foreign equivalent if the person has lived outside Cameroon for more than one year in the last five years | Yes | Yes, renewed every three years | Yes | Certificate from the provider that it has checked its personnel |
 | Verification of the highest qualification required for the position, with the institution or on the original | Yes | Yes | Certificate of enrolment | No |
 | Two references, at least one from a former employer, taken by telephone and recorded | Yes | Yes | One, from the institution | Company references |
-| Declaration of interests (Code of Conduct, Appendix “Training register”) | Yes | Yes | Yes | No |
+| Declaration of interests (Code of Conduct, Appendix [[annexe:PC-COD-001/A3]]) | Yes | Yes | Yes | No |
 | Screening against sanctions and PEP lists (PC-POL-LBC-001, Article 21) and against sanctions published by COSUMAF and COBAC | Yes | Yes | Yes | Company and its managers |
 | Search for adverse public information (press, internet) | Yes | Yes | No | Company |
-| Declaration of good repute and competence (Appendix “Good repute and competence”) | Yes | Yes | Yes | No |
+| Declaration of good repute and competence (Appendix [[annexe:A4]]) | Yes | Yes | Yes | No |
 
 Adverse information is never set aside without being recorded. The RCCI gives a written opinion to the Chief Executive Officer, who decides; for a director or the Chief Executive Officer, the opinion is given to the Chairman of the Board.
 
-The contract with a service provider acting for the Company includes a clause by which it guarantees the good repute and competence of its personnel, undertakes to replace without delay any person who no longer meets these conditions, and has each of them sign the acknowledgement of adherence to the Code of Conduct and the acceptable use charter for digital tools (PC-POL-SSI-001, Appendix “Acceptable use charter”).
+The contract with a service provider acting for the Company includes a clause by which it guarantees the good repute and competence of its personnel, undertakes to replace without delay any person who no longer meets these conditions, and has each of them sign the acknowledgement of adherence to the Code of Conduct and the acceptable use charter for digital tools (PC-POL-SSI-001, Appendix [[annexe:PC-POL-SSI-001/A1]]).
 
 ### Article 8 — Appointment of a senior manager or card holder
 
@@ -145,17 +145,17 @@ The same checks are repeated when a Staff Member moves to a senior manager or ca
 
 ### Article 9 — Professional cards
 
-The RCCI keeps the list of cards in the training register (Appendix “Training register”): holder, function, number, date of issue, expiry date, renewal conditions.
+The RCCI keeps the list of cards in the training register (Appendix [[annexe:A3]]): holder, function, number, date of issue, expiry date, renewal conditions.
 
 - **Three months before expiry**, the RCCI notifies the holder and the Chief Executive Officer.
 - The renewal file is filed **no later than two months before expiry**, or within any longer period set by COSUMAF.
 - If a card expires or is suspended, its holder immediately stops carrying out the reserved acts; the Chief Executive Officer arranges cover and the RCCI informs COSUMAF under the conditions laid down by the regulations.
 
-The expiry date of each card is entered in the compliance calendar of the Internal Control Charter (PC-COD-003, Appendix “Compliance calendar”).
+The expiry date of each card is entered in the compliance calendar of the Internal Control Charter (PC-COD-003, Appendix [[annexe:PC-COD-003/A5]]).
 
 ### Article 10 — Annual declaration
 
-Every year **before 31 January**, each Staff Member, senior manager and director completes the declaration of good repute and competence in Appendix “Good repute and competence”, together with the annual declaration of interests under the Code of Conduct and the annual declaration of personal transactions (PC-PRO-OPP-001, Article 16). They confirm that their circumstances have not changed or describe what has changed.
+Every year **before 31 January**, each Staff Member, senior manager and director completes the declaration of good repute and competence in Appendix [[annexe:A4]], together with the annual declaration of interests under the Code of Conduct and the annual declaration of personal transactions (PC-PRO-OPP-001, Article 16). They confirm that their circumstances have not changed or describe what has changed.
 
 The RCCI checks that all declarations have been received before 15 February and, at that time, re-screens all Staff Members and directors against the sanctions lists. Staff Members and directors are also included in the file screened at each list update, like clients (PC-POL-LBC-001, Article 21).
 
@@ -179,7 +179,7 @@ Failure to declare such a fact is misconduct within the meaning of Article 49 of
 
 Checks involve sensitive data. They are processed in compliance with Law No. 2024/017 on personal data protection:
 
-- the candidate is informed in writing of the checks carried out and their purpose, and authorises them by signing Appendix “Good repute and competence”;
+- the candidate is informed in writing of the checks carried out and their purpose, and authorises them by signing Appendix [[annexe:A4]];
 - only information relevant to the position is collected;
 - the documents are filed in the individual file, with access restricted to the Chief Executive Officer and the RCCI, under the Human Resources heading of the filing plan (PC-PRO-ARC-001);
 - the documents of an unsuccessful candidate are destroyed within three months, unless there is a dispute.
@@ -188,7 +188,7 @@ Checks involve sensitive data. They are processed in compliance with Law No. 202
 
 ### Article 13 — Induction programme
 
-Every person joining the Company follows the induction programme in Appendix “Induction checklist”. They read each document in the online repository, acknowledge having read it and take the knowledge test in Article 21.
+Every person joining the Company follows the induction programme in Appendix [[annexe:A1]]. They read each document in the online repository, acknowledge having read it and take the knowledge test in Article 21.
 
 | Module | Reference document | Maximum period |
 | --- | --- | --- |
@@ -204,14 +204,14 @@ The programme also includes a one-hour meeting with the RCCI during the first we
 
 Interns follow the Code, AML/CFT, and confidentiality and IT security modules; they do not handle any client file or order without supervision. A service provider's personnel follow the confidentiality and IT security module and sign the Code before any access.
 
-The RCCI ticks off Appendix “Induction checklist” and places it in the individual file. Until the programme is completed, the online repository reports delays to the RCCI and the line manager.
+The RCCI ticks off Appendix [[annexe:A1]] and places it in the individual file. Until the programme is completed, the online repository reports delays to the RCCI and the line manager.
 
 ### Article 14 — Annual AML/CFT training
 
 CEMAC regulations require continuing AML/CFT training for all senior managers and employees (Regulation No. 02/24). Every year, **before 30 November**, the AML/CFT officer organises training of at least **two hours** for all Staff Members, senior managers and directors. It covers:
 
 - changes in the texts, COSUMAF guidelines and FATF lists;
-- red flags specific to securities transactions (PC-POL-LBC-001, Appendix “Red flags”) and case studies;
+- red flags specific to securities transactions (PC-POL-LBC-001, Appendix [[annexe:PC-POL-LBC-001/A3]]) and case studies;
 - asset freezing and screening;
 - findings from the year's controls and mistakes not to repeat.
 
@@ -308,22 +308,22 @@ A failure is not misconduct. However, failing to attend mandatory training, fail
 
 ### Article 24 — Annual training plan
 
-Before 15 December, the RCCI prepares with the line managers the training plan for the following year using the template in Appendix “Training plan”. It is based on the needs expressed at annual appraisals, mandatory training, card expiry dates, control findings, incidents, test results and regulatory developments.
+Before 15 December, the RCCI prepares with the line managers the training plan for the following year using the template in Appendix [[annexe:A2]]. It is based on the needs expressed at annual appraisals, mandatory training, card expiry dates, control findings, incidents, test results and regulatory developments.
 
 The Chief Executive Officer approves the plan within the budget. The plan is presented to the Board with the budget. It is reviewed at mid-year.
 
 ### Article 25 — Register and individual files
 
-The RCCI keeps the **training register** in Appendix “Training register”: training completed, hours, test results, professional cards, annual declarations. It is one of the compliance registers of the Internal Control Charter (PC-COD-003, Article 22).
+The RCCI keeps the **training register** in Appendix [[annexe:A3]]: training completed, hours, test results, professional cards, annual declarations. It is one of the compliance registers of the Internal Control Charter (PC-COD-003, Article 22).
 
-Each person has an **individual file** containing the documents from the checks, the job description, the completed Appendix “Induction checklist”, the annual declarations, the training certificates and, where applicable, their professional card. Each person may consult their own file on request.
+Each person has an **individual file** containing the documents from the checks, the job description, the completed Appendix [[annexe:A1]], the annual declarations, the training certificates and, where applicable, their professional card. Each person may consult their own file on request.
 
 ### Article 26 — Reporting
 
 | Recipient | Frequency | Content |
 | --- | --- | --- |
 | Risk and compliance committee | Every month | Overdue induction programmes; unacknowledged readings; cards expiring within three months; failures being followed up |
-| Board of Directors | Every year, in the annual internal control report (PC-COD-003, Appendix “Annual report outline”) | Plan completion rate; hours by population; AML/CFT training; test results; status of cards; annual declarations received; changes in circumstances and measures taken; plan for the following year |
+| Board of Directors | Every year, in the annual internal control report (PC-COD-003, Appendix [[annexe:PC-COD-003/A4]]) | Plan completion rate; hours by population; AML/CFT training; test results; status of cards; annual declarations received; changes in circumstances and measures taken; plan for the following year |
 | COSUMAF | With the annual internal control report, and on request | Same items |
 
 The annual AML/CFT report includes the AML/CFT training data (PC-POL-LBC-001, Article 28).

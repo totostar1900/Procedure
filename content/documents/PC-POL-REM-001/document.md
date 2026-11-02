@@ -39,7 +39,7 @@ historique:
     objet: Projet initial soumis au Conseil d'Administration
     par: Directeur Général
 notes_redaction:
-  - Vérifier si la convention collective nationale des banques et établissements financiers du Cameroun, révisée et signée le 18 novembre 2024, s'applique à une société de bourse. Si c'est le cas, ses minima et accessoires de salaire s'imposent et l'annexe « Composantes de la rémunération » doit s'y référer.
+  - Vérifier si la convention collective nationale des banques et établissements financiers du Cameroun, révisée et signée le 18 novembre 2024, s'applique à une société de bourse. Si c'est le cas, ses minima et accessoires de salaire s'imposent et l'annexe [[annexe:A1]] doit s'y référer.
   - "Fixer avec le Conseil d'Administration les plafonds de la part variable (proposés : 20 % du fixe annuel pour les collaborateurs, 30 % pour les directeurs, 15 % pour le RCCI) et l'enveloppe globale annuelle."
   - Les règles de calcul de la paie (frais professionnels de 30 % sur le brut imposable, accident du travail non plafonné, taxe de développement local, cotisations CNPS) relèvent du SIRH et ne sont pas reprises ici.
   - La rémunération du Directeur Général relève de son mandat social et de la lettre d'objectifs approuvés par le Conseil d'Administration ; la présente politique en fixe seulement les principes.
@@ -95,7 +95,7 @@ Elle reprend, à la mesure d'une petite société, les bonnes pratiques internat
 
 ### Article 7 — Rémunération fixe
 
-La rémunération fixe est déterminée par la fonction, la qualification, l'expérience et le marché, selon la grille de l'annexe « Composantes de la rémunération ». Elle respecte les minima légaux et, le cas échéant, conventionnels. Elle est revue chaque année ; une augmentation n'est jamais automatique, sauf lorsque la loi ou la convention collective l'impose.
+La rémunération fixe est déterminée par la fonction, la qualification, l'expérience et le marché, selon la grille de l'annexe [[annexe:A1]]. Elle respecte les minima légaux et, le cas échéant, conventionnels. Elle est revue chaque année ; une augmentation n'est jamais automatique, sauf lorsque la loi ou la convention collective l'impose.
 
 Les règles de calcul de la paie, des cotisations sociales et des retenues fiscales sont tenues dans le système de gestion de la paie de la Société.
 
@@ -103,8 +103,8 @@ Les règles de calcul de la paie, des cotisations sociales et des retenues fisca
 
 Une prime variable peut être versée chaque année. Elle obéit aux règles suivantes :
 
-- elle est **plafonnée** en pourcentage du fixe annuel, selon la catégorie de poste fixée à l'annexe « Composantes de la rémunération » ;
-- elle repose sur des **objectifs écrits**, fixés en début d'année sur la fiche de l'annexe « Objectifs et évaluation », qui combinent :
+- elle est **plafonnée** en pourcentage du fixe annuel, selon la catégorie de poste fixée à l'annexe [[annexe:A1]] ;
+- elle repose sur des **objectifs écrits**, fixés en début d'année sur la fiche de l'annexe [[annexe:A2]], qui combinent :
   - des critères **quantitatifs**, pour au plus 60 % de la prime : clients ouverts et actifs, encours, opérations réalisées, résultat de la Société ;
   - des critères **qualitatifs**, pour au moins 40 % de la prime : qualité du conseil et des dossiers, satisfaction et réclamations des clients, respect des procédures, résultats des contrôles, formation suivie, esprit d'équipe ;
 - **aucun critère ne porte sur la vente d'un produit, d'un émetteur ou d'une société de gestion en particulier** ;
@@ -112,7 +112,7 @@ Une prime variable peut être versée chaque année. Elle obéit aux règles sui
 
 ### Article 9 — Avantages
 
-Les avantages sont attribués selon la fonction et les besoins du poste, et non selon les performances commerciales. Ils sont listés au contrat de travail et à l'annexe « Composantes de la rémunération ».
+Les avantages sont attribués selon la fonction et les besoins du poste, et non selon les performances commerciales. Ils sont listés au contrat de travail et à l'annexe [[annexe:A1]].
 
 ### Article 10 — Pas de rémunération garantie
 
@@ -168,7 +168,7 @@ L'enveloppe peut être réduite ou supprimée si la Société est en perte, si s
 
 ### Article 17 — Évaluation individuelle
 
-Chaque collaborateur fait l'objet d'un entretien annuel sur la fiche de l'annexe « Objectifs et évaluation ». Le supérieur hiérarchique évalue l'atteinte des objectifs. Le RCCI donne son avis sur les critères de conformité de chaque collaborateur avant toute décision de prime. Les décisions sont inscrites au registre de l'annexe « Registre des rémunérations variables ».
+Chaque collaborateur fait l'objet d'un entretien annuel sur la fiche de l'annexe [[annexe:A2]]. Le supérieur hiérarchique évalue l'atteinte des objectifs. Le RCCI donne son avis sur les critères de conformité de chaque collaborateur avant toute décision de prime. Les décisions sont inscrites au registre de l'annexe [[annexe:A4]].
 
 ### Article 18 — Réduction ou suppression de la prime
 
@@ -192,8 +192,8 @@ La prime variable est versée en une fois, après l'arrêté des comptes de l'ex
 | --- | --- |
 | Conseil d'Administration | Approuve la politique et l'enveloppe annuelle ; fixe la rémunération du Directeur Général ; est informé de la rémunération du RCCI |
 | Assemblée générale | Vote les indemnités de fonction des administrateurs |
-| Directeur Général | Propose la politique et l'enveloppe ; fixe les objectifs et les rémunérations des collaborateurs dans l'enveloppe ; tient le registre de l'annexe « Registre des rémunérations variables » |
-| RCCI | Vérifie chaque année, au moyen de l'annexe « Revue du dispositif », que la politique et les objectifs ne créent pas d'incitation contraire à l'intérêt des clients ; donne son avis sur les critères de conformité ; rend compte au Conseil |
+| Directeur Général | Propose la politique et l'enveloppe ; fixe les objectifs et les rémunérations des collaborateurs dans l'enveloppe ; tient le registre de l'annexe [[annexe:A4]] |
+| RCCI | Vérifie chaque année, au moyen de l'annexe [[annexe:A3]], que la politique et les objectifs ne créent pas d'incitation contraire à l'intérêt des clients ; donne son avis sur les critères de conformité ; rend compte au Conseil |
 | Supérieurs hiérarchiques | Fixent et évaluent les objectifs avec chaque collaborateur |
 
 ### Article 21 — Transparence

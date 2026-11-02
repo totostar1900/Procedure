@@ -129,7 +129,7 @@
     var bar = '<div class="edbar"><span class="ed-state">' + (sub ? "Soumis le " + esc(fmtDT(dr.soumis_le)) + " — publication en cours (quelques minutes)" : E.dirty ? "Modifications non enregistrées…" : E.saved ? "Brouillon enregistré · " + esc(fmtDT(E.saved).split(/ à |, (?=\d\d:)/)[1] || "") : "Aucune modification") + "</span>" +
       '<div class="ed-btns">' +
       (E.model.structured && !d.modele ? '<span class="seg"><button type="button" data-ed="mode|articles" aria-pressed="' + (E.mode === "articles") + '">Par article</button><button type="button" data-ed="mode|texte" aria-pressed="' + (E.mode === "texte") + '">Texte intégral</button></span>' : "") +
-      '<label class="btn" title="Remplacer le texte du brouillon par celui d\'un fichier Word">Importer un Word…<input type="file" id="ed-word" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden></label>' +
+      renvoiSelect() + '<label class="btn" title="Remplacer le texte du brouillon par celui d\'un fichier Word">Importer un Word…<input type="file" id="ed-word" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden></label>' +
       '<button type="button" class="btn" data-ed="view|' + (E.view === "diff" ? "edit" : "diff") + '">' + (E.view === "diff" ? "Revenir à l'édition" : "Voir les modifications") + "</button>" +
       (sub ? '<button type="button" class="btn" data-ed="reprendre">Reprendre le brouillon</button>' : '<button type="button" class="btn primary" data-ed="soumettre">Soumettre au circuit…</button>') +
       (dr ? '<button type="button" class="btn ghost danger" data-ed="abandon">Abandonner</button>' : "") + "</div></div>";
@@ -168,7 +168,7 @@
   function annexesHtml() {
     var A = E.annexes, noms = {};
     A.forEach(function (a) { var k = (a.nom || "").trim().toLowerCase(); noms[k] = (noms[k] || 0) + 1; });
-    return '<h2 class="section-h">Annexes</h2><p class="cite-src">Chaque annexe est désignée par un nom court, unique dans le document : dans le texte, écrivez « l\'annexe « Pièces client » ». Renommer une annexe met à jour les renvois de ce document ; ceux d\'autres documents sont signalés à la soumission.</p>' +
+    return '<h2 class="section-h">Annexes</h2><p class="cite-src">Chaque annexe est désignée par un nom court, unique dans le document. Dans le texte, un renvoi s\'insère avec la liste « Renvoi vers une annexe » : il s\'affiche avec le nom de l\'annexe et suit ses changements de nom.</p>' +
       '<div class="ed-annexes">' + A.map(function (a, i) {
         var k = cleAnnexe(a), ouv = !!E.ouvertes[k], dbl = noms[(a.nom || "").trim().toLowerCase()] > 1;
         return '<article class="ed-card ed-ann" id="ed-x' + i + '"><div class="ed-ahead"><span class="ed-num">Annexe</span>' +
@@ -208,16 +208,35 @@
       return '<li class="d-' + c.type + '"><div class="d-head"><span class="pill ' + (c.type === "ajout" ? "vigueur" : c.type === "retrait" ? "abroge" : "projet") + '">' + lab + '</span> <b>Annexe « ' + esc(x.nom) + " »</b></div><div class=\"d-body\">" + body + "</div></li>";
     }).join("") + "</ul>";
   }
-  // Renvois vers une annexe dans le texte et les autres annexes de ce document
-  var reNom = function (nom) { return new RegExp("([Aa]nnexes?\\s+(?:et\\s+)?(?:«\\s*[^»]*»\\s*,?\\s*(?:et\\s+)?)*«\\s*)" + nom.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "(\\s*»)", "g"); };
-  function renommerRenvois(ancien, nouveau) {
-    if (!ancien || !nouveau || ancien === nouveau) return 0;
-    var n = 0, rep = function (t) { return String(t || "").replace(reNom(ancien), function (m, a, b) { n++; return a + nouveau + b; }); };
-    var body = rep(curBody()); E.raw = body; E.model = parseBody(body);
-    E.annexes.forEach(function (a) { a.body = rep(a.body); });
-    return n;
+  // Liste « Renvoi vers une annexe » : insère le code du renvoi là où se trouve le curseur
+  function renvoiSelect() {
+    var autres = docs.filter(function (d) { return d.id !== E.id && (d.annexes || []).length; });
+    return '<select class="ed-renvoi" data-ed-renvoi aria-label="Insérer un renvoi vers une annexe"><option value="">Renvoi vers une annexe…</option>' +
+      (E.annexes.filter(function (a) { return a.cle; }).length ? '<optgroup label="Ce document">' + E.annexes.filter(function (a) { return a.cle; }).map(function (a) { return '<option value="' + esc(a.cle) + '">' + esc(a.nom || a.cle) + "</option>"; }).join("") + "</optgroup>" : "") +
+      autres.map(function (d) { var v = vueLangue(d); return '<optgroup label="' + esc(d.id + " — " + v.titre) + '">' + (v.annexes || []).map(function (a) { return '<option value="' + esc(d.id + "/A" + a.num) + '">' + esc(a.nom || "A" + a.num) + "</option>"; }).join("") + "</optgroup>"; }).join("") + "</select>";
   }
-  function renvoisVers(nom) { if (!nom) return 0; var t = curBody() + "\n" + E.annexes.map(function (a) { return a.body; }).join("\n"); return (t.match(reNom(nom)) || []).length; }
+  document.addEventListener("focusin", function (ev) { var t = ev.target; if (E && t.tagName === "TEXTAREA" && t.closest && t.closest("#v-edition")) E.focus = { el: t, pos: t.selectionStart }; });
+  document.addEventListener("keyup", function (ev) { if (E && E.focus && ev.target === E.focus.el) E.focus.pos = ev.target.selectionStart; });
+  document.addEventListener("click", function (ev) { if (E && E.focus && ev.target === E.focus.el) E.focus.pos = ev.target.selectionStart; });
+  document.addEventListener("change", function (ev) {
+    var t = ev.target; if (!E || !t.hasAttribute || !t.hasAttribute("data-ed-renvoi") || !t.value) return;
+    var code = "[[annexe:" + t.value + "]]"; t.value = "";
+    var f = E.focus && document.contains(E.focus.el) ? E.focus : null;
+    if (!f) { try { navigator.clipboard.writeText(code); } catch (e) { /* presse-papiers indisponible */ } toast("Placez d'abord le curseur dans le texte. Le renvoi " + code + " est copié."); return; }
+    var el = f.el, p = Math.min(f.pos == null ? el.value.length : f.pos, el.value.length);
+    el.value = el.value.slice(0, p) + code + el.value.slice(p); el.focus(); el.selectionStart = el.selectionEnd = p + code.length; f.pos = p + code.length;
+    el.dispatchEvent(new Event("input", { bubbles: true }));
+  });
+  // Renvois : [[annexe:A1]] (ce document) ou [[annexe:PC-…/A1]] ; affichés avec le nom de l'annexe
+  function renvoisVers(cle) { if (!cle) return 0; var t = curBody() + "\n" + E.annexes.map(function (a) { return a.body; }).join("\n"); return t.split("[[annexe:" + cle + "]]").length - 1; }
+  function nommer(md) {
+    return String(md || "").replace(/\[\[annexe:(?:(PC-[A-Z0-9-]+)\/)?(A\d+)\]\]/g, function (m, doc, cle) {
+      var n = null;
+      if (!doc || doc === E.id) { var a = E.annexes.filter(function (x) { return x.cle === cle; })[0]; n = a && a.nom; }
+      else { var d = docs.filter(function (x) { return x.id === doc; })[0], v = d ? vueLangue(d) : null, x = v ? (v.annexes || []).filter(function (y) { return "A" + y.num === cle; })[0] : null; n = x && x.nom; }
+      return n ? (EN ? "“" + n + "”" : "« " + n + " »") : (EN ? "“(missing appendix)”" : "« (annexe introuvable) »");
+    });
+  }
   function metaDiff() {
     var out = "";
     if (E.f.titre !== E.src.titre) out += '<li class="d-modif"><div class="d-head"><span class="pill projet">Modifié</span> <b>Titre du document</b></div><div class="d-body">' + wordDiff(E.src.titre, E.f.titre) + "</div></li>";
@@ -257,8 +276,8 @@
     if (nomsA.some(function (n, k) { return !n || nomsA.indexOf(n) !== k; })) { toast("Chaque annexe doit avoir un nom court, unique dans le document."); E.onglet = "annexes"; renderEditor(); return; }
     if (E.annexes.some(function (a) { return !(a.titre || "").trim(); })) { toast("Chaque annexe doit avoir un titre."); E.onglet = "annexes"; renderEditor(); return; }
     // Renvois vers des annexes supprimées ou renommées, dans ce document et dans les autres
-    var partis = (E.src.annexes || []).filter(function (o) { return !E.annexes.some(function (a) { return a.cle === o.cle && (a.nom || "").trim() === o.nom; }); });
-    var restes = partis.filter(function (o) { return renvoisVers(o.nom); }).map(function (o) { return "« " + o.nom + " »"; });
+    var partis = (E.src.annexes || []).filter(function (o) { return !E.annexes.some(function (a) { return a.cle === o.cle; }); });
+    var restes = partis.filter(function (o) { return renvoisVers(o.cle); }).map(function (o) { return "« " + o.nom + " »"; });
     var ailleurs = partis.filter(function (o) { return (o.cite_par || []).length; }).map(function (o) { return "« " + o.nom + " » (cité par " + o.cite_par.join(", ") + ")"; });
     if (E.nouveau && (!E.f.titre.trim() || !E.f.resume.trim() || !curBody().trim())) { toast("Titre, résumé et texte sont nécessaires pour créer le document."); return; }
     var ch = diffBodies(E.src.body, curBody());
@@ -266,7 +285,7 @@
     var meta = (E.f.titre !== E.src.titre ? 1 : 0) + (E.f.resume !== E.src.resume ? 1 : 0);
     var st = docState(E.d), started = st.steps.some(function (x) { return x.sigs.length; });
     var complet = '<p class="cite-src">Aperçu indisponible.</p>';
-    try { var mk = await loadLib("marked"); await chargerMedias(curBody()); complet = '<div class="eyebrow">' + esc(E.d.type) + " · " + esc(E.id) + " · v" + esc(nextVersion()) + '</div><h1 class="title" style="font-size:var(--fs-xl)">' + esc(E.f.titre) + '</h1><p class="lead">' + esc(E.f.resume) + '</p><div class="doc-body">' + mk.parse(avecMedias(curBody())) + "</div>"; } catch (e) { /* aperçu indisponible */ }
+    try { var mk = await loadLib("marked"); await chargerMedias(curBody()); complet = '<div class="eyebrow">' + esc(E.d.type) + " · " + esc(E.id) + " · v" + esc(nextVersion()) + '</div><h1 class="title" style="font-size:var(--fs-xl)">' + esc(E.f.titre) + '</h1><p class="lead">' + esc(E.f.resume) + '</p><div class="doc-body">' + mk.parse(avecMedias(nommer(curBody()))) + "</div>"; } catch (e) { /* aperçu indisponible */ }
     var ok = await confirmer({
       titre: (E.nouveau ? "Créer le document " : "Soumettre la modification de ") + E.id, large: true,
       html: "<dl><dt>Document</dt><dd><b>" + esc(E.id) + "</b> — " + esc(E.f.titre) + "</dd><dt>Objet</dt><dd>" + esc(E.f.objet) + "</dd><dt>Version</dt><dd>" + (enVigueur() ? esc(E.src.version) + " → " + esc(nextVersion()) + " (" + (E.f.nature === "mineure" ? "correction mineure" : "révision") + ")" : esc(E.src.version) + " (projet)") + "</dd></dl>",
@@ -276,7 +295,7 @@
         "Vous ne pourrez viser aucune étape de cette version, puisque vous l'avez rédigée (règle des quatre yeux).",
         "La publication (texte, PDF, Word) prend quelques minutes."].concat(axc.length ? [axc.length + " annexe(s) ajoutée(s), modifiée(s) ou supprimée(s)."] : [],
         restes.length ? ["<b>Attention :</b> le texte renvoie encore à " + restes.join(", ") + ", qui n'existe plus sous ce nom."] : [],
-        ailleurs.length ? ["<b>Autres documents à mettre à jour :</b> " + ailleurs.join(" ; ") + "."] : []),
+        ailleurs.length ? ["<b>Autres documents qui renvoient à une annexe supprimée :</b> " + ailleurs.join(" ; ") + "."] : []),
       onglets: [{ titre: "Modifications", html: metaDiff() + diffHtml(ch) + annexesDiffHtml() }, { titre: "Document complet", html: complet }],
       phrase: (E.nouveau ? "créer " : "soumettre ") + E.id, bouton: E.nouveau ? "Créer et soumettre au circuit" : "Soumettre au circuit"
     });
@@ -344,8 +363,7 @@
     var q = x.split("|"), an = E.annexes[+q[0]]; if (!an) return;
     if (q[1] === "orientation") { an.orientation = t.checked ? "paysage" : ""; markDirty(); return; }
     if (q[1] === "nature") { an.nature = t.value; markDirty(); return; }
-    // Nom changé : les renvois de ce document suivent
-    if (q[1] === "nom" && an._nomAvant !== undefined) { var av = an._nomAvant; delete an._nomAvant; an.nom = t.value.trim(); var n = renommerRenvois(av, an.nom); if (n) toast(n + " renvoi(s) mis à jour dans ce document."); markDirty(); renderEditor(); }
+    if (q[1] === "nom") { delete an._nomAvant; an.nom = t.value.trim(); markDirty(); renderEditor(); }
   });
   document.addEventListener("click", function (ev) {
     var b = ev.target.closest("[data-ed],[data-edit-doc],[data-ediff]"); if (!b) return;
@@ -366,7 +384,7 @@
         setTimeout(function () { var el = $("#ed-x" + (E.annexes.length - 1) + " .ed-xnom"); if (el) { el.focus(); el.select(); el.scrollIntoView({ block: "center" }); } }, 30);
         return;
       case "x-del":
-        var ad = E.annexes[i], nr = renvoisVers(ad.nom);
+        var ad = E.annexes[i], nr = renvoisVers(ad.cle);
         confirmer({ titre: "Supprimer l'annexe « " + ad.nom + " »", points: ["L'annexe sera retirée de la prochaine version du document ; les versions archivées la conservent.", nr ? "<b>" + nr + " renvoi(s)</b> vers cette annexe restent dans le texte : corrigez-les avant de soumettre." : "Aucun renvoi vers cette annexe dans ce document.", "Vérifiez aussi les autres documents qui y renvoient (signalés à la soumission)."], phrase: "supprimer l'annexe", bouton: "Supprimer l'annexe", danger: true })
           .then(function (ok) { if (!ok) return; E.annexes.splice(i, 1); markDirty(); renderEditor(); });
         return;
@@ -376,7 +394,7 @@
       case "x-apercu":
         var bx = $("#ed-xp" + i); if (!bx) return;
         if (!bx.hidden) { bx.hidden = true; return; }
-        loadLib("marked").then(function (mk) { bx.innerHTML = '<div class="doc-body">' + mk.parse(avecMedias(E.annexes[i].body || "")) + "</div>"; bx.hidden = false; }).catch(function () { toast("Aperçu indisponible."); });
+        loadLib("marked").then(function (mk) { bx.innerHTML = '<div class="doc-body">' + mk.parse(avecMedias(nommer(E.annexes[i].body || ""))) + "</div>"; bx.hidden = false; }).catch(function () { toast("Aperçu indisponible."); });
         return;
       case "soumettre": openSubmit(); return;
       case "soumettre-ok": submitDraft(); return;
@@ -394,7 +412,7 @@
       case "preview":
         var box = $("#ed-p" + i + "-" + j); if (!box) return;
         if (!box.hidden) { box.hidden = true; return; }
-        loadLib("marked").then(function (mk) { box.innerHTML = '<div class="doc-body">' + mk.parse(avecMedias(m.titres[i].articles[j].body || "")) + "</div>"; box.hidden = false; }).catch(function () { toast("Aperçu indisponible."); });
+        loadLib("marked").then(function (mk) { box.innerHTML = '<div class="doc-body">' + mk.parse(avecMedias(nommer(m.titres[i].articles[j].body || ""))) + "</div>"; box.hidden = false; }).catch(function () { toast("Aperçu indisponible."); });
         return;
       case "a-add": T[i].articles.splice(j + 1, 0, { uid: uid(), titre: "Nouvel article", numbered: true, body: "" }); sync(); setTimeout(function () { var x = $("#ed-a" + i + "-" + (j + 1) + " input"); if (x) { x.focus(); x.select(); x.scrollIntoView({ block: "center" }); } }, 30); return;
       case "a-del": if ((T[i].articles[j].body || "").trim() && !confirm(window.PCI18N && PCI18N.lang === "en" ? "Delete the article “" + T[i].articles[j].titre + "”?" : "Supprimer l'article « " + T[i].articles[j].titre + " » ?")) return; T[i].articles.splice(j, 1); sync(); return;

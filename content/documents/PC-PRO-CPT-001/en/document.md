@@ -26,15 +26,15 @@ historique:
     par: "Chief Executive Officer"
 notes_redaction:
   - "Bookkeeping: the manual assumes that it is entrusted to a chartered accountant registered with ONECCA, under the oversight of the Chief Executive Officer. Confirm this choice, sign the engagement letter and record it in the outsourcing register (PC-POL-EXT-001); state whether it is treated as an important function."
-  - "Payment and dual-signature thresholds: the manual refers to the matrix of the Organisation and Delegation of Authority Charter (PC-COD-004), being drafted in parallel. On adoption, check that the thresholds in Article 21 and Appendix “Delegation matrix” are those of PC-COD-004, and designate the bank signatories."
+  - "Payment and dual-signature thresholds: the manual refers to the matrix of the Organisation and Delegation of Authority Charter (PC-COD-004), being drafted in parallel. On adoption, check that the thresholds in Article 21 and Appendix [[annexe:PC-COD-004/A2]] are those of PC-COD-004, and designate the bank signatories."
   - "Thresholds specific to the manual, to be validated by the Chief Executive Officer: capitalisation from FCFA 250,000 excluding tax (Article 24), two quotes from FCFA 2,000,000 excluding tax (Article 15), petty cash capped at FCFA 200,000 and cash expenditure limited to FCFA 50,000 (Article 18), provision for receivables more than 90 days overdue (Article 14)."
   - "Chart of accounts: check whether COSUMAF requires brokerage firms to use a particular chart of accounts, or particular formats of financial statements or prudential returns. As no such text was found, the manual uses the revised SYSCOHADA (full system) with dedicated sub-accounts (Article 6)."
   - "Prudential standards: as for the Risk Management Policy, no prudential ratio specific to brokerage firms was found in the published texts. The calculation in Article 31 is a prudent internal definition of own funds, to be aligned with the COSUMAF instruction as soon as it is confirmed."
   - "Accounting treatment of client cash (Article 7): recognition on the balance sheet with a liability to clients, excluded from own funds and from the Company's own cash. To be confirmed with the statutory auditors."
-  - "Taxation to be confirmed each year with the chartered accountant in the light of the finance law: VAT rate and regime for brokerage and placement commissions (possible exemption of securities transactions), rate of the corporate income tax instalment, DSF deadline (15 March assumed), withholding taxes due by the Company. The deadlines in Appendix “Statutory calendar” are those known at the time of drafting."
+  - "Taxation to be confirmed each year with the chartered accountant in the light of the finance law: VAT rate and regime for brokerage and placement commissions (possible exemption of securities transactions), rate of the corporate income tax instalment, DSF deadline (15 March assumed), withholding taxes due by the Company. The deadlines in Appendix [[annexe:A4]] are those known at the time of drafting."
   - "Texts missing from the table of references, to be added by the RCCI: Cameroon General Tax Code and the finance law for the year; CNPS (social security) texts; CEMAC regulation on the accounting profession in private practice (ONECCA); COSUMAF instruction on prudential standards and financial statements of brokerage firms."
   - "Board of Directors: the Board has no audit committee. The manual entrusts the review of the accounts to the full Board; decide whether an audit and risk committee is needed once the business has grown."
-source: 3521e726f754664b
+source: 779af4b68ad9aba6
 ---
 
 ## Title I — General provisions
@@ -71,7 +71,7 @@ Client securities and cash are not assets of the Company. Their segregation and 
 | Returns sent to COSUMAF and other authorities | Regulatory Reporting Procedure (PC-PRO-REP-001) |
 | Use of a chartered accountant or payroll provider | Outsourcing Policy (PC-POL-EXT-001) |
 | Commissions invoiced to issuers and other firms | Contract templates PC-CTR-001, PC-CTR-002 and PC-CTR-003 |
-| Charges invoiced to clients | Securities Account Opening Agreement (PC-CTR-004, Article 6 and Appendix “Schedule of charges”) |
+| Charges invoiced to clients | Securities Account Opening Agreement (PC-CTR-004, Article 6 and Appendix [[annexe:PC-CTR-004/A1]]) |
 | Remuneration of Staff Members and senior managers | Remuneration Policy (PC-POL-REM-001) |
 | Retention of books and supporting documents | Archiving and Retention Procedure (PC-PRO-ARC-001) |
 
@@ -150,7 +150,7 @@ Where bookkeeping is entrusted to a chartered accountant:
 - a written **engagement letter** sets out the work (bookkeeping, reconciliations, payroll, returns, closings, financial statements, DSF), deadlines, confidentiality, access to data and its return at the end of the engagement; it complies with the clauses of PC-POL-EXT-001 and the contract is entered in the outsourcing register;
 - the books and supporting documents remain the property of the Company, in software or storage to which it always has access;
 - the chartered accountant has **no access** with write rights to the bank accounts or online payment platforms;
-- the Chief Executive Officer **oversees** the work: they receive the monthly closing file, raise their questions in writing and sign off the closing (Appendix “Monthly closing”);
+- the Chief Executive Officer **oversees** the work: they receive the monthly closing file, raise their questions in writing and sign off the closing (Appendix [[annexe:A1]]);
 - each year, the Chief Executive Officer assesses the service in accordance with PC-POL-EXT-001; the assessment is given to the RCCI.
 
 Responsibility for the accounts remains with the Company and its senior managers, even where bookkeeping is entrusted to a third party.
@@ -161,7 +161,7 @@ Responsibility for the accounts remains with the Company and its senior managers
 
 | Revenue | Basis | Recognised as revenue |
 | --- | --- | --- |
-| Brokerage commission and transaction fees | Charges given to the client (PC-CTR-004, Appendix “Schedule of charges”); automatic calculation on the contract note | On the order execution date |
+| Brokerage commission and transaction fees | Charges given to the client (PC-CTR-004, Appendix [[annexe:PC-CTR-004/A1]]); automatic calculation on the contract note | On the order execution date |
 | Custody and account-keeping fees, if any | Charges given to the client | Pro rata over the period covered |
 | Arrangement commission | Mandate agreement (PC-CTR-001, Article 12) | As the agreed milestones are reached (signature, COSUMAF approval (visa)) |
 | Placement commission | PC-CTR-001, Article 12; PC-CTR-003, Article 15 | On the settlement date, on the amounts subscribed and paid up |
@@ -244,7 +244,7 @@ Opening or closing an account and any change of signatory are decided in accorda
 
 ### Article 21 — Authorisation and execution of payments
 
-1. Each payment is prepared by Accounting using the payment request in Appendix “Payment request”, together with the checked invoice or the document that justifies it.
+1. Each payment is prepared by Accounting using the payment request in Appendix [[annexe:A2]], together with the checked invoice or the document that justifies it.
 2. It is **authorised** by the competent authorising officer, then **executed** by two separate signatories: an initiator and a validator in online banking, or two signatures on a cheque.
 3. The **thresholds** above which a specific second signatory (in particular the Chairman of the Board of Directors) is required are those of the delegation matrix of PC-COD-004.
 4. Transfer is the normal means of payment; cheques are the exception; cash payment is limited by Article 18.
@@ -253,7 +253,7 @@ Opening or closing an account and any change of signatory are decided in accorda
 
 ### Article 22 — Bank reconciliations
 
-- **Each month**, for each Company account, Accounting reconciles the bank statement balance with the book balance, using Appendix “Bank reconciliation”, no later than the **tenth business day** of the following month.
+- **Each month**, for each Company account, Accounting reconciles the bank statement balance with the book balance, using Appendix [[annexe:A3]], no later than the **tenth business day** of the following month.
 - Every difference is explained; an unexplained difference or an item outstanding for more than one month is reported to the Chief Executive Officer.
 - The reconciliation is **reviewed and signed** by the Chief Executive Officer, who checks by sampling that the month's payments correspond to authorised requests.
 - The segregated settlement account is reconciled in accordance with PC-PRO-SEG-001; Accounting checks that this reconciliation agrees with its accounts.
@@ -291,13 +291,13 @@ Accounting prepares, and the Chief Executive Officer signs and has paid, the Com
 | Each year | Business licence tax (patente); Statistical and Tax Return (DSF) with the financial statements and the balance of corporate income tax; annual salary return |
 | As provided by the texts | Fees and contributions due to COSUMAF, BVMAC and the Central Securities Depository |
 
-Details, dates and responsibilities are set out in the calendar in Appendix “Statutory calendar”, updated by Accounting each year after publication of the finance law and signed off by the Chief Executive Officer. Tax assessments, tax or social security audits and any reassessment are communicated without delay to the Chief Executive Officer and the RCCI.
+Details, dates and responsibilities are set out in the calendar in Appendix [[annexe:A4]], updated by Accounting each year after publication of the finance law and signed off by the Chief Executive Officer. Tax assessments, tax or social security audits and any reassessment are communicated without delay to the Chief Executive Officer and the RCCI.
 
 ## Title VIII — Closings
 
 ### Article 27 — Monthly closing
 
-Each month, Accounting closes the accounts for the past month using the checklist in Appendix “Monthly closing”, no later than the **tenth business day** of the following month. It includes at least:
+Each month, Accounting closes the accounts for the past month using the checklist in Appendix [[annexe:A1]], no later than the **tenth business day** of the following month. It includes at least:
 
 - recording of all invoices issued and received, payroll and returns;
 - bank reconciliations (Article 22) and the petty cash count (Article 18);
@@ -305,7 +305,7 @@ Each month, Accounting closes the accounts for the past month using the checklis
 - accrued expenses, accrued income and deferred income;
 - depreciation for the month;
 - clearing of suspense accounts;
-- the own funds calculation and the dashboard in Appendix “Prudential dashboard” (Article 31).
+- the own funds calculation and the dashboard in Appendix [[annexe:A5]] (Article 31).
 
 The Chief Executive Officer signs off the checklist. The closing file is kept with the supporting documents.
 
@@ -346,7 +346,7 @@ The Chief Executive Officer presents to the Board of Directors the financial sta
 
 ### Article 31 — Monthly calculation of own funds
 
-At each monthly closing, Accounting calculates own funds using Appendix “Prudential dashboard”:
+At each monthly closing, Accounting calculates own funds using Appendix [[annexe:A5]]:
 
 **Own funds** = paid-up capital + reserves + retained earnings + profit or loss for the current year at the calculation date (including any provisional loss) − subscribed capital not called − intangible assets and formation expenses − receivables from shareholders, directors and senior managers.
 
@@ -377,7 +377,7 @@ Each quarter, the Chief Executive Officer presents to the Board of Directors a f
 
 - income statement for the quarter and year to date, compared with the budget, with an explanation of variances of more than 10%;
 - cash and the twelve-month cash plan;
-- own funds and the indicators in Appendix “Prudential dashboard”;
+- own funds and the indicators in Appendix [[annexe:A5]];
 - overdue receivables and litigation;
 - unbudgeted expenses and payments above the thresholds of PC-COD-004;
 - profit forecast for the year.

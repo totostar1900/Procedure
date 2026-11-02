@@ -82,7 +82,7 @@ Elle s'inspire en outre des bonnes pratiques internationales, adaptées au conte
 - **Financement de la prolifération** : le fait de fournir des fonds ou des services financiers servant à fabriquer, acquérir ou transporter des armes nucléaires, chimiques ou biologiques.
 - **Client** : toute personne physique ou morale, ou toute structure sans personnalité juridique (fonds, association, fiducie), pour laquelle la Société fournit un service, de façon durable (relation d'affaires) ou ponctuelle (opération occasionnelle).
 - **Bénéficiaire effectif** : la ou les personnes physiques qui, en dernier lieu, possèdent ou contrôlent le client, ou pour le compte desquelles une opération est réalisée. Pour une société, il s'agit de toute personne qui détient, directement ou indirectement, plus de 25 % du capital ou des droits de vote, ou qui exerce un contrôle par tout autre moyen ; à défaut, du dirigeant principal.
-- **Personne politiquement exposée (PPE)** : personne qui exerce ou a exercé une fonction publique importante, dans un pays de la CEMAC ou à l'étranger, ou dans une organisation internationale ; ainsi que les membres de sa famille et les personnes qui lui sont étroitement associées. L'Annexe « Pièces d'identification et PPE » en donne la liste.
+- **Personne politiquement exposée (PPE)** : personne qui exerce ou a exercé une fonction publique importante, dans un pays de la CEMAC ou à l'étranger, ou dans une organisation internationale ; ainsi que les membres de sa famille et les personnes qui lui sont étroitement associées. L'Annexe [[annexe:A2]] en donne la liste.
 - **Sanctions financières ciblées** : mesures de gel des fonds et d'interdiction de mise à disposition de fonds visant des personnes désignées par le Conseil de sécurité des Nations unies ou par les autorités compétentes de la CEMAC et des États membres.
 - **ANIF** : Agence nationale d'investigation financière, cellule de renseignement financier de l'État concerné ; seul destinataire des déclarations de soupçon.
 
@@ -123,7 +123,7 @@ Elle analyse quatre familles de facteurs :
 
 ### Article 8 — Classification des clients
 
-Chaque client est classé, avant l'entrée en relation, selon trois niveaux de risque : **faible**, **standard** ou **élevé**. La classification résulte de la matrice de l'annexe « Classification des risques clients ». Elle est reportée dans le dossier du client et revue à chaque mise à jour du dossier ou à chaque événement significatif.
+Chaque client est classé, avant l'entrée en relation, selon trois niveaux de risque : **faible**, **standard** ou **élevé**. La classification résulte de la matrice de l'annexe [[annexe:A1]]. Elle est reportée dans le dossier du client et revue à chaque mise à jour du dossier ou à chaque événement significatif.
 
 Un client est classé en risque **élevé**, quel que soit son score, lorsqu'il est une PPE ou lié à une PPE, lorsqu'il réside ou que ses fonds proviennent d'un pays à haut risque du GAFI, lorsque sa structure ne permet pas d'identifier clairement ses bénéficiaires effectifs, ou lorsqu'il a fait l'objet d'une déclaration de soupçon.
 
@@ -150,10 +150,10 @@ La Société n'entre pas en relation, ou met fin à la relation, lorsque :
 Avant la signature de la convention de compte et avant toute opération, la Société :
 
 1. **identifie** le client et, le cas échéant, son représentant et ses bénéficiaires effectifs ;
-2. **vérifie** leur identité sur la base des documents originaux de l'annexe « Pièces d'identification et PPE », ou de copies certifiées, et de sources fiables et indépendantes ;
+2. **vérifie** leur identité sur la base des documents originaux de l'annexe [[annexe:A2]], ou de copies certifiées, et de sources fiables et indépendantes ;
 3. **recueille** les informations sur l'objet et la nature de la relation, la situation professionnelle et patrimoniale du client et l'origine de ses fonds ;
 4. **filtre** le client, son représentant et ses bénéficiaires effectifs contre les listes de sanctions et de PPE ;
-5. **classe** le client selon la matrice de l'annexe « Classification des risques clients » ;
+5. **classe** le client selon la matrice de l'annexe [[annexe:A1]] ;
 6. **décide** de l'entrée en relation selon le niveau de risque (article 12).
 
 Les copies des documents sont conservées au dossier, avec la mention de la date et du collaborateur qui a vu les originaux.
@@ -164,8 +164,8 @@ Les copies des documents sont conservées au dossier, avec la mention de la date
 | --- | --- | --- |
 | Faible | Chargé de clientèle | Dossier complet |
 | Standard | Chargé de clientèle, contrôle du dossier par le responsable LBC/FT dans le mois | Dossier complet |
-| Élevé | Directeur Général, après avis écrit du responsable LBC/FT (Annexe « Approbation risque élevé ») | Mesures de vigilance renforcée de l'article 14 |
-| PPE | Directeur Général, après avis écrit du responsable LBC/FT (Annexe « Approbation risque élevé ») | Mesures de l'article 15 ; information du Conseil d'Administration dans le rapport annuel |
+| Élevé | Directeur Général, après avis écrit du responsable LBC/FT (Annexe [[annexe:A5]]) | Mesures de vigilance renforcée de l'article 14 |
+| PPE | Directeur Général, après avis écrit du responsable LBC/FT (Annexe [[annexe:A5]]) | Mesures de l'article 15 ; information du Conseil d'Administration dans le rapport annuel |
 
 ### Article 13 — Vigilance simplifiée
 
@@ -218,7 +218,7 @@ Lorsque le client ne fournit pas les éléments demandés dans un délai de troi
 
 La Société vérifie en permanence que les opérations de ses clients correspondent à ce qu'elle sait d'eux : profession, revenus, patrimoine, objectifs déclarés et niveau de risque. Toute opération inhabituelle par son montant, sa complexité, sa fréquence ou son absence de justification économique fait l'objet d'un examen renforcé, dont le résultat est consigné.
 
-Les indicateurs d'alerte propres aux opérations sur titres figurent à l'annexe « Signaux d'alerte ». Ils sont appliqués par les chargés de clientèle et la fonction opérations au quotidien, et par le responsable LBC/FT lors de revues mensuelles.
+Les indicateurs d'alerte propres aux opérations sur titres figurent à l'annexe [[annexe:A3]]. Ils sont appliqués par les chargés de clientèle et la fonction opérations au quotidien, et par le responsable LBC/FT lors de revues mensuelles.
 
 ### Article 20 — Examen renforcé
 
@@ -252,7 +252,7 @@ Le client n'est pas informé avant le gel. Les homonymies écartées sont docume
 
 ### Article 23 — Signalement interne
 
-Tout collaborateur qui sait, soupçonne ou a de bonnes raisons de soupçonner qu'une opération ou des fonds proviennent d'une infraction ou servent au financement du terrorisme ou de la prolifération le signale **sans délai** au responsable LBC/FT au moyen de la fiche de l'annexe « Signalement d'opération suspecte », même si l'opération n'a pas été réalisée ou si le montant est faible. Il n'a pas à prouver l'infraction ni à la qualifier.
+Tout collaborateur qui sait, soupçonne ou a de bonnes raisons de soupçonner qu'une opération ou des fonds proviennent d'une infraction ou servent au financement du terrorisme ou de la prolifération le signale **sans délai** au responsable LBC/FT au moyen de la fiche de l'annexe [[annexe:A4]], même si l'opération n'a pas été réalisée ou si le montant est faible. Il n'a pas à prouver l'infraction ni à la qualifier.
 
 ### Article 24 — Analyse et déclaration à l'ANIF
 
@@ -274,7 +274,7 @@ Les documents d'identification, les dossiers des clients, les pièces relatives 
 
 ### Article 27 — Formation
 
-Tout nouveau collaborateur est formé à la présente politique avant de traiter un dossier client. Une formation annuelle, adaptée aux fonctions, est dispensée à tous les collaborateurs et aux administrateurs ; elle inclut les signaux d'alerte de l'annexe « Signaux d'alerte », les sanctions financières ciblées et des cas pratiques. La participation est tracée.
+Tout nouveau collaborateur est formé à la présente politique avant de traiter un dossier client. Une formation annuelle, adaptée aux fonctions, est dispensée à tous les collaborateurs et aux administrateurs ; elle inclut les signaux d'alerte de l'annexe [[annexe:A3]], les sanctions financières ciblées et des cas pratiques. La participation est tracée.
 
 ### Article 28 — Contrôle et rapport annuel
 

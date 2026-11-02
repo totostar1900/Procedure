@@ -5,7 +5,7 @@ import { Cfm, FL, FONCTIONS, Membre, MoiC, msg, t } from "../../lib/admin-ui";
 
 // Circuits d'approbation et délais, par type de document (kv circuits/<type>, prérogative « circuits »).
 // Même format que la page du référentiel, qui lit ces réglages : etapes[], delaiLecture ; circuits/_suivi : seuil d'alerte.
-export type DocC = { id: string; type: string; circuit: Etape[] };
+export type DocC = { id: string; type: string; titre?: string; circuit: Etape[]; annexes?: { num: string; nom: string; titre: string; nomEn: string }[] };
 type Etape = { etape?: string; label: string; role: string; fonction?: string; regle?: string; obligatoire?: boolean; seance?: boolean; delai?: number };
 type Cfg = { type?: string; etapes?: Etape[]; delaiLecture?: number; seuil?: number; maj?: string; par?: string };
 // Vocabulaire des étapes (lexique du référentiel) : le nom de l'étape dit ce qu'elle engage

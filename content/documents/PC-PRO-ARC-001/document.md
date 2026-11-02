@@ -62,10 +62,10 @@ La procédure s'applique à tous les documents et données de la Société, quel
 ### Article 3 — Définitions
 
 - **Archive** : document ou donnée qui n'est plus en cours de traitement mais doit être conservé.
-- **Durée de conservation** : durée minimale pendant laquelle une archive doit être gardée, comptée à partir de l'événement indiqué à l'annexe « Durées de conservation » (fin de la relation, date de l'opération, clôture de l'exercice).
+- **Durée de conservation** : durée minimale pendant laquelle une archive doit être gardée, comptée à partir de l'événement indiqué à l'annexe [[annexe:A1]] (fin de la relation, date de l'opération, clôture de l'exercice).
 - **Original** : document portant la signature manuscrite d'une partie, ou document électronique signé ou horodaté dans le système qui l'a produit.
 - **Gel** : suspension de toute destruction d'une archive, même arrivée au terme de sa durée, en raison d'un litige, d'une enquête ou d'une demande d'une autorité.
-- **Responsable d'archive** : fonction qui produit la catégorie de documents et répond de sa conservation (Annexe « Durées de conservation »).
+- **Responsable d'archive** : fonction qui produit la catégorie de documents et répond de sa conservation (Annexe [[annexe:A1]]).
 
 ### Article 4 — Qui fait quoi
 
@@ -76,13 +76,13 @@ La procédure s'applique à tous les documents et données de la Société, quel
 | Desk (opérations) | Archive les dossiers des clients, les ordres et les pièces de règlement, dans le Guichet et, pour le papier, dans l'armoire des originaux |
 | Comptabilité | Archive les livres et les pièces comptables |
 | Prestataire informatique | Applique les règles d'accès, de sauvegarde et de destruction sur les systèmes qu'il administre, selon son contrat |
-| Tout collaborateur | Classe ses documents dans le plan de classement de l'annexe « Plan de classement » ; ne conserve aucun document de la Société sur un support personnel |
+| Tout collaborateur | Classe ses documents dans le plan de classement de l'annexe [[annexe:A2]] ; ne conserve aucun document de la Société sur un support personnel |
 
 ## Titre II — Ce que la Société conserve, et combien de temps
 
 ### Article 5 — Durées de conservation
 
-Les durées de conservation sont fixées par l'annexe « Durées de conservation ». Les principales sont :
+Les durées de conservation sont fixées par l'annexe [[annexe:A1]]. Les principales sont :
 
 | Catégorie | Durée | Point de départ |
 | --- | --- | --- |
@@ -112,13 +112,13 @@ Toute version d'un code, d'une politique, d'une procédure ou d'un modèle de co
 Les archives sont tenues **sur support électronique**, dans les systèmes de la Société :
 
 - le **Guichet**, pour les dossiers des clients, les ordres, les documents produits et le journal d'audit ;
-- l'**espace documentaire Microsoft 365** de la Société, pour tous les autres documents, classés selon l'annexe « Plan de classement ».
+- l'**espace documentaire Microsoft 365** de la Société, pour tous les autres documents, classés selon l'annexe [[annexe:A2]].
 
 Aucun document de la Société n'est conservé sur une messagerie personnelle, une clé ou un ordinateur personnel. Un document reçu par un autre canal est versé dans le système le jour même.
 
 ### Article 9 — Les originaux papier
 
-Les documents signés à la main sont **numérisés** le jour de leur réception, et l'image est rattachée au dossier. L'original papier est conservé dans l'**armoire des originaux**, fermée à clé, dans un local non exposé à l'eau, sous la garde du Directeur Général. Le bordereau de l'annexe « Bordereau des originaux » trace chaque dépôt et chaque sortie.
+Les documents signés à la main sont **numérisés** le jour de leur réception, et l'image est rattachée au dossier. L'original papier est conservé dans l'**armoire des originaux**, fermée à clé, dans un local non exposé à l'eau, sous la garde du Directeur Général. Le bordereau de l'annexe [[annexe:A3]] trace chaque dépôt et chaque sortie.
 
 Un original papier n'est pas détruit après sa numérisation tant que le conseil juridique n'a pas confirmé que la copie numérique a la même valeur de preuve.
 
@@ -143,7 +143,7 @@ Les archives électroniques sont hébergées par des prestataires dont certains 
 
 ### Article 13 — Archivage courant
 
-Chaque responsable d'archive classe les documents au fil de l'eau, dans le plan de classement de l'annexe « Plan de classement ». Lorsqu'un dossier est clos (fin de relation, opération réglée, exercice clôturé), il est marqué comme archivé avec la date de départ de sa durée de conservation.
+Chaque responsable d'archive classe les documents au fil de l'eau, dans le plan de classement de l'annexe [[annexe:A2]]. Lorsqu'un dossier est clos (fin de relation, opération réglée, exercice clôturé), il est marqué comme archivé avec la date de départ de sa durée de conservation.
 
 ### Article 14 — Communication aux autorités
 
@@ -157,7 +157,7 @@ Aucune archive n'est détruite, même au terme de sa durée, lorsqu'elle se rapp
 - à une enquête ou un contrôle de la COSUMAF, de l'ANIF ou d'une autre autorité ;
 - à une déclaration de soupçon dont les suites ne sont pas connues.
 
-Le RCCI inscrit le gel au registre de l'annexe « Registre des gels d'archives », en informe les responsables concernés, et le lève par écrit lorsque la cause a disparu.
+Le RCCI inscrit le gel au registre de l'annexe [[annexe:A5]], en informe les responsables concernés, et le lève par écrit lorsque la cause a disparu.
 
 ### Article 16 — Destruction
 
@@ -166,7 +166,7 @@ Chaque année, au premier trimestre, le RCCI dresse la liste des archives arriv�
 - pour le papier, par broyage, sur place ou par un prestataire qui en délivre un certificat ;
 - pour l'électronique, par suppression dans tous les systèmes, y compris les sauvegardes à leur rotation suivante.
 
-Elle est constatée par le procès-verbal de l'annexe « Procès-verbal de destruction ». Les données personnelles des clients sont alors effacées ou rendues anonymes ; les compteurs et statistiques qui ne permettent plus d'identifier personne peuvent être gardés.
+Elle est constatée par le procès-verbal de l'annexe [[annexe:A4]]. Les données personnelles des clients sont alors effacées ou rendues anonymes ; les compteurs et statistiques qui ne permettent plus d'identifier personne peuvent être gardés.
 
 ### Article 17 — Départ d'un prestataire ou d'un collaborateur
 

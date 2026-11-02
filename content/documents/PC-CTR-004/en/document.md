@@ -26,7 +26,7 @@ notes_redaction:
   - "In the Guichet, the printed agreement bears the wording \"version 2026-09\" whereas the version in force is 2026-10-10: to be aligned."
   - "The form is used for account openings on paper or outside the Guichet. In the Guichet, the agreement is completed automatically from the client file and accepted electronically."
   - "Have the template validated by the Company's legal counsel before its first use."
-source: 56ce3b58b358e969
+source: 1b9eb70093ff651a
 ---
 
 **BETWEEN THE UNDERSIGNED:**
@@ -107,11 +107,11 @@ An expression of intent, a pre-auction survey or a request to be called back is 
 
 ### Article 5 — Information and categorisation
 
-The Holder is categorised as a "{{categorie}}" client. The Holder acknowledges having received information on the risks (credit, price, liquidity, allocation) and on the functioning of the market, and being able to consult it at any time in the Guichet Guide. The key points are set out in Appendix “Risk information notice”.
+The Holder is categorised as a "{{categorie}}" client. The Holder acknowledges having received information on the risks (credit, price, liquidity, allocation) and on the functioning of the market, and being able to consult it at any time in the Guichet Guide. The key points are set out in Appendix [[annexe:A2]].
 
 ### Article 6 — Charges
 
-The applicable charges are those in the schedule of charges provided by the adviser (Appendix “Schedule of charges”); there is no account opening fee. Any change in charges is notified thirty days before it applies.
+The applicable charges are those in the schedule of charges provided by the adviser (Appendix [[annexe:A1]]); there is no account opening fee. Any change in charges is notified thirty days before it applies.
 
 ### Article 7 — Communications
 

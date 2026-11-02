@@ -19,6 +19,7 @@ import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
 import yaml from "js-yaml";
 import { textHash } from "../build.mjs";
+import { ANCIENNES, cartes, convertir } from "./renvois-anciens.mjs";
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DOCS = path.join(ROOT, "content/documents");
@@ -41,7 +42,55 @@ if (process.argv.includes("--confirmer")) {
     await setKv(a.p, { ...a.b, statut: "applique", empreinte: emp, version: a.version, traite_le: new Date().toISOString() });
     console.log(a.id + " : publié, empreinte " + emp + ".");
   }
+  // Noms d'annexes publiés : retirés de la liste d'attente (sauf s'ils ont été changés entre-temps)
+  const fn = path.join(ROOT, "build", "noms.json");
+  const faits = fs.existsSync(fn) ? JSON.parse(fs.readFileSync(fn, "utf8")) : {};
+  if (Object.keys(faits).length) {
+    const [nk] = await api("kv?select=data&path=eq.noms%2Fannexes");
+    const ch = { ...((nk && nk.data && nk.data.changements) || {}) };
+    for (const [k, v] of Object.entries(faits)) if (ch[k] && ch[k].le === v.le) delete ch[k];
+    await setKv("noms/annexes", { changements: ch, en_attente: Object.keys(ch).length ? "oui" : "non", publie_le: new Date().toISOString() });
+    console.log(Object.keys(faits).length + " nom(s) d'annexe publié(s).");
+  }
   process.exit(0);
+}
+
+// Noms d'annexes revus dans Paramétrage : écrits dans l'en-tête des annexes (FR, EN, et version en vigueur figée).
+// Le nom n'entre pas dans l'empreinte : aucun visa ni circuit n'est touché, les renvois [[annexe:…]] suivent seuls.
+{
+  const [nk] = await api("kv?select=data&path=eq.noms%2Fannexes");
+  const faits = {};
+  for (const [k, v] of Object.entries((nk && nk.data && nk.data.changements) || {})) {
+    const [doc, cle] = k.split("/");
+    if (!/^PC-[A-Z0-9-]+$/.test(doc) || !/^A\d+$/.test(cle)) continue;
+    let ok = false;
+    for (const sous of ["", "vigueur"]) for (const [lang, val] of [["", v.fr], ["en", v.en]]) {
+      const f = path.join(DOCS, doc, sous, lang, "annexes", cle + ".md");
+      if (!val || !fs.existsSync(f)) continue;
+      const raw = fs.readFileSync(f, "utf8"), ligne = 'nom: "' + String(val).trim().replace(/["\\]/g, "") + '"';
+      // Seule la ligne « nom: » change : le reste de l'en-tête et le texte restent identiques
+      const neuf = /^nom:.*$/m.test(raw.split("\n---")[0]) ? raw.replace(/^nom:.*$/m, ligne) : raw.replace(/^(titre:.*)$/m, "$1\n" + ligne);
+      if (neuf !== raw) { fs.writeFileSync(f, neuf); ok = true; }
+    }
+    faits[k] = v; if (ok) console.log(k + " : nom « " + v.fr + " » / “" + (v.en || "") + "”.");
+  }
+  fs.mkdirSync(path.join(ROOT, "build"), { recursive: true });
+  fs.writeFileSync(path.join(ROOT, "build", "noms.json"), JSON.stringify(faits));
+}
+// Brouillons ouverts avant le passage aux noms d'annexes : « l'Annexe 2 » devient [[annexe:A2]] et le brouillon
+// repart du texte actuel (seuls les renvois ont changé entre les deux), sans conflit pour son rédacteur.
+if (!process.argv.includes("--compter")) {
+  const carte = cartes(DOCS);
+  for (const { path: p, data: b } of await api("kv?select=path,data&path=like.redaction%2F*")) {
+    const id = p.split("/")[1];
+    if (!b || !ANCIENNES[id] || b.base !== ANCIENNES[id] || !["brouillon", "soumis"].includes(b.statut) || !fs.existsSync(path.join(DOCS, id, "document.md"))) continue;
+    const ignores = [];
+    const conv = (t) => { const r = convertir(id, "fr", t, carte); ignores.push(...r.ignores); return r.texte; };
+    const nb = { ...b, body: conv(b.body || ""), base: textHash(path.join(DOCS, id)), renvois_convertis_le: new Date().toISOString() };
+    if (Array.isArray(b.annexes)) nb.annexes = b.annexes.map((a) => ({ ...a, body: conv(a.body || "") }));
+    await setKv(p, nb);
+    console.log(id + " : brouillon remis à niveau (renvois vers les annexes convertis)" + (ignores.length ? " ; laissés tels quels : " + ignores.join(" · ") : "") + ".");
+  }
 }
 const soumis = await api("kv?select=path,data&path=like.redaction%2F*&data->>statut=eq.soumis");
 if (process.argv.includes("--compter")) { console.log(soumis.length); process.exit(0); }

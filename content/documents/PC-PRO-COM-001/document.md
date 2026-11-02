@@ -38,7 +38,7 @@ historique:
     par: Directeur Commercial
 notes_redaction:
   - "La procédure s'appuie sur le registre des « passages » du Guichet (sensibilités libre, relu, réglementaire). Vérifier que tout texte promotionnel publié dans le Guichet (fiches d'offres, notes sur les adjudications, pages « Opportunité CEMAC ») est rangé au moins en « relu », et les avertissements de risque en « réglementaire »."
-  - "Le site purposecapital.africa est déployé manuellement sur Netlify : prévoir que chaque mise en ligne porte la référence de la fiche de validation (Annexe « Demande de validation ») dans le registre (Annexe « Registre des communications »)."
+  - "Le site purposecapital.africa est déployé manuellement sur Netlify : prévoir que chaque mise en ligne porte la référence de la fiche de validation (Annexe [[annexe:A1]]) dans le registre (Annexe [[annexe:A3]])."
   - Vérifier dans quels pays hors CEMAC la Société peut légalement s'adresser à des prospects, avant toute campagne visant la diaspora.
   - Le Code de bonne conduite (article 42) reste la règle générale ; la présente procédure en organise l'application.
 ---
@@ -69,9 +69,9 @@ Ne sont pas visés : les échanges individuels avec un client sur son propre com
 
 | Fonction | Rôle |
 | --- | --- |
-| Rédacteur (tout collaborateur) | Prépare le contenu, remplit la demande de validation (Annexe « Demande de validation »), joint les sources des chiffres |
-| Directeur Commercial | Propriétaire de la procédure ; vérifie l'exactitude commerciale ; tient le registre (Annexe « Registre des communications ») |
-| RCCI | Donne un avis écrit préalable, au moyen de la liste de contrôle (Annexe « Liste de contrôle RCCI ») ; contrôle a posteriori |
+| Rédacteur (tout collaborateur) | Prépare le contenu, remplit la demande de validation (Annexe [[annexe:A1]]), joint les sources des chiffres |
+| Directeur Commercial | Propriétaire de la procédure ; vérifie l'exactitude commerciale ; tient le registre (Annexe [[annexe:A3]]) |
+| RCCI | Donne un avis écrit préalable, au moyen de la liste de contrôle (Annexe [[annexe:A2]]) ; contrôle a posteriori |
 | Directeur Général | Approuve les supports importants (article 8) ; seul, avec le Président du Conseil, à s'exprimer au nom de la Société |
 
 ## Titre II — Les règles de fond
@@ -100,7 +100,7 @@ Sont interdits :
 
 ### Article 6 — Mentions obligatoires
 
-Selon le support, la communication porte les mentions de l'annexe « Mentions légales », notamment :
+Selon le support, la communication porte les mentions de l'annexe [[annexe:A4]], notamment :
 
 - l'identité de la Société et son agrément COSUMAF n° COSUMAF-SDB-01/2026 ;
 - pour un rendement : la mention « avant fiscalité » et la méthode de calcul (rendement actuariel, coupon, à l'échéance) ;
@@ -123,18 +123,18 @@ Selon le support, la communication porte les mentions de l'annexe « Mentions l�
 | Niveau | Contenus | Validation |
 | --- | --- | --- |
 | Courant | Publication LinkedIn sans chiffre ni produit ; reprise d'un contenu déjà validé ; actualité de la Société | Avis du RCCI (peut être donné par message écrit) |
-| Standard | Fiche d'offre, note sur une adjudication, message à plusieurs clients, présentation à un prospect, modification d'une page du site | Avis écrit du RCCI sur la liste de contrôle (Annexe « Liste de contrôle RCCI ») |
+| Standard | Fiche d'offre, note sur une adjudication, message à plusieurs clients, présentation à un prospect, modification d'une page du site | Avis écrit du RCCI sur la liste de contrôle (Annexe [[annexe:A2]]) |
 | Important | Brochure, nouvelle page ou refonte du site, communiqué de presse, campagne, publicité d'une opération d'appel public à l'épargne, simulateur | Avis écrit du RCCI, puis approbation du Directeur Général |
 
 En cas de doute sur le niveau, on retient le plus élevé.
 
 ### Article 9 — Déroulement
 
-1. **Rédaction** : le rédacteur prépare le contenu et remplit la demande (Annexe « Demande de validation »), avec la source de chaque chiffre.
+1. **Rédaction** : le rédacteur prépare le contenu et remplit la demande (Annexe [[annexe:A1]]), avec la source de chaque chiffre.
 2. **Avis du RCCI** : sous deux jours ouvrés, ou le jour même pour une note liée à une adjudication imminente. L'avis est favorable, favorable sous réserve de corrections, ou défavorable, toujours motivé.
 3. **Approbation** du Directeur Général pour les contenus de niveau important.
 4. **Publication** du contenu exactement tel que validé ; toute modification, même mineure, d'un chiffre ou d'une mention repasse par le RCCI.
-5. **Enregistrement** au registre (Annexe « Registre des communications »), avec une copie du contenu publié.
+5. **Enregistrement** au registre (Annexe [[annexe:A3]]), avec une copie du contenu publié.
 
 Le RCCI ne valide jamais un contenu qu'il a lui-même rédigé : il est alors validé par le Directeur Général.
 
@@ -156,7 +156,7 @@ Lorsqu'un contenu doit être publié sans délai (incident, rectification, infor
 
 ### Article 12 — Registre et conservation
 
-Le Directeur Commercial tient le registre des communications (Annexe « Registre des communications »). Chaque contenu publié, avec sa demande de validation, l'avis du RCCI et, le cas échéant, l'approbation du Directeur Général, est conservé dix ans, selon la Procédure d'archivage et de conservation.
+Le Directeur Commercial tient le registre des communications (Annexe [[annexe:A3]]). Chaque contenu publié, avec sa demande de validation, l'avis du RCCI et, le cas échéant, l'approbation du Directeur Général, est conservé dix ans, selon la Procédure d'archivage et de conservation.
 
 ### Article 13 — Mise à jour et retrait
 

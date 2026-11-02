@@ -29,7 +29,7 @@ notes_redaction:
   - "Proposal to be validated: exemption from prior authorisation (but not from declaration) for units in open-ended collective investment undertakings (OPCVM) and for payments into a regular savings plan already authorised. Government securities remain subject to authorisation, as the Company itself transmits its clients' subscriptions to the auctions."
   - "The Guichet must make it possible to identify the accounts of Staff Members and their relatives (flag on the client file), so that their orders are never aggregated with clients' orders and are transmitted after them. This flag does not yet exist: to be added."
   - "The Code of Conduct (Article 3) includes directors among Staff Members. The procedure applies the same regime to them; the Board may decide on a lighter regime for non-executive directors, limited to securities on the lists and to blackout periods."
-source: 93a4e2888960844b
+source: 4ba05a10263bc994
 ---
 
 ## Title I — General provisions
@@ -78,10 +78,10 @@ The following are not subject to prior authorisation, but must still be declared
 
 ### Article 6 — Declaration of accounts
 
-Each Staff Member declares to the RCCI, using Appendix “Securities accounts declaration”:
+Each Staff Member declares to the RCCI, using Appendix [[annexe:A1]]:
 
 - on joining, within ten days;
-- every year, together with the annual declaration of interests (Appendix “Declaration of interests” of the Code of Conduct);
+- every year, together with the annual declaration of interests (Appendix [[annexe:PC-COD-001/A3]] of the Code of Conduct);
 - whenever a covered account is opened or closed, within ten days,
 
 the list of all covered securities accounts and financial instrument accounts, with the Company and elsewhere, as well as any discretionary management mandates entrusted to third parties.
@@ -94,7 +94,7 @@ An account with another intermediary may only be kept or opened with the written
 
 ### Article 8 — Restricted and watch lists
 
-The RCCI maintains the two lists provided for in Article 9 of the Conflicts of Interest Policy, using the template in Appendix “Restricted lists”:
+The RCCI maintains the two lists provided for in Article 9 of the Conflicts of Interest Policy, using the template in Appendix [[annexe:A3]]:
 
 - the **restricted list**: securities of any issuer for which the Company holds an arranging, advisory or placement mandate, or inside information. No personal transaction is authorised in them, from the first contact with the issuer until the end of the stabilisation period or, failing that, until thirty days after the closing of the transaction;
 - the **watch list**: issuers on which the Company holds sensitive information that does not yet justify a restriction. Personal transactions in them are refused without any reason being given.
@@ -109,7 +109,7 @@ No personal transaction is authorised in the securities of an issuer covered by 
 
 ### Article 10 — Request for authorisation
 
-Before any transaction subject to authorisation, the Staff Member sends the RCCI the request in Appendix “Prior authorisation”, in writing or by business e-mail. They state the security, the direction, the quantity or amount, the covered account and, in the case of a sale, the date on which the securities were purchased. They certify that they hold no inside information on the issuer and that they are not aware of any pending client order in the same security.
+Before any transaction subject to authorisation, the Staff Member sends the RCCI the request in Appendix [[annexe:A2]], in writing or by business e-mail. They state the security, the direction, the quantity or amount, the covered account and, in the case of a sale, the date on which the securities were purchased. They certify that they hold no inside information on the issuer and that they are not aware of any pending client order in the same security.
 
 A request may not be submitted on behalf of a relative without naming them.
 
@@ -126,7 +126,7 @@ The RCCI replies within **four business hours**. The RCCI refuses authorisation 
 
 No reason need be given for a refusal. The Staff Member does not seek to find out the reason and does not discuss it with anyone: a refusal may itself reveal information.
 
-The authorisation bears a number, is entered in the register in Appendix “Authorisations register” and is valid for **forty-eight hours**. After that time, or if the order is not executed, a new request is required.
+The authorisation bears a number, is entered in the register in Appendix [[annexe:A4]] and is valid for **forty-eight hours**. After that time, or if the order is not executed, a new request is required.
 
 ### Article 12 — Execution
 
@@ -155,15 +155,15 @@ Whatever authorisation has been obtained, it is prohibited:
 
 ### Article 15 — Quarterly statement
 
-Within ten days of the end of each quarter, each Staff Member submits to the RCCI the quarterly statement in Appendix “Personal transactions statement” of the Code of Conduct, including when they have carried out no transactions. Each transaction is shown with its authorisation number or, for an exempt transaction, a reference to the exemption.
+Within ten days of the end of each quarter, each Staff Member submits to the RCCI the quarterly statement in Appendix [[annexe:PC-COD-001/A2]] of the Code of Conduct, including when they have carried out no transactions. Each transaction is shown with its authorisation number or, for an exempt transaction, a reference to the exemption.
 
 ### Article 16 — Annual declaration
 
-Every year before 31 January, each Staff Member submits the annual declaration of interests in Appendix “Declaration of interests” of the Code of Conduct and updates the declaration of their accounts (Appendix “Securities accounts declaration”). They certify that they have complied with this procedure.
+Every year before 31 January, each Staff Member submits the annual declaration of interests in Appendix [[annexe:PC-COD-001/A3]] of the Code of Conduct and updates the declaration of their accounts (Appendix [[annexe:A1]]). They certify that they have complied with this procedure.
 
 ### Article 17 — Register
 
-The RCCI keeps the register of requests and authorisations using the template in Appendix “Authorisations register”: requests, replies, exemptions, executions and controls. The register is confidential.
+The RCCI keeps the register of requests and authorisations using the template in Appendix [[annexe:A4]]: requests, replies, exemptions, executions and controls. The register is confidential.
 
 ## Title V — Control
 
@@ -193,4 +193,4 @@ Declarations, requests, authorisations, statements and registers are retained fo
 
 ### Article 22 — Entry into force
 
-This procedure enters into force on the date of its approval, as shown in the document control sheet. Each Staff Member receives a copy of it and submits their declaration of accounts (Appendix “Securities accounts declaration”) within ten days.
+This procedure enters into force on the date of its approval, as shown in the document control sheet. Each Staff Member receives a copy of it and submits their declaration of accounts (Appendix [[annexe:A1]]) within ten days.

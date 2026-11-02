@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useLangue, COLS, CSS, Cfm, Confirmation, Evt, FL, Membre, MoiC, PL, PREROGS, avisDus, date, libelle, msg, telecharger } from "../../lib/admin-ui";
 import { Circuits, Delais, DocC, useCircuits } from "./circuits";
 import { Notifications, NT_CSS } from "./notifications";
+import { NomsAnnexes, NM_CSS } from "./noms";
 
 // Paramétrage, en sections : administrateurs et prérogatives (super administrateur), circuits et délais (prérogative
 // « circuits »), règles appliquées, journal complet (super administrateur). Chacun ne voit que ses sections.
@@ -35,7 +36,7 @@ export default function Reglages({ moi, docs }: { moi: MoiC; docs: DocC[] }) {
   const SECTIONS: [string, string, string][] = [
     ...(moi.super ? [["admins", "Administrateurs et prérogatives", "Super administrateur"] as [string, string, string]] : []),
     ...(circ ? [["circuits", "Circuits d'approbation", "Prérogative « circuits »"], ["delais", "Délais et alertes", "Prérogative « circuits »"]] as [string, string, string][] : []),
-    ...(moi.super ? [["notifications", "Avis par e-mail", "Super administrateur"] as [string, string, string]] : []),
+    ...(moi.super ? [["noms", "Noms des annexes", "Super administrateur"], ["notifications", "Avis par e-mail", "Super administrateur"]] as [string, string, string][] : []),
     ["regles", "Règles appliquées", "Pour mémoire"],
     ...(moi.super ? [["journal", "Journal d'activité", "Super administrateur"] as [string, string, string]] : []),
   ];
@@ -82,7 +83,7 @@ export default function Reglages({ moi, docs }: { moi: MoiC; docs: DocC[] }) {
 
   return (
     <div className="pg">
-      <style>{CSS + PZ + NT_CSS}</style>
+      <style>{CSS + PZ + NT_CSS + NM_CSS}</style>
       <main className="wrap view">
         <div className="eyebrow">Administration</div>
         <h1 className="title">Paramétrage</h1>
@@ -124,6 +125,12 @@ export default function Reglages({ moi, docs }: { moi: MoiC; docs: DocC[] }) {
           {tete("delais")}
           <p className="zp">Les délais de chaque étape et de la prise de connaissance, réunis sur une grille. Une étape passe « en retard » au-delà de son délai, et « bientôt en retard » au seuil choisi ; le suivi des documents et le tableau de bord s&apos;en servent.</p>
           <Delais sb={sb} docs={docs} moi={moi} cfg={cfg} charger={chargerC} note={noter} />
+        </section> : null}
+
+        {moi.super ? <section className="zone" id="z-noms">
+          {tete("noms")}
+          <p className="zp">Les noms courts qui désignent les annexes dans les textes, les PDF et les Word. Revoyez-les ici, document par document, en français et en anglais.</p>
+          <NomsAnnexes sb={sb} docs={docs.map((d) => ({ id: d.id, titre: d.titre || "", annexes: d.annexes || [] }))} moi={moi} note={noter} />
         </section> : null}
 
         {moi.super ? <section className="zone" id="z-notifications">

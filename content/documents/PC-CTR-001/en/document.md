@@ -30,7 +30,7 @@ notes_redaction:
   - "Articles of the COSUMAF General Regulation of 23 May 2023 identified: Art. 131 (arrangers and lead manager in the information memorandum) and Art. 155 (mandate letter in the approval (visa) application file). Check against the official text the article on which the preamble is based (appointment of one or two brokerage firms, placement syndicate)."
   - "Firm underwriting and standby underwriting commitments fall under a separate agreement (PC-CTR-002) and the Company's own funds; they are not covered by this template."
   - "Check the VAT treatment and the tax regime applicable to the commissions and to the securities issued."
-source: ee09d6c936393ba7
+source: 92c0e3b59de81e10
 ---
 
 **BETWEEN THE UNDERSIGNED:**
@@ -49,7 +49,7 @@ hereinafter referred to together as the “Parties” and individually as a “P
 
 ## Preamble
 
-**Whereas** the Issuer, which operates in the following sector: {{emetteur_secteur}}, intends to raise funds on the Central African financial market on the terms set out in Article 1 and described in Appendix “Transaction features” (the “Transaction”);
+**Whereas** the Issuer, which operates in the following sector: {{emetteur_secteur}}, intends to raise funds on the Central African financial market on the terms set out in Article 1 and described in Appendix [[annexe:A1]] (the “Transaction”);
 
 **Whereas** the regulations of the regional financial market require the issuer to appoint one or two brokerage firms responsible for supervising and carrying out the placement, the appointed brokerage firm being entitled to form a placement syndicate with other brokerage firms and credit institutions;
 
@@ -67,7 +67,7 @@ In this agreement, the terms below have the meanings given to them hereafter. Th
 
 **Transaction terms**
 
-- **Transaction**: the issue {% si mode_placement = ape %}by way of public offering{% fin %}{% si mode_placement = prive %}by way of private placement{% fin %} of {% si titres_nature = autres %}{{titres_autre}}{% fin %}{% si titres_nature != autres %}{{titres_nature}}{% fin %} by the Issuer, the indicative features of which are set out in Appendix “Transaction features”;
+- **Transaction**: the issue {% si mode_placement = ape %}by way of public offering{% fin %}{% si mode_placement = prive %}by way of private placement{% fin %} of {% si titres_nature = autres %}{{titres_autre}}{% fin %}{% si titres_nature != autres %}{{titres_nature}}{% fin %} by the Issuer, the indicative features of which are set out in Appendix [[annexe:A1]];
 - **Securities**: the financial securities issued as part of the Transaction, with a unit nominal value of {{nominal}};
 - **Transaction Amount**: {{montant|lettres}};
 - **Minimum Subscription Threshold**: {{seuil|lettres}}, being the minimum amount of subscriptions below which the Transaction is deemed not to have been completed;
@@ -84,7 +84,7 @@ In this agreement, the terms below have the meanings given to them hereafter. Th
 - **Placement Syndicate**: the group of brokerage firms and credit institutions formed by the Arranger to place the Securities;
 - **Material Adverse Event**: any event that significantly affects the financial position, business or prospects of the Issuer, or the conditions of the regional financial market.
 
-In the event of any discrepancy between Appendix “Transaction features” and the Information Memorandum approved by COSUMAF, the latter prevails.
+In the event of any discrepancy between Appendix [[annexe:A1]] and the Information Memorandum approved by COSUMAF, the latter prevails.
 
 ### Article 2 — Purpose
 
@@ -119,9 +119,9 @@ The agreement takes effect on signature and expires on the earlier of the follow
 The Arranger:
 
 - analyses the Issuer's financing needs and proposes the structure of the Transaction (type of Securities, amount, maturity, rate or price, amortisation profile, guarantees and security, tranches);
-- carries out financial due diligence on the Issuer, on the basis of the documents listed in Appendix “Issuer documents”;
+- carries out financial due diligence on the Issuer, on the basis of the documents listed in Appendix [[annexe:A3]];
 - recommends, where appropriate, the use of a rating agency, a guarantor or a representative of the body of bondholders;
-- draws up, together with the Issuer, the indicative timetable for the Transaction (Appendix “Transaction timetable”).
+- draws up, together with the Issuer, the indicative timetable for the Transaction (Appendix [[annexe:A2]]).
 
 ### Article 6 — Regulatory phase
 
@@ -159,7 +159,7 @@ Any firm underwriting or standby underwriting commitment, whether in whole or in
 
 The Issuer:
 
-- provides the Arranger, within the deadlines of the timetable, with all the documents and information listed in Appendix “Issuer documents”, together with any information required for the proper performance of the mandate;
+- provides the Arranger, within the deadlines of the timetable, with all the documents and information listed in Appendix [[annexe:A3]], together with any information required for the proper performance of the mandate;
 - warrants that this information is accurate, complete and fair, and informs the Arranger without delay of any new fact likely to alter it;
 - gives the Arranger and its advisers reasonable access to its senior management, its statutory auditors and its premises;
 - obtains in good time the authorisations of its corporate bodies required by the OHADA Uniform Act on Commercial Companies and Economic Interest Groups and by its articles of association;
@@ -189,7 +189,7 @@ Within {{delai_rapport|nombre}} business days following the Settlement Date, the
 
 ### Article 12 — Commissions
 
-In consideration for its services, the Arranger receives the following commissions, detailed in Appendix “Arranger's remuneration”:
+In consideration for its services, the Arranger receives the following commissions, detailed in Appendix [[annexe:A4]]:
 
 - a flat-rate **arrangement commission** of {{com_arrangement|lettres}}, payable as to {{com_arr_part}} on signature and as to the balance upon obtaining COSUMAF approval (visa);
 - a **placement commission** of {{com_placement}} of the amounts actually subscribed and paid up, payable on the Settlement Date{% si com_succes = oui %};{% fin %}{% si com_succes = non %}{% si admission = oui %};{% fin %}{% si admission = non %}.{% fin %}{% fin %}
@@ -238,7 +238,7 @@ The opening of the Subscription Period is subject to the fulfilment of the follo
 
 1. COSUMAF approval (visa) of the Information Memorandum having been obtained;
 2. the corporate resolutions authorising the issue having been adopted;
-3. the guarantees and security provided for in Appendix “Transaction features” having been created, in accordance with the OHADA Uniform Act Organising Securities;
+3. the guarantees and security provided for in Appendix [[annexe:A1]] having been created, in accordance with the OHADA Uniform Act Organising Securities;
 4. the absence of any Material Adverse Event;
 5. payment of the portion of the arrangement commission payable on signature.
 

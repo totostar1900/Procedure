@@ -28,8 +28,8 @@ notes_redaction:
   - "The procedure implements the AML/CFT Policy (PC-POL-LBC-001). There are two discrepancies in the Guichet which must be corrected there: (1) the risk levels are \"low, medium, high\" instead of \"low, standard, high\"; (2) file reviews are scheduled every 5, 3 and 1 years, whereas the policy requires 2 years for low and standard risk and 1 year for high risk. The policy prevails."
   - "Remote onboarding: the policy (Article 17) requires two independent verification elements from among a certified copy, a recorded video interview and a first payment from a CEMAC bank account in the client's name. The Guichet uses a selfie compared with the identity document. Decide whether the AML/CFT Policy recognises this comparison as a verification element (common practice in Europe, subject to conditions); failing that, a short video interview is required for every remote onboarding."
   - "In the Guichet, the first payment is therefore one of the two verification elements: until it has been received from the declared account, the file of a client onboarded remotely remains under special monitoring (Article 14)."
-  - "Have the list of documents in Appendix “Client documents” validated by legal counsel for each of the six CEMAC countries."
-source: 8dedcc73cbbaa0e2
+  - "Have the list of documents in Appendix [[annexe:A1]] validated by legal counsel for each of the six CEMAC countries."
+source: 905b7d9717853ff1
 ---
 
 ## Title I — General provisions
@@ -81,14 +81,14 @@ The relationship manager or the Guichet presents the Company, its services, its 
 
 ### Article 6 — Step 2: putting the file together
 
-The client provides the information and documents listed in Appendix “Client documents”, according to their type:
+The client provides the information and documents listed in Appendix [[annexe:A1]], according to their type:
 
 - their **identity** and contact details;
 - for a legal person or a group, its **representatives**, its **joint holders** and its **beneficial owners**, with the date of birth of each person declared;
 - their **bank account** in the client's name (bank account details, RIB), to which all sums due to them will be paid;
 - the **source of the funds** they intend to invest and the order of magnitude of the amounts;
 - their declaration as to whether they are a **politically exposed person** or connected with such a person;
-- their **investor profile** (Appendix “Investor profile”);
+- their **investor profile** (Appendix [[annexe:A3]]);
 - their **consent** to the processing of their data, after receiving the information required by law.
 
 In the Guichet, the client completes the file themselves and uploads the documents; they can only submit it once it is complete. At the branch, the relationship manager completes the file with the client, checks the originals and makes copies, which the relationship manager dates and signs.
@@ -99,7 +99,7 @@ The desk checks:
 
 - that the identity document is **valid** on the date of verification and that its details match those in the file;
 - at the branch, that the **original** has been seen; the copy bears the words "original seen", the date and the name of the Staff Member;
-- remotely, that **two independent verification elements** have been obtained, in accordance with Article 17 of the AML/CFT Policy (Appendix “Remote verification” for the video interview); the client is then rated at least standard risk;
+- remotely, that **two independent verification elements** have been obtained, in accordance with Article 17 of the AML/CFT Policy (Appendix [[annexe:A5]] for the video interview); the client is then rated at least standard risk;
 - for a resident outside CEMAC, that a video interview has taken place and that a foreign proof of address has been provided;
 - that the **account name on the RIB** matches the client's name exactly;
 - for a legal person, that the registration, articles of association and powers are up to date and consistent.
@@ -128,13 +128,13 @@ In the event of a **confirmed match** or serious doubt regarding a sanctions lis
 
 ### Article 10 — Step 6: client profile and category
 
-The client answers the questionnaire in Appendix “Investor profile”: knowledge and experience, financial situation, objectives, investment horizon, tolerance for losses. The questionnaire is used to inform the client, to advise them when they ask for it, and to detect transactions inconsistent with their profile.
+The client answers the questionnaire in Appendix [[annexe:A3]]: knowledge and experience, financial situation, objectives, investment horizon, tolerance for losses. The questionnaire is used to inform the client, to advise them when they ask for it, and to detect transactions inconsistent with their profile.
 
 By default, the client is categorised as a **non-professional** client. They may be categorised as a **professional** client only if they are an institutional investor or if they request it in writing and meet the criteria laid down by the regulations; they are then informed of the protection they are giving up.
 
 ### Article 11 — Step 7: risk rating
 
-The desk rates the client's risk using the matrix in Appendix “Client risk classification” to the AML/CFT Policy: **low**, **standard** or **high**. The rating proposed by the Guichet is a starting point, never a decision. The desk confirms or changes it, giving reasons for any change.
+The desk rates the client's risk using the matrix in Appendix [[annexe:PC-POL-LBC-001/A1]] to the AML/CFT Policy: **low**, **standard** or **high**. The rating proposed by the Guichet is a starting point, never a decision. The desk confirms or changes it, giving reasons for any change.
 
 The following are rated at least **standard** risk: legal persons, groups, residents outside Cameroon and any remote onboarding. The following are rated **high** risk: PEPs and their close associates and family members, and clients presenting a high-risk factor in the matrix.
 
@@ -142,9 +142,9 @@ The following are rated at least **standard** risk: legal persons, groups, resid
 
 | Risk | Who decides | Condition |
 | --- | --- | --- |
-| Low | Desk | Complete file; review sheet (Appendix “Onboarding decision”) signed |
+| Low | Desk | Complete file; review sheet (Appendix [[annexe:A2]]) signed |
 | Standard | Desk; RCCI review within one month | Complete file; review sheet signed |
-| High or PEP | Chief Executive Officer, after the RCCI's written opinion | Enhanced due diligence: evidence of the source of funds and, for a PEP, of the source of wealth; approval sheet in Appendix “High-risk approval” to the AML/CFT Policy |
+| High or PEP | Chief Executive Officer, after the RCCI's written opinion | Enhanced due diligence: evidence of the source of funds and, for a PEP, of the source of wealth; approval sheet in Appendix [[annexe:PC-POL-LBC-001/A5]] to the AML/CFT Policy |
 
 The desk decides within **five business days** of receipt of a complete file. It may request additional information; the file then remains on hold. If the client does not respond within three months, the file is closed with no further action.
 
@@ -185,7 +185,7 @@ The file is reviewed without waiting for the due date where:
 
 Changing the bank account is the most common means of diverting a client's funds. It is subject to strict rules:
 
-- the request is made by the client personally, in their client area or on the signed form in Appendix “Bank account change”;
+- the request is made by the client personally, in their client area or on the signed form in Appendix [[annexe:A4]];
 - the new RIB is in the client's name;
 - the desk confirms the request by calling the telephone number already recorded in the file, never a number given in the request;
 - no payment is made to the new account until these checks have been completed.

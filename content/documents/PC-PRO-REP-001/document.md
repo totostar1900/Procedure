@@ -39,10 +39,10 @@ historique:
     objet: Projet initial
     par: RCCI
 notes_redaction:
-  - "Le Règlement général de la COSUMAF fixe expressément au 31 mars : le rapport annuel de contrôle interne avec la cartographie des risques (art. 5), la cartographie des risques LBC/FT (art. 93) et le rapport annuel LBC/FT (art. 115). Il ne fixe pas, pour les intermédiaires, de calendrier d'états périodiques d'activité ou prudentiels ni de transmission des états financiers : ces échéances relèvent d'instructions de la COSUMAF à obtenir. Elles sont marquées « à confirmer » dans l'annexe « Calendrier des transmissions »."
+  - "Le Règlement général de la COSUMAF fixe expressément au 31 mars : le rapport annuel de contrôle interne avec la cartographie des risques (art. 5), la cartographie des risques LBC/FT (art. 93) et le rapport annuel LBC/FT (art. 115). Il ne fixe pas, pour les intermédiaires, de calendrier d'états périodiques d'activité ou prudentiels ni de transmission des états financiers : ces échéances relèvent d'instructions de la COSUMAF à obtenir. Elles sont marquées « à confirmer » dans l'annexe [[annexe:A1]]."
   - "Pénalités de retard du Règlement général : 250 000 FCFA par jour pour un document transmis en retard (art. 32), 500 000 FCFA par jour en cas d'injonction non respectée, 750 000 FCFA par jour pour un rapport de clôture d'appel public à l'épargne. Le montant de 500 000 FCFA par jour plafonné à 5 millions, cité dans des présentations secondaires, vise la diffusion d'une information au public (art. 31). Les jours courent jusqu'à la transmission effective (art. 33)."
-  - "Aligner l'annexe « Calendrier de conformité » de la Charte du contrôle interne et de la conformité (PC-COD-003) sur l'annexe « Calendrier des transmissions » de la présente procédure : ajouter la cartographie LBC/FT et le rapport LBC/FT au 31 mars (et non « selon instruction »), et y renvoyer pour le détail."
-  - Demander à la COSUMAF, à la BVMAC et au Dépositaire central la liste à jour de leurs états périodiques, formats et adresses de dépôt, et compléter l'annexe « Calendrier des transmissions » avant l'entrée en vigueur.
+  - "Aligner l'annexe [[annexe:PC-COD-003/A5]] de la Charte du contrôle interne et de la conformité (PC-COD-003) sur l'annexe [[annexe:A1]] de la présente procédure : ajouter la cartographie LBC/FT et le rapport LBC/FT au 31 mars (et non « selon instruction »), et y renvoyer pour le détail."
+  - Demander à la COSUMAF, à la BVMAC et au Dépositaire central la liste à jour de leurs états périodiques, formats et adresses de dépôt, et compléter l'annexe [[annexe:A1]] avant l'entrée en vigueur.
 ---
 
 ## Titre I — Dispositions générales
@@ -75,7 +75,7 @@ Les déclarations fiscales et sociales relèvent de la comptabilité et ne sont 
 
 | Fonction | Rôle |
 | --- | --- |
-| RCCI | Tient le calendrier (Annexe « Calendrier des transmissions ») et le registre des envois (Annexe « Registre des transmissions ») ; prépare les rapports de contrôle interne et LBC/FT ; vérifie les états préparés par les autres ; transmet ; est l'interlocuteur habituel de la COSUMAF ; seul habilité à adresser une déclaration de soupçon à l'ANIF |
+| RCCI | Tient le calendrier (Annexe [[annexe:A1]]) et le registre des envois (Annexe [[annexe:A3]]) ; prépare les rapports de contrôle interne et LBC/FT ; vérifie les états préparés par les autres ; transmet ; est l'interlocuteur habituel de la COSUMAF ; seul habilité à adresser une déclaration de soupçon à l'ANIF |
 | Comptabilité | Prépare les états financiers et les états chiffrés ; fournit les données au RCCI |
 | Desk (opérations) et Direction des Marchés de Capitaux | Fournissent les données d'activité, de clientèle et de marché ; préparent les états dus à la BVMAC et au Dépositaire central |
 | Directeur Général | Valide et signe les transmissions engageant la Société ; décide des notifications d'événements ; demande les autorisations préalables |
@@ -87,7 +87,7 @@ La personne qui prépare un état n'est jamais celle qui le vérifie. Lorsque le
 
 ### Article 5 — Calendrier annuel
 
-Le RCCI établit en décembre, pour l'année suivante, le calendrier des transmissions selon l'annexe « Calendrier des transmissions », avec pour chacune la date limite légale et une **date interne** fixée au moins cinq jours ouvrés avant. Il le présente au comité des risques et de la conformité.
+Le RCCI établit en décembre, pour l'année suivante, le calendrier des transmissions selon l'annexe [[annexe:A1]], avec pour chacune la date limite légale et une **date interne** fixée au moins cinq jours ouvrés avant. Il le présente au comité des risques et de la conformité.
 
 Les échéances fixées par le Règlement général de la COSUMAF sont certaines. Celles qui relèvent d'instructions ou d'usages sont marquées « à confirmer » jusqu'à vérification sur le texte ou auprès de l'organisme.
 
@@ -99,11 +99,11 @@ Chaque mois, le comité des risques et de la conformité passe en revue les tran
 
 ### Article 7 — Préparation
 
-Le préparateur désigné à l'annexe « Calendrier des transmissions » établit l'état ou le rapport à partir des données de la Société : comptabilité, registre des ordres et journal des espèces du Guichet, registres de conformité. Il conserve le dossier de préparation : sources, extractions, calculs. Il signale toute donnée manquante ou douteuse sans attendre la date interne.
+Le préparateur désigné à l'annexe [[annexe:A1]] établit l'état ou le rapport à partir des données de la Société : comptabilité, registre des ordres et journal des espèces du Guichet, registres de conformité. Il conserve le dossier de préparation : sources, extractions, calculs. Il signale toute donnée manquante ou douteuse sans attendre la date interne.
 
 ### Article 8 — Contrôle à quatre yeux
 
-Un second lecteur vérifie l'état au moyen de la fiche de l'annexe « Préparation d'une transmission » :
+Un second lecteur vérifie l'état au moyen de la fiche de l'annexe [[annexe:A2]] :
 
 - complétude au regard du modèle ou de l'instruction applicable ;
 - concordance des chiffres avec la comptabilité, les rapprochements et les états précédents ;
@@ -119,7 +119,7 @@ Le Directeur Général valide et signe l'état. Le rapport annuel de contrôle i
 
 ### Article 10 — Envoi et preuve
 
-Le RCCI transmet l'état selon le mode demandé par le destinataire : dépôt contre récépissé, courriel à l'adresse officielle, plateforme. Il conserve la preuve de l'envoi et l'accusé de réception, et inscrit la transmission au registre de l'annexe « Registre des transmissions » le jour même.
+Le RCCI transmet l'état selon le mode demandé par le destinataire : dépôt contre récépissé, courriel à l'adresse officielle, plateforme. Il conserve la preuve de l'envoi et l'accusé de réception, et inscrit la transmission au registre de l'annexe [[annexe:A3]] le jour même.
 
 Sans accusé de réception sous cinq jours ouvrés, il relance le destinataire et conserve la relance.
 
@@ -137,11 +137,11 @@ Les modifications de statuts, de capital, d'actionnariat et de siège sont trait
 
 ### Article 13 — Notifications sans délai
 
-Les événements de l'annexe « Événements à notifier » sont portés à la connaissance du destinataire indiqué **sans délai**, sur décision du Directeur Général ou, à défaut, du Président du Conseil d'Administration. Le RCCI prépare la notification. Une première information par téléphone ou courriel est confirmée par écrit dans les 48 heures.
+Les événements de l'annexe [[annexe:A4]] sont portés à la connaissance du destinataire indiqué **sans délai**, sur décision du Directeur Général ou, à défaut, du Président du Conseil d'Administration. Le RCCI prépare la notification. Une première information par téléphone ou courriel est confirmée par écrit dans les 48 heures.
 
 ### Article 14 — Déclarations à l'ANIF
 
-Les déclarations de soupçon sont adressées à l'ANIF par le responsable LBC/FT, sans délai, selon la Politique LBC/FT (PC-POL-LBC-001). Elles ne suivent pas le circuit de validation de l'article 9 : nul ne peut retarder ni empêcher une déclaration. Elles sont inscrites dans un registre confidentiel distinct de celui de l'annexe « Registre des transmissions ».
+Les déclarations de soupçon sont adressées à l'ANIF par le responsable LBC/FT, sans délai, selon la Politique LBC/FT (PC-POL-LBC-001). Elles ne suivent pas le circuit de validation de l'article 9 : nul ne peut retarder ni empêcher une déclaration. Elles sont inscrites dans un registre confidentiel distinct de celui de l'annexe [[annexe:A3]].
 
 ## Titre V — Retards et erreurs
 
@@ -161,5 +161,5 @@ Le RCCI rend compte chaque trimestre au Conseil d'Administration des transmissio
 
 ### Article 18 — Entrée en vigueur
 
-La présente procédure entre en vigueur à la date de son approbation, indiquée dans la fiche de maîtrise documentaire. Le calendrier de l'annexe « Calendrier des transmissions » est mis à jour à chaque nouvelle instruction des autorités.
+La présente procédure entre en vigueur à la date de son approbation, indiquée dans la fiche de maîtrise documentaire. Le calendrier de l'annexe [[annexe:A1]] est mis à jour à chaque nouvelle instruction des autorités.
 

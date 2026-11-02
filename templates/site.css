@@ -851,3 +851,4 @@ html.i18n-attente body { visibility: hidden; }
 .ed-xbody { min-height: 220px !important; }
 .ed-tfoot .lbl { font-size: var(--fs-sm); color: var(--muted); margin-right: 4px; }
 @media (max-width: 720px) { .ed-xfiche { grid-template-columns: 1fr; } }
+.ed-renvoi { font: inherit; font-size: var(--fs-sm); border: 1px solid var(--rule-strong); border-radius: var(--radius); padding: 5px 8px; background: var(--raised); color: var(--ink); max-width: 230px; }

@@ -74,7 +74,7 @@ La politique s'applique :
 
 ### Article 5 — Cartographie
 
-Le RCCI tient la cartographie des conflits d'intérêts potentiels propres aux activités de la Société (Annexe « Cartographie des conflits »). Pour chaque situation, elle indique les intérêts en présence, le risque pour le client, les mesures de prévention et le responsable de leur application.
+Le RCCI tient la cartographie des conflits d'intérêts potentiels propres aux activités de la Société (Annexe [[annexe:A1]]). Pour chaque situation, elle indique les intérêts en présence, le risque pour le client, les mesures de prévention et le responsable de leur application.
 
 La cartographie est revue au moins une fois par an, et à chaque lancement d'une activité nouvelle, d'un nouveau produit ou d'une opération significative (introduction en bourse, émission obligataire, mandat d'arrangement).
 
@@ -92,8 +92,8 @@ Une personne concernée se trouve en situation de conflit d'intérêts notamment
 
 Chaque personne concernée déclare :
 
-- à l'embauche, puis chaque année, ses intérêts personnels au moyen de la déclaration annuelle d'intérêts (Annexe « Déclaration d'intérêts » du Code de bonne conduite) ;
-- sans délai, et au plus tard dans les 48 heures, toute situation de conflit qu'elle identifie dans l'exercice de ses fonctions, au moyen du formulaire de déclaration (Annexe « Déclaration de conflit » de la présente politique).
+- à l'embauche, puis chaque année, ses intérêts personnels au moyen de la déclaration annuelle d'intérêts (Annexe [[annexe:PC-COD-001/A3]] du Code de bonne conduite) ;
+- sans délai, et au plus tard dans les 48 heures, toute situation de conflit qu'elle identifie dans l'exercice de ses fonctions, au moyen du formulaire de déclaration (Annexe [[annexe:A2]] de la présente politique).
 
 En cas de doute, la personne concernée déclare : le RCCI apprécie. Le défaut de déclaration constitue une faute au sens de l'article 49 du Code de bonne conduite.
 
@@ -154,7 +154,7 @@ En cas de sursouscription d'une émission placée par la Société, les règles 
 
 ### Article 14 — Circuit de décision
 
-1. **Signalement** : la personne concernée remplit le formulaire de l'annexe « Déclaration de conflit » et l'adresse au RCCI.
+1. **Signalement** : la personne concernée remplit le formulaire de l'annexe [[annexe:A2]] et l'adresse au RCCI.
 2. **Analyse** : le RCCI qualifie la situation dans un délai de 2 jours ouvrés : absence de conflit, conflit maîtrisé par les mesures existantes, ou conflit nécessitant une décision.
 3. **Décision** : selon le cas, le RCCI prescrit des mesures complémentaires, le Directeur Général décide de la poursuite de l'opération, ou le Conseil d'Administration statue lorsque le conflit implique le Directeur Général, un administrateur ou un actionnaire.
 4. **Information du client** si le conflit subsiste après les mesures prises (article 15).
@@ -164,7 +164,7 @@ Lorsque le conflit implique le RCCI lui-même, le signalement est adressé au Di
 
 ### Article 15 — Information du client et renonciation
 
-Lorsque les mesures prises ne suffisent pas à garantir, avec une certitude raisonnable, que le risque de porter atteinte aux intérêts du client sera évité, la Société informe le client par écrit, avant la fourniture du service, de la nature et de la source du conflit et des mesures prises pour en limiter les effets (modèle en Annexe « Information du client »). Le client peut alors renoncer au service.
+Lorsque les mesures prises ne suffisent pas à garantir, avec une certitude raisonnable, que le risque de porter atteinte aux intérêts du client sera évité, la Société informe le client par écrit, avant la fourniture du service, de la nature et de la source du conflit et des mesures prises pour en limiter les effets (modèle en Annexe [[annexe:A3]]). Le client peut alors renoncer au service.
 
 L'information est suffisamment précise pour permettre au client de prendre sa décision en connaissance de cause. Une mention générale ne suffit pas.
 
@@ -174,7 +174,7 @@ Si le conflit ne peut être géré de façon à protéger le client, même infor
 
 ### Article 16 — Registre des conflits d'intérêts
 
-Le RCCI tient un registre des conflits d'intérêts survenus ou susceptibles de survenir (structure en Annexe « Registre des conflits »). Chaque inscription précise la date, l'activité et les personnes en cause, la nature du conflit, les mesures prises, la décision et, le cas échéant, l'information donnée au client.
+Le RCCI tient un registre des conflits d'intérêts survenus ou susceptibles de survenir (structure en Annexe [[annexe:A4]]). Chaque inscription précise la date, l'activité et les personnes en cause, la nature du conflit, les mesures prises, la décision et, le cas échéant, l'information donnée au client.
 
 Le registre et les pièces associées sont conservés au moins dix ans. Ils sont communiqués à la COSUMAF sur demande.
 

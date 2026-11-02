@@ -15,7 +15,7 @@ const ids = process.argv.slice(2).length ? process.argv.slice(2) : fs.readdirSyn
 let erreurs = 0;
 const ko = (id, m) => { erreurs++; console.log("✗ " + id + " : " + m); };
 const titres = (md) => (md.match(/^#{2,3} .*$/gm) || []).map((h) => h.replace(/^(##) (?:Titre|Title) ([IVXLC]+) —.*/, "$1 T$2").replace(/^(###) Article (\d+).*/, "$1 A$2").replace(/^(#{2,3}) (?!T[IVXLC]|A\d).*/, "$1 *"));
-const vars = (md) => (md.match(/\{\{[^}]*\}\}|\{%[^%]*%\}/g) || []).sort();
+const vars = (md) => (md.match(/\{\{[^}]*\}\}|\{%[^%]*%\}|\[\[annexe:[^\]]+\]\]/g) || []).sort();
 const balises = (md) => (md.match(/<\/?[a-z][a-z0-9]*/gi) || []).map((x) => x.toLowerCase()).sort().join(",");
 const lignesTab = (md) => (md.match(/^\|.*\|\s*$/gm) || []).length;
 const comparer = (id, quoi, fr, en) => {

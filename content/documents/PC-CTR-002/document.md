@@ -121,7 +121,7 @@ Les engagements des membres du syndicat sont **conjoints et non solidaires** : c
 ### Article 6 — Mise en jeu et règlement
 
 {% si engagement = bonne_fin %}
-1. Au plus tard le jour ouvré suivant la Clôture, le Garant établit, sur la base de l'état de centralisation, le décompte du Solde non souscrit selon le modèle de l'annexe « Décompte de la garantie », et le notifie à l'Émetteur.
+1. Au plus tard le jour ouvré suivant la Clôture, le Garant établit, sur la base de l'état de centralisation, le décompte du Solde non souscrit selon le modèle de l'annexe [[annexe:A4]], et le notifie à l'Émetteur.
 2. Le Garant souscrit les Titres correspondants et verse leur prix sur le compte de centralisation dans un délai de {{delai_paiement|nombre}} jours ouvrés suivant la Clôture et, au plus tard, à la Date de règlement-livraison.
 3. Les Titres souscrits par le Garant lui sont livrés à la Date de règlement-livraison, en même temps que ceux des autres souscripteurs.
 
@@ -130,7 +130,7 @@ Les souscriptions du Garant ne sont jamais servies avant celles des investisseur
 {% si engagement = prise_ferme %}
 1. À la Date de règlement-livraison, le Garant verse le prix des Titres correspondant au Montant garanti sur le compte de centralisation, et les Titres lui sont livrés.
 2. Les souscriptions recueillies auprès des investisseurs pour ces Titres sont servies par cession du Garant, au Prix de souscription, à la même date ou à une date ultérieure.
-3. Le Garant établit le décompte de l'annexe « Décompte de la garantie » et le remet à l'Émetteur dans les cinq jours ouvrés suivant la Date de règlement-livraison.
+3. Le Garant établit le décompte de l'annexe [[annexe:A4]] et le remet à l'Émetteur dans les cinq jours ouvrés suivant la Date de règlement-livraison.
 {% fin %}
 
 ### Article 7 — Fonds propres du Garant
@@ -151,12 +151,12 @@ Les Titres souscrits par le Garant sont inscrits à son compte propre, distinct 
 
 ### Article 9 — Conditions
 
-L'engagement du Garant est subordonné à la réalisation, au plus tard à la Date limite, et au maintien jusqu'à la Date de règlement-livraison, des conditions suivantes, détaillées à l'annexe « Conditions suspensives » :
+L'engagement du Garant est subordonné à la réalisation, au plus tard à la Date limite, et au maintien jusqu'à la Date de règlement-livraison, des conditions suivantes, détaillées à l'annexe [[annexe:A2]] :
 
 1. obtention du visa de la COSUMAF sur le Document d'information, sans modification significative des termes de l'Opération non acceptée par le Garant ;
 2. adoption des résolutions sociales de l'Émetteur autorisant l'émission ;
-3. remise des documents de closing de l'annexe « Conditions suspensives », notamment l'avis juridique sur la validité de l'émission et les attestations des commissaires aux comptes ;
-4. exactitude des déclarations et garanties de l'Émetteur, confirmée par le certificat de l'annexe « Certificat de l'Émetteur » ;
+3. remise des documents de closing de l'annexe [[annexe:A2]], notamment l'avis juridique sur la validité de l'émission et les attestations des commissaires aux comptes ;
+4. exactitude des déclarations et garanties de l'Émetteur, confirmée par le certificat de l'annexe [[annexe:A3]] ;
 5. absence d'Événement défavorable significatif au sens de la Convention de mandat ;
 6. paiement des sommes exigibles au titre de la Convention de mandat.
 
@@ -177,7 +177,7 @@ L'Émetteur réitère au profit du Garant les déclarations et garanties de la C
 3. que l'émission et la présente convention ne contreviennent à aucun engagement, statut ou décision qui le lie ;
 4. que les Titres, une fois émis, seront valablement émis, entièrement libérés et librement cessibles.
 
-Il remet à la Date de règlement-livraison le certificat de l'annexe « Certificat de l'Émetteur ».
+Il remet à la Date de règlement-livraison le certificat de l'annexe [[annexe:A3]].
 
 ### Article 12 — Engagements
 

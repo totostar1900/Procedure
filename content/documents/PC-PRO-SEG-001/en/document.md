@@ -26,10 +26,10 @@ historique:
     par: "Chief Executive Officer"
 notes_redaction:
   - "Discrepancy to be corrected: the Guichet reconciliation module states that \"the firm's own money is in the same accounts\" as the clients' money. The agreement (PC-CTR-004, Article 3) and this procedure require a segregated settlement account, separate from own funds. Open a separate own account as soon as possible and leave in the client account only an own-funds buffer that is explicitly earmarked and traceable (Article 7)."
-  - "On 9 October 2026 the bank refused to open one account per client: the cash of all clients is therefore held in a single pooled settlement account. This is acceptable, provided that the cash journal shows at all times to whom each franc belongs and that the bank acknowledges in writing that this account is a third-party funds account (Appendix “Acknowledgement letter”)."
-  - "Obtain the acknowledgement letter in Appendix “Acknowledgement letter” from the bank, the primary dealer(s) (SVT) and the central securities depository; check with legal counsel the scope of protection from attachment under Cameroonian and OHADA law."
+  - "On 9 October 2026 the bank refused to open one account per client: the cash of all clients is therefore held in a single pooled settlement account. This is acceptable, provided that the cash journal shows at all times to whom each franc belongs and that the bank acknowledges in writing that this account is a third-party funds account (Appendix [[annexe:A4]])."
+  - "Obtain the acknowledgement letter in Appendix [[annexe:A4]] from the bank, the primary dealer(s) (SVT) and the central securities depository; check with legal counsel the scope of protection from attachment under Cameroonian and OHADA law."
   - "Confirm with COSUMAF the form and timing of notification in the event of an unresolved discrepancy, and whether a periodic reconciliation must be submitted to it."
-source: 25a47e97def34ef8
+source: ec44d2033ef998f1
 ---
 
 ## Title I — General provisions
@@ -95,7 +95,7 @@ Commissions and fees due to the Company are taken from the client account only o
 
 ### Article 8 — Accounts opened and notice to third parties
 
-The desk keeps a list of all accounts in which client assets are held (Appendix “Client asset accounts”). For each one, the Company obtains from the account keeper an **acknowledgement letter** (Appendix “Acknowledgement letter”) by which the account keeper acknowledges that:
+The desk keeps a list of all accounts in which client assets are held (Appendix [[annexe:A5]]). For each one, the Company obtains from the account keeper an **acknowledgement letter** (Appendix [[annexe:A4]]) by which the account keeper acknowledges that:
 
 - the account contains assets belonging to the Company's clients, and not to the Company;
 - it may not set them off against a debt of the Company or exercise any right of retention or security over them;
@@ -112,12 +112,12 @@ Each business day, before noon, the desk compares:
 - the **amount owed to clients** at the previous day's close, calculated by the Guichet from the cash journals;
 - the **balance of the segregated settlement account** at the same date, as shown on the bank statement, less any own-funds buffer.
 
-It records the reconciliation in the Guichet with the supporting document (the day's statement) and Appendix “Cash reconciliation”. A discrepancy is never recorded without an explanation.
+It records the reconciliation in the Guichet with the supporting document (the day's statement) and Appendix [[annexe:A1]]. A discrepancy is never recorded without an explanation.
 
 ### Article 10 — Securities reconciliation
 
 - **Each business day** on which there has been a movement: the desk checks that each purchase, sale, subscription, redemption, coupon or repayment appears both in the Guichet and on the account keeper's notice or statement.
-- **Each month**, on the last business day: the desk compares, line by line and client by client, the positions held in the Guichet with the statements of the central securities depository, the SVTs and the CIS registers (Appendix “Securities reconciliation”).
+- **Each month**, on the last business day: the desk compares, line by line and client by client, the positions held in the Guichet with the statements of the central securities depository, the SVTs and the CIS registers (Appendix [[annexe:A2]]).
 
 ### Article 11 — Full monthly reconciliation
 
@@ -129,8 +129,8 @@ Each month, the desk prepares a full reconciliation of cash and securities, sign
 
 | Situation | Deadline | Who | Action |
 | --- | --- | --- | --- |
-| Any discrepancy | Same day | Desk | Investigation of the cause; entry in the register of discrepancies (Appendix “Discrepancies register”) |
-| Unexplained discrepancy | 2 business days | Desk, then RCCI | Incident report (PC-POL-RIS-001, Appendix “Incident report form”) |
+| Any discrepancy | Same day | Desk | Investigation of the cause; entry in the register of discrepancies (Appendix [[annexe:A3]]) |
+| Unexplained discrepancy | 2 business days | Desk, then RCCI | Incident report (PC-POL-RIS-001, Appendix [[annexe:PC-POL-RIS-001/A4]]) |
 | Shortfall, whatever the amount | Same day | Chief Executive Officer | Immediate coverage from own funds (Article 13) |
 | Unresolved discrepancy | 5 business days | Chief Executive Officer and RCCI | Chairman of the Board of Directors informed |
 | Uncovered shortfall, or unresolved discrepancy | 10 business days | Chief Executive Officer | COSUMAF informed |

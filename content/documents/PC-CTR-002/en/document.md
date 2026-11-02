@@ -27,7 +27,7 @@ notes_redaction:
   - "Have the template validated by the Company's legal counsel before its first use, in particular the clauses on termination for a market event and on indemnification, and the tax treatment of the underwriting commission."
   - "Check whether COSUMAF prudential standards require specific own-funds coverage of underwriting commitments, or prior notification to COSUMAF; the internal limits of PC-POL-RIS-001 apply in the meantime."
   - "A firm underwriting or standby underwriting commitment entered into while the Company is also the arranger creates a conflict of interest in the allocation and resale of the Securities; apply the Conflicts of Interest Management Policy (PC-POL-CI-001)."
-source: fefa457665746c66
+source: 5f825ba43f35162e
 ---
 
 **BETWEEN THE UNDERSIGNED:**
@@ -108,7 +108,7 @@ The commitments of the members of the syndicate are **several and not joint**: e
 ### Article 6 — Calling and settlement of the commitment
 
 {% si engagement = bonne_fin %}
-1. No later than the business day following Closing, the Underwriter prepares, on the basis of the centralisation statement, the calculation of the Unsubscribed Balance using the template in Appendix “Underwriting calculation”, and notifies it to the Issuer.
+1. No later than the business day following Closing, the Underwriter prepares, on the basis of the centralisation statement, the calculation of the Unsubscribed Balance using the template in Appendix [[annexe:A4]], and notifies it to the Issuer.
 2. The Underwriter subscribes for the corresponding Securities and pays their price into the centralisation account within {{delai_paiement|nombre}} business days following Closing and, at the latest, on the Settlement Date.
 3. The Securities subscribed for by the Underwriter are delivered to it on the Settlement Date, at the same time as those of the other subscribers.
 
@@ -117,7 +117,7 @@ The Underwriter's subscriptions are never allocated before those of investors. I
 {% si engagement = prise_ferme %}
 1. On the Settlement Date, the Underwriter pays the price of the Securities corresponding to the Underwritten Amount into the centralisation account, and the Securities are delivered to it.
 2. Subscriptions received from investors for these Securities are met by transfer from the Underwriter, at the Subscription Price, on the same date or on a later date.
-3. The Underwriter prepares the calculation in Appendix “Underwriting calculation” and delivers it to the Issuer within five business days following the Settlement Date.
+3. The Underwriter prepares the calculation in Appendix [[annexe:A4]] and delivers it to the Issuer within five business days following the Settlement Date.
 {% fin %}
 
 ### Article 7 — Own funds of the Underwriter
@@ -138,12 +138,12 @@ The Securities subscribed for by the Underwriter are credited to its proprietary
 
 ### Article 9 — Conditions
 
-The Underwriter's commitment is subject to the following conditions, detailed in Appendix “Conditions precedent”, being fulfilled no later than the Long-Stop Date and continuing to be met until the Settlement Date:
+The Underwriter's commitment is subject to the following conditions, detailed in Appendix [[annexe:A2]], being fulfilled no later than the Long-Stop Date and continuing to be met until the Settlement Date:
 
 1. COSUMAF approval (visa) of the Information Memorandum having been obtained, without any material change to the terms of the Transaction not accepted by the Underwriter;
 2. the Issuer's corporate resolutions authorising the issue having been adopted;
-3. delivery of the closing documents listed in Appendix “Conditions precedent”, in particular the legal opinion on the validity of the issue and the statutory auditors' certificates;
-4. the accuracy of the Issuer's representations and warranties, as confirmed by the certificate in Appendix “Issuer's certificate”;
+3. delivery of the closing documents listed in Appendix [[annexe:A2]], in particular the legal opinion on the validity of the issue and the statutory auditors' certificates;
+4. the accuracy of the Issuer's representations and warranties, as confirmed by the certificate in Appendix [[annexe:A3]];
 5. the absence of any Material Adverse Event within the meaning of the Mandate Agreement;
 6. payment of the sums due under the Mandate Agreement.
 
@@ -164,7 +164,7 @@ The Issuer repeats for the benefit of the Underwriter the representations and wa
 3. that the issue and this agreement do not breach any commitment, articles of association or decision by which it is bound;
 4. that the Securities, once issued, will be validly issued, fully paid up and freely transferable.
 
-It delivers the certificate in Appendix “Issuer's certificate” on the Settlement Date.
+It delivers the certificate in Appendix [[annexe:A3]] on the Settlement Date.
 
 ### Article 12 — Undertakings
 

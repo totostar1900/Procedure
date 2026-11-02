@@ -98,7 +98,7 @@ Chaque Membre place les Titres auprès de sa propre clientèle et des investisse
 
 ### Article 3 — Nature de l'engagement
 
-Les Membres et le Chef de file sont tenus d'une **obligation de moyens** : chacun déploie ses meilleurs efforts pour placer les Titres, sans garantir un montant de souscriptions. Les quotas de l'annexe « Membres du Syndicat » sont indicatifs ; ils servent à organiser la commercialisation et ne constituent ni un plafond ni un engagement ferme.
+Les Membres et le Chef de file sont tenus d'une **obligation de moyens** : chacun déploie ses meilleurs efforts pour placer les Titres, sans garantir un montant de souscriptions. Les quotas de l'annexe [[annexe:A1]] sont indicatifs ; ils servent à organiser la commercialisation et ne constituent ni un plafond ni un engagement ferme.
 
 Aucun Membre ne s'engage à souscrire ou à faire souscrire les Titres non placés. Un tel engagement ne peut résulter que d'une convention distincte de prise ferme ou de garantie de bonne fin.
 
@@ -112,7 +112,7 @@ La convention prend effet à sa signature. Aucun placement ne peut toutefois com
 
 Le Chef de file :
 
-1. remet à chaque Membre le Document d'information visé, le bulletin de souscription, le calendrier de l'annexe « Calendrier de centralisation » et les documents promotionnels autorisés ;
+1. remet à chaque Membre le Document d'information visé, le bulletin de souscription, le calendrier de l'annexe [[annexe:A2]] et les documents promotionnels autorisés ;
 2. tient l'état consolidé des souscriptions du Syndicat, à partir des états transmis par les Membres ;
 3. centralise les fonds sur le Compte de centralisation et rapproche chaque jour les fonds reçus des souscriptions déclarées ;
 4. informe les Membres de l'évolution des souscriptions, de toute prorogation ou clôture anticipée et de tout fait nouveau affectant l'Opération ;
@@ -154,12 +154,12 @@ Un Membre refuse toute souscription dont l'origine des fonds n'est pas justifié
 
 Chaque Membre :
 
-1. transmet au Chef de file, chaque jour ouvré de la Période de souscription avant {{heure_etat}}, l'état de ses souscriptions selon le modèle de l'annexe « État des souscriptions », même lorsqu'il n'a reçu aucune souscription ;
+1. transmet au Chef de file, chaque jour ouvré de la Période de souscription avant {{heure_etat}}, l'état de ses souscriptions selon le modèle de l'annexe [[annexe:A3]], même lorsqu'il n'a reçu aucune souscription ;
 2. vire les fonds reçus de ses souscripteurs sur le Compte de centralisation dans un délai de {{delai_fonds|nombre}} jour(s) ouvré(s) suivant leur réception, avec la référence de l'état correspondant ;
 3. remet l'état définitif de ses souscriptions, accompagné des bulletins, dans un délai de {{delai_cloture|nombre}} jour(s) ouvré(s) suivant la clôture de la Période de souscription ;
 4. tient les fonds de ses souscripteurs, jusqu'à leur virement, sur un compte distinct de ses fonds propres.
 
-Une souscription ou des fonds transmis après les délais fixés par le calendrier de l'annexe « Calendrier de centralisation » peuvent être refusés par le Chef de file.
+Une souscription ou des fonds transmis après les délais fixés par le calendrier de l'annexe [[annexe:A2]] peuvent être refusés par le Chef de file.
 
 ## Titre IV — Allocation, règlement et restitution
 
@@ -183,7 +183,7 @@ Les fonds correspondant aux souscriptions non servies ou réduites sont restitu�
 
 ### Article 15 — Commissions
 
-Purpose Capital perçoit de l'Émetteur une commission de placement de {{com_placement}} des montants souscrits et libérés. Sur cette commission, elle verse à chaque Membre une **commission de placement rétrocédée** de {{com_retro}} des montants souscrits par l'intermédiaire de ce Membre, effectivement alloués et libérés, selon le barème de l'annexe « Barème des commissions ».
+Purpose Capital perçoit de l'Émetteur une commission de placement de {{com_placement}} des montants souscrits et libérés. Sur cette commission, elle verse à chaque Membre une **commission de placement rétrocédée** de {{com_retro}} des montants souscrits par l'intermédiaire de ce Membre, effectivement alloués et libérés, selon le barème de l'annexe [[annexe:A4]].
 
 Les commissions sont payées dans un délai de {{delai_paiement|nombre}} jours ouvrés suivant leur encaissement par Purpose Capital, sur facture du Membre. Elles s'entendent hors taxes. Chaque commission fait l'objet d'une facture et d'un paiement distincts ; elles ne se compensent pas avec d'autres sommes.
 

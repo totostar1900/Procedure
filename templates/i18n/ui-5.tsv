@@ -297,3 +297,18 @@ L'annexe sera retirée de la prochaine version du document ; les versions archiv
 Vérifiez aussi les autres documents qui y renvoient (signalés à la soumission).	Also check the other documents that refer to it (flagged on submission).
 Chaque annexe est désignée par un nom court, unique dans le document : dans le texte, écrivez « l'annexe « Pièces client » ». Renommer une annexe met à jour les renvois de ce document ; ceux d'autres documents sont signalés à la soumission.	Each appendix is designated by a short name, unique within the document: in the text, write “Appendix “Client documents””. Renaming an appendix updates the references in this document; those in other documents are flagged on submission.
 Annexes publiées séparément	Appendices published separately
+Noms des annexes	Annex names
+Nom manquant	Name missing
+60 caractères au plus	60 characters at most
+Nom déjà utilisé dans ce document	Name already used in this document
+Tous les documents	All documents
+Rechercher un nom ou un titre	Search a name or a title
+Enregistrer les noms	Save the names
+Titre de l'annexe	Annex title
+Nom (français)	Name (French)
+Nom (anglais)	Name (English)
+Corrigez les noms signalés avant d'enregistrer.	Correct the flagged names before saving.
+nom(s) enregistré(s) : publication en cours (quelques minutes). Aucun texte, visa ni circuit n'est modifié.	name(s) saved: publishing in progress (a few minutes). No text, sign-off or circuit is changed.
+nom(s) en cours de publication.	name(s) being published.
+Les noms courts qui désignent les annexes dans les textes, les PDF et les Word. Revoyez-les ici, document par document, en français et en anglais.	The short names that designate annexes in the texts, PDFs and Word files. Review them here, document by document, in French and English.
+Le nom n'est qu'une étiquette : les textes renvoient à l'annexe par sa clé et affichent son nom du moment. Renommer ne modifie ni les textes, ni les empreintes, ni les visas, et ne relance aucun circuit.	The name is only a label: texts refer to the annex by its key and show its current name. Renaming changes neither the texts, nor the fingerprints, nor the sign-offs, and restarts no circuit.

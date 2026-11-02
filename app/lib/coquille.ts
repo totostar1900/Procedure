@@ -20,11 +20,14 @@ export async function coquille(page: "membres" | "parametrage" | "comme" | "acti
   if (!m || !m.actif || !m.admin || (exigeSuper && !m.super) || (page === "parametrage" && !accesParametrage(m)) || (page === "activite" && !accesActivite(m))) redirect("/");
   const moi: Moi = { email, nom: m.nom || email, super: !!m.super, admin: !!m.admin, prerogatives: m.prerogatives || [], fonctions: m.fonctions || [] };
 
-  let docs: { id: string; titre: string; type: string; circuit: { etape: string; label: string; role: string }[] }[] = [], css = "", rail = "";
+  type AnnexeC = { num: string; nom: string; titre: string; nomEn: string };
+  let docs: { id: string; titre: string; type: string; circuit: { etape: string; label: string; role: string }[]; annexes: AnnexeC[] }[] = [], css = "", rail = "";
   try {
     const html = fs.readFileSync(path.join(process.cwd(), "site", "index.html"), "utf8");
     const x = html.match(/<script type="application\/json" id="ref-data">([\s\S]*?)<\/script>/);
-    if (x) docs = JSON.parse(x[1]).docs.map((d: { id: string; titre: string; type: string; circuit?: [] }) => ({ id: d.id, titre: d.titre, type: d.type, circuit: d.circuit || [] }));
+    type DocBrut = { id: string; titre: string; type: string; circuit?: []; annexes?: { id?: string; num: string; nom?: string; titre: string }[]; en?: { annexes?: { id?: string; nom?: string }[] } };
+    if (x) docs = JSON.parse(x[1]).docs.map((d: DocBrut) => ({ id: d.id, titre: d.titre, type: d.type, circuit: d.circuit || [],
+      annexes: (d.annexes || []).map((a, i) => ({ num: a.num, nom: a.nom || "", titre: a.titre, nomEn: (((d.en && d.en.annexes) || []).find((e, j) => (a.id && e.id ? e.id === a.id : j === i)) || {}).nom || "" })) }));
     css = (html.match(/<style>([\s\S]*?)<\/style>/) || ["", ""])[1];
     const a = html.indexOf('<div class="mbar">'), b = html.indexOf('<div class="shell">');
     if (a >= 0 && b > a) rail = html.slice(a, b);

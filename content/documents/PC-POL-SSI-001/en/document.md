@@ -32,7 +32,7 @@ notes_redaction:
   - "The Guichet already requires a second factor on the desk and keeps a chained audit log. Two items remain to be done: make review of a pull request mandatory on GitHub before any deployment to master (Article 18), and set a spending cap and a budget alert with each API provider (Anthropic, Resend, WhatsApp)."
   - "Microsoft 365 Business Standard does not include Conditional Access or Defender for Business. Check that security defaults are enabled, or consider the Business Premium licence."
   - "Check that the SPF, DKIM and DMARC records for the purposecapital.africa domain are published with GoDaddy and Netlify DNS (Article 14)."
-source: 3e4215f9e0eb3aea
+source: 2eb8a8c9d97e3af0
 ---
 
 ## Title I — General provisions
@@ -75,7 +75,7 @@ The policy applies:
 | Internal IT officer | Staff Member designated by the Chief Executive Officer: maintains the access matrix, monitors the service provider, organises joiners and leavers, first point of contact in the event of an incident |
 | IT service provider | Administers the tools in accordance with its contract and this policy; applies updates; reports incidents within 24 hours |
 | RCCI | Monitors application of the policy; keeps the incident register; checks the protection of personal data |
-| Staff Members | Apply the acceptable use charter in Appendix “Acceptable use charter”; report any incident or doubt without delay |
+| Staff Members | Apply the acceptable use charter in Appendix [[annexe:A1]]; report any incident or doubt without delay |
 
 ### Article 6 — Principles
 
@@ -92,7 +92,7 @@ The policy applies:
 | --- | --- | --- |
 | Public | Website, brochure, press releases | Free distribution after approval |
 | Internal | Procedures, internal memos, schedules | Staff Members and service providers bound by a confidentiality agreement |
-| Confidential | Client files, orders, positions, personal data, accounts, control reports | Access according to the matrix in Appendix “Access matrix”; never via personal email; encryption for any external transmission |
+| Confidential | Client files, orders, positions, personal data, accounts, control reports | Access according to the matrix in Appendix [[annexe:A2]]; never via personal email; encryption for any external transmission |
 | Secret | Inside information, suspicious transaction reports, passwords and keys | Named and traced access; never copied outside the designated tools |
 
 An unmarked document is treated as **internal**. A document containing client data is always **confidential**.
@@ -117,11 +117,11 @@ The Company's information is stored in its tools: the Company's online storage s
 
 ### Article 11 — Joiners, movers and leavers
 
-Whenever someone joins, changes role or leaves, the IT officer applies the checklist in Appendix “Joiners and leavers”. When a Staff Member leaves, his or her access is **cut off the same day**, his or her equipment is returned, and the passwords and keys he or she knew are changed. A service provider's access is cut off at the end of its assignment.
+Whenever someone joins, changes role or leaves, the IT officer applies the checklist in Appendix [[annexe:A3]]. When a Staff Member leaves, his or her access is **cut off the same day**, his or her equipment is returned, and the passwords and keys he or she knew are changed. A service provider's access is cut off at the end of its assignment.
 
 ### Article 12 — Access review
 
-Every six months, the IT officer and the RCCI review the access matrix in Appendix “Access matrix”: each account must correspond to a person currently present and to a need. Unnecessary accounts are deleted. The review is dated and signed.
+Every six months, the IT officer and the RCCI review the access matrix in Appendix [[annexe:A2]]: each account must correspond to a person currently present and to a need. Unnecessary accounts are deleted. The review is dated and signed.
 
 ## Title V — Workstations, email and online services
 
@@ -181,7 +181,7 @@ Logins, administrative actions and sensitive operations are logged: email login 
 
 ### Article 20 — Reporting and handling
 
-Any Staff Member who observes or suspects an incident (a suspicious link clicked, a lost device, an account used by a third party, a fraudulent payment request, a document leak) **reports it immediately** to the IT officer and the RCCI, without trying to resolve it alone or erasing any traces. The incident is reported within 24 hours on the form in Appendix “Security incident report form”.
+Any Staff Member who observes or suspects an incident (a suspicious link clicked, a lost device, an account used by a third party, a fraudulent payment request, a document leak) **reports it immediately** to the IT officer and the RCCI, without trying to resolve it alone or erasing any traces. The incident is reported within 24 hours on the form in Appendix [[annexe:A4]].
 
 Handling follows Article 12 of the Business Continuity Plan: isolate, block, prevent fraud, restore, inform. An incident affecting client data is brought to the attention of the Chief Executive Officer, who decides whether to inform the clients concerned, the data protection authority under the conditions laid down by law and, if the incident is significant, COSUMAF.
 
@@ -193,11 +193,11 @@ Every significant incident is subject to a root cause analysis and an action pla
 
 ### Article 22 — Awareness
 
-Each Staff Member signs the acceptable use charter in Appendix “Acceptable use charter” on joining. Awareness training on fraud and phishing is provided each year and whenever a new form of fraud is observed; it may include a simulated phishing exercise.
+Each Staff Member signs the acceptable use charter in Appendix [[annexe:A1]] on joining. Awareness training on fraud and phishing is provided each year and whenever a new form of fraud is observed; it may include a simulated phishing exercise.
 
 ### Article 23 — Control
 
-The RCCI checks application of the policy in accordance with the annual control plan, in particular the six-monthly access review, restoration tests, the minimum measures in Appendix “Minimum measures” and the follow-up of incidents. The annual independent review also covers information systems security.
+The RCCI checks application of the policy in accordance with the annual control plan, in particular the six-monthly access review, restoration tests, the minimum measures in Appendix [[annexe:A5]] and the follow-up of incidents. The annual independent review also covers information systems security.
 
 ### Article 24 — Breaches
 

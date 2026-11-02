@@ -35,7 +35,7 @@ notes_redaction:
   - "Designate the AML/CFT Officer and his or her deputy by name, and notify their appointment to ANIF and COSUMAF; the policy refers to functions only."
   - "Choose a screening tool for sanctions lists and politically exposed persons (subscription to a database or an in-house tool fed by the official lists)."
   - "Cameroon has been on the FATF list of jurisdictions under increased monitoring since 2023 and remained on it in June 2026. Update Article 9 after each FATF plenary."
-source: d5900cb1c0a06677
+source: 13ee6e7a876e59d4
 ---
 
 ## Title I — General provisions
@@ -69,7 +69,7 @@ It also draws on international good practice, adapted to the CEMAC context: the 
 - **Proliferation financing**: providing funds or financial services used to manufacture, acquire or transport nuclear, chemical or biological weapons.
 - **Client**: any natural or legal person, or any arrangement without legal personality (fund, association, trust), for which the Company provides a service, on a lasting basis (business relationship) or on a one-off basis (occasional transaction).
 - **Beneficial owner**: the natural person or persons who ultimately own or control the client, or on whose behalf a transaction is carried out. For a company, this means any person who holds, directly or indirectly, more than 25% of the capital or voting rights, or who exercises control by any other means; failing that, the principal senior manager.
-- **Politically exposed person (PEP)**: a person who holds or has held a prominent public function, in a CEMAC country or abroad, or in an international organisation; together with the members of his or her family and persons known to be close associates. Appendix “Identification documents and PEPs” sets out the list.
+- **Politically exposed person (PEP)**: a person who holds or has held a prominent public function, in a CEMAC country or abroad, or in an international organisation; together with the members of his or her family and persons known to be close associates. Appendix [[annexe:A2]] sets out the list.
 - **Targeted financial sanctions**: measures freezing funds and prohibiting funds from being made available, directed at persons designated by the United Nations Security Council or by the competent authorities of the CEMAC and its Member States.
 - **ANIF**: Agence nationale d'investigation financière (National Financial Investigation Agency), the financial intelligence unit of the State concerned; the sole recipient of suspicious transaction reports.
 
@@ -110,7 +110,7 @@ It analyses four categories of factors:
 
 ### Article 8 — Client classification
 
-Before client onboarding, each client is classified into one of three risk levels: **low**, **standard** or **high**. The classification results from the matrix in Appendix “Client risk classification”. It is recorded in the client file and reviewed at each update of the file or upon any significant event.
+Before client onboarding, each client is classified into one of three risk levels: **low**, **standard** or **high**. The classification results from the matrix in Appendix [[annexe:A1]]. It is recorded in the client file and reviewed at each update of the file or upon any significant event.
 
 A client is classified as **high** risk, regardless of score, where the client is a PEP or connected to a PEP, where the client resides in, or the client's funds come from, a high-risk country designated by the FATF, where the client's structure does not allow its beneficial owners to be clearly identified, or where the client has been the subject of a suspicious transaction report.
 
@@ -137,10 +137,10 @@ The Company does not enter into a relationship, or terminates the relationship, 
 Before the account agreement is signed and before any transaction, the Company:
 
 1. **identifies** the client and, where applicable, the client's representative and beneficial owners;
-2. **verifies** their identity on the basis of the original documents listed in Appendix “Identification documents and PEPs”, or certified copies, and of reliable and independent sources;
+2. **verifies** their identity on the basis of the original documents listed in Appendix [[annexe:A2]], or certified copies, and of reliable and independent sources;
 3. **collects** information on the purpose and intended nature of the relationship, the client's professional and financial situation and the origin of the client's funds;
 4. **screens** the client, the client's representative and beneficial owners against sanctions and PEP lists;
-5. **classifies** the client using the matrix in Appendix “Client risk classification”;
+5. **classifies** the client using the matrix in Appendix [[annexe:A1]];
 6. **decides** on client onboarding according to the risk level (Article 12).
 
 Copies of the documents are kept on file, together with the date and the name of the Staff Member who saw the originals.
@@ -151,8 +151,8 @@ Copies of the documents are kept on file, together with the date and the name of
 | --- | --- | --- |
 | Low | Relationship manager | Complete file |
 | Standard | Relationship manager, with the file checked by the AML/CFT Officer within one month | Complete file |
-| High | Chief Executive Officer, after the written opinion of the AML/CFT Officer (Appendix “High-risk approval”) | Enhanced due diligence measures under Article 14 |
-| PEP | Chief Executive Officer, after the written opinion of the AML/CFT Officer (Appendix “High-risk approval”) | Measures under Article 15; Board of Directors informed in the annual report |
+| High | Chief Executive Officer, after the written opinion of the AML/CFT Officer (Appendix [[annexe:A5]]) | Enhanced due diligence measures under Article 14 |
+| PEP | Chief Executive Officer, after the written opinion of the AML/CFT Officer (Appendix [[annexe:A5]]) | Measures under Article 15; Board of Directors informed in the annual report |
 
 ### Article 13 — Simplified due diligence
 
@@ -205,7 +205,7 @@ Where the client does not provide the requested information within three months,
 
 The Company continuously verifies that its clients' transactions are consistent with what it knows about them: occupation, income, wealth, stated objectives and risk level. Any transaction that is unusual in its amount, complexity or frequency, or that lacks economic justification, is subject to an enhanced examination, the outcome of which is recorded.
 
-Red flags specific to securities transactions are set out in Appendix “Red flags”. They are applied on a day-to-day basis by relationship managers and the operations function, and by the AML/CFT Officer during monthly reviews.
+Red flags specific to securities transactions are set out in Appendix [[annexe:A3]]. They are applied on a day-to-day basis by relationship managers and the operations function, and by the AML/CFT Officer during monthly reviews.
 
 ### Article 20 — Enhanced examination
 
@@ -239,7 +239,7 @@ The client is not informed before the freeze. Namesakes that are ruled out are d
 
 ### Article 23 — Internal reporting
 
-Any Staff Member who knows, suspects or has reasonable grounds to suspect that a transaction or funds derive from an offence or are used to finance terrorism or proliferation reports it **without delay** to the AML/CFT Officer using the form in Appendix “Suspicious transaction report”, even if the transaction has not been carried out or the amount is small. The Staff Member does not have to prove the offence or determine its legal classification.
+Any Staff Member who knows, suspects or has reasonable grounds to suspect that a transaction or funds derive from an offence or are used to finance terrorism or proliferation reports it **without delay** to the AML/CFT Officer using the form in Appendix [[annexe:A4]], even if the transaction has not been carried out or the amount is small. The Staff Member does not have to prove the offence or determine its legal classification.
 
 ### Article 24 — Analysis and reporting to ANIF
 
@@ -261,7 +261,7 @@ Identification documents, client files, transaction records, enhanced examinatio
 
 ### Article 27 — Training
 
-Every new Staff Member is trained in this policy before handling any client file. Annual training, tailored to each person's duties, is given to all Staff Members and directors; it covers the red flags in Appendix “Red flags”, targeted financial sanctions and practical case studies. Attendance is recorded.
+Every new Staff Member is trained in this policy before handling any client file. Annual training, tailored to each person's duties, is given to all Staff Members and directors; it covers the red flags in Appendix [[annexe:A3]], targeted financial sanctions and practical case studies. Attendance is recorded.
 
 ### Article 28 — Control and annual report
 

@@ -46,7 +46,7 @@ notes_redaction:
   - "La Société n'a qu'une personne pour la conformité, le contrôle interne, la gestion des risques et la LBC/FT. La charte l'assume et compense ce cumul par trois garde-fous : le RCCI ne contrôle jamais son propre travail, il a un accès direct au Président du Conseil, et une revue indépendante annuelle est confiée à un prestataire externe."
   - Les opérations sont aujourd'hui tenues par le Directeur Général. Le RCCI contrôle donc directement des opérations du Directeur Général ; l'article 11 le prévoit expressément.
   - "Leçons de la décision de la COSUMAF contre Premium Capital Securities (2026) intégrées : RCCI désigné et doté d'une carte professionnelle, comité de conformité effectif, rapports de contrôle interne transmis à temps, information de la COSUMAF sur toute modification soumise à autorisation."
-  - Vérifier sur le texte officiel le calendrier complet des transmissions périodiques à la COSUMAF et compléter l'annexe « Calendrier de conformité ».
+  - Vérifier sur le texte officiel le calendrier complet des transmissions périodiques à la COSUMAF et compléter l'annexe [[annexe:A5]].
   - Choisir le prestataire de revue indépendante et fixer son mandat avant la clôture du premier exercice.
 ---
 
@@ -177,7 +177,7 @@ Les contrôles clés de premier niveau sont notamment : la vérification du doss
 
 ### Article 15 — Plan de contrôle annuel
 
-Avant le début de chaque exercice, le RCCI établit un plan de contrôle selon le modèle de l'annexe « Plan de contrôle ». Le plan :
+Avant le début de chaque exercice, le RCCI établit un plan de contrôle selon le modèle de l'annexe [[annexe:A1]]. Le plan :
 
 - part de la cartographie des risques : les risques élevés sont contrôlés plus souvent ;
 - couvre au moins une fois par an chaque obligation réglementaire majeure : connaissance des clients, ordres et exécution, avoirs des clients, LBC/FT, conflits d'intérêts et opérations personnelles, réclamations, transmissions à la COSUMAF ;
@@ -187,7 +187,7 @@ Il est présenté au Directeur Général et au Conseil d'Administration. Il peut
 
 ### Article 16 — Conduite d'un contrôle
 
-Chaque contrôle donne lieu à une fiche selon le modèle de l'annexe « Fiche de contrôle » : objectif, échantillon, résultat, constats et recommandations. Le RCCI présente ses constats à la personne concernée, qui peut y répondre par écrit, avant de les arrêter.
+Chaque contrôle donne lieu à une fiche selon le modèle de l'annexe [[annexe:A2]] : objectif, échantillon, résultat, constats et recommandations. Le RCCI présente ses constats à la personne concernée, qui peut y répondre par écrit, avant de les arrêter.
 
 Les constats sont cotés :
 
@@ -201,7 +201,7 @@ Un constat majeur est porté sans délai à la connaissance du Directeur Génér
 
 ### Article 17 — Suivi des recommandations
 
-Le RCCI tient le tableau de suivi des recommandations selon le modèle de l'annexe « Suivi des recommandations ». Une recommandation n'est soldée qu'après vérification par le RCCI de la correction effective, preuve à l'appui. Les recommandations en retard sont présentées à chaque comité des risques et de la conformité et, au-delà de trois mois de retard, au Conseil d'Administration.
+Le RCCI tient le tableau de suivi des recommandations selon le modèle de l'annexe [[annexe:A3]]. Une recommandation n'est soldée qu'après vérification par le RCCI de la correction effective, preuve à l'appui. Les recommandations en retard sont présentées à chaque comité des risques et de la conformité et, au-delà de trois mois de retard, au Conseil d'Administration.
 
 ## Titre VI — Le contrôle périodique
 
@@ -209,7 +209,7 @@ Le RCCI tient le tableau de suivi des recommandations selon le modèle de l'anne
 
 Chaque année, le Conseil d'Administration confie à un prestataire externe qualifié, indépendant de la Société et de ses dirigeants, une revue de l'ensemble du dispositif de contrôle interne, de conformité, de gestion des risques et de LBC/FT. La revue porte aussi sur le travail du RCCI.
 
-Le prestataire remet son rapport au Président du Conseil d'Administration, avec copie au Directeur Général et au RCCI. Ses recommandations entrent dans le tableau de suivi de l'annexe « Suivi des recommandations ».
+Le prestataire remet son rapport au Président du Conseil d'Administration, avec copie au Directeur Général et au RCCI. Ses recommandations entrent dans le tableau de suivi de l'annexe [[annexe:A3]].
 
 Le même prestataire ne peut être chargé de la revue plus de trois années de suite, ni avoir conseillé la Société sur le dispositif qu'il évalue au cours de l'année revue.
 
@@ -238,7 +238,7 @@ Le RCCI tient, ou s'assure de la tenue, des registres suivants : incidents, réc
 
 ### Article 23 — Relations avec la COSUMAF et les autres autorités
 
-Le RCCI est l'interlocuteur habituel de la COSUMAF pour les questions de conformité. Il veille à ce que chaque document dû soit transmis dans les délais, selon le calendrier de l'annexe « Calendrier de conformité » : un retard de transmission expose la Société à une pénalité de 250 000 FCFA par jour de retard (Règlement général, art. 32).
+Le RCCI est l'interlocuteur habituel de la COSUMAF pour les questions de conformité. Il veille à ce que chaque document dû soit transmis dans les délais, selon le calendrier de l'annexe [[annexe:A5]] : un retard de transmission expose la Société à une pénalité de 250 000 FCFA par jour de retard (Règlement général, art. 32).
 
 Lors d'un contrôle de la COSUMAF, il coordonne la mise à disposition des documents et des personnes, et suit la mise en œuvre des recommandations du régulateur comme celles de tout autre contrôle.
 
@@ -252,7 +252,7 @@ Toute difficulté significative, tout litige important et tout incident touchant
 | --- | --- | --- |
 | Directeur Général et comité des risques et de la conformité | Chaque mois | Contrôles réalisés, constats, incidents, réclamations, recommandations en retard, veille réglementaire |
 | Conseil d'Administration | Chaque trimestre | Tableau de bord : avancement du plan de contrôle, constats majeurs, recommandations en retard, indicateurs de risque, réclamations, faits marquants |
-| Conseil d'Administration, puis COSUMAF | Chaque année, avant le 31 mars | Rapport annuel de contrôle interne selon le plan de l'annexe « Plan du rapport annuel », accompagné de la cartographie des risques |
+| Conseil d'Administration, puis COSUMAF | Chaque année, avant le 31 mars | Rapport annuel de contrôle interne selon le plan de l'annexe [[annexe:A4]], accompagné de la cartographie des risques |
 | Président du Conseil d'Administration | Sans délai | Tout constat majeur, toute entrave, tout manquement d'un dirigeant |
 
 Le rapport annuel est présenté au Conseil d'Administration avant sa transmission. Le Conseil peut y joindre ses observations ; il ne peut en modifier les constats.

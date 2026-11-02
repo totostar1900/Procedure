@@ -29,7 +29,7 @@ notes_redaction:
   - "In 2026 COSUMAF sanctioned a brokerage firm for improperly combining the functions of Chairman and Chief Executive Officer, for having no second senior manager (dirigeant effectif) and for holding no Board meetings. Check that Purpose Capital has at least two senior managers (dirigeants effectifs) recognised by COSUMAF; failing this, appoint a Deputy Chief Executive Officer or a second senior manager and seek COSUMAF approval."
   - "The Board currently has no independent director. Article 6 makes this an objective, not a condition for the validity of Board decisions. Decide whether one should be appointed, in particular to chair a future audit and risk committee."
   - "Set with the general meeting the overall amount of directors' fees (Article 21)."
-source: 1c6831325c20a1e9
+source: 487fbbe1c91815b2
 ---
 
 ## Title I — General provisions
@@ -100,7 +100,7 @@ The director regularly has access to inside information on the Company's clients
 
 The director acts in the interest of the Company and its clients, never in that of a shareholder, a third party or their own.
 
-1. Upon appointment, and then annually before 31 January, they complete the declaration of interests in Appendix “Director's declaration”, and update it upon any change.
+1. Upon appointment, and then annually before 31 January, they complete the declaration of interests in Appendix [[annexe:A4]], and update it upon any change.
 2. Where an item on the agenda places them in a conflict situation, they declare it to the Chairman before the meeting, take part in neither the discussion nor the vote, and this is recorded in the minutes.
 3. Any agreement between the Company and a director, a senior manager or a company that they control or manage follows the related-party agreement procedure of the Uniform Act: prior authorisation by the Board, without a vote by the person concerned, notification to the statutory auditors, approval by the general meeting.
 
@@ -129,11 +129,11 @@ The Chairman does not manage the Company: executive management is the responsibi
 
 ### Article 14 — Schedule
 
-The Board meets at least **four times a year** and whenever the Company's interest so requires, in accordance with the standard annual programme in Appendix “Board meeting programme”. At least one meeting a year is devoted to strategy. The schedule for the following year is set at the last meeting of the year.
+The Board meets at least **four times a year** and whenever the Company's interest so requires, in accordance with the standard annual programme in Appendix [[annexe:A1]]. At least one meeting a year is devoted to strategy. The schedule for the following year is set at the last meeting of the year.
 
 ### Article 15 — Notice and agenda
 
-The Board is convened by the Chairman, or at the request of at least one third of its members if it has not met for more than two months, **at least five days** before the meeting, by any written means, including electronic means. The notice follows the template in Appendix “Notice of meeting” and states the date, time, place, any connection link and the agenda.
+The Board is convened by the Chairman, or at the request of at least one third of its members if it has not met for more than two months, **at least five days** before the meeting, by any written means, including electronic means. The notice follows the template in Appendix [[annexe:A2]] and states the date, time, place, any connection link and the agenda.
 
 In an emergency, the notice period may be shortened if all directors consent.
 
@@ -151,7 +151,7 @@ A director may give another director a written proxy to represent them at a meet
 
 ### Article 18 — Minutes and register
 
-The Board secretary keeps the attendance register, signed by the directors taking part in the meeting, and drafts the minutes using the template in Appendix “Board minutes”. The minutes state which directors were present, represented, excused or participating remotely, summarise the discussions, record the conflicts of interest declared, and set out the decisions and the results of the votes.
+The Board secretary keeps the attendance register, signed by the directors taking part in the meeting, and drafts the minutes using the template in Appendix [[annexe:A3]]. The minutes state which directors were present, represented, excused or participating remotely, summarise the discussions, record the conflicts of interest declared, and set out the decisions and the results of the votes.
 
 The draft is sent to the directors within fifteen days, approved at the following meeting, signed by the Chairman and at least one director, and then kept at the registered office. Extracts are certified by the Chairman or the Chief Executive Officer.
 
@@ -184,7 +184,7 @@ No non-executive director receives remuneration linked to turnover or to the res
 
 ### Article 22 — Board evaluation
 
-Once a year, the Board devotes an item on its agenda to its own functioning, based on a self-assessment using the grid in Appendix “Board self-assessment”. The Chairman presents a summary and the actions agreed. Every three years, the evaluation may be carried out with the assistance of an external facilitator.
+Once a year, the Board devotes an item on its agenda to its own functioning, based on a self-assessment using the grid in Appendix [[annexe:A5]]. The Chairman presents a summary and the actions agreed. Every three years, the evaluation may be carried out with the assistance of an external facilitator.
 
 ### Article 23 — Board secretariat
 

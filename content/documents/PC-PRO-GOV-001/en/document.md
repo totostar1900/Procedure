@@ -21,9 +21,9 @@ historique:
 notes_redaction:
   - "The procedure describes how the repository actually works (Markdown sources, generated HTML site and PDFs). Designate who holds the rights to modify the sources and where they are kept on a lasting basis (private repository or shared folder): until this is done, the repository depends on a single copy."
   - "The \"Repealed\" status exists on the site but no document has yet been withdrawn: check, at the first withdrawal, that the old version remains accessible in the archives (Article 15)."
-  - "The texts reproduced in the Guichet (securities account agreement, schedule of fees, risk disclosure notice) have their own version number there (for example 2026-10-10). The register in Appendix “Document register” must show the correspondence between the two numbering systems."
+  - "The texts reproduced in the Guichet (securities account agreement, schedule of fees, risk disclosure notice) have their own version number there (for example 2026-10-10). The register in Appendix [[annexe:A3]] must show the correspondence between the two numbering systems."
   - "Under the approval workflow for procedures (approval by the Chief Executive Officer), the reviewer and the approver of this procedure are the same person: the Board of Directors may be informed of its adoption to compensate."
-source: 9b58dd7d7bf7e2cc
+source: 7dae16feccfe0f82
 ---
 
 ## Title I — General provisions
@@ -102,14 +102,14 @@ Each document begins with a control sheet showing: its reference, its version an
 
 ### Article 8 — Request
 
-Anyone may request the creation or modification of a document using Appendix “Document request”, or by a simple message to the RCCI. A modification is mandatory where:
+Anyone may request the creation or modification of a document using Appendix [[annexe:A1]], or by a simple message to the RCCI. A modification is mandatory where:
 
 - a CEMAC, COSUMAF, BVMAC or ANIF text changes;
 - a control, an incident, a complaint or a recommendation shows that a rule is inappropriate;
 - the organisation, a tool or a service provider changes;
 - the periodic review so provides.
 
-The RCCI records the request in the register (Appendix “Document register”) and designates the author.
+The RCCI records the request in the register (Appendix [[annexe:A3]]) and designates the author.
 
 ### Article 9 — Drafting
 
@@ -119,7 +119,7 @@ The author notes in the control sheet any points still to be confirmed and any i
 
 ### Article 10 — Review
 
-Using the review sheet (Appendix “Review and approval”), the reviewer checks that the document:
+Using the review sheet (Appendix [[annexe:A2]]), the reviewer checks that the document:
 
 - complies with the regulations and the reference texts cited;
 - is consistent with the other documents in the repository and with the Guichet;
@@ -138,7 +138,7 @@ The approver approves the document, has it corrected, or rejects it. Approval by
 - each sign-off bears the date, the time and the **fingerprint** of the text signed off; if the text subsequently changes, the sign-off is no longer valid and must be given again;
 - the register of sign-offs is exported at least once a quarter by the RCCI and kept with the repository archives.
 
-For the first six months, the electronic sign-off is backed up by the signed review sheet (Appendix “Review and approval”). The approval date and the date of entry into force are then entered in the control sheet; the version becomes 1.0 or the next number and the status becomes "In force".
+For the first six months, the electronic sign-off is backed up by the signed review sheet (Appendix [[annexe:A2]]). The approval date and the date of entry into force are then entered in the control sheet; the version becomes 1.0 or the next number and the status becomes "In force".
 
 ### Article 12 — Publication and distribution
 
@@ -146,7 +146,7 @@ Within two business days of approval, the RCCI:
 
 1. publishes the new version on the repository website, with its PDFs and appendices;
 2. informs the people on the distribution list, stating in a few lines what has changed;
-3. collects, within one month, for the codes, policies and procedures that concern them, the Staff Members' acknowledgement: by means of the "I have read and understood" button on the website for the persons designated by the administrator, or otherwise by means of Appendix “Acknowledgement”;
+3. collects, within one month, for the codes, policies and procedures that concern them, the Staff Members' acknowledgement: by means of the "I have read and understood" button on the website for the persons designated by the administrator, or otherwise by means of Appendix [[annexe:A4]];
 4. organises a short presentation where the change alters the way people work.
 
 ### Article 13 — Periodic review
@@ -185,14 +185,14 @@ Some texts exist both in the repository and in the Guichet, in particular the se
 
 - the repository text and the Guichet text must be identical;
 - any change is made **on the same day** in both, by the RCCI or under the RCCI's control;
-- the register (Appendix “Document register”) shows the correspondence between the repository version and the Guichet version;
+- the register (Appendix [[annexe:A3]]) shows the correspondence between the repository version and the Guichet version;
 - a change affecting clients is notified to them before it enters into force, under the conditions laid down in the agreement.
 
 ## Title V — Control
 
 ### Article 20 — Register and control
 
-The RCCI maintains the register of documents (Appendix “Document register”). Every quarter, the RCCI checks:
+The RCCI maintains the register of documents (Appendix [[annexe:A3]]). Every quarter, the RCCI checks:
 
 - that no reviews are overdue;
 - that the versions published on the website correspond to the approved versions;

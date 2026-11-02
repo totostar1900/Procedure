@@ -28,7 +28,7 @@ notes_redaction:
   - "Check in the COSUMAF General Regulation which article allows the brokerage firm appointed by the issuer to form a placement syndicate with other brokerage firms and credit institutions, and cite it in the preamble."
   - "Confirm the flow of funds with the members: transfer of the funds collected to the Centralisation Account no later than the business day following their receipt, or direct centralisation by the subscribers."
   - "Have the template validated by the Company's legal counsel before its first use."
-source: 233183f4258abeba
+source: 544158146e7a5af3
 ---
 
 **BETWEEN THE UNDERSIGNED:**
@@ -85,7 +85,7 @@ Each Member places the Securities with its own clients and with the investors it
 
 ### Article 3 — Nature of the commitment
 
-The Members and the Lead Manager are bound by an **obligation of means**: each uses its best efforts to place the Securities, without guaranteeing any amount of subscriptions. The quotas in Appendix “Syndicate members” are indicative; they serve to organise the marketing and constitute neither a ceiling nor a firm commitment.
+The Members and the Lead Manager are bound by an **obligation of means**: each uses its best efforts to place the Securities, without guaranteeing any amount of subscriptions. The quotas in Appendix [[annexe:A1]] are indicative; they serve to organise the marketing and constitute neither a ceiling nor a firm commitment.
 
 No Member undertakes to subscribe, or to procure subscribers, for Securities that have not been placed. Such a commitment may only arise from a separate firm underwriting or standby underwriting commitment agreement.
 
@@ -99,7 +99,7 @@ This agreement takes effect upon its signature. However, no placement may begin 
 
 The Lead Manager:
 
-1. provides each Member with the approved Information Memorandum, the subscription form, the timetable in Appendix “Centralisation timetable” and the authorised promotional documents;
+1. provides each Member with the approved Information Memorandum, the subscription form, the timetable in Appendix [[annexe:A2]] and the authorised promotional documents;
 2. keeps the consolidated statement of the Syndicate's subscriptions, based on the statements sent by the Members;
 3. centralises the funds in the Centralisation Account and reconciles, each day, the funds received against the subscriptions reported;
 4. informs the Members of the progress of subscriptions, of any extension or early closure and of any new development affecting the Offering;
@@ -141,12 +141,12 @@ A Member refuses any subscription for which the source of funds is not substanti
 
 Each Member:
 
-1. sends the Lead Manager, on each business day of the Subscription Period before {{heure_etat}}, the statement of its subscriptions using the template in Appendix “Subscription statement”, even when it has received no subscriptions;
+1. sends the Lead Manager, on each business day of the Subscription Period before {{heure_etat}}, the statement of its subscriptions using the template in Appendix [[annexe:A3]], even when it has received no subscriptions;
 2. transfers the funds received from its subscribers to the Centralisation Account within {{delai_fonds|nombre}} business day(s) of their receipt, quoting the reference of the corresponding statement;
 3. delivers the final statement of its subscriptions, together with the subscription forms, within {{delai_cloture|nombre}} business day(s) of the close of the Subscription Period;
 4. holds its subscribers' funds, until they are transferred, in an account separate from its own funds.
 
-The Lead Manager may refuse any subscription or funds sent after the deadlines set by the timetable in Appendix “Centralisation timetable”.
+The Lead Manager may refuse any subscription or funds sent after the deadlines set by the timetable in Appendix [[annexe:A2]].
 
 ## Title IV — Allocation, settlement and refund
 
@@ -170,7 +170,7 @@ Funds corresponding to subscriptions that are not satisfied or are scaled back a
 
 ### Article 15 — Commissions
 
-Purpose Capital receives from the Issuer a placement commission of {{com_placement}} of the amounts subscribed and paid up. Out of this commission, it pays each Member a **retroceded placement commission** of {{com_retro}} of the amounts subscribed through that Member that are actually allocated and paid up, in accordance with the scale in Appendix “Commission scale”.
+Purpose Capital receives from the Issuer a placement commission of {{com_placement}} of the amounts subscribed and paid up. Out of this commission, it pays each Member a **retroceded placement commission** of {{com_retro}} of the amounts subscribed through that Member that are actually allocated and paid up, in accordance with the scale in Appendix [[annexe:A4]].
 
 The commissions are paid within {{delai_paiement|nombre}} business days of their receipt by Purpose Capital, against the Member's invoice. They are stated exclusive of tax. Each commission is the subject of a separate invoice and a separate payment; they are not set off against any other sums.
 

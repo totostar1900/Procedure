@@ -25,11 +25,11 @@ historique:
     objet: "Initial draft submitted to the Board of Directors"
     par: "Chief Executive Officer"
 notes_redaction:
-  - "Check whether the national collective agreement for banks and financial institutions of Cameroon, revised and signed on 18 November 2024, applies to a brokerage firm (société de bourse). If it does, its minimum wages and wage supplements are binding and Appendix “Remuneration components” must refer to them."
+  - "Check whether the national collective agreement for banks and financial institutions of Cameroon, revised and signed on 18 November 2024, applies to a brokerage firm (société de bourse). If it does, its minimum wages and wage supplements are binding and Appendix [[annexe:A1]] must refer to them."
   - "Set with the Board of Directors the caps on the variable component (proposed: 20% of annual fixed pay for Staff Members, 30% for heads of department, 15% for the RCCI) and the overall annual pool."
   - "Payroll calculation rules (30% deduction for professional expenses on taxable gross pay, uncapped workplace accident contribution, local development tax, CNPS contributions) fall within the HRIS and are not repeated here."
   - "The remuneration of the Chief Executive Officer falls under his or her corporate office and the letter of objectives approved by the Board of Directors; this policy sets only its principles."
-source: c86868252ec59c94
+source: 14e9795f3227ea40
 ---
 
 ## Title I — General provisions
@@ -82,7 +82,7 @@ For work of equal value, remuneration is equal, without distinction based on sex
 
 ### Article 7 — Fixed remuneration
 
-Fixed remuneration is determined by the role, qualifications, experience and the market, according to the grid in Appendix “Remuneration components”. It complies with statutory minimums and, where applicable, those of the collective agreement. It is reviewed every year; an increase is never automatic, except where the law or the collective agreement requires it.
+Fixed remuneration is determined by the role, qualifications, experience and the market, according to the grid in Appendix [[annexe:A1]]. It complies with statutory minimums and, where applicable, those of the collective agreement. It is reviewed every year; an increase is never automatic, except where the law or the collective agreement requires it.
 
 The rules for calculating payroll, social security contributions and tax deductions are kept in the Company's payroll management system.
 
@@ -90,8 +90,8 @@ The rules for calculating payroll, social security contributions and tax deducti
 
 A variable bonus may be paid each year. It is subject to the following rules:
 
-- it is **capped** as a percentage of annual fixed pay, according to the job category set out in Appendix “Remuneration components”;
-- it is based on **written objectives**, set at the beginning of the year on the form in Appendix “Objectives and assessment”, which combine:
+- it is **capped** as a percentage of annual fixed pay, according to the job category set out in Appendix [[annexe:A1]];
+- it is based on **written objectives**, set at the beginning of the year on the form in Appendix [[annexe:A2]], which combine:
   - **quantitative** criteria, for no more than 60% of the bonus: accounts opened and active clients, assets held, transactions completed, the Company's results;
   - **qualitative** criteria, for at least 40% of the bonus: quality of advice and of files, client satisfaction and complaints, compliance with procedures, results of controls, training completed, team spirit;
 - **no criterion relates to the sale of a particular product, issuer or asset management company**;
@@ -99,7 +99,7 @@ A variable bonus may be paid each year. It is subject to the following rules:
 
 ### Article 9 — Benefits
 
-Benefits are granted according to the role and the needs of the position, not according to sales performance. They are listed in the employment contract and in Appendix “Remuneration components”.
+Benefits are granted according to the role and the needs of the position, not according to sales performance. They are listed in the employment contract and in Appendix [[annexe:A1]].
 
 ### Article 10 — No guaranteed remuneration
 
@@ -155,7 +155,7 @@ The pool may be reduced or cancelled if the Company is loss-making, if its own f
 
 ### Article 17 — Individual assessment
 
-Each Staff Member has an annual appraisal interview using the form in Appendix “Objectives and assessment”. The line manager assesses the achievement of objectives. The RCCI gives an opinion on each Staff Member's compliance criteria before any bonus decision. Decisions are entered in the register in Appendix “Variable remuneration register”.
+Each Staff Member has an annual appraisal interview using the form in Appendix [[annexe:A2]]. The line manager assesses the achievement of objectives. The RCCI gives an opinion on each Staff Member's compliance criteria before any bonus decision. Decisions are entered in the register in Appendix [[annexe:A4]].
 
 ### Article 18 — Reduction or cancellation of the bonus
 
@@ -179,8 +179,8 @@ The variable bonus is paid in a single instalment, after the financial statement
 | --- | --- |
 | Board of Directors | Approves the policy and the annual pool; sets the remuneration of the Chief Executive Officer; is informed of the RCCI's remuneration |
 | General meeting | Votes directors' fees |
-| Chief Executive Officer | Proposes the policy and the pool; sets Staff Members' objectives and remuneration within the pool; keeps the register in Appendix “Variable remuneration register” |
-| RCCI | Checks each year, using Appendix “Framework review”, that the policy and objectives do not create incentives contrary to clients' interests; gives an opinion on compliance criteria; reports to the Board |
+| Chief Executive Officer | Proposes the policy and the pool; sets Staff Members' objectives and remuneration within the pool; keeps the register in Appendix [[annexe:A4]] |
+| RCCI | Checks each year, using Appendix [[annexe:A3]], that the policy and objectives do not create incentives contrary to clients' interests; gives an opinion on compliance criteria; reports to the Board |
 | Line managers | Set and assess objectives with each Staff Member |
 
 ### Article 21 — Transparency
