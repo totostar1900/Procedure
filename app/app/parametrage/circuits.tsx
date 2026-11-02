@@ -8,6 +8,14 @@ import { Cfm, FL, FONCTIONS, Membre, MoiC, msg, t } from "../../lib/admin-ui";
 export type DocC = { id: string; type: string; circuit: Etape[] };
 type Etape = { etape?: string; label: string; role: string; fonction?: string; regle?: string; obligatoire?: boolean; seance?: boolean; delai?: number };
 type Cfg = { type?: string; etapes?: Etape[]; delaiLecture?: number; seuil?: number; maj?: string; par?: string };
+// Vocabulaire des étapes (lexique du référentiel) : le nom de l'étape dit ce qu'elle engage
+export const ETAPES: [string, string, string][] = [
+  ["relecture", "Relecture", "contrôle de clarté par un pair, sans valeur d'accord"],
+  ["verification", "Vérification", "contrôle de conformité et de cohérence"],
+  ["avis", "Avis", "position consultative avant la décision d'un organe supérieur"],
+  ["approbation", "Approbation", "décision de la direction, qui rend le texte applicable"],
+  ["adoption", "Adoption par le Conseil d'Administration", "décision du Conseil en séance, avec date et procès-verbal"],
+];
 const REGLES: [string, string][] = [["un", "une personne"], ["tous", "toutes les personnes"], ["majorite", "la majorité"]];
 const typeKey = (s: string) => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const norm = (s: Etape): Required<Etape> => ({ etape: s.etape || "", label: s.label, role: s.role, fonction: s.fonction || FL[s.role] || s.role, regle: s.regle || "un", obligatoire: s.obligatoire !== false, seance: s.seance != null ? !!s.seance : s.etape === "adoption", delai: Number(s.delai) > 0 ? Number(s.delai) : 7 });
@@ -90,7 +98,10 @@ export function Circuits({ sb, docs, ms, moi, cfg, charger, note, demander }: {
                 {ed.steps.map((s, i) => (
                   <li key={i}>
                     <b className="n">{i + 1}</b>
-                    <label>Étape<input id={"ce-" + k + "-" + i + "-l"} value={s.label} maxLength={80} onChange={(e) => maj(i, { label: e.target.value })} /></label>
+                    <label>Étape<select id={"ce-" + k + "-" + i + "-l"} value={ETAPES.some((x) => x[1] === s.label) ? s.label : "__" + s.label} title={(ETAPES.find((x) => x[1] === s.label) || ["", "", ""])[2]} onChange={(e) => { const x = ETAPES.find((y) => y[1] === e.target.value); if (x) maj(i, { label: x[1], etape: x[0], seance: x[0] === "adoption", ...(x[0] === "adoption" ? { role: "pca" } : {}) }); }}>
+                      {ETAPES.map(([c, l, d]) => <option key={c} value={l} title={d}>{l}</option>)}
+                      {!ETAPES.some((x) => x[1] === s.label) ? <option value={"__" + s.label}>{s.label} {t("(ancien libellé)")}</option> : null}
+                    </select></label>
                     <label>Fonction<select id={"ce-" + k + "-" + i + "-f"} value={s.role} onChange={(e) => maj(i, { role: e.target.value })}>{FONCTIONS.map(([c, l]) => <option key={c} value={c}>{l}</option>)}</select></label>
                     <label>Qui doit viser<select id={"ce-" + k + "-" + i + "-r"} value={s.regle} onChange={(e) => maj(i, { regle: e.target.value })}>{REGLES.map(([c, l]) => <option key={c} value={c}>{l}</option>)}</select></label>
                     <label>Délai (jours)<input id={"ce-" + k + "-" + i + "-d"} type="number" min={1} max={180} value={s.delai} onChange={(e) => maj(i, { delai: Number(e.target.value) })} /></label>
@@ -107,7 +118,7 @@ export function Circuits({ sb, docs, ms, moi, cfg, charger, note, demander }: {
                 ))}
               </ol>
               <div className="tools">
-                <button type="button" className="btn sec" onClick={() => setEd({ ...ed, steps: [...ed.steps, norm({ label: "Nouvelle étape", role: "dg" })] })}>+ Ajouter une étape</button>
+                <button type="button" className="btn sec" onClick={() => setEd({ ...ed, steps: [...ed.steps, norm({ label: "Vérification", etape: "verification", role: "rcci" })] })}>+ Ajouter une étape</button>
                 <label className="lect">Prise de connaissance après adoption <input id={"ce-" + k + "-lect"} type="number" min={1} max={180} value={ed.lect} onChange={(e) => setEd({ ...ed, lect: Number(e.target.value) })} /> jours</label>
               </div>
               {pb.length ? <ul className="warn liste">{pb.map((m) => <li key={m}>{m}</li>)}</ul> : null}

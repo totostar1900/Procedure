@@ -14,6 +14,8 @@
     ["pca", "Président du Conseil d'Administration"], ["adm", "Administrateur (membre du Conseil)"], ["dg", "Directeur Général"], ["rcci", "RCCI"],
     ["dcom", "Directeur Commercial"], ["dmc", "Directeur des Marchés de Capitaux"], ["redac", "Rédacteur"], ["collab", "Collaborateur"]
   ];
+  // Vocabulaire des étapes d'un circuit (lexique du référentiel)
+  var ETAPES_TYPES = [["relecture", "Relecture"], ["verification", "Vérification"], ["avis", "Avis"], ["approbation", "Approbation"], ["adoption", "Adoption par le Conseil d'Administration"]];
   var REGLES = { un: "une personne", tous: "toutes les personnes", majorite: "la majorité" };
   var VARIANTS = function () { var out = []; docs.forEach(function (d) { out.push(d); if (d.projet) out.push(d.projet); }); return out; };
   var variantByKey = function (k) { return VARIANTS().filter(function (x) { return x.id + "@" + x.empreinte === k; })[0]; };
@@ -655,7 +657,7 @@
     return '<article class="ccard editing"><header><div><h3>' + esc(t) + '</h3><span class="cite-src">Modification du circuit</span></div></header>' +
       '<ol class="cedit">' + steps.map(function (s, i) {
         return '<li><span class="stepn">' + (i + 1) + '</span><div class="ce-fields">' +
-          '<label class="vf">Étape<input type="text" data-cedit="' + i + '|label" value="' + esc(s.label) + '" maxlength="80"></label>' +
+          '<label class="vf">Étape<select data-cedit="' + i + '|label">' + ETAPES_TYPES.map(function (x) { return '<option value="' + esc(x[1]) + '"' + (x[1] === s.label ? " selected" : "") + ">" + esc(x[1]) + "</option>"; }).join("") + (ETAPES_TYPES.some(function (x) { return x[1] === s.label; }) ? "" : '<option selected value="' + esc(s.label) + '">' + esc(s.label) + " (ancien libellé)</option>") + "</select></label>" +
           '<label class="vf">Fonction<select data-cedit="' + i + '|role">' + opt(FONCTIONS, s.role) + "</select></label>" +
           '<label class="vf">Qui doit viser<select data-cedit="' + i + '|regle">' + opt(regles, s.regle || "un") + "</select></label>" +
           '<label class="vf">Délai (jours)<input type="number" min="1" max="180" data-cedit="' + i + '|delai" value="' + esc(s.delai || 7) + '"></label>' +
@@ -678,7 +680,7 @@
     if (act === "up" && i > 0) { var a = s[i - 1]; s[i - 1] = s[i]; s[i] = a; }
     if (act === "down" && i < s.length - 1) { var b = s[i + 1]; s[i + 1] = s[i]; s[i] = b; }
     if (act === "del") s.splice(i, 1);
-    if (act === "add") s.push({ label: "Nouvelle étape", role: "dg", regle: "un", obligatoire: true, seance: false });
+    if (act === "add") s.push({ etape: "verification", label: "Vérification", role: "rcci", regle: "un", obligatoire: true, seance: false });
     if (act === "reset") {
       if (!(await confirmer({ titre: "Revenir au circuit déclaré dans les documents", html: "<p>Type : <b>" + esc(t) + "</b></p>", points: ["Chaque document de ce type reprend le circuit inscrit dans son en-tête.", "Les versions déjà visées gardent le circuit de leur premier visa."], phrase: "rétablir le circuit " + t, bouton: "Rétablir" }))) return;
       try { await V.db.doc("circuits/" + k).delete(); V.edit = null; toast("Le type « " + t + " » reprend le circuit déclaré dans chaque document."); } catch (e) { toast("Opération refusée : réservée à l'administrateur."); } return; }
@@ -775,7 +777,7 @@
   });
   document.addEventListener("change", function (ev) {
     var t = ev.target;
-    if (t.matches("[data-cedit]") && V.edit && V.edit.steps) { var c = t.getAttribute("data-cedit").split("|"); if (c[0] === "L") { V.edit.delaiLecture = t.value; return; } var s = V.edit.steps[+c[0]]; if (s) { s[c[1]] = t.type === "checkbox" ? t.checked : t.value; renderCircuit(); } return; }
+    if (t.matches("[data-cedit]") && V.edit && V.edit.steps) { var c = t.getAttribute("data-cedit").split("|"); if (c[0] === "L") { V.edit.delaiLecture = t.value; return; } var s = V.edit.steps[+c[0]]; if (s) { s[c[1]] = t.type === "checkbox" ? t.checked : t.value; if (c[1] === "label") { var x = ETAPES_TYPES.filter(function (y) { return y[1] === t.value; })[0]; if (x) { s.etape = x[0]; s.seance = x[0] === "adoption"; if (x[0] === "adoption") s.role = "pca"; } } renderCircuit(); } return; }
     if (t.matches("[data-vrole]")) { var p = t.getAttribute("data-vrole").split("|"); vSetRole(p[0], p[1], t.checked); }
     if (t.matches("[data-vlect]")) { var q = t.getAttribute("data-vlect").split("|"); vSetLect(q[0], q[1], t.checked); }
   });

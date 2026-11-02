@@ -73,9 +73,9 @@ export function Notifications({ sb, note }: { sb: SupabaseClient; note: (t: "ok"
         <label className="nt-boite">{t("Boîte partagée (expéditeur, copies et résumé)")}<input id="nt-boite" type="email" value={r.boite} onChange={(e) => setR({ ...r, boite: e.target.value.trim() })} /></label>
       </div>
 
-      <h3 className="nt-h">{t("Avis")}</h3>
+      <h3 className="nt-h">{t("Types d'avis")}</h3>
       <div className="tbl"><table className="nt-tab">
-        <thead><tr><th>{t("Avis")}</th><th>{t("Destinataires")}</th><th>{t("Moment")}</th><th style={{ textAlign: "center" }}>{t("Envoi")}</th></tr></thead>
+        <thead><tr><th>{t("Type d'avis")}</th><th>{t("Destinataires")}</th><th>{t("Moment")}</th><th style={{ textAlign: "center" }}>{t("Envoi")}</th></tr></thead>
         <tbody>{CATEGORIES.map(([c, l, d, m]) => <tr key={c} className={r.types[c] ? "" : "off"}><td><b>{l}</b></td><td>{d}</td><td>{m}</td><td style={{ textAlign: "center" }}><Inter id={"nt-t-" + c} on={r.types[c] !== false} set={(v) => unType(c, v)} label={l} /></td></tr>)}</tbody>
       </table></div>
 

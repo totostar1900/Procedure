@@ -128,7 +128,7 @@ Interrupteur général. Éteint, aucun avis ne part.	Master switch. When off, no
 Mode test	Test mode
 Tous les avis partent vers la boîte partagée, avec le destinataire prévu en tête. À utiliser avant la mise en service.	All notices go to the shared mailbox, with the intended recipient at the top. Use it before going live.
 Boîte partagée (expéditeur, copies et résumé)	Shared mailbox (sender, copies and summary)
-Avis	Notice
+Avis	Opinion
 Destinataires	Recipients
 Moment	Timing
 Envoi	Sending
@@ -314,3 +314,7 @@ Le journal complet (connexions, accès, droits, visas, modifications, consultati
 voir la page Activité (accordée par le super administrateur seul)	view the Activity page (granted by the super administrator only)
 90 derniers jours	Last 90 days
 Journée de 0 h à 24 h ; zone foncée : heures ouvrées, 7 h – 19 h (jours ouvrés)	Day from midnight to midnight; darker area: working hours, 7 a.m. – 7 p.m. (working days)
+Relecture	Peer review
+(ancien libellé)	(former label)
+Types d'avis	Types of notice
+Type d'avis	Notice type
