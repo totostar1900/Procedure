@@ -3,49 +3,53 @@ id: PC-COD-004
 titre: Charte d'organisation et de délégation des pouvoirs
 type: Code
 domaine: Gouvernance
-version: "0.9"
+version: '0.9'
 statut: Projet
 confidentialite: Interne
 proprietaire: Directeur Général
 redige_par: Responsable de la conformité et du contrôle interne (RCCI)
 verifie_par: Directeur Général
 approuve_par: Conseil d'Administration
-date_approbation:
-date_effet:
+date_approbation: null
+date_effet: null
 prochaine_revue: 12 mois après adoption
 diffusion: Tous les collaborateurs et administrateurs
 public: false
-resume: Qui fait quoi chez Purpose Capital S.A. — organes de gouvernance, organigramme, fiches de fonction, cumuls interdits, intérims, délégations de pouvoirs et de signature avec leurs seuils, réunion mensuelle de direction, compte rendu au Conseil et mise à jour de la charte.
+resume: 'Qui fait quoi chez Purpose Capital S.A. — organes de gouvernance, organigramme, fiches de fonction, cumuls interdits, intérims, délégations de pouvoirs et de signature avec leurs seuils, réunion mensuelle de direction, compte rendu au Conseil et mise à jour de la charte.'
 references:
   - ref: AUSCGIE
-    articles: "Société anonyme avec Conseil d'Administration : pouvoirs du Conseil, dissociation des fonctions de Président du Conseil et de Directeur Général, pouvoirs du Directeur Général et inopposabilité aux tiers des limitations internes, Directeur Général Adjoint, autorisation des cautions, avals et garanties, conventions réglementées (art. 438 et suivants)"
+    articles: 'Société anonyme avec Conseil d''Administration : pouvoirs du Conseil, dissociation des fonctions de Président du Conseil et de Directeur Général, pouvoirs du Directeur Général et inopposabilité aux tiers des limitations internes, Directeur Général Adjoint, autorisation des cautions, avals et garanties, conventions réglementées (art. 438 et suivants)'
   - ref: RG-COSUMAF-2023
-    articles: "Fonctions de conformité et de contrôle interne soumises à carte professionnelle (art. 13 et 14) ; habilitations et cartes professionnelles (art. 24 et 25) ; autorisation préalable des modifications du dossier d'agrément et des dirigeants (art. 76) ; responsable LBC/FT et cumul de fonctions justifié par la taille de la structure (art. 112)"
+    articles: Fonctions de conformité et de contrôle interne soumises à carte professionnelle (art. 13 et 14) ; habilitations et cartes professionnelles (art. 24 et 25) ; autorisation préalable des modifications du dossier d'agrément et des dirigeants (art. 76) ; responsable LBC/FT et cumul de fonctions justifié par la taille de la structure (art. 112)
   - ref: REG-01-22
-    articles: Organisation, dirigeants et obligations des intermédiaires du marché financier régional
+    articles: 'Organisation, dirigeants et obligations des intermédiaires du marché financier régional'
   - ref: REG-02-24
     articles: Désignation d'un responsable de la lutte contre le blanchiment au sein des assujettis ; organisation interne du dispositif
   - ref: CT-CM
     articles: Pouvoir de direction et pouvoir disciplinaire de l'employeur ; contrat de travail
   - ref: OICV-PRINCIPES
-    articles: "Bonne pratique internationale : organisation interne des intermédiaires, responsabilités claires de la direction"
+    articles: 'Bonne pratique internationale : organisation interne des intermédiaires, responsabilités claires de la direction'
   - ref: COSO-2013
-    articles: "Référentiel international : structures, lignes hiérarchiques, pouvoirs et responsabilités (principe 3) ; séparation des tâches"
+    articles: 'Référentiel international : structures, lignes hiérarchiques, pouvoirs et responsabilités (principe 3) ; séparation des tâches'
   - ref: BCBS-GOUV-2015
-    articles: "Bonne pratique internationale : structure organisationnelle claire, délégations écrites, indépendance des fonctions de contrôle"
+    articles: 'Bonne pratique internationale : structure organisationnelle claire, délégations écrites, indépendance des fonctions de contrôle'
 historique:
-  - version: "0.9"
-    date: 2026-10-20
+  - version: '0.9'
+    date: '2026-11-02'
+    objet: mineur
+    par: RCCI
+  - version: '0.9'
+    date: '2026-10-20'
     objet: Projet initial
     par: RCCI
 notes_redaction:
-  - "Seuils proposés, à confirmer par le Conseil d'Administration : paiement sur les comptes propres à une signature jusqu'à 2 000 000 FCFA, à deux signatures au-delà ; paiement de plus de 25 000 000 FCFA hors budget soumis à l'accord préalable du Président du Conseil ; engagement contractuel signé par le Directeur Général seul jusqu'à 10 000 000 FCFA, avec visa du second dirigeant effectif jusqu'à 50 000 000 FCFA, autorisation du Conseil au-delà ; dépense hors budget de plus de 5 000 000 FCFA portée à la connaissance du Conseil à sa séance suivante ; engagement de prise ferme ou de garantie dans la limite fixée par la Politique de gestion des risques."
-  - "Second dirigeant effectif : la charte prévoit un Directeur Général Adjoint ou, à défaut, un directeur désigné par le Conseil (de préférence le Directeur des Marchés de Capitaux). Confirmer le choix, vérifier que les statuts permettent la nomination d'un Directeur Général Adjoint et que la COSUMAF a approuvé ce second dirigeant (voir la note correspondante du PC-COD-002)."
-  - "Les opérations (back-office) sont aujourd'hui tenues par le Directeur Général (PC-COD-003, art. 11). La fiche du chargé des opérations s'applique dès son recrutement ; d'ici là, les mesures compensatoires de l'article 22 s'appliquent."
-  - "Liste exacte des fonctions soumises à carte professionnelle à vérifier sur le texte officiel du Règlement général de la COSUMAF (art. 13, 14, 24 et 25) et les instructions de la COSUMAF : la charte retient la carte comme certaine pour le RCCI, probable pour le Directeur des Marchés de Capitaux, le Directeur Commercial et le chargé de clientèle, à confirmer pour le chargé des opérations. Les numéros d'articles cités varient d'un document du référentiel à l'autre ; les harmoniser après vérification."
-  - "Vérifier avec le conseil juridique les numéros d'articles de l'Acte uniforme OHADA sur le Président du Conseil, le Directeur Général et le Directeur Général Adjoint, et que les statuts ne limitent pas autrement les pouvoirs du Directeur Général. Les limitations prévues par la charte n'ont d'effet qu'à l'intérieur de la Société : elles ne sont pas opposables aux tiers."
-  - "Le glossaire du référentiel indique que le RCCI est nommé par le Conseil d'Administration ; la Charte du contrôle interne (PC-COD-003, art. 9) prévoit une nomination par le Directeur Général après information du Conseil. La présente charte suit le PC-COD-003 : harmoniser le glossaire."
-  - "Délai d'information de la COSUMAF en cas d'absence prolongée d'un dirigeant (retenu : au-delà de trois mois) et formalités de désignation d'un suppléant du responsable LBC/FT auprès de l'ANIF à confirmer."
+  - 'Seuils proposés, à confirmer par le Conseil d''Administration : paiement sur les comptes propres à une signature jusqu''à 2 000 000 FCFA, à deux signatures au-delà ; paiement de plus de 25 000 000 FCFA hors budget soumis à l''accord préalable du Président du Conseil ; engagement contractuel signé par le Directeur Général seul jusqu''à 10 000 000 FCFA, avec visa du second dirigeant effectif jusqu''à 50 000 000 FCFA, autorisation du Conseil au-delà ; dépense hors budget de plus de 5 000 000 FCFA portée à la connaissance du Conseil à sa séance suivante ; engagement de prise ferme ou de garantie dans la limite fixée par la Politique de gestion des risques.'
+  - 'Second dirigeant effectif : la charte prévoit un Directeur Général Adjoint ou, à défaut, un directeur désigné par le Conseil (de préférence le Directeur des Marchés de Capitaux). Confirmer le choix, vérifier que les statuts permettent la nomination d''un Directeur Général Adjoint et que la COSUMAF a approuvé ce second dirigeant (voir la note correspondante du PC-COD-002).'
+  - 'Les opérations (back-office) sont aujourd''hui tenues par le Directeur Général (PC-COD-003, art. 11). La fiche du chargé des opérations s''applique dès son recrutement ; d''ici là, les mesures compensatoires de l''article 22 s''appliquent.'
+  - 'Liste exacte des fonctions soumises à carte professionnelle à vérifier sur le texte officiel du Règlement général de la COSUMAF (art. 13, 14, 24 et 25) et les instructions de la COSUMAF : la charte retient la carte comme certaine pour le RCCI, probable pour le Directeur des Marchés de Capitaux, le Directeur Commercial et le chargé de clientèle, à confirmer pour le chargé des opérations. Les numéros d''articles cités varient d''un document du référentiel à l''autre ; les harmoniser après vérification.'
+  - 'Vérifier avec le conseil juridique les numéros d''articles de l''Acte uniforme OHADA sur le Président du Conseil, le Directeur Général et le Directeur Général Adjoint, et que les statuts ne limitent pas autrement les pouvoirs du Directeur Général. Les limitations prévues par la charte n''ont d''effet qu''à l''intérieur de la Société : elles ne sont pas opposables aux tiers.'
+  - 'Le glossaire du référentiel indique que le RCCI est nommé par le Conseil d''Administration ; la Charte du contrôle interne (PC-COD-003, art. 9) prévoit une nomination par le Directeur Général après information du Conseil. La présente charte suit le PC-COD-003 : harmoniser le glossaire.'
+  - 'Délai d''information de la COSUMAF en cas d''absence prolongée d''un dirigeant (retenu : au-delà de trois mois) et formalités de désignation d''un suppléant du responsable LBC/FT auprès de l''ANIF à confirmer.'
 ---
 
 ## Titre I — Dispositions générales
@@ -166,7 +170,7 @@ Lorsqu'une fonction exige une carte professionnelle, son titulaire ne l'exerce p
 **Responsabilités principales** :
 
 - préparer l'ordre du jour, présider les séances, faire tenir les procès-verbaux ;
-- recevoir les alertes du RCCI et l'entendre une fois par an hors la présence de la Direction Générale ;
+- recevoir les alertes du RCCI et l'entendre une fois par an  hors la présence de la Direction Générale ;
 - approuver les notes de frais et dépenses personnelles du Directeur Général ;
 - donner l'accord préalable prévu à l'annexe [[annexe:A2]] et suivre les dépassements de pouvoirs ;
 - administrer le référentiel documentaire en ligne (PC-PRO-GOV-001, article 11).
@@ -213,7 +217,7 @@ Lorsqu'une fonction exige une carte professionnelle, son titulaire ne l'exerce p
 
 **Intérim** : le Directeur Général pour les décisions ; le Directeur Commercial pour le suivi courant d'un placement, hors informations privilégiées.
 
-**Carte professionnelle** : requise pour les activités de marché selon le Règlement général (liste à confirmer).
+**Carte professionnelle** : requise pour les activités de marché selon le Règlement général.
 
 ### Article 17 — Directeur Commercial
 
@@ -230,7 +234,7 @@ Lorsqu'une fonction exige une carte professionnelle, son titulaire ne l'exerce p
 
 **Intérim** : le chargé de clientèle pour le suivi courant ; le Directeur Général pour les décisions.
 
-**Carte professionnelle** : requise pour le démarchage et le conseil aux clients (à confirmer).
+**Carte professionnelle** : requise pour le démarchage et le conseil aux clients.
 
 ### Article 18 — Responsable de la conformité et du contrôle interne (RCCI)
 
@@ -268,7 +272,7 @@ Lorsqu'une fonction exige une carte professionnelle, son titulaire ne l'exerce p
 
 **Intérim** : le Directeur Général, avec contrôle a posteriori renforcé du RCCI (article 22).
 
-**Carte professionnelle** : à confirmer selon les fonctions exercées (tenue de compte, négociation).
+**Carte professionnelle** : requise.
 
 ### Article 20 — Comptable
 
@@ -304,7 +308,7 @@ Lorsqu'une fonction exige une carte professionnelle, son titulaire ne l'exerce p
 
 **Intérim** : le Directeur Commercial.
 
-**Carte professionnelle** : requise pour le démarchage et le conseil aux clients (à confirmer).
+**Carte professionnelle** : requise puisse qu'il a qualité de conseil en investissement financier.
 
 ## Titre V — Cumuls, incompatibilités et intérim
 

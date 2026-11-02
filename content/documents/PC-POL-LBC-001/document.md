@@ -3,50 +3,54 @@ id: PC-POL-LBC-001
 titre: Politique de lutte contre le blanchiment de capitaux et le financement du terrorisme
 type: Politique
 domaine: LBC/FT
-version: "0.9"
+version: '0.9'
 statut: Projet
 confidentialite: Interne
 proprietaire: Responsable de la conformité et du contrôle interne (RCCI)
 redige_par: Responsable de la conformité et du contrôle interne (RCCI)
 verifie_par: Directeur Général
 approuve_par: Conseil d'Administration
-date_approbation:
-date_effet:
+date_approbation: null
+date_effet: null
 prochaine_revue: 12 mois après adoption
-diffusion: Tous les collaborateurs, administrateurs et prestataires ayant accès aux données des clients
+diffusion: 'Tous les collaborateurs, administrateurs et prestataires ayant accès aux données des clients'
 public: false
-resume: Comment Purpose Capital S.A. empêche que ses services servent à blanchir de l'argent, financer le terrorisme ou la prolifération des armes — approche par les risques, connaissance des clients, surveillance des opérations, gel des avoirs, déclaration de soupçon à l'ANIF et organisation interne.
+resume: 'Comment Purpose Capital S.A. empêche que ses services servent à blanchir de l''argent, financer le terrorisme ou la prolifération des armes — approche par les risques, connaissance des clients, surveillance des opérations, gel des avoirs, déclaration de soupçon à l''ANIF et organisation interne.'
 references:
   - ref: REG-02-24
-    articles: Obligations de vigilance, approche par les risques, bénéficiaires effectifs, déclaration de soupçon, conservation, interdiction des paiements en espèces au-delà de 5 000 000 FCFA
+    articles: 'Obligations de vigilance, approche par les risques, bénéficiaires effectifs, déclaration de soupçon, conservation, interdiction des paiements en espèces au-delà de 5 000 000 FCFA'
   - ref: REG-04-24
     articles: Mise en œuvre des sanctions financières ciblées et gel des avoirs
   - ref: RG-COSUMAF-2023
-    articles: Identification des clients avant l'entrée en relation (art. 94), identification comme obligation déontologique (art. 99), origine et destination des fonds (art. 104), conservation dix ans (art. 105), responsable LBC/FT et registre des personnes à haut risque (art. 112)
+    articles: 'Identification des clients avant l''entrée en relation (art. 94), identification comme obligation déontologique (art. 99), origine et destination des fonds (art. 104), conservation dix ans (art. 105), responsable LBC/FT et registre des personnes à haut risque (art. 112)'
   - ref: COSUMAF-LD-LBC-2025
-    articles: Approche par les risques, identification, bénéficiaire effectif, personnes politiquement exposées, signaux d'alerte, dispositif écrit
+    articles: 'Approche par les risques, identification, bénéficiaire effectif, personnes politiquement exposées, signaux d''alerte, dispositif écrit'
   - ref: COBAC-LD-LBC-2025
-    articles: "Bonnes pratiques régionales : bénéficiaires effectifs, personnes politiquement exposées, déclarations de soupçon"
+    articles: 'Bonnes pratiques régionales : bénéficiaires effectifs, personnes politiquement exposées, déclarations de soupçon'
   - ref: GAFI-JUR
     articles: Juridictions sous surveillance renforcée et à haut risque
   - ref: GAFI-VM
     articles: Approche par les risques dans le secteur des valeurs mobilières
   - ref: AMF-LCB-RISQUES
-    articles: "Bonne pratique étrangère : classification des risques et mesures de vigilance des intermédiaires de marché"
+    articles: 'Bonne pratique étrangère : classification des risques et mesures de vigilance des intermédiaires de marché'
   - ref: AMF-LCB-PPE
-    articles: "Bonne pratique étrangère : notion de personne politiquement exposée"
+    articles: 'Bonne pratique étrangère : notion de personne politiquement exposée'
 historique:
-  - version: "0.9"
-    date: 2026-10-20
-    objet: "Mise en forme : dates d'adoption et signatures reportées dans la fiche de maîtrise documentaire"
+  - version: '0.9'
+    date: '2026-11-02'
+    objet: Mineur
     par: RCCI
-  - version: "0.9"
-    date: 2026-10-19
+  - version: '0.9'
+    date: '2026-10-20'
+    objet: 'Mise en forme : dates d''adoption et signatures reportées dans la fiche de maîtrise documentaire'
+    par: RCCI
+  - version: '0.9'
+    date: '2026-10-19'
     objet: Projet initial soumis au Conseil d'Administration
     par: RCCI
 notes_redaction:
-  - Le texte intégral du Règlement CEMAC n° 02/24 n'a pas été trouvé en ligne. Les obligations reprises ici s'appuient sur les présentations publiées et sur les lignes directrices de la COSUMAF de septembre 2025. Vérifier sur le texte officiel, en particulier le seuil de détention qui définit le bénéficiaire effectif (25 % retenu, pratique internationale) et la forme et les délais de la déclaration de soupçon.
-  - Désigner nommément le responsable LBC/FT et son suppléant, et notifier leur désignation à l'ANIF et à la COSUMAF ; la politique ne cite que des fonctions.
+  - 'Le texte intégral du Règlement CEMAC n° 02/24 n''a pas été trouvé en ligne. Les obligations reprises ici s''appuient sur les présentations publiées et sur les lignes directrices de la COSUMAF de septembre 2025. Vérifier sur le texte officiel, en particulier le seuil de détention qui définit le bénéficiaire effectif (25 % retenu, pratique internationale) et la forme et les délais de la déclaration de soupçon.'
+  - 'Désigner nommément le responsable LBC/FT et son suppléant, et notifier leur désignation à l''ANIF et à la COSUMAF ; la politique ne cite que des fonctions.'
   - Choisir un outil de filtrage des listes de sanctions et de personnes politiquement exposées (abonnement à une base de données ou outil interne alimenté par les listes officielles).
   - Le Cameroun figure sur la liste des juridictions sous surveillance renforcée du GAFI depuis 2023 et y restait en juin 2026. Mettre à jour l'article 9 après chaque plénière du GAFI.
 ---
@@ -61,7 +65,7 @@ Elle précise le Titre VII du Code de bonne conduite (PC-COD-001), qui en pose l
 
 ### Article 2 — Pourquoi cette politique compte pour la Société
 
-Une société de bourse est exposée parce qu'elle reçoit des fonds, les convertit en titres et peut les restituer sur un autre compte ou à une autre date. Une opération boursière peut donc servir à donner une apparence légale à de l'argent d'origine criminelle, ou à faire circuler des fonds au profit de personnes visées par des sanctions.
+Une société de bourse est exposée parce qu'elle reçoit des fonds, les convertit en titres et peut les restituer sur un autre compte  à une autre date. Une opération boursière peut donc servir à donner une apparence légale à de l'argent d'origine criminelle, ou à faire circuler des fonds au profit de personnes visées par des sanctions.
 
 Les conséquences pour la Société seraient graves : sanctions pénales et disciplinaires, retrait d'agrément, perte de la confiance des clients, et rupture des relations avec ses banques et ses correspondants étrangers. Ce dernier risque est accru tant que le Cameroun figure sur la liste des juridictions sous surveillance renforcée du GAFI : les partenaires étrangers attendent des intermédiaires camerounais un dispositif exemplaire.
 
@@ -97,14 +101,14 @@ Elle s'inspire en outre des bonnes pratiques internationales, adaptées au conte
 | Responsable LBC/FT (fonction exercée par le RCCI) | Tient le dispositif à jour ; évalue les risques ; valide les relations à risque élevé ; analyse les alertes ; décide des déclarations de soupçon et les adresse à l'ANIF ; tient les registres ; forme les collaborateurs ; rend compte |
 | Suppléant du responsable LBC/FT | Remplace le responsable en son absence, notamment pour les déclarations urgentes et le gel des avoirs |
 | Chargés de clientèle et fonction commerciale | Recueillent et vérifient les informations des clients ; évaluent leur profil ; signalent sans délai toute situation inhabituelle |
-| Fonction opérations | Vérifie l'origine des fonds reçus et la destination des fonds versés ; bloque toute opération non conforme ; applique les gels |
+| chargé du back-office (fonction exercée par le Comptable) | Vérifie l'origine des fonds reçus et la destination des fonds versés ; bloque toute opération non conforme ; applique les gels |
 | Tous les collaborateurs | Appliquent la politique ; signalent toute opération suspecte ; ne préviennent jamais un client d'un soupçon |
 
 La réglementation admet que la fonction de responsable LBC/FT soit confiée à la fonction de conformité et de contrôle interne lorsque la taille de la structure le justifie. La désignation du responsable et de son suppléant est notifiée à l'ANIF et à la COSUMAF.
 
 ### Article 6 — Indépendance et accès à l'information
 
-Le responsable LBC/FT a accès sans restriction à toutes les informations et à tous les dossiers. Il peut s'opposer à une entrée en relation ou à une opération. Aucun objectif commercial ne peut justifier qu'il soit passé outre. Sa décision de déclarer un soupçon ne peut être ni empêchée ni retardée par la direction.
+Le responsable LBC/FT ou le  RCCI, a accès sans restriction à toutes les informations et à tous les dossiers. Il peut s'opposer à une entrée en relation ou à une opération. Aucun objectif commercial ne peut justifier qu'il soit passé outre. Sa décision de déclarer un soupçon ne peut être ni empêchée ni retardée par la direction.
 
 ## Titre III — Approche par les risques
 
@@ -131,11 +135,11 @@ Un client est classé en risque **élevé**, quel que soit son score, lorsqu'il 
 
 Le Cameroun figure depuis 2023 sur la liste des juridictions sous surveillance renforcée du GAFI. En juin 2026, il y était maintenu, le GAFI relevant notamment des insuffisances dans le contrôle fondé sur les risques des institutions financières non bancaires et dans l'application effective des sanctions financières ciblées.
 
-La Société en tire deux conséquences : elle applique avec rigueur les mesures de la présente politique, et elle documente chaque décision de façon à pouvoir la justifier à tout moment auprès de la COSUMAF, de ses banques et de ses partenaires étrangers.
+PURPOSE CAPITAL en tire deux conséquences : elle applique avec rigueur les mesures de la présente politique, et elle documente chaque décision de façon à pouvoir la justifier à tout moment auprès de la COSUMAF, de ses banques et de ses partenaires étrangers.
 
 ### Article 10 — Relations interdites
 
-La Société n'entre pas en relation, ou met fin à la relation, lorsque :
+PURPOSE CAPITAL n'entre pas en relation, ou met fin à la relation, lorsque :
 
 - le client refuse de s'identifier, de fournir les informations requises ou de justifier l'origine de ses fonds ;
 - l'identité du client ou de son bénéficiaire effectif ne peut pas être établie ;
@@ -147,7 +151,7 @@ La Société n'entre pas en relation, ou met fin à la relation, lorsque :
 
 ### Article 11 — Entrée en relation
 
-Avant la signature de la convention de compte et avant toute opération, la Société :
+Avant la signature de la convention de compte et avant toute opération, le chargé de clientèle ou le commercial :
 
 1. **identifie** le client et, le cas échéant, son représentant et ses bénéficiaires effectifs ;
 2. **vérifie** leur identité sur la base des documents originaux de l'annexe [[annexe:A2]], ou de copies certifiées, et de sources fiables et indépendantes ;
@@ -156,7 +160,7 @@ Avant la signature de la convention de compte et avant toute opération, la Soci
 5. **classe** le client selon la matrice de l'annexe [[annexe:A1]] ;
 6. **décide** de l'entrée en relation selon le niveau de risque (article 12).
 
-Les copies des documents sont conservées au dossier, avec la mention de la date et du collaborateur qui a vu les originaux.
+Les copies des documents sont conservées au dossier, avec la mention de la date et le nom du collaborateur qui a vu les originaux.
 
 ### Article 12 — Décision d'entrée en relation
 
@@ -173,13 +177,17 @@ Les mesures peuvent être allégées, sans jamais être supprimées, lorsque le 
 
 ### Article 14 — Vigilance renforcée
 
-Pour un client à risque élevé, la Société, en plus des mesures de l'article 11 :
+Pour un client à risque élevé, en plus des mesures de l'article 11 :
 
-- obtient des justificatifs de l'origine des fonds et, si nécessaire, de l'origine du patrimoine (relevés bancaires, acte de cession, héritage, revenus déclarés) ;
-- recueille des informations complémentaires sur l'activité et la réputation du client, y compris par des recherches en sources ouvertes ;
-- met à jour le dossier au moins chaque année ;
-- applique une surveillance renforcée de ses opérations, avec des seuils d'alerte plus bas ;
-- inscrit le client au registre des personnes à haut risque tenu par le responsable LBC/FT.
+Le chargé de clientèle ou le commercial :
+
+        - obtient des justificatifs de l'origine des fonds et, si nécessaire, de l'origine du patrimoine (relevés bancaires, acte de cession, héritage, revenus déclarés) ;
+        - recueille des informations complémentaires sur l'activité et la réputation du client, y compris par des recherches en sources ouvertes ;
+        - met à jour le dossier au moins chaque année.
+
+Le back-office applique une surveillance renforcée de ses opérations, avec des seuils d'alerte plus bas.
+
+Le responsable LBC/FT inscrit le client au registre des personnes à haut risque.
 
 ### Article 15 — Personnes politiquement exposées
 
@@ -190,7 +198,7 @@ Pour toute relation avec une PPE, un membre de sa famille ou une personne qui lu
 - vérifie la cohérence des opérations avec les revenus et le patrimoine déclarés ;
 - maintient ces mesures pendant au moins douze mois après la fin des fonctions, puis aussi longtemps que le risque le justifie.
 
-La qualité de PPE n'est pas en soi un soupçon. Elle appelle une vigilance proportionnée, non un refus systématique.
+La qualité de PPE n'est pas en soi un soupçon. Elle appelle à une vigilance proportionnée, non un refus systématique.
 
 ### Article 16 — Paiements et règlement des fonds
 
@@ -216,9 +224,9 @@ Lorsque le client ne fournit pas les éléments demandés dans un délai de troi
 
 ### Article 19 — Surveillance continue
 
-La Société vérifie en permanence que les opérations de ses clients correspondent à ce qu'elle sait d'eux : profession, revenus, patrimoine, objectifs déclarés et niveau de risque. Toute opération inhabituelle par son montant, sa complexité, sa fréquence ou son absence de justification économique fait l'objet d'un examen renforcé, dont le résultat est consigné.
+Le chargé de back-office vérifie en permanence que les opérations de ses clients correspondent à ce qu'elle sait d'eux : profession, revenus, patrimoine, objectifs déclarés et niveau de risque. Toute opération inhabituelle par son montant, sa complexité, sa fréquence ou son absence de justification économique fait l'objet d'un examen renforcé, dont le résultat est consigné.
 
-Les indicateurs d'alerte propres aux opérations sur titres figurent à l'annexe [[annexe:A3]]. Ils sont appliqués par les chargés de clientèle et la fonction opérations au quotidien, et par le responsable LBC/FT lors de revues mensuelles.
+Les indicateurs d'alerte propres aux opérations sur titres figurent à l'annexe [[annexe:A3]]. Ils sont appliqués par le chargé de back-office au quotidien, et par le responsable LBC/FT lors de revues mensuelles.
 
 ### Article 20 — Examen renforcé
 
@@ -228,13 +236,13 @@ L'examen renforcé consiste à interroger le client sur l'origine et la destinat
 
 ### Article 21 — Filtrage
 
-La Société filtre ses clients, leurs représentants, leurs bénéficiaires effectifs et les contreparties des opérations contre :
+PURPOSE CAPITAL filtre ses clients, leurs représentants, leurs bénéficiaires effectifs et les contreparties des opérations contre :
 
 - les listes du Conseil de sécurité des Nations unies relatives au terrorisme et à la prolifération ;
 - les listes de gel adoptées dans la CEMAC et par les États membres, en application du Règlement n° 04/24 ;
 - à titre d'information sur le risque, les listes de sanctions de l'Union européenne et des États-Unis, qui conditionnent les relations avec les banques correspondantes.
 
-Le filtrage est réalisé à l'entrée en relation, à chaque mise à jour des listes, et avant tout versement de fonds ou transfert de titres vers un tiers.
+Le filtrage est réalisé à l'entrée en relation par le chargé de clientèle, à chaque mise à jour des listes, et avant tout versement de fonds ou transfert de titres vers un tiers; et par le Responsable LBC/FT à chaque vérification.
 
 ### Article 22 — Gel sans délai
 
@@ -293,4 +301,3 @@ Tout manquement à la présente politique constitue une faute grave exposant son
 La politique est revue au moins une fois par an, après chaque plénière du GAFI concernant la CEMAC, et à chaque évolution significative de la réglementation ou des activités. Toute modification est approuvée par le Conseil d'Administration.
 
 La présente politique entre en vigueur à la date de son adoption par le Conseil d'Administration, indiquée dans la fiche de maîtrise documentaire.
-
