@@ -10,6 +10,7 @@ type Etape = { etape?: string; label: string; role: string; fonction?: string; r
 type Cfg = { type?: string; etapes?: Etape[]; delaiLecture?: number; seuil?: number; maj?: string; par?: string };
 // Vocabulaire des étapes (lexique du référentiel) : le nom de l'étape dit ce qu'elle engage
 export const ETAPES: [string, string, string][] = [
+  ["redaction", "Rédaction", "le rédacteur confirme que le texte est prêt (automatique pour un texte soumis en ligne)"],
   ["relecture", "Relecture", "contrôle de clarté par un pair, sans valeur d'accord"],
   ["verification", "Vérification", "contrôle de conformité et de cohérence"],
   ["avis", "Avis", "position consultative avant la décision d'un organe supérieur"],
@@ -18,7 +19,7 @@ export const ETAPES: [string, string, string][] = [
 ];
 // Rattache une étape existante au terme de la liste (par sa clé, sinon par son libellé ; à défaut, Vérification)
 const terme = (x: { etape?: string; label: string }) => ETAPES.find((e) => e[1] === x.label) || ETAPES.find((e) => x.etape && x.etape.startsWith(e[0]))
-  || ETAPES.find((e) => new RegExp(e[0] === "verification" ? "v[ée]rif" : e[0].slice(0, 5), "i").test(x.label)) || ETAPES[1];
+  || ETAPES.find((e) => new RegExp(e[0] === "verification" ? "v[ée]rif" : e[0] === "redaction" ? "r[ée]dac" : e[0].slice(0, 5), "i").test(x.label)) || ETAPES[2];
 const aligner = <T extends { etape?: string; label: string }>(x: T): T => { const e = terme(x); return { ...x, label: e[1], etape: x.etape && x.etape.startsWith(e[0]) ? x.etape : e[0] }; };
 const REGLES: [string, string][] = [["un", "une personne"], ["tous", "toutes les personnes"], ["majorite", "la majorité"]];
 const typeKey = (s: string) => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -102,7 +103,7 @@ export function Circuits({ sb, docs, ms, moi, cfg, charger, note, demander }: {
                 {ed.steps.map((s, i) => (
                   <li key={i}>
                     <b className="n">{i + 1}</b>
-                    <label>Étape<select id={"ce-" + k + "-" + i + "-l"} value={terme(s)[1]} title={(ETAPES.find((x) => x[1] === s.label) || ["", "", ""])[2]} onChange={(e) => { const x = ETAPES.find((y) => y[1] === e.target.value); if (x) maj(i, { label: x[1], etape: x[0], seance: x[0] === "adoption", ...(x[0] === "adoption" ? { role: "pca" } : {}) }); }}>
+                    <label>Étape<select id={"ce-" + k + "-" + i + "-l"} value={terme(s)[1]} title={(ETAPES.find((x) => x[1] === s.label) || ["", "", ""])[2]} onChange={(e) => { const x = ETAPES.find((y) => y[1] === e.target.value); if (x) maj(i, { label: x[1], etape: x[0], seance: x[0] === "adoption", ...(x[0] === "adoption" ? { role: "pca" } : x[0] === "redaction" ? { role: "redac" } : {}) }); }}>
                       {ETAPES.map(([c, l, d]) => <option key={c} value={l} title={d}>{l}</option>)}
                     </select></label>
                     <label>Fonction<select id={"ce-" + k + "-" + i + "-f"} value={s.role} onChange={(e) => maj(i, { role: e.target.value })}>{FONCTIONS.map(([c, l]) => <option key={c} value={c}>{l}</option>)}</select></label>

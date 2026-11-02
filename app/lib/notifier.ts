@@ -163,7 +163,9 @@ export async function executer(opts: { force?: boolean } = {}) {
     const steps = circOf(d).map((st) => {
       const all = sigsOf(d.id, st.etape).filter((s) => hasRole(s.by, st.role)), cur = all.filter((s) => s.empreinte === d.empreinte);
       const by = cur.map((s) => s.by).filter((x, i, a) => a.indexOf(x) === i), h = holders(st.role);
-      const need = st.regle === "tous" ? Math.max(1, h.length) : st.regle === "majorite" ? Math.floor(h.length / 2) + 1 : 1;
+      let need = st.regle === "tous" ? Math.max(1, h.length) : st.regle === "majorite" ? Math.floor(h.length / 2) + 1 : 1;
+      // Étape « Rédaction » : les rédacteurs d'un texte soumis en ligne valent visa
+      if (/^redaction/.test(st.etape || "")) { auteursDe(d).forEach((x) => { if (!by.includes(x)) by.push(x); }); need = 1; }
       return { st, sigs: cur, by, holders: h, done: by.length >= need };
     });
     const renvois = sigsOf(d.id, "renvoi").filter((s) => s.empreinte === d.empreinte);
@@ -197,7 +199,7 @@ export async function executer(opts: { force?: boolean } = {}) {
     const e = etat(d);
     if (e.current) {
       const x = e.current;
-      const qui = x.holders.filter((h) => !x.by.includes(h) && !auteursDe(d).includes(h) && !signedOther(d, x.st.etape, h));
+      const qui = x.holders.filter((h) => !x.by.includes(h) && (/^redaction/.test(x.st.etape || "") || !auteursDe(d).includes(h)) && !signedOther(d, x.st.etape, h));
       for (const h of qui) {
         const m = mb(h); if (!m) continue;
         pousser("visa", d.id + "|" + d.empreinte + "|" + x.st.etape, m, e.debut, (l) => ({ ref: refDe(d, l), titre: titreDe(d, l), detail: (l === "en" ? "Step: " : "Étape : ") + tr(x.st.label, l) + " · " + (l === "en" ? "deadline " + x.st.delai + " days" : "délai " + x.st.delai + " jours"), lien: lien(d) }));

@@ -15,10 +15,10 @@
     ["dcom", "Directeur Commercial"], ["dmc", "Directeur des Marchés de Capitaux"], ["redac", "Rédacteur"], ["collab", "Collaborateur"]
   ];
   // Vocabulaire des étapes d'un circuit (lexique du référentiel)
-  var ETAPES_TYPES = [["relecture", "Relecture"], ["verification", "Vérification"], ["avis", "Avis"], ["approbation", "Approbation"], ["adoption", "Adoption par le Conseil d'Administration"]];
+  var ETAPES_TYPES = [["redaction", "Rédaction"], ["relecture", "Relecture"], ["verification", "Vérification"], ["avis", "Avis"], ["approbation", "Approbation"], ["adoption", "Adoption par le Conseil d'Administration"]];
   var termeEtape = function (x) {
     return ETAPES_TYPES.filter(function (e) { return e[1] === x.label; })[0] || ETAPES_TYPES.filter(function (e) { return x.etape && x.etape.indexOf(e[0]) === 0; })[0]
-      || ETAPES_TYPES.filter(function (e) { return new RegExp(e[0] === "verification" ? "v[ée]rif" : e[0].slice(0, 5), "i").test(x.label); })[0] || ETAPES_TYPES[1];
+      || ETAPES_TYPES.filter(function (e) { return new RegExp(e[0] === "verification" ? "v[ée]rif" : e[0] === "redaction" ? "r[ée]dac" : e[0].slice(0, 5), "i").test(x.label); })[0] || ETAPES_TYPES[2];
   };
   var alignerEtape = function (x) { var e = termeEtape(x); return Object.assign({}, x, { label: e[1], etape: x.etape && x.etape.indexOf(e[0]) === 0 ? x.etape : e[0] }); };
   var REGLES = { un: "une personne", tous: "toutes les personnes", majorite: "la majorité" };
@@ -120,12 +120,15 @@
     Object.keys(V.sigs).forEach(function (id) { (V.sigs[id] || []).forEach(function (s) { if (s.doc === docId && (!etape || s.etape === etape)) out.push(s); }); });
     return out.sort(function (a, b) { return (a.at || "") < (b.at || "") ? 1 : -1; });
   }
+  var estRedaction = function (st) { return /^redaction/.test((st && st.etape) || ""); };
   function stepState(d, step) {
     var all = sigsOf(d.id, step.etape).filter(function (s) { return hasRole(s.by, step.role); });
     var cur = all.filter(function (s) { return s.empreinte === d.empreinte; });
     var by = cur.map(function (s) { return s.by; }).filter(function (x, i, a) { return a.indexOf(x) === i; });
     var h = holders(step.role);
     var need = step.regle === "tous" ? Math.max(1, h.length) : step.regle === "majorite" ? Math.floor(h.length / 2) + 1 : 1;
+    // Étape « Rédaction » : un texte soumis en ligne l'est par ses rédacteurs, qui valent visa de cette étape
+    if (estRedaction(step)) { var au = V.auteurs && V.auteurs[d.id + "~" + d.empreinte]; ((au && au.auteurs) || []).forEach(function (x) { if (by.indexOf(x) < 0) by.push(x); }); need = 1; }
     return { st: step, sigs: cur, by: by, need: need, holders: h, done: by.length >= need, cur: cur[0] || null, old: cur.length ? null : all[0] || null };
   }
   function readersOf(d) {
@@ -157,10 +160,10 @@
     var st = docState(d), acts = [];
     if (st.renvois.length) return [];
     var lecture = !d.estProjet && st.approved && st.readers.indexOf(who) >= 0 && st.read.indexOf(who) < 0;
-    if (!authorOf(d, who)) for (var i = 0; i < st.steps.length; i++) {
+    for (var i = 0; i < st.steps.length; i++) {
       var x = st.steps[i];
       if (x.done) continue;
-      if (hasRole(who, x.st.role) && x.by.indexOf(who) < 0 && !signedOther(d, x.st.etape, who)) acts.push({ etape: x.st.etape, label: x.st.label, role: x.st.role, seance: x.st.seance });
+      if ((estRedaction(x.st) || !authorOf(d, who)) && hasRole(who, x.st.role) && x.by.indexOf(who) < 0 && !signedOther(d, x.st.etape, who)) acts.push({ etape: x.st.etape, label: x.st.label, role: x.st.role, seance: x.st.seance });
       if (x.st.obligatoire) break; // une étape obligatoire à la fois, dans l'ordre
     }
     if (lecture) acts.push({ etape: "lecture", label: "Prise de connaissance", role: "lecture" });
@@ -172,7 +175,7 @@
     if (!V.me) return "";
     var x = docState(d).current;
     if (!x || !hasRole(V.me, x.st.role)) return "";
-    if (isAuthor(d)) return "Vous avez rédigé cette version : une autre personne ayant la fonction « " + (FLABEL[x.st.role] || x.st.role) + " » doit la viser (règle des quatre yeux).";
+    if (isAuthor(d) && !estRedaction(x.st)) return "Vous avez rédigé cette version : une autre personne ayant la fonction « " + (FLABEL[x.st.role] || x.st.role) + " » doit la viser (règle des quatre yeux).";
     var reste = x.need - x.by.length;
     if (x.by.indexOf(V.me) >= 0) return "Vous avez déjà visé cette étape ; elle attend encore " + reste + " visa" + (reste > 1 ? "s" : "") + ".";
     if (signedOther(d, x.st.etape)) return "Vous avez déjà visé une autre étape de cette version : une autre personne ayant la fonction « " + (FLABEL[x.st.role] || x.st.role) + " » doit viser (règle des quatre yeux).";
@@ -251,14 +254,14 @@
           '<div class="rb-btns"><button type="button" class="btn primary" data-vact="' + esc(docKey(d)) + "|renvoi|ok|" + esc(a.etape) + '">Continuer…</button><button type="button" class="btn" data-vact="cancel">Annuler</button></div></div>';
       }
       var role = a.etape === "lecture" ? "" : " en qualité de " + (FLABEL[a.role] || a.role);
-      var phrase = a.etape === "lecture" ? "je déclare avoir lu et compris" : a.seance ? "j'atteste que le Conseil d'Administration a adopté" : a.etape === "verification" ? "je vise, après vérification," : "j'approuve, à l'étape « " + a.label + " »,";
+      var phrase = a.etape === "lecture" ? "je déclare avoir lu et compris" : a.seance ? "j'atteste que le Conseil d'Administration a adopté" : estRedaction(a) ? "je confirme que la rédaction est terminée et que le texte peut passer aux étapes suivantes pour" : a.etape === "verification" ? "je vise, après vérification," : "j'approuve, à l'étape « " + a.label + " »,";
       return '<div class="revbar open"><div class="rb-main"><b>' + esc(vName(V.me).replace(" (vous)", "")) + "</b>" + esc(role) + " : " + phrase + " le document " + esc(d.id) + ", version " + esc(d.version) + ' (empreinte <code>' + esc(d.empreinte) + "</code>).</div>" +
         (a.seance ? '<div class="rb-row"><label class="vf">Date de la séance<input type="date" id="v-seance" required></label><label class="vf">Référence du procès-verbal<input type="text" id="v-pv" placeholder="PV n°…"></label></div>' : "") +
         '<label class="vf">Commentaire (facultatif)<input type="text" id="v-com" maxlength="300"></label>' +
         '<div class="rb-btns"><button type="button" class="btn primary" data-vact="' + esc(docKey(d)) + "|" + a.etape + '|ok">Continuer…</button><button type="button" class="btn" data-vact="cancel">Annuler</button></div></div>';
     }
     var main = acts[0];
-    var btnLabel = main.etape === "lecture" ? "J'ai lu et compris" : main.seance ? "Enregistrer l'adoption" : main.etape === "verification" ? "Viser" : "Approuver";
+    var btnLabel = main.etape === "lecture" ? "J'ai lu et compris" : main.seance ? "Enregistrer l'adoption" : estRedaction(main) ? "Texte prêt" : main.etape === "verification" ? "Viser" : "Approuver";
     var nextDoc = todo.length > 1 ? todo[(pos + 1) % todo.length].d : null;
     return '<div class="revbar"><div class="rb-main"><span class="rb-tag">À vous</span> <b>' + esc(main.label) + "</b>" + (main.etape === "lecture" ? "" : ' <span class="cite-src">en qualité de ' + esc(FLABEL[main.role] || main.role) + "</span>") + nav + "</div>" +
       '<div class="rb-btns"><button type="button" class="btn primary" data-vact="' + esc(docKey(d)) + "|" + main.etape + '">' + btnLabel + "</button>" +
@@ -782,7 +785,7 @@
   });
   document.addEventListener("change", function (ev) {
     var t = ev.target;
-    if (t.matches("[data-cedit]") && V.edit && V.edit.steps) { var c = t.getAttribute("data-cedit").split("|"); if (c[0] === "L") { V.edit.delaiLecture = t.value; return; } var s = V.edit.steps[+c[0]]; if (s) { s[c[1]] = t.type === "checkbox" ? t.checked : t.value; if (c[1] === "label") { var x = ETAPES_TYPES.filter(function (y) { return y[1] === t.value; })[0]; if (x) { s.etape = x[0]; s.seance = x[0] === "adoption"; if (x[0] === "adoption") s.role = "pca"; } } renderCircuit(); } return; }
+    if (t.matches("[data-cedit]") && V.edit && V.edit.steps) { var c = t.getAttribute("data-cedit").split("|"); if (c[0] === "L") { V.edit.delaiLecture = t.value; return; } var s = V.edit.steps[+c[0]]; if (s) { s[c[1]] = t.type === "checkbox" ? t.checked : t.value; if (c[1] === "label") { var x = ETAPES_TYPES.filter(function (y) { return y[1] === t.value; })[0]; if (x) { s.etape = x[0]; s.seance = x[0] === "adoption"; if (x[0] === "adoption") s.role = "pca"; if (x[0] === "redaction") s.role = "redac"; } } renderCircuit(); } return; }
     if (t.matches("[data-vrole]")) { var p = t.getAttribute("data-vrole").split("|"); vSetRole(p[0], p[1], t.checked); }
     if (t.matches("[data-vlect]")) { var q = t.getAttribute("data-vlect").split("|"); vSetLect(q[0], q[1], t.checked); }
   });
