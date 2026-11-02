@@ -25,8 +25,8 @@ historique:
 notes_redaction:
   - "The COSUMAF General Regulation contains no express provision on outsourcing by intermediaries. The policy relies on COSUMAF's supervisory powers, on the requirement for approval of changes to the programme of activities and on the 2021 IOSCO principles. Check with COSUMAF whether the outsourcing of a critical function must be notified to it or submitted for its approval."
   - "Cameroonian Law No. 2024/017 on personal data protection entered into force on 23 June 2026. The cloud services currently in use (e-mail and office software, website, document repository) host data outside Cameroon. Draw up an inventory of the data concerned and initiate the authorisation process with the data protection authority."
-  - "Complete the register (Appendix 5) with existing contracts within one month of adoption, and bring them into line with Appendix 3 at their next renewal."
-source: 3c767e7bea5bf49a
+  - "Complete the register (Appendix “Outsourcing register”) with existing contracts within one month of adoption, and bring them into line with Appendix “Mandatory clauses” at their next renewal."
+source: a31947c210540387
 ---
 
 ## Title I — General provisions
@@ -46,7 +46,7 @@ It adopts, adapting them to the size of the Company, the IOSCO principles on out
 ### Article 3 — Definitions
 
 - **Outsourcing**: any arrangement under which a service provider performs, on an ongoing basis, an activity, process or service that the Company would otherwise perform itself. The use of software or an online ("cloud") IT service is outsourcing where it processes or hosts data of the Company or of its clients.
-- **Critical or important function**: a function whose failure or interruption would compromise the continuity of services to clients, the protection of their assets or data, the Company's compliance with regulations or its financial soundness. The classification is made using the grid in Appendix 1.
+- **Critical or important function**: a function whose failure or interruption would compromise the continuity of services to clients, the protection of their assets or data, the Company's compliance with regulations or its financial soundness. The classification is made using the grid in Appendix “Function classification”.
 - **Service provider**: the person who performs the outsourced activity, including where it belongs to the same group as a shareholder of the Company.
 - **Sub-outsourcing**: the service provider itself entrusting all or part of the activity to another service provider.
 - **Contract manager**: the Staff Member designated to monitor the relationship with the service provider on a day-to-day basis.
@@ -79,7 +79,7 @@ The Company retains sufficient in-house expertise to understand, steer and contr
 
 ### Article 7 — Proportionality
 
-The requirements of the policy are proportionate: all of them apply to the outsourcing of a critical or important function; only those marked as such in Appendices 2 and 3 apply to other outsourcing arrangements.
+The requirements of the policy are proportionate: all of them apply to the outsourcing of a critical or important function; only those marked as such in Appendices “Due diligence checklist” and “Mandatory clauses” apply to other outsourcing arrangements.
 
 ## Title III — Organisation
 
@@ -98,10 +98,10 @@ The requirements of the policy are proportionate: all of them apply to the outso
 
 Any new outsourcing arrangement, and any renewal or material change to an existing one, follows five steps:
 
-1. **Classification**: the RCCI classifies the activity as critical or important, or not, using the grid in Appendix 1.
-2. **Risk analysis**: the project owner, together with the RCCI, analyses operational, continuity, security, data protection, legal, compliance, concentration and conflict of interest risks, using the form in Appendix 5 to the Risk Management Policy.
-3. **Due diligence on the service provider**: the Company checks, using the list in Appendix 2, that the service provider has the required capacity, resources, soundness, reputation and level of security.
-4. **Contract**: the contract contains the clauses in Appendix 3.
+1. **Classification**: the RCCI classifies the activity as critical or important, or not, using the grid in Appendix “Function classification”.
+2. **Risk analysis**: the project owner, together with the RCCI, analyses operational, continuity, security, data protection, legal, compliance, concentration and conflict of interest risks, using the form in Appendix “New product approval” to the Risk Management Policy.
+3. **Due diligence on the service provider**: the Company checks, using the list in Appendix “Due diligence checklist”, that the service provider has the required capacity, resources, soundness, reputation and level of security.
+4. **Contract**: the contract contains the clauses in Appendix “Mandatory clauses”.
 5. **Decision**: the Chief Executive Officer or, for a critical or important function, the Board of Directors decides, in the light of the RCCI's written opinion.
 
 ### Article 10 — Informing COSUMAF
@@ -116,7 +116,7 @@ The Company avoids entrusting several critical functions to the same service pro
 
 ### Article 12 — Written contract
 
-Every outsourcing arrangement is covered by a written contract, signed before the service begins. The contract contains at least the clauses in Appendix 3, including:
+Every outsourcing arrangement is covered by a written contract, signed before the service begins. The contract contains at least the clauses in Appendix “Mandatory clauses”, including:
 
 - a precise description of the services and of the expected, measurable service levels;
 - confidentiality and professional secrecy, including after the end of the contract;
@@ -131,7 +131,7 @@ Every outsourcing arrangement is covered by a written contract, signed before th
 
 ### Article 13 — Service providers whose terms are not negotiable
 
-Some large online service providers offer non-negotiable standard terms. The Company may use them where those terms provide an equivalent level of protection on the points in Appendix 3, or where the gaps are offset by the Company's own measures (encryption, independent back-ups, control of administrator accounts). The gap analysis is documented and attached to the decision.
+Some large online service providers offer non-negotiable standard terms. The Company may use them where those terms provide an equivalent level of protection on the points in Appendix “Mandatory clauses”, or where the gaps are offset by the Company's own measures (encryption, independent back-ups, control of administrator accounts). The gap analysis is documented and attached to the decision.
 
 ## Title VI — IT and cloud services
 
@@ -155,11 +155,11 @@ The contract manager monitors service levels, incidents, changes announced by th
 
 ### Article 16 — Annual assessment
 
-Each service provider performing a critical or important function is assessed every year using the grid in Appendix 4. The assessment covers service quality, security, continuity, compliance with the contract and changes in risks. The results are presented to the Board of Directors together with the register.
+Each service provider performing a critical or important function is assessed every year using the grid in Appendix “Service provider assessment”. The assessment covers service quality, security, continuity, compliance with the contract and changes in risks. The results are presented to the Board of Directors together with the register.
 
 ### Article 17 — Exit strategy
 
-For each critical or important function, the Company maintains an up-to-date written exit strategy, following the template in the second part of Appendix 4: trigger events, replacement solution, estimated duration and cost of the transfer, exit steps. It is reviewed every year and tested where reasonably practicable.
+For each critical or important function, the Company maintains an up-to-date written exit strategy, following the template in the second part of Appendix “Service provider assessment”: trigger events, replacement solution, estimated duration and cost of the transfer, exit steps. It is reviewed every year and tested where reasonably practicable.
 
 ### Article 18 — End of the contract
 
@@ -169,13 +169,13 @@ At the end of the contract, whatever the reason, the Company ensures that all it
 
 ### Article 19 — Outsourcing register
 
-The RCCI maintains the register of all outsourcing arrangements following the structure in Appendix 5: service provider, activity, criticality, data location, contract dates, contract manager, date of last assessment, exit strategy. The register is updated for each new contract or change, presented every year to the Board of Directors and provided to COSUMAF on request.
+The RCCI maintains the register of all outsourcing arrangements following the structure in Appendix “Outsourcing register”: service provider, activity, criticality, data location, contract dates, contract manager, date of last assessment, exit strategy. The register is updated for each new contract or change, presented every year to the Board of Directors and provided to COSUMAF on request.
 
 ## Title IX — Final provisions
 
 ### Article 20 — Existing contracts
 
-Contracts in progress at the date of adoption of this policy are entered in the register within the following month. They are brought into line with Appendix 3 at their next renewal and, for critical or important functions, within six months at most.
+Contracts in progress at the date of adoption of this policy are entered in the register within the following month. They are brought into line with Appendix “Mandatory clauses” at their next renewal and, for critical or important functions, within six months at most.
 
 ### Article 21 — Review and entry into force
 

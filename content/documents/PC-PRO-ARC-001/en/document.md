@@ -31,7 +31,7 @@ notes_redaction:
   - "Equivalence of electronic documents: Law No. 2010/021 on electronic commerce is cited on the basis of its general scope; check the exact articles and the integrity conditions required before destroying a scanned paper original."
   - "Location: the Guichet (Supabase) and Microsoft 365 host archives outside Cameroon. Long-term retention falls within the scope of Law No. 2024/017: record these hosting arrangements in the inventory of transfers provided for by the Outsourcing Policy."
   - "The detailed log of client actions in the Guichet is kept for thirteen months and then reduced to counters (agreement, Article 8). This log is not the order log or the audit trail, which follow the ten-year period: to be checked in the Guichet configuration."
-source: e8dceea2165be600
+source: d16abb82cdc5452c
 ---
 
 ## Title I — General provisions
@@ -49,10 +49,10 @@ The procedure applies to all documents and data of the Company, whatever their m
 ### Article 3 — Definitions
 
 - **Archive**: a document or data item that is no longer being processed but must be kept.
-- **Retention period**: the minimum period for which an archive must be kept, counted from the event indicated in Appendix 1 (end of the relationship, date of the transaction, close of the financial year).
+- **Retention period**: the minimum period for which an archive must be kept, counted from the event indicated in Appendix “Retention periods” (end of the relationship, date of the transaction, close of the financial year).
 - **Original**: a document bearing the handwritten signature of a party, or an electronic document signed or time-stamped in the system that produced it.
 - **Freeze**: suspension of any destruction of an archive, even when its period has expired, because of a dispute, an investigation or a request from an authority.
-- **Archive owner**: the function that produces the category of documents and is responsible for its retention (Appendix 1).
+- **Archive owner**: the function that produces the category of documents and is responsible for its retention (Appendix “Retention periods”).
 
 ### Article 4 — Who does what
 
@@ -63,13 +63,13 @@ The procedure applies to all documents and data of the Company, whatever their m
 | Desk (operations) | Archives client files, orders and settlement records, in the Guichet and, for paper, in the originals cabinet |
 | Accounting | Archives the accounting books and records |
 | IT service provider | Applies the access, backup and destruction rules on the systems it administers, in accordance with its contract |
-| Every Staff Member | Files their documents in the filing plan in Appendix 2; keeps no Company document on a personal device or medium |
+| Every Staff Member | Files their documents in the filing plan in Appendix “Filing plan”; keeps no Company document on a personal device or medium |
 
 ## Title II — What the Company keeps, and for how long
 
 ### Article 5 — Retention periods
 
-The retention periods are set in Appendix 1. The main ones are:
+The retention periods are set in Appendix “Retention periods”. The main ones are:
 
 | Category | Period | Starting point |
 | --- | --- | --- |
@@ -99,13 +99,13 @@ Every version of a code, policy, procedure or contract template withdrawn from t
 Archives are kept **in electronic form**, in the Company's systems:
 
 - the **Guichet**, for client files, orders, documents produced and the audit log;
-- the Company's **Microsoft 365 document workspace**, for all other documents, filed in accordance with Appendix 2.
+- the Company's **Microsoft 365 document workspace**, for all other documents, filed in accordance with Appendix “Filing plan”.
 
 No Company document is kept in a personal mailbox, on a USB stick or on a personal computer. A document received through any other channel is transferred into the system the same day.
 
 ### Article 9 — Paper originals
 
-Documents signed by hand are **scanned** on the day they are received, and the image is attached to the file. The paper original is kept in the **originals cabinet**, locked, in a room not exposed to water, in the custody of the Chief Executive Officer. The slip in Appendix 3 records each deposit and each removal.
+Documents signed by hand are **scanned** on the day they are received, and the image is attached to the file. The paper original is kept in the **originals cabinet**, locked, in a room not exposed to water, in the custody of the Chief Executive Officer. The slip in Appendix “Paper originals slip” records each deposit and each removal.
 
 A paper original is not destroyed after scanning until legal counsel has confirmed that the digital copy has the same evidential value.
 
@@ -130,7 +130,7 @@ Electronic archives are hosted by service providers, some of which are located o
 
 ### Article 13 — Day-to-day archiving
 
-Each archive owner files documents as they go, in the filing plan in Appendix 2. When a file is closed (end of the relationship, transaction settled, financial year closed), it is marked as archived with the starting date of its retention period.
+Each archive owner files documents as they go, in the filing plan in Appendix “Filing plan”. When a file is closed (end of the relationship, transaction settled, financial year closed), it is marked as archived with the starting date of its retention period.
 
 ### Article 14 — Communication to the authorities
 
@@ -144,7 +144,7 @@ No archive is destroyed, even at the end of its period, where it relates to:
 - an investigation or inspection by COSUMAF, ANIF or another authority;
 - a suspicious transaction report whose outcome is not known.
 
-The RCCI records the freeze in the register in Appendix 5, informs the owners concerned, and lifts it in writing when the cause has ceased.
+The RCCI records the freeze in the register in Appendix “Archive freeze register”, informs the owners concerned, and lifts it in writing when the cause has ceased.
 
 ### Article 16 — Destruction
 
@@ -153,7 +153,7 @@ Each year, in the first quarter, the RCCI draws up the list of archives that hav
 - for paper, by shredding, on site or by a service provider that issues a certificate;
 - for electronic records, by deletion from all systems, including backups at their next rotation.
 
-It is recorded in the minutes in Appendix 4. Clients' personal data are then erased or anonymised; counters and statistics that no longer make it possible to identify anyone may be kept.
+It is recorded in the minutes in Appendix “Destruction minutes”. Clients' personal data are then erased or anonymised; counters and statistics that no longer make it possible to identify anyone may be kept.
 
 ### Article 17 — Departure of a service provider or a Staff Member
 

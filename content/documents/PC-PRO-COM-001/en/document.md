@@ -24,10 +24,10 @@ historique:
     par: "Head of Sales"
 notes_redaction:
   - "The procedure relies on the Guichet register of \"passages\" (sensitivity levels: free, reviewed, regulatory). Check that every promotional text published in the Guichet (offer sheets, notes on auctions, \"CEMAC Opportunity\" pages) is classified at least as \"reviewed\", and risk warnings as \"regulatory\"."
-  - "The purposecapital.africa website is deployed manually on Netlify: provide for each release to carry the reference of the approval form (Appendix 1) in the register (Appendix 3)."
+  - "The purposecapital.africa website is deployed manually on Netlify: provide for each release to carry the reference of the approval form (Appendix “Approval request”) in the register (Appendix “Communications register”)."
   - "Check in which countries outside CEMAC the Company may lawfully address prospects, before any campaign aimed at the diaspora."
   - "The Code of Conduct (Article 42) remains the general rule; this procedure organises its application."
-source: 7068264a22d6e017
+source: 8ec686cfed917552
 ---
 
 ## Title I — General provisions
@@ -56,9 +56,9 @@ The following are not covered: individual exchanges with a client about their ow
 
 | Function | Role |
 | --- | --- |
-| Author (any Staff Member) | Prepares the content, completes the approval request (Appendix 1), attaches the sources of the figures |
-| Head of Sales | Owner of the procedure; checks commercial accuracy; maintains the register (Appendix 3) |
-| RCCI | Gives a prior written opinion, using the checklist (Appendix 2); carries out ex post control |
+| Author (any Staff Member) | Prepares the content, completes the approval request (Appendix “Approval request”), attaches the sources of the figures |
+| Head of Sales | Owner of the procedure; checks commercial accuracy; maintains the register (Appendix “Communications register”) |
+| RCCI | Gives a prior written opinion, using the checklist (Appendix “RCCI checklist”); carries out ex post control |
 | Chief Executive Officer | Approves major materials (Article 8); the only person, together with the Chairman of the Board of Directors, entitled to speak on behalf of the Company |
 
 ## Title II — Substantive rules
@@ -87,7 +87,7 @@ The following are prohibited:
 
 ### Article 6 — Mandatory statements
 
-Depending on the medium, the communication carries the statements in Appendix 4, in particular:
+Depending on the medium, the communication carries the statements in Appendix “Legal notices”, in particular:
 
 - the identity of the Company and its COSUMAF licence No. COSUMAF-SDB-01/2026;
 - for a yield: the words "before tax" and the calculation method (yield to maturity, coupon, at maturity);
@@ -110,18 +110,18 @@ Depending on the medium, the communication carries the statements in Appendix 4,
 | Level | Content | Approval |
 | --- | --- | --- |
 | Routine | LinkedIn post with no figures or products; reuse of content already approved; Company news | Opinion of the RCCI (may be given by written message) |
-| Standard | Offer sheet, note on an auction, message to several clients, presentation to a prospect, change to a website page | Written opinion of the RCCI on the checklist (Appendix 2) |
+| Standard | Offer sheet, note on an auction, message to several clients, presentation to a prospect, change to a website page | Written opinion of the RCCI on the checklist (Appendix “RCCI checklist”) |
 | Major | Brochure, new website page or redesign, press release, campaign, advertising of a public offering, simulator | Written opinion of the RCCI, then approval by the Chief Executive Officer |
 
 Where there is doubt about the level, the higher level applies.
 
 ### Article 9 — Process
 
-1. **Drafting**: the author prepares the content and completes the request (Appendix 1), with the source of each figure.
+1. **Drafting**: the author prepares the content and completes the request (Appendix “Approval request”), with the source of each figure.
 2. **Opinion of the RCCI**: within two business days, or the same day for a note linked to an imminent auction. The opinion is favourable, favourable subject to corrections, or unfavourable, and always gives reasons.
 3. **Approval** by the Chief Executive Officer for major content.
 4. **Publication** of the content exactly as approved; any change, however minor, to a figure or statement goes back to the RCCI.
-5. **Recording** in the register (Appendix 3), with a copy of the published content.
+5. **Recording** in the register (Appendix “Communications register”), with a copy of the published content.
 
 The RCCI never approves content that the RCCI has drafted: such content is then approved by the Chief Executive Officer.
 
@@ -143,7 +143,7 @@ Where content must be published without delay (incident, correction, market info
 
 ### Article 12 — Register and retention
 
-The Head of Sales maintains the register of communications (Appendix 3). Each published item, with its approval request, the opinion of the RCCI and, where applicable, the approval of the Chief Executive Officer, is kept for ten years, in accordance with the Archiving and Retention Procedure.
+The Head of Sales maintains the register of communications (Appendix “Communications register”). Each published item, with its approval request, the opinion of the RCCI and, where applicable, the approval of the Chief Executive Officer, is kept for ten years, in accordance with the Archiving and Retention Procedure.
 
 ### Article 13 — Updating and withdrawal
 

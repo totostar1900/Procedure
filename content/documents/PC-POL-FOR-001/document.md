@@ -47,7 +47,7 @@ historique:
     objet: Projet initial
     par: RCCI
 notes_redaction:
-  - "Liste des fonctions soumises à carte professionnelle : la politique reprend les articles 13, 14, 24 et 25 du Règlement général de la COSUMAF tels que cités dans les autres documents du référentiel. Vérifier sur le texte officiel et sur l'instruction de la COSUMAF relative aux cartes professionnelles la liste exacte des fonctions, la durée de validité de la carte, les conditions et le délai de renouvellement (y compris une éventuelle obligation de formation continue), puis compléter le tableau de l'Annexe 3. Aucune clé de référence n'existe pour cette instruction dans referentiel.yaml."
+  - "Liste des fonctions soumises à carte professionnelle : la politique reprend les articles 13, 14, 24 et 25 du Règlement général de la COSUMAF tels que cités dans les autres documents du référentiel. Vérifier sur le texte officiel et sur l'instruction de la COSUMAF relative aux cartes professionnelles la liste exacte des fonctions, la durée de validité de la carte, les conditions et le délai de renouvellement (y compris une éventuelle obligation de formation continue), puis compléter le tableau de l'annexe « Registre des formations ». Aucune clé de référence n'existe pour cette instruction dans referentiel.yaml."
   - "Critères d'honorabilité (article 6) : à confirmer par le conseil juridique au regard du Règlement n° 01/22, du Règlement général de la COSUMAF et de l'Acte uniforme OHADA (interdictions et incompatibilités des dirigeants). Les articles précis de ces textes n'ont pas été vérifiés."
   - "Heures minimales de formation continue proposées (article 18) : 20 heures pour les dirigeants effectifs et les titulaires d'une carte professionnelle, 15 heures pour les collaborateurs en contact avec les clients ou les opérations, 10 heures pour les fonctions support, 6 heures pour les administrateurs. À valider par le Directeur Général et le Conseil."
   - "Budget de formation (article 20) : référence indicative proposée d'au moins 2 % de la masse salariale brute, et seuil de 1 000 000 FCFA au-delà duquel une formation externe peut donner lieu à un engagement écrit de remboursement (dédit-formation). La validité et les limites d'une telle clause en droit du travail camerounais sont à vérifier avec le conseil juridique."
@@ -129,7 +129,7 @@ Une autre situation (poursuite en cours, litige important, conflit d'intérêts 
 
 ### Article 7 — Vérifications avant embauche
 
-Les vérifications sont faites **avant la signature du contrat**, ou au plus tard avant la prise de poste lorsque l'offre est faite sous condition. Le RCCI les consigne sur la liste de l'Annexe 5 ; le Directeur Général ne signe pas le contrat tant que la liste n'est pas complète.
+Les vérifications sont faites **avant la signature du contrat**, ou au plus tard avant la prise de poste lorsque l'offre est faite sous condition. Le RCCI les consigne sur la liste de l'annexe « Vérification avant embauche » ; le Directeur Général ne signe pas le contrat tant que la liste n'est pas complète.
 
 | Vérification | Collaborateurs | Dirigeants, titulaires de carte, administrateurs | Stagiaires | Prestataires agissant pour la Société |
 | --- | --- | --- | --- | --- |
@@ -137,14 +137,14 @@ Les vérifications sont faites **avant la signature du contrat**, ou au plus tar
 | Extrait de casier judiciaire (bulletin n° 3) de moins de trois mois, et équivalent étranger si la personne a vécu plus d'un an hors du Cameroun au cours des cinq dernières années | Oui | Oui, renouvelé tous les trois ans | Oui | Attestation du prestataire qu'il a vérifié ses intervenants |
 | Vérification du diplôme le plus élevé exigé par le poste, auprès de l'établissement ou sur original | Oui | Oui | Attestation d'inscription | Non |
 | Deux références, dont au moins un ancien employeur, prises par téléphone et notées | Oui | Oui | Une, de l'établissement | Références de l'entreprise |
-| Déclaration d'intérêts (Code de bonne conduite, Annexe 3) | Oui | Oui | Oui | Non |
+| Déclaration d'intérêts (Code de bonne conduite, annexe « Registre des formations ») | Oui | Oui | Oui | Non |
 | Filtrage sur les listes de sanctions et de PPE (PC-POL-LBC-001, article 21) et sur les sanctions publiées par la COSUMAF et la COBAC | Oui | Oui | Oui | Entreprise et dirigeants |
 | Recherche d'informations défavorables publiques (presse, internet) | Oui | Oui | Non | Entreprise |
-| Déclaration d'honorabilité et de compétence (Annexe 4) | Oui | Oui | Oui | Non |
+| Déclaration d'honorabilité et de compétence (Annexe « Honorabilité et compétence ») | Oui | Oui | Oui | Non |
 
 Une information défavorable n'est jamais écartée sans être notée. Le RCCI donne un avis écrit au Directeur Général, qui décide ; pour un administrateur ou le Directeur Général, l'avis est remis au Président du Conseil.
 
-Le contrat avec un prestataire qui agit pour la Société comprend une clause par laquelle il garantit l'honorabilité et la compétence de ses intervenants, s'engage à remplacer sans délai un intervenant ne répondant plus à ces conditions, et fait signer à chacun l'attestation d'adhésion au Code de bonne conduite et la charte d'utilisation des outils numériques (PC-POL-SSI-001, Annexe 1).
+Le contrat avec un prestataire qui agit pour la Société comprend une clause par laquelle il garantit l'honorabilité et la compétence de ses intervenants, s'engage à remplacer sans délai un intervenant ne répondant plus à ces conditions, et fait signer à chacun l'attestation d'adhésion au Code de bonne conduite et la charte d'utilisation des outils numériques (PC-POL-SSI-001, annexe « Charte d'utilisation »).
 
 ### Article 8 — Nomination d'un dirigeant ou d'un titulaire de carte
 
@@ -158,17 +158,17 @@ Les mêmes vérifications sont refaites lorsqu'un collaborateur change de poste 
 
 ### Article 9 — Cartes professionnelles
 
-Le RCCI tient dans le registre des formations (Annexe 3) la liste des cartes : titulaire, fonction, numéro, date de délivrance, date d'expiration, conditions de renouvellement.
+Le RCCI tient dans le registre des formations (Annexe « Registre des formations ») la liste des cartes : titulaire, fonction, numéro, date de délivrance, date d'expiration, conditions de renouvellement.
 
 - **Trois mois avant l'expiration**, le RCCI prévient le titulaire et le Directeur Général.
 - Le dossier de renouvellement est déposé **au plus tard deux mois avant l'expiration**, ou dans le délai plus long fixé par la COSUMAF.
 - Si une carte expire ou est suspendue, son titulaire cesse aussitôt les actes réservés ; le Directeur Général organise l'intérim et le RCCI informe la COSUMAF dans les conditions prévues par la réglementation.
 
-L'échéance de chaque carte est inscrite au calendrier de conformité de la Charte du contrôle interne (PC-COD-003, Annexe 5).
+L'échéance de chaque carte est inscrite au calendrier de conformité de la Charte du contrôle interne (PC-COD-003, annexe « Calendrier de conformité »).
 
 ### Article 10 — Déclaration annuelle
 
-Chaque année **avant le 31 janvier**, chaque collaborateur, dirigeant et administrateur remplit la déclaration d'honorabilité et de compétence de l'Annexe 4, en même temps que la déclaration annuelle d'intérêts du Code de bonne conduite et la déclaration annuelle des opérations personnelles (PC-PRO-OPP-001, article 16). Il atteste que sa situation n'a pas changé ou décrit ce qui a changé.
+Chaque année **avant le 31 janvier**, chaque collaborateur, dirigeant et administrateur remplit la déclaration d'honorabilité et de compétence de l'annexe « Honorabilité et compétence », en même temps que la déclaration annuelle d'intérêts du Code de bonne conduite et la déclaration annuelle des opérations personnelles (PC-PRO-OPP-001, article 16). Il atteste que sa situation n'a pas changé ou décrit ce qui a changé.
 
 Le RCCI vérifie que toutes les déclarations sont reçues avant le 15 février et refait à cette occasion le filtrage de tous les collaborateurs et administrateurs sur les listes de sanctions. Les collaborateurs et administrateurs figurent en outre dans le fichier filtré à chaque mise à jour des listes, comme les clients (PC-POL-LBC-001, article 21).
 
@@ -192,7 +192,7 @@ Ne pas déclarer un tel fait est une faute au sens de l'article 49 du Code de bo
 
 Les vérifications portent sur des données sensibles. Elles sont traitées dans le respect de la loi n° 2024/017 sur la protection des données personnelles :
 
-- le candidat est informé par écrit des vérifications faites et de leur but, et les autorise en signant l'Annexe 4 ;
+- le candidat est informé par écrit des vérifications faites et de leur but, et les autorise en signant l'annexe « Honorabilité et compétence » ;
 - seules les informations utiles au poste sont recueillies ;
 - les pièces sont rangées dans le dossier individuel, à accès restreint au Directeur Général et au RCCI, dans la rubrique Ressources humaines du plan de classement (PC-PRO-ARC-001) ;
 - les pièces d'un candidat non retenu sont détruites dans les trois mois, sauf litige.
@@ -201,7 +201,7 @@ Les vérifications portent sur des données sensibles. Elles sont traitées dans
 
 ### Article 13 — Parcours d'intégration
 
-Toute personne qui rejoint la Société suit le parcours d'intégration de l'Annexe 1. Elle lit chaque document dans le référentiel en ligne, atteste sa lecture et passe le test de connaissances de l'article 21.
+Toute personne qui rejoint la Société suit le parcours d'intégration de l'annexe « Parcours d'intégration ». Elle lit chaque document dans le référentiel en ligne, atteste sa lecture et passe le test de connaissances de l'article 21.
 
 | Module | Document de référence | Délai maximal |
 | --- | --- | --- |
@@ -217,14 +217,14 @@ Le parcours comprend aussi un entretien d'une heure avec le RCCI, au cours de la
 
 Le stagiaire suit les modules Code, LBC/FT, confidentialité et sécurité informatique ; il ne traite aucun dossier client ni aucun ordre sans supervision. L'intervenant d'un prestataire suit le module confidentialité et sécurité informatique et signe le Code avant tout accès.
 
-Le RCCI coche l'Annexe 1 et la verse au dossier individuel. Tant que le parcours n'est pas terminé, le référentiel en ligne signale les retards au RCCI et au responsable hiérarchique.
+Le RCCI coche l'annexe « Parcours d'intégration » et la verse au dossier individuel. Tant que le parcours n'est pas terminé, le référentiel en ligne signale les retards au RCCI et au responsable hiérarchique.
 
 ### Article 14 — Formation annuelle LBC/FT
 
 La réglementation CEMAC impose une formation continue de tous les dirigeants et employés en matière de LBC/FT (Règlement n° 02/24). Chaque année, **avant le 30 novembre**, le responsable LBC/FT organise une formation d'au moins **deux heures** pour tous les collaborateurs, dirigeants et administrateurs. Elle porte sur :
 
 - les évolutions des textes, des lignes directrices de la COSUMAF et des listes du GAFI ;
-- les signaux d'alerte propres aux opérations sur titres (PC-POL-LBC-001, Annexe 3) et des cas pratiques ;
+- les signaux d'alerte propres aux opérations sur titres (PC-POL-LBC-001, annexe « Signaux d'alerte ») et des cas pratiques ;
 - le gel des avoirs et le filtrage ;
 - les constats des contrôles de l'année et les erreurs à ne pas refaire.
 
@@ -321,22 +321,22 @@ Un échec n'est pas une faute. En revanche, ne pas suivre une formation obligato
 
 ### Article 24 — Plan annuel de formation
 
-Avant le 15 décembre, le RCCI prépare avec les responsables hiérarchiques le plan de formation de l'année suivante sur le modèle de l'Annexe 2. Il part des besoins exprimés lors des entretiens annuels, des formations obligatoires, des échéances des cartes, des constats de contrôle, des incidents, des résultats des tests et des évolutions réglementaires.
+Avant le 15 décembre, le RCCI prépare avec les responsables hiérarchiques le plan de formation de l'année suivante sur le modèle de l'annexe « Plan de formation ». Il part des besoins exprimés lors des entretiens annuels, des formations obligatoires, des échéances des cartes, des constats de contrôle, des incidents, des résultats des tests et des évolutions réglementaires.
 
 Le Directeur Général approuve le plan dans la limite du budget. Le plan est présenté au Conseil avec le budget. Il est revu à mi-année.
 
 ### Article 25 — Registre et dossiers individuels
 
-Le RCCI tient le **registre des formations** de l'Annexe 3 : formations suivies, heures, résultats des tests, cartes professionnelles, déclarations annuelles. Il fait partie des registres de conformité de la Charte du contrôle interne (PC-COD-003, article 22).
+Le RCCI tient le **registre des formations** de l'annexe « Registre des formations » : formations suivies, heures, résultats des tests, cartes professionnelles, déclarations annuelles. Il fait partie des registres de conformité de la Charte du contrôle interne (PC-COD-003, article 22).
 
-Chaque personne a un **dossier individuel** qui contient les pièces des vérifications, la fiche de poste, l'Annexe 1 complétée, les déclarations annuelles, les attestations de formation et, s'il y a lieu, sa carte professionnelle. Chaque personne peut consulter son propre dossier sur demande.
+Chaque personne a un **dossier individuel** qui contient les pièces des vérifications, la fiche de poste, l'annexe « Parcours d'intégration » complétée, les déclarations annuelles, les attestations de formation et, s'il y a lieu, sa carte professionnelle. Chaque personne peut consulter son propre dossier sur demande.
 
 ### Article 26 — Compte rendu
 
 | Destinataire | Fréquence | Contenu |
 | --- | --- | --- |
 | Comité des risques et de la conformité | Chaque mois | Parcours d'intégration en retard ; lectures non attestées ; cartes expirant dans les trois mois ; échecs en cours de suivi |
-| Conseil d'Administration | Chaque année, dans le rapport annuel de contrôle interne (PC-COD-003, Annexe 4) | Taux de réalisation du plan ; heures par population ; formation LBC/FT ; résultats des tests ; état des cartes ; déclarations annuelles reçues ; changements de situation et mesures prises ; plan de l'année suivante |
+| Conseil d'Administration | Chaque année, dans le rapport annuel de contrôle interne (PC-COD-003, annexe « Plan du rapport annuel ») | Taux de réalisation du plan ; heures par population ; formation LBC/FT ; résultats des tests ; état des cartes ; déclarations annuelles reçues ; changements de situation et mesures prises ; plan de l'année suivante |
 | COSUMAF | Avec le rapport annuel de contrôle interne, et sur demande | Mêmes éléments |
 
 Le rapport annuel LBC/FT reprend les données de formation LBC/FT (PC-POL-LBC-001, article 28).

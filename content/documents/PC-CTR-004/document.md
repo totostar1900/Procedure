@@ -120,11 +120,11 @@ Une intention, un sondage préalable à une adjudication ou une demande de rappe
 
 ### Article 5 — Information et catégorisation
 
-Le Titulaire est catégorisé « {{categorie}} ». Il reconnaît avoir reçu l'information sur les risques (crédit, prix, liquidité, allocation) et sur le fonctionnement du marché, et pouvoir la consulter à tout moment dans le Guide du Guichet. L'essentiel en est rappelé à l'Annexe 2.
+Le Titulaire est catégorisé « {{categorie}} ». Il reconnaît avoir reçu l'information sur les risques (crédit, prix, liquidité, allocation) et sur le fonctionnement du marché, et pouvoir la consulter à tout moment dans le Guide du Guichet. L'essentiel en est rappelé à l'annexe « Notice sur les risques ».
 
 ### Article 6 — Tarifs
 
-Les conditions tarifaires applicables sont celles de l'annexe tarifaire remise par le conseiller (Annexe 1) ; aucun frais d'ouverture. Toute modification tarifaire est notifiée trente jours avant application.
+Les conditions tarifaires applicables sont celles de l'annexe tarifaire remise par le conseiller (Annexe « Grille tarifaire ») ; aucun frais d'ouverture. Toute modification tarifaire est notifiée trente jours avant application.
 
 ### Article 7 — Communications
 

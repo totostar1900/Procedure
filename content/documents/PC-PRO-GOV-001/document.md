@@ -35,7 +35,7 @@ historique:
 notes_redaction:
   - "La procédure décrit le fonctionnement réel du référentiel (sources Markdown, site HTML et PDF générés). Désigner qui détient les droits de modification des sources et où elles sont conservées durablement (dépôt privé ou dossier partagé) : tant que ce n'est pas fait, le référentiel dépend d'une seule copie."
   - "Le statut « Abrogé » existe dans le site mais aucun document n'est encore retiré : vérifier, lors du premier retrait, que l'ancienne version reste consultable dans les archives (article 15)."
-  - "Les textes repris dans le Guichet (convention de compte-titres, annexe tarifaire, notice des risques) y ont leur propre numéro de version (par exemple 2026-10-10). Le registre de l'Annexe 3 doit indiquer la correspondance entre les deux numérotations."
+  - "Les textes repris dans le Guichet (convention de compte-titres, annexe tarifaire, notice des risques) y ont leur propre numéro de version (par exemple 2026-10-10). Le registre de l'annexe « Registre des documents » doit indiquer la correspondance entre les deux numérotations."
   - "Le circuit d'approbation des procédures (approbation par le Directeur Général) fait que, pour la présente procédure, vérificateur et approbateur sont la même personne : le Conseil d'Administration peut être informé de son adoption pour compenser."
 ---
 
@@ -115,14 +115,14 @@ Chaque document commence par une fiche de maîtrise qui indique : sa référence
 
 ### Article 8 — Demande
 
-Toute personne peut demander la création ou la modification d'un document au moyen de l'Annexe 1, ou par simple message au RCCI. Une modification est obligatoire lorsque :
+Toute personne peut demander la création ou la modification d'un document au moyen de l'annexe « Demande de document », ou par simple message au RCCI. Une modification est obligatoire lorsque :
 
 - un texte de la CEMAC, de la COSUMAF, de la BVMAC ou de l'ANIF change ;
 - un contrôle, un incident, une réclamation ou une recommandation montre qu'une règle est inadaptée ;
 - l'organisation, un outil ou un prestataire change ;
 - la revue périodique le prévoit.
 
-Le RCCI enregistre la demande au registre (Annexe 3) et désigne le rédacteur.
+Le RCCI enregistre la demande au registre (Annexe « Registre des documents ») et désigne le rédacteur.
 
 ### Article 9 — Rédaction
 
@@ -132,7 +132,7 @@ Il note dans la fiche de maîtrise les points restant à valider et les écarts 
 
 ### Article 10 — Vérification
 
-Le vérificateur s'assure, au moyen de la fiche de revue (Annexe 2), que le document :
+Le vérificateur s'assure, au moyen de la fiche de revue (Annexe « Revue et approbation »), que le document :
 
 - respecte la réglementation et les textes de référence cités ;
 - est cohérent avec les autres documents du référentiel et avec le Guichet ;
@@ -151,7 +151,7 @@ L'approbateur approuve le document, le fait corriger, ou le refuse. L'approbatio
 - chaque visa porte la date, l'heure et l'**empreinte** du texte visé ; si le texte change ensuite, le visa n'est plus valable et doit être redonné ;
 - le registre des visas est exporté au moins une fois par trimestre par le RCCI et conservé avec les archives du référentiel.
 
-Pendant les six premiers mois, le visa électronique est doublé de la fiche de revue (Annexe 2) signée. La date d'approbation et la date d'entrée en vigueur sont ensuite reportées dans la fiche de maîtrise ; la version passe à 1.0 ou au numéro suivant et le statut devient « En vigueur ».
+Pendant les six premiers mois, le visa électronique est doublé de la fiche de revue (Annexe « Revue et approbation ») signée. La date d'approbation et la date d'entrée en vigueur sont ensuite reportées dans la fiche de maîtrise ; la version passe à 1.0 ou au numéro suivant et le statut devient « En vigueur ».
 
 ### Article 12 — Publication et diffusion
 
@@ -159,7 +159,7 @@ Dans les deux jours ouvrés suivant l'approbation, le RCCI :
 
 1. publie la nouvelle version sur le site du référentiel, avec ses PDF et ses annexes ;
 2. informe les personnes de la liste de diffusion, en indiquant en quelques lignes ce qui change ;
-3. recueille, pour les codes, les politiques et les procédures qui les concernent, l'attestation de prise de connaissance des collaborateurs, dans le mois : par le bouton « J'ai lu et compris » du site pour les personnes désignées par l'administrateur, ou par l'Annexe 4 à défaut ;
+3. recueille, pour les codes, les politiques et les procédures qui les concernent, l'attestation de prise de connaissance des collaborateurs, dans le mois : par le bouton « J'ai lu et compris » du site pour les personnes désignées par l'administrateur, ou par l'annexe « Prise de connaissance » à défaut ;
 4. organise une courte présentation lorsque le changement modifie la façon de travailler.
 
 ### Article 13 — Revue périodique
@@ -198,14 +198,14 @@ Certains textes existent à la fois dans le référentiel et dans le Guichet, no
 
 - le texte du référentiel et celui du Guichet doivent être identiques ;
 - toute modification est faite **le même jour** dans les deux, par le RCCI ou sous son contrôle ;
-- le registre (Annexe 3) indique la correspondance entre la version du référentiel et celle du Guichet ;
+- le registre (Annexe « Registre des documents ») indique la correspondance entre la version du référentiel et celle du Guichet ;
 - un changement qui touche les clients leur est annoncé avant d'entrer en vigueur, dans les conditions prévues par la convention.
 
 ## Titre V — Contrôle
 
 ### Article 20 — Registre et contrôle
 
-Le RCCI tient le registre des documents (Annexe 3). Il vérifie chaque trimestre :
+Le RCCI tient le registre des documents (Annexe « Registre des documents »). Il vérifie chaque trimestre :
 
 - que les revues ne sont pas en retard ;
 - que les versions publiées sur le site correspondent aux versions approuvées ;

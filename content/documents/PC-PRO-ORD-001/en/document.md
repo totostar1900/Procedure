@@ -29,11 +29,11 @@ historique:
     objet: "Initial draft, aligned with the order journeys in the Guichet and with the Best Execution Policy"
     par: "Head of Capital Markets"
 notes_redaction:
-  - "The procedure implements the Best Execution Policy (PC-POL-EXE-001), whose cut-off times (Appendix 1 to the policy) it adopts without repeating them."
+  - "The procedure implements the Best Execution Policy (PC-POL-EXE-001), whose cut-off times (Appendix “Execution venues” to the policy) it adopts without repeating them."
   - "In the Guichet, the \"Secondary purchase\" journey states that the desk \"passes the order to the brokerage firm\". As Purpose Capital is a member of BVMAC, it transmits the order to the market itself: the wording in the Guichet must be corrected."
-  - "Confirm with BVMAC the closing time of the pre-opening phase and the arrangements for order entry by members, then complete Appendix 1 to the Best Execution Policy."
+  - "Confirm with BVMAC the closing time of the pre-opening phase and the arrangements for order entry by members, then complete Appendix “Execution venues” to the Best Execution Policy."
   - "The Code of Conduct (Article 33) only allows recorded channels. The Company does not currently record its telephone lines: until it does, an order may only be received by telephone in degraded mode, in accordance with the Business Continuity Plan."
-source: b6a50908e33429b0
+source: 09e02d75887d7b51
 ---
 
 ## Title I — General provisions
@@ -86,11 +86,11 @@ The order is **time-stamped** when it is signed. It is this time-stamp that dete
 
 ### Article 6 — Content of an order
 
-Every order states at least: the client and their account number, the security (name and code), the direction, the quantity or amount, the order type (limit or market order) and the limit, the period of validity, and the date and time of signature. For a sale of government securities or bonds, it bears the client's certification that the securities are unencumbered. The template paper order form is set out in Appendix 2.
+Every order states at least: the client and their account number, the security (name and code), the direction, the quantity or amount, the order type (limit or market order) and the limit, the period of validity, and the date and time of signature. For a sale of government securities or bonds, it bears the client's certification that the securities are unencumbered. The template paper order form is set out in Appendix “Order form”.
 
 ### Article 7 — Checks before acceptance
 
-Before accepting an order, the desk checks, using the checklist in Appendix 1:
+Before accepting an order, the desk checks, using the checklist in Appendix “Pre-transmission checklist”:
 
 - that the **client file is approved and up to date**, and that the agreement in force has been accepted;
 - that the client is neither blocked nor the subject of a screening alert;
@@ -117,7 +117,7 @@ No cash payment is accepted.
 
 The Company is a member of BVMAC and transmits orders to the market itself.
 
-1. Orders signed and covered before the **internal cut-off time** set in Appendix 1 to the Best Execution Policy are entered for the same day's trading session; the others, for the next session.
+1. Orders signed and covered before the **internal cut-off time** set in Appendix “Execution venues” to the Best Execution Policy are entered for the same day's trading session; the others, for the next session.
 2. They are entered in the **chronological order** of their time-stamp. The Head of Capital Markets, or their authorised deputy, enters the order; a second person checks the entry before the close of the pre-opening phase where staffing allows, otherwise on the same day.
 3. After the session, the desk retrieves the results of the fixing: full, partial or no execution.
 4. An unexecuted order remains in the order book until the end of its validity, after which the client is informed.
@@ -132,7 +132,7 @@ The Company is a member of BVMAC and transmits orders to the market itself.
 
 ### Article 11 — Government securities on the secondary market
 
-For each order, the desk requests quotes from at least two SVTs, or three for an order of significant size, compares them in terms of yield and price, including costs, and selects the best executable quote. It records the quotes received, the time and the reason for the choice on the competitive quotation sheet (Appendix 4 to the Best Execution Policy). If only one quote is available, the client is informed before execution.
+For each order, the desk requests quotes from at least two SVTs, or three for an order of significant size, compares them in terms of yield and price, including costs, and selects the best executable quote. It records the quotes received, the time and the reason for the choice on the competitive quotation sheet (Appendix “Government securities quotes” to the Best Execution Policy). If only one quote is available, the client is informed before execution.
 
 ### Article 12 — Public offerings
 
@@ -154,7 +154,7 @@ The client receives a **contract note** no later than the business day following
 
 ### Article 16 — Settlement and reconciliation
 
-The desk monitors settlement with the central securities depository, the SVT or the management company. On the settlement date, it checks that the securities are registered in the client's name and that the cash has been debited or credited, and the movement is then recorded in the client's cash ledger. Each day, it reconciles orders, executions and settlements using Appendix 4. Any discrepancy is treated as an incident.
+The desk monitors settlement with the central securities depository, the SVT or the management company. On the settlement date, it checks that the securities are registered in the client's name and that the cash has been debited or credited, and the movement is then recorded in the client's cash ledger. Each day, it reconciles orders, executions and settlements using Appendix “Daily reconciliation”. Any discrepancy is treated as an incident.
 
 ### Article 17 — Amendment and cancellation
 
@@ -178,8 +178,8 @@ The Guichet keeps the register of all orders: time-stamps of the intention, sign
 
 | Level | Who | What | When |
 | --- | --- | --- | --- |
-| First level | Desk | Checklist in Appendix 1 before each transmission | For each order |
-| First level | Desk | Reconciliation of orders, executions and settlements (Appendix 4) | Daily |
+| First level | Desk | Checklist in Appendix “Pre-transmission checklist” before each transmission | For each order |
+| First level | Desk | Reconciliation of orders, executions and settlements (Appendix “Daily reconciliation”) | Daily |
 | Second level | RCCI | Consistency between signed order, transmitted order and contract note, on a sample | Monthly |
 | Second level | RCCI | Execution quality according to the scorecard in the Best Execution Policy: timeliness, chronological order, competitive quotes from SVTs, errors, complaints | Quarterly |
 

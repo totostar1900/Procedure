@@ -25,11 +25,11 @@ historique:
     objet: "Initial draft submitted to the Board of Directors"
     par: "RCCI"
 notes_redaction:
-  - "The prudential ratios specific to brokerage firms were not found in the COSUMAF General Regulation or in the instructions published in 2023. The limits in Appendix 1 are prudent internal limits; align them with COSUMAF standards as soon as these are confirmed."
+  - "The prudential ratios specific to brokerage firms were not found in the COSUMAF General Regulation or in the instructions published in 2023. The limits in Appendix “Risk appetite and limits” are prudent internal limits; align them with COSUMAF standards as soon as these are confirmed."
   - "Confirm with COSUMAF whether the FCFA 300,000,000 minimum is assessed on share capital alone or on own funds. The policy adopts the more prudent reading (own funds), given the current narrow margin."
   - "Agree with the Board of Directors the reference amount of monthly fixed costs used in Articles 13 and 14, based on the approved budget."
   - "The Information Systems Security Policy (PC-POL-SSI-001) has yet to be drafted; this policy sets its minimum requirements. The Business Continuity Plan (PC-POL-PCA-001) replaces Article 20 as soon as it is adopted."
-source: 2be8474f875da9e2
+source: ba630df3f6b6d6bb
 ---
 
 ## Title I — General provisions
@@ -71,7 +71,7 @@ The policy covers all the Company's activities, current and future: dealing on b
 
 ### Article 6 — Risk appetite statement
 
-Each year, the Board of Directors approves the risk appetite statement and the table of limits (Appendix 1). Any activity that would lead to a limit being exceeded requires the Board's prior approval.
+Each year, the Board of Directors approves the risk appetite statement and the table of limits (Appendix “Risk appetite and limits”). Any activity that would lead to a limit being exceeded requires the Board's prior approval.
 
 ## Title III — Organisation
 
@@ -100,7 +100,7 @@ Given the size of the Company, the risk management, compliance and internal cont
 
 ### Article 9 — Identification and assessment
 
-The RCCI maintains the Company's risk map together with the operational departments. Each risk is described by its cause, its effect, its owner and the existing control measures. It is rated for probability and impact according to the grid in Appendix 3, before and after taking control measures into account.
+The RCCI maintains the Company's risk map together with the operational departments. Each risk is described by its cause, its effect, its owner and the existing control measures. It is rated for probability and impact according to the grid in Appendix “Risk map”, before and after taking control measures into account.
 
 The risk map is updated at least once a year and whenever a significant event occurs: a new activity, a serious incident, a regulatory change, or the recruitment or departure of a key person. It is approved by the Board of Directors and submitted to COSUMAF before 31 March together with the annual internal control report.
 
@@ -115,7 +115,7 @@ For each net risk assessed as high or critical, the risk owner proposes one of t
 
 ### Article 11 — New products and new activities
 
-No new product, service, distribution channel, market or material service provider is launched without a prior risk analysis using the form in Appendix 5. The analysis covers financial, operational, legal, non-compliance, money laundering and conflict-of-interest risks. The decision lies with the Chief Executive Officer after a written opinion from the RCCI, and with the Board of Directors where the activity requires an amendment to the programme of activities approved by COSUMAF.
+No new product, service, distribution channel, market or material service provider is launched without a prior risk analysis using the form in Appendix “New product approval”. The analysis covers financial, operational, legal, non-compliance, money laundering and conflict-of-interest risks. The decision lies with the Chief Executive Officer after a written opinion from the RCCI, and with the Board of Directors where the activity requires an amendment to the programme of activities approved by COSUMAF.
 
 ### Article 12 — Stress scenarios
 
@@ -205,7 +205,7 @@ Once a year, the RCCI measures the effect on own funds and cash of plausible adv
 
 **Risk**: failure, breach or loss of control over a service provider performing an important function (IT, hosting, accounting).
 
-**Measures**: risk analysis before any contract (Appendix 5); a written contract providing for confidentiality, service quality, access to information by the Company and by COSUMAF, reversibility and exit; annual quality monitoring; the Company remains responsible for outsourced functions.
+**Measures**: risk analysis before any contract (Appendix “New product approval”); a written contract providing for confidentiality, service quality, access to information by the Company and by COSUMAF, reversibility and exit; annual quality monitoring; the Company remains responsible for outsourced functions.
 
 ### Article 22 — Non-compliance and money laundering
 
@@ -235,7 +235,7 @@ Once a year, the RCCI measures the effect on own funds and cash of plausible adv
 
 ### Article 26 — Indicators and limits
 
-The RCCI monitors the key risk indicators in Appendix 2. Each has an owner, a measurement frequency and three zones: green (normal), amber (alert threshold crossed) and red (limit exceeded).
+The RCCI monitors the key risk indicators in Appendix “Key risk indicators”. Each has an owner, a measurement frequency and three zones: green (normal), amber (alert threshold crossed) and red (limit exceeded).
 
 ### Article 27 — Escalation
 
@@ -248,7 +248,7 @@ The RCCI monitors the key risk indicators in Appendix 2. Each has an owner, a me
 
 ### Article 28 — Incidents
 
-Every Staff Member reports an incident to the RCCI within 24 hours using the form in Appendix 4, including where it was narrowly avoided or corrected without loss. The RCCI records it in the incident register, analyses its cause and follows up the action plan.
+Every Staff Member reports an incident to the RCCI within 24 hours using the form in Appendix “Incident report form”, including where it was narrowly avoided or corrected without loss. The RCCI records it in the incident register, analyses its cause and follows up the action plan.
 
 An incident is **significant** where it causes or may cause a loss exceeding FCFA 1,000,000, affects a client, constitutes a regulatory breach, interrupts a service for more than half a day or compromises data. It is brought to the attention of the Chairman of the Board of Directors and, where regulations so require, of COSUMAF.
 

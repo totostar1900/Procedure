@@ -85,7 +85,7 @@
             var a = ann[k];
             if (OPT.pdf) ad.file(a.pdf.file, await fetchBin("pdf/" + a.pdf.file));
             if (OPT.word) ad.file(a.word.file, await fetchWord(a.word.file));
-            lignes.push("   Annexe " + a.num + " — " + a.titre);
+            lignes.push("   " + libAnnexe(a) + " — " + a.titre);
           }
         }
       }
@@ -112,7 +112,7 @@
       for (var i = 0; i < p.length; i++) {
         var it = p[i], d = vueLangue(it.d), ann = it.annexes.map(function (a) { return d.annexes.filter(function (x) { return x.num === a.num; })[0] || a; }), files = [];
         if (it.corps) files.push(it.annexes.length === d.annexes.length && d.annexes.length ? { f: "pdf/" + d.pdf.file, t: d.id + " — " + Tr(d.titre), sub: Tr("avec ses annexes") } : { f: "pdf/" + d.pdfCorps.file, t: d.id + " — " + Tr(d.titre), sub: "" });
-        if (!(it.corps && it.annexes.length === d.annexes.length)) ann.forEach(function (a) { files.push({ f: "pdf/" + a.pdf.file, t: a.id + " — " + Tr(a.titre), sub: "annexe " + a.num + " au " + d.id, ann: true }); });
+        if (!(it.corps && it.annexes.length === d.annexes.length)) ann.forEach(function (a) { files.push({ f: "pdf/" + a.pdf.file, t: a.id + " — " + Tr(a.titre), sub: libAnnexe(a).replace(/^A/, "a") + " au " + d.id, ann: true }); });
         parts = parts.concat(files);
       }
       var tocLines = parts.length, perPage = 30, tocPages = Math.max(1, Math.ceil(tocLines / perPage));

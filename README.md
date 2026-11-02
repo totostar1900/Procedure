@@ -9,7 +9,7 @@ content/
   referentiel.yaml            Société, circuit d'approbation, documents prévus, textes de référence, glossaire
   documents/<RÉF>/
     document.md               Métadonnées (en-tête YAML) + corps du document
-    annexes/A1.md, A2.md…     Une annexe par fichier, téléchargeable séparément
+    annexes/A1.md, A2.md…     Une annexe par fichier (nom court dans l’en-tête, clé A1… interne)
 templates/                    Gabarits du site (site.css, site.js, index.tpl.html) et des PDF (print.css)
 build.mjs                     Générateur
 dist/                         Résultat publié : index.html + pdf/
@@ -70,4 +70,4 @@ Sur referentiel.purposecapital.africa, une personne ayant la fonction « Rédact
 2. `node build.mjs` régénère le site, les PDF et les Word ; le dépôt est enregistré ;
 3. `tools/appliquer.mjs --confirmer` marque le brouillon « publié » et note ses rédacteurs pour la nouvelle empreinte : ils ne peuvent viser aucune étape de cette version.
 
-Le circuit d'approbation recommence sur le nouveau texte. Les annexes (formulaires) se modifient toujours dans le dépôt.
+Le circuit d'approbation recommence sur le nouveau texte. Les annexes se modifient aussi en ligne (onglet « Annexes » de l'éditeur) : modifier, ajouter, supprimer, réordonner. Elles sont désignées par un nom court, sans numéro.

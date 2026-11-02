@@ -39,8 +39,8 @@ historique:
     objet: Projet initial soumis au Conseil d'Administration
     par: Directeur des Marchés de Capitaux
 notes_redaction:
-  - "Les règles de négociation détaillées de la BVMAC doivent être précisées par un règlement de négociation pris en application du règlement général de 2025. Les seuils de variation et les horaires cités à l'Annexe 1 proviennent de l'instruction n° 2 et des avis de la BVMAC : les confirmer auprès de la BVMAC avant adoption."
-  - L'accès au marché des titres publics passe par un ou plusieurs spécialistes en valeurs du Trésor (SVT) ; compléter l'Annexe 1 avec les SVT retenus une fois les conventions signées.
+  - "Les règles de négociation détaillées de la BVMAC doivent être précisées par un règlement de négociation pris en application du règlement général de 2025. Les seuils de variation et les horaires cités à l'annexe « Lieux d'exécution » proviennent de l'instruction n° 2 et des avis de la BVMAC : les confirmer auprès de la BVMAC avant adoption."
+  - L'accès au marché des titres publics passe par un ou plusieurs spécialistes en valeurs du Trésor (SVT) ; compléter l'annexe « Lieux d'exécution » avec les SVT retenus une fois les conventions signées.
   - Suivre le projet de plateforme régionale de négociation des titres publics de la BEAC, qui modifiera l'article 9 lorsqu'elle sera en service.
 ---
 
@@ -64,7 +64,7 @@ Elle s'applique à tous les clients. Les modalités propres aux clients non prof
 ### Article 3 — Définitions
 
 - **Meilleure exécution** : obligation de prendre toutes les mesures suffisantes pour obtenir le meilleur résultat possible pour le client, au regard des facteurs de l'article 4. Il s'agit d'une obligation de moyens, appréciée sur l'ensemble des ordres et non ordre par ordre.
-- **Lieu d'exécution** : marché, plateforme ou contrepartie auprès duquel un ordre est exécuté (Annexe 1).
+- **Lieu d'exécution** : marché, plateforme ou contrepartie auprès duquel un ordre est exécuté (Annexe « Lieux d'exécution »).
 - **Coût total** : prix de l'instrument augmenté de l'ensemble des frais supportés par le client, y compris les commissions de la Société, les frais de marché, de règlement-livraison et de conservation.
 - **Instruction spécifique** : consigne expresse du client portant sur le prix, le moment, le lieu ou les modalités d'exécution de son ordre.
 
@@ -96,7 +96,7 @@ La Société n'incite pas un client à donner une instruction spécifique lorsqu
 
 La BVMAC est le seul lieu d'exécution des ordres portant sur les titres admis à sa cote. La négociation s'y déroule par fixing journalier, du lundi au vendredi : les ordres sont confrontés en une fois et exécutés à un cours unique. La meilleure exécution porte donc sur la qualité du traitement de l'ordre plus que sur le choix du lieu. La Société :
 
-1. transmet les ordres reçus avant l'heure limite de la séance (Annexe 1) dans la séance du jour, et les ordres reçus après cette heure dans la séance suivante, dans l'ordre chronologique de réception ;
+1. transmet les ordres reçus avant l'heure limite de la séance (Annexe « Lieux d'exécution ») dans la séance du jour, et les ordres reçus après cette heure dans la séance suivante, dans l'ordre chronologique de réception ;
 2. conseille au client le type d'ordre adapté : l'ordre à cours limité est recommandé par défaut, compte tenu de la liquidité souvent réduite des titres ; l'ordre au marché n'est accepté qu'après information du client sur le risque d'exécution à un cours éloigné du dernier cours ;
 3. propose, pour un ordre de taille significative, son fractionnement sur plusieurs séances, avec l'accord du client ;
 4. informe le client des seuils de variation, de la durée de validité de l'ordre et des conséquences d'une réservation ou d'un gel de la valeur ;
@@ -110,10 +110,10 @@ Pour les émissions par appel public à l'épargne et les adjudications, l'ordre
 
 Les titres publics se négocient de gré à gré, principalement entre spécialistes en valeurs du Trésor ; les transactions sont déclarées au compartiment hors cote de la BVMAC dans les conditions prévues par son règlement général. Pour chaque ordre de client, la Société :
 
-1. sollicite des cotations auprès d'au moins deux spécialistes en valeurs du Trésor parmi ceux listés à l'Annexe 1, ou trois pour un ordre de taille significative ;
+1. sollicite des cotations auprès d'au moins deux spécialistes en valeurs du Trésor parmi ceux listés à l'annexe « Lieux d'exécution », ou trois pour un ordre de taille significative ;
 2. compare les cotations obtenues en rendement actuariel et en prix pied de coupon, frais inclus ;
 3. retient la meilleure cotation exécutable, sauf instruction spécifique du client ;
-4. consigne les cotations reçues, l'heure et le motif du choix sur la fiche de mise en concurrence (Annexe 4).
+4. consigne les cotations reçues, l'heure et le motif du choix sur la fiche de mise en concurrence (Annexe « Cotations de titres publics »).
 
 Lorsqu'une seule cotation peut être obtenue, la Société en informe le client avant exécution et en conserve la trace.
 
@@ -145,7 +145,7 @@ Toute erreur imputable à la Société (mauvais sens, quantité, titre ou compte
 
 ### Article 15 — Contrôle de la qualité d'exécution
 
-Le RCCI contrôle chaque trimestre la qualité d'exécution au moyen de la grille de l'Annexe 3 : délais de transmission, respect de l'ordre chronologique, taux d'exécution, comparaison des cours obtenus avec les cours de séance, mise en concurrence des cotations de titres publics, erreurs et réclamations. Les écarts sont analysés et donnent lieu à des mesures correctives.
+Le RCCI contrôle chaque trimestre la qualité d'exécution au moyen de la grille de l'annexe « Contrôle de l'exécution » : délais de transmission, respect de l'ordre chronologique, taux d'exécution, comparaison des cours obtenus avec les cours de séance, mise en concurrence des cotations de titres publics, erreurs et réclamations. Les écarts sont analysés et donnent lieu à des mesures correctives.
 
 ### Article 16 — Révision et compte rendu
 
@@ -153,7 +153,7 @@ La politique et la liste des lieux d'exécution sont revues au moins une fois pa
 
 ### Article 17 — Information des clients
 
-Un résumé de la présente politique (Annexe 2) est remis au client lors de l'entrée en relation, avant le premier ordre. Le client est informé de toute modification importante. Sur demande, la Société démontre au client que ses ordres ont été exécutés conformément à la politique.
+Un résumé de la présente politique (Annexe « Résumé de la politique ») est remis au client lors de l'entrée en relation, avant le premier ordre. Le client est informé de toute modification importante. Sur demande, la Société démontre au client que ses ordres ont été exécutés conformément à la politique.
 
 ### Article 18 — Conservation
 

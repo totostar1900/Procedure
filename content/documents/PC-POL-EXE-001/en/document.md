@@ -25,10 +25,10 @@ historique:
     objet: "Initial draft submitted to the Board of Directors"
     par: "Head of Capital Markets"
 notes_redaction:
-  - "The detailed BVMAC trading rules are to be specified in trading rules adopted under the 2025 General Regulation. The price fluctuation limits and times cited in Appendix 1 come from BVMAC Instruction No. 2 and BVMAC notices: confirm them with the BVMAC before adoption."
-  - "Access to the government securities market is through one or more primary dealers (spécialistes en valeurs du Trésor — SVT); complete Appendix 1 with the selected SVTs once the agreements have been signed."
+  - "The detailed BVMAC trading rules are to be specified in trading rules adopted under the 2025 General Regulation. The price fluctuation limits and times cited in Appendix “Execution venues” come from BVMAC Instruction No. 2 and BVMAC notices: confirm them with the BVMAC before adoption."
+  - "Access to the government securities market is through one or more primary dealers (spécialistes en valeurs du Trésor — SVT); complete Appendix “Execution venues” with the selected SVTs once the agreements have been signed."
   - "Follow the BEAC project for a regional government securities trading platform, which will require Article 9 to be amended once it is in operation."
-source: 9effdac41a3f56e3
+source: d5a54ee0aa49df91
 ---
 
 ## Title I — General provisions
@@ -51,7 +51,7 @@ It applies to all clients. The arrangements specific to non-professional clients
 ### Article 3 — Definitions
 
 - **Best execution**: the obligation to take all sufficient steps to obtain the best possible result for the client, having regard to the factors in Article 4. It is an obligation of means (best endeavours), assessed across all orders and not order by order.
-- **Execution venue**: a market, platform or counterparty with which an order is executed (Appendix 1).
+- **Execution venue**: a market, platform or counterparty with which an order is executed (Appendix “Execution venues”).
 - **Total cost**: the price of the instrument plus all costs borne by the client, including the Company's commissions and market, settlement and custody fees.
 - **Specific instruction**: an express instruction from the client concerning the price, timing, venue or terms of execution of their order.
 
@@ -83,7 +83,7 @@ The Company does not encourage a client to give a specific instruction where it 
 
 The BVMAC is the sole execution venue for orders in securities listed on it. Trading takes place by daily fixing, Monday to Friday: orders are matched in a single auction and executed at a single price. Best execution therefore concerns the quality of order handling rather than the choice of venue. The Company:
 
-1. transmits orders received before the session cut-off time (Appendix 1) to that day's session, and orders received after that time to the next session, in the chronological order in which they were received;
+1. transmits orders received before the session cut-off time (Appendix “Execution venues”) to that day's session, and orders received after that time to the next session, in the chronological order in which they were received;
 2. advises the client on the appropriate order type: a limit order is recommended by default, given the often limited liquidity of securities; a market order is accepted only after the client has been informed of the risk of execution at a price far from the last price;
 3. proposes, for an order of significant size, that it be split over several sessions, with the client's agreement;
 4. informs the client of the price fluctuation limits, the period of validity of the order and the consequences of a reservation or a freeze of the security;
@@ -97,10 +97,10 @@ For issues by public offering and for auctions, the client's order is a subscrip
 
 Government securities are traded over the counter, mainly between primary dealers (spécialistes en valeurs du Trésor); transactions are reported to the unlisted (hors cote) segment of the BVMAC under the conditions laid down in its General Regulation. For each client order, the Company:
 
-1. requests quotes from at least two primary dealers among those listed in Appendix 1, or three for an order of significant size;
+1. requests quotes from at least two primary dealers among those listed in Appendix “Execution venues”, or three for an order of significant size;
 2. compares the quotes obtained in terms of yield to maturity and clean price, costs included;
 3. selects the best executable quote, unless the client has given a specific instruction;
-4. records the quotes received, the time and the reason for the choice on the quote comparison sheet (Appendix 4).
+4. records the quotes received, the time and the reason for the choice on the quote comparison sheet (Appendix “Government securities quotes”).
 
 Where only one quote can be obtained, the Company informs the client before execution and keeps a record of this.
 
@@ -132,7 +132,7 @@ Any error attributable to the Company (wrong direction, quantity, security or ac
 
 ### Article 15 — Control of execution quality
 
-Every quarter the RCCI controls execution quality using the grid in Appendix 3: transmission times, compliance with chronological order, execution rate, comparison of prices obtained with session prices, competitive quoting for government securities, errors and complaints. Discrepancies are analysed and give rise to corrective measures.
+Every quarter the RCCI controls execution quality using the grid in Appendix “Execution quality control”: transmission times, compliance with chronological order, execution rate, comparison of prices obtained with session prices, competitive quoting for government securities, errors and complaints. Discrepancies are analysed and give rise to corrective measures.
 
 ### Article 16 — Review and reporting
 
@@ -140,7 +140,7 @@ The policy and the list of execution venues are reviewed at least once a year, a
 
 ### Article 17 — Information to clients
 
-A summary of this policy (Appendix 2) is provided to the client at client onboarding, before the first order. The client is informed of any material change. On request, the Company demonstrates to the client that their orders have been executed in accordance with the policy.
+A summary of this policy (Appendix “Policy summary”) is provided to the client at client onboarding, before the first order. The client is informed of any material change. On request, the Company demonstrates to the client that their orders have been executed in accordance with the policy.
 
 ### Article 18 — Retention
 

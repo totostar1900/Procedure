@@ -95,14 +95,15 @@
     if (!d) { v.innerHTML = '<p class="lead">Document introuvable.</p>'; return; }
     if (!canEdit()) { v.innerHTML = '<div class="eyebrow">Modification</div><h1 class="title">' + esc(d.titre) + '</h1><p class="lead">' + (V.db ? "La modification des documents est réservée aux personnes ayant la fonction « Rédacteur » et à l'administrateur." : "La modification des documents se fait sur le site du référentiel, referentiel.purposecapital.africa.") + ' <button type="button" class="doclink" data-open="' + esc(d.id) + '">Revenir au document</button></p>'; return; }
     var src;
-    if (nv) src = { id: id, version: "0.9", statut: "Nouveau", empreinte: "nouveau", titre: "", resume: "", body: "" };
+    if (nv) src = { id: id, version: "0.9", statut: "Nouveau", empreinte: "nouveau", titre: "", resume: "", body: "", annexes: [] };
     else try { src = await fetchSource(id); } catch (e) { v.innerHTML = '<p class="lead">Le texte source n\'est pas disponible dans cette vue. La modification se fait sur referentiel.purposecapital.africa.</p>'; return; }
     var dr = draftOf(id);
     var stale = dr && dr.base !== src.empreinte && dr.statut !== "soumis";
     var body = dr ? dr.body : src.body;
     E = { id: id, d: d, src: src, draft: dr ? JSON.parse(JSON.stringify(dr)) : null, maj: dr ? dr.maj : null, stale: stale,
       f: { nature: dr ? dr.nature : "mineure", objet: dr ? dr.objet || "" : "", titre: dr ? dr.titre || src.titre : src.titre, resume: dr ? dr.resume || src.resume : src.resume },
-      model: parseBody(body), raw: body, view: "edit", saved: dr ? dr.maj : null, dirty: false, confirm: false };
+      model: parseBody(body), raw: body, view: "edit", saved: dr ? dr.maj : null, dirty: false, confirm: false,
+      onglet: "texte", annexes: JSON.parse(JSON.stringify((dr && Array.isArray(dr.annexes) ? dr.annexes : src.annexes) || [])), ouvertes: {} };
     E.mode = (dr && dr.mode) || (E.model.structured && !d.modele ? "articles" : "texte");
     E.nouveau = !!nv; E.meta = nv ? nv.meta || {} : null; E.medias = {};
     await chargerMedias(body);
@@ -144,12 +145,79 @@
       '<label class="vf">Objet de la modification (repris dans l\'historique)<input type="text" data-ef="objet" maxlength="200" value="' + esc(E.f.objet) + '" placeholder="Ex. : mise à jour des seuils de déclaration"></label>' +
       '<label class="vf">Titre du document<input type="text" data-ef="titre" maxlength="160" value="' + esc(E.f.titre) + '"></label>' +
       '<label class="vf">Résumé (affiché dans le registre)<textarea data-ef="resume" rows="3" maxlength="800">' + esc(E.f.resume) + "</textarea></label></div>";
-    var main = E.view === "diff" ? '<h2 class="section-h">Modifications par rapport au texte publié</h2>' + metaDiff() + diffHtml(diffBodies(E.src.body, curBody()))
+    var tabs = E.view === "diff" ? "" : '<div class="ed-tabs" role="tablist"><button type="button" role="tab" data-ed="onglet|texte" aria-selected="' + (E.onglet !== "annexes") + '">Texte</button><button type="button" role="tab" data-ed="onglet|annexes" aria-selected="' + (E.onglet === "annexes") + '">Annexes <span class="count-chip">' + E.annexes.length + "</span></button></div>";
+    var main = E.view === "diff" ? '<h2 class="section-h">Modifications par rapport au texte publié</h2>' + metaDiff() + diffHtml(diffBodies(E.src.body, curBody())) + annexesDiffHtml()
+      : E.onglet === "annexes" ? annexesHtml()
       : E.mode === "texte" ? '<h2 class="section-h">Texte intégral</h2><p class="cite-src">Markdown : « ## Titre I — … » pour un titre, « ### Article 1 — … » pour un article. La numérotation n\'est pas refaite dans ce mode.</p><textarea class="ed-raw" data-ef="raw" spellcheck="true">' + esc(E.raw) + "</textarea>"
       : articlesHtml();
-    v.innerHTML = head + bar + warn + confirm + fields + main;
+    v.innerHTML = head + bar + warn + confirm + fields + tabs + main;
     autoGrow(v);
   }
+  // ---------- Annexes ----------
+  // Désignées par leur nom court (« l'annexe « Pièces client » ») ; la clé (A1, A2…) reste interne et ne change jamais.
+  var NATURES = ["Formulaire", "Registre", "Liste de contrôle", "Matrice", "Modèle", "Tableau", "Fiche", "Note"];
+  var MODELES_ANNEXE = {
+    "Formulaire": "Renseignez les champs ci-dessous.\n\n| Rubrique | Information |\n|---|---|\n| Nom et prénoms | |\n| Fonction | |\n| Date | |\n\nSignature :\n",
+    "Registre": "Une ligne par événement, dans l'ordre chronologique.\n\n| N° | Date | Objet | Responsable | Suite donnée |\n|---|---|---|---|---|\n| | | | | |\n",
+    "Liste de contrôle": "Cochez chaque point vérifié.\n\n- [ ] Premier point à vérifier\n- [ ] Deuxième point à vérifier\n",
+    "Matrice": "| Élément | Niveau | Mesure | Responsable |\n|---|---|---|---|\n| | | | |\n",
+  };
+  var cleAnnexe = function (a) { return a.cle || a.tmp; };
+  var annexeOrig = function (a) { return a.cle ? (E.src.annexes || []).filter(function (x) { return x.cle === a.cle; })[0] : null; };
+  var CHAMPS = [["nature", "Nature"], ["renseigne_par", "Renseignée par"], ["conserve_par", "Conservée par"], ["frequence", "Fréquence"]];
+  function annexesHtml() {
+    var A = E.annexes, noms = {};
+    A.forEach(function (a) { var k = (a.nom || "").trim().toLowerCase(); noms[k] = (noms[k] || 0) + 1; });
+    return '<h2 class="section-h">Annexes</h2><p class="cite-src">Chaque annexe est désignée par un nom court, unique dans le document : dans le texte, écrivez « l\'annexe « Pièces client » ». Renommer une annexe met à jour les renvois de ce document ; ceux d\'autres documents sont signalés à la soumission.</p>' +
+      '<div class="ed-annexes">' + A.map(function (a, i) {
+        var k = cleAnnexe(a), ouv = !!E.ouvertes[k], dbl = noms[(a.nom || "").trim().toLowerCase()] > 1;
+        return '<article class="ed-card ed-ann" id="ed-x' + i + '"><div class="ed-ahead"><span class="ed-num">Annexe</span>' +
+          '<input type="text" class="ed-xnom" data-ex="' + i + '|nom" value="' + esc(a.nom) + '" maxlength="60" placeholder="Nom court (2 à 4 mots)" aria-label="Nom de l\'annexe">' +
+          '<span class="ed-tools"><button type="button" class="icon-btn" data-ed="x-up|' + i + '" aria-label="Monter l\'annexe"' + (i ? "" : " disabled") + '>↑</button><button type="button" class="icon-btn" data-ed="x-down|' + i + '" aria-label="Descendre l\'annexe"' + (i < A.length - 1 ? "" : " disabled") + '>↓</button><button type="button" class="icon-btn" data-ed="x-del|' + i + '" aria-label="Supprimer l\'annexe">✕</button></span></div>' +
+          (dbl ? '<p class="tt-warn">Deux annexes portent ce nom : choisissez un nom unique.</p>' : !(a.nom || "").trim() ? '<p class="tt-warn">Donnez un nom court à l\'annexe.</p>' : "") +
+          '<label class="vf">Titre<input type="text" data-ex="' + i + '|titre" value="' + esc(a.titre) + '" maxlength="200"></label>' +
+          '<div class="ed-xfiche">' + CHAMPS.map(function (c) {
+            if (c[0] === "nature") return '<label class="vf">' + c[1] + '<select data-ex="' + i + '|nature">' + NATURES.concat(NATURES.indexOf(a.nature) < 0 && a.nature ? [a.nature] : []).map(function (n) { return '<option' + (n === a.nature ? " selected" : "") + ">" + esc(n) + "</option>"; }).join("") + "</select></label>";
+            return '<label class="vf">' + c[1] + '<input type="text" data-ex="' + i + "|" + c[0] + '" value="' + esc(a[c[0]]) + '" maxlength="200"></label>';
+          }).join("") + '<label class="chkl"><input type="checkbox" data-ex="' + i + '|orientation"' + (a.orientation === "paysage" ? " checked" : "") + "> Page en paysage</label></div>" +
+          '<div class="ed-afoot"><button type="button" class="doclink" data-ed="x-ouvrir|' + i + '">' + (ouv ? "Masquer le contenu" : "Modifier le contenu") + '</button><button type="button" class="doclink" data-ed="x-apercu|' + i + '">Aperçu</button>' + (a.cle ? "" : ' <span class="pill projet">Nouvelle</span>') + "</div>" +
+          (ouv ? '<textarea class="ed-raw ed-xbody" data-ex="' + i + '|body" aria-label="Contenu de l\'annexe ' + esc(a.nom) + '">' + esc(a.body) + "</textarea>" : "") +
+          '<div class="ed-prev" id="ed-xp' + i + '" hidden></div></article>';
+      }).join("") + (A.length ? "" : '<p class="tt-empty">Ce document n\'a pas d\'annexe.</p>') + "</div>" +
+      '<div class="ed-tfoot"><span class="lbl">Ajouter une annexe :</span>' + NATURES.slice(0, 4).map(function (n) { return '<button type="button" class="btn" data-ed="x-add|' + esc(n) + '">+ ' + esc(n) + "</button>"; }).join("") + '<button type="button" class="btn ghost" data-ed="x-add|">+ Annexe vierge</button></div>';
+  }
+  // Annexes ajoutées, supprimées, modifiées (fiche et contenu) par rapport au texte publié
+  function annexesChanges() {
+    var out = [], src = E.src.annexes || [];
+    E.annexes.forEach(function (a, i) {
+      var o = annexeOrig(a);
+      if (!o) { out.push({ type: "ajout", a: a }); return; }
+      var champs = ["nom", "titre"].concat(CHAMPS.map(function (c) { return c[0]; }), ["orientation"]).filter(function (k) { return (o[k] || "") !== (a[k] || ""); });
+      var j = src.indexOf(o);
+      if (champs.length || o.body !== a.body || j !== i) out.push({ type: "modif", a: a, o: o, champs: champs, corps: o.body !== a.body, ordre: j !== i });
+    });
+    src.forEach(function (o) { if (!E.annexes.some(function (a) { return a.cle === o.cle; })) out.push({ type: "retrait", o: o }); });
+    return out;
+  }
+  function annexesDiffHtml() {
+    var ch = annexesChanges(); if (!ch.length) return "";
+    return '<h2 class="section-h">Annexes</h2><ul class="dlist">' + ch.map(function (c) {
+      var lab = c.type === "ajout" ? "Ajoutée" : c.type === "retrait" ? "Supprimée" : "Modifiée", x = c.a || c.o;
+      var body = c.type === "ajout" ? "<ins>" + esc(c.a.titre) + "\n\n" + esc(c.a.body) + "</ins>" : c.type === "retrait" ? "<del>" + esc(c.o.titre) + "</del>"
+        : c.champs.map(function (k) { return '<div class="d-t">' + esc(({ nom: "Nom", titre: "Titre", orientation: "Orientation" })[k] || (CHAMPS.filter(function (z) { return z[0] === k; })[0] || ["", k])[1]) + " : " + wordDiff(c.o[k] || "", c.a[k] || "") + "</div>"; }).join("") + (c.ordre ? '<div class="d-t">Position changée</div>' : "") + (c.corps ? wordDiff(c.o.body, c.a.body) : "");
+      return '<li class="d-' + c.type + '"><div class="d-head"><span class="pill ' + (c.type === "ajout" ? "vigueur" : c.type === "retrait" ? "abroge" : "projet") + '">' + lab + '</span> <b>Annexe « ' + esc(x.nom) + " »</b></div><div class=\"d-body\">" + body + "</div></li>";
+    }).join("") + "</ul>";
+  }
+  // Renvois vers une annexe dans le texte et les autres annexes de ce document
+  var reNom = function (nom) { return new RegExp("([Aa]nnexes?\\s+(?:et\\s+)?(?:«\\s*[^»]*»\\s*,?\\s*(?:et\\s+)?)*«\\s*)" + nom.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "(\\s*»)", "g"); };
+  function renommerRenvois(ancien, nouveau) {
+    if (!ancien || !nouveau || ancien === nouveau) return 0;
+    var n = 0, rep = function (t) { return String(t || "").replace(reNom(ancien), function (m, a, b) { n++; return a + nouveau + b; }); };
+    var body = rep(curBody()); E.raw = body; E.model = parseBody(body);
+    E.annexes.forEach(function (a) { a.body = rep(a.body); });
+    return n;
+  }
+  function renvoisVers(nom) { if (!nom) return 0; var t = curBody() + "\n" + E.annexes.map(function (a) { return a.body; }).join("\n"); return (t.match(reNom(nom)) || []).length; }
   function metaDiff() {
     var out = "";
     if (E.f.titre !== E.src.titre) out += '<li class="d-modif"><div class="d-head"><span class="pill projet">Modifié</span> <b>Titre du document</b></div><div class="d-body">' + wordDiff(E.src.titre, E.f.titre) + "</div></li>";
@@ -183,7 +251,15 @@
   // Vue d'ensemble avant soumission : récapitulatif, modifications mot à mot et document complet tel qu'il sera publié
   async function openSubmit() {
     if (!E.f.objet.trim()) { toast("Indiquez l'objet de la modification."); var o = $('[data-ef="objet"]'); if (o) o.focus(); return; }
-    if (!E.nouveau && curBody() === E.src.body && E.f.titre === E.src.titre && E.f.resume === E.src.resume) { toast("Aucune modification à soumettre."); return; }
+    var axc = annexesChanges();
+    if (!E.nouveau && curBody() === E.src.body && E.f.titre === E.src.titre && E.f.resume === E.src.resume && !axc.length) { toast("Aucune modification à soumettre."); return; }
+    var nomsA = E.annexes.map(function (a) { return (a.nom || "").trim().toLowerCase(); });
+    if (nomsA.some(function (n, k) { return !n || nomsA.indexOf(n) !== k; })) { toast("Chaque annexe doit avoir un nom court, unique dans le document."); E.onglet = "annexes"; renderEditor(); return; }
+    if (E.annexes.some(function (a) { return !(a.titre || "").trim(); })) { toast("Chaque annexe doit avoir un titre."); E.onglet = "annexes"; renderEditor(); return; }
+    // Renvois vers des annexes supprimées ou renommées, dans ce document et dans les autres
+    var partis = (E.src.annexes || []).filter(function (o) { return !E.annexes.some(function (a) { return a.cle === o.cle && (a.nom || "").trim() === o.nom; }); });
+    var restes = partis.filter(function (o) { return renvoisVers(o.nom); }).map(function (o) { return "« " + o.nom + " »"; });
+    var ailleurs = partis.filter(function (o) { return (o.cite_par || []).length; }).map(function (o) { return "« " + o.nom + " » (cité par " + o.cite_par.join(", ") + ")"; });
     if (E.nouveau && (!E.f.titre.trim() || !E.f.resume.trim() || !curBody().trim())) { toast("Titre, résumé et texte sont nécessaires pour créer le document."); return; }
     var ch = diffBodies(E.src.body, curBody());
     var c = { ajout: 0, modif: 0, retrait: 0 }; ch.forEach(function (x) { c[x.type]++; });
@@ -198,8 +274,10 @@
         E.nouveau ? "Le document " + esc(E.id) + " est créé en projet (version 0.9), avec les informations saisies à sa création." : enVigueur() ? "La version " + esc(E.src.version) + " reste en vigueur jusqu'à l'adoption de la nouvelle." : "Le projet est remplacé par le texte modifié.",
         started ? "<b>Les visas déjà donnés sur le texte actuel tombent</b> : le circuit recommence au début." : "Le circuit d'approbation commence sur le nouveau texte.",
         "Vous ne pourrez viser aucune étape de cette version, puisque vous l'avez rédigée (règle des quatre yeux).",
-        "La publication (texte, PDF, Word) prend quelques minutes."],
-      onglets: [{ titre: "Modifications", html: metaDiff() + diffHtml(ch) }, { titre: "Document complet", html: complet }],
+        "La publication (texte, PDF, Word) prend quelques minutes."].concat(axc.length ? [axc.length + " annexe(s) ajoutée(s), modifiée(s) ou supprimée(s)."] : [],
+        restes.length ? ["<b>Attention :</b> le texte renvoie encore à " + restes.join(", ") + ", qui n'existe plus sous ce nom."] : [],
+        ailleurs.length ? ["<b>Autres documents à mettre à jour :</b> " + ailleurs.join(" ; ") + "."] : []),
+      onglets: [{ titre: "Modifications", html: metaDiff() + diffHtml(ch) + annexesDiffHtml() }, { titre: "Document complet", html: complet }],
       phrase: (E.nouveau ? "créer " : "soumettre ") + E.id, bouton: E.nouveau ? "Créer et soumettre au circuit" : "Soumettre au circuit"
     });
     if (ok) submitDraft();
@@ -215,6 +293,7 @@
     var prev = draftOf(E.id);
     var body = { nouveau: E.nouveau || undefined, meta: E.meta || undefined, base: E.nouveau ? "nouveau" : E.draft && E.draft.base && !E.rebased ? E.draft.base : E.src.empreinte, version: E.src.version, statut: statut || "brouillon", mode: E.mode,
       nature: enVigueur() ? E.f.nature : null, objet: E.f.objet.trim(), titre: E.f.titre.trim(), resume: E.f.resume.trim(), body: curBody(),
+      annexes: E.annexes.map(function (a) { return { cle: a.cle || "", tmp: a.tmp, nom: (a.nom || "").trim(), titre: a.titre || "", nature: a.nature || "", renseigne_par: a.renseigne_par || "", conserve_par: a.conserve_par || "", frequence: a.frequence || "", orientation: a.orientation || "", body: String(a.body || "").replace(/\s*$/, "\n") }; }),
       auteurs: ((prev && prev.auteurs) || []).concat(V.me).filter(function (x, i, a) { return x && a.indexOf(x) === i; }),
       cree_le: (prev && prev.cree_le) || new Date().toISOString(), maj: new Date().toISOString(), par: V.me };
     if (statut === "soumis") { body.soumis_le = body.maj; body.soumis_par = V.me; }
@@ -235,6 +314,15 @@
   // ---------- Événements ----------
   document.addEventListener("input", function (ev) {
     var t = ev.target; if (!E || !t.closest || !t.closest("#v-edition")) return;
+    var x = t.getAttribute("data-ex");
+    if (x) {
+      var q = x.split("|"), an = E.annexes[+q[0]]; if (!an) return;
+      if (q[1] === "orientation") return;
+      if (q[1] === "nom" && an._nomAvant === undefined) an._nomAvant = an.nom;
+      an[q[1]] = t.value;
+      if (t.tagName === "TEXTAREA") { t.style.height = "auto"; t.style.height = Math.max(160, t.scrollHeight + 2) + "px"; }
+      markDirty(); return;
+    }
     var f = t.getAttribute("data-ef"), a = t.getAttribute("data-ea");
     if (f === "raw") { E.raw = t.value; E.model = parseBody(E.raw); }
     else if (f) E.f[f] = t.value;
@@ -249,7 +337,16 @@
     if (f === "titre") { var h = $("#v-edition h1.title"); if (h) h.textContent = t.value; }
     markDirty();
   });
-  document.addEventListener("change", function (ev) { var t = ev.target; if (E && t.name === "ed-nat") { E.f.nature = t.value; markDirty(); renderEditor(); } });
+  document.addEventListener("change", function (ev) {
+    var t = ev.target; if (!E) return;
+    if (t.name === "ed-nat") { E.f.nature = t.value; markDirty(); renderEditor(); return; }
+    var x = t.getAttribute && t.getAttribute("data-ex"); if (!x) return;
+    var q = x.split("|"), an = E.annexes[+q[0]]; if (!an) return;
+    if (q[1] === "orientation") { an.orientation = t.checked ? "paysage" : ""; markDirty(); return; }
+    if (q[1] === "nature") { an.nature = t.value; markDirty(); return; }
+    // Nom changé : les renvois de ce document suivent
+    if (q[1] === "nom" && an._nomAvant !== undefined) { var av = an._nomAvant; delete an._nomAvant; an.nom = t.value.trim(); var n = renommerRenvois(av, an.nom); if (n) toast(n + " renvoi(s) mis à jour dans ce document."); markDirty(); renderEditor(); }
+  });
   document.addEventListener("click", function (ev) {
     var b = ev.target.closest("[data-ed],[data-edit-doc],[data-ediff]"); if (!b) return;
     ev.preventDefault();
@@ -261,6 +358,26 @@
     switch (p[0]) {
       case "mode": if (p[1] === "articles") { E.model = parseBody(E.raw); } else { E.raw = serialize(E.model); } E.mode = p[1]; renderEditor(); return;
       case "view": E.view = p[1]; renderEditor(); return;
+      case "onglet": E.onglet = p[1]; renderEditor(); return;
+      case "x-add":
+        var nat = p[1] || "Note", tmp = "n" + Date.now();
+        E.annexes.push({ cle: "", tmp: tmp, nom: "Nouvelle annexe", titre: "", nature: nat, renseigne_par: "", conserve_par: "", frequence: "", orientation: "", body: MODELES_ANNEXE[p[1]] || "" });
+        E.ouvertes[tmp] = true; markDirty(); renderEditor();
+        setTimeout(function () { var el = $("#ed-x" + (E.annexes.length - 1) + " .ed-xnom"); if (el) { el.focus(); el.select(); el.scrollIntoView({ block: "center" }); } }, 30);
+        return;
+      case "x-del":
+        var ad = E.annexes[i], nr = renvoisVers(ad.nom);
+        confirmer({ titre: "Supprimer l'annexe « " + ad.nom + " »", points: ["L'annexe sera retirée de la prochaine version du document ; les versions archivées la conservent.", nr ? "<b>" + nr + " renvoi(s)</b> vers cette annexe restent dans le texte : corrigez-les avant de soumettre." : "Aucun renvoi vers cette annexe dans ce document.", "Vérifiez aussi les autres documents qui y renvoient (signalés à la soumission)."], phrase: "supprimer l'annexe", bouton: "Supprimer l'annexe", danger: true })
+          .then(function (ok) { if (!ok) return; E.annexes.splice(i, 1); markDirty(); renderEditor(); });
+        return;
+      case "x-up": if (i > 0) { var u = E.annexes[i]; E.annexes[i] = E.annexes[i - 1]; E.annexes[i - 1] = u; markDirty(); renderEditor(); } return;
+      case "x-down": if (i < E.annexes.length - 1) { var w = E.annexes[i]; E.annexes[i] = E.annexes[i + 1]; E.annexes[i + 1] = w; markDirty(); renderEditor(); } return;
+      case "x-ouvrir": var kk = cleAnnexe(E.annexes[i]); E.ouvertes[kk] = !E.ouvertes[kk]; renderEditor(); return;
+      case "x-apercu":
+        var bx = $("#ed-xp" + i); if (!bx) return;
+        if (!bx.hidden) { bx.hidden = true; return; }
+        loadLib("marked").then(function (mk) { bx.innerHTML = '<div class="doc-body">' + mk.parse(avecMedias(E.annexes[i].body || "")) + "</div>"; bx.hidden = false; }).catch(function () { toast("Aperçu indisponible."); });
+        return;
       case "soumettre": openSubmit(); return;
       case "soumettre-ok": submitDraft(); return;
       case "reprendre": saveDraft().then(renderEditor); return;

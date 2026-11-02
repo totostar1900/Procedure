@@ -43,9 +43,9 @@ historique:
     objet: Projet initial, aligné sur les parcours d'ordres du Guichet et sur la Politique de meilleure exécution
     par: Directeur des Marchés de Capitaux
 notes_redaction:
-  - La procédure met en œuvre la Politique de meilleure exécution (PC-POL-EXE-001), dont elle reprend les heures limites (Annexe 1 de la politique) sans les répéter.
+  - La procédure met en œuvre la Politique de meilleure exécution (PC-POL-EXE-001), dont elle reprend les heures limites (Annexe « Lieux d'exécution » de la politique) sans les répéter.
   - "Dans le Guichet, le parcours « Achat secondaire » indique que le desk « passe l'ordre à la société de bourse ». Purpose Capital étant membre de la BVMAC, elle transmet elle-même l'ordre au marché : corriger le libellé du Guichet."
-  - Confirmer avec la BVMAC l'heure de clôture de la pré-ouverture et les modalités de saisie des ordres par les membres, puis compléter l'Annexe 1 de la Politique de meilleure exécution.
+  - Confirmer avec la BVMAC l'heure de clôture de la pré-ouverture et les modalités de saisie des ordres par les membres, puis compléter l'annexe « Lieux d'exécution » de la Politique de meilleure exécution.
   - "Le Code de bonne conduite (article 33) n'admet que des canaux enregistrés. La Société n'enregistre pas aujourd'hui ses lignes téléphoniques : tant que ce n'est pas le cas, un ordre ne peut être reçu par téléphone qu'en mode dégradé, selon le Plan de continuité d'activité."
 ---
 
@@ -99,11 +99,11 @@ L'ordre est **horodaté** à sa signature. C'est cet horodatage qui fixe son ran
 
 ### Article 6 — Contenu d'un ordre
 
-Tout ordre mentionne au minimum : le client et son numéro de compte, le titre (nom et code), le sens, la quantité ou le montant, le type d'ordre (à cours limité ou au marché) et la limite, la durée de validité, la date et l'heure de signature. Pour une vente de titres publics ou d'obligations, il porte l'attestation du client que les titres sont libres. Le modèle de bulletin papier figure à l'Annexe 2.
+Tout ordre mentionne au minimum : le client et son numéro de compte, le titre (nom et code), le sens, la quantité ou le montant, le type d'ordre (à cours limité ou au marché) et la limite, la durée de validité, la date et l'heure de signature. Pour une vente de titres publics ou d'obligations, il porte l'attestation du client que les titres sont libres. Le modèle de bulletin papier figure à l'annexe « Bulletin d'ordre ».
 
 ### Article 7 — Vérifications avant acceptation
 
-Avant d'accepter un ordre, le desk vérifie, au moyen de la liste de l'Annexe 1 :
+Avant d'accepter un ordre, le desk vérifie, au moyen de la liste de l'annexe « Vérification avant transmission » :
 
 - que le **dossier du client est approuvé, à jour**, et que la convention en vigueur a été acceptée ;
 - que le client n'est ni bloqué, ni concerné par une alerte de filtrage ;
@@ -130,7 +130,7 @@ Aucun paiement en espèces n'est accepté.
 
 La Société est membre de la BVMAC et transmet elle-même les ordres au marché.
 
-1. Les ordres signés et couverts avant l'**heure limite interne** fixée à l'Annexe 1 de la Politique de meilleure exécution sont saisis pour la séance du jour ; les autres, pour la séance suivante.
+1. Les ordres signés et couverts avant l'**heure limite interne** fixée à l'annexe « Lieux d'exécution » de la Politique de meilleure exécution sont saisis pour la séance du jour ; les autres, pour la séance suivante.
 2. Ils sont saisis dans l'**ordre chronologique** de leur horodatage. Le Directeur des Marchés de Capitaux, ou son suppléant habilité, saisit l'ordre ; une seconde personne vérifie la saisie avant la clôture de la pré-ouverture lorsque l'effectif le permet, sinon le jour même.
 3. Après la séance, le desk récupère les résultats du fixing : exécution totale, partielle ou nulle.
 4. Un ordre non exécuté reste sur le carnet jusqu'à la fin de sa validité, puis le client en est informé.
@@ -145,7 +145,7 @@ La Société est membre de la BVMAC et transmet elle-même les ordres au marché
 
 ### Article 11 — Titres publics sur le marché secondaire
 
-Pour chaque ordre, le desk sollicite des cotations auprès d'au moins deux SVT, trois pour un ordre de taille significative, les compare en rendement et en prix, frais inclus, et retient la meilleure cotation exécutable. Il consigne les cotations reçues, l'heure et le motif du choix sur la fiche de mise en concurrence (Annexe 4 de la Politique de meilleure exécution). Si une seule cotation est disponible, le client en est informé avant exécution.
+Pour chaque ordre, le desk sollicite des cotations auprès d'au moins deux SVT, trois pour un ordre de taille significative, les compare en rendement et en prix, frais inclus, et retient la meilleure cotation exécutable. Il consigne les cotations reçues, l'heure et le motif du choix sur la fiche de mise en concurrence (Annexe « Cotations de titres publics » de la Politique de meilleure exécution). Si une seule cotation est disponible, le client en est informé avant exécution.
 
 ### Article 12 — Émissions par appel public à l'épargne
 
@@ -167,7 +167,7 @@ Le client reçoit un **avis d'opéré** au plus tard le jour ouvré suivant l'ex
 
 ### Article 16 — Règlement-livraison et rapprochement
 
-Le desk suit le règlement-livraison auprès du Dépositaire central, du SVT ou de la société de gestion. À la date de règlement, il vérifie que les titres sont inscrits au nom du client et que les espèces ont été débitées ou créditées, puis le mouvement est porté au journal des espèces du client. Chaque jour, il rapproche les ordres, les exécutions et les règlements au moyen de l'Annexe 4. Tout écart est traité comme un incident.
+Le desk suit le règlement-livraison auprès du Dépositaire central, du SVT ou de la société de gestion. À la date de règlement, il vérifie que les titres sont inscrits au nom du client et que les espèces ont été débitées ou créditées, puis le mouvement est porté au journal des espèces du client. Chaque jour, il rapproche les ordres, les exécutions et les règlements au moyen de l'annexe « Rapprochement quotidien ». Tout écart est traité comme un incident.
 
 ### Article 17 — Modification et annulation
 
@@ -191,8 +191,8 @@ Le Guichet tient le registre de tous les ordres : horodatage de l'intention, de 
 
 | Niveau | Qui | Quoi | Quand |
 | --- | --- | --- | --- |
-| Premier niveau | Desk | Liste de vérification de l'Annexe 1 avant chaque transmission | À chaque ordre |
-| Premier niveau | Desk | Rapprochement des ordres, exécutions et règlements (Annexe 4) | Chaque jour |
+| Premier niveau | Desk | Liste de vérification de l'annexe « Vérification avant transmission » avant chaque transmission | À chaque ordre |
+| Premier niveau | Desk | Rapprochement des ordres, exécutions et règlements (Annexe « Rapprochement quotidien ») | Chaque jour |
 | Second niveau | RCCI | Concordance ordre signé, ordre transmis, avis d'opéré sur un échantillon | Chaque mois |
 | Second niveau | RCCI | Qualité d'exécution selon la grille de la Politique de meilleure exécution : délais, ordre chronologique, mise en concurrence des SVT, erreurs, réclamations | Chaque trimestre |
 

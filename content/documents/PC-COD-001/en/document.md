@@ -30,7 +30,7 @@ notes_redaction:
   - "Thresholds to be confirmed before adoption — gifts FCFA 50,000, minimum holding period 30 days, blackout period 15 days, complaint handling 30 days."
   - "Articles of the COSUMAF General Regulation of 23 May 2023 identified in the references (Art. 13–14, 77, 99, 112): to be checked against the official text before adoption."
   - "Ten-year retention period (Article 38) confirmed by Article 105 of the COSUMAF General Regulation; check that it remains consistent with CEMAC Regulation No. 02/24."
-source: 41383c76df12831a
+source: e7b26ccec002f5a1
 ---
 
 ## Title I — General provisions
@@ -149,7 +149,7 @@ Issuer advisory and placement activities are separated from dealing, research an
 
 ### Article 21 — Declaration of interests
 
-Each Staff Member declares, on recruitment and annually thereafter, their corporate offices, significant shareholdings and outside activities (Appendix 3). Any paid outside activity requires the prior authorisation of Executive Management.
+Each Staff Member declares, on recruitment and annually thereafter, their corporate offices, significant shareholdings and outside activities (Appendix “Declaration of interests”). Any paid outside activity requires the prior authorisation of Executive Management.
 
 ### Article 22 — Gifts and benefits
 
@@ -181,7 +181,7 @@ Staff Members' personal transactions:
 2. are subject to a prior authorisation request to the RCCI, valid for 48 hours;
 3. are held for at least 30 days before resale, save in exceptional circumstances that have been authorised;
 4. are never executed ahead of a pending client order in the same security;
-5. are declared in a signed quarterly statement (Appendix 2).
+5. are declared in a signed quarterly statement (Appendix “Personal transactions statement”).
 
 ### Article 28 — Blackout periods
 
@@ -299,7 +299,7 @@ Any breach of this Code constitutes misconduct which may lead, depending on its 
 
 ### Article 50 — Adherence
 
-Each Staff Member receives the Code against a signed receipt, signs the declaration of adherence (Appendix 1) and renews it at each update. The Code is annexed to the internal rules and to employment and service contracts.
+Each Staff Member receives the Code against a signed receipt, signs the declaration of adherence (Appendix “Declaration of adherence”) and renews it at each update. The Code is annexed to the internal rules and to employment and service contracts.
 
 ### Article 51 — Review
 

@@ -41,12 +41,12 @@ historique:
     objet: Projet initial
     par: RCCI
 notes_redaction:
-  - "Les seuils de l'Annexe 1 sont des propositions prudentes, à arrêter par le Conseil d'Administration : prise ferme ou garantie jusqu'à 15 % des fonds propres par le Directeur Général, de 15 % à 25 % avec l'accord préalable du Président du Conseil, au-delà de 25 % (et toute prise ferme d'actions) par le Conseil ; ordres de montant élevé à partir de 50 000 000 FCFA et 200 000 000 FCFA. Ils doivent rester cohérents avec le tableau des limites de la Politique de gestion des risques (PC-POL-RIS-001, Annexe 1)."
+  - "Les seuils de l'annexe « Matrice de validation » sont des propositions prudentes, à arrêter par le Conseil d'Administration : prise ferme ou garantie jusqu'à 15 % des fonds propres par le Directeur Général, de 15 % à 25 % avec l'accord préalable du Président du Conseil, au-delà de 25 % (et toute prise ferme d'actions) par le Conseil ; ordres de montant élevé à partir de 50 000 000 FCFA et 200 000 000 FCFA. Ils doivent rester cohérents avec le tableau des limites de la Politique de gestion des risques (PC-POL-RIS-001, annexe « Appétence et limites »)."
   - "Comme pour PC-POL-RIS-001, les normes prudentielles propres aux sociétés de bourse (art. 11 du Règlement général) n'ont pas été trouvées dans les textes publiés. Aligner les limites de l'article 12 sur ces normes dès qu'elles sont confirmées, et vérifier que l'agrément et le programme d'activités de la Société couvrent la prise ferme et la garantie de bonne fin (à défaut, approbation préalable de la COSUMAF, art. 77)."
   - "La Charte d'organisation et de délégation des pouvoirs (PC-COD-004) et le Manuel de procédures comptables (PC-PRO-CPT-001) sont rédigés en parallèle. Le Titre VI ne pose que des principes ; vérifier la cohérence des renvois et des montants lors de leur adoption."
   - "Les limitations de pouvoirs du Directeur Général fixées par la présente politique sont inopposables aux tiers en droit OHADA. Faire reprendre les seuils dans la délibération du Conseil qui fixe les pouvoirs du Directeur Général, et faire vérifier par le conseil juridique ce point ainsi que la possibilité d'une consultation écrite du Conseil en cas d'urgence (article 9), qui suppose une clause des statuts."
   - "Le comité d'engagement peut se tenir en marge du comité des risques mensuel prévu par PC-POL-RIS-001 (article 8). Confirmer ce fonctionnement, et la composition du comité tant que le poste de Directeur des Marchés de Capitaux n'est pas pourvu."
-  - "La politique retient l'absence de toute activité pour compte propre en dehors des placements de trésorerie, conformément à la déclaration d'appétence (PC-POL-RIS-001, Annexe 1 : limite de 0 FCFA). Le Conseil confirme ce choix ; toute ouverture ultérieure suivra l'article 17."
+  - "La politique retient l'absence de toute activité pour compte propre en dehors des placements de trésorerie, conformément à la déclaration d'appétence (PC-POL-RIS-001, annexe « Appétence et limites » : limite de 0 FCFA). Le Conseil confirme ce choix ; toute ouverture ultérieure suivra l'article 17."
   - "Le montant de référence des fonds propres est le dernier calcul mensuel (PC-POL-RIS-001, article 13). Confirmer avec le comptable, le cas échéant externalisé, le délai de production de ce calcul."
 ---
 
@@ -76,7 +76,7 @@ Elle ne remplace pas les procédures opérationnelles : elle fixe le niveau de v
 ### Article 3 — Définitions
 
 - **Engagement** : tout acte qui oblige la Société envers un tiers ou expose ses fonds propres : signature d'un contrat ou d'une lettre de mandat, offre ferme, acceptation d'une part de syndicat, paiement, placement, garantie.
-- **Validation** : accord écrit, préalable à l'engagement, donné par la personne ou l'organe compétent selon l'Annexe 1. Un courriel professionnel archivé ou un visa électronique vaut écrit ; un accord oral ne vaut pas validation.
+- **Validation** : accord écrit, préalable à l'engagement, donné par la personne ou l'organe compétent selon l'annexe « Matrice de validation ». Un courriel professionnel archivé ou un visa électronique vaut écrit ; un accord oral ne vaut pas validation.
 - **Double regard (quatre yeux)** : l'opération est préparée par une personne et vérifiée ou approuvée par une autre, qui n'est pas placée sous son autorité pour cette opération.
 - **Avis du RCCI** : avis écrit du Responsable de la conformité et du contrôle interne sur la conformité réglementaire, la lutte contre le blanchiment, les conflits d'intérêts et les risques de l'opération.
 - **Fonds propres de référence** : montant des fonds propres de la Société issu du dernier calcul mensuel prévu par la Politique de gestion des risques (PC-POL-RIS-001, article 13).
@@ -121,13 +121,13 @@ En cas de contradiction, la règle la plus exigeante s'applique.
 | N3 — Accord préalable du Président du Conseil | Président du Conseil d'Administration, sur demande écrite du Directeur Général accompagnée de l'avis du RCCI | Engagements qui approchent les limites, ou lorsque le Directeur Général est en conflit d'intérêts |
 | N4 — Conseil d'Administration | Conseil d'Administration, par délibération | Engagements qui dépassent les limites ou les pouvoirs du Directeur Général, ou qui modifient le programme d'activités |
 
-L'Annexe 1 indique, pour chaque type d'opération, le niveau requis et les seuils. Les seuils exprimés en pourcentage des fonds propres s'apprécient sur les fonds propres de référence et, pour la prise ferme et la garantie, sur l'encours total des engagements en cours.
+L'Annexe « Matrice de validation » indique, pour chaque type d'opération, le niveau requis et les seuils. Les seuils exprimés en pourcentage des fonds propres s'apprécient sur les fonds propres de référence et, pour la prise ferme et la garantie, sur l'encours total des engagements en cours.
 
 Le Président du Conseil ne dirige pas la Société : son accord au niveau N3 est un contrôle, non une décision de gestion. Il en rend compte au Conseil à sa séance suivante.
 
 ### Article 7 — Avis du RCCI
 
-Le RCCI rend son avis écrit dans un délai de **2 jours ouvrés** à compter de la réception d'un dossier complet, au moyen de la demande d'engagement (Annexe 2). Son avis est : favorable, favorable sous conditions, ou défavorable.
+Le RCCI rend son avis écrit dans un délai de **2 jours ouvrés** à compter de la réception d'un dossier complet, au moyen de la demande d'engagement (Annexe « Demande d'engagement »). Son avis est : favorable, favorable sous conditions, ou défavorable.
 
 Lorsque le Directeur Général décide de s'engager malgré un avis défavorable ou sans remplir les conditions posées, il motive sa décision par écrit et en informe le Président du Conseil d'Administration dans les **2 jours ouvrés**. Pour une prise ferme ou une garantie de bonne fin, un avis défavorable du RCCI porte la décision au niveau N4.
 
@@ -166,7 +166,7 @@ Le comité d'engagement examine les engagements des articles 11 à 13 avant déc
 
 Le Directeur Commercial y est invité lorsque la capacité de placement auprès de la clientèle est en jeu. Le comité peut se tenir en marge du comité des risques mensuel (PC-POL-RIS-001, article 8), par visioconférence, ou par échange de courriels archivés lorsque le dossier est simple. Il ne délibère valablement qu'en présence du Directeur Général et du RCCI, ou au vu de l'avis écrit de ce dernier.
 
-Chaque réunion fait l'objet d'un **procès-verbal** (Annexe 3), signé par le Directeur Général et le RCCI dans les **2 jours ouvrés**, qui mentionne le dossier, l'avis du RCCI, la décision, ses conditions et le niveau de validation requis ensuite, le cas échéant.
+Chaque réunion fait l'objet d'un **procès-verbal** (Annexe « Procès-verbal du comité d'engagement »), signé par le Directeur Général et le RCCI dans les **2 jours ouvrés**, qui mentionne le dossier, l'avis du RCCI, la décision, ses conditions et le niveau de validation requis ensuite, le cas échéant.
 
 Tant que le poste de Directeur des Marchés de Capitaux n'est pas pourvu, le porteur du dossier le présente ; si ce porteur est le Directeur Général, la décision relève du niveau N3.
 
@@ -244,9 +244,9 @@ Est traité comme nouveau tout produit, service, canal de distribution, catégor
 
 Aucun lancement n'a lieu sans :
 
-1. l'analyse des risques au moyen de la fiche de la Politique de gestion des risques (PC-POL-RIS-001, Annexe 5), préparée par le porteur du projet ;
+1. l'analyse des risques au moyen de la fiche de la Politique de gestion des risques (PC-POL-RIS-001, annexe « Approbation de nouveau produit »), préparée par le porteur du projet ;
 2. l'avis écrit du RCCI, qui précise notamment si le programme d'activités agréé est modifié ;
-3. la vérification des prérequis de la liste de contrôle (Annexe 4) : procédures, contrats, systèmes, formation, information des clients ;
+3. la vérification des prérequis de la liste de contrôle (Annexe « Contrôle avant lancement ») : procédures, contrats, systèmes, formation, information des clients ;
 4. la décision du Directeur Général (N2) ou, lorsque le programme d'activités agréé est modifié ou que l'activité engage les fonds propres au-delà des limites, du Conseil d'Administration (N4), qui autorise alors la demande d'approbation préalable à la COSUMAF.
 
 Le Conseil est informé de tout lancement décidé au niveau N2 à sa séance suivante. Six mois après le lancement, le RCCI fait un bilan écrit (incidents, réclamations, respect des conditions posées), présenté au comité des risques.
@@ -268,14 +268,14 @@ Les contrôles préalables à l'acceptation d'un ordre (dossier à jour, absence
 | Ordre d'un montant égal ou supérieur à 50 000 000 FCFA, ou supérieur à la liquidité habituelle du titre | Second regard avant transmission : cohérence avec le profil et l'origine des fonds, proposition de fractionnement | Directeur des Marchés de Capitaux, en plus du desk (N1) | Visa sur le bulletin ou dans le Guichet |
 | Ordre d'un montant égal ou supérieur à 200 000 000 FCFA, ou susceptible de faire franchir au client un seuil de déclaration de participation | En plus, avis du RCCI avant transmission | RCCI, puis Directeur des Marchés de Capitaux | Avis écrit au dossier de l'ordre |
 | Ordre sans couverture complète | **Interdit.** Aucun niveau de validation ne peut l'autoriser (PC-PRO-ORD-001, article 8) | — | — |
-| Ordre sur un compte en revue : mise à jour du dossier en retard, alerte de filtrage, examen renforcé en cours | Ordre suspendu. Seul un ordre de vente ou de retrait vers le compte bancaire déclaré peut être autorisé, s'il protège le client d'une perte | Directeur Général après avis écrit du RCCI (N2) | Demande d'engagement (Annexe 2) |
+| Ordre sur un compte en revue : mise à jour du dossier en retard, alerte de filtrage, examen renforcé en cours | Ordre suspendu. Seul un ordre de vente ou de retrait vers le compte bancaire déclaré peut être autorisé, s'il protège le client d'une perte | Directeur Général après avis écrit du RCCI (N2) | Demande d'engagement (Annexe « Demande d'engagement ») |
 | Ordre sur un compte faisant l'objet d'une déclaration de soupçon en cours d'analyse | Le RCCI décide seul, dans le respect de la confidentialité (PC-POL-LBC-001, article 25) | RCCI | Dossier LBC/FT |
 | Ordre sur un compte gelé | **Interdit** (PC-POL-LBC-001, article 22) | — | — |
 | Ordre sur un titre inscrit sur la liste d'interdiction ou de surveillance | Vérification préalable | RCCI | Registre des ordres |
 
 ### Article 21 — Compte propre et placement de la trésorerie
 
-La Société ne fait **aucune opération pour compte propre** autre que le placement de sa trésorerie, conformément à sa déclaration d'appétence (PC-POL-RIS-001, Annexe 1).
+La Société ne fait **aucune opération pour compte propre** autre que le placement de sa trésorerie, conformément à sa déclaration d'appétence (PC-POL-RIS-001, annexe « Appétence et limites »).
 
 Les placements de trésorerie sont limités aux dépôts auprès de banques agréées dans la CEMAC et aux titres publics de la CEMAC d'une durée résiduelle de deux ans au plus (PC-POL-RIS-001, article 14). Chaque placement ou retrait est décidé par le Directeur Général et exécuté sous double signature selon PC-COD-004. Tout autre placement relève du Conseil d'Administration (N4).
 
@@ -309,17 +309,17 @@ Relèvent toujours d'une délibération préalable du Conseil d'Administration (
 
 Toute validation de niveau N2 à N4 repose sur un dossier comprenant au minimum :
 
-- la demande d'engagement (Annexe 2), datée et signée par le porteur ;
+- la demande d'engagement (Annexe « Demande d'engagement »), datée et signée par le porteur ;
 - les pièces d'analyse : présentation de l'opération, vérifications de connaissance du client ou de la contrepartie, scénario de non-placement pour une garantie, fiche de nouveau produit le cas échéant ;
 - l'avis écrit du RCCI ;
-- la décision au niveau requis : visa du Directeur Général, procès-verbal du comité d'engagement (Annexe 3), accord écrit du Président du Conseil, extrait du procès-verbal du Conseil ;
+- la décision au niveau requis : visa du Directeur Général, procès-verbal du comité d'engagement (Annexe « Procès-verbal du comité d'engagement »), accord écrit du Président du Conseil, extrait du procès-verbal du Conseil ;
 - le contrat ou l'acte signé, dont la date est postérieure à celle de la décision.
 
 Le dossier est constitué par le porteur de l'opération et remis au RCCI dans les 5 jours ouvrés suivant la signature.
 
 ### Article 25 — Registre et conservation
 
-Le RCCI tient le registre des engagements et des validations (Annexe 5). Chaque inscription précise l'opération, le montant, le niveau requis, l'avis du RCCI, la décision et son auteur, et le dénouement.
+Le RCCI tient le registre des engagements et des validations (Annexe « Registre des engagements »). Chaque inscription précise l'opération, le montant, le niveau requis, l'avis du RCCI, la décision et son auteur, et le dénouement.
 
 Les dossiers et le registre sont conservés au moins **dix ans** à compter du dénouement de l'opération, selon la Procédure d'archivage et de conservation (PC-PRO-ARC-001). Ils sont communiqués à la COSUMAF, aux commissaires aux comptes et au prestataire de revue indépendante sur demande.
 
@@ -342,7 +342,7 @@ Le Directeur Général présente au Conseil d'Administration, à chaque séance 
 - les nouveaux produits et activités lancés ;
 - les décisions prises malgré un avis défavorable du RCCI.
 
-Le RCCI présente dans son rapport annuel au Conseil le résultat de ses contrôles, les incidents de validation et ses recommandations, et propose, le cas échéant, l'ajustement des seuils de l'Annexe 1.
+Le RCCI présente dans son rapport annuel au Conseil le résultat de ses contrôles, les incidents de validation et ses recommandations, et propose, le cas échéant, l'ajustement des seuils de l'annexe « Matrice de validation ».
 
 ## Titre VIII — Dispositions finales
 
@@ -354,6 +354,6 @@ Les limites fixées par la présente politique s'imposent aux collaborateurs et 
 
 ### Article 29 — Révision et entrée en vigueur
 
-La politique est revue au moins une fois par an par le RCCI, avec le Directeur Général, et à chaque évolution significative des activités, des fonds propres ou de la réglementation. Les seuils de l'Annexe 1 sont revus en même temps que le tableau des limites de la Politique de gestion des risques. Toute modification est approuvée par le Conseil d'Administration.
+La politique est revue au moins une fois par an par le RCCI, avec le Directeur Général, et à chaque évolution significative des activités, des fonds propres ou de la réglementation. Les seuils de l'annexe « Matrice de validation » sont revus en même temps que le tableau des limites de la Politique de gestion des risques. Toute modification est approuvée par le Conseil d'Administration.
 
 La présente politique entre en vigueur à la date de son adoption par le Conseil d'Administration, indiquée dans la fiche de maîtrise documentaire.

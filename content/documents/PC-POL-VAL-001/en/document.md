@@ -27,14 +27,14 @@ historique:
     objet: "Initial draft"
     par: "RCCI"
 notes_redaction:
-  - "The thresholds in Appendix 1 are prudent proposals, to be set by the Board of Directors: firm underwriting or guarantee up to 15% of own funds by the Chief Executive Officer, from 15% to 25% with the prior consent of the Chairman of the Board, above 25% (and any firm underwriting of shares) by the Board; large orders from FCFA 50,000,000 and FCFA 200,000,000. They must remain consistent with the table of limits in the Risk Management Policy (PC-POL-RIS-001, Appendix 1)."
+  - "The thresholds in Appendix “Approval matrix” are prudent proposals, to be set by the Board of Directors: firm underwriting or guarantee up to 15% of own funds by the Chief Executive Officer, from 15% to 25% with the prior consent of the Chairman of the Board, above 25% (and any firm underwriting of shares) by the Board; large orders from FCFA 50,000,000 and FCFA 200,000,000. They must remain consistent with the table of limits in the Risk Management Policy (PC-POL-RIS-001, Appendix “Risk appetite and limits”)."
   - "As for PC-POL-RIS-001, the prudential standards specific to brokerage firms (Art. 11 of the General Regulation) were not found in the published texts. Align the limits in Article 12 with those standards as soon as they are confirmed, and check that the Company's licence and business plan cover firm underwriting and standby underwriting commitments (failing which, prior approval of COSUMAF, Art. 77)."
   - "The Organisation and Delegation of Powers Charter (PC-COD-004) and the Accounting Procedures Manual (PC-PRO-CPT-001) are being drafted in parallel. Title VI lays down principles only; check the consistency of cross-references and amounts when they are adopted."
   - "The limitations on the powers of the Chief Executive Officer set by this policy are not enforceable against third parties under OHADA law. Have the thresholds incorporated into the Board resolution setting the powers of the Chief Executive Officer, and have legal counsel check this point as well as the possibility of a written consultation of the Board in an emergency (Article 9), which requires a clause in the articles of association."
   - "The commitment committee may be held alongside the monthly risk committee provided for by PC-POL-RIS-001 (Article 8). Confirm this arrangement, and the composition of the committee while the position of Head of Capital Markets remains vacant."
-  - "The policy rules out any own-account activity other than cash investments, in line with the risk appetite statement (PC-POL-RIS-001, Appendix 1: limit of FCFA 0). The Board confirms this choice; any later opening will follow Article 17."
+  - "The policy rules out any own-account activity other than cash investments, in line with the risk appetite statement (PC-POL-RIS-001, Appendix “Risk appetite and limits”: limit of FCFA 0). The Board confirms this choice; any later opening will follow Article 17."
   - "The reference amount of own funds is the latest monthly calculation (PC-POL-RIS-001, Article 13). Confirm with the accountant, outsourced where applicable, the time needed to produce this calculation."
-source: 87bd8741bd899ebc
+source: ba65f18e2ae16272
 ---
 
 ## Title I — General provisions
@@ -63,7 +63,7 @@ It does not replace the operational procedures: it sets the approval level and r
 ### Article 3 — Definitions
 
 - **Commitment**: any act that binds the Company towards a third party or exposes its own funds: signature of a contract or mandate letter, firm offer, acceptance of a syndicate share, payment, investment, guarantee.
-- **Approval**: written consent, prior to the commitment, given by the competent person or body in accordance with Appendix 1. An archived business email or an electronic sign-off counts as writing; oral consent does not count as approval.
+- **Approval**: written consent, prior to the commitment, given by the competent person or body in accordance with Appendix “Approval matrix”. An archived business email or an electronic sign-off counts as writing; oral consent does not count as approval.
 - **Four-eyes review**: the transaction is prepared by one person and checked or approved by another, who is not under the first person's authority for that transaction.
 - **RCCI opinion**: written opinion of the Head of Compliance and Internal Control on regulatory compliance, anti-money laundering, conflicts of interest and the risks of the transaction.
 - **Reference own funds**: the amount of the Company's own funds derived from the latest monthly calculation provided for by the Risk Management Policy (PC-POL-RIS-001, Article 13).
@@ -108,13 +108,13 @@ In the event of a contradiction, the more demanding rule applies.
 | N3 — Prior consent of the Chairman of the Board | Chairman of the Board of Directors, on written request of the Chief Executive Officer accompanied by the RCCI opinion | Commitments approaching the limits, or where the Chief Executive Officer has a conflict of interest |
 | N4 — Board of Directors | Board of Directors, by resolution | Commitments exceeding the limits or the powers of the Chief Executive Officer, or modifying the business plan |
 
-Appendix 1 shows, for each type of transaction, the required level and the thresholds. Thresholds expressed as a percentage of own funds are assessed against the reference own funds and, for firm underwriting and guarantees, against the total outstanding commitments.
+Appendix “Approval matrix” shows, for each type of transaction, the required level and the thresholds. Thresholds expressed as a percentage of own funds are assessed against the reference own funds and, for firm underwriting and guarantees, against the total outstanding commitments.
 
 The Chairman of the Board does not manage the Company: the Chairman's consent at level N3 is a control, not a management decision. The Chairman reports on it to the Board at its next meeting.
 
 ### Article 7 — RCCI opinion
 
-The RCCI gives a written opinion within **2 business days** of receiving a complete file, using the commitment request (Appendix 2). The opinion is: favourable, favourable subject to conditions, or unfavourable.
+The RCCI gives a written opinion within **2 business days** of receiving a complete file, using the commitment request (Appendix “Commitment request”). The opinion is: favourable, favourable subject to conditions, or unfavourable.
 
 Where the Chief Executive Officer decides to commit despite an unfavourable opinion or without meeting the conditions set, the Chief Executive Officer gives written reasons for the decision and informs the Chairman of the Board of Directors within **2 business days**. For firm underwriting or a standby underwriting commitment, an unfavourable RCCI opinion raises the decision to level N4.
 
@@ -153,7 +153,7 @@ The commitment committee examines the commitments in Articles 11 to 13 before a 
 
 The Head of Sales is invited where the capacity to place securities with clients is at stake. The committee may be held alongside the monthly risk committee (PC-POL-RIS-001, Article 8), by videoconference, or by exchange of archived emails where the file is simple. It deliberates validly only in the presence of the Chief Executive Officer and the RCCI, or in light of the latter's written opinion.
 
-Each meeting is recorded in **minutes** (Appendix 3), signed by the Chief Executive Officer and the RCCI within **2 business days**, stating the file, the RCCI opinion, the decision, its conditions and, where applicable, the approval level then required.
+Each meeting is recorded in **minutes** (Appendix “Commitment committee minutes”), signed by the Chief Executive Officer and the RCCI within **2 business days**, stating the file, the RCCI opinion, the decision, its conditions and, where applicable, the approval level then required.
 
 While the position of Head of Capital Markets remains vacant, the sponsor of the file presents it; if that sponsor is the Chief Executive Officer, the decision falls to level N3.
 
@@ -231,9 +231,9 @@ Any product, service, distribution channel, client category, market or country i
 
 No launch takes place without:
 
-1. the risk analysis using the form in the Risk Management Policy (PC-POL-RIS-001, Appendix 5), prepared by the project sponsor;
+1. the risk analysis using the form in the Risk Management Policy (PC-POL-RIS-001, Appendix “New product approval”), prepared by the project sponsor;
 2. the written opinion of the RCCI, stating in particular whether the licensed business plan is modified;
-3. verification of the prerequisites in the checklist (Appendix 4): procedures, contracts, systems, training, client information;
+3. verification of the prerequisites in the checklist (Appendix “Pre-launch checklist”): procedures, contracts, systems, training, client information;
 4. the decision of the Chief Executive Officer (N2) or, where the licensed business plan is modified or the activity commits own funds beyond the limits, of the Board of Directors (N4), which then authorises the application for prior approval to COSUMAF.
 
 The Board is informed of any launch decided at level N2 at its next meeting. Six months after the launch, the RCCI makes a written review (incidents, complaints, compliance with the conditions set), presented to the risk committee.
@@ -255,14 +255,14 @@ The checks prior to accepting an order (up-to-date file, no alert, consistency, 
 | Order of FCFA 50,000,000 or more, or exceeding the usual liquidity of the security | Second review before transmission: consistency with the profile and the source of funds, proposal to split the order | Head of Capital Markets, in addition to the desk (N1) | Sign-off on the order form or in the Guichet |
 | Order of FCFA 200,000,000 or more, or liable to cause the client to cross a holding disclosure threshold | In addition, RCCI opinion before transmission | RCCI, then Head of Capital Markets | Written opinion in the order file |
 | Order without full cover | **Prohibited.** No approval level can authorise it (PC-PRO-ORD-001, Article 8) | — | — |
-| Order on an account under review: overdue file update, screening alert, enhanced examination in progress | Order suspended. Only a sell order or a withdrawal to the declared bank account may be authorised, if it protects the client from a loss | Chief Executive Officer after the written opinion of the RCCI (N2) | Commitment request (Appendix 2) |
+| Order on an account under review: overdue file update, screening alert, enhanced examination in progress | Order suspended. Only a sell order or a withdrawal to the declared bank account may be authorised, if it protects the client from a loss | Chief Executive Officer after the written opinion of the RCCI (N2) | Commitment request (Appendix “Commitment request”) |
 | Order on an account subject to a suspicious transaction report under analysis | The RCCI decides alone, respecting confidentiality (PC-POL-LBC-001, Article 25) | RCCI | AML/CFT file |
 | Order on a frozen account | **Prohibited** (PC-POL-LBC-001, Article 22) | — | — |
 | Order on a security on the restricted list or the watch list | Prior check | RCCI | Order register |
 
 ### Article 21 — Own account and cash investment
 
-The Company carries out **no own-account transactions** other than the investment of its cash, in accordance with its risk appetite statement (PC-POL-RIS-001, Appendix 1).
+The Company carries out **no own-account transactions** other than the investment of its cash, in accordance with its risk appetite statement (PC-POL-RIS-001, Appendix “Risk appetite and limits”).
 
 Cash investments are limited to deposits with banks licensed in CEMAC and CEMAC government securities with a residual maturity of two years or less (PC-POL-RIS-001, Article 14). Each investment or withdrawal is decided by the Chief Executive Officer and executed under dual signature in accordance with PC-COD-004. Any other investment falls to the Board of Directors (N4).
 
@@ -296,17 +296,17 @@ The following always require a prior resolution of the Board of Directors (N4):
 
 Any approval at levels N2 to N4 is based on a file comprising at least:
 
-- the commitment request (Appendix 2), dated and signed by the sponsor;
+- the commitment request (Appendix “Commitment request”), dated and signed by the sponsor;
 - the analysis documents: presentation of the transaction, know-your-customer checks on the client or counterparty, non-placement scenario for a guarantee, new product form where applicable;
 - the written opinion of the RCCI;
-- the decision at the required level: sign-off of the Chief Executive Officer, minutes of the commitment committee (Appendix 3), written consent of the Chairman of the Board, extract from the Board minutes;
+- the decision at the required level: sign-off of the Chief Executive Officer, minutes of the commitment committee (Appendix “Commitment committee minutes”), written consent of the Chairman of the Board, extract from the Board minutes;
 - the signed contract or deed, dated after the decision.
 
 The file is compiled by the sponsor of the transaction and handed to the RCCI within 5 business days of signature.
 
 ### Article 25 — Register and retention
 
-The RCCI keeps the register of commitments and approvals (Appendix 5). Each entry states the transaction, the amount, the required level, the RCCI opinion, the decision and its author, and the outcome.
+The RCCI keeps the register of commitments and approvals (Appendix “Commitments register”). Each entry states the transaction, the amount, the required level, the RCCI opinion, the decision and its author, and the outcome.
 
 The files and the register are retained for at least **ten years** from the settlement of the transaction, in accordance with the Archiving and Retention Procedure (PC-PRO-ARC-001). They are provided to COSUMAF, the statutory auditors and the independent review provider on request.
 
@@ -329,7 +329,7 @@ At each quarterly meeting, together with the risk dashboard, the Chief Executive
 - the new products and activities launched;
 - decisions taken despite an unfavourable RCCI opinion.
 
-In the annual report to the Board, the RCCI presents the results of the controls, approval incidents and recommendations, and proposes, where appropriate, adjustments to the thresholds in Appendix 1.
+In the annual report to the Board, the RCCI presents the results of the controls, approval incidents and recommendations, and proposes, where appropriate, adjustments to the thresholds in Appendix “Approval matrix”.
 
 ## Title VIII — Final provisions
 
@@ -341,6 +341,6 @@ The limits set by this policy are binding on Staff Members and the Chief Executi
 
 ### Article 29 — Review and entry into force
 
-The policy is reviewed at least once a year by the RCCI, with the Chief Executive Officer, and whenever there is a significant change in activities, own funds or regulation. The thresholds in Appendix 1 are reviewed at the same time as the table of limits of the Risk Management Policy. Any amendment is approved by the Board of Directors.
+The policy is reviewed at least once a year by the RCCI, with the Chief Executive Officer, and whenever there is a significant change in activities, own funds or regulation. The thresholds in Appendix “Approval matrix” are reviewed at the same time as the table of limits of the Risk Management Policy. Any amendment is approved by the Board of Directors.
 
 This policy enters into force on the date of its adoption by the Board of Directors, as shown in the document control sheet.

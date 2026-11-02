@@ -58,19 +58,47 @@ for (const { path: p, data: b } of soumis) {
   if (!/^[A-Z0-9-]+$/.test(id)) { await conflit("référence invalide"); continue; }
   if (typeof b.body !== "string" || !b.body.trim()) { await conflit("texte vide"); continue; }
   // Images importées d'un Word : media:<empreinte> → images/<empreinte>.<ext> dans le dossier du document
-  const refs = [...new Set((b.body.match(/media:[0-9a-f]{16}/g) || []).map((x) => x.slice(6)))];
-  let corps = b.body.replace(/\r/g, "");
-  if (refs.length) {
-    fs.mkdirSync(path.join(root, "images"), { recursive: true });
+  const avecImages = async (texte) => {
+    const refs = [...new Set((String(texte).match(/media:[0-9a-f]{16}/g) || []).map((x) => x.slice(6)))];
+    let c = String(texte).replace(/\r/g, "");
+    if (refs.length) fs.mkdirSync(path.join(root, "images"), { recursive: true });
     for (const h of refs) {
       const [m] = await api("kv?select=data&path=eq.medias%2F" + h);
-      if (!m) { await conflit("image introuvable (" + h + ")"); corps = null; break; }
+      if (!m) { await conflit("image introuvable (" + h + ")"); return null; }
       const ext = ({ "image/png": "png", "image/jpeg": "jpg", "image/gif": "gif" })[m.data.type] || "png";
       fs.writeFileSync(path.join(root, "images", h + "." + ext), Buffer.from(m.data.data, "base64"));
-      corps = corps.split("media:" + h).join("images/" + h + "." + ext);
+      c = c.split("media:" + h).join("images/" + h + "." + ext);
     }
-    if (corps === null) continue;
-  }
+    return c;
+  };
+  const corps = await avecImages(b.body);
+  if (corps === null) continue;
+  // Annexes (brouillons récents) : modifiées, ajoutées (clé suivante), supprimées ; désignées par leur nom, ordre d'affichage noté
+  let annexesOK = true;
+  const appliquerAnnexes = async () => {
+    if (!Array.isArray(b.annexes)) return;
+    const dir = path.join(root, "annexes"), dirEn = path.join(root, "en", "annexes");
+    fs.mkdirSync(dir, { recursive: true });
+    const existants = fs.readdirSync(dir).filter((f) => /^A\d+\.md$/.test(f)).map((f) => f.slice(0, -3));
+    let max = Math.max(0, ...existants.map((c) => +c.slice(1)));
+    const gardes = new Set();
+    for (const [i, a] of b.annexes.entries()) {
+      const contenu = await avecImages(a.body || "");
+      if (contenu === null) { annexesOK = false; return; }
+      const cle = a.cle && existants.includes(a.cle) ? a.cle : "A" + ++max;
+      gardes.add(cle);
+      const f = path.join(dir, cle + ".md");
+      const ancien = fs.existsSync(f) ? matter(fs.readFileSync(f, "utf8")).data : { id: id + "-" + cle };
+      const fmA = { ...ancien, id: ancien.id || id + "-" + cle, titre: a.titre, nom: a.nom, nature: a.nature, renseigne_par: a.renseigne_par, conserve_par: a.conserve_par, frequence: a.frequence, ordre: i + 1 };
+      if (a.orientation === "paysage") fmA.orientation = "paysage"; else delete fmA.orientation;
+      for (const k of ["renseigne_par", "conserve_par", "frequence"]) if (!fmA[k]) delete fmA[k];
+      writeFm(f, fmA, contenu);
+      // Traduction : l'ordre suit ; le reste est retraduit (traduction signalée en retard)
+      const fe = path.join(dirEn, cle + ".md");
+      if (fs.existsSync(fe)) { const x = matter(fs.readFileSync(fe, "utf8")); x.data.ordre = i + 1; if (fmA.orientation) x.data.orientation = "paysage"; else delete x.data.orientation; writeFm(fe, x.data, x.content); }
+    }
+    for (const c of existants) if (!gardes.has(c)) { fs.rmSync(path.join(dir, c + ".md")); fs.rmSync(path.join(dirEn, c + ".md"), { force: true }); console.log(id + " : annexe " + c + " supprimée."); }
+  };
   // Nouveau document : création du dossier et de l'en-tête à partir des informations saisies
   if (b.nouveau) {
     if (fs.existsSync(path.join(root, "document.md"))) { await conflit("un document porte déjà cette référence"); continue; }
@@ -81,6 +109,7 @@ for (const { path: p, data: b } of soumis) {
       references: [], historique: [{ version: "0.9", date: today(), objet: "Projet initial", par: (b.auteurs || [b.par]).map(nomDe).join(", ") }], notes_redaction: [] };
     fs.mkdirSync(root, { recursive: true });
     writeFm(path.join(root, "document.md"), fm, corps);
+    await appliquerAnnexes(); if (!annexesOK) continue;
     appliques.push({ id, p, b, version: "0.9" });
     console.log(id + " : nouveau document créé (v0.9).");
     continue;
@@ -98,6 +127,7 @@ for (const { path: p, data: b } of soumis) {
   if (b.titre) fm.titre = b.titre;
   if (b.resume) fm.resume = b.resume;
   writeFm(path.join(root, "document.md"), fm, corps);
+  await appliquerAnnexes(); if (!annexesOK) continue;
   appliques.push({ id, p, b, version: String(fm.version) });
   console.log(id + " : modification appliquée (v" + fm.version + ").");
 }

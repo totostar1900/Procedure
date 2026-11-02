@@ -113,7 +113,7 @@ L'administrateur a régulièrement accès à des informations privilégiées sur
 
 L'administrateur agit dans l'intérêt de la Société et de ses clients, jamais dans celui d'un actionnaire, d'un tiers ou le sien.
 
-1. Il remplit lors de sa nomination, puis chaque année avant le 31 janvier, la déclaration d'intérêts de l'Annexe 4, et la met à jour à tout changement.
+1. Il remplit lors de sa nomination, puis chaque année avant le 31 janvier, la déclaration d'intérêts de l'annexe « Déclaration de l'administrateur », et la met à jour à tout changement.
 2. Lorsqu'un sujet à l'ordre du jour le place en situation de conflit, il le déclare au Président avant la séance, ne participe ni au débat ni au vote, et le procès-verbal le mentionne.
 3. Toute convention entre la Société et un administrateur, un dirigeant ou une société qu'ils contrôlent ou dirigent suit la procédure des conventions réglementées de l'Acte uniforme : autorisation préalable du Conseil, sans vote de l'intéressé, information des commissaires aux comptes, approbation par l'assemblée générale.
 
@@ -142,11 +142,11 @@ Il ne dirige pas la Société : la direction générale appartient au Directeur 
 
 ### Article 14 — Calendrier
 
-Le Conseil se réunit au moins **quatre fois par an** et chaque fois que l'intérêt de la Société l'exige, selon le programme annuel type de l'Annexe 1. Une séance au moins par an est consacrée à la stratégie. Le calendrier de l'année suivante est arrêté lors de la dernière séance de l'année.
+Le Conseil se réunit au moins **quatre fois par an** et chaque fois que l'intérêt de la Société l'exige, selon le programme annuel type de l'annexe « Programme des séances ». Une séance au moins par an est consacrée à la stratégie. Le calendrier de l'année suivante est arrêté lors de la dernière séance de l'année.
 
 ### Article 15 — Convocation et ordre du jour
 
-Le Conseil est convoqué par le Président, ou à la demande du tiers au moins de ses membres s'il ne s'est pas réuni depuis plus de deux mois, **au moins cinq jours** avant la séance, par tout moyen écrit, y compris électronique. La convocation suit le modèle de l'Annexe 2 et indique la date, l'heure, le lieu, le lien de connexion éventuel et l'ordre du jour.
+Le Conseil est convoqué par le Président, ou à la demande du tiers au moins de ses membres s'il ne s'est pas réuni depuis plus de deux mois, **au moins cinq jours** avant la séance, par tout moyen écrit, y compris électronique. La convocation suit le modèle de l'annexe « Convocation » et indique la date, l'heure, le lieu, le lien de connexion éventuel et l'ordre du jour.
 
 En cas d'urgence, le délai peut être réduit si tous les administrateurs y consentent.
 
@@ -164,7 +164,7 @@ Un administrateur peut donner à un autre administrateur, par écrit, mandat de 
 
 ### Article 18 — Procès-verbaux et registre
 
-Le secrétaire du Conseil tient le registre de présence, signé par les administrateurs participant à la séance, et rédige le procès-verbal selon le modèle de l'Annexe 3. Le procès-verbal indique les administrateurs présents, représentés, excusés ou participant à distance, résume les débats, mentionne les conflits d'intérêts déclarés, et reproduit les décisions et le résultat des votes.
+Le secrétaire du Conseil tient le registre de présence, signé par les administrateurs participant à la séance, et rédige le procès-verbal selon le modèle de l'annexe « Procès-verbal de séance ». Le procès-verbal indique les administrateurs présents, représentés, excusés ou participant à distance, résume les débats, mentionne les conflits d'intérêts déclarés, et reproduit les décisions et le résultat des votes.
 
 Le projet est adressé aux administrateurs dans les quinze jours, approuvé à la séance suivante, signé par le Président et au moins un administrateur, puis conservé au siège. Les extraits sont certifiés par le Président ou le Directeur Général.
 
@@ -197,7 +197,7 @@ Aucun administrateur non dirigeant ne reçoit de rémunération liée au chiffre
 
 ### Article 22 — Évaluation du Conseil
 
-Une fois par an, le Conseil consacre un point de son ordre du jour à son propre fonctionnement, à partir d'une auto-évaluation selon la grille de l'Annexe 5. Le Président en présente la synthèse et les actions retenues. Tous les trois ans, l'évaluation peut être conduite avec l'aide d'un intervenant extérieur.
+Une fois par an, le Conseil consacre un point de son ordre du jour à son propre fonctionnement, à partir d'une auto-évaluation selon la grille de l'annexe « Auto-évaluation du Conseil ». Le Président en présente la synthèse et les actions retenues. Tous les trois ans, l'évaluation peut être conduite avec l'aide d'un intervenant extérieur.
 
 ### Article 23 — Secrétariat du Conseil
 

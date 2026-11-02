@@ -26,10 +26,10 @@ historique:
     par: "RCCI"
 notes_redaction:
   - "Supersedes the minimum requirements of Article 20 of the Risk Management Policy (PC-POL-RIS-001). The recovery times adopted (orders within half a day, full recovery within one business day) are consistent with that article."
-  - "Agree with BVMAC and the Central Securities Depository the fallback procedure applicable to a member that can no longer access their systems (transmission of orders, settlement instructions), then record it in Appendix 2."
+  - "Agree with BVMAC and the Central Securities Depository the fallback procedure applicable to a member that can no longer access their systems (transmission of orders, settlement instructions), then record it in Appendix “Essential activities”."
   - "Choose the temporary fallback location (shared workspace or business centre in Yaoundé) and, if possible, a support base in Douala near BVMAC."
-  - "Complete the directory in Appendix 3 and give a paper copy to each member of the crisis unit before entry into force."
-source: 4c392cc1f955ff39
+  - "Complete the directory in Appendix “Crisis directory” and give a paper copy to each member of the crisis unit before entry into force."
+source: 4425b8189453f84e
 ---
 
 ## Title I — General provisions
@@ -50,7 +50,7 @@ The Company is a small team whose tools are, for the most part, accessible onlin
 
 - **the office is not indispensable**: the default response to most disruptions is to continue working remotely;
 - **people are the main point of fragility**: each key role has a trained deputy with access rights ready for use;
-- **the plan must remain short and usable under pressure**: a crisis checklist (Appendix 1), a table of essential activities (Appendix 2) and a directory (Appendix 3) are enough to act.
+- **the plan must remain short and usable under pressure**: a crisis checklist (Appendix “Crisis checklist”), a table of essential activities (Appendix “Essential activities”) and a directory (Appendix “Crisis directory”) are enough to act.
 
 ### Article 3 — Definitions
 
@@ -65,7 +65,7 @@ The Company is a small team whose tools are, for the most part, accessible onlin
 
 ### Article 4 — Essential activities and recovery times
 
-The following table sets the maximum tolerable period of disruption for each essential activity. The fallback solutions and resources required are set out in Appendix 2.
+The following table sets the maximum tolerable period of disruption for each essential activity. The fallback solutions and resources required are set out in Appendix “Essential activities”.
 
 | Activity | Maximum tolerable period of disruption | Why |
 | --- | --- | --- |
@@ -80,7 +80,7 @@ The following table sets the maximum tolerable period of disruption for each ess
 
 ### Article 5 — Maximum tolerable data loss
 
-- **Client orders and instructions: no loss.** Every order is recorded as soon as it is received. If systems are unavailable, it is entered in the backup order log in Appendix 4 and then input as soon as normal operations resume.
+- **Client orders and instructions: no loss.** Every order is recorded as soon as it is received. If systems are unavailable, it is entered in the backup order log in Appendix “Backup order log” and then input as soon as normal operations resume.
 - **Documents and email: one day at most.** Backups are made at least daily.
 - **Accounting and client files: one day at most.**
 
@@ -106,7 +106,7 @@ The plan does not attempt to foresee every event. It plans for **consequences**:
 Fire, water damage, flooding, building works, unrest in the neighbourhood, administrative closure or simply being unable to get there.
 
 - Everyone works from home or another safe location, using their laptop and business telephone.
-- Client meetings are held by video conference, by telephone or at the temporary fallback location specified in Appendix 3.
+- Client meetings are held by video conference, by telephone or at the temporary fallback location specified in Appendix “Crisis directory”.
 - If the office remains unavailable for more than two weeks, the Chief Executive Officer decides on a temporary premises solution.
 
 ### Article 9 — Power outage
@@ -126,7 +126,7 @@ Outages may be local (operator, neighbourhood cable) or national (incident on a 
 
 Illness, accident, travel, epidemic, sudden resignation.
 
-- Each key role has a **designated deputy** listed in Appendix 2, trained and given the necessary access rights before they are needed.
+- Each key role has a **designated deputy** listed in Appendix “Essential activities”, trained and given the necessary access rights before they are needed.
 - Bank signing authorities and authorisations with BVMAC and the Central Securities Depository are organised so that no transaction depends on a single person.
 - Passwords for shared accounts and emergency accounts are kept in a digital vault, with emergency access placed under the responsibility of the Chief Executive Officer and the Chairman of the Board of Directors.
 - Essential procedures are written down: a competent person must be able to follow them without prior training.
@@ -148,7 +148,7 @@ The Company does not pay ransoms.
 The IT service provider, the online email service or another critical service provider no longer provides its service.
 
 - The crisis unit contacts the service provider, obtains a restoration time and informs Staff Members accordingly.
-- If that time exceeds the time set for the essential activity concerned, it applies the fallback solution in Appendix 2 and then, if necessary, the exit strategy provided for in the Outsourcing Policy.
+- If that time exceeds the time set for the essential activity concerned, it applies the fallback solution in Appendix “Essential activities” and then, if necessary, the exit strategy provided for in the Outsourcing Policy.
 
 ### Article 14 — Failure of a market infrastructure or a bank
 
@@ -176,7 +176,7 @@ Continuity is prepared before the crisis. At all times:
 2. **Access**: multi-factor authentication on all accounts, with a registered backup second authentication method.
 3. **Backups**: at least three copies of important data, on two different media, one of which is kept offline or with a provider other than the main one. Restoration is tested every quarter.
 4. **Connectivity and power**: in accordance with Articles 9 and 10.
-5. **Crisis file**: the directory in Appendix 3, the crisis checklist in Appendix 1, the backup order log in Appendix 4, and a copy of the Company's key documents (licence, articles of association, bank signing authorities, critical contracts, insurance policies). It is available online, on an encrypted USB key and in paper form with each member of the crisis unit.
+5. **Crisis file**: the directory in Appendix “Crisis directory”, the crisis checklist in Appendix “Crisis checklist”, the backup order log in Appendix “Backup order log”, and a copy of the Company's key documents (licence, articles of association, bank signing authorities, critical contracts, insurance policies). It is available online, on an encrypted USB key and in paper form with each member of the crisis unit.
 6. **Service providers**: the contracts of critical service providers include continuity commitments, in accordance with the Outsourcing Policy.
 7. **Insurance**: each year the Company examines whether its policies cover damage to premises and equipment, business interruption and IT incidents.
 
@@ -195,7 +195,7 @@ Remote working is a normal way of operating, not merely a fallback mode. It is s
 When the usual channels are unavailable:
 
 - an order received by telephone is accepted only after the client has been identified in accordance with the usual procedure and, for a large amount, after calling the client back on the number recorded in his or her file;
-- every order is immediately recorded in the backup order log in Appendix 4, with the date and time of receipt, and then confirmed to the client in writing as soon as possible;
+- every order is immediately recorded in the backup order log in Appendix “Backup order log”, with the date and time of receipt, and then confirmed to the client in writing as soon as possible;
 - an order received through a personal messaging service or an unusual channel is executed only after the same verification;
 - any request for a transfer to a new or modified account is refused until the situation has returned to normal, unless enhanced verification is carried out by the RCCI.
 
@@ -203,7 +203,7 @@ When the usual channels are unavailable:
 
 Clients' securities are recorded with the Central Securities Depository or with their account keeper, and their funds are deposited in accounts separate from those of the Company. Even if the Company could no longer continue its business, clients retain their assets.
 
-In Appendix 1, the plan provides for the message to be sent to clients, in liaison with COSUMAF, telling them how to access their assets should the Company have to cease its business permanently.
+In Appendix “Crisis checklist”, the plan provides for the message to be sent to clients, in liaison with COSUMAF, telling them how to access their assets should the Company have to cease its business permanently.
 
 ## Title V — Crisis organisation
 
@@ -233,7 +233,7 @@ When in doubt, the crisis lead activates the crisis unit: it is easier to stand 
 
 ### Article 22 — Crisis management
 
-The crisis unit follows the crisis checklist in Appendix 1. It:
+The crisis unit follows the crisis checklist in Appendix “Crisis checklist”. It:
 
 - makes sure of the safety and availability of each Staff Member;
 - decides which activities to maintain, suspend or postpone;
@@ -252,7 +252,7 @@ The crisis unit follows the crisis checklist in Appendix 1. It:
 | Data protection authority | RCCI | In the event of a personal data breach, within the statutory deadline | In writing |
 | Press and public | Chief Executive Officer only | If necessary | Approved written statement |
 
-Messages to clients are factual and brief, and always state what the client must do and how to contact the Company. Templates are provided in Appendix 1.
+Messages to clients are factual and brief, and always state what the client must do and how to contact the Company. Templates are provided in Appendix “Crisis checklist”.
 
 ### Article 24 — Return to normal and lessons learned
 
@@ -262,7 +262,7 @@ Before declaring the end of the crisis, the unit checks that:
 - restored data is complete;
 - the clients and authorities that were informed have received an end-of-disruption message.
 
-Within 30 days, the RCCI prepares a lessons-learned review using Appendix 5: what happened, what worked, what needs to change. The plan is updated accordingly.
+Within 30 days, the RCCI prepares a lessons-learned review using Appendix “Exercise and lessons learned”: what happened, what worked, what needs to change. The plan is updated accordingly.
 
 ## Title VI — Keeping the plan alive
 
@@ -276,7 +276,7 @@ Within 30 days, the RCCI prepares a lessons-learned review using Appendix 5: wha
 | Replacement of a key person | Once a year | The deputy carries out the holder's essential operations unaided |
 | Tabletop exercise, based on a scenario from Title III | Once a year | The unit is able to decide and communicate; the times in Article 4 can be met |
 
-Each exercise gives rise to a form in Appendix 5. Shortcomings identified are followed up as action plans.
+Each exercise gives rise to a form in Appendix “Exercise and lessons learned”. Shortcomings identified are followed up as action plans.
 
 ### Article 26 — Training
 
@@ -284,7 +284,7 @@ Each new Staff Member receives this plan on arrival and takes part in the next e
 
 ### Article 27 — Updating
 
-The directory in Appendix 3 is checked every quarter. The plan is reviewed at least once a year, and upon any significant change: new premises, new critical tool or service provider, new activity, departure of a key person, actual crisis.
+The directory in Appendix “Crisis directory” is checked every quarter. The plan is reviewed at least once a year, and upon any significant change: new premises, new critical tool or service provider, new activity, departure of a key person, actual crisis.
 
 Each year the RCCI presents to the Board of Directors a review of exercises, incidents and updates. This review is included in the annual internal control report sent to COSUMAF.
 

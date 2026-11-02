@@ -88,7 +88,7 @@ La politique s'applique :
 | Référent informatique interne | Collaborateur désigné par le Directeur Général : tient la matrice des accès, suit le prestataire, organise les arrivées et départs, premier interlocuteur en cas d'incident |
 | Prestataire informatique | Administre les outils selon son contrat et la présente politique ; applique les mises à jour ; signale les incidents dans les 24 heures |
 | RCCI | Contrôle l'application de la politique ; tient le registre des incidents ; vérifie la protection des données personnelles |
-| Collaborateurs | Appliquent la charte d'utilisation de l'Annexe 1 ; signalent sans délai tout incident ou doute |
+| Collaborateurs | Appliquent la charte d'utilisation de l'annexe « Charte d'utilisation » ; signalent sans délai tout incident ou doute |
 
 ### Article 6 — Principes
 
@@ -105,7 +105,7 @@ La politique s'applique :
 | --- | --- | --- |
 | Public | Site internet, brochure, communiqués | Diffusion libre après validation |
 | Interne | Procédures, notes internes, planning | Collaborateurs et prestataires sous contrat de confidentialité |
-| Confidentiel | Dossiers clients, ordres, positions, données personnelles, comptabilité, rapports de contrôle | Accès selon la matrice de l'Annexe 2 ; jamais par messagerie personnelle ; chiffrement pour tout envoi externe |
+| Confidentiel | Dossiers clients, ordres, positions, données personnelles, comptabilité, rapports de contrôle | Accès selon la matrice de l'annexe « Matrice des accès » ; jamais par messagerie personnelle ; chiffrement pour tout envoi externe |
 | Secret | Informations privilégiées, déclarations de soupçon, mots de passe et clefs | Accès nominatif et tracé ; jamais copié hors des outils prévus |
 
 Un document qui n'est pas marqué est traité comme **interne**. Un document qui contient des données de clients est toujours **confidentiel**.
@@ -130,11 +130,11 @@ Les informations de la Société sont enregistrées dans ses outils : l'espace d
 
 ### Article 11 — Arrivées, changements, départs
 
-À chaque arrivée, changement de fonction ou départ, le référent informatique applique la liste de l'Annexe 3. Au départ d'un collaborateur, ses accès sont **coupés le jour même**, son matériel restitué, et les mots de passe et clefs qu'il connaissait renouvelés. Les accès d'un prestataire sont coupés à la fin de sa mission.
+À chaque arrivée, changement de fonction ou départ, le référent informatique applique la liste de l'annexe « Arrivées et départs ». Au départ d'un collaborateur, ses accès sont **coupés le jour même**, son matériel restitué, et les mots de passe et clefs qu'il connaissait renouvelés. Les accès d'un prestataire sont coupés à la fin de sa mission.
 
 ### Article 12 — Revue des accès
 
-Tous les six mois, le référent informatique et le RCCI revoient la matrice des accès de l'Annexe 2 : chaque compte doit correspondre à une personne présente et à un besoin. Les comptes inutiles sont supprimés. La revue est datée et signée.
+Tous les six mois, le référent informatique et le RCCI revoient la matrice des accès de l'annexe « Matrice des accès » : chaque compte doit correspondre à une personne présente et à un besoin. Les comptes inutiles sont supprimés. La revue est datée et signée.
 
 ## Titre V — Postes, messagerie et services en ligne
 
@@ -194,7 +194,7 @@ Les connexions, les actions d'administration et les opérations sensibles sont j
 
 ### Article 20 — Déclaration et traitement
 
-Tout collaborateur qui constate ou soupçonne un incident (message suspect cliqué, poste perdu, compte utilisé par un tiers, demande de paiement frauduleuse, fuite d'un document) le **signale immédiatement** au référent informatique et au RCCI, sans chercher à le régler seul ni à en effacer les traces. L'incident est déclaré dans les 24 heures sur la fiche de l'Annexe 4.
+Tout collaborateur qui constate ou soupçonne un incident (message suspect cliqué, poste perdu, compte utilisé par un tiers, demande de paiement frauduleuse, fuite d'un document) le **signale immédiatement** au référent informatique et au RCCI, sans chercher à le régler seul ni à en effacer les traces. L'incident est déclaré dans les 24 heures sur la fiche de l'annexe « Déclaration d'incident de sécurité ».
 
 Le traitement suit l'article 12 du Plan de continuité d'activité : isoler, bloquer, prévenir les fraudes, restaurer, informer. Un incident qui touche des données de clients est porté à la connaissance du Directeur Général ; il décide de l'information des clients concernés, de l'autorité de protection des données dans les conditions prévues par la loi et, si l'incident est significatif, de la COSUMAF.
 
@@ -206,11 +206,11 @@ Tout incident significatif fait l'objet d'une analyse de cause et d'un plan d'ac
 
 ### Article 22 — Sensibilisation
 
-Chaque collaborateur signe la charte d'utilisation de l'Annexe 1 à son arrivée. Une sensibilisation aux fraudes et à l'hameçonnage est faite chaque année et à chaque nouvelle forme de fraude observée ; elle peut comprendre un exercice d'hameçonnage simulé.
+Chaque collaborateur signe la charte d'utilisation de l'annexe « Charte d'utilisation » à son arrivée. Une sensibilisation aux fraudes et à l'hameçonnage est faite chaque année et à chaque nouvelle forme de fraude observée ; elle peut comprendre un exercice d'hameçonnage simulé.
 
 ### Article 23 — Contrôle
 
-Le RCCI vérifie l'application de la politique selon le plan de contrôle annuel, notamment la revue semestrielle des accès, les tests de restauration, les mesures minimales de l'Annexe 5 et le suivi des incidents. La revue indépendante annuelle porte aussi sur la sécurité des systèmes d'information.
+Le RCCI vérifie l'application de la politique selon le plan de contrôle annuel, notamment la revue semestrielle des accès, les tests de restauration, les mesures minimales de l'annexe « Mesures minimales » et le suivi des incidents. La revue indépendante annuelle porte aussi sur la sécurité des systèmes d'information.
 
 ### Article 24 — Manquements
 

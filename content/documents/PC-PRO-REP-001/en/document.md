@@ -25,11 +25,11 @@ historique:
     objet: "Initial draft"
     par: "RCCI"
 notes_redaction:
-  - "The COSUMAF General Regulation expressly sets 31 March as the deadline for: the annual internal control report with the risk map (Art. 5), the AML/CFT risk map (Art. 93) and the annual AML/CFT report (Art. 115). For intermediaries, it does not set a timetable for periodic activity or prudential returns, nor for the submission of financial statements: these deadlines fall under COSUMAF instructions, which must be obtained. They are marked \"to be confirmed\" in Appendix 1."
+  - "The COSUMAF General Regulation expressly sets 31 March as the deadline for: the annual internal control report with the risk map (Art. 5), the AML/CFT risk map (Art. 93) and the annual AML/CFT report (Art. 115). For intermediaries, it does not set a timetable for periodic activity or prudential returns, nor for the submission of financial statements: these deadlines fall under COSUMAF instructions, which must be obtained. They are marked \"to be confirmed\" in Appendix “Submissions calendar”."
   - "Late-filing penalties under the General Regulation: FCFA 250,000 per day for a document submitted late (Art. 32), FCFA 500,000 per day where an injunction is not complied with, FCFA 750,000 per day for a public offering closing report. The amount of FCFA 500,000 per day capped at FCFA 5 million, quoted in secondary presentations, relates to the disclosure of information to the public (Art. 31). Days run until actual submission (Art. 33)."
-  - "Align Appendix 5 of the Internal Control and Compliance Charter (PC-COD-003) with Appendix 1 of this procedure: add the AML/CFT risk map and the AML/CFT report due by 31 March (rather than \"as instructed\"), and refer to this procedure for details."
-  - "Ask COSUMAF, BVMAC and the central securities depository for the current list of their periodic returns, formats and submission addresses, and complete Appendix 1 before entry into force."
-source: b11374cf549ce9cd
+  - "Align Appendix “Compliance calendar” of the Internal Control and Compliance Charter (PC-COD-003) with Appendix “Submissions calendar” of this procedure: add the AML/CFT risk map and the AML/CFT report due by 31 March (rather than \"as instructed\"), and refer to this procedure for details."
+  - "Ask COSUMAF, BVMAC and the central securities depository for the current list of their periodic returns, formats and submission addresses, and complete Appendix “Submissions calendar” before entry into force."
+source: 2ebb7e843f7c06fd
 ---
 
 ## Title I — General provisions
@@ -62,7 +62,7 @@ Tax and social security returns are the responsibility of accounting and are not
 
 | Function | Role |
 | --- | --- |
-| RCCI | Maintains the calendar (Appendix 1) and the register of submissions (Appendix 3); prepares the internal control and AML/CFT reports; checks the returns prepared by others; submits; is the usual point of contact for COSUMAF; is the only person authorised to send a suspicious transaction report to ANIF |
+| RCCI | Maintains the calendar (Appendix “Submissions calendar”) and the register of submissions (Appendix “Submissions register”); prepares the internal control and AML/CFT reports; checks the returns prepared by others; submits; is the usual point of contact for COSUMAF; is the only person authorised to send a suspicious transaction report to ANIF |
 | Accounting | Prepares the financial statements and quantitative returns; provides data to the RCCI |
 | Desk (operations) and Capital Markets Department | Provide activity, client and market data; prepare the returns due to BVMAC and the central securities depository |
 | Chief Executive Officer | Approves and signs submissions that bind the Company; decides on event notifications; applies for prior authorisations |
@@ -74,7 +74,7 @@ The person who prepares a return is never the person who checks it. Where the RC
 
 ### Article 5 — Annual calendar
 
-In December, the RCCI draws up the calendar of submissions for the following year in accordance with Appendix 1, showing for each submission the legal deadline and an **internal date** set at least five business days earlier. The RCCI presents it to the risk and compliance committee.
+In December, the RCCI draws up the calendar of submissions for the following year in accordance with Appendix “Submissions calendar”, showing for each submission the legal deadline and an **internal date** set at least five business days earlier. The RCCI presents it to the risk and compliance committee.
 
 Deadlines set by the COSUMAF General Regulation are certain. Those arising from instructions or practice are marked "to be confirmed" until verified against the text or with the body concerned.
 
@@ -86,11 +86,11 @@ Each month, the risk and compliance committee reviews the submissions of the pas
 
 ### Article 7 — Preparation
 
-The preparer designated in Appendix 1 draws up the return or report from the Company's data: accounting, the order register and cash journal of the Guichet, compliance registers. The preparer keeps the preparation file: sources, extractions, calculations. The preparer reports any missing or doubtful data without waiting for the internal date.
+The preparer designated in Appendix “Submissions calendar” draws up the return or report from the Company's data: accounting, the order register and cash journal of the Guichet, compliance registers. The preparer keeps the preparation file: sources, extractions, calculations. The preparer reports any missing or doubtful data without waiting for the internal date.
 
 ### Article 8 — Four-eyes check
 
-A second reviewer checks the return using the form in Appendix 2:
+A second reviewer checks the return using the form in Appendix “Submission preparation”:
 
 - completeness against the applicable template or instruction;
 - consistency of the figures with the accounts, reconciliations and previous returns;
@@ -106,7 +106,7 @@ The Chief Executive Officer approves and signs the return. The annual internal c
 
 ### Article 10 — Submission and evidence
 
-The RCCI submits the return using the method required by the recipient: delivery against receipt, email to the official address, online platform. The RCCI keeps evidence of submission and the acknowledgement of receipt, and records the submission in the register in Appendix 3 on the same day.
+The RCCI submits the return using the method required by the recipient: delivery against receipt, email to the official address, online platform. The RCCI keeps evidence of submission and the acknowledgement of receipt, and records the submission in the register in Appendix “Submissions register” on the same day.
 
 If no acknowledgement of receipt is received within five business days, the RCCI follows up with the recipient and keeps a record of the follow-up.
 
@@ -124,11 +124,11 @@ Changes to the articles of association, share capital, shareholding and register
 
 ### Article 13 — Notifications without delay
 
-The events listed in Appendix 4 are brought to the attention of the recipient indicated **without delay**, on the decision of the Chief Executive Officer or, failing that, of the Chairman of the Board of Directors. The RCCI prepares the notification. An initial notice by telephone or email is confirmed in writing within 48 hours.
+The events listed in Appendix “Notifiable events” are brought to the attention of the recipient indicated **without delay**, on the decision of the Chief Executive Officer or, failing that, of the Chairman of the Board of Directors. The RCCI prepares the notification. An initial notice by telephone or email is confirmed in writing within 48 hours.
 
 ### Article 14 — Reports to ANIF
 
-Suspicious transaction reports are sent to ANIF by the AML/CFT officer, without delay, in accordance with the AML/CFT Policy (PC-POL-LBC-001). They do not follow the approval workflow in Article 9: no one may delay or prevent a report. They are recorded in a confidential register separate from that in Appendix 3.
+Suspicious transaction reports are sent to ANIF by the AML/CFT officer, without delay, in accordance with the AML/CFT Policy (PC-POL-LBC-001). They do not follow the approval workflow in Article 9: no one may delay or prevent a report. They are recorded in a confidential register separate from that in Appendix “Submissions register”.
 
 ## Title V — Delays and errors
 
@@ -148,4 +148,4 @@ Each quarter, the RCCI reports to the Board of Directors on submissions made, de
 
 ### Article 18 — Entry into force
 
-This procedure enters into force on the date of its approval, as shown in the document control sheet. The calendar in Appendix 1 is updated whenever the authorities issue a new instruction.
+This procedure enters into force on the date of its approval, as shown in the document control sheet. The calendar in Appendix “Submissions calendar” is updated whenever the authorities issue a new instruction.

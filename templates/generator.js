@@ -318,7 +318,7 @@
         var md = function (src) { return mk.parse(E.render(src, sch, cur.data.valeurs, "apercu", ctx)).replace(/<p><em>ci-après/g, '<p class="party-role"><em>ci-après'); };
         p.innerHTML = '<p class="paper-note">Aperçu : les zones surlignées restent à compléter. Le document final est produit par les boutons Word et PDF.</p>' +
           '<div class="doc-body"><div class="eyebrow">Convention</div><h1 class="title" style="font-size:var(--fs-xl)">' + esc(m.titre) + "</h1>" + md(m.modele.template) +
-          m.annexes.map(function (a) { return '<h2>Annexe ' + a.num + " — " + esc(a.titre) + "</h2>" + md(a.template); }).join("") + "</div>";
+          m.annexes.map(function (a) { return '<h2>' + esc(libAnnexe(a)) + " — " + esc(a.titre) + "</h2>" + md(a.template); }).join("") + "</div>";
       }).catch(function () { p.innerHTML = '<p class="notice">L\'aperçu nécessite une connexion pour charger son moteur de mise en page.</p>'; });
     }, 150);
   }
@@ -374,7 +374,7 @@
   async function buildParts() {
     var mk = await loadLib("marked"), m = cur.model, sch = m.modele.schema, v = cur.data.valeurs, ctx = CTX();
     var parts = [{ kind: "contrat", titre: m.titre, blocks: toBlocks(mk.lexer(E.render(m.modele.template, sch, v, "rempli", ctx))) }];
-    m.annexes.forEach(function (a) { parts.push({ kind: "annexe", num: a.num, ref: a.id, titre: a.titre, paysage: a.orientation === "paysage", blocks: toBlocks(mk.lexer(E.render(a.template, sch, v, "rempli", ctx))) }); });
+    m.annexes.forEach(function (a) { parts.push({ kind: "annexe", num: a.num, nom: a.nom, ref: a.id, titre: a.titre, paysage: a.orientation === "paysage", blocks: toBlocks(mk.lexer(E.render(a.template, sch, v, "rempli", ctx))) }); });
     return parts;
   }
   function meta() {
@@ -461,7 +461,7 @@
           new D.Paragraph({ style: "DocTitle", children: [new D.TextRun(p.titre)] }),
           new D.Paragraph({ spacing: { after: 80 }, children: [new D.TextRun({ text: M.parties, italics: true, color: GREY })] }),
           new D.Paragraph({ spacing: { after: 360 }, border: { bottom: { style: D.BorderStyle.SINGLE, size: 12, color: "E8A020", space: 6 } }, children: [new D.TextRun({ text: M.edLabel, color: GREY, size: 18 })] })]
-        : [new D.Paragraph({ spacing: { after: 40 }, children: [new D.TextRun({ text: (GEN_EN ? "APPENDIX " : "ANNEXE ") + p.num + " · " + p.ref, color: GOLD, bold: true, size: 16, characterSpacing: 30 })] }),
+        : [new D.Paragraph({ spacing: { after: 40 }, children: [new D.TextRun({ text: (p.nom ? (GEN_EN ? "APPENDIX “" + p.nom.toUpperCase() + "”" : "ANNEXE « " + p.nom.toUpperCase() + " »") : (GEN_EN ? "APPENDIX " : "ANNEXE ") + p.num) + " · " + p.ref, color: GOLD, bold: true, size: 16, characterSpacing: 30 })] }),
           new D.Paragraph({ style: "AnnexTitle", children: [new D.TextRun(p.titre)] })];
       return {
         properties: { page: { margin: margins, size: p.paysage ? { orientation: D.PageOrientation.LANDSCAPE, width: 11906, height: 16838 } : { width: 11906, height: 16838 } } },
@@ -535,7 +535,7 @@
         content.push({ canvas: [{ type: "line", x1: 0, y1: 8, x2: 40, y2: 8, lineWidth: 1.6, lineColor: "#E8A020" }], margin: [0, 0, 0, 4] });
         content.push({ text: M.edLabel, color: "#5B6B80", fontSize: 8, margin: [0, 0, 0, 18] });
       } else {
-        content.push({ pageBreak: "before", pageOrientation: p.paysage ? "landscape" : "portrait", text: (GEN_EN ? "APPENDIX " : "ANNEXE ") + p.num + " · " + p.ref, color: "#8A6413", bold: true, fontSize: 7.5, characterSpacing: 1.4 });
+        content.push({ pageBreak: "before", pageOrientation: p.paysage ? "landscape" : "portrait", text: (p.nom ? (GEN_EN ? "APPENDIX “" + p.nom.toUpperCase() + "”" : "ANNEXE « " + p.nom.toUpperCase() + " »") : (GEN_EN ? "APPENDIX " : "ANNEXE ") + p.num) + " · " + p.ref, color: "#8A6413", bold: true, fontSize: 7.5, characterSpacing: 1.4 });
         content.push({ text: p.titre, font: "Playfair", fontSize: 15, color: "#0B2E52", margin: [0, 3, 0, 4] });
         content.push({ canvas: [{ type: "line", x1: 0, y1: 2, x2: p.paysage ? 735 : 488, y2: 2, lineWidth: 1, lineColor: "#0B2E52" }], margin: [0, 0, 0, 12] });
       }

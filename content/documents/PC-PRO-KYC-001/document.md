@@ -42,7 +42,7 @@ notes_redaction:
   - "La procédure applique la Politique LBC/FT (PC-POL-LBC-001). Deux écarts existent dans le Guichet et doivent y être corrigés : (1) les niveaux de risque y sont « faible, moyen, élevé » au lieu de « faible, standard, élevé » ; (2) la révision des dossiers y est prévue tous les 5, 3 et 1 ans, alors que la politique impose 2 ans pour les risques faible et standard et 1 an pour le risque élevé. La politique prévaut."
   - "Ouverture à distance : la politique (article 17) exige deux éléments de vérification indépendants parmi la copie certifiée, l'entretien vidéo enregistré et le premier versement depuis un compte bancaire CEMAC au nom du client. Le Guichet utilise un selfie comparé à la pièce. Décider si la Politique LBC/FT reconnaît cette comparaison comme un élément de vérification (pratique courante en Europe, sous conditions) ; à défaut, un entretien vidéo court est requis pour toute ouverture à distance."
   - "Le premier versement est donc, dans le Guichet, l'un des deux éléments de vérification : tant qu'il n'est pas reçu depuis le compte déclaré, le dossier d'un client ouvert à distance reste sous surveillance particulière (article 14)."
-  - Faire valider la liste des pièces de l'Annexe 1 par le conseil juridique pour chacun des six pays de la CEMAC.
+  - Faire valider la liste des pièces de l'annexe « Pièces client » par le conseil juridique pour chacun des six pays de la CEMAC.
 ---
 
 ## Titre I — Dispositions générales
@@ -94,14 +94,14 @@ Le chargé de clientèle ou le Guichet présente au client la Société, ses ser
 
 ### Article 6 — Étape 2 : constitution du dossier
 
-Le client fournit les informations et les pièces de l'Annexe 1, selon son type :
+Le client fournit les informations et les pièces de l'annexe « Pièces client », selon son type :
 
 - son **identité** et ses coordonnées ;
 - pour une personne morale ou un groupement, ses **représentants**, ses **cotitulaires** et ses **bénéficiaires effectifs**, avec la date de naissance de chaque personne déclarée ;
 - son **compte bancaire** au nom du client (RIB), vers lequel seront versées toutes les sommes qui lui reviennent ;
 - l'**origine des fonds** qu'il prévoit d'investir et l'ordre de grandeur des montants ;
 - sa déclaration de **personne politiquement exposée** ou de lien avec une telle personne ;
-- son **profil d'investisseur** (Annexe 3) ;
+- son **profil d'investisseur** (Annexe « Profil investisseur ») ;
 - son **consentement** au traitement de ses données, après l'information prévue par la loi.
 
 Dans le Guichet, le client remplit lui-même son dossier et dépose les pièces ; il ne peut l'envoyer que s'il est complet. En agence, le chargé de clientèle remplit le dossier avec le client, vérifie les originaux et en fait des copies qu'il date et signe.
@@ -112,7 +112,7 @@ Le desk vérifie :
 
 - que la pièce d'identité est **valide** à la date de la vérification et que ses informations correspondent à celles du dossier ;
 - en agence, que l'**original** a été vu ; la copie porte la mention « vu l'original », la date et le nom du collaborateur ;
-- à distance, que **deux éléments de vérification indépendants** sont réunis, conformément à l'article 17 de la Politique LBC/FT (Annexe 5 pour l'entretien vidéo) ; le client est alors classé au moins en risque standard ;
+- à distance, que **deux éléments de vérification indépendants** sont réunis, conformément à l'article 17 de la Politique LBC/FT (Annexe « Vérification à distance » pour l'entretien vidéo) ; le client est alors classé au moins en risque standard ;
 - pour un résident hors de la CEMAC, qu'un entretien vidéo a eu lieu et qu'un justificatif d'adresse étranger a été fourni ;
 - que l'**intitulé du RIB** correspond exactement au nom du client ;
 - pour une personne morale, que l'immatriculation, les statuts et les pouvoirs sont à jour et concordants.
@@ -141,13 +141,13 @@ En cas de **correspondance confirmée** ou de doute sérieux sur une liste de sa
 
 ### Article 10 — Étape 6 : profil et catégorie du client
 
-Le client répond au questionnaire de l'Annexe 3 : connaissances et expérience, situation financière, objectifs, horizon de placement, tolérance aux pertes. Le questionnaire sert à l'informer, à le conseiller lorsqu'il le demande, et à détecter les opérations sans rapport avec son profil.
+Le client répond au questionnaire de l'annexe « Profil investisseur » : connaissances et expérience, situation financière, objectifs, horizon de placement, tolérance aux pertes. Le questionnaire sert à l'informer, à le conseiller lorsqu'il le demande, et à détecter les opérations sans rapport avec son profil.
 
 Le client est catégorisé **non professionnel** par défaut. Il ne peut être catégorisé **professionnel** que s'il est un investisseur institutionnel ou s'il en fait la demande écrite et remplit les critères fixés par la réglementation ; il est alors informé de la protection à laquelle il renonce.
 
 ### Article 11 — Étape 7 : cotation du risque
 
-Le desk cote le risque du client selon la matrice de l'Annexe 1 de la Politique LBC/FT : **faible**, **standard** ou **élevé**. La proposition calculée par le Guichet est un point de départ, jamais une décision. Le desk la confirme ou la modifie, en motivant toute modification.
+Le desk cote le risque du client selon la matrice de l'annexe « Classification des risques clients » de la Politique LBC/FT : **faible**, **standard** ou **élevé**. La proposition calculée par le Guichet est un point de départ, jamais une décision. Le desk la confirme ou la modifie, en motivant toute modification.
 
 Sont au moins en risque **standard** : les personnes morales, les groupements, les résidents hors du Cameroun et toute ouverture à distance. Sont en risque **élevé** : les PPE et leurs proches, et les clients présentant un facteur de risque élevé de la matrice.
 
@@ -155,9 +155,9 @@ Sont au moins en risque **standard** : les personnes morales, les groupements, l
 
 | Risque | Qui décide | Condition |
 | --- | --- | --- |
-| Faible | Desk | Dossier complet ; fiche de revue (Annexe 2) signée |
+| Faible | Desk | Dossier complet ; fiche de revue (Annexe « Décision d'entrée en relation ») signée |
 | Standard | Desk ; contrôle du RCCI dans le mois | Dossier complet ; fiche de revue signée |
-| Élevé ou PPE | Directeur Général, après avis écrit du RCCI | Vigilance renforcée : justificatifs de l'origine des fonds et, pour une PPE, du patrimoine ; fiche d'approbation de l'Annexe 5 de la Politique LBC/FT |
+| Élevé ou PPE | Directeur Général, après avis écrit du RCCI | Vigilance renforcée : justificatifs de l'origine des fonds et, pour une PPE, du patrimoine ; fiche d'approbation de l'annexe « Approbation risque élevé » de la Politique LBC/FT |
 
 Le desk statue dans les **cinq jours ouvrés** suivant la réception d'un dossier complet. Il peut demander des compléments ; le dossier reste alors en attente. Sans réponse du client dans un délai de trois mois, le dossier est classé sans suite.
 
@@ -198,7 +198,7 @@ Le dossier est revu sans attendre l'échéance lorsque :
 
 Le changement de compte bancaire est la voie la plus courante de détournement des fonds d'un client. Il obéit à des règles strictes :
 
-- la demande est faite par le client lui-même, dans son espace ou sur le formulaire de l'Annexe 4 signé ;
+- la demande est faite par le client lui-même, dans son espace ou sur le formulaire de l'annexe « Changement de compte bancaire » signé ;
 - le nouveau RIB est au nom du client ;
 - le desk confirme la demande par un appel au numéro de téléphone déjà enregistré au dossier, jamais à un numéro indiqué dans la demande ;
 - aucun versement n'est fait vers le nouveau compte avant la fin de ces vérifications.

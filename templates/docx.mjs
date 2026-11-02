@@ -297,6 +297,7 @@ export async function docxCorps(d, fiche = {}) {
 export async function docxAnnexe(d, a) {
   const land = a.orientation === "paysage", W = contentWidth(land);
   const body = parse("<div>" + a.html + "</div>").querySelector("div");
+  const lib = (x) => (x.nom ? (EN ? `Appendix “${x.nom}”` : `Annexe « ${x.nom} »`) : (EN ? `Appendix ${x.num}` : `Annexe ${x.num}`));
   const usage = para([
     new D.TextRun({ text: LG("Renseigné par") + " ", bold: true, size: 16, color: GREY }), new D.TextRun({ text: (a.renseigne_par || "") + "     ", size: 16, color: GREY }),
     new D.TextRun({ text: LG("Fréquence") + " ", bold: true, size: 16, color: GREY }), new D.TextRun({ text: (a.frequence || "") + "     ", size: 16, color: GREY }),
@@ -306,8 +307,8 @@ export async function docxAnnexe(d, a) {
     creator: "Purpose Capital S.A.", title: `${a.id} — ${a.titre}`, styles, numbering: numerotation(),
     sections: [{
       properties: { page: { size: { width: PAGE_W, height: PAGE_H, orientation: land ? D.PageOrientation.LANDSCAPE : D.PageOrientation.PORTRAIT }, margin: MARG } },
-      headers: { default: header(EN ? `${a.id} — Appendix ${a.num} to ${d.id}` : `${a.id} — Annexe ${a.num} au ${d.id}`, d) }, footers: { default: footer(d) },
-      children: [...titleBlock(d, EN ? `Appendix ${a.num} to ${LG(d.type).toLowerCase()} ${d.id} · ${a.nature || ""}` : `Annexe ${a.num} au ${d.type.toLowerCase()} ${d.id} · ${a.nature || ""}`, a.titre, [usage]), ...blocks(body, W)],
+      headers: { default: header(EN ? `${a.id} — ${lib(a)} to ${d.id}` : `${a.id} — ${lib(a)} au ${d.id}`, d) }, footers: { default: footer(d) },
+      children: [...titleBlock(d, EN ? `${lib(a)} to ${LG(d.type).toLowerCase()} ${d.id} · ${a.nature || ""}` : `${lib(a)} au ${d.type.toLowerCase()} ${d.id} · ${a.nature || ""}`, a.titre, [usage]), ...blocks(body, W)],
     }],
   });
   return D.Packer.toBuffer(doc);

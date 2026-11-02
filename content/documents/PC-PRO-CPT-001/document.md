@@ -40,12 +40,12 @@ historique:
     par: Directeur Général
 notes_redaction:
   - "Tenue de la comptabilité : le manuel suppose qu'elle est confiée à un expert-comptable inscrit à l'ONECCA, sous la supervision du Directeur Général. Confirmer ce choix, signer la lettre de mission et l'inscrire au registre des externalisations (PC-POL-EXT-001) ; dire si elle est traitée comme une fonction importante."
-  - "Seuils de paiement et de double signature : le manuel renvoie à la matrice de la Charte d'organisation et de délégation des pouvoirs (PC-COD-004), rédigée en parallèle. Vérifier à l'adoption que les seuils de l'article 21 et de l'Annexe 2 sont ceux de PC-COD-004, et désigner les signataires bancaires."
+  - "Seuils de paiement et de double signature : le manuel renvoie à la matrice de la Charte d'organisation et de délégation des pouvoirs (PC-COD-004), rédigée en parallèle. Vérifier à l'adoption que les seuils de l'article 21 et de l'annexe « Matrice des délégations » sont ceux de PC-COD-004, et désigner les signataires bancaires."
   - "Seuils propres au manuel, à valider par le Directeur Général : immobilisation à partir de 250 000 FCFA HT (article 24), deux devis à partir de 2 000 000 FCFA HT (article 15), caisse plafonnée à 200 000 FCFA et dépense en espèces limitée à 50 000 FCFA (article 18), provision des créances échues depuis plus de 90 jours (article 14)."
   - "Plan de comptes : vérifier si la COSUMAF impose aux sociétés de bourse un plan de comptes, des états financiers ou des états prudentiels d'un format particulier. Faute de texte trouvé, le manuel retient le SYSCOHADA révisé (système normal) avec des sous-comptes dédiés (article 6)."
   - "Normes prudentielles : comme pour la Politique de gestion des risques, aucun ratio prudentiel propre aux sociétés de bourse n'a été trouvé dans les textes publiés. Le calcul de l'article 31 est une définition interne prudente des fonds propres, à aligner sur l'instruction de la COSUMAF dès qu'elle est confirmée."
   - "Traitement comptable des espèces des clients (article 7) : inscription au bilan avec une dette envers les clients, exclue des fonds propres et de la trésorerie propre. À confirmer avec les commissaires aux comptes."
-  - "Fiscalité à confirmer chaque année avec l'expert-comptable au regard de la loi de finances : taux et régime de TVA des commissions de courtage et de placement (exonération éventuelle des opérations sur titres), taux de l'acompte d'impôt sur les sociétés, échéance de la DSF (15 mars retenu), retenues à la source dues par la Société. Les échéances de l'Annexe 4 sont celles connues à la rédaction."
+  - "Fiscalité à confirmer chaque année avec l'expert-comptable au regard de la loi de finances : taux et régime de TVA des commissions de courtage et de placement (exonération éventuelle des opérations sur titres), taux de l'acompte d'impôt sur les sociétés, échéance de la DSF (15 mars retenu), retenues à la source dues par la Société. Les échéances de l'annexe « Calendrier fiscal et social » sont celles connues à la rédaction."
   - "Textes absents de la table des références, à ajouter par le RCCI : Code général des impôts du Cameroun et loi de finances de l'année ; textes de la CNPS (prévoyance sociale) ; règlement CEMAC sur la profession comptable libérale (ONECCA) ; instruction de la COSUMAF sur les normes prudentielles et les états financiers des sociétés de bourse."
   - "Conseil d'Administration : le Conseil n'a pas de comité d'audit. Le manuel confie l'examen des comptes au Conseil plénier ; décider s'il faut un comité d'audit et des risques lorsque l'activité aura grandi."
 ---
@@ -84,7 +84,7 @@ Les titres et les espèces des clients ne sont pas des biens de la Société. Le
 | États transmis à la COSUMAF et aux autres autorités | Procédure de reporting réglementaire (PC-PRO-REP-001) |
 | Recours à un expert-comptable ou à un prestataire de paie | Politique d'externalisation (PC-POL-EXT-001) |
 | Commissions facturées aux émetteurs et aux confrères | Modèles de contrat PC-CTR-001, PC-CTR-002 et PC-CTR-003 |
-| Tarifs facturés aux clients | Convention d'ouverture de compte-titres (PC-CTR-004, article 6 et Annexe 1) |
+| Tarifs facturés aux clients | Convention d'ouverture de compte-titres (PC-CTR-004, article 6 et annexe « Grille tarifaire ») |
 | Rémunération des collaborateurs et des dirigeants | Politique de rémunération (PC-POL-REM-001) |
 | Conservation des livres et des pièces | Procédure d'archivage et de conservation (PC-PRO-ARC-001) |
 
@@ -163,7 +163,7 @@ Lorsque la tenue des comptes est confiée à un expert-comptable :
 - une **lettre de mission** écrite fixe les travaux (saisie, rapprochements, paie, déclarations, clôtures, états financiers, DSF), les délais, la confidentialité, l'accès aux données et leur restitution en fin de mission ; elle respecte les clauses de PC-POL-EXT-001 et le contrat est inscrit au registre des externalisations ;
 - les livres et les pièces restent la propriété de la Société, dans un logiciel ou un espace auquel elle a toujours accès ;
 - l'expert-comptable n'a **aucun accès** en écriture aux comptes bancaires ni aux espaces de paiement en ligne ;
-- le Directeur Général **supervise** les travaux : il reçoit le dossier de clôture mensuelle, pose ses questions par écrit et vise la clôture (Annexe 1) ;
+- le Directeur Général **supervise** les travaux : il reçoit le dossier de clôture mensuelle, pose ses questions par écrit et vise la clôture (Annexe « Clôture mensuelle ») ;
 - chaque année, le Directeur Général évalue la prestation selon PC-POL-EXT-001 ; l'évaluation est remise au RCCI.
 
 La responsabilité des comptes reste à la Société et à ses dirigeants, même si la tenue est confiée à un tiers.
@@ -174,7 +174,7 @@ La responsabilité des comptes reste à la Société et à ses dirigeants, même
 
 | Revenu | Base | Enregistré en revenu |
 | --- | --- | --- |
-| Commission de courtage et frais d'opération | Tarif remis au client (PC-CTR-004, Annexe 1) ; calcul automatique sur l'avis d'opéré | À la date d'exécution de l'ordre |
+| Commission de courtage et frais d'opération | Tarif remis au client (PC-CTR-004, annexe « Grille tarifaire ») ; calcul automatique sur l'avis d'opéré | À la date d'exécution de l'ordre |
 | Droits de garde et frais de tenue de compte, s'il y en a | Tarif remis au client | Au prorata de la période couverte |
 | Commission d'arrangement | Convention de mandat (PC-CTR-001, article 12) | À mesure que les étapes prévues sont franchies (signature, visa de la COSUMAF) |
 | Commission de placement | PC-CTR-001, article 12 ; PC-CTR-003, article 15 | À la date de règlement-livraison, sur les montants souscrits et libérés |
@@ -257,7 +257,7 @@ L'ouverture ou la fermeture d'un compte et tout changement de signataire sont d�
 
 ### Article 21 — Autorisation et exécution des paiements
 
-1. Chaque paiement est préparé par la Comptabilité au moyen de la demande de paiement de l'Annexe 2, accompagnée de la facture contrôlée ou de la pièce qui le justifie.
+1. Chaque paiement est préparé par la Comptabilité au moyen de la demande de paiement de l'annexe « Demande de paiement », accompagnée de la facture contrôlée ou de la pièce qui le justifie.
 2. Il est **autorisé** par l'ordonnateur compétent, puis **exécuté** par deux signataires distincts : un initiateur et un validateur dans la banque en ligne, ou deux signatures sur un chèque.
 3. Les **seuils** à partir desquels un second signataire déterminé (notamment le Président du Conseil d'Administration) est requis sont ceux de la matrice de délégation de PC-COD-004.
 4. Le virement est le moyen normal ; le chèque est l'exception ; le paiement en espèces est limité par l'article 18.
@@ -266,7 +266,7 @@ L'ouverture ou la fermeture d'un compte et tout changement de signataire sont d�
 
 ### Article 22 — Rapprochements bancaires
 
-- La Comptabilité rapproche **chaque mois**, pour chaque compte de la Société, le solde du relevé bancaire et le solde comptable, au moyen de l'Annexe 3, au plus tard le **dixième jour ouvré** du mois suivant.
+- La Comptabilité rapproche **chaque mois**, pour chaque compte de la Société, le solde du relevé bancaire et le solde comptable, au moyen de l'annexe « Rapprochement bancaire », au plus tard le **dixième jour ouvré** du mois suivant.
 - Chaque écart est expliqué ; un écart non expliqué ou une opération en suspens depuis plus d'un mois est signalé au Directeur Général.
 - Le rapprochement est **revu et signé** par le Directeur Général, qui vérifie par sondage que les paiements du mois correspondent à des demandes autorisées.
 - Le compte de règlement ségrégué est rapproché selon PC-PRO-SEG-001 ; la Comptabilité vérifie que ce rapprochement concorde avec ses comptes.
@@ -304,13 +304,13 @@ La Comptabilité prépare, et le Directeur Général signe et fait payer, les d�
 | Chaque année | Contribution des patentes ; Déclaration statistique et fiscale (DSF) avec les états financiers et le solde de l'impôt sur les sociétés ; déclaration annuelle des salaires |
 | Selon les textes | Redevances et contributions dues à la COSUMAF, à la BVMAC et au Dépositaire central |
 
-Le détail, les dates et les responsables figurent au calendrier de l'Annexe 4, mis à jour par la Comptabilité chaque année après la publication de la loi de finances et visé par le Directeur Général. Les avis d'imposition, les contrôles fiscaux ou sociaux et tout redressement sont communiqués sans délai au Directeur Général et au RCCI.
+Le détail, les dates et les responsables figurent au calendrier de l'annexe « Calendrier fiscal et social », mis à jour par la Comptabilité chaque année après la publication de la loi de finances et visé par le Directeur Général. Les avis d'imposition, les contrôles fiscaux ou sociaux et tout redressement sont communiqués sans délai au Directeur Général et au RCCI.
 
 ## Titre VIII — Clôtures
 
 ### Article 27 — Clôture mensuelle
 
-Chaque mois, la Comptabilité arrête les comptes du mois écoulé selon la liste de contrôle de l'Annexe 1, au plus tard le **dixième jour ouvré** du mois suivant. Elle comprend au moins :
+Chaque mois, la Comptabilité arrête les comptes du mois écoulé selon la liste de contrôle de l'annexe « Clôture mensuelle », au plus tard le **dixième jour ouvré** du mois suivant. Elle comprend au moins :
 
 - l'enregistrement de toutes les factures émises et reçues, de la paie et des déclarations ;
 - les rapprochements bancaires (article 22) et le comptage de la caisse (article 18) ;
@@ -318,7 +318,7 @@ Chaque mois, la Comptabilité arrête les comptes du mois écoulé selon la list
 - les charges à payer, les produits à recevoir et les produits constatés d'avance ;
 - les amortissements du mois ;
 - l'apurement des comptes d'attente ;
-- le calcul des fonds propres et le tableau de bord de l'Annexe 5 (article 31).
+- le calcul des fonds propres et le tableau de bord de l'annexe « Tableau de bord prudentiel » (article 31).
 
 Le Directeur Général vise la liste de contrôle. Le dossier de clôture est conservé avec les pièces.
 
@@ -359,7 +359,7 @@ Le Directeur Général présente au Conseil d'Administration les états financie
 
 ### Article 31 — Calcul mensuel des fonds propres
 
-À chaque clôture mensuelle, la Comptabilité calcule les fonds propres selon l'Annexe 5 :
+À chaque clôture mensuelle, la Comptabilité calcule les fonds propres selon l'annexe « Tableau de bord prudentiel » :
 
 **Fonds propres** = capital libéré + réserves + report à nouveau + résultat de l'exercice en cours à la date du calcul (y compris une perte provisoire) − capital souscrit non appelé − immobilisations incorporelles et frais d'établissement − créances sur les actionnaires, administrateurs et dirigeants.
 
@@ -390,7 +390,7 @@ Chaque trimestre, le Directeur Général présente au Conseil d'Administration u
 
 - compte de résultat du trimestre et cumulé, comparé au budget, avec l'explication des écarts de plus de 10 % ;
 - trésorerie et plan de trésorerie à douze mois ;
-- fonds propres et indicateurs de l'Annexe 5 ;
+- fonds propres et indicateurs de l'annexe « Tableau de bord prudentiel » ;
 - créances échues et litiges ;
 - dépenses non budgétées et paiements au-delà des seuils de PC-COD-004 ;
 - prévision de résultat pour l'exercice.

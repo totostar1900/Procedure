@@ -62,7 +62,7 @@ ci-après désignées ensemble les « Parties » et individuellement une « Part
 
 ## Préambule
 
-**Considérant que** l'Émetteur, qui exerce son activité dans le secteur suivant : {{emetteur_secteur}}, envisage de lever des fonds sur le marché financier de l'Afrique centrale dans les conditions définies à l'article 1 et décrites à l'Annexe 1 (l'« Opération ») ;
+**Considérant que** l'Émetteur, qui exerce son activité dans le secteur suivant : {{emetteur_secteur}}, envisage de lever des fonds sur le marché financier de l'Afrique centrale dans les conditions définies à l'article 1 et décrites à l'annexe « Caractéristiques de l'Opération » (l'« Opération ») ;
 
 **Considérant que** la réglementation du marché financier régional impose à l'émetteur de désigner une ou deux sociétés de bourse chargées d'assurer la supervision et l'exécution des opérations de placement, la société de bourse désignée pouvant constituer un syndicat de placement avec d'autres sociétés de bourse et établissements de crédit ;
 
@@ -80,7 +80,7 @@ Dans la présente convention, les termes ci-dessous ont le sens qui leur est don
 
 **Termes de l'Opération**
 
-- **Opération** : l'émission {% si mode_placement = ape %}par appel public à l'épargne{% fin %}{% si mode_placement = prive %}par placement privé{% fin %} de {% si titres_nature = autres %}{{titres_autre}}{% fin %}{% si titres_nature != autres %}{{titres_nature}}{% fin %} par l'Émetteur, dont les caractéristiques indicatives figurent à l'Annexe 1 ;
+- **Opération** : l'émission {% si mode_placement = ape %}par appel public à l'épargne{% fin %}{% si mode_placement = prive %}par placement privé{% fin %} de {% si titres_nature = autres %}{{titres_autre}}{% fin %}{% si titres_nature != autres %}{{titres_nature}}{% fin %} par l'Émetteur, dont les caractéristiques indicatives figurent à l'annexe « Caractéristiques de l'Opération » ;
 - **Titres** : les titres financiers émis dans le cadre de l'Opération, d'une valeur nominale unitaire de {{nominal}} ;
 - **Montant de l'Opération** : {{montant|lettres}} ;
 - **Seuil de réussite** : {{seuil|lettres}}, montant minimal de souscriptions en dessous duquel l'Opération est réputée non réalisée ;
@@ -97,7 +97,7 @@ Dans la présente convention, les termes ci-dessous ont le sens qui leur est don
 - **Syndicat de placement** : le groupement de sociétés de bourse et d'établissements de crédit constitué par l'Arrangeur pour placer les Titres ;
 - **Événement défavorable significatif** : tout événement affectant de manière significative la situation financière, l'activité ou les perspectives de l'Émetteur, ou les conditions du marché financier régional.
 
-En cas de divergence entre l'Annexe 1 et le Document d'information visé par la COSUMAF, ce dernier prévaut.
+En cas de divergence entre l'annexe « Caractéristiques de l'Opération » et le Document d'information visé par la COSUMAF, ce dernier prévaut.
 
 ### Article 2 — Objet
 
@@ -132,9 +132,9 @@ La convention prend effet à sa signature et expire à la plus proche des dates 
 L'Arrangeur :
 
 - analyse les besoins de financement de l'Émetteur et propose la structure de l'Opération (nature des Titres, montant, maturité, taux ou prix, profil d'amortissement, garanties, tranches) ;
-- conduit les diligences financières sur l'Émetteur, sur la base des documents listés à l'Annexe 3 ;
+- conduit les diligences financières sur l'Émetteur, sur la base des documents listés à l'annexe « Documents de l'Émetteur » ;
 - recommande, le cas échéant, le recours à une agence de notation, à un garant ou à un représentant de la masse des obligataires ;
-- établit, avec l'Émetteur, le calendrier indicatif de l'Opération (Annexe 2).
+- établit, avec l'Émetteur, le calendrier indicatif de l'Opération (Annexe « Calendrier de l'Opération »).
 
 ### Article 6 — Phase réglementaire
 
@@ -172,7 +172,7 @@ Toute prise ferme ou garantie de bonne fin, totale ou partielle, ne peut résult
 
 L'Émetteur :
 
-- remet à l'Arrangeur, dans les délais du calendrier, l'ensemble des documents et informations listés à l'Annexe 3, ainsi que toute information nécessaire à la bonne exécution du mandat ;
+- remet à l'Arrangeur, dans les délais du calendrier, l'ensemble des documents et informations listés à l'annexe « Documents de l'Émetteur », ainsi que toute information nécessaire à la bonne exécution du mandat ;
 - garantit que ces informations sont exactes, complètes et sincères, et informe sans délai l'Arrangeur de tout fait nouveau susceptible de les modifier ;
 - donne à l'Arrangeur et à ses conseils un accès raisonnable à ses dirigeants, à ses commissaires aux comptes et à ses locaux ;
 - obtient en temps utile les autorisations de ses organes sociaux requises par l'Acte uniforme OHADA relatif au droit des sociétés commerciales et du GIE et par ses statuts ;
@@ -202,7 +202,7 @@ Dans un délai de {{delai_rapport|nombre}} jours ouvrés suivant la Date de règ
 
 ### Article 12 — Commissions
 
-En contrepartie de ses services, l'Arrangeur perçoit les commissions suivantes, détaillées à l'Annexe 4 :
+En contrepartie de ses services, l'Arrangeur perçoit les commissions suivantes, détaillées à l'annexe « Rémunération de l'Arrangeur » :
 
 - une **commission d'arrangement** forfaitaire de {{com_arrangement|lettres}}, exigible à hauteur de {{com_arr_part}} à la signature et pour le solde à l'obtention du visa de la COSUMAF ;
 - une **commission de placement** de {{com_placement}} des montants effectivement souscrits et libérés, exigible à la Date de règlement-livraison{% si com_succes = oui %} ;{% fin %}{% si com_succes = non %}{% si admission = oui %} ;{% fin %}{% si admission = non %}.{% fin %}{% fin %}
@@ -251,7 +251,7 @@ Le lancement de la Période de souscription est subordonné à la réalisation d
 
 1. obtention du visa de la COSUMAF sur le Document d'information ;
 2. adoption des résolutions sociales autorisant l'émission ;
-3. constitution des garanties prévues à l'Annexe 1, conformément à l'Acte uniforme OHADA portant organisation des sûretés ;
+3. constitution des garanties prévues à l'annexe « Caractéristiques de l'Opération », conformément à l'Acte uniforme OHADA portant organisation des sûretés ;
 4. absence d'Événement défavorable significatif ;
 5. paiement de la part de la commission d'arrangement exigible à la signature.
 

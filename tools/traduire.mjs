@@ -72,6 +72,8 @@ for (const x of todo) {
   if (sauve) fs.cpSync(en, sauve, { recursive: true });
   try {
     fs.mkdirSync(path.join(en, "annexes"), { recursive: true });
+    // Annexes supprimées du texte français : leur traduction disparaît aussi
+    for (const f of fs.readdirSync(path.join(en, "annexes")).filter((f) => f.endsWith(".md"))) if (!fs.existsSync(path.join(b, "annexes", f))) fs.rmSync(path.join(en, "annexes", f));
     const fichiers = ["document.md", ...(fs.existsSync(path.join(b, "annexes")) ? fs.readdirSync(path.join(b, "annexes")).filter((f) => f.endsWith(".md")).map((f) => "annexes/" + f) : []), ...(fs.existsSync(path.join(b, "variables.yaml")) ? ["variables.yaml"] : [])];
     for (const f of fichiers) {
       const out = await traduireFichier(f, fs.readFileSync(path.join(b, f), "utf8"), lire(path.join(en, f)), x.id);

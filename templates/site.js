@@ -112,6 +112,8 @@
   document.addEventListener("DOMContentLoaded", function () { var b = document.getElementById("manuel-dl"); if (b) b.innerHTML = manuelHtml(); });
   // Version anglaise (traduction de courtoisie) : texte, sommaire, annexes et fichiers anglais ; les libellés courts sont traduits par le dictionnaire
   var EN = !!(window.PCI18N && PCI18N.lang === "en");
+  // Une annexe se désigne par son nom (« Annexe « Pièces client » »), à défaut par sa clé
+  var libAnnexe = function (a) { return a.nom ? (EN ? "Appendix “" + a.nom + "”" : "Annexe « " + a.nom + " »") : (EN ? "Appendix " : "Annexe ") + a.num; };
   if (EN) DATA.docs.forEach(function (d) { [d, d.projet].forEach(function (x) { if (x && x.en) PCI18N.ajouter(x.en.dict); }); });
   function vueLangue(d) {
     if (!EN || !d || !d.en) return d;
@@ -231,7 +233,7 @@
       return '<li><button type="button" data-jump="' + t.id + '">' + esc(t.label) + "<small>" + range + "</small></button></li>";
     }).join("");
     var annexToc = d.annexes.map(function (a) {
-      return '<li><button type="button" data-jump="annexe-' + a.num + '">Annexe ' + a.num + "<small>" + esc(a.titre) + "</small></button></li>";
+      return '<li><button type="button" data-jump="annexe-' + a.num + '"><span data-i18n="no">' + esc(libAnnexe(a)) + "</span><small>" + esc(a.titre) + "</small></button></li>";
     }).join("");
     v.innerHTML =
       (RESTREINT ? '<button type="button" class="crumb" data-open="mesdocs">← Mes documents</button>' : '<button type="button" class="crumb" data-open="registre">← Registre des documents</button>') +
@@ -257,9 +259,9 @@
       '<p class="lead" style="margin-bottom:18px">Chaque annexe se télécharge séparément, au format A4, prête à imprimer et à signer.</p>' +
       d.annexes.map(function (a) {
         return '<section class="annex" id="annexe-' + a.num + '"><div class="annex-top"><div>' +
-          '<div class="eyebrow">Annexe ' + a.num + " · " + esc(a.id) + "</div><h3>" + esc(a.titre) + "</h3>" +
+          '<div class="eyebrow"><span data-i18n="no">' + esc(libAnnexe(a)) + "</span> · " + esc(a.id) + "</div><h3>" + esc(a.titre) + "</h3>" +
           '<div class="annex-usage"><span><b>Renseigné par</b> ' + esc(a.renseigne_par) + "</span><span><b>Fréquence</b> " + esc(a.frequence) + "</span><span><b>Conservé par</b> " + esc(a.conserve_par) + "</span></div></div>" +
-          '<div class="annex-dl">' + dlBtn(a.pdf.file, "Annexe " + a.num + " · PDF") + dlBtn("word/" + a.word.file, "Word") + '<label class="selchk"><input type="checkbox" data-sel="ann|' + esc(d.id) + "|" + a.num + '"> Sélectionner</label></div></div>' +
+          '<div class="annex-dl">' + dlBtn(a.pdf.file, "PDF") + dlBtn("word/" + a.word.file, "Word") + '<label class="selchk"><input type="checkbox" data-sel="ann|' + esc(d.id) + "|" + a.num + '"> Sélectionner</label></div></div>' +
           '<details><summary>Aperçu du formulaire</summary><div class="preview"><div class="doc-body">' + a.html + "</div></div></details></section>";
       }).join("") +
       '<h2 class="section-h" id="maitrise">Maîtrise du document</h2>' +
@@ -302,7 +304,7 @@
       '<p class="side-title">Fiche</p><dl class="dr-meta">' + meta.map(function (m) { return "<div><dt>" + esc(m[0]) + "</dt><dd>" + esc(m[1] || "—") + "</dd></div>"; }).join("") + "</dl>" +
       '<p class="side-title">Sommaire</p><ol class="dr-toc">' + d.toc.map(function (t) { return "<li>" + esc(t.label) + "</li>"; }).join("") + "</ol>" +
       (d.annexes.length ? '<p class="side-title">Annexes</p><ul class="dr-ann">' + d.annexes.map(function (a) {
-        return '<li><div><b>Annexe ' + a.num + "</b> " + esc(a.titre) + '</div><div class="dr-ann-dl">' + dlBtn(a.pdf.file, "PDF") + dlBtn("word/" + a.word.file, "Word") + "</div></li>";
+        return '<li><div><b data-i18n="no">' + esc(libAnnexe(a)) + "</b> " + esc(a.titre) + '</div><div class="dr-ann-dl">' + dlBtn(a.pdf.file, "PDF") + dlBtn("word/" + a.word.file, "Word") + "</div></li>";
       }).join("") + "</ul>" : "") +
       (d.notes_redaction && d.notes_redaction.length && d.statut !== "En vigueur" ? '<div class="notice"><b>' + d.notes_redaction.length + " point" + (d.notes_redaction.length > 1 ? "s" : "") + " à valider avant adoption</b></div>" : "") +
       "</div>";

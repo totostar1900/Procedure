@@ -35,10 +35,10 @@ notes_redaction:
   - "Tax: the rates of tax on income from movable capital and the split of withholding between issuer, paying agent and the Company must be confirmed with a tax adviser (Cameroon General Tax Code and those of other issuing States, tax treaties). The General Tax Code is not among the reference texts: add it if the Company must itself withhold and remit tax."
   - "Inactive accounts (Article 19): the two-year period and the treatment of assets left unclaimed over the long term (limitation, any transfer to a public body) must be validated by legal counsel."
   - "Seizures (Article 18): check with legal counsel the rules and time limits of the OHADA Uniform Act on simplified recovery procedures and enforcement measures concerning the seizure of securities; this text is not among the reference texts."
-  - "Transfers: the tariff schedule (PC-CTR-004, Appendix 1) does not mention any securities transfer fee. The procedure makes transfers free of charge; to be confirmed and added to the \"What is not charged\" list."
+  - "Transfers: the tariff schedule (PC-CTR-004, Appendix “Schedule of charges”) does not mention any securities transfer fee. The procedure makes transfers free of charge; to be confirmed and added to the \"What is not charged\" list."
   - "Four-eyes check: the desk function is held by the Chief Executive Officer until a head of operations is appointed. The Chief Executive Officer designates in writing the authorised second Staff Member (Article 4) and their deputy; this may be neither the RCCI for routine tasks nor the person who entered the movement."
-  - "Incidents: the procedure refers to the incident management procedure (PC-PRO-INC-001), currently being drafted. Until it is adopted, the incident form of the Risk Management Policy (PC-POL-RIS-001, Appendix 4) applies."
-source: 919caea480519c9d
+  - "Incidents: the procedure refers to the incident management procedure (PC-PRO-INC-001), currently being drafted. Until it is adopted, the incident form of the Risk Management Policy (PC-POL-RIS-001, Appendix “Incident report form”) applies."
+source: 0343db6fe42bde21
 ---
 
 ## Title I — General provisions
@@ -84,7 +84,7 @@ This document refers, without repeating them, to: the securities account agreeme
 
 | Function | Role |
 | --- | --- |
-| Desk (operations, back office) | Performs all the tasks in the procedure, keeps the registers, completes the checklist in Appendix 1 every day. Function held by the Chief Executive Officer until a head of operations is appointed |
+| Desk (operations, back office) | Performs all the tasks in the procedure, keeps the registers, completes the checklist in Appendix “Post-trade checklist” every day. Function held by the Chief Executive Officer until a head of operations is appointed |
 | Authorised second Staff Member | Designated in writing by the Chief Executive Officer. Performs the four-eyes check: verifies, before they are sent, settlement instructions, transfers, CA credits and the daily checklist |
 | Head of Capital Markets | Provides trading results; resolves trading discrepancies with the BVMAC and the counterparty; centralises subscriptions when the Company is lead manager |
 | Chief Executive Officer | Decides on cases outside the procedure: persistent fail, buy-in, compensation of a client, block following a seizure |
@@ -107,13 +107,13 @@ The person who enters a movement is never the one who validates it. When the sec
 
 | Time | Task | Supporting document |
 | --- | --- | --- |
-| Opening | Read the reports from the central securities depository, the SVTs, the management companies and the settlement bank; record transactions settled the previous day; identify fails | Reports; fails register (Appendix 2) |
-| Opening | Read CA announcements (BVMAC, central securities depository, issuers, Treasury) | CA sheets (Appendix 3) |
-| Before noon | Daily cash reconciliation (PC-PRO-SEG-001, Article 9) | Appendix 1 of PC-PRO-SEG-001 |
+| Opening | Read the reports from the central securities depository, the SVTs, the management companies and the settlement bank; record transactions settled the previous day; identify fails | Reports; fails register (Appendix “Settlement fails register”) |
+| Opening | Read CA announcements (BVMAC, central securities depository, issuers, Treasury) | CA sheets (Appendix “Corporate action processing”) |
+| Before noon | Daily cash reconciliation (PC-PRO-SEG-001, Article 9) | Appendix “Cash reconciliation” of PC-PRO-SEG-001 |
 | After the session | Retrieve trading results, issue contract notes, match, enter settlement instructions | Contract notes; instructions |
-| End of day | Reconciliation of orders, executions and settlements (PC-PRO-ORD-001, Appendix 4); daily checklist | Appendix 1, signed by the desk and the second Staff Member |
+| End of day | Reconciliation of orders, executions and settlements (PC-PRO-ORD-001, Appendix “Daily reconciliation”); daily checklist | Appendix “Post-trade checklist”, signed by the desk and the second Staff Member |
 
-The cut-off times of the central securities depository, the BVMAC and the SVTs are displayed at the desk workstation and carried over into Appendix 1. A task not completed before a cut-off time is an incident.
+The cut-off times of the central securities depository, the BVMAC and the SVTs are displayed at the desk workstation and carried over into Appendix “Post-trade checklist”. A task not completed before a cut-off time is an incident.
 
 ### Article 7 — Confirmation to the client
 
@@ -128,7 +128,7 @@ On the trade date, the desk compares, transaction by transaction, the executions
 - the BVMAC session report;
 - the transactions that the central securities depository allocates to the Company for settlement.
 
-Both must agree on the security, direction, quantity, price, counterparty and settlement date. A discrepancy is reported to the Head of Capital Markets, who resolves it with the BVMAC or the counterparty **before the instruction cut-off time** of the central securities depository. A discrepancy unresolved at that time is entered in the fails register (Appendix 2).
+Both must agree on the security, direction, quantity, price, counterparty and settlement date. A discrepancy is reported to the Head of Capital Markets, who resolves it with the BVMAC or the counterparty **before the instruction cut-off time** of the central securities depository. A discrepancy unresolved at that time is entered in the fails register (Appendix “Settlement fails register”).
 
 ### Article 9 — Settlement instructions
 
@@ -153,7 +153,7 @@ It then moves the transaction to "settled" status in the Guichet, which updates 
 
 ### Article 11 — Settlement fails
 
-As no order is transmitted without cash or securities cover (PC-PRO-ORD-001, Article 8), a fail in principle arises from the counterparty, the market or an error. Every fail is entered the same day in the register in Appendix 2 and handled according to the following table:
+As no order is transmitted without cash or securities cover (PC-PRO-ORD-001, Article 8), a fail in principle arises from the counterparty, the market or an error. Every fail is entered the same day in the register in Appendix “Settlement fails register” and handled according to the following table:
 
 | Time since the settlement date | Who | Action |
 | --- | --- | --- |
@@ -207,13 +207,13 @@ A position is not corrected by deletion: an error is remedied by a reverse movem
 | Certificate of holding (general meeting, bank, administration) | Within two business days of the request | Signed by the Chief Executive Officer or their delegate |
 | Final statement | On closure of the account | Handed to the client |
 
-These documents are free of charge (PC-CTR-004, Appendix 1). Their minimum content is set out in Appendix 4; each quarter the second Staff Member checks a sample of statements before they are made available. The client has thirty days to report an error (PC-CTR-004, Article 11); a reported error is handled as a complaint (PC-PRO-REC-001).
+These documents are free of charge (PC-CTR-004, Appendix “Schedule of charges”). Their minimum content is set out in Appendix “Client statements”; each quarter the second Staff Member checks a sample of statements before they are made available. The client has thirty days to report an error (PC-CTR-004, Article 11); a reported error is handled as a complaint (PC-PRO-REC-001).
 
 ### Article 17 — Transfers of securities
 
 *Account keeper.*
 
-**Outgoing transfer.** The client requests the transfer of their securities to another intermediary using the form in Appendix 5, signed in their area or on paper. The desk checks:
+**Outgoing transfer.** The client requests the transfer of their securities to another intermediary using the form in Appendix “Securities transfer”, signed in their area or on paper. The desk checks:
 
 - the client's identity and signature;
 - that the destination account is **in the client's name**; a transfer to a third party is not an account transfer but a change of owner, accepted only on supporting documents (succession, gift recorded by deed, court decision) and after the opinion of the RCCI;
@@ -253,7 +253,7 @@ At the client's request, or on the Company's initiative under the conditions of 
 
 ### Article 21 — Monitoring and preparation
 
-Every business day, the desk records CA announcements: BVMAC notices, communications from the central securities depository, issuer publications, the payment calendar of the Treasury and the SVTs. For each CA affecting at least one client, it opens a sheet (Appendix 3) stating: security, type, dates (ex-date, record date, payment date, end of election period), terms (amount, ratio, price), default option and source.
+Every business day, the desk records CA announcements: BVMAC notices, communications from the central securities depository, issuer publications, the payment calendar of the Treasury and the SVTs. For each CA affecting at least one client, it opens a sheet (Appendix “Corporate action processing”) stating: security, type, dates (ex-date, record date, payment date, end of election period), terms (amount, ratio, price), default option and source.
 
 The second Staff Member checks these data against the official source. On the record date, the desk calculates each client's entitlements from the positions in the Guichet and, as account keeper, reconciles them with the entitlement statement of the central securities depository. A discrepancy blocks the credit until it is explained.
 
@@ -311,7 +311,7 @@ The second Staff Member checks, client by client, that the quantity credited mat
 
 Daily and monthly reconciliations of cash and securities are carried out in accordance with PC-PRO-SEG-001 (Articles 9 to 14). This procedure provides them with the following inputs:
 
-- the list of transactions settled during the day and of open fails (Appendix 2);
+- the list of transactions settled during the day and of open fails (Appendix “Settlement fails register”);
 - credits and debits relating to CAs and primary market transactions;
 - settled incoming and outgoing transfers;
 - blocks recorded or lifted.
@@ -320,7 +320,7 @@ A post-trade movement not yet entered in the Guichet on the day it is identified
 
 ### Article 29 — Daily checklist and four-eyes check
 
-Every business day, the desk completes and signs the checklist in Appendix 1. The second Staff Member checks and signs it before the start of the next business day. An unticked box without explanation is an incident.
+Every business day, the desk completes and signs the checklist in Appendix “Post-trade checklist”. The second Staff Member checks and signs it before the start of the next business day. An unticked box without explanation is an incident.
 
 The following tasks **always** require the four-eyes check before execution: settlement instruction, transfer of securities, CA credit, corrective movement, opening and closure of an account, recording or lifting of a block.
 
@@ -328,10 +328,10 @@ The following tasks **always** require the four-eyes check before execution: set
 
 | Level | Who | What | When |
 | --- | --- | --- | --- |
-| First level | Desk | Tasks of the day; checklist (Appendix 1) | Every business day |
+| First level | Desk | Tasks of the day; checklist (Appendix “Post-trade checklist”) | Every business day |
 | First level | Second Staff Member | Four-eyes check (Article 29); verification of the checklist | Every business day |
 | Second level | RCCI | Fails register; penalties; CA sheets for the month; sample of contract notes and transfers | Every month |
-| Second level | RCCI | Sample of statements (Appendix 4); inactive accounts and blocks; compliance with the time limits of Article 23 | Every quarter |
+| Second level | RCCI | Sample of statements (Appendix “Client statements”); inactive accounts and blocks; compliance with the time limits of Article 23 | Every quarter |
 | Third level | Annual independent review | Effectiveness of the post-trade arrangements | Every year |
 
 The RCCI records their controls on their control sheets and enters their recommendations in the follow-up table of the Internal Control Charter.

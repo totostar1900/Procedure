@@ -91,10 +91,10 @@ Ne sont pas soumises à l'autorisation préalable, mais restent déclarées dans
 
 ### Article 6 — Déclaration des comptes
 
-Chaque Collaborateur déclare au RCCI, au moyen de l'Annexe 1 :
+Chaque Collaborateur déclare au RCCI, au moyen de l'annexe « Déclaration des comptes-titres » :
 
 - à son arrivée, dans les dix jours ;
-- chaque année, avec la déclaration annuelle d'intérêts (Annexe 3 du Code de bonne conduite) ;
+- chaque année, avec la déclaration annuelle d'intérêts (Annexe « Déclaration d'intérêts » du Code de bonne conduite) ;
 - à toute ouverture ou fermeture d'un compte concerné, dans les dix jours,
 
 la liste de tous les comptes-titres et comptes d'instruments financiers concernés, à la Société et ailleurs, ainsi que les mandats de gestion confiés à des tiers.
@@ -107,7 +107,7 @@ Un compte chez un autre intermédiaire n'est conservé ou ouvert qu'avec la dér
 
 ### Article 8 — Listes d'interdiction et de surveillance
 
-Le RCCI tient les deux listes prévues par l'article 9 de la Politique de gestion des conflits d'intérêts, selon le modèle de l'Annexe 3 :
+Le RCCI tient les deux listes prévues par l'article 9 de la Politique de gestion des conflits d'intérêts, selon le modèle de l'annexe « Listes d'interdiction » :
 
 - la **liste d'interdiction** : titres de tout émetteur pour lequel la Société détient un mandat d'arrangement, de conseil ou de placement, ou une information privilégiée. Aucune opération personnelle n'y est autorisée, du premier contact avec l'émetteur jusqu'à la fin de la période de stabilisation ou, à défaut, jusqu'à trente jours après la clôture de l'opération ;
 - la **liste de surveillance** : émetteurs sur lesquels la Société détient une information sensible qui ne justifie pas encore une interdiction. Les opérations personnelles y sont refusées sans motif communiqué.
@@ -122,7 +122,7 @@ Aucune opération personnelle n'est autorisée sur les titres d'un émetteur sui
 
 ### Article 10 — Demande d'autorisation
 
-Avant toute opération soumise à autorisation, le Collaborateur adresse au RCCI la demande de l'Annexe 2, par écrit ou par la messagerie professionnelle. Il y indique le titre, le sens, la quantité ou le montant, le compte concerné et la date d'achat des titres en cas de vente. Il atteste qu'il ne détient aucune information privilégiée sur l'émetteur et qu'il n'a connaissance d'aucun ordre de client en attente sur le même titre.
+Avant toute opération soumise à autorisation, le Collaborateur adresse au RCCI la demande de l'annexe « Autorisation préalable », par écrit ou par la messagerie professionnelle. Il y indique le titre, le sens, la quantité ou le montant, le compte concerné et la date d'achat des titres en cas de vente. Il atteste qu'il ne détient aucune information privilégiée sur l'émetteur et qu'il n'a connaissance d'aucun ordre de client en attente sur le même titre.
 
 Une demande ne peut pas être présentée pour le compte d'un proche sans le nommer.
 
@@ -139,7 +139,7 @@ Le RCCI répond dans les **quatre heures ouvrées**. Il refuse l'autorisation si
 
 Le refus n'a pas à être motivé. Le Collaborateur ne cherche pas à en connaître la raison et n'en parle à personne : un refus peut lui-même révéler une information.
 
-L'autorisation porte un numéro, est inscrite au registre de l'Annexe 4 et est valable **quarante-huit heures**. Passé ce délai, ou si l'ordre n'est pas exécuté, une nouvelle demande est nécessaire.
+L'autorisation porte un numéro, est inscrite au registre de l'annexe « Registre des autorisations » et est valable **quarante-huit heures**. Passé ce délai, ou si l'ordre n'est pas exécuté, une nouvelle demande est nécessaire.
 
 ### Article 12 — Exécution
 
@@ -168,15 +168,15 @@ Quelle que soit l'autorisation obtenue, il est interdit :
 
 ### Article 15 — Relevé trimestriel
 
-Dans les dix jours suivant la fin de chaque trimestre, chaque Collaborateur remet au RCCI le relevé trimestriel de l'Annexe 2 du Code de bonne conduite, y compris lorsqu'il n'a réalisé aucune opération. Chaque opération y figure avec son numéro d'autorisation ou, pour une opération exemptée, la mention de l'exemption.
+Dans les dix jours suivant la fin de chaque trimestre, chaque Collaborateur remet au RCCI le relevé trimestriel de l'annexe « Relevé des opérations personnelles » du Code de bonne conduite, y compris lorsqu'il n'a réalisé aucune opération. Chaque opération y figure avec son numéro d'autorisation ou, pour une opération exemptée, la mention de l'exemption.
 
 ### Article 16 — Déclaration annuelle
 
-Chaque année avant le 31 janvier, chaque Collaborateur remet la déclaration annuelle d'intérêts de l'Annexe 3 du Code de bonne conduite et met à jour la déclaration de ses comptes (Annexe 1). Il atteste avoir respecté la présente procédure.
+Chaque année avant le 31 janvier, chaque Collaborateur remet la déclaration annuelle d'intérêts de l'annexe « Déclaration d'intérêts » du Code de bonne conduite et met à jour la déclaration de ses comptes (Annexe « Déclaration des comptes-titres »). Il atteste avoir respecté la présente procédure.
 
 ### Article 17 — Registre
 
-Le RCCI tient le registre des demandes et autorisations selon le modèle de l'Annexe 4 : demandes, réponses, dérogations, exécutions et contrôles. Le registre est confidentiel.
+Le RCCI tient le registre des demandes et autorisations selon le modèle de l'annexe « Registre des autorisations » : demandes, réponses, dérogations, exécutions et contrôles. Le registre est confidentiel.
 
 ## Titre V — Contrôle
 
@@ -206,5 +206,5 @@ Les déclarations, demandes, autorisations, relevés et registres sont conservé
 
 ### Article 22 — Entrée en vigueur
 
-La présente procédure entre en vigueur à la date de son approbation, indiquée dans la fiche de maîtrise documentaire. Chaque Collaborateur en reçoit un exemplaire et remet sa déclaration de comptes (Annexe 1) dans les dix jours.
+La présente procédure entre en vigueur à la date de son approbation, indiquée dans la fiche de maîtrise documentaire. Chaque Collaborateur en reçoit un exemplaire et remet sa déclaration de comptes (Annexe « Déclaration des comptes-titres ») dans les dix jours.
 

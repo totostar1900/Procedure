@@ -32,7 +32,7 @@ notes_redaction:
   - "Check with legal counsel the article numbers of the OHADA Uniform Act on the Chairman of the Board, the Chief Executive Officer and the Deputy Chief Executive Officer, and that the articles of association do not otherwise limit the powers of the Chief Executive Officer. The limitations set out in the charter have effect only within the Company: they cannot be enforced against third parties."
   - "The repository glossary states that the RCCI is appointed by the Board of Directors; the Internal Control and Compliance Charter (PC-COD-003, Art. 9) provides for appointment by the Chief Executive Officer after informing the Board. This charter follows PC-COD-003: harmonise the glossary."
   - "Time limit for informing COSUMAF of the prolonged absence of a senior manager (adopted: more than three months) and formalities for designating a deputy AML/CFT officer with ANIF to be confirmed."
-source: 71dc12e3c3675e35
+source: 2b80ac8609e48145
 ---
 
 ## Title I — General provisions
@@ -84,18 +84,18 @@ The Board sets the Company's strategic direction, appoints and dismisses the Cha
 
 Under this charter, the Board:
 
-- approves the organisation chart in Appendix 1 and the delegation matrix in Appendix 2;
+- approves the organisation chart in Appendix “Organisation chart” and the delegation matrix in Appendix “Delegation matrix”;
 - designates the second senior manager (Article 9);
 - approves the list of bank signatories and their categories (Article 27);
 - authorises transactions that exceed the powers of the Chief Executive Officer.
 
 ### Article 7 — Chairman of the Board of Directors
 
-The Chairman organises and leads the work of the Board (PC-COD-002, Title IV). He does not manage the Company and has no line authority over Staff Members. He is the second level of control over the acts of the Chief Executive Officer: he receives the RCCI's alerts directly, approves the expense claims and personal expenses of the Chief Executive Officer, and gives his prior agreement in the cases set out in Appendix 2.
+The Chairman organises and leads the work of the Board (PC-COD-002, Title IV). He does not manage the Company and has no line authority over Staff Members. He is the second level of control over the acts of the Chief Executive Officer: he receives the RCCI's alerts directly, approves the expense claims and personal expenses of the Chief Executive Officer, and gives his prior agreement in the cases set out in Appendix “Delegation matrix”.
 
 ### Article 8 — Chief Executive Officer
 
-The Chief Executive Officer manages the Company and represents it in dealings with third parties. He has the powers conferred by law and the articles of association, within the internal limits set by the Board and restated in Appendix 2.
+The Chief Executive Officer manages the Company and represents it in dealings with third parties. He has the powers conferred by law and the articles of association, within the internal limits set by the Board and restated in Appendix “Delegation matrix”.
 
 These limits bind the Chief Executive Officer towards the Company; they cannot be enforced against third parties. Any overstepping is brought to the attention of the Chairman of the Board without delay and regularised at the next meeting of the Board.
 
@@ -108,7 +108,7 @@ The Company has at all times a second senior manager, recognised by COSUMAF. The
 - either a **Deputy Chief Executive Officer**, appointed by the Board under the conditions of the Uniform Act and the articles of association;
 - or, failing that, a **head of department** of the Company, preferably the Head of Capital Markets, granted by the Board a general delegation to stand in for the Chief Executive Officer.
 
-The second senior manager acts as back-up for the Chief Executive Officer, is a category A co-signatory on the bank accounts and takes part in all decisions that require two senior managers under Appendix 2. This person is not chosen from among the holders of a control function.
+The second senior manager acts as back-up for the Chief Executive Officer, is a category A co-signatory on the bank accounts and takes part in all decisions that require two senior managers under Appendix “Delegation matrix”. This person is not chosen from among the holders of a control function.
 
 The appointment is implemented only after authorisation by COSUMAF (Article 34).
 
@@ -116,7 +116,7 @@ The appointment is implemented only after authorisation by COSUMAF (Article 34).
 
 ### Article 10 — Organisation chart and reporting lines
 
-The organisation chart in Appendix 1 shows, for each function, its line reporting, any functional link, the current holder designated by function only, combinations and the deputy.
+The organisation chart in Appendix “Organisation chart” shows, for each function, its line reporting, any functional link, the current holder designated by function only, combinations and the deputy.
 
 All heads of department, the RCCI, the operations officer and the accountant report to the Chief Executive Officer. The client relationship officer reports to the Head of Sales.
 
@@ -134,7 +134,7 @@ Accordingly:
 
 ### Article 12 — Outsourced functions
 
-Accounting, IT, the annual independent review and, where applicable, legal advice may be entrusted to service providers in accordance with the Outsourcing Policy (PC-POL-EXT-001). Each service has an **internal owner** designated in Appendix 1, who monitors the contract, checks the quality of service and reports on it. A service provider never receives signing authority on behalf of the Company.
+Accounting, IT, the annual independent review and, where applicable, legal advice may be entrusted to service providers in accordance with the Outsourcing Policy (PC-POL-EXT-001). Each service has an **internal owner** designated in Appendix “Organisation chart”, who monitors the contract, checks the quality of service and reports on it. A service provider never receives signing authority on behalf of the Company.
 
 ## Title IV — Job descriptions
 
@@ -155,7 +155,7 @@ Where a function requires a professional card, its holder does not perform it be
 - prepare the agenda, chair the meetings, have the minutes kept;
 - receive the RCCI's alerts and hear the RCCI once a year without executive management present;
 - approve the expense claims and personal expenses of the Chief Executive Officer;
-- give the prior agreement provided for in Appendix 2 and follow up any overstepping of powers;
+- give the prior agreement provided for in Appendix “Delegation matrix” and follow up any overstepping of powers;
 - administer the online document repository (PC-PRO-GOV-001, Article 11).
 
 **Documents owned**: PC-COD-002.
@@ -171,7 +171,7 @@ Where a function requires a professional card, its holder does not perform it be
 **Main responsibilities**:
 
 - organise the Company, recruit and manage Staff Members, keep the organisation chart;
-- commit the Company within the limits of Appendix 2 and keep the register of delegations;
+- commit the Company within the limits of Appendix “Delegation matrix” and keep the register of delegations;
 - chair the monthly management meeting (Article 32);
 - sign the filings and applications addressed to COSUMAF, BVMAC and the central securities depository;
 - give the RCCI the means to perform the RCCI's mission and guarantee the RCCI's independence;
@@ -307,7 +307,7 @@ The size of the Company justifies the following combinations, within the limits 
 | Head of Capital Markets: research and analysis | Watch and restricted lists; disclosure of business relationships (PC-POL-CI-001) |
 | Second senior manager chosen from among the heads of department | The second senior manager does not co-sign a commitment they prepared themselves: the second signature is then given by another category A signatory, or the Chairman of the Board is informed before execution |
 
-Any new combination is decided by the Chief Executive Officer after the written opinion of the RCCI, entered in Appendix 1 and presented to the Board at its next meeting.
+Any new combination is decided by the Chief Executive Officer after the written opinion of the RCCI, entered in Appendix “Organisation chart” and presented to the Board at its next meeting.
 
 ### Article 23 — Incompatibilities
 
@@ -336,11 +336,11 @@ Each check is dated and signed, on the document or in the tool, so that it can b
 
 ### Article 25 — Back-up and absences
 
-The table in Appendix 4 designates, for each function, a deputy and a second deputy. The deputy acts with the powers of the holder, within the same limits and subject to the same incompatibilities.
+The table in Appendix “Back-up table” designates, for each function, a deputy and a second deputy. The deputy acts with the powers of the holder, within the same limits and subject to the same incompatibilities.
 
 | Length of absence | Rule |
 | --- | --- |
-| Up to 5 business days | Automatic back-up under Appendix 4; the holder informs their deputy and their line manager before leaving |
+| Up to 5 business days | Automatic back-up under Appendix “Back-up table”; the holder informs their deputy and their line manager before leaving |
 | More than 5 business days | Memo from the Chief Executive Officer specifying the duration and the powers; information of the team and of relevant external contacts |
 | More than 30 days | Entry in the register of delegations; information of the Chairman of the Board; check that no control function is performed by the person being controlled |
 | Absence of a senior manager for more than 3 months, or departure | Information of COSUMAF and designation of a replacement in accordance with Article 34 |
@@ -353,15 +353,15 @@ A back-up arrangement never permits a control function to be combined with the f
 
 A delegation is valid if it is:
 
-1. **in writing** and signed by the delegator and the delegate, using the template in Appendix 3;
+1. **in writing** and signed by the delegator and the delegate, using the template in Appendix “Delegations register”;
 2. **precise**: purpose, maximum amount, duration, any second signature;
 3. **given to a competent person**, who has the necessary means and information;
 4. **accepted** by the delegate, who knows its limits;
-5. **entered in the register** in Appendix 3 before it is first used.
+5. **entered in the register** in Appendix “Delegations register” before it is first used.
 
 The delegate does not sub-delegate, unless the delegation expressly allows it. The delegator remains responsible for overseeing the use of the delegation. A delegation ends on its expiry, on its written revocation or on a change of function of the delegator or the delegate.
 
-The Board delegates to the Chief Executive Officer within the limits of Appendix 2. The Chief Executive Officer in turn delegates, within his own limits, to the heads of department and to the second senior manager.
+The Board delegates to the Chief Executive Officer within the limits of Appendix “Delegation matrix”. The Chief Executive Officer in turn delegates, within his own limits, to the heads of department and to the second senior manager.
 
 ### Article 27 — Bank accounts and payments
 
@@ -376,7 +376,7 @@ The Board delegates to the Chief Executive Officer within the limits of Appendix
 - Contracts with clients follow the repository templates (PC-CTR-001 to PC-CTR-004); any departure from a template requires the opinion of the RCCI and, if significant, of legal counsel.
 - Arrangement and placement mandates are signed by the Chief Executive Officer on the proposal of the Head of Capital Markets, after the RCCI has checked for conflicts of interest.
 - Firm underwriting and standby underwriting commitments are made within the limit set by the Risk Management Policy (PC-POL-RIS-001); above that limit, the Board decides.
-- Other contracts (suppliers, service providers, leases) are signed in accordance with the thresholds in Appendix 2. Material outsourcing arrangements also follow PC-POL-EXT-001.
+- Other contracts (suppliers, service providers, leases) are signed in accordance with the thresholds in Appendix “Delegation matrix”. Material outsourcing arrangements also follow PC-POL-EXT-001.
 - Sureties, endorsements and guarantees, as well as related-party agreements, are always a matter for the Board, in accordance with the OHADA Uniform Act.
 
 ### Article 29 — Regulatory filings and relations with the authorities
@@ -396,11 +396,11 @@ The Board delegates to the Chief Executive Officer within the limits of Appendix
 | Appointment or dismissal of the Chief Executive Officer, the Deputy Chief Executive Officer, the second senior manager | Board of Directors | Prior authorisation of COSUMAF |
 | Disciplinary sanction, dismissal | Chief Executive Officer | Labour Code procedure; opinion of the RCCI if the breach concerns compliance |
 | Remuneration and bonuses | In accordance with PC-POL-REM-001 | — |
-| Leave and absences | Line manager | Deputy confirmed (Appendix 4) |
+| Leave and absences | Line manager | Deputy confirmed (Appendix “Back-up table”) |
 
 ### Article 31 — Delegation matrix
 
-The matrix in Appendix 2 summarises, for each type of decision, who prepares, who decides, who co-signs and who is informed, with the applicable thresholds. In case of doubt, the decision is referred to the higher level.
+The matrix in Appendix “Delegation matrix” summarises, for each type of decision, who prepares, who decides, who co-signs and who is informed, with the applicable thresholds. In case of doubt, the decision is referred to the higher level.
 
 Any act taken outside a delegation is reported to the RCCI, who enters it in the register of delegations together with its regularisation.
 
@@ -436,7 +436,7 @@ Each year the Board reviews the whole charter, the organisation chart and the de
 
 ### Article 34 — Change of function and information of COSUMAF
 
-Any change of function (appointment, departure, combination, long-term back-up) is documented using the form in Appendix 5, opened by the Chief Executive Officer as soon as the change is decided.
+Any change of function (appointment, departure, combination, long-term back-up) is documented using the form in Appendix “Change of function”, opened by the Chief Executive Officer as soon as the change is decided.
 
 - The appointment or departure of a **senior manager** is implemented only after authorisation by COSUMAF; the file is filed by the Chief Executive Officer, or by the Chairman of the Board where the change concerns the Chief Executive Officer.
 - The arrival of a person performing a **function subject to a professional card** is preceded by the application for authorisation; their departure is notified to COSUMAF.
@@ -445,7 +445,7 @@ Any change of function (appointment, departure, combination, long-term back-up) 
 
 ### Article 35 — Updating the charter
 
-The charter is updated at each change in the organisation, and reviewed at least once a year, in accordance with PC-PRO-GOV-001. A change limited to Appendices 1, 3 and 4 (holders, deputies, register) is made by the Chief Executive Officer and presented to the Board at its next meeting; any other change is approved by the Board.
+The charter is updated at each change in the organisation, and reviewed at least once a year, in accordance with PC-PRO-GOV-001. A change limited to Appendices “Document request”, “Document register” and “Acknowledgement” (holders, deputies, register) is made by the Chief Executive Officer and presented to the Board at its next meeting; any other change is approved by the Board.
 
 Every six months the RCCI checks that the organisation chart, the register of delegations, the list of bank signatories and the professional cards are consistent.
 

@@ -23,11 +23,11 @@ historique:
     objet: "Initial draft, aligned with complaint submission in the Guichet"
     par: "RCCI"
 notes_redaction:
-  - "Time limits taken from the Guichet: acknowledgement within two business days, reply within thirty calendar days (src/lib/documents/generate.ts). The letter templates in Appendix 3 and the \"reclamation\" section of the Guichet must remain identical."
+  - "Time limits taken from the Guichet: acknowledgement within two business days, reply within thirty calendar days (src/lib/documents/generate.ts). The letter templates in Appendix “Letter templates” and the \"reclamation\" section of the Guichet must remain identical."
   - "The Guichet promises a reply \"within 30 days\" without providing for cases where the investigation takes longer. The procedure provides for a reasoned holding letter, without exceeding sixty days in total: to be validated, then carried over into the Guichet."
   - "The RCCI investigates complaints while also being the author of the procedure, and may themselves be implicated (control, AML/CFT). In that case, the investigation passes to the Chief Executive Officer, and to the Chairman of the Board if the Chief Executive Officer is also implicated (Article 9)."
   - "Check against the official text of the COSUMAF General Regulation the exact provisions on complaints handling and on their communication to COSUMAF, and complete the references."
-source: 1565e4a7edf5d18e
+source: 60390d86ba30fa24
 ---
 
 ## Title I — General provisions
@@ -84,13 +84,13 @@ A complaint may arrive through:
 - **post** to the registered office, or **delivery by hand**;
 - **telephone**, **business WhatsApp** or **appointment**.
 
-Any complaint received through a channel other than the Guichet is forwarded to the RCCI **on the same day**. An oral complaint is put in writing by the Staff Member who received it, using the form in Appendix 1, and the client receives a copy.
+Any complaint received through a channel other than the Guichet is forwarded to the RCCI **on the same day**. An oral complaint is put in writing by the Staff Member who received it, using the form in Appendix “Complaint form”, and the client receives a copy.
 
 ### Article 7 — Step 2: recording and acknowledgement
 
-The RCCI enters the complaint in the register in Appendix 2: number, date of receipt, client, channel, transaction concerned, subject, client's request.
+The RCCI enters the complaint in the register in Appendix “Complaints register”: number, date of receipt, client, channel, transaction concerned, subject, client's request.
 
-The client receives an **acknowledgement within two business days**, based on the template in Appendix 3. It states the complaint number, the name of the person handling the file, the deadline for the reply and how to follow the file. In the Guichet, the acknowledgement is issued automatically and the complaint is tracked in the client's area.
+The client receives an **acknowledgement within two business days**, based on the template in Appendix “Letter templates”. It states the complaint number, the name of the person handling the file, the deadline for the reply and how to follow the file. In the Guichet, the acknowledgement is issued automatically and the complaint is tracked in the client's area.
 
 If the complaint can be fully resolved within two business days, a full reply serves as the acknowledgement.
 
@@ -101,7 +101,7 @@ The RCCI classifies the complaint:
 | Severity | Examples | Consequence |
 | --- | --- | --- |
 | Minor | Late document, misunderstood information, question about charges | Routine investigation |
-| Serious | Execution error, charges wrongly disputed, late payment, inaccurate data | Incident form (Risk Management Policy, Appendix 4); Chief Executive Officer informed |
+| Serious | Execution error, charges wrongly disputed, late payment, inaccurate data | Incident form (Risk Management Policy, Appendix “Complaints analysis”); Chief Executive Officer informed |
 | Major | Loss for the client, unauthorised order, suspected fraud, regulatory breach, threat to refer the matter to COSUMAF or the courts, data breach | Chief Executive Officer informed immediately; Chairman of the Board informed if a senior manager is implicated; consideration of whether to inform COSUMAF |
 
 The RCCI also records the **category** of the complaint: account opening and maintenance, orders and execution, custody and corporate actions, cash and payments, charges, information and advice, personal data, conduct of a Staff Member, Guichet and tools, other.
@@ -120,7 +120,7 @@ The investigator gathers the facts: transaction documents, time-stamps, recordin
 
 ### Article 10 — Step 5: reply
 
-The reply is in writing, sent through the channel chosen by the client, and placed in the client's Guichet area. It follows the template in Appendix 3 and states:
+The reply is in writing, sent through the channel chosen by the client, and placed in the client's Guichet area. It follows the template in Appendix “Letter templates” and states:
 
 - what the Company has understood of the request;
 - what it has found, with supporting documents;
@@ -174,14 +174,14 @@ The Chief Executive Officer decides, on a proposal from the RCCI, whether to inf
 
 For each upheld complaint, the RCCI identifies the cause: human error, inadequate procedure, tool, service provider, insufficient information given to the client. The RCCI proposes an action to prevent it from recurring, which is entered in the recommendations follow-up table of the Internal Control and Compliance Charter.
 
-Each quarter, the RCCI analyses all complaints using the scorecard in Appendix 4: number, categories, time limits, decisions, redress, recurring causes.
+Each quarter, the RCCI analyses all complaints using the scorecard in Appendix “Complaints analysis”: number, categories, time limits, decisions, redress, recurring causes.
 
 ### Article 17 — Reporting
 
 | Recipient | Frequency | Content |
 | --- | --- | --- |
 | Risk and Compliance Committee | Monthly | Complaints received, in progress, overdue; major complaints |
-| Board of Directors | Quarterly | Scorecard in Appendix 4; recurring causes and actions |
+| Board of Directors | Quarterly | Scorecard in Appendix “Complaints analysis”; recurring causes and actions |
 | COSUMAF | Annually, in the annual internal control report, and on request | Statistics and main actions |
 
 ### Article 18 — Retention

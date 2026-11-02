@@ -32,9 +32,9 @@ notes_redaction:
   - "The Company has only one person for compliance, internal control, risk management and AML/CFT. The charter acknowledges this and offsets the combination of roles with three safeguards: the RCCI never controls their own work, has direct access to the Chairman of the Board, and an annual independent review is entrusted to an external provider."
   - "Operations are currently handled by the Chief Executive Officer. The RCCI therefore directly controls operations carried out by the Chief Executive Officer; Article 11 expressly provides for this."
   - "Lessons from the COSUMAF decision against Premium Capital Securities (2026) incorporated: RCCI appointed and holding a professional card, effective compliance committee, internal control reports submitted on time, COSUMAF informed of any change subject to authorisation."
-  - "Check the full schedule of periodic submissions to COSUMAF against the official text and complete Appendix 5."
+  - "Check the full schedule of periodic submissions to COSUMAF against the official text and complete Appendix “Compliance calendar”."
   - "Select the independent review provider and set its mandate before the close of the first financial year."
-source: d2a6bbadeff6e7a0
+source: 15ab0c0349dfd4ad
 ---
 
 ## Title I — General provisions
@@ -164,7 +164,7 @@ Key first-level controls include in particular: checking the file before any cli
 
 ### Article 15 — Annual control plan
 
-Before the start of each financial year, the RCCI draws up a control plan using the template in Appendix 1. The plan:
+Before the start of each financial year, the RCCI draws up a control plan using the template in Appendix “Control plan”. The plan:
 
 - is based on the risk map: high risks are controlled more frequently;
 - covers each major regulatory obligation at least once a year: know your customer, orders and execution, client assets, AML/CFT, conflicts of interest and personal transactions, complaints, submissions to COSUMAF;
@@ -174,7 +174,7 @@ It is presented to the Chief Executive Officer and to the Board of Directors. It
 
 ### Article 16 — Conduct of a control
 
-Each control gives rise to a control sheet using the template in Appendix 2: objective, sample, result, findings and recommendations. The RCCI presents the findings to the person concerned, who may respond in writing, before finalising them.
+Each control gives rise to a control sheet using the template in Appendix “Control sheet”: objective, sample, result, findings and recommendations. The RCCI presents the findings to the person concerned, who may respond in writing, before finalising them.
 
 Findings are rated:
 
@@ -188,7 +188,7 @@ A major finding is brought without delay to the attention of the Chief Executive
 
 ### Article 17 — Follow-up of recommendations
 
-The RCCI keeps the recommendations tracking table using the template in Appendix 3. A recommendation is closed only once the RCCI has verified, on the basis of evidence, that it has actually been remedied. Overdue recommendations are presented at each meeting of the risk and compliance committee and, where more than three months overdue, to the Board of Directors.
+The RCCI keeps the recommendations tracking table using the template in Appendix “Recommendations tracking”. A recommendation is closed only once the RCCI has verified, on the basis of evidence, that it has actually been remedied. Overdue recommendations are presented at each meeting of the risk and compliance committee and, where more than three months overdue, to the Board of Directors.
 
 ## Title VI — Periodic control
 
@@ -196,7 +196,7 @@ The RCCI keeps the recommendations tracking table using the template in Appendix
 
 Each year, the Board of Directors entrusts a qualified external provider, independent of the Company and its senior managers, with a review of the entire internal control, compliance, risk management and AML/CFT framework. The review also covers the work of the RCCI.
 
-The provider submits its report to the Chairman of the Board of Directors, with a copy to the Chief Executive Officer and to the RCCI. Its recommendations are entered in the tracking table in Appendix 3.
+The provider submits its report to the Chairman of the Board of Directors, with a copy to the Chief Executive Officer and to the RCCI. Its recommendations are entered in the tracking table in Appendix “Recommendations tracking”.
 
 The same provider may not be entrusted with the review for more than three consecutive years, nor have advised the Company, during the year under review, on the framework it is assessing.
 
@@ -225,7 +225,7 @@ The RCCI keeps, or ensures the keeping of, the following registers: incidents, c
 
 ### Article 23 — Relations with COSUMAF and other authorities
 
-The RCCI is COSUMAF's usual point of contact for compliance matters. The RCCI ensures that each document due is submitted on time, in accordance with the schedule in Appendix 5: late submission exposes the Company to a penalty of FCFA 250,000 per day of delay (General Regulation, Art. 32).
+The RCCI is COSUMAF's usual point of contact for compliance matters. The RCCI ensures that each document due is submitted on time, in accordance with the schedule in Appendix “Compliance calendar”: late submission exposes the Company to a penalty of FCFA 250,000 per day of delay (General Regulation, Art. 32).
 
 During a COSUMAF inspection, the RCCI coordinates the provision of documents and personnel, and follows up the implementation of the regulator's recommendations in the same way as those of any other control.
 
@@ -239,7 +239,7 @@ Any significant difficulty, any major dispute and any incident affecting clients
 | --- | --- | --- |
 | Chief Executive Officer and risk and compliance committee | Monthly | Controls performed, findings, incidents, complaints, overdue recommendations, regulatory monitoring |
 | Board of Directors | Quarterly | Dashboard: progress of the control plan, major findings, overdue recommendations, risk indicators, complaints, significant events |
-| Board of Directors, then COSUMAF | Annually, before 31 March | Annual internal control report following the outline in Appendix 4, accompanied by the risk map |
+| Board of Directors, then COSUMAF | Annually, before 31 March | Annual internal control report following the outline in Appendix “Annual report outline”, accompanied by the risk map |
 | Chairman of the Board of Directors | Without delay | Any major finding, any obstruction, any breach by a senior manager |
 
 The annual report is presented to the Board of Directors before it is submitted. The Board may attach its observations; it may not alter the findings.

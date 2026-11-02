@@ -49,9 +49,9 @@ notes_redaction:
   - "Fiscalité : les taux de l'impôt sur le revenu des capitaux mobiliers et le partage de la retenue entre émetteur, agent payeur et Société sont à confirmer avec un conseil fiscal (Code général des impôts du Cameroun et des autres États émetteurs, conventions fiscales). Le Code général des impôts n'est pas dans les textes de référence : à ajouter si la Société doit elle-même retenir et reverser l'impôt."
   - "Comptes inactifs (article 19) : le délai de deux ans et le sort des avoirs non réclamés à long terme (prescription, éventuel transfert à un organisme public) sont à valider par le conseil juridique."
   - "Saisies (article 18) : vérifier avec le conseil juridique les règles et délais de l'Acte uniforme OHADA portant organisation des procédures simplifiées de recouvrement et des voies d'exécution sur la saisie des valeurs mobilières ; ce texte n'est pas dans les textes de référence."
-  - "Transferts : l'annexe tarifaire (PC-CTR-004, Annexe 1) ne mentionne pas de frais de transfert de titres. La procédure les prévoit gratuits ; à confirmer et à ajouter à la liste « Ce qui ne se facture pas »."
+  - "Transferts : l'annexe tarifaire (PC-CTR-004, annexe « Grille tarifaire ») ne mentionne pas de frais de transfert de titres. La procédure les prévoit gratuits ; à confirmer et à ajouter à la liste « Ce qui ne se facture pas »."
   - "Double regard : la fonction desk est tenue par le Directeur Général tant qu'aucun responsable des opérations n'est nommé. Le Directeur Général désigne par écrit le second collaborateur habilité (article 4) et son suppléant ; il ne peut s'agir ni du RCCI pour les tâches courantes, ni de la personne qui a passé le mouvement."
-  - "Incidents : la procédure renvoie à la procédure de gestion des incidents (PC-PRO-INC-001), en cours de rédaction. Jusqu'à son adoption, la fiche d'incident de la Politique de gestion des risques (PC-POL-RIS-001, Annexe 4) s'applique."
+  - "Incidents : la procédure renvoie à la procédure de gestion des incidents (PC-PRO-INC-001), en cours de rédaction. Jusqu'à son adoption, la fiche d'incident de la Politique de gestion des risques (PC-POL-RIS-001, annexe « Déclaration d'incident ») s'applique."
 ---
 
 ## Titre I — Dispositions générales
@@ -97,7 +97,7 @@ Ce document renvoie, sans les répéter, à : la convention d'ouverture de compt
 
 | Fonction | Rôle |
 | --- | --- |
-| Desk (opérations, back-office) | Exécute toutes les tâches de la procédure, tient les registres, remplit chaque jour la liste de contrôle de l'Annexe 1. Fonction tenue par le Directeur Général tant qu'aucun responsable des opérations n'est nommé |
+| Desk (opérations, back-office) | Exécute toutes les tâches de la procédure, tient les registres, remplit chaque jour la liste de contrôle de l'annexe « Contrôles post-marché ». Fonction tenue par le Directeur Général tant qu'aucun responsable des opérations n'est nommé |
 | Second collaborateur habilité | Désigné par écrit par le Directeur Général. Assure le double regard : vérifie avant envoi les instructions de règlement, les transferts, les crédits d'OST et la liste de contrôle quotidienne |
 | Directeur des Marchés de Capitaux | Fournit les résultats de négociation ; traite avec la BVMAC et la contrepartie les écarts de négociation ; centralise les souscriptions quand la Société est chef de file |
 | Directeur Général | Décide des cas hors procédure : suspens persistant, rachat, indemnisation d'un client, blocage sur saisie |
@@ -120,13 +120,13 @@ La personne qui saisit un mouvement n'est jamais celle qui le valide. Lorsque le
 
 | Moment | Tâche | Pièce |
 | --- | --- | --- |
-| Ouverture | Lire les comptes rendus du Dépositaire central, des SVT, des sociétés de gestion et de la banque de règlement ; constater les règlements dénoués la veille ; relever les suspens | Comptes rendus ; registre des suspens (Annexe 2) |
-| Ouverture | Lire les annonces d'OST (BVMAC, Dépositaire central, émetteurs, Trésor) | Fiches d'OST (Annexe 3) |
-| Avant midi | Rapprochement quotidien des espèces (PC-PRO-SEG-001, article 9) | Annexe 1 de PC-PRO-SEG-001 |
+| Ouverture | Lire les comptes rendus du Dépositaire central, des SVT, des sociétés de gestion et de la banque de règlement ; constater les règlements dénoués la veille ; relever les suspens | Comptes rendus ; registre des suspens (Annexe « Registre des suspens ») |
+| Ouverture | Lire les annonces d'OST (BVMAC, Dépositaire central, émetteurs, Trésor) | Fiches d'OST (Annexe « Opération sur titres ») |
+| Avant midi | Rapprochement quotidien des espèces (PC-PRO-SEG-001, article 9) | Annexe « Rapprochement des espèces » de PC-PRO-SEG-001 |
 | Après la séance | Récupérer les résultats de négociation, émettre les avis d'opéré, rapprocher, saisir les instructions de règlement | Avis d'opéré ; instructions |
-| Fin de journée | Rapprochement des ordres, exécutions et règlements (PC-PRO-ORD-001, Annexe 4) ; liste de contrôle quotidienne | Annexe 1, signée par le desk et le second collaborateur |
+| Fin de journée | Rapprochement des ordres, exécutions et règlements (PC-PRO-ORD-001, annexe « Rapprochement quotidien ») ; liste de contrôle quotidienne | Annexe « Contrôles post-marché », signée par le desk et le second collaborateur |
 
-Les heures limites du Dépositaire central, de la BVMAC et des SVT sont affichées au poste du desk et reportées dans l'Annexe 1. Une tâche non faite avant une heure limite est un incident.
+Les heures limites du Dépositaire central, de la BVMAC et des SVT sont affichées au poste du desk et reportées dans l'annexe « Contrôles post-marché ». Une tâche non faite avant une heure limite est un incident.
 
 ### Article 7 — Confirmation au client
 
@@ -141,7 +141,7 @@ Le jour de la négociation, le desk compare, opération par opération, les exé
 - le compte rendu de séance de la BVMAC ;
 - les opérations que le Dépositaire central attribue à la Société pour règlement.
 
-Les deux doivent concorder sur le titre, le sens, la quantité, le cours, la contrepartie et la date de règlement. Un écart est signalé au Directeur des Marchés de Capitaux, qui le traite avec la BVMAC ou la contrepartie **avant l'heure limite d'instruction** du Dépositaire central. Un écart non résolu à cette heure est inscrit au registre des suspens (Annexe 2).
+Les deux doivent concorder sur le titre, le sens, la quantité, le cours, la contrepartie et la date de règlement. Un écart est signalé au Directeur des Marchés de Capitaux, qui le traite avec la BVMAC ou la contrepartie **avant l'heure limite d'instruction** du Dépositaire central. Un écart non résolu à cette heure est inscrit au registre des suspens (Annexe « Registre des suspens »).
 
 ### Article 9 — Instructions de règlement
 
@@ -166,7 +166,7 @@ Il passe alors l'opération au statut « réglée » dans le Guichet, ce qui met
 
 ### Article 11 — Suspens de règlement-livraison
 
-Comme aucun ordre n'est transmis sans provision en espèces ou en titres (PC-PRO-ORD-001, article 8), un suspens vient en principe de la contrepartie, du marché ou d'une erreur. Tout suspens est inscrit le jour même au registre de l'Annexe 2 et traité selon le tableau suivant :
+Comme aucun ordre n'est transmis sans provision en espèces ou en titres (PC-PRO-ORD-001, article 8), un suspens vient en principe de la contrepartie, du marché ou d'une erreur. Tout suspens est inscrit le jour même au registre de l'annexe « Registre des suspens » et traité selon le tableau suivant :
 
 | Délai depuis la date de règlement | Qui | Action |
 | --- | --- | --- |
@@ -220,13 +220,13 @@ Une position ne se corrige pas par effacement : une erreur se répare par un mou
 | Attestation de détention (assemblée générale, banque, administration) | Sous deux jours ouvrés après la demande | Signée par le Directeur Général ou son délégué |
 | Relevé final | À la clôture du compte | Remis au client |
 
-Ces documents sont gratuits (PC-CTR-004, Annexe 1). Leur contenu minimal figure à l'Annexe 4 ; le second collaborateur vérifie chaque trimestre un échantillon de relevés avant leur mise à disposition. Le client dispose de trente jours pour signaler une erreur (PC-CTR-004, article 11) ; une erreur signalée est traitée comme une réclamation (PC-PRO-REC-001).
+Ces documents sont gratuits (PC-CTR-004, annexe « Grille tarifaire »). Leur contenu minimal figure à l'annexe « Relevés clients » ; le second collaborateur vérifie chaque trimestre un échantillon de relevés avant leur mise à disposition. Le client dispose de trente jours pour signaler une erreur (PC-CTR-004, article 11) ; une erreur signalée est traitée comme une réclamation (PC-PRO-REC-001).
 
 ### Article 17 — Transferts de titres
 
 *Teneur de compte.*
 
-**Transfert sortant.** Le client demande le transfert de ses titres vers un autre intermédiaire au moyen du formulaire de l'Annexe 5, signé dans son espace ou sur papier. Le desk vérifie :
+**Transfert sortant.** Le client demande le transfert de ses titres vers un autre intermédiaire au moyen du formulaire de l'annexe « Transfert de titres », signé dans son espace ou sur papier. Le desk vérifie :
 
 - l'identité et la signature du client ;
 - que le compte de destination est **au nom du client** ; un transfert vers un tiers n'est pas un transfert de compte mais un changement de propriétaire, admis seulement sur pièce justificative (succession, donation constatée par acte, décision de justice) et après avis du RCCI ;
@@ -266,7 +266,7 @@ Les titres d'un compte inactif ne sont jamais vendus d'office et ne supportent p
 
 ### Article 21 — Veille et préparation
 
-Chaque jour ouvré, le desk relève les annonces d'OST : avis de la BVMAC, communications du Dépositaire central, publications des émetteurs, calendrier des paiements du Trésor et des SVT. Pour chaque OST touchant au moins un client, il ouvre une fiche (Annexe 3) qui indique : titre, nature, dates (détachement, arrêté, paiement, fin de choix), conditions (montant, ratio, prix), option par défaut et source.
+Chaque jour ouvré, le desk relève les annonces d'OST : avis de la BVMAC, communications du Dépositaire central, publications des émetteurs, calendrier des paiements du Trésor et des SVT. Pour chaque OST touchant au moins un client, il ouvre une fiche (Annexe « Opération sur titres ») qui indique : titre, nature, dates (détachement, arrêté, paiement, fin de choix), conditions (montant, ratio, prix), option par défaut et source.
 
 Le second collaborateur vérifie ces données sur la source officielle. À la date d'arrêté, le desk calcule les droits de chaque client à partir des positions du Guichet et, comme teneur de compte, les rapproche du relevé de droits du Dépositaire central. Un écart bloque le crédit jusqu'à explication.
 
@@ -324,7 +324,7 @@ Le second collaborateur vérifie, client par client, que la quantité créditée
 
 Les rapprochements quotidiens et mensuels des espèces et des titres sont faits selon PC-PRO-SEG-001 (articles 9 à 14). La présente procédure leur fournit les éléments suivants :
 
-- la liste des opérations réglées dans la journée et des suspens ouverts (Annexe 2) ;
+- la liste des opérations réglées dans la journée et des suspens ouverts (Annexe « Registre des suspens ») ;
 - les crédits et débits liés aux OST et aux opérations du marché primaire ;
 - les transferts entrants et sortants dénoués ;
 - les blocages inscrits ou levés.
@@ -333,7 +333,7 @@ Un mouvement post-marché qui n'est pas encore passé au Guichet le jour de sa c
 
 ### Article 29 — Liste de contrôle quotidienne et double regard
 
-Chaque jour ouvré, le desk remplit la liste de contrôle de l'Annexe 1 et la signe. Le second collaborateur la vérifie et la signe avant le début du jour ouvré suivant. Une case non cochée sans explication est un incident.
+Chaque jour ouvré, le desk remplit la liste de contrôle de l'annexe « Contrôles post-marché » et la signe. Le second collaborateur la vérifie et la signe avant le début du jour ouvré suivant. Une case non cochée sans explication est un incident.
 
 Les tâches suivantes exigent **toujours** le double regard avant exécution : instruction de règlement, transfert de titres, crédit d'une OST, mouvement correctif, ouverture et clôture d'un compte, inscription ou levée d'un blocage.
 
@@ -341,10 +341,10 @@ Les tâches suivantes exigent **toujours** le double regard avant exécution : i
 
 | Niveau | Qui | Quoi | Quand |
 | --- | --- | --- | --- |
-| Premier niveau | Desk | Tâches de la journée ; liste de contrôle (Annexe 1) | Chaque jour ouvré |
+| Premier niveau | Desk | Tâches de la journée ; liste de contrôle (Annexe « Contrôles post-marché ») | Chaque jour ouvré |
 | Premier niveau | Second collaborateur | Double regard (article 29) ; vérification de la liste de contrôle | Chaque jour ouvré |
 | Second niveau | RCCI | Registre des suspens ; pénalités ; fiches d'OST du mois ; échantillon d'avis et de transferts | Chaque mois |
-| Second niveau | RCCI | Échantillon de relevés (Annexe 4) ; comptes inactifs et blocages ; respect des délais de l'article 23 | Chaque trimestre |
+| Second niveau | RCCI | Échantillon de relevés (Annexe « Relevés clients ») ; comptes inactifs et blocages ; respect des délais de l'article 23 | Chaque trimestre |
 | Troisième niveau | Revue indépendante annuelle | Efficacité du dispositif post-marché | Chaque année |
 
 Le RCCI consigne ses contrôles sur ses fiches de contrôle et inscrit ses recommandations au tableau de suivi de la Charte du contrôle interne.

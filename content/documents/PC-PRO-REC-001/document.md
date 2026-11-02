@@ -37,7 +37,7 @@ historique:
     objet: Projet initial, aligné sur le dépôt de réclamation du Guichet
     par: RCCI
 notes_redaction:
-  - "Délais repris du Guichet : accusé de réception sous deux jours ouvrés, réponse avant trente jours calendaires (src/lib/documents/generate.ts). Les modèles de lettres de l'Annexe 3 et le passage « reclamation » du Guichet doivent rester identiques."
+  - "Délais repris du Guichet : accusé de réception sous deux jours ouvrés, réponse avant trente jours calendaires (src/lib/documents/generate.ts). Les modèles de lettres de l'annexe « Modèles de lettres » et le passage « reclamation » du Guichet doivent rester identiques."
   - "Le Guichet promet une réponse « sous 30 jours » sans prévoir le cas d'une instruction plus longue. La procédure prévoit une lettre d'attente motivée, sans dépasser soixante jours au total : à valider, puis à reporter dans le Guichet."
   - "Le RCCI instruit les réclamations alors qu'il est aussi le rédacteur de la procédure et peut être lui-même mis en cause (contrôle, LBC/FT). Dans ce cas, l'instruction passe au Directeur Général, et au Président du Conseil si le Directeur Général est lui aussi en cause (article 9)."
   - Vérifier sur le texte officiel du Règlement général de la COSUMAF les dispositions exactes sur le traitement des réclamations et sur leur communication à la COSUMAF, et compléter les références.
@@ -97,13 +97,13 @@ Une réclamation peut arriver par :
 - **courrier** au siège, ou **remise en main propre** ;
 - **téléphone**, **WhatsApp professionnel** ou **rendez-vous**.
 
-Toute réclamation reçue par un autre canal que le Guichet est transmise au RCCI **le jour même**. Une réclamation orale est mise par écrit par le collaborateur qui l'a reçue, au moyen du formulaire de l'Annexe 1, et le client en reçoit copie.
+Toute réclamation reçue par un autre canal que le Guichet est transmise au RCCI **le jour même**. Une réclamation orale est mise par écrit par le collaborateur qui l'a reçue, au moyen du formulaire de l'annexe « Formulaire de réclamation », et le client en reçoit copie.
 
 ### Article 7 — Étape 2 : enregistrement et accusé de réception
 
-Le RCCI inscrit la réclamation au registre de l'Annexe 2 : numéro, date de réception, client, canal, opération en cause, objet, demande du client.
+Le RCCI inscrit la réclamation au registre de l'annexe « Registre des réclamations » : numéro, date de réception, client, canal, opération en cause, objet, demande du client.
 
-Le client reçoit un **accusé de réception sous deux jours ouvrés**, sur le modèle de l'Annexe 3. Il indique le numéro de la réclamation, le nom de la personne chargée du dossier, la date limite de réponse et la façon de suivre le dossier. Dans le Guichet, l'accusé est émis automatiquement et la réclamation est suivie dans l'espace du client.
+Le client reçoit un **accusé de réception sous deux jours ouvrés**, sur le modèle de l'annexe « Modèles de lettres ». Il indique le numéro de la réclamation, le nom de la personne chargée du dossier, la date limite de réponse et la façon de suivre le dossier. Dans le Guichet, l'accusé est émis automatiquement et la réclamation est suivie dans l'espace du client.
 
 Si la réclamation peut être réglée entièrement dans les deux jours ouvrés, une réponse complète tient lieu d'accusé de réception.
 
@@ -114,7 +114,7 @@ Le RCCI qualifie la réclamation :
 | Gravité | Exemples | Conséquence |
 | --- | --- | --- |
 | Simple | Retard d'un document, information mal comprise, question de frais | Instruction courante |
-| Sérieuse | Erreur d'exécution, frais contestés à tort, retard de paiement, données inexactes | Fiche d'incident (Politique de gestion des risques, Annexe 4) ; information du Directeur Général |
+| Sérieuse | Erreur d'exécution, frais contestés à tort, retard de paiement, données inexactes | Fiche d'incident (Politique de gestion des risques, annexe « Analyse des réclamations ») ; information du Directeur Général |
 | Grave | Perte pour le client, ordre non autorisé, soupçon de fraude, manquement réglementaire, menace de saisir la COSUMAF ou la justice, atteinte aux données | Information immédiate du Directeur Général ; information du Président du Conseil si un dirigeant est en cause ; examen de l'information de la COSUMAF |
 
 Il note aussi la **catégorie** de la réclamation : ouverture et tenue du compte, ordres et exécution, conservation et opérations sur titres, espèces et paiements, frais, information et conseil, données personnelles, comportement d'un collaborateur, Guichet et outils, autre.
@@ -133,7 +133,7 @@ L'instructeur rassemble les faits : documents de l'opération, horodatages, enre
 
 ### Article 10 — Étape 5 : réponse
 
-La réponse est écrite, envoyée par le canal choisi par le client, et déposée dans son espace du Guichet. Elle suit le modèle de l'Annexe 3 et dit :
+La réponse est écrite, envoyée par le canal choisi par le client, et déposée dans son espace du Guichet. Elle suit le modèle de l'annexe « Modèles de lettres » et dit :
 
 - ce que la Société a compris de la demande ;
 - ce qu'elle a constaté, pièces à l'appui ;
@@ -187,14 +187,14 @@ Le Directeur Général décide, sur proposition du RCCI, de l'information de la 
 
 Pour chaque réclamation fondée, le RCCI identifie la cause : erreur humaine, procédure inadaptée, outil, prestataire, information du client insuffisante. Il propose une action pour qu'elle ne se reproduise pas, inscrite au tableau de suivi des recommandations de la Charte du contrôle interne.
 
-Chaque trimestre, il analyse l'ensemble des réclamations au moyen de la grille de l'Annexe 4 : nombre, catégories, délais, décisions, réparations, causes récurrentes.
+Chaque trimestre, il analyse l'ensemble des réclamations au moyen de la grille de l'annexe « Analyse des réclamations » : nombre, catégories, délais, décisions, réparations, causes récurrentes.
 
 ### Article 17 — Compte rendu
 
 | Destinataire | Fréquence | Contenu |
 | --- | --- | --- |
 | Comité des risques et de la conformité | Chaque mois | Réclamations reçues, en cours, en retard ; réclamations graves |
-| Conseil d'Administration | Chaque trimestre | Grille de l'Annexe 4 ; causes récurrentes et actions |
+| Conseil d'Administration | Chaque trimestre | Grille de l'annexe « Analyse des réclamations » ; causes récurrentes et actions |
 | COSUMAF | Chaque année, dans le rapport annuel de contrôle interne, et sur demande | Statistiques et principales actions |
 
 ### Article 18 — Conservation

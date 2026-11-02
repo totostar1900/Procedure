@@ -28,14 +28,14 @@ historique:
     par: "RCCI"
 notes_redaction:
   - "Management asked for a continuous improvement policy. It takes here the concrete form of a procedure approved by the Chief Executive Officer, which details Article 28 of the Risk Management Policy and Article 17 of the Internal Control Charter. If the Board of Directors wishes to approve these principles itself, Article 4 can be carried over into a policy; to be confirmed."
-  - "Severity thresholds (Article 13 and Appendix 2): FCFA 1,000,000 for a significant incident, taken from Article 28 of the Risk Management Policy, and FCFA 10,000,000 for a major incident, taken from impact score 3 of its rating grid (Appendix 3). To be confirmed by the Chief Executive Officer."
-  - "The reporting form in Appendix 1 takes over and completes the form in Appendix 4 of the Risk Management Policy, and the register in Appendix 3 combines the incident register and the recommendations follow-up table of the Internal Control Charter (Appendix 3). At the next revision of those two documents, their appendices should refer to this procedure, to avoid two forms and two tables."
+  - "Severity thresholds (Article 13 and Appendix “Severity and escalation”): FCFA 1,000,000 for a significant incident, taken from Article 28 of the Risk Management Policy, and FCFA 10,000,000 for a major incident, taken from impact score 3 of its rating grid (Appendix “Incident register”). To be confirmed by the Chief Executive Officer."
+  - "The reporting form in Appendix “Incident report form” takes over and completes the form in Appendix “Incident report form” of the Risk Management Policy, and the register in Appendix “Incident register” combines the incident register and the recommendations follow-up table of the Internal Control Charter (Appendix “Incident register”). At the next revision of those two documents, their appendices should refer to this procedure, to avoid two forms and two tables."
   - "No COSUMAF provision setting a precise time limit for a brokerage firm to notify incidents has been found. The procedure applies the Regulatory Reporting Procedure (information without delay, written confirmation within 48 hours). To be checked against the official text of the General Regulation and COSUMAF instructions."
   - "The legal time limit for notifying a personal data breach under Law No. 2024/017, and whether the data protection authority is actually in operation, are to be checked with legal counsel; the procedure refers to the legal time limit without stating it."
   - "The commitment not to sanction an error reported in good faith (Article 10) must be consistent with the internal rules and with the disciplinary authority provided for by the Labour Code. To be checked by legal counsel or employment law counsel."
   - "The Training Policy (PC-POL-FOR-001) is being drafted in parallel: on its adoption, check that the cross-reference in Article 26 is consistent."
-  - "Choose the tool for the single register (shared spreadsheet with restricted access, or module of the online repository) and the access rights. Also check, in the professional liability insurance contract, the time limit for notifying a claim to the insurer, and add it to Appendix 2."
-source: 45bc0ab8f85602d5
+  - "Choose the tool for the single register (shared spreadsheet with restricted access, or module of the online repository) and the access rights. Also check, in the professional liability insurance contract, the time limit for notifying a claim to the insurer, and add it to Appendix “Severity and escalation”."
+source: 3a16ec8f23fb5898
 ---
 
 ## Title I — General provisions
@@ -107,7 +107,7 @@ This procedure organises the common workflow; the rules specific to each subject
 | RCCI | Records and classifies; triggers escalation; conducts or has conducted the root-cause analysis; keeps the single register; checks the completion and effectiveness of actions; reports |
 | Chief Executive Officer | Decides on measures and resources for significant and major incidents; approves action plans; decides on notifications to authorities and on redress; chairs the monthly review |
 | Chairman of the Board of Directors | Is informed of significant and major incidents; informs the Board; handles incidents implicating the Chief Executive Officer |
-| Board of Directors | Examines the report in Appendix 5 each quarter; decides on the follow-up of major incidents where warranted |
+| Board of Directors | Examines the report in Appendix “Quarterly Board report” each quarter; decides on the follow-up of major incidents where warranted |
 | IT service provider | Reports without delay any incident on the systems it manages; takes part in the analysis; carries out the actions provided for in its contract |
 
 ### Article 7 — Where the RCCI or the Chief Executive Officer is implicated
@@ -124,7 +124,7 @@ No one classifies, analyses or closes an incident in which they are personally i
 The single register is fed by:
 
 - **incidents reported** by Staff Members and service providers;
-- **findings from ongoing controls** by the RCCI (control sheets of the Internal Control Charter, Appendix 2);
+- **findings from ongoing controls** by the RCCI (control sheets of the Internal Control Charter, Appendix “Severity and escalation”);
 - **recommendations of the annual independent review** and of the **statutory auditors**;
 - **findings and injunctions from COSUMAF**, following an inspection, a request or a submission;
 - the **quarterly analysis of complaints** (PC-PRO-REC-001, Article 16);
@@ -133,14 +133,14 @@ The single register is fed by:
 
 ### Article 9 — Reporting an incident
 
-Any Staff Member who discovers an incident reports it to the RCCI **on the day it is discovered, and at the latest within 24 hours**, using the form in Appendix 1. An email covering the headings of the form is sufficient at first.
+Any Staff Member who discovers an incident reports it to the RCCI **on the day it is discovered, and at the latest within 24 hours**, using the form in Appendix “Incident report form”. An email covering the headings of the form is sufficient at first.
 
 Where the incident is ongoing or appears serious (client affected, fraud, cyberattack, client assets at stake), they first alert the RCCI and the Chief Executive Officer **by telephone, immediately**, then complete the form.
 
 Two special cases:
 
-- an **IT security incident** is also reported immediately to the IT focal point, in accordance with Article 20 of the Information Systems Security Policy; the form of that policy may stand in for the form in Appendix 1;
-- a **suspicion of money laundering or terrorist financing** is not reported on the form in Appendix 1. It is reported to the AML/CFT officer in accordance with Article 23 of the AML/CFT Policy. The single register keeps no named record of it; only a failure of the framework (control not performed, alert not handled) is entered there, without mention of the suspicion.
+- an **IT security incident** is also reported immediately to the IT focal point, in accordance with Article 20 of the Information Systems Security Policy; the form of that policy may stand in for the form in Appendix “Incident report form”;
+- a **suspicion of money laundering or terrorist financing** is not reported on the form in Appendix “Incident report form”. It is reported to the AML/CFT officer in accordance with Article 23 of the AML/CFT Policy. The single register keeps no named record of it; only a failure of the framework (control not performed, alert not handled) is entered there, without mention of the suspicion.
 
 The Staff Member reports what they know when they know it. They do not wait until they have understood everything, or until they have corrected it.
 
@@ -173,13 +173,13 @@ Before any analysis, the person who discovers the incident and their manager:
 2. **protect clients**: a client never bears alone the consequences of an error by the Company;
 3. **preserve evidence**: orders, emails, logs, screenshots; nothing is deleted or "cleaned up";
 4. **correct** what can be corrected straight away, with a second pair of eyes;
-5. **note** the time and nature of each measure on the form in Appendix 1.
+5. **note** the time and nature of each measure on the form in Appendix “Incident report form”.
 
 Where the incident interrupts an essential activity, the Chief Executive Officer assesses whether to trigger the Business Continuity Plan.
 
 ### Article 13 — Severity scale
 
-The RCCI classifies the incident **at the latest on the business day following the report**, and immediately if it appears major. They apply the grid in Appendix 2.
+The RCCI classifies the incident **at the latest on the business day following the report**, and immediately if it appears major. They apply the grid in Appendix “Severity and escalation”.
 
 | Severity | Criteria (one is enough) |
 | --- | --- |
@@ -202,7 +202,7 @@ These time limits reflect Article 27 of the Risk Management Policy. Each communi
 
 ### Article 15 — Notifications to authorities and third parties
 
-For each significant or major incident, the RCCI examines whether an authority or a third party must be informed, using Appendix 4 of the Regulatory Reporting Procedure. The Chief Executive Officer decides or, if implicated, the Chairman of the Board of Directors. The RCCI prepares the notification and keeps evidence of it.
+For each significant or major incident, the RCCI examines whether an authority or a third party must be informed, using Appendix “Notifiable events” of the Regulatory Reporting Procedure. The Chief Executive Officer decides or, if implicated, the Chairman of the Board of Directors. The RCCI prepares the notification and keeps evidence of it.
 
 | Recipient | When | Applicable rule |
 | --- | --- | --- |
@@ -234,7 +234,7 @@ It is conducted by the RCCI with the persons concerned, in a short meeting. It i
 
 The method is the **"five whys"**: start from the observed fact and ask "why?" until reaching a cause on which the Company can act, usually after three to five questions. Each answer is based on a verified fact. The analysis stops at a cause relating to organisation, tools or rules, not at "human error": if a person made a mistake, the question is why the framework did not stop it.
 
-The form in Appendix 4 is used. It classifies the root cause in one of the following categories: missing or inadequate procedure; missing or ineffective control; tool or system; skills or information; workload or organisation; service provider; external event.
+The form in Appendix “Root-cause analysis” is used. It classifies the root cause in one of the following categories: missing or inadequate procedure; missing or ineffective control; tool or system; skills or information; workload or organisation; service provider; external event.
 
 ### Article 18 — Action plan
 
@@ -275,7 +275,7 @@ An incident or finding is closed only when all its actions are completed and, wh
 
 ### Article 21 — Single register
 
-The RCCI keeps the register of incidents and action plans using the template in Appendix 3. This single register combines the incident register provided for by the Risk Management Policy and the recommendations follow-up table provided for by the Internal Control Charter.
+The RCCI keeps the register of incidents and action plans using the template in Appendix “Incident register”. This single register combines the incident register provided for by the Risk Management Policy and the recommendations follow-up table provided for by the Internal Control Charter.
 
 - Each incident receives a number INC-year-number; each finding a number CST-year-number; each action a letter (INC-2027-004-a, -b…).
 - The register is kept electronically; the RCCI writes to it, the Chief Executive Officer and the members of the risk and compliance committee consult it.
@@ -295,13 +295,13 @@ Decisions (approval of a plan, extension of a deadline, resources allocated) are
 
 ### Article 23 — Quarterly report to the Board of Directors
 
-Each quarter, the RCCI prepares the report in Appendix 5, approved by the Chief Executive Officer. It is included in the quarterly dashboard presented to the Board of Directors (Internal Control Charter, Article 24; Risk Management Policy, Article 29). The Board may ask for explanations on any incident or any overdue action; its decisions are recorded in the minutes of the meeting.
+Each quarter, the RCCI prepares the report in Appendix “Quarterly Board report”, approved by the Chief Executive Officer. It is included in the quarterly dashboard presented to the Board of Directors (Internal Control Charter, Article 24; Risk Management Policy, Article 29). The Board may ask for explanations on any incident or any overdue action; its decisions are recorded in the minutes of the meeting.
 
 ### Article 24 — Annual summary
 
 Each year, the RCCI summarises the register:
 
-- in the **annual internal control report**, submitted to COSUMAF before 31 March, under the headings provided for by the outline in Appendix 4 of the Internal Control Charter: findings and measures taken, incidents that affected clients, IT incidents, external controls and follow-up of recommendations;
+- in the **annual internal control report**, submitted to COSUMAF before 31 March, under the headings provided for by the outline in Appendix “Annual report outline” of the Internal Control Charter: findings and measures taken, incidents that affected clients, IT incidents, external controls and follow-up of recommendations;
 - in the **update of the risk map** (Risk Management Policy, Article 9): each risk linked to a significant or major incident of the year is re-rated, and a risk revealed by an incident but missing from the risk map is added to it. A major incident triggers an update of the risk map without waiting for the annual review.
 
 ## Title VII — Learning lessons
@@ -318,7 +318,7 @@ Lessons useful to everyone are shared without naming anyone: through an item at 
 
 ### Article 27 — Indicators
 
-The RCCI monitors the following indicators, presented each quarter in the report in Appendix 5.
+The RCCI monitors the following indicators, presented each quarter in the report in Appendix “Quarterly Board report”.
 
 | Indicator | Target |
 | --- | --- |

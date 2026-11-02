@@ -42,13 +42,13 @@ historique:
     par: RCCI
 notes_redaction:
   - "La Direction a demandé une politique d'amélioration continue. Elle prend ici la forme concrète d'une procédure approuvée par le Directeur Général, qui précise l'article 28 de la Politique de gestion des risques et l'article 17 de la Charte du contrôle interne. Si le Conseil d'Administration souhaite approuver lui-même ces principes, l'article 4 peut être repris dans une politique ; à confirmer."
-  - "Seuils de gravité (article 13 et Annexe 2) : 1 000 000 FCFA pour un incident significatif, repris de l'article 28 de la Politique de gestion des risques, et 10 000 000 FCFA pour un incident majeur, repris de la note d'impact 3 de sa grille de cotation (Annexe 3). À confirmer par le Directeur Général."
-  - "La fiche de déclaration de l'Annexe 1 reprend et complète la fiche de l'Annexe 4 de la Politique de gestion des risques, et le registre de l'Annexe 3 réunit le registre des incidents et le tableau de suivi des recommandations de la Charte du contrôle interne (Annexe 3). À la prochaine révision de ces deux documents, leurs annexes devront renvoyer à la présente procédure pour éviter deux fiches et deux tableaux."
+  - "Seuils de gravité (article 13 et annexe « Gravité et escalade ») : 1 000 000 FCFA pour un incident significatif, repris de l'article 28 de la Politique de gestion des risques, et 10 000 000 FCFA pour un incident majeur, repris de la note d'impact 3 de sa grille de cotation (Annexe « Registre des incidents »). À confirmer par le Directeur Général."
+  - "La fiche de déclaration de l'annexe « Déclaration d'incident » reprend et complète la fiche de l'annexe « Déclaration d'incident » de la Politique de gestion des risques, et le registre de l'annexe « Registre des incidents » réunit le registre des incidents et le tableau de suivi des recommandations de la Charte du contrôle interne (Annexe « Registre des incidents »). À la prochaine révision de ces deux documents, leurs annexes devront renvoyer à la présente procédure pour éviter deux fiches et deux tableaux."
   - "Aucune disposition de la COSUMAF fixant un délai précis de notification des incidents par une société de bourse n'a été trouvée. La procédure applique la Procédure de reporting réglementaire (information sans délai, confirmation écrite sous 48 heures). À vérifier sur le texte officiel du Règlement général et les instructions de la COSUMAF."
   - "Le délai légal de notification d'une violation de données personnelles prévu par la loi n° 2024/017, et l'existence effective de l'autorité de protection, sont à vérifier avec le conseil juridique ; la procédure renvoie au délai légal sans le chiffrer."
   - "L'engagement de ne pas sanctionner une erreur déclarée de bonne foi (article 10) doit être cohérent avec le règlement intérieur et le pouvoir disciplinaire prévu par le Code du travail. À faire vérifier par le conseil juridique ou le conseil en droit social."
   - "La Politique de formation (PC-POL-FOR-001) est rédigée en parallèle : vérifier, à son adoption, la cohérence du renvoi de l'article 26."
-  - "Choisir l'outil du registre unique (tableur partagé à accès restreint ou module du référentiel en ligne) et les droits d'accès. Vérifier aussi, dans le contrat d'assurance de responsabilité civile professionnelle, le délai de déclaration d'un sinistre à l'assureur, et l'ajouter à l'Annexe 2."
+  - "Choisir l'outil du registre unique (tableur partagé à accès restreint ou module du référentiel en ligne) et les droits d'accès. Vérifier aussi, dans le contrat d'assurance de responsabilité civile professionnelle, le délai de déclaration d'un sinistre à l'assureur, et l'ajouter à l'annexe « Gravité et escalade »."
 ---
 
 ## Titre I — Dispositions générales
@@ -120,7 +120,7 @@ La présente procédure organise le circuit commun ; les règles propres à chaq
 | RCCI | Enregistre et qualifie ; déclenche l'escalade ; conduit ou fait conduire l'analyse des causes ; tient le registre unique ; vérifie la réalisation et l'efficacité des actions ; rend compte |
 | Directeur Général | Décide des mesures et des moyens pour les incidents significatifs et majeurs ; valide les plans d'actions ; décide des notifications aux autorités et des réparations ; préside la revue mensuelle |
 | Président du Conseil d'Administration | Est informé des incidents significatifs et majeurs ; informe le Conseil ; traite les incidents qui mettent en cause le Directeur Général |
-| Conseil d'Administration | Examine chaque trimestre le rapport de l'Annexe 5 ; décide des suites des incidents majeurs qui le justifient |
+| Conseil d'Administration | Examine chaque trimestre le rapport de l'annexe « Rapport trimestriel au Conseil » ; décide des suites des incidents majeurs qui le justifient |
 | Prestataire informatique | Signale sans délai tout incident sur les systèmes qu'il gère ; participe à l'analyse ; réalise les actions prévues à son contrat |
 
 ### Article 7 — Lorsque le RCCI ou le Directeur Général est en cause
@@ -137,7 +137,7 @@ Personne ne qualifie, n'analyse ni ne clôt un incident dans lequel il est perso
 Le registre unique est alimenté par :
 
 - les **incidents déclarés** par les collaborateurs et les prestataires ;
-- les **constats des contrôles permanents** du RCCI (fiches de contrôle de la Charte du contrôle interne, Annexe 2) ;
+- les **constats des contrôles permanents** du RCCI (fiches de contrôle de la Charte du contrôle interne, annexe « Gravité et escalade ») ;
 - les **recommandations de la revue indépendante annuelle** et des **commissaires aux comptes** ;
 - les **constats et injonctions de la COSUMAF**, à la suite d'une inspection, d'une demande ou d'une transmission ;
 - l'**analyse trimestrielle des réclamations** (PC-PRO-REC-001, article 16) ;
@@ -146,14 +146,14 @@ Le registre unique est alimenté par :
 
 ### Article 9 — Déclaration d'un incident
 
-Tout collaborateur qui découvre un incident le déclare au RCCI **le jour même de sa découverte, et au plus tard dans les 24 heures**, au moyen de la fiche de l'Annexe 1. Un courriel reprenant les rubriques de la fiche suffit dans un premier temps.
+Tout collaborateur qui découvre un incident le déclare au RCCI **le jour même de sa découverte, et au plus tard dans les 24 heures**, au moyen de la fiche de l'annexe « Déclaration d'incident ». Un courriel reprenant les rubriques de la fiche suffit dans un premier temps.
 
 Lorsque l'incident est en cours ou paraît grave (client touché, fraude, attaque informatique, avoirs des clients en cause), il prévient d'abord le RCCI et le Directeur Général **par téléphone, immédiatement**, puis remplit la fiche.
 
 Deux cas particuliers :
 
-- un **incident de sécurité informatique** est aussi signalé immédiatement au référent informatique, selon l'article 20 de la Politique de sécurité des systèmes d'information ; la fiche de cette politique peut tenir lieu de fiche de l'Annexe 1 ;
-- un **soupçon de blanchiment ou de financement du terrorisme** ne se déclare pas sur la fiche de l'Annexe 1. Il est signalé au responsable LBC/FT selon l'article 23 de la Politique LBC/FT. Le registre unique n'en garde aucune trace nominative ; seule une défaillance du dispositif (contrôle non fait, alerte non traitée) y est inscrite, sans mention du soupçon.
+- un **incident de sécurité informatique** est aussi signalé immédiatement au référent informatique, selon l'article 20 de la Politique de sécurité des systèmes d'information ; la fiche de cette politique peut tenir lieu de fiche de l'annexe « Déclaration d'incident » ;
+- un **soupçon de blanchiment ou de financement du terrorisme** ne se déclare pas sur la fiche de l'annexe « Déclaration d'incident ». Il est signalé au responsable LBC/FT selon l'article 23 de la Politique LBC/FT. Le registre unique n'en garde aucune trace nominative ; seule une défaillance du dispositif (contrôle non fait, alerte non traitée) y est inscrite, sans mention du soupçon.
 
 Le collaborateur déclare ce qu'il sait au moment où il le sait. Il n'attend pas d'avoir tout compris, ni d'avoir corrigé.
 
@@ -186,13 +186,13 @@ Avant toute analyse, la personne qui découvre l'incident et son responsable :
 2. **protègent les clients** : un client ne supporte jamais seul les conséquences d'une erreur de la Société ;
 3. **conservent les preuves** : ordres, courriels, journaux, captures d'écran ; rien n'est effacé ni « nettoyé » ;
 4. **corrigent** ce qui peut l'être tout de suite, avec un double regard ;
-5. **notent** l'heure et la nature de chaque mesure sur la fiche de l'Annexe 1.
+5. **notent** l'heure et la nature de chaque mesure sur la fiche de l'annexe « Déclaration d'incident ».
 
 Lorsque l'incident interrompt une activité essentielle, le Directeur Général apprécie le déclenchement du Plan de continuité d'activité.
 
 ### Article 13 — Échelle de gravité
 
-Le RCCI qualifie l'incident **au plus tard le jour ouvré suivant la déclaration**, et immédiatement s'il paraît majeur. Il applique la grille de l'Annexe 2.
+Le RCCI qualifie l'incident **au plus tard le jour ouvré suivant la déclaration**, et immédiatement s'il paraît majeur. Il applique la grille de l'annexe « Gravité et escalade ».
 
 | Gravité | Critères (il suffit d'un seul) |
 | --- | --- |
@@ -215,7 +215,7 @@ Ces délais reprennent l'article 27 de la Politique de gestion des risques. Chaq
 
 ### Article 15 — Notifications aux autorités et aux tiers
 
-Le RCCI examine, pour chaque incident significatif ou majeur, si une autorité ou un tiers doit être informé, à l'aide de l'Annexe 4 de la Procédure de reporting réglementaire. Le Directeur Général décide, ou, s'il est en cause, le Président du Conseil d'Administration. Le RCCI prépare la notification et en conserve la preuve.
+Le RCCI examine, pour chaque incident significatif ou majeur, si une autorité ou un tiers doit être informé, à l'aide de l'annexe « Événements à notifier » de la Procédure de reporting réglementaire. Le Directeur Général décide, ou, s'il est en cause, le Président du Conseil d'Administration. Le RCCI prépare la notification et en conserve la preuve.
 
 | Destinataire | Quand | Règle applicable |
 | --- | --- | --- |
@@ -247,7 +247,7 @@ Elle est menée par le RCCI avec les personnes concernées, en une courte réuni
 
 La méthode est celle des **« cinq pourquoi »** : partir du fait constaté et demander « pourquoi ? » jusqu'à trouver une cause sur laquelle la Société peut agir, en général après trois à cinq questions. Chaque réponse s'appuie sur un fait vérifié. L'analyse s'arrête sur une cause d'organisation, d'outil ou de règle, non sur « erreur humaine » : si une personne s'est trompée, on se demande pourquoi le dispositif ne l'a pas arrêtée.
 
-La fiche de l'Annexe 4 est utilisée. Elle classe la cause racine dans l'une des catégories suivantes : procédure absente ou inadaptée ; contrôle absent ou inefficace ; outil ou système ; compétence ou information ; charge de travail ou organisation ; prestataire ; événement extérieur.
+La fiche de l'annexe « Analyse des causes » est utilisée. Elle classe la cause racine dans l'une des catégories suivantes : procédure absente ou inadaptée ; contrôle absent ou inefficace ; outil ou système ; compétence ou information ; charge de travail ou organisation ; prestataire ; événement extérieur.
 
 ### Article 18 — Plan d'actions
 
@@ -288,7 +288,7 @@ Un incident ou un constat n'est clos que lorsque toutes ses actions sont réalis
 
 ### Article 21 — Registre unique
 
-Le RCCI tient le registre des incidents et des plans d'actions selon le modèle de l'Annexe 3. Ce registre unique rassemble le registre des incidents prévu par la Politique de gestion des risques et le tableau de suivi des recommandations prévu par la Charte du contrôle interne.
+Le RCCI tient le registre des incidents et des plans d'actions selon le modèle de l'annexe « Registre des incidents ». Ce registre unique rassemble le registre des incidents prévu par la Politique de gestion des risques et le tableau de suivi des recommandations prévu par la Charte du contrôle interne.
 
 - Chaque incident reçoit un numéro INC-année-numéro ; chaque constat un numéro CST-année-numéro ; chaque action une lettre (INC-2027-004-a, -b…).
 - Le registre est tenu sous forme électronique ; le RCCI y écrit, le Directeur Général et les membres du comité des risques et de la conformité le consultent.
@@ -308,13 +308,13 @@ Les décisions (validation d'un plan, report d'échéance, moyens alloués) sont
 
 ### Article 23 — Rapport trimestriel au Conseil d'Administration
 
-Chaque trimestre, le RCCI établit le rapport de l'Annexe 5, validé par le Directeur Général. Il est intégré au tableau de bord trimestriel présenté au Conseil d'Administration (Charte du contrôle interne, article 24 ; Politique de gestion des risques, article 29). Le Conseil peut demander des explications sur tout incident ou toute action en retard ; ses décisions figurent au procès-verbal de la séance.
+Chaque trimestre, le RCCI établit le rapport de l'annexe « Rapport trimestriel au Conseil », validé par le Directeur Général. Il est intégré au tableau de bord trimestriel présenté au Conseil d'Administration (Charte du contrôle interne, article 24 ; Politique de gestion des risques, article 29). Le Conseil peut demander des explications sur tout incident ou toute action en retard ; ses décisions figurent au procès-verbal de la séance.
 
 ### Article 24 — Synthèse annuelle
 
 Chaque année, le RCCI fait la synthèse du registre :
 
-- dans le **rapport annuel de contrôle interne**, transmis à la COSUMAF avant le 31 mars, aux rubriques prévues par le plan de l'Annexe 4 de la Charte du contrôle interne : constats et mesures prises, incidents ayant touché des clients, incidents informatiques, contrôles externes et suivi des recommandations ;
+- dans le **rapport annuel de contrôle interne**, transmis à la COSUMAF avant le 31 mars, aux rubriques prévues par le plan de l'annexe « Plan du rapport annuel » de la Charte du contrôle interne : constats et mesures prises, incidents ayant touché des clients, incidents informatiques, contrôles externes et suivi des recommandations ;
 - dans la **mise à jour de la cartographie des risques** (Politique de gestion des risques, article 9) : chaque risque lié à un incident significatif ou majeur de l'année est recoté, et un risque révélé par un incident mais absent de la cartographie y est ajouté. Un incident majeur entraîne la mise à jour de la cartographie sans attendre la revue annuelle.
 
 ## Titre VII — Tirer les leçons
@@ -331,7 +331,7 @@ Les leçons utiles à tous sont partagées sans nommer personne : par un point �
 
 ### Article 27 — Indicateurs
 
-Le RCCI suit les indicateurs suivants, présentés chaque trimestre dans le rapport de l'Annexe 5.
+Le RCCI suit les indicateurs suivants, présentés chaque trimestre dans le rapport de l'annexe « Rapport trimestriel au Conseil ».
 
 | Indicateur | Cible |
 | --- | --- |

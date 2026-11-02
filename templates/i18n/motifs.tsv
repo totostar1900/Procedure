@@ -384,3 +384,6 @@ Attention : (.+)	Warning: $1
 E-mail d'essai envoyé à (.+)\.	Test e-mail sent to $1.
 (\d+) e-mail\(s\) envoyé\(s\), (\d+) en erreur\.	$1 e-mail(s) sent, $2 with errors.
 (\d+) e-mail\(s\) envoyé\(s\)\.	$1 e-mail(s) sent.
+(\d+) renvoi\(s\) mis à jour dans ce document\.	$1 reference(s) updated in this document.
+Supprimer l'annexe « (.+) »	Delete the appendix “$1”
+(\d+) annexe\(s\) ajoutée\(s\), modifiée\(s\) ou supprimée\(s\)\.	$1 appendix(es) added, changed or deleted.

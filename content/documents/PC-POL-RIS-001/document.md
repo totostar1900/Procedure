@@ -39,7 +39,7 @@ historique:
     objet: Projet initial soumis au Conseil d'Administration
     par: RCCI
 notes_redaction:
-  - Les ratios prudentiels propres aux sociétés de bourse n'ont pas été trouvés dans le Règlement général de la COSUMAF ni dans les instructions publiées en 2023. Les limites de l'Annexe 1 sont des limites internes prudentes ; les aligner sur les normes de la COSUMAF dès qu'elles sont confirmées.
+  - Les ratios prudentiels propres aux sociétés de bourse n'ont pas été trouvés dans le Règlement général de la COSUMAF ni dans les instructions publiées en 2023. Les limites de l'annexe « Appétence et limites » sont des limites internes prudentes ; les aligner sur les normes de la COSUMAF dès qu'elles sont confirmées.
   - Confirmer auprès de la COSUMAF si le minimum de 300 000 000 FCFA s'apprécie sur le capital social seul ou sur les fonds propres. La politique retient la lecture la plus prudente (fonds propres), compte tenu de la faible marge actuelle.
   - Arrêter avec le Conseil d'Administration le montant de référence des charges fixes mensuelles utilisé aux articles 13 et 14, à partir du budget approuvé.
   - La Politique de sécurité des systèmes d'information (PC-POL-SSI-001) reste à rédiger ; la présente politique en fixe les exigences minimales. Le Plan de continuité d'activité (PC-POL-PCA-001) remplace l'article 20 dès son adoption.
@@ -84,7 +84,7 @@ La politique couvre toutes les activités de la Société, actuelles et futures 
 
 ### Article 6 — Déclaration d'appétence
 
-Le Conseil d'Administration approuve chaque année la déclaration d'appétence et le tableau des limites (Annexe 1). Toute activité qui conduirait à dépasser une limite est soumise à son accord préalable.
+Le Conseil d'Administration approuve chaque année la déclaration d'appétence et le tableau des limites (Annexe « Appétence et limites »). Toute activité qui conduirait à dépasser une limite est soumise à son accord préalable.
 
 ## Titre III — Organisation
 
@@ -113,7 +113,7 @@ La taille de la Société conduit à confier les fonctions de gestion des risque
 
 ### Article 9 — Identification et évaluation
 
-Le RCCI tient, avec les directions opérationnelles, la cartographie des risques de la Société. Chaque risque y est décrit par sa cause, son effet, son propriétaire et les dispositifs de maîtrise existants. Il est coté en probabilité et en impact selon la grille de l'Annexe 3, avant et après prise en compte des dispositifs de maîtrise.
+Le RCCI tient, avec les directions opérationnelles, la cartographie des risques de la Société. Chaque risque y est décrit par sa cause, son effet, son propriétaire et les dispositifs de maîtrise existants. Il est coté en probabilité et en impact selon la grille de l'annexe « Cartographie des risques », avant et après prise en compte des dispositifs de maîtrise.
 
 La cartographie est mise à jour au moins une fois par an et à chaque événement significatif : nouvelle activité, incident grave, changement réglementaire, recrutement ou départ d'une personne clé. Elle est approuvée par le Conseil d'Administration et transmise à la COSUMAF avant le 31 mars avec le rapport annuel de contrôle interne.
 
@@ -128,7 +128,7 @@ Pour chaque risque net jugé élevé ou critique, le propriétaire du risque pro
 
 ### Article 11 — Nouveaux produits et nouvelles activités
 
-Aucun nouveau produit, service, canal de distribution, marché ou prestataire important n'est lancé sans une analyse préalable des risques au moyen de la fiche de l'Annexe 5. L'analyse couvre les risques financiers, opérationnels, juridiques, de non-conformité, de blanchiment et de conflit d'intérêts. La décision revient au Directeur Général après avis écrit du RCCI, et au Conseil d'Administration lorsque l'activité nécessite une modification du programme d'activités agréé par la COSUMAF.
+Aucun nouveau produit, service, canal de distribution, marché ou prestataire important n'est lancé sans une analyse préalable des risques au moyen de la fiche de l'annexe « Approbation de nouveau produit ». L'analyse couvre les risques financiers, opérationnels, juridiques, de non-conformité, de blanchiment et de conflit d'intérêts. La décision revient au Directeur Général après avis écrit du RCCI, et au Conseil d'Administration lorsque l'activité nécessite une modification du programme d'activités agréé par la COSUMAF.
 
 ### Article 12 — Scénarios de crise
 
@@ -218,7 +218,7 @@ Une fois par an, le RCCI mesure l'effet sur les fonds propres et la trésorerie 
 
 **Risque** : défaillance, manquement ou perte de contrôle sur un prestataire exerçant une fonction importante (informatique, hébergement, comptabilité).
 
-**Mesures** : analyse des risques avant tout contrat (Annexe 5) ; contrat écrit prévoyant la confidentialité, la qualité de service, l'accès de la Société et de la COSUMAF aux informations, la réversibilité et la sortie ; suivi annuel de la qualité ; la Société reste responsable des fonctions externalisées.
+**Mesures** : analyse des risques avant tout contrat (Annexe « Approbation de nouveau produit ») ; contrat écrit prévoyant la confidentialité, la qualité de service, l'accès de la Société et de la COSUMAF aux informations, la réversibilité et la sortie ; suivi annuel de la qualité ; la Société reste responsable des fonctions externalisées.
 
 ### Article 22 — Non-conformité et blanchiment
 
@@ -248,7 +248,7 @@ Une fois par an, le RCCI mesure l'effet sur les fonds propres et la trésorerie 
 
 ### Article 26 — Indicateurs et limites
 
-Le RCCI suit les indicateurs clés de risque de l'Annexe 2. Chacun a un propriétaire, une fréquence de mesure et trois zones : vert (normal), orange (seuil d'alerte franchi) et rouge (limite dépassée).
+Le RCCI suit les indicateurs clés de risque de l'annexe « Indicateurs clés de risque ». Chacun a un propriétaire, une fréquence de mesure et trois zones : vert (normal), orange (seuil d'alerte franchi) et rouge (limite dépassée).
 
 ### Article 27 — Escalade
 
@@ -261,7 +261,7 @@ Le RCCI suit les indicateurs clés de risque de l'Annexe 2. Chacun a un proprié
 
 ### Article 28 — Incidents
 
-Tout collaborateur déclare un incident au RCCI dans les 24 heures au moyen de la fiche de l'Annexe 4, y compris lorsqu'il a été évité de justesse ou corrigé sans perte. Le RCCI l'enregistre dans le registre des incidents, en analyse la cause et suit le plan d'action.
+Tout collaborateur déclare un incident au RCCI dans les 24 heures au moyen de la fiche de l'annexe « Déclaration d'incident », y compris lorsqu'il a été évité de justesse ou corrigé sans perte. Le RCCI l'enregistre dans le registre des incidents, en analyse la cause et suit le plan d'action.
 
 Un incident est **significatif** lorsqu'il cause ou peut causer une perte supérieure à 1 000 000 FCFA, qu'il affecte un client, qu'il constitue un manquement réglementaire, qu'il interrompt un service pendant plus d'une demi-journée ou qu'il compromet des données. Il est porté à la connaissance du Président du Conseil d'Administration et, lorsque la réglementation l'exige, de la COSUMAF.
 

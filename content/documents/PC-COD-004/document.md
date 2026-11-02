@@ -97,18 +97,18 @@ Le Conseil détermine les orientations de la Société, nomme et révoque le Pr�
 
 Au titre de la présente charte, le Conseil :
 
-- approuve l'organigramme de l'Annexe 1 et la matrice des délégations de l'Annexe 2 ;
+- approuve l'organigramme de l'annexe « Organigramme » et la matrice des délégations de l'annexe « Matrice des délégations » ;
 - désigne le second dirigeant effectif (article 9) ;
 - approuve la liste des signataires bancaires et leurs catégories (article 27) ;
 - autorise les opérations qui dépassent les pouvoirs du Directeur Général.
 
 ### Article 7 — Président du Conseil d'Administration
 
-Le Président organise et dirige les travaux du Conseil (PC-COD-002, Titre IV). Il ne dirige pas la Société et n'a pas de pouvoir hiérarchique sur les collaborateurs. Il est le second niveau de contrôle pour les actes du Directeur Général : il reçoit directement les alertes du RCCI, approuve les notes de frais et les dépenses personnelles du Directeur Général, et donne son accord préalable dans les cas prévus à l'Annexe 2.
+Le Président organise et dirige les travaux du Conseil (PC-COD-002, Titre IV). Il ne dirige pas la Société et n'a pas de pouvoir hiérarchique sur les collaborateurs. Il est le second niveau de contrôle pour les actes du Directeur Général : il reçoit directement les alertes du RCCI, approuve les notes de frais et les dépenses personnelles du Directeur Général, et donne son accord préalable dans les cas prévus à l'annexe « Matrice des délégations ».
 
 ### Article 8 — Directeur Général
 
-Le Directeur Général assure la direction générale de la Société et la représente à l'égard des tiers. Il dispose des pouvoirs que lui donnent la loi et les statuts, dans les limites internes fixées par le Conseil et rappelées à l'Annexe 2.
+Le Directeur Général assure la direction générale de la Société et la représente à l'égard des tiers. Il dispose des pouvoirs que lui donnent la loi et les statuts, dans les limites internes fixées par le Conseil et rappelées à l'annexe « Matrice des délégations ».
 
 Ces limites engagent le Directeur Général envers la Société ; elles ne sont pas opposables aux tiers. Un dépassement est porté sans délai à la connaissance du Président du Conseil et régularisé à la séance suivante du Conseil.
 
@@ -121,7 +121,7 @@ La Société dispose en permanence d'un second dirigeant effectif, reconnu par l
 - soit un **Directeur Général Adjoint**, nommé par le Conseil dans les conditions de l'Acte uniforme et des statuts ;
 - soit, à défaut, un **directeur** de la Société, de préférence le Directeur des Marchés de Capitaux, investi par le Conseil d'une délégation générale de suppléance du Directeur Général.
 
-Le second dirigeant effectif assure l'intérim du Directeur Général, est cosignataire de catégorie A sur les comptes bancaires et participe à toutes les décisions qui requièrent deux dirigeants selon l'Annexe 2. Il n'est pas choisi parmi les titulaires d'une fonction de contrôle.
+Le second dirigeant effectif assure l'intérim du Directeur Général, est cosignataire de catégorie A sur les comptes bancaires et participe à toutes les décisions qui requièrent deux dirigeants selon l'annexe « Matrice des délégations ». Il n'est pas choisi parmi les titulaires d'une fonction de contrôle.
 
 Sa nomination n'est mise en œuvre qu'après l'autorisation de la COSUMAF (article 34).
 
@@ -129,7 +129,7 @@ Sa nomination n'est mise en œuvre qu'après l'autorisation de la COSUMAF (artic
 
 ### Article 10 — Organigramme et lignes hiérarchiques
 
-L'organigramme de l'Annexe 1 indique, pour chaque fonction, son rattachement hiérarchique, son lien fonctionnel éventuel, le titulaire actuel désigné par sa seule fonction, les cumuls et le suppléant.
+L'organigramme de l'annexe « Organigramme » indique, pour chaque fonction, son rattachement hiérarchique, son lien fonctionnel éventuel, le titulaire actuel désigné par sa seule fonction, les cumuls et le suppléant.
 
 Tous les directeurs, le RCCI, le chargé des opérations et le comptable sont rattachés au Directeur Général. Le chargé de clientèle est rattaché au Directeur Commercial.
 
@@ -147,7 +147,7 @@ En conséquence :
 
 ### Article 12 — Fonctions externalisées
 
-La comptabilité, l'informatique, la revue indépendante annuelle et, le cas échéant, le conseil juridique peuvent être confiés à des prestataires selon la Politique d'externalisation (PC-POL-EXT-001). Chaque prestation a un **responsable interne** désigné à l'Annexe 1, qui suit le contrat, contrôle la qualité du service et en rend compte. Un prestataire ne reçoit jamais de pouvoir de signature au nom de la Société.
+La comptabilité, l'informatique, la revue indépendante annuelle et, le cas échéant, le conseil juridique peuvent être confiés à des prestataires selon la Politique d'externalisation (PC-POL-EXT-001). Chaque prestation a un **responsable interne** désigné à l'annexe « Organigramme », qui suit le contrat, contrôle la qualité du service et en rend compte. Un prestataire ne reçoit jamais de pouvoir de signature au nom de la Société.
 
 ## Titre IV — Les fiches de fonction
 
@@ -168,7 +168,7 @@ Lorsqu'une fonction exige une carte professionnelle, son titulaire ne l'exerce p
 - préparer l'ordre du jour, présider les séances, faire tenir les procès-verbaux ;
 - recevoir les alertes du RCCI et l'entendre une fois par an hors la présence de la Direction Générale ;
 - approuver les notes de frais et dépenses personnelles du Directeur Général ;
-- donner l'accord préalable prévu à l'Annexe 2 et suivre les dépassements de pouvoirs ;
+- donner l'accord préalable prévu à l'annexe « Matrice des délégations » et suivre les dépassements de pouvoirs ;
 - administrer le référentiel documentaire en ligne (PC-PRO-GOV-001, article 11).
 
 **Documents dont il est propriétaire** : PC-COD-002.
@@ -184,7 +184,7 @@ Lorsqu'une fonction exige une carte professionnelle, son titulaire ne l'exerce p
 **Responsabilités principales** :
 
 - organiser la Société, recruter et diriger les collaborateurs, tenir l'organigramme ;
-- engager la Société dans les limites de l'Annexe 2 et tenir le registre des délégations ;
+- engager la Société dans les limites de l'annexe « Matrice des délégations » et tenir le registre des délégations ;
 - présider la réunion mensuelle de direction (article 32) ;
 - signer les déclarations et demandes adressées à la COSUMAF, à la BVMAC et au Dépositaire central ;
 - donner au RCCI les moyens de sa mission et garantir son indépendance ;
@@ -320,7 +320,7 @@ La taille de la Société justifie les cumuls suivants, dans la limite admise pa
 | Directeur des Marchés de Capitaux : recherche et analyse | Listes de surveillance et d'interdiction ; mention des liens d'affaires (PC-POL-CI-001) |
 | Second dirigeant effectif choisi parmi les directeurs | Le second dirigeant ne cosigne pas un engagement qu'il a lui-même préparé : la seconde signature est alors donnée par un autre signataire de catégorie A, ou le Président du Conseil est informé avant exécution |
 
-Tout nouveau cumul est décidé par le Directeur Général après avis écrit du RCCI, inscrit à l'Annexe 1 et présenté au Conseil à sa séance suivante.
+Tout nouveau cumul est décidé par le Directeur Général après avis écrit du RCCI, inscrit à l'annexe « Organigramme » et présenté au Conseil à sa séance suivante.
 
 ### Article 23 — Incompatibilités
 
@@ -349,11 +349,11 @@ Chaque contrôle est daté et signé, sur la pièce ou dans l'outil, de façon �
 
 ### Article 25 — Intérim et absences
 
-Le tableau de l'Annexe 4 désigne, pour chaque fonction, un suppléant et un second suppléant. Le suppléant agit avec les pouvoirs du titulaire, dans les mêmes limites et sous les mêmes incompatibilités.
+Le tableau de l'annexe « Tableau des intérims » désigne, pour chaque fonction, un suppléant et un second suppléant. Le suppléant agit avec les pouvoirs du titulaire, dans les mêmes limites et sous les mêmes incompatibilités.
 
 | Durée de l'absence | Règle |
 | --- | --- |
-| Jusqu'à 5 jours ouvrés | Intérim automatique selon l'Annexe 4 ; le titulaire informe son suppléant et son supérieur avant de partir |
+| Jusqu'à 5 jours ouvrés | Intérim automatique selon l'annexe « Tableau des intérims » ; le titulaire informe son suppléant et son supérieur avant de partir |
 | Plus de 5 jours ouvrés | Note du Directeur Général précisant la durée et les pouvoirs ; information de l'équipe et des interlocuteurs extérieurs utiles |
 | Plus de 30 jours | Inscription au registre des délégations ; information du Président du Conseil ; vérification qu'aucune fonction de contrôle n'est exercée par la personne contrôlée |
 | Absence d'un dirigeant effectif de plus de 3 mois, ou départ | Information de la COSUMAF et désignation d'un remplaçant selon l'article 34 |
@@ -366,15 +366,15 @@ Un intérim n'autorise jamais à cumuler une fonction de contrôle et la fonctio
 
 Une délégation est valable si elle est :
 
-1. **écrite** et signée par le délégant et le délégataire, selon le modèle de l'Annexe 3 ;
+1. **écrite** et signée par le délégant et le délégataire, selon le modèle de l'annexe « Registre des délégations » ;
 2. **précise** : objet, montant maximal, durée, éventuelle seconde signature ;
 3. **donnée à une personne compétente**, qui dispose des moyens et de l'information nécessaires ;
 4. **acceptée** par le délégataire, qui en connaît les limites ;
-5. **inscrite au registre** de l'Annexe 3 avant son premier usage.
+5. **inscrite au registre** de l'annexe « Registre des délégations » avant son premier usage.
 
 Le délégataire ne subdélègue pas, sauf si la délégation le permet expressément. Le délégant reste responsable de la surveillance de l'usage de la délégation. Une délégation prend fin à son terme, à sa révocation écrite ou au changement de fonction du délégant ou du délégataire.
 
-Le Conseil délègue au Directeur Général dans les limites de l'Annexe 2. Le Directeur Général délègue à son tour, dans ses propres limites, aux directeurs et au second dirigeant effectif.
+Le Conseil délègue au Directeur Général dans les limites de l'annexe « Matrice des délégations ». Le Directeur Général délègue à son tour, dans ses propres limites, aux directeurs et au second dirigeant effectif.
 
 ### Article 27 — Comptes bancaires et paiements
 
@@ -389,7 +389,7 @@ Le Conseil délègue au Directeur Général dans les limites de l'Annexe 2. Le D
 - Les contrats avec les clients suivent les modèles du référentiel (PC-CTR-001 à PC-CTR-004) ; toute dérogation à un modèle requiert l'avis du RCCI et, si elle est significative, du conseil juridique.
 - Les mandats d'arrangement et de placement sont signés par le Directeur Général sur proposition du Directeur des Marchés de Capitaux, après vérification par le RCCI des conflits d'intérêts.
 - Les engagements de prise ferme et de garantie de bonne fin sont pris dans la limite fixée par la Politique de gestion des risques (PC-POL-RIS-001) ; au-delà, le Conseil statue.
-- Les autres contrats (fournisseurs, prestataires, baux) sont signés selon les seuils de l'Annexe 2. Les externalisations importantes suivent en outre le PC-POL-EXT-001.
+- Les autres contrats (fournisseurs, prestataires, baux) sont signés selon les seuils de l'annexe « Matrice des délégations ». Les externalisations importantes suivent en outre le PC-POL-EXT-001.
 - Les cautions, avals et garanties, ainsi que les conventions réglementées, relèvent toujours du Conseil, selon l'Acte uniforme OHADA.
 
 ### Article 29 — Déclarations réglementaires et relations avec les autorités
@@ -409,11 +409,11 @@ Le Conseil délègue au Directeur Général dans les limites de l'Annexe 2. Le D
 | Nomination ou révocation du Directeur Général, du Directeur Général Adjoint, du second dirigeant effectif | Conseil d'Administration | Autorisation préalable de la COSUMAF |
 | Sanction disciplinaire, licenciement | Directeur Général | Procédure du Code du travail ; avis du RCCI si le manquement touche la conformité |
 | Rémunérations et primes | Selon le PC-POL-REM-001 | — |
-| Congés et absences | Supérieur hiérarchique | Suppléant confirmé (Annexe 4) |
+| Congés et absences | Supérieur hiérarchique | Suppléant confirmé (Annexe « Tableau des intérims ») |
 
 ### Article 31 — Matrice des délégations
 
-La matrice de l'Annexe 2 récapitule, pour chaque type de décision, qui prépare, qui décide, qui cosigne et qui est informé, avec les seuils applicables. En cas de doute, la décision remonte au niveau supérieur.
+La matrice de l'annexe « Matrice des délégations » récapitule, pour chaque type de décision, qui prépare, qui décide, qui cosigne et qui est informé, avec les seuils applicables. En cas de doute, la décision remonte au niveau supérieur.
 
 Tout acte pris hors délégation est signalé au RCCI, qui l'inscrit au registre des délégations avec sa régularisation.
 
@@ -449,7 +449,7 @@ Le Conseil revoit chaque année l'ensemble de la charte, de l'organigramme et de
 
 ### Article 34 — Changement de fonction et information de la COSUMAF
 
-Tout changement de fonction (nomination, départ, cumul, intérim de longue durée) est documenté au moyen du formulaire de l'Annexe 5, ouvert par le Directeur Général dès que le changement est décidé.
+Tout changement de fonction (nomination, départ, cumul, intérim de longue durée) est documenté au moyen du formulaire de l'annexe « Changement de fonction », ouvert par le Directeur Général dès que le changement est décidé.
 
 - La nomination ou le départ d'un **dirigeant effectif** n'est mis en œuvre qu'après l'autorisation de la COSUMAF ; le dossier est déposé par le Directeur Général, ou par le Président du Conseil lorsque le changement concerne le Directeur Général.
 - L'arrivée d'une personne qui exerce une **fonction soumise à carte professionnelle** est précédée de la demande d'habilitation ; son départ est notifié à la COSUMAF.
@@ -458,7 +458,7 @@ Tout changement de fonction (nomination, départ, cumul, intérim de longue dur�
 
 ### Article 35 — Mise à jour de la charte
 
-La charte est mise à jour à chaque changement d'organisation, et revue au moins une fois par an, selon le PC-PRO-GOV-001. Une modification limitée aux Annexes 1, 3 et 4 (titulaires, suppléants, registre) est faite par le Directeur Général et présentée au Conseil à sa séance suivante ; toute autre modification est approuvée par le Conseil.
+La charte est mise à jour à chaque changement d'organisation, et revue au moins une fois par an, selon le PC-PRO-GOV-001. Une modification limitée aux annexes « Organigramme », « Registre des délégations » et « Tableau des intérims » (titulaires, suppléants, registre) est faite par le Directeur Général et présentée au Conseil à sa séance suivante ; toute autre modification est approuvée par le Conseil.
 
 Le RCCI contrôle chaque semestre la concordance entre l'organigramme, le registre des délégations, la liste des signataires bancaires et les cartes professionnelles.
 

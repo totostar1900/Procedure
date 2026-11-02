@@ -162,7 +162,7 @@ Les activités de conseil aux émetteurs et de placement sont séparées des act
 
 ### Article 21 — Déclaration d'intérêts
 
-Chaque Collaborateur déclare à l'embauche, puis chaque année, ses mandats sociaux, participations significatives et activités extérieures (Annexe 3). Toute activité extérieure rémunérée est soumise à autorisation préalable de la Direction Générale.
+Chaque Collaborateur déclare à l'embauche, puis chaque année, ses mandats sociaux, participations significatives et activités extérieures (Annexe « Déclaration d'intérêts »). Toute activité extérieure rémunérée est soumise à autorisation préalable de la Direction Générale.
 
 ### Article 22 — Cadeaux et avantages
 
@@ -194,7 +194,7 @@ Les opérations personnelles des Collaborateurs :
 2. font l'objet d'une demande d'autorisation préalable au RCCI, valable 48 heures ;
 3. sont conservées au moins 30 jours avant revente, sauf circonstance exceptionnelle autorisée ;
 4. ne sont jamais exécutées avant un ordre client en attente sur le même titre ;
-5. sont déclarées dans un relevé trimestriel signé (Annexe 2).
+5. sont déclarées dans un relevé trimestriel signé (Annexe « Relevé des opérations personnelles »).
 
 ### Article 28 — Fenêtres négatives
 
@@ -312,7 +312,7 @@ Tout manquement au présent Code constitue une faute pouvant entraîner, selon s
 
 ### Article 50 — Adhésion
 
-Chaque Collaborateur reçoit le Code contre récépissé, signe l'attestation d'adhésion (Annexe 1) et la renouvelle à chaque mise à jour. Le Code est annexé au règlement intérieur et aux contrats de travail et de prestation.
+Chaque Collaborateur reçoit le Code contre récépissé, signe l'attestation d'adhésion (Annexe « Attestation d'adhésion ») et la renouvelle à chaque mise à jour. Le Code est annexé au règlement intérieur et aux contrats de travail et de prestation.
 
 ### Article 51 — Révision
 

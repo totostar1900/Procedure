@@ -39,7 +39,7 @@ historique:
 notes_redaction:
   - Le Règlement général de la COSUMAF ne contient pas de disposition expresse sur l'externalisation par les intermédiaires. La politique s'appuie sur les pouvoirs de contrôle de la COSUMAF, sur l'obligation d'approbation des modifications du programme d'activités et sur les principes de l'OICV de 2021. Vérifier auprès de la COSUMAF si l'externalisation d'une fonction critique doit lui être notifiée ou soumise à approbation.
   - La loi camerounaise n° 2024/017 sur la protection des données personnelles est entrée en vigueur le 23 juin 2026. Les services en nuage utilisés aujourd'hui (messagerie et bureautique, site internet, référentiel documentaire) hébergent des données hors du Cameroun. Faire l'inventaire des données concernées et engager les démarches d'autorisation auprès de l'autorité de protection des données.
-  - Compléter le registre (Annexe 5) avec les contrats existants dans le mois suivant l'adoption, et les mettre en conformité avec l'Annexe 3 à leur prochain renouvellement.
+  - Compléter le registre (Annexe « Registre des externalisations ») avec les contrats existants dans le mois suivant l'adoption, et les mettre en conformité avec l'annexe « Clauses obligatoires » à leur prochain renouvellement.
 ---
 
 ## Titre I — Dispositions générales
@@ -59,7 +59,7 @@ Elle reprend, en les adaptant à la taille de la Société, les principes de l'O
 ### Article 3 — Définitions
 
 - **Externalisation** : tout accord par lequel un prestataire exerce, de façon durable, une activité, un processus ou un service que la Société exercerait sinon elle-même. Le recours à un logiciel ou à un service informatique en ligne (« en nuage ») est une externalisation lorsqu'il traite ou héberge des données de la Société ou de ses clients.
-- **Fonction critique ou importante** : fonction dont la défaillance ou l'interruption compromettrait la continuité des services aux clients, la protection de leurs avoirs ou de leurs données, la conformité de la Société à la réglementation ou sa solidité financière. La qualification se fait au moyen de la grille de l'Annexe 1.
+- **Fonction critique ou importante** : fonction dont la défaillance ou l'interruption compromettrait la continuité des services aux clients, la protection de leurs avoirs ou de leurs données, la conformité de la Société à la réglementation ou sa solidité financière. La qualification se fait au moyen de la grille de l'annexe « Qualification des fonctions ».
 - **Prestataire** : la personne qui exécute l'activité externalisée, y compris lorsqu'elle appartient au même groupe qu'un actionnaire de la Société.
 - **Sous-externalisation** : le fait, pour le prestataire, de confier lui-même tout ou partie de l'activité à un autre prestataire.
 - **Gestionnaire du contrat** : le collaborateur désigné pour suivre au quotidien la relation avec le prestataire.
@@ -92,7 +92,7 @@ La Société conserve en interne les compétences suffisantes pour comprendre, p
 
 ### Article 7 — Proportionnalité
 
-Les exigences de la politique sont proportionnées : toutes s'appliquent à l'externalisation d'une fonction critique ou importante ; seules celles marquées comme telles aux Annexes 2 et 3 s'appliquent aux autres externalisations.
+Les exigences de la politique sont proportionnées : toutes s'appliquent à l'externalisation d'une fonction critique ou importante ; seules celles marquées comme telles aux annexes « Diligences sur le prestataire » et « Clauses obligatoires » s'appliquent aux autres externalisations.
 
 ## Titre III — Organisation
 
@@ -111,10 +111,10 @@ Les exigences de la politique sont proportionnées : toutes s'appliquent à l'ex
 
 Toute nouvelle externalisation, et tout renouvellement ou changement important d'une externalisation existante, suit cinq étapes :
 
-1. **Qualification** : le RCCI qualifie l'activité de critique ou importante, ou non, au moyen de la grille de l'Annexe 1.
-2. **Analyse des risques** : le porteur du projet analyse, avec le RCCI, les risques opérationnels, de continuité, de sécurité, de protection des données, juridiques, de conformité, de concentration et de conflit d'intérêts, au moyen de la fiche de l'Annexe 5 de la Politique de gestion des risques.
-3. **Diligences sur le prestataire** : la Société vérifie, au moyen de la liste de l'Annexe 2, que le prestataire a la capacité, les moyens, la solidité, la réputation et le niveau de sécurité requis.
-4. **Contrat** : le contrat comporte les clauses de l'Annexe 3.
+1. **Qualification** : le RCCI qualifie l'activité de critique ou importante, ou non, au moyen de la grille de l'annexe « Qualification des fonctions ».
+2. **Analyse des risques** : le porteur du projet analyse, avec le RCCI, les risques opérationnels, de continuité, de sécurité, de protection des données, juridiques, de conformité, de concentration et de conflit d'intérêts, au moyen de la fiche de l'annexe « Approbation de nouveau produit » de la Politique de gestion des risques.
+3. **Diligences sur le prestataire** : la Société vérifie, au moyen de la liste de l'annexe « Diligences sur le prestataire », que le prestataire a la capacité, les moyens, la solidité, la réputation et le niveau de sécurité requis.
+4. **Contrat** : le contrat comporte les clauses de l'annexe « Clauses obligatoires ».
 5. **Décision** : le Directeur Général ou, pour une fonction critique ou importante, le Conseil d'Administration décide, au vu de l'avis écrit du RCCI.
 
 ### Article 10 — Information de la COSUMAF
@@ -129,7 +129,7 @@ La Société évite de confier à un même prestataire plusieurs fonctions criti
 
 ### Article 12 — Contrat écrit
 
-Toute externalisation fait l'objet d'un contrat écrit, signé avant le début de la prestation. Le contrat comporte au minimum les clauses de l'Annexe 3, dont :
+Toute externalisation fait l'objet d'un contrat écrit, signé avant le début de la prestation. Le contrat comporte au minimum les clauses de l'annexe « Clauses obligatoires », dont :
 
 - la description précise des services et des niveaux de service attendus, mesurables ;
 - la confidentialité et le secret professionnel, y compris après la fin du contrat ;
@@ -144,7 +144,7 @@ Toute externalisation fait l'objet d'un contrat écrit, signé avant le début d
 
 ### Article 13 — Prestataires dont les conditions ne sont pas négociables
 
-Certains grands fournisseurs de services en ligne proposent des conditions générales non négociables. La Société peut y recourir lorsque ces conditions assurent un niveau de protection équivalent sur les points de l'Annexe 3, ou lorsque les écarts sont compensés par des mesures propres à la Société (chiffrement, sauvegardes indépendantes, maîtrise des comptes d'administration). L'analyse des écarts est documentée et jointe à la décision.
+Certains grands fournisseurs de services en ligne proposent des conditions générales non négociables. La Société peut y recourir lorsque ces conditions assurent un niveau de protection équivalent sur les points de l'annexe « Clauses obligatoires », ou lorsque les écarts sont compensés par des mesures propres à la Société (chiffrement, sauvegardes indépendantes, maîtrise des comptes d'administration). L'analyse des écarts est documentée et jointe à la décision.
 
 ## Titre VI — Services informatiques et en nuage
 
@@ -168,11 +168,11 @@ Le gestionnaire du contrat suit les niveaux de service, les incidents, les chang
 
 ### Article 16 — Évaluation annuelle
 
-Chaque prestataire exerçant une fonction critique ou importante fait l'objet d'une évaluation annuelle au moyen de la grille de l'Annexe 4. Elle porte sur la qualité du service, la sécurité, la continuité, le respect du contrat et l'évolution des risques. Les résultats sont présentés au Conseil d'Administration avec le registre.
+Chaque prestataire exerçant une fonction critique ou importante fait l'objet d'une évaluation annuelle au moyen de la grille de l'annexe « Évaluation du prestataire ». Elle porte sur la qualité du service, la sécurité, la continuité, le respect du contrat et l'évolution des risques. Les résultats sont présentés au Conseil d'Administration avec le registre.
 
 ### Article 17 — Stratégie de sortie
 
-Pour chaque fonction critique ou importante, la Société tient à jour une stratégie de sortie écrite, selon la trame de la seconde partie de l'Annexe 4 : événements déclencheurs, solution de remplacement, durée et coût estimés du transfert, étapes de la réversibilité. Elle est revue chaque année et testée lorsque cela est raisonnablement possible.
+Pour chaque fonction critique ou importante, la Société tient à jour une stratégie de sortie écrite, selon la trame de la seconde partie de l'annexe « Évaluation du prestataire » : événements déclencheurs, solution de remplacement, durée et coût estimés du transfert, étapes de la réversibilité. Elle est revue chaque année et testée lorsque cela est raisonnablement possible.
 
 ### Article 18 — Fin du contrat
 
@@ -182,13 +182,13 @@ Pour chaque fonction critique ou importante, la Société tient à jour une stra
 
 ### Article 19 — Registre des externalisations
 
-Le RCCI tient le registre de toutes les externalisations selon la structure de l'Annexe 5 : prestataire, activité, criticité, localisation des données, dates du contrat, gestionnaire, date de la dernière évaluation, stratégie de sortie. Le registre est mis à jour à chaque nouveau contrat ou changement, présenté chaque année au Conseil d'Administration et communiqué à la COSUMAF sur demande.
+Le RCCI tient le registre de toutes les externalisations selon la structure de l'annexe « Registre des externalisations » : prestataire, activité, criticité, localisation des données, dates du contrat, gestionnaire, date de la dernière évaluation, stratégie de sortie. Le registre est mis à jour à chaque nouveau contrat ou changement, présenté chaque année au Conseil d'Administration et communiqué à la COSUMAF sur demande.
 
 ## Titre IX — Dispositions finales
 
 ### Article 20 — Contrats existants
 
-Les contrats en cours à la date d'adoption de la présente politique sont inscrits au registre dans le mois qui suit. Ils sont mis en conformité avec l'Annexe 3 à leur prochain renouvellement et, pour les fonctions critiques ou importantes, dans un délai de six mois au plus.
+Les contrats en cours à la date d'adoption de la présente politique sont inscrits au registre dans le mois qui suit. Ils sont mis en conformité avec l'annexe « Clauses obligatoires » à leur prochain renouvellement et, pour les fonctions critiques ou importantes, dans un délai de six mois au plus.
 
 ### Article 21 — Révision et entrée en vigueur
 

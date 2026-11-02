@@ -38,7 +38,9 @@ Quote every YAML string value with double quotes (escape inner double quotes as 
 
 ### `en/annexes/Ax.md` front matter
 
-Keep `id` unchanged; translate `titre`, `nature`, `renseigne_par`, `conserve_par`, `frequence` (keep any key the French has, translate its value). Quote all values.
+Keep `id` and `ordre` unchanged; translate `titre`, `nom`, `nature`, `renseigne_par`, `conserve_par`, `frequence` (keep any key the French has, translate its value). Quote all values.
+
+Appendices have no numbers: each is designated by its short name (`nom`, 1–4 words). In the text, « l'annexe « Pièces client » » becomes “Appendix “Client documents””, using the English `nom` of that appendix (of the same document, or of the document cited). Never reintroduce “Appendix 1”.
 
 ### `en/variables.yaml` (contract templates PC-CTR-*)
 

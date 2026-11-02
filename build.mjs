@@ -107,11 +107,12 @@ function loadVariant(base, fallbackHist) {
   const imgDir = path.join(base, "images");
   if (fs.existsSync(imgDir)) for (const f of fs.readdirSync(imgDir)) IMAGES[`${fm.id}/${f}`] = path.join(imgDir, f);
   const annexDir = path.join(base, "annexes");
-  const annexFiles = fs.existsSync(annexDir) ? fs.readdirSync(annexDir).filter((f) => f.endsWith(".md")).sort() : [];
+  const annexFiles = fs.existsSync(annexDir) ? fs.readdirSync(annexDir).filter((f) => f.endsWith(".md")) : [];
+  // Annexes désignées par leur nom ; l'ordre d'affichage suit « ordre » (sinon la clé A1, A2…), la clé ne change jamais
   const annexes = annexFiles.map((f) => {
     const a = matter(read(path.join(annexDir, f)));
-    return { ...a.data, num: f.match(/A(\d+)/)[1], html: renderMarkdown(asModel(a.content)).html, template: schema ? a.content : undefined };
-  });
+    return { ...a.data, num: f.match(/A(\d+)/)[1], html: renderMarkdown(asModel(a.content)).html, template: schema ? a.content : undefined, _src: a.content };
+  }).sort((x, y) => (Number(x.ordre) || Number(x.num)) - (Number(y.ordre) || Number(y.num)) || Number(x.num) - Number(y.num));
   // Empreinte du texte : corps du document, annexes et variables, sans le front-matter
   // (le passage de 0.9 à 1.0 ou la date d'approbation ne la modifient pas).
   const empreinte = textHash(base);
@@ -136,7 +137,8 @@ function loadVariant(base, fallbackHist) {
     en,
     pdf: { file: `${fm.id}_v${fm.version}.pdf`, size: 0 },
     // Texte source (Markdown), publié à part dans dist/source/ pour l'édition en ligne ; retiré des données de la page
-    _source: { id: fm.id, version: String(fm.version), statut: fm.statut, empreinte, titre: fm.titre, resume: fm.resume || "", body: content },
+    _source: { id: fm.id, version: String(fm.version), statut: fm.statut, empreinte, titre: fm.titre, resume: fm.resume || "", body: content,
+      annexes: annexes.map((a) => ({ cle: "A" + a.num, nom: a.nom || "", titre: a.titre || "", nature: a.nature || "", renseigne_par: a.renseigne_par || "", conserve_par: a.conserve_par || "", frequence: a.frequence || "", orientation: a.orientation || "", body: a._src })) },
   };
 }
 // Traduction anglaise (courtoisie) : content/documents/<ID>/en/ — même structure que le texte français.
@@ -278,10 +280,12 @@ function coverHtml(d) {
   </div></div>`;
 }
 
+// Désignation d'une annexe : par son nom (« Annexe « Pièces client » »), à défaut par sa clé
+export const annexeLib = (a, en) => (a.nom ? (en ? `Appendix “${a.nom}”` : `Annexe « ${a.nom} »`) : (en ? `Appendix ${a.num}` : `Annexe ${a.num}`));
 function annexBlock(d, a, standalone) {
   return `<div${standalone ? "" : ` id="annexe-${a.num}"`} class="annex${standalone ? "" : " page-break"}${!standalone && a.orientation === "paysage" ? " annex-landscape" : ""}">
   <div class="annex-head"><div>${standalone ? '<div class="mini-mark">PURPOSE CAPITAL<i></i></div><div style="height:2mm"></div>' : ""}
-    <div class="annex-eyebrow">${d.lang === "en" ? `Appendix ${a.num} to ${esc(L(d, d.type).toLowerCase())} ${esc(d.id)}` : `Annexe ${a.num} au ${esc(d.type.toLowerCase())} ${esc(d.id)}`} · ${esc(a.nature)}</div>
+    <div class="annex-eyebrow">${d.lang === "en" ? `${esc(annexeLib(a, true))} to ${esc(L(d, d.type).toLowerCase())} ${esc(d.id)}` : `${esc(annexeLib(a))} au ${esc(d.type.toLowerCase())} ${esc(d.id)}`} · ${esc(a.nature)}</div>
     <div class="annex-title">${esc(a.titre)}</div></div>
     <div class="annex-ref">${d.lang === "en" ? "Ref." : "Réf."} <b>${esc(a.id)}</b><br>Version ${esc(d.version)}<br>${esc(L(d, d.confidentialite))}</div></div>
   <div class="annex-usage"><span><b>${L(d, "Renseigné par")}</b> ${esc(a.renseigne_par)}</span><span><b>${L(d, "Fréquence")}</b> ${esc(a.frequence)}</span><span><b>${L(d, "Conservé par")}</b> ${esc(a.conserve_par)}</span></div>
@@ -315,7 +319,7 @@ function bodyHtml(d, withAnnexes = true) {
   <table class="ctable"><tbody>${(d.references || []).map((r) => `<tr><td style="width:52%">${refCell(r.ref, d)}</td><td>${esc(r.articles)}</td></tr>`).join("")}</tbody></table>
 </section>`;
   // Sommaire sur une page dédiée, cliquable (titres et articles) ; chaque titre commence une nouvelle page
-  const toc = `<section class="toc-page"><h1>${L(d, "Sommaire")}</h1><ol class="toc2">${d.toc.map((t) => `<li><a href="#${t.id}">${esc(t.label)}</a>${t.articles.length ? `<ol>${t.articles.map((a) => `<li><a href="#${a.id}">${esc(a.label)}</a></li>`).join("")}</ol>` : ""}</li>`).join("")}${withAnnexes && d.annexes.length ? `<li class="annexes">${L(d, "Annexes")}<ol>${d.annexes.map((a) => `<li><a href="#annexe-${a.num}">${d.lang === "en" ? "Appendix" : "Annexe"} ${a.num} — ${esc(a.titre)}</a></li>`).join("")}</ol></li>` : ""}${!withAnnexes && d.annexes.length ? `<li class="annexes">${d.lang === "en" ? "Appendices published separately" : "Annexes publiées séparément"}</li>` : ""}</ol></section>`;
+  const toc = `<section class="toc-page"><h1>${L(d, "Sommaire")}</h1><ol class="toc2">${d.toc.map((t) => `<li><a href="#${t.id}">${esc(t.label)}</a>${t.articles.length ? `<ol>${t.articles.map((a) => `<li><a href="#${a.id}">${esc(a.label)}</a></li>`).join("")}</ol>` : ""}</li>`).join("")}${withAnnexes && d.annexes.length ? `<li class="annexes">${L(d, "Annexes")}<ol>${d.annexes.map((a) => `<li><a href="#annexe-${a.num}">${esc(annexeLib(a, d.lang === "en"))} — ${esc(a.titre)}</a></li>`).join("")}</ol></li>` : ""}${!withAnnexes && d.annexes.length ? `<li class="annexes">${d.lang === "en" ? "Appendices published separately" : "Annexes publiées séparément"}</li>` : ""}</ol></section>`;
   // Un titre ou un article n'est jamais laissé seul en bas de page : il reste avec le paragraphe qui le suit
   const body = d.html.replace(/src="img\/([^"]+)"/g, (m, k) => IMAGES[k] ? `src="data:image/${path.extname(k).slice(1).replace("jpg", "jpeg")};base64,${fs.readFileSync(IMAGES[k]).toString("base64")}"` : m).replace(/((?:<h[234][^>]*>[\s\S]*?<\/h[234]>\s*)+)(<p[\s>][\s\S]*?<\/p>)?/g, (m, hs, p) => `<div class="keep${/<h2/.test(hs) ? " t1" : ""}">${hs}${p || ""}</div>`);
   return `${watermark(d)}${control}${toc}<div class="doc-body">${body}</div>${withAnnexes ? d.annexes.map((a) => annexBlock(d, a, false)).join("") : ""}`;
@@ -366,7 +370,7 @@ async function buildPdfs() {
     for (const a of d.annexes) {
       const land = a.orientation === "paysage";
       const buf = await render(page(watermark(d) + annexBlock(d, a, true), land ? "landscape" : "", "", d.lang || "fr"), a.id + (d.lang ? "-en" : ""), {
-        displayHeaderFooter: true, landscape: land, margin: ANNEX_MARGIN, ...hf(d, d.lang === "en" ? `${a.id} — Appendix ${a.num} to ${d.id}` : `${a.id} — Annexe ${a.num} au ${d.id}`),
+        displayHeaderFooter: true, landscape: land, margin: ANNEX_MARGIN, ...hf(d, d.lang === "en" ? `${a.id} — ${annexeLib(a, true)} to ${d.id}` : `${a.id} — ${annexeLib(a)} au ${d.id}`),
       });
       const doc = await PDFDocument.load(buf);
       doc.setTitle(`${a.id} — ${a.titre}`); doc.setAuthor(cfg.societe.raison_sociale); fixe(doc, d);
@@ -422,11 +426,17 @@ function buildSite() {
   for (const [k, f] of Object.entries(IMAGES)) { fs.mkdirSync(path.dirname(P("dist/img", k)), { recursive: true }); fs.copyFileSync(f, P("dist/img", k)); }
   fs.rmSync(P("dist/source"), { recursive: true, force: true });
   fs.mkdirSync(P("dist/source"), { recursive: true });
+  // Renvois d'autres documents vers chaque annexe (signalés dans l'éditeur quand une annexe est renommée ou supprimée)
+  const textes = docs.flatMap((d) => [d, d.projet].filter(Boolean)).map((d) => ({ id: d.id, t: [d._source.body, ...d._source.annexes.map((a) => a.body)].join("\n") }));
+  for (const d of docs) for (const src of [d._source, d.projet && d.projet._source].filter(Boolean)) for (const a of src.annexes) {
+    if (!a.nom) continue;
+    a.cite_par = [...new Set(textes.filter((x) => x.id !== d.id && x.t.includes("« " + a.nom + " »") && x.t.includes(d.id)).map((x) => x.id))];
+  }
   for (const d of docs) {
     if (d.projet) { fs.writeFileSync(P("dist/source", d.id + ".json"), JSON.stringify(d.projet._source)); fs.writeFileSync(P("dist/source", d.id + ".vigueur.json"), JSON.stringify(d._source)); }
     else fs.writeFileSync(P("dist/source", d.id + ".json"), JSON.stringify(d._source));
   }
-  const strip = (d) => { const { _source, ...rest } = d; return d.projet ? { ...rest, projet: strip(d.projet) } : rest; };
+  const strip = (d) => { const { _source, ...rest } = d; rest.annexes = (rest.annexes || []).map(({ _src, ...a }) => a); return d.projet ? { ...rest, projet: strip(d.projet) } : rest; };
   const manuel = { docs: manuelDocs().map((d) => d.id), fr: { ...MANUEL.fr, size: size(MANUEL.fr.file) }, en: { ...MANUEL.en, size: size(MANUEL.en.file) } };
   const data = { societe: cfg.societe, niveaux: cfg.niveaux, references: cfg.references, glossaire: cfg.glossaire, docs: docs.map(strip), prevus, generated: TODAY, manuel };
   const html = read(P("templates/index.tpl.html"))
