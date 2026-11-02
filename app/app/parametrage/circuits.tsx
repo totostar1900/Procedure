@@ -45,12 +45,12 @@ export function Circuits({ sb, docs, ms, moi, cfg, charger, note, demander }: {
   const defaut = (ty: string) => (docs.find((d) => d.type === ty)?.circuit || []).map(norm);
   const etapes = (ty: string) => { const c = cfg[typeKey(ty)]; return c && c.etapes && c.etapes.length ? c.etapes.map(norm) : defaut(ty); };
   const lecture = (ty: string) => { const c = cfg[typeKey(ty)]; return c && Number(c.delaiLecture) > 0 ? Number(c.delaiLecture) : 15; };
-  const titulaires = (role: string) => ms.filter((m) => m.actif && m.fonctions.includes(role)).length;
+  const titulaires = (role: string) => ms.filter((m) => m.actif && (role === "membre" ? m.acces !== "employe" : m.fonctions.includes(role))).length;
   const problemes = (steps: Required<Etape>[]) => {
     const out: string[] = [];
     if (!steps.some((s) => s.obligatoire)) out.push("aucune étape obligatoire");
     steps.forEach((s, i) => {
-      if (ms.length && !titulaires(s.role)) out.push("« " + s.label + " » : aucune personne active n'a la fonction " + (FL[s.role] || s.role));
+      if (ms.length && !titulaires(s.role)) out.push("« " + s.label + " » : aucune personne active n'a la fonction " + (s.role === "membre" ? t("Tout membre") : FL[s.role] || s.role));
       steps.forEach((o, j) => { if (ms.length && j > i && o.role === s.role && titulaires(s.role) < 2) out.push("« " + s.label + " » et « " + o.label + " » demandent la même fonction, détenue par une seule personne : la règle des quatre yeux bloquera le circuit"); });
     });
     return out;
@@ -63,7 +63,7 @@ export function Circuits({ sb, docs, ms, moi, cfg, charger, note, demander }: {
       etapes: steps.map((x) => {
         const base = x.etape || (x.seance ? "adoption" : /v[ée]rif/i.test(x.label) ? "verification" : /approb/i.test(x.label) ? "approbation" : typeKey(x.label) || "etape");
         let e = base, n = 2; while (used[e]) e = base + "-" + n++; used[e] = 1;
-        return { etape: e, label: String(x.label || "").trim(), role: x.role, fonction: FL[x.role] || x.role, regle: x.regle || "un", obligatoire: x.obligatoire !== false, seance: !!x.seance, delai: borne(x.delai, 7) };
+        return { etape: e, label: String(x.label || "").trim(), role: x.role, fonction: x.role === "membre" ? "Tout membre" : FL[x.role] || x.role, regle: x.regle || "un", obligatoire: x.obligatoire !== false, seance: !!x.seance, delai: borne(x.delai, 7) };
       }),
     };
   }
@@ -103,10 +103,10 @@ export function Circuits({ sb, docs, ms, moi, cfg, charger, note, demander }: {
                 {ed.steps.map((s, i) => (
                   <li key={i}>
                     <b className="n">{i + 1}</b>
-                    <label>Étape<select id={"ce-" + k + "-" + i + "-l"} value={terme(s)[1]} title={(ETAPES.find((x) => x[1] === s.label) || ["", "", ""])[2]} onChange={(e) => { const x = ETAPES.find((y) => y[1] === e.target.value); if (x) maj(i, { label: x[1], etape: x[0], seance: x[0] === "adoption", ...(x[0] === "adoption" ? { role: "pca" } : x[0] === "redaction" ? { role: "redac" } : {}) }); }}>
+                    <label>Étape<select id={"ce-" + k + "-" + i + "-l"} value={terme(s)[1]} title={(ETAPES.find((x) => x[1] === s.label) || ["", "", ""])[2]} onChange={(e) => { const x = ETAPES.find((y) => y[1] === e.target.value); if (x) maj(i, { label: x[1], etape: x[0], seance: x[0] === "adoption", ...(x[0] === "adoption" ? { role: "pca" } : x[0] === "redaction" ? { role: "membre" } : {}) }); }}>
                       {ETAPES.map(([c, l, d]) => <option key={c} value={l} title={d}>{l}</option>)}
                     </select></label>
-                    <label>Fonction<select id={"ce-" + k + "-" + i + "-f"} value={s.role} onChange={(e) => maj(i, { role: e.target.value })}>{FONCTIONS.map(([c, l]) => <option key={c} value={c}>{l}</option>)}</select></label>
+                    <label>Fonction<select id={"ce-" + k + "-" + i + "-f"} value={s.role} onChange={(e) => maj(i, { role: e.target.value })}><option value="membre">{t("Tout membre")}</option>{FONCTIONS.map(([c, l]) => <option key={c} value={c}>{l}</option>)}</select></label>
                     <label>Qui doit viser<select id={"ce-" + k + "-" + i + "-r"} value={s.regle} onChange={(e) => maj(i, { regle: e.target.value })}>{REGLES.map(([c, l]) => <option key={c} value={c}>{l}</option>)}</select></label>
                     <label>Délai (jours)<input id={"ce-" + k + "-" + i + "-d"} type="number" min={1} max={180} value={s.delai} onChange={(e) => maj(i, { delai: Number(e.target.value) })} /></label>
                     <span className="opts">
@@ -142,7 +142,7 @@ export function Circuits({ sb, docs, ms, moi, cfg, charger, note, demander }: {
               <button type="button" className="btn sec" onClick={() => setEd({ k, steps: JSON.parse(JSON.stringify(st)).map(aligner), lect: lecture(ty) })}>Modifier</button>
             </header>
             <ol className="chain">
-              {st.map((s, i) => <li key={i} className={s.obligatoire ? "" : "opt"}><span className="n">{i + 1}</span><span><b>{s.label}</b> · {FL[s.role] || s.fonction}{s.regle !== "un" ? " · " + (REGLES.find((r) => r[0] === s.regle) || ["", ""])[1] : ""}{s.seance ? " · " + t("séance et PV") : ""}{s.obligatoire ? "" : " · " + t("facultative")}</span><span className="d">{s.delai} j</span></li>)}
+              {st.map((s, i) => <li key={i} className={s.obligatoire ? "" : "opt"}><span className="n">{i + 1}</span><span><b>{s.label}</b> · {(s.role === "membre" ? t("Tout membre") : FL[s.role]) || s.fonction}{s.regle !== "un" ? " · " + (REGLES.find((r) => r[0] === s.regle) || ["", ""])[1] : ""}{s.seance ? " · " + t("séance et PV") : ""}{s.obligatoire ? "" : " · " + t("facultative")}</span><span className="d">{s.delai} j</span></li>)}
               <li className="end"><span className="n">✓</span><span>Prise de connaissance · personnes désignées</span><span className="d">{lecture(ty)} j</span></li>
             </ol>
             {pb.length ? <ul className="warn liste">{pb.map((m) => <li key={m}>{m}</li>)}</ul> : null}

@@ -137,8 +137,9 @@ export async function executer(opts: { force?: boolean } = {}) {
   const mb = (id: string) => parId[id];
   const langue = (m?: Membre): L => { const a = m && m.user_id ? kv["annuaire/" + m.user_id] : null; return a && a.langue === "en" ? "en" : "fr"; };
   const nom = (id: string) => { const m = mb(id); return m ? m.nom || m.email : id.replace(/^email:/, ""); };
-  const hasRole = (id: string, role: string) => { const m = mb(id); return !!(m && m.actif && (m.fonctions || []).includes(role)); };
-  const holders = (role: string) => ms.filter((m) => m.actif && (m.fonctions || []).includes(role)).map(idDe);
+  const aRole = (m: Membre, role: string) => m.actif && (role === "membre" ? m.acces !== "employe" : (m.fonctions || []).includes(role));
+  const hasRole = (id: string, role: string) => { const m = mb(id); return !!(m && aRole(m, role)); };
+  const holders = (role: string) => ms.filter((m) => aRole(m, role)).map(idDe);
   const sigs: Sig[] = Object.keys(kv).filter((p) => p.startsWith("sig/")).map((p) => ({ ...(kv[p] as unknown as Sig), by: p.split("/")[1] }));
   const sigsOf = (doc: string, etape?: string) => sigs.filter((s) => s.doc === doc && (!etape || s.etape === etape)).sort((a, b) => (a.at < b.at ? 1 : -1));
   const typeKey = (t: string) => String(t || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -184,7 +185,7 @@ export async function executer(opts: { force?: boolean } = {}) {
   const lien = (d: Doc) => SITE + "/#" + d.id + (d.estProjet ? "~projet" : "");
   const titreDe = (d: Doc, l: L) => (l === "en" && d.en && d.en.titre) || d.titre;
   const refDe = (d: Doc, l: L) => d.id + " · " + tr(d.type, l) + " v" + d.version + (d.estProjet ? (l === "en" ? " · revision" : " · révision") : "");
-  const fn = (r: string, l: L) => tr((FONCTIONS_N.find((f) => f[0] === r) || ["", r])[1], l);
+  const fn = (r: string, l: L) => tr(r === "membre" ? "Tout membre" : (FONCTIONS_N.find((f) => f[0] === r) || ["", r])[1], l);
   const boite = { email: R.boite, user_id: null, nom: "Boîte partagée", fonctions: [], actif: true, acces: "complet", admin: false, super: false, prerogatives: [], tableau: false } as Membre;
   const autorise = (m: Membre | undefined) => !!m && m.actif && (m.email === R.boite || (m.fonctions.length ? m.fonctions : ["collab"]).some((f) => R.fonctions[f] !== false));
   const avis: Avis[] = [];
@@ -199,7 +200,9 @@ export async function executer(opts: { force?: boolean } = {}) {
     const e = etat(d);
     if (e.current) {
       const x = e.current;
-      const qui = x.holders.filter((h) => !x.by.includes(h) && (/^redaction/.test(x.st.etape || "") || !auteursDe(d).includes(h)) && !signedOther(d, x.st.etape, h));
+      const redac = /^redaction/.test(x.st.etape || "");
+      // Rédaction ouverte à tout membre : l'avis ne part qu'aux rédacteurs connus, pas à tout le monde
+      const qui = (redac && x.st.role === "membre" ? auteursDe(d) : x.holders).filter((h) => !x.by.includes(h) && (redac || !auteursDe(d).includes(h)) && !signedOther(d, x.st.etape, h));
       for (const h of qui) {
         const m = mb(h); if (!m) continue;
         pousser("visa", d.id + "|" + d.empreinte + "|" + x.st.etape, m, e.debut, (l) => ({ ref: refDe(d, l), titre: titreDe(d, l), detail: (l === "en" ? "Step: " : "Étape : ") + tr(x.st.label, l) + " · " + (l === "en" ? "deadline " + x.st.delai + " days" : "délai " + x.st.delai + " jours"), lien: lien(d) }));

@@ -24,7 +24,8 @@
   var REGLES = { un: "une personne", tous: "toutes les personnes", majorite: "la majorité" };
   var VARIANTS = function () { var out = []; docs.forEach(function (d) { out.push(d); if (d.projet) out.push(d.projet); }); return out; };
   var variantByKey = function (k) { return VARIANTS().filter(function (x) { return x.id + "@" + x.empreinte === k; })[0]; };
-  var FLABEL = {}; FONCTIONS.forEach(function (f) { FLABEL[f[0]] = f[1]; });
+  var FLABEL = {}; FONCTIONS.forEach(function (f) { FLABEL[f[0]] = f[1]; }); FLABEL.membre = "Tout membre";
+  var FONCTIONS_CIRCUIT = [["membre", "Tout membre"]].concat(FONCTIONS);
   var V = { db: null, user: null, me: null, owner: false, canWrite: false, ready: false, roles: {}, lectures: {}, annuaire: {}, sigs: {}, names: {}, emails: {}, subs: {},
     circuits: {}, figes: {}, etats: {}, redac: {}, auteurs: {}, adoptions: {}, pending: null, done: null, edit: null, search: [], landed: false };
 
@@ -74,7 +75,8 @@
     try { var ps = await V.user.profiles(ids); Object.keys(ps).forEach(function (k) { V.names[k] = ps[k].name || ""; V.emails[k] = ps[k].email || ""; }); vRefresh(); } catch (e) { /* noms indisponibles */ }
   }
   var vName = function (id) { return (V.names[id] || V.emails[id] || "Personne non identifiée") + (id === V.me ? " (vous)" : ""); };
-  var hasRole = function (id, role) { var r = V.roles[id]; return !!(r && r.actif !== false && (r.fonctions || []).indexOf(role) >= 0); };
+  // « membre » : tout membre actif à accès complet (étape Rédaction ouverte à tous)
+  var hasRole = function (id, role) { var r = V.roles[id]; return !!(r && r.actif !== false && (role === "membre" ? r.acces !== "employe" : (r.fonctions || []).indexOf(role) >= 0)); };
   var holders = function (role) { return Object.keys(V.roles).filter(function (id) { return hasRole(id, role); }); };
   var myRoles = function () { return V.me && V.roles[V.me] && V.roles[V.me].actif !== false ? V.roles[V.me].fonctions || [] : []; };
   // Prérogatives d'administration (site hébergé) : le super administrateur a tout, un administrateur ce qui lui a été donné.
@@ -666,7 +668,7 @@
       '<ol class="cedit">' + steps.map(function (s, i) {
         return '<li><span class="stepn">' + (i + 1) + '</span><div class="ce-fields">' +
           '<label class="vf">Étape<select data-cedit="' + i + '|label">' + ETAPES_TYPES.map(function (x) { return '<option value="' + esc(x[1]) + '"' + (x[1] === s.label ? " selected" : "") + ">" + esc(x[1]) + "</option>"; }).join("") + "</select></label>" +
-          '<label class="vf">Fonction<select data-cedit="' + i + '|role">' + opt(FONCTIONS, s.role) + "</select></label>" +
+          '<label class="vf">Fonction<select data-cedit="' + i + '|role">' + opt(FONCTIONS_CIRCUIT, s.role) + "</select></label>" +
           '<label class="vf">Qui doit viser<select data-cedit="' + i + '|regle">' + opt(regles, s.regle || "un") + "</select></label>" +
           '<label class="vf">Délai (jours)<input type="number" min="1" max="180" data-cedit="' + i + '|delai" value="' + esc(s.delai || 7) + '"></label>' +
           '<label class="chkl"><input type="checkbox" data-cedit="' + i + '|obligatoire"' + (s.obligatoire !== false ? " checked" : "") + "> Obligatoire</label>" +
@@ -785,7 +787,7 @@
   });
   document.addEventListener("change", function (ev) {
     var t = ev.target;
-    if (t.matches("[data-cedit]") && V.edit && V.edit.steps) { var c = t.getAttribute("data-cedit").split("|"); if (c[0] === "L") { V.edit.delaiLecture = t.value; return; } var s = V.edit.steps[+c[0]]; if (s) { s[c[1]] = t.type === "checkbox" ? t.checked : t.value; if (c[1] === "label") { var x = ETAPES_TYPES.filter(function (y) { return y[1] === t.value; })[0]; if (x) { s.etape = x[0]; s.seance = x[0] === "adoption"; if (x[0] === "adoption") s.role = "pca"; if (x[0] === "redaction") s.role = "redac"; } } renderCircuit(); } return; }
+    if (t.matches("[data-cedit]") && V.edit && V.edit.steps) { var c = t.getAttribute("data-cedit").split("|"); if (c[0] === "L") { V.edit.delaiLecture = t.value; return; } var s = V.edit.steps[+c[0]]; if (s) { s[c[1]] = t.type === "checkbox" ? t.checked : t.value; if (c[1] === "label") { var x = ETAPES_TYPES.filter(function (y) { return y[1] === t.value; })[0]; if (x) { s.etape = x[0]; s.seance = x[0] === "adoption"; if (x[0] === "adoption") s.role = "pca"; if (x[0] === "redaction") s.role = "membre"; } } renderCircuit(); } return; }
     if (t.matches("[data-vrole]")) { var p = t.getAttribute("data-vrole").split("|"); vSetRole(p[0], p[1], t.checked); }
     if (t.matches("[data-vlect]")) { var q = t.getAttribute("data-vlect").split("|"); vSetLect(q[0], q[1], t.checked); }
   });
