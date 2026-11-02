@@ -855,6 +855,7 @@ html.i18n-attente body { visibility: hidden; }
 
 /* ---------- Barres de défilement du rail : fines, translucides, visibles au survol ----------
    Pas de défilement horizontal : un libellé trop long se termine par « … ». */
+.rail { color-scheme: dark; }
 .rail .nav { overflow-x: hidden; scrollbar-width: thin; scrollbar-color: transparent transparent; scrollbar-gutter: stable; transition: scrollbar-color .2s ease; }
 .rail:hover .nav, .rail .nav:focus-within { scrollbar-color: rgba(255,255,255,.22) transparent; }
 .rail .nav:hover { scrollbar-color: rgba(255,255,255,.34) transparent; }
