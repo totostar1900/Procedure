@@ -16,6 +16,10 @@ export const ETAPES: [string, string, string][] = [
   ["approbation", "Approbation", "décision de la direction, qui rend le texte applicable"],
   ["adoption", "Adoption par le Conseil d'Administration", "décision du Conseil en séance, avec date et procès-verbal"],
 ];
+// Rattache une étape existante au terme de la liste (par sa clé, sinon par son libellé ; à défaut, Vérification)
+const terme = (x: { etape?: string; label: string }) => ETAPES.find((e) => e[1] === x.label) || ETAPES.find((e) => x.etape && x.etape.startsWith(e[0]))
+  || ETAPES.find((e) => new RegExp(e[0] === "verification" ? "v[ée]rif" : e[0].slice(0, 5), "i").test(x.label)) || ETAPES[1];
+const aligner = <T extends { etape?: string; label: string }>(x: T): T => { const e = terme(x); return { ...x, label: e[1], etape: x.etape && x.etape.startsWith(e[0]) ? x.etape : e[0] }; };
 const REGLES: [string, string][] = [["un", "une personne"], ["tous", "toutes les personnes"], ["majorite", "la majorité"]];
 const typeKey = (s: string) => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const norm = (s: Etape): Required<Etape> => ({ etape: s.etape || "", label: s.label, role: s.role, fonction: s.fonction || FL[s.role] || s.role, regle: s.regle || "un", obligatoire: s.obligatoire !== false, seance: s.seance != null ? !!s.seance : s.etape === "adoption", delai: Number(s.delai) > 0 ? Number(s.delai) : 7 });
@@ -98,9 +102,8 @@ export function Circuits({ sb, docs, ms, moi, cfg, charger, note, demander }: {
                 {ed.steps.map((s, i) => (
                   <li key={i}>
                     <b className="n">{i + 1}</b>
-                    <label>Étape<select id={"ce-" + k + "-" + i + "-l"} value={ETAPES.some((x) => x[1] === s.label) ? s.label : "__" + s.label} title={(ETAPES.find((x) => x[1] === s.label) || ["", "", ""])[2]} onChange={(e) => { const x = ETAPES.find((y) => y[1] === e.target.value); if (x) maj(i, { label: x[1], etape: x[0], seance: x[0] === "adoption", ...(x[0] === "adoption" ? { role: "pca" } : {}) }); }}>
+                    <label>Étape<select id={"ce-" + k + "-" + i + "-l"} value={terme(s)[1]} title={(ETAPES.find((x) => x[1] === s.label) || ["", "", ""])[2]} onChange={(e) => { const x = ETAPES.find((y) => y[1] === e.target.value); if (x) maj(i, { label: x[1], etape: x[0], seance: x[0] === "adoption", ...(x[0] === "adoption" ? { role: "pca" } : {}) }); }}>
                       {ETAPES.map(([c, l, d]) => <option key={c} value={l} title={d}>{l}</option>)}
-                      {!ETAPES.some((x) => x[1] === s.label) ? <option value={"__" + s.label}>{s.label} {t("(ancien libellé)")}</option> : null}
                     </select></label>
                     <label>Fonction<select id={"ce-" + k + "-" + i + "-f"} value={s.role} onChange={(e) => maj(i, { role: e.target.value })}>{FONCTIONS.map(([c, l]) => <option key={c} value={c}>{l}</option>)}</select></label>
                     <label>Qui doit viser<select id={"ce-" + k + "-" + i + "-r"} value={s.regle} onChange={(e) => maj(i, { regle: e.target.value })}>{REGLES.map(([c, l]) => <option key={c} value={c}>{l}</option>)}</select></label>
@@ -135,7 +138,7 @@ export function Circuits({ sb, docs, ms, moi, cfg, charger, note, demander }: {
           <article key={k} className="ct">
             <header>
               <div><h3>{ty}</h3><small>{n} document{n > 1 ? "s" : ""} · {st.length} étape{st.length > 1 ? "s" : ""} · {perso ? t("défini ici") : t("circuit déclaré dans les documents")}</small></div>
-              <button type="button" className="btn sec" onClick={() => setEd({ k, steps: JSON.parse(JSON.stringify(st)), lect: lecture(ty) })}>Modifier</button>
+              <button type="button" className="btn sec" onClick={() => setEd({ k, steps: JSON.parse(JSON.stringify(st)).map(aligner), lect: lecture(ty) })}>Modifier</button>
             </header>
             <ol className="chain">
               {st.map((s, i) => <li key={i} className={s.obligatoire ? "" : "opt"}><span className="n">{i + 1}</span><span><b>{s.label}</b> · {FL[s.role] || s.fonction}{s.regle !== "un" ? " · " + (REGLES.find((r) => r[0] === s.regle) || ["", ""])[1] : ""}{s.seance ? " · " + t("séance et PV") : ""}{s.obligatoire ? "" : " · " + t("facultative")}</span><span className="d">{s.delai} j</span></li>)}

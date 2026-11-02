@@ -16,6 +16,11 @@
   ];
   // Vocabulaire des étapes d'un circuit (lexique du référentiel)
   var ETAPES_TYPES = [["relecture", "Relecture"], ["verification", "Vérification"], ["avis", "Avis"], ["approbation", "Approbation"], ["adoption", "Adoption par le Conseil d'Administration"]];
+  var termeEtape = function (x) {
+    return ETAPES_TYPES.filter(function (e) { return e[1] === x.label; })[0] || ETAPES_TYPES.filter(function (e) { return x.etape && x.etape.indexOf(e[0]) === 0; })[0]
+      || ETAPES_TYPES.filter(function (e) { return new RegExp(e[0] === "verification" ? "v[ée]rif" : e[0].slice(0, 5), "i").test(x.label); })[0] || ETAPES_TYPES[1];
+  };
+  var alignerEtape = function (x) { var e = termeEtape(x); return Object.assign({}, x, { label: e[1], etape: x.etape && x.etape.indexOf(e[0]) === 0 ? x.etape : e[0] }); };
   var REGLES = { un: "une personne", tous: "toutes les personnes", majorite: "la majorité" };
   var VARIANTS = function () { var out = []; docs.forEach(function (d) { out.push(d); if (d.projet) out.push(d.projet); }); return out; };
   var variantByKey = function (k) { return VARIANTS().filter(function (x) { return x.id + "@" + x.empreinte === k; })[0]; };
@@ -657,7 +662,7 @@
     return '<article class="ccard editing"><header><div><h3>' + esc(t) + '</h3><span class="cite-src">Modification du circuit</span></div></header>' +
       '<ol class="cedit">' + steps.map(function (s, i) {
         return '<li><span class="stepn">' + (i + 1) + '</span><div class="ce-fields">' +
-          '<label class="vf">Étape<select data-cedit="' + i + '|label">' + ETAPES_TYPES.map(function (x) { return '<option value="' + esc(x[1]) + '"' + (x[1] === s.label ? " selected" : "") + ">" + esc(x[1]) + "</option>"; }).join("") + (ETAPES_TYPES.some(function (x) { return x[1] === s.label; }) ? "" : '<option selected value="' + esc(s.label) + '">' + esc(s.label) + " (ancien libellé)</option>") + "</select></label>" +
+          '<label class="vf">Étape<select data-cedit="' + i + '|label">' + ETAPES_TYPES.map(function (x) { return '<option value="' + esc(x[1]) + '"' + (x[1] === s.label ? " selected" : "") + ">" + esc(x[1]) + "</option>"; }).join("") + "</select></label>" +
           '<label class="vf">Fonction<select data-cedit="' + i + '|role">' + opt(FONCTIONS, s.role) + "</select></label>" +
           '<label class="vf">Qui doit viser<select data-cedit="' + i + '|regle">' + opt(regles, s.regle || "un") + "</select></label>" +
           '<label class="vf">Délai (jours)<input type="number" min="1" max="180" data-cedit="' + i + '|delai" value="' + esc(s.delai || 7) + '"></label>' +
@@ -673,7 +678,7 @@
   }
   async function circAction(k, act, i) {
     var t = TYPES.filter(function (x) { return typeKey(x) === k; })[0];
-    if (act === "edit") { var c = V.circuits[k]; V.edit = { type: k, delaiLecture: (c && c.delaiLecture) || 15, steps: JSON.parse(JSON.stringify(c && c.etapes && c.etapes.length ? c.etapes.map(normStep) : defaultTypeCircuit(t))) }; renderCircuit(); return; }
+    if (act === "edit") { var c = V.circuits[k]; V.edit = { type: k, delaiLecture: (c && c.delaiLecture) || 15, steps: JSON.parse(JSON.stringify(c && c.etapes && c.etapes.length ? c.etapes.map(normStep) : defaultTypeCircuit(t))).map(alignerEtape) }; renderCircuit(); return; }
     if (!V.edit || V.edit.type !== k) return;
     var s = V.edit.steps; i = +i;
     if (act === "cancel") { V.edit = null; renderCircuit(); return; }
