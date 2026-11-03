@@ -86,6 +86,8 @@
   var canArchive = function () { return !!(V.db && V.me && (peut("abroger") || hasRole(V.me, "rcci"))); };
   var fmtDT = function (s) { if (!s) return ""; var d = new Date(s); return isNaN(d) ? s : d.toLocaleDateString((window.PCI18N ? PCI18N.locale : "fr-FR"), { day: "numeric", month: "long", year: "numeric" }) + (window.PCI18N && PCI18N.lang === "en" ? ", " : " à ") + d.toLocaleTimeString((window.PCI18N ? PCI18N.locale : "fr-FR"), { hour: "2-digit", minute: "2-digit" }); };
   var fmtD = function (s) { return fmtDT(s).split(/ à |, (?=\d\d:)/)[0]; };
+  // Date abrégée (19 oct. 2026), pour les colonnes étroites
+  var fmtCourt = function (s) { var d = new Date(String(s).length === 10 ? s + "T12:00:00" : s); return isNaN(d) ? "" : d.toLocaleDateString(window.PCI18N && PCI18N.lang === "en" ? "en-GB" : "fr-FR", { day: "numeric", month: "short", year: "numeric" }); };
   var since = function (s) { if (!s) return ""; var n = Math.floor((Date.now() - new Date(s).getTime()) / 86400000); return n <= 0 ? "aujourd'hui" : n === 1 ? "depuis hier" : "depuis " + n + " jours"; };
   var docKey = function (d) { return d.id + "@" + d.empreinte; };
   var docHash = function (d) { return d.id + (d.estProjet ? "~projet" : ""); };
@@ -500,7 +502,7 @@
       var qui = x.holders.filter(function (h) { return x.by.indexOf(h) < 0 && !authorOf(d, h) && !signedOther(d, x.st.etape, h); });
       var dep = debutEtape(d, st, x); r.age = svJours(dep); r.delai = x.st.delai || 7;
       r.qui = qui.length ? qui.map(function (h) { return vName(h); }).join(", ") : (FLABEL[x.st.role] || x.st.role);
-      r.sous = (FLABEL[x.st.role] || x.st.role) + (x.need > 1 ? " · " + x.by.length + " / " + x.need + " visas" : "") + (dep ? " · depuis le " + fmtDate(String(dep).slice(0, 10)) : "");
+      r.sous = (FLABEL[x.st.role] || x.st.role) + (x.need > 1 ? " · " + x.by.length + " / " + x.need + " visas" : ""); r.depuis = dep ? "depuis le " + fmtCourt(String(dep).slice(0, 10)) : "";
       if (!qui.length) r.sous = "aucune personne ne peut viser cette étape";
       r.sit = r.age > r.delai || !qui.length ? "bloque" : "circuit";
       r.etat = r.age > r.delai ? "late" : !qui.length ? "late" : r.age >= r.delai * seuil ? "near" : "cur";
@@ -618,7 +620,7 @@
       body += '<tr class="sv-grp"><td colspan="6">' + esc(g) + "<small>" + idx[g].length + " document" + (idx[g].length > 1 ? "s" : "") + "</small></td></tr>";
       idx[g].forEach(function (r) {
         var k = docHash(r.d), ouvert = !!SV.open[k], p = SV_PILL[r.etat];
-        body += '<tr class="sv-row' + (ouvert ? " open" : "") + '" data-svrow="' + esc(k) + '" tabindex="0" aria-expanded="' + ouvert + '"><td class="sv-doc"><span class="ref"><span class="chev" aria-hidden="true">▶</span> ' + esc(r.d.id) + ' · <span class="v">' + esc(r.d.type) + " v" + esc(r.d.version) + (r.d.estProjet ? " · révision" : "") + "</span></span><b>" + esc(r.d.titre) + "</b></td><td>" + frise(r) + '</td><td class="sv-who"><b>' + esc(r.qui) + "</b><span>" + esc(r.sous) + "</span></td><td>" + delai(r) + '</td><td><span class="sv-pill ' + p[0] + '">' + p[1] + '</span></td><td class="sv-act">' + bouton(r, i++) + "</td></tr>";
+        body += '<tr class="sv-row' + (ouvert ? " open" : "") + '" data-svrow="' + esc(k) + '" tabindex="0" aria-expanded="' + ouvert + '"><td class="sv-doc"><span class="ref"><span class="chev" aria-hidden="true">▶</span> ' + esc(r.d.id) + ' · <span class="v">' + esc(r.d.type) + " v" + esc(r.d.version) + (r.d.estProjet ? " · révision" : "") + "</span></span><b>" + esc(r.d.titre) + "</b></td><td>" + frise(r) + '</td><td class="sv-who"><b>' + esc(r.qui) + "</b><span>" + esc(r.sous) + "</span>" + (r.depuis ? '<span class="sv-dep">' + esc(r.depuis) + "</span>" : "") + "</td><td>" + delai(r) + '</td><td><span class="sv-pill ' + p[0] + '">' + p[1] + '</span></td><td class="sv-act">' + bouton(r, i++) + "</td></tr>";
         if (ouvert) body += svDetail(r);
       });
     });
@@ -627,7 +629,7 @@
       '<div class="sv-tools"><input type="search" id="sv-q" placeholder="Rechercher un document, une personne…" aria-label="Rechercher" value="' + esc(SV.q) + '">' +
       '<span class="sv-lbl">Regrouper par</span><div class="sv-seg" role="group" aria-label="Regrouper par">' + [["situation", "Situation"], ["etape", "Étape"], ["qui", "Responsable"], ["type", "Type"]].map(function (o) { return '<button type="button" data-svg="' + o[0] + '" aria-pressed="' + (SV.g === o[0]) + '">' + o[1] + "</button>"; }).join("") + "</div>" +
       '<div class="sv-legend"><span><i class="done"></i>Visé</span><span><i class="cur"></i>En cours</span><span><i class="late"></i>En retard</span><span><i class="ret"></i>Renvoyé</span><span><i></i>À venir</span></div></div>' +
-      '<div class="sv-wrap"><table class="sv-tbl"><thead><tr><th style="width:28%">Document</th><th>Avancement</th><th>Attend</th><th>Délai de l\'étape</th><th>Situation</th><th></th></tr></thead><tbody>' +
+      '<div class="sv-wrap"><table class="sv-tbl"><thead><tr><th style="width:28%">Document</th><th style="width:330px">Avancement</th><th>Attend</th><th>Délai de l\'étape</th><th>Situation</th><th></th></tr></thead><tbody>' +
       (body || '<tr><td colspan="6" class="sv-vide">' + (all.length ? "Aucun document ne correspond." : "Aucun document en mouvement : tout est en vigueur et lu.") + "</td></tr>") + "</tbody></table></div>" +
       (reste > 0 ? '<p class="cite-src panel-gap">' + reste + ' autre(s) document(s) en vigueur, lectures terminées. <button type="button" class="doclink" data-open="registre">Voir le registre</button></p>' : "") +
       (!HOSTED ? circuitCardsHtml() : "");

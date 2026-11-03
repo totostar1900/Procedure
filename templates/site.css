@@ -792,7 +792,7 @@ html.i18n-attente body { visibility: hidden; }
 .sv-doc .v { color: var(--ink-soft); }
 .sv-doc .chev { display: inline-block; font-size: 9px; transition: transform .15s; }
 .sv-row.open .chev { transform: rotate(90deg); }
-.sv-track { display: flex; align-items: flex-start; min-width: 280px; }
+.sv-track { display: flex; align-items: flex-start; width: 300px; }
 .sv-st { flex: 1; display: grid; justify-items: center; gap: 3px; position: relative; font-size: var(--fs-2xs); color: var(--muted); text-align: center; min-width: 52px; line-height: 1.25; }
 .sv-st::before { content: ""; position: absolute; top: 6px; left: -50%; right: 50%; height: 2px; background: var(--rule-strong); }
 .sv-st:first-child::before { display: none; }
@@ -806,7 +806,8 @@ html.i18n-attente body { visibility: hidden; }
 .sv-st.cur, .sv-st.late, .sv-st.ret { color: var(--ink); font-weight: 600; }
 .sv-who { min-width: 170px; }
 .sv-who b { display: block; font-weight: 600; }
-.sv-who span { font-size: var(--fs-xs); color: var(--muted); }
+.sv-who span { display: block; font-size: var(--fs-xs); color: var(--muted); }
+.sv-who .sv-dep { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .sv-delay { min-width: 120px; }
 .sv-delay small { font-size: var(--fs-xs); color: var(--muted); font-variant-numeric: tabular-nums; display: block; }
 .sv-delay small.late { color: var(--bad); font-weight: 600; }
@@ -895,3 +896,9 @@ html.i18n-attente body { visibility: hidden; }
 .sv-tabs button { font: inherit; font-size: var(--fs-read); background: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; padding: 8px 16px; color: var(--muted); cursor: pointer; }
 .sv-tabs button:hover { color: var(--heading); }
 .sv-tabs button[aria-selected="true"] { color: var(--heading); border-bottom-color: var(--gold); font-weight: 600; }
+
+/* Avancement : frise de même longueur quel que soit le nombre d'étapes (premier point au bord gauche, dernier au bord droit) */
+.sv-track .sv-st:first-child { justify-items: start; text-align: left; }
+.sv-track .sv-st:last-child { justify-items: end; text-align: right; }
+.sv-track .sv-st:nth-child(2)::before { left: calc(-100% + 7px); }
+.sv-track .sv-st:last-child::before { right: 7px; }
