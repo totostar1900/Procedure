@@ -87,7 +87,7 @@
     if (dz) { ev.preventDefault(); closeDrawer(); return; }
     var b = ev.target.closest("[data-dl]");
     if (b) { ev.preventDefault(); ev.stopPropagation(); download(b.getAttribute("data-dl")); return; }
-    if (ev.target.closest("[data-vlectsave],[data-ed],[data-edit-doc],[data-ediff],[data-dup],[data-del],[data-new],[data-gen],[data-focus],[data-tab],[data-vact],[data-vrole],[data-vlect],[data-vcsv],[data-vgo],[data-sel],[data-selact],.selchk")) return;
+    if (ev.target.closest("[data-vlectsave],[data-ed],[data-edit-doc],[data-vuedoc],[data-ed-retirer],[data-svtab],[data-dup],[data-del],[data-new],[data-gen],[data-focus],[data-tab],[data-vact],[data-vrole],[data-vlect],[data-vcsv],[data-vgo],[data-sel],[data-selact],.selchk")) return;
     var pk = ev.target.closest("[data-peek]");
     if (pk && !ev.target.closest("[data-open]")) { ev.preventDefault(); openDrawer(pk.getAttribute("data-peek"), pk); return; }
     var o = ev.target.closest("[data-open]");
@@ -219,7 +219,9 @@
 
   // ---------- Page document ----------
   var spy;
+  var DOC_COURANT = null; // variante affichée sur la page document (projet ou version en vigueur)
   function renderDoc(d0) {
+    DOC_COURANT = d0;
     var d = vueLangue(d0);
     var v = $("#v-doc");
     var meta = [
@@ -380,6 +382,7 @@
     var ed = /^edition\/[A-Za-z0-9-]+$/.test(h);
     var view = doc ? "doc" : dz ? "dossier" : ed ? "edition" : (VIEWS.indexOf(h) > 0 && h !== "dossier" && h !== "edition" ? h : "registre");
     if (RESTREINT && view !== "doc" && view !== "guide") view = "mesdocs";
+    if (view === "visas") { SV.tab = "visas"; view = "circuit"; }
     if (view !== "edition" && E) { if (E.dirty) saveDraft(); E = null; }
     if (view !== "dossier" && cur) { if (cur.dirty) saveNow(); cur = null; }
     VIEWS.forEach(function (v) { var el = $("#v-" + v); el.hidden = v !== view; el.style.minHeight = ""; });
@@ -391,7 +394,6 @@
     if (doc) { renderDoc(doc); renderDocVisas(doc); }
     selSync();
     if (view === "dossiers") renderDossiers();
-    if (view === "visas") renderVisas();
     if (view === "atraiter") renderATraiter();
     if (view === "tableau") renderTableau();
     if (view === "guide") renderGuide();

@@ -151,13 +151,17 @@ export async function executer(opts: { force?: boolean } = {}) {
   };
   const delaiLecture = (t: string) => { const c = kv["circuits/" + typeKey(t)] as { delaiLecture?: number } | undefined; return c && Number(c.delaiLecture) > 0 ? Number(c.delaiLecture) : 15; };
   const suivi = kv["circuits/_suivi"] as { seuil?: number } | undefined; const seuil = (suivi && Number(suivi.seuil) > 0 ? Number(suivi.seuil) : 75) / 100;
-  const lecturesDe = (id: string) => { const L = kv["lectures/" + id] as { tous?: boolean; ids?: string[]; consult?: string[] } | undefined; return L || null; };
+  type Lect = { tous?: boolean; ids?: string[]; consult?: string[]; fonctions?: string[]; consult_fonctions?: string[] };
+  const lecturesDe = (id: string) => { const L = kv["lectures/" + id] as Lect | undefined; return L || null; };
+  // Lecteurs : « tous », titulaires des fonctions désignées, personnes ajoutées une à une
   const readersOf = (d: Doc) => {
     const L = lecturesDe(d.id); if (!L) return [] as string[];
     const ids = (L.ids || []).map((x) => (mb(x) ? idDe(mb(x)) : x));
     if (L.tous) ms.forEach((m) => { if (m.actif && !ids.includes(idDe(m))) ids.push(idDe(m)); });
+    for (const f of L.fonctions || []) ids.push(...holders(f));
     return ids.filter((x, i, a) => a.indexOf(x) === i);
   };
+  const consultDe = (L: Lect | null) => [...((L && L.consult) || []), ...((L && L.consult_fonctions) || []).flatMap((f) => holders(f))];
   const auteursDe = (d: Doc) => { const a = kv["auteurs/" + d.id + "~" + d.empreinte] as { auteurs?: string[] } | undefined; return (a && a.auteurs) || []; };
   const signedOther = (d: Doc, etape: string, who: string) => sigs.some((s) => s.doc === d.id && s.by === who && s.empreinte === d.empreinte && s.etape !== etape && s.etape !== "lecture" && s.etape !== "renvoi");
   const etat = (d: Doc) => {
@@ -332,7 +336,7 @@ export async function executer(opts: { force?: boolean } = {}) {
     const parPers: Record<string, Doc[]> = {};
     for (const d of recents) {
       const L = lecturesDe(d.id), lecteurs = readersOf(d);
-      const concernes = [...((L && L.consult) || []), ...circOf(d).flatMap((s) => holders(s.role))].map((x) => mb(x)).filter((m) => m && !lecteurs.includes(idDe(m))) as Membre[];
+      const concernes = [...consultDe(L), ...circOf(d).flatMap((s) => holders(s.role))].map((x) => mb(x)).filter((m) => m && !lecteurs.includes(idDe(m))) as Membre[];
       concernes.forEach((m) => { if (autorise(m)) (parPers[m.email] = parPers[m.email] || []).includes(d) || parPers[m.email].push(d); });
     }
     for (const [email, ds] of Object.entries(parPers)) {

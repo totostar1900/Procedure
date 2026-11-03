@@ -2,7 +2,7 @@
   // Dossiers d'opération et générateur de conventions (Word + PDF)
   // Inséré dans site.js : partage DATA, docs, $, esc, toast, go, downloadsP.
   // =====================================================================
-  var E = window.RefEngine;
+  var RE = window.RefEngine; // moteur des modèles (E est le brouillon ouvert de l'éditeur)
   // En anglais, les conventions sont préparées à partir de la version anglaise du modèle (mêmes champs, mêmes valeurs)
   var GEN_EN = !!(window.PCI18N && PCI18N.lang === "en");
   var MODELS = docs.filter(function (d) { return d.modele; }).map(function (d) {
@@ -43,7 +43,7 @@
   function plain(s) { return String(s || "").replace(/\\([\\`*_[\]|])/g, "$1").replace(/<[^>]+>/g, "").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&").trim(); }
   function intitule(model, values) {
     var t = model.modele.schema.intitule || "{{emetteur_nom}}";
-    var s = plain(E.render(t, model.modele.schema, values, "rempli", CTX()));
+    var s = plain(RE.render(t, model.modele.schema, values, "rempli", CTX()));
     s = s.replace(/^\s*·\s*|\s*·\s*$/g, "");
     return s || "Nouvelle convention (à compléter)";
   }
@@ -76,24 +76,24 @@
     var list = lsRead().filter(function (x) { return x.id !== d.id; }); list.unshift(d); lsWrite(list); dossiers = list; renderDossiers();
     return Promise.resolve();
   }
-  var saveTimer = null;
+  var dzSaveTimer = null;
   function scheduleSave() {
     if (!cur || readOnly) return;
     cur.dirty = true; renderSaveState();
-    clearTimeout(saveTimer); saveTimer = setTimeout(saveNow, 1200);
+    clearTimeout(dzSaveTimer); dzSaveTimer = setTimeout(saveNow, 1200);
   }
   async function saveNow() {
     if (!cur || !cur.dirty || readOnly) return;
-    if (cur.saving) { clearTimeout(saveTimer); saveTimer = setTimeout(saveNow, 600); return; }
+    if (cur.saving) { clearTimeout(dzSaveTimer); dzSaveTimer = setTimeout(saveNow, 600); return; }
     cur.saving = true; cur.dirty = false; renderSaveState();
-    var v = E.validate(cur.model.modele.schema, cur.data.valeurs);
+    var v = RE.validate(cur.model.modele.schema, cur.data.valeurs);
     cur.data.titre = intitule(cur.model, cur.data.valeurs);
     cur.data.manquants = v.missing.length; cur.data.erreurs = v.errors.length;
     try { await persist(cur.data); cur.savedAt = nowIso(); cur.error = null; }
     catch (e) {
       cur.dirty = true;
       cur.error = e && e.code === "quota_exceeded" ? "Capacité de stockage atteinte : supprimez d'anciens dossiers." : e && e.code === "invalid_argument" ? "Vous n'avez pas les droits d'écriture sur ce référentiel." : "Enregistrement impossible pour l'instant. Nouvel essai automatique.";
-      if (e && e.code === "invalid_argument") readOnly = true; else { clearTimeout(saveTimer); saveTimer = setTimeout(saveNow, 4000); }
+      if (e && e.code === "invalid_argument") readOnly = true; else { clearTimeout(dzSaveTimer); dzSaveTimer = setTimeout(saveNow, 4000); }
     }
     cur.saving = false; renderSaveState();
   }
@@ -102,16 +102,16 @@
     var d = dossiers.filter(function (x) { return x.id === cur.id; })[0];
     if (!d) { if (cur.data.maj_le && store && !cur.saving) { toast("Ce dossier a été supprimé."); cur = null; go("dossiers"); } return; }
     if (d.maj_session !== SESSION && !cur.dirty && !cur.saving && d.maj_le > (cur.data.maj_le || "")) {
-      cur.data = JSON.parse(JSON.stringify(d)); renderEditor(); toast("Dossier mis à jour par " + (who(d.maj_par) || "un collègue") + ".");
+      cur.data = JSON.parse(JSON.stringify(d)); renderDossierEd(); toast("Dossier mis à jour par " + (who(d.maj_par) || "un collègue") + ".");
     }
   }
 
   // ---------- Création ----------
   function defaults(model) {
     var v = {};
-    E.fields(model.modele.schema).forEach(function (f) {
+    RE.fields(model.modele.schema).forEach(function (f) {
       if (f.defaut != null) v[f.id] = f.defaut;
-      if (f.source && DATA.societe && !E.isEmpty(DATA.societe[f.source])) v[f.id] = DATA.societe[f.source];
+      if (f.source && DATA.societe && !RE.isEmpty(DATA.societe[f.source])) v[f.id] = DATA.societe[f.source];
     });
     return v;
   }
@@ -160,7 +160,7 @@
       var state = d.erreurs ? '<span class="pill projet">' + d.erreurs + " erreur" + (d.erreurs > 1 ? "s" : "") + "</span>" : d.manquants ? '<span class="pill prevu">' + d.manquants + " champ" + (d.manquants > 1 ? "s" : "") + " à compléter</span>" : '<span class="pill vigueur">Prêt à générer</span>';
       var last = (d.exports || [])[d.exports && d.exports.length - 1];
       return '<tr class="live" data-open="d-' + esc(d.id) + '"><td><div class="doc-title">' + esc(d.titre || "Sans titre") + '</div><div class="doc-sum">' + esc(m ? m.id + " · " + m.titre : d.modele) + "</div></td>" +
-        '<td class="num">' + (E.isEmpty(vals.montant) ? "—" : esc(E.fmtMontant(vals.montant))) + "</td><td>" + state + "</td>" +
+        '<td class="num">' + (RE.isEmpty(vals.montant) ? "—" : esc(RE.fmtMontant(vals.montant))) + "</td><td>" + state + "</td>" +
         '<td class="num">' + esc(heure(d.maj_le)) + (who(d.maj_par) ? '<div class="cite-src">' + esc(who(d.maj_par)) + "</div>" : "") + "</td>" +
         '<td class="num">' + (last ? esc(last.format.toUpperCase() + " · " + heure(last.le)) : '<span class="cite-src">Aucun</span>') + "</td>" +
         '<td><div class="row-actions"><button type="button" class="btn" data-open="d-' + esc(d.id) + '">Ouvrir</button><button type="button" class="btn" data-dup="' + esc(d.id) + '">Dupliquer</button></div></td></tr>';
@@ -175,7 +175,7 @@
 
   // ---------- Éditeur ----------
   function openDossier(id) {
-    if (cur && cur.id === id) { renderEditor(); return; }
+    if (cur && cur.id === id) { renderDossierEd(); return; }
     if (cur && cur.dirty) saveNow();
     var d = dossiers.filter(function (x) { return x.id === id; })[0];
     if (!d) {
@@ -187,13 +187,13 @@
     if (!model) { $("#v-dossier").innerHTML = '<p class="lead">Modèle introuvable : ' + esc(d.modele) + "</p>"; return; }
     cur = { id: id, model: model, data: JSON.parse(JSON.stringify(d)), dirty: false, saving: false, savedAt: d.maj_le, tab: "form" };
     cur.data.valeurs = cur.data.valeurs || {};
-    E.fields(model.modele.schema).forEach(function (f) { if (f.source && DATA.societe && !E.isEmpty(DATA.societe[f.source])) cur.data.valeurs[f.id] = DATA.societe[f.source]; });
-    renderEditor();
+    RE.fields(model.modele.schema).forEach(function (f) { if (f.source && DATA.societe && !RE.isEmpty(DATA.societe[f.source])) cur.data.valeurs[f.id] = DATA.societe[f.source]; });
+    renderDossierEd();
   }
 
   function fieldHtml(f, val) {
     var id = "f-" + f.id, v = val == null ? "" : val, attrs = ' id="' + id + '" data-field="' + f.id + '"' + (readOnly ? " disabled" : "");
-    var locked = f.source && DATA.societe && !E.isEmpty(DATA.societe[f.source]);
+    var locked = f.source && DATA.societe && !RE.isEmpty(DATA.societe[f.source]);
     var input;
     if (f.type === "choix" && (f.options || []).length <= 3) {
       input = '<div class="radios" role="radiogroup" aria-labelledby="l-' + f.id + '">' + f.options.map(function (o, i) {
@@ -205,7 +205,7 @@
       input = "<textarea" + attrs + ' rows="3">' + esc(v) + "</textarea>";
     } else {
       var type = f.type === "date" ? "date" : "text", mode = f.type === "montant" || f.type === "entier" ? ' inputmode="numeric"' : f.type === "pourcentage" ? ' inputmode="decimal"' : "";
-      var shown = f.type === "montant" && v !== "" ? E.fmtInt(v) : f.type === "pourcentage" && v !== "" ? String(v).replace(".", ",") : v;
+      var shown = f.type === "montant" && v !== "" ? RE.fmtInt(v) : f.type === "pourcentage" && v !== "" ? String(v).replace(".", ",") : v;
       input = '<div class="inp' + (f.type === "montant" ? " suf-fcfa" : f.type === "pourcentage" ? " suf-pct" : "") + '"><input type="' + type + '"' + attrs + mode + ' value="' + esc(shown) + '"' + (locked ? " readonly" : "") + ' autocomplete="off"></div>';
     }
     return '<div class="fld" data-wrap="' + f.id + '"><label class="fld-label" id="l-' + f.id + '" for="' + id + '">' + esc(f.label) + (f.requis ? ' <abbr title="obligatoire">*</abbr>' : "") + "</label>" + input +
@@ -213,7 +213,7 @@
       '<p class="fld-err" data-err="' + f.id + '" hidden></p></div>';
   }
 
-  function renderEditor() {
+  function renderDossierEd() {
     var m = cur.model, sch = m.modele.schema, v = cur.data.valeurs;
     var sections = sch.sections.map(function (s) {
       return '<fieldset class="sec" id="sec-' + s.id + '"><legend>' + esc(s.titre) + "</legend>" + (s.aide ? '<p class="sec-help">' + esc(s.aide) + "</p>" : "") +
@@ -231,8 +231,8 @@
     form.addEventListener("input", onField);
     form.addEventListener("change", onField);
     form.addEventListener("focusout", function (ev) {
-      var el = ev.target, f = E.index(sch)[el.getAttribute("data-field")];
-      if (f && f.type === "montant" && v[f.id] != null && v[f.id] !== "") el.value = E.fmtInt(v[f.id]);
+      var el = ev.target, f = RE.index(sch)[el.getAttribute("data-field")];
+      if (f && f.type === "montant" && v[f.id] != null && v[f.id] !== "") el.value = RE.fmtInt(v[f.id]);
     });
     form.addEventListener("submit", function (ev) { ev.preventDefault(); });
     showTab(cur.tab || "form");
@@ -247,16 +247,16 @@
   }
   function onField(ev) {
     var el = ev.target, key = el.getAttribute("data-field"); if (!key || !cur) return;
-    var f = E.index(cur.model.modele.schema)[key]; if (!f) return;
+    var f = RE.index(cur.model.modele.schema)[key]; if (!f) return;
     if (el.type === "radio" && !el.checked) return;
     cur.data.valeurs[key] = parse(f, el);
     refresh(); scheduleSave();
   }
   function refresh() {
-    var sch = cur.model.modele.schema, idx = E.index(sch), v = cur.data.valeurs;
-    var res = E.validate(sch, v);
-    E.fields(sch).forEach(function (f) { var w = document.querySelector('[data-wrap="' + f.id + '"]'); if (w) w.hidden = !E.visible(f, res.values, idx); });
-    sch.sections.forEach(function (s) { var fs = $("#sec-" + s.id); if (fs) fs.hidden = !s.champs.some(function (f) { return E.visible(f, res.values, idx); }); });
+    var sch = cur.model.modele.schema, idx = RE.index(sch), v = cur.data.valeurs;
+    var res = RE.validate(sch, v);
+    RE.fields(sch).forEach(function (f) { var w = document.querySelector('[data-wrap="' + f.id + '"]'); if (w) w.hidden = !RE.visible(f, res.values, idx); });
+    sch.sections.forEach(function (s) { var fs = $("#sec-" + s.id); if (fs) fs.hidden = !s.champs.some(function (f) { return RE.visible(f, res.values, idx); }); });
     document.querySelectorAll("[data-err]").forEach(function (p) { p.hidden = true; p.textContent = ""; p.parentNode.classList.remove("has-error"); });
     res.errors.forEach(function (e) {
       e.champs.forEach(function (id) { var p = document.querySelector('[data-err="' + id + '"]'); if (p) { p.hidden = false; p.textContent = e.message; p.parentNode.classList.add("has-error"); } });
@@ -272,11 +272,11 @@
     el.textContent = readOnly ? "Lecture seule" : cur.error ? cur.error : cur.saving ? "Enregistrement…" : cur.dirty ? "Modifications non enregistrées" : cur.savedAt ? "Enregistré " + heure(cur.savedAt) + (store ? "" : " sur cet appareil") : "";
   }
   function renderSide() {
-    var r = cur.res, sch = cur.model.modele.schema, idx = E.index(sch); if (!r) return;
+    var r = cur.res, sch = cur.model.modele.schema, idx = RE.index(sch); if (!r) return;
     var pct = r.required ? Math.round(r.filled / r.required * 100) : 100;
     var item = function (f) { return '<li><button type="button" data-focus="' + f.id + '">' + esc(f.label) + "</button></li>"; };
     var calcs = (sch.calculs || []).filter(function (c) { return r.values[c.id] != null && !/ratio/.test(c.id); }).map(function (c) {
-      return "<div><dt>" + esc(c.label) + "</dt><dd>" + esc(E.formatValue(c, r.values[c.id])) + "</dd></div>";
+      return "<div><dt>" + esc(c.label) + "</dt><dd>" + esc(RE.formatValue(c, r.values[c.id])) + "</dd></div>";
     }).join("");
     var blocked = !r.complete;
     var hint = r.missing.length ? r.missing.length + " champ" + (r.missing.length > 1 ? "s" : "") + " à compléter" : r.errors.length ? r.errors.length + " erreur" + (r.errors.length > 1 ? "s" : "") + " à corriger" : "";
@@ -285,8 +285,8 @@
     var html =
       '<div class="side-block"><div class="prog-head"><span>Complétude</span><b>' + r.filled + " / " + r.required + '</b></div><div class="prog" role="progressbar" aria-valuenow="' + pct + '" aria-valuemin="0" aria-valuemax="100"><i style="width:' + pct + '%"></i></div></div>' +
       '<div class="side-block"><p class="side-title">Édition</p><div class="radios col">' +
-      '<label class="radio"><input type="radio" name="dz-ed" value="projet"' + (cur.data.edition !== "signature" ? " checked" : "") + '><span>Projet pour négociation</span></label>' +
-      '<label class="radio"><input type="radio" name="dz-ed" value="signature"' + (cur.data.edition === "signature" ? " checked" : "") + '><span>Version pour signature</span></label></div></div>' +
+      '<label class="radio"><input type="radio" name="dz-ed" value="projet"' + (editionDe() !== "signature" ? " checked" : "") + '><span>Version de travail<small>Projet pour négociation' + (modeleAdopte() ? "" : ", mention « Projet — modèle non adopté »") + "</small></span></label>" +
+      '<label class="radio' + (modeleAdopte() ? "" : " off") + '"><input type="radio" name="dz-ed" value="signature"' + (editionDe() === "signature" ? " checked" : "") + (modeleAdopte() ? "" : " disabled") + '><span>Version finale, pour signature<small>' + (modeleAdopte() ? "Sans mention de projet, prête à signer" : "Disponible quand " + esc(cur.model.id) + " sera adopté") + "</small></span></label></div></div>" +
       '<div class="side-block gen-btns"><button type="button" class="btn primary" data-gen="docx"' + (blocked ? " disabled" : "") + ">" + ICON_DL + 'Word (.docx)</button><button type="button" class="btn" data-gen="pdf"' + (blocked ? " disabled" : "") + ">" + ICON_DL + "PDF</button>" +
       (blocked ? '<p class="gen-hint">Génération bloquée : ' + hint + ".</p>" : '<p class="gen-hint ok">Tous les champs requis sont renseignés et cohérents.</p>') + "</div>" +
       (r.missing.length ? '<div class="side-block"><p class="side-title">À compléter</p><ul class="todo">' + r.missing.map(item).join("") + "</ul></div>" : "") +
@@ -315,7 +315,7 @@
       var p = $("#dz-preview"); if (!p || !cur) return;
       loadLib("marked").then(function (mk) {
         var m = cur.model, sch = m.modele.schema, ctx = CTX();
-        var md = function (src) { return mk.parse(E.render(src, sch, cur.data.valeurs, "apercu", ctx)).replace(/<p><em>ci-après/g, '<p class="party-role"><em>ci-après'); };
+        var md = function (src) { return mk.parse(RE.render(src, sch, cur.data.valeurs, "apercu", ctx)).replace(/<p><em>ci-après/g, '<p class="party-role"><em>ci-après'); };
         p.innerHTML = '<p class="paper-note">Aperçu : les zones surlignées restent à compléter. Le document final est produit par les boutons Word et PDF.</p>' +
           '<div class="doc-body"><div class="eyebrow">Convention</div><h1 class="title" style="font-size:var(--fs-xl)">' + esc(m.titre) + "</h1>" + md(m.modele.template) +
           m.annexes.map(function (a) { return '<h2>' + esc(libAnnexe(a)) + " — " + esc(a.titre) + "</h2>" + md(a.template); }).join("") + "</div>";
@@ -373,19 +373,27 @@
 
   async function buildParts() {
     var mk = await loadLib("marked"), m = cur.model, sch = m.modele.schema, v = cur.data.valeurs, ctx = CTX();
-    var parts = [{ kind: "contrat", titre: m.titre, blocks: toBlocks(mk.lexer(E.render(m.modele.template, sch, v, "rempli", ctx))) }];
-    m.annexes.forEach(function (a) { parts.push({ kind: "annexe", num: a.num, nom: a.nom, ref: a.id, titre: a.titre, paysage: a.orientation === "paysage", blocks: toBlocks(mk.lexer(E.render(a.template, sch, v, "rempli", ctx))) }); });
+    var parts = [{ kind: "contrat", titre: m.titre, blocks: toBlocks(mk.lexer(RE.render(m.modele.template, sch, v, "rempli", ctx))) }];
+    m.annexes.forEach(function (a) { parts.push({ kind: "annexe", num: a.num, nom: a.nom, ref: a.id, titre: a.titre, paysage: a.orientation === "paysage", blocks: toBlocks(mk.lexer(RE.render(a.template, sch, v, "rempli", ctx))) }); });
     return parts;
   }
+  // Version pour signature : seulement quand le modèle est adopté (en vigueur) ; sinon, version de travail marquée
+  function modeleAdopte() { return !!(cur && cur.model && cur.model.statut === "En vigueur"); }
+  function editionDe() { return cur.data.edition === "signature" && modeleAdopte() ? "signature" : "projet"; }
   function meta() {
-    var m = cur.model, v = cur.data.valeurs, ed = cur.data.edition === "signature" ? "signature" : "projet";
+    var x = meta0();
+    if (!modeleAdopte()) x.edLabel += GEN_EN ? " — Draft: template not yet adopted" : " — Projet : modèle non adopté";
+    return x;
+  }
+  function meta0() {
+    var m = cur.model, v = cur.data.valeurs, ed = editionDe();
     return {
       ref: m.id, version: m.version, titre: m.titre, ed: ed,
-      edLabel: GEN_EN ? (ed === "signature" ? "Version for signature" : "Draft for negotiation of " + E.formatValue({ type: "date" }, new Date().toISOString().slice(0, 10), null, "en")) : ed === "signature" ? "Version pour signature" : "Projet pour négociation du " + E.fmtDate(new Date().toISOString().slice(0, 10)),
-      parties: plain(E.render(m.modele.schema.partie || "{{emetteur_nom}}", m.modele.schema, v, "rempli", CTX())) + (GEN_EN ? " and Purpose Capital S.A." : " et Purpose Capital S.A."),
-      etabli: GEN_EN ? "Prepared on " + E.formatValue({ type: "date" }, new Date().toISOString().slice(0, 10), null, "en") + " from template " + m.id + " v" + m.version + " (courtesy translation — the French version prevails)" : "Établi le " + E.fmtDate(new Date().toISOString().slice(0, 10)) + " à partir du modèle " + m.id + " v" + m.version,
+      edLabel: GEN_EN ? (ed === "signature" ? "Version for signature" : "Draft for negotiation of " + RE.formatValue({ type: "date" }, new Date().toISOString().slice(0, 10), null, "en")) : ed === "signature" ? "Version pour signature" : "Projet pour négociation du " + RE.fmtDate(new Date().toISOString().slice(0, 10)),
+      parties: plain(RE.render(m.modele.schema.partie || "{{emetteur_nom}}", m.modele.schema, v, "rempli", CTX())) + (GEN_EN ? " and Purpose Capital S.A." : " et Purpose Capital S.A."),
+      etabli: GEN_EN ? "Prepared on " + RE.formatValue({ type: "date" }, new Date().toISOString().slice(0, 10), null, "en") + " from template " + m.id + " v" + m.version + " (courtesy translation — the French version prevails)" : "Établi le " + RE.fmtDate(new Date().toISOString().slice(0, 10)) + " à partir du modèle " + m.id + " v" + m.version,
       file: function (ext) {
-        var slug = plain(E.render(m.modele.schema.partie || "{{emetteur_nom}}", m.modele.schema, v, "rempli")).normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^A-Za-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40).replace(/-+$/, "") || "Partie";
+        var slug = plain(RE.render(m.modele.schema.partie || "{{emetteur_nom}}", m.modele.schema, v, "rempli")).normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^A-Za-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40).replace(/-+$/, "") || "Partie";
         return m.id + "_" + slug + "_" + (ed === "signature" ? "signature" : "projet") + "_" + new Date().toISOString().slice(0, 10) + "." + ext;
       }
     };
@@ -558,7 +566,7 @@
   var busy = false;
   async function generate(fmt) {
     if (!cur || busy) return;
-    var r = E.validate(cur.model.modele.schema, cur.data.valeurs);
+    var r = RE.validate(cur.model.modele.schema, cur.data.valeurs);
     if (!r.complete) { toast("Génération impossible : complétez les champs signalés."); return; }
     busy = true;
     var btn = document.querySelector('[data-gen="' + fmt + '"]'); var label = btn ? btn.innerHTML : "";

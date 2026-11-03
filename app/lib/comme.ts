@@ -34,13 +34,14 @@ export async function cibleCourante(sb: SupabaseClient): Promise<Cible | null> {
 
 // Documents d'une cible à accès employé (mêmes règles que pour la personne elle-même)
 export async function docsDe(sb: SupabaseClient, c: Cible) {
-  const ids = [c.id, "email:" + c.email];
+  const ids = [c.id, "email:" + c.email], fonctions = c.fonctions || [];
   const { data } = await sb.from("kv").select("path,data").like("path", "lectures/%");
   const docs = new Set<string>();
   for (const r of data || []) {
-    const L = (r.data || {}) as { ids?: string[]; consult?: string[]; tous?: boolean };
+    const L = (r.data || {}) as { ids?: string[]; consult?: string[]; tous?: boolean; fonctions?: string[]; consult_fonctions?: string[] };
     const mine = (a?: string[]) => !c.profil && (a || []).some((x) => ids.includes(x));
-    if (L.tous || mine(L.ids) || mine(L.consult)) docs.add(String(r.path).slice("lectures/".length));
+    const parFonction = [...(L.fonctions || []), ...(L.consult_fonctions || [])].some((f) => fonctions.includes(f));
+    if (L.tous || mine(L.ids) || mine(L.consult) || parFonction) docs.add(String(r.path).slice("lectures/".length));
   }
   return docs;
 }

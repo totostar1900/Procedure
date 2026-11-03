@@ -7,12 +7,16 @@ export async function profilAcces(sb: SupabaseClient) {
   const { data: employe } = await sb.rpc("est_employe");
   if (!user || !employe) return { employe: false as const, docs: null as Set<string> | null };
   const ids = [user.id, "email:" + (user.email || "").toLowerCase()];
+  // Ses fonctions : les lectures désignées par fonction lui ouvrent aussi les documents
+  const { data: m } = await sb.from("membres").select("fonctions").eq("email", (user.email || "").toLowerCase()).maybeSingle();
+  const fonctions: string[] = (m && (m.fonctions as string[])) || [];
   const { data } = await sb.from("kv").select("path,data").like("path", "lectures/%");
   const docs = new Set<string>();
   for (const r of data || []) {
-    const L = (r.data || {}) as { ids?: string[]; consult?: string[]; tous?: boolean };
+    const L = (r.data || {}) as { ids?: string[]; consult?: string[]; tous?: boolean; fonctions?: string[]; consult_fonctions?: string[] };
     const mine = (a?: string[]) => (a || []).some((x) => ids.includes(x));
-    if (L.tous || mine(L.ids) || mine(L.consult)) docs.add(String(r.path).slice("lectures/".length));
+    const parFonction = [...(L.fonctions || []), ...(L.consult_fonctions || [])].some((f) => fonctions.includes(f));
+    if (L.tous || mine(L.ids) || mine(L.consult) || parFonction) docs.add(String(r.path).slice("lectures/".length));
   }
   return { employe: true as const, docs };
 }

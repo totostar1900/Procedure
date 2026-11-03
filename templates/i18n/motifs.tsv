@@ -1,5 +1,31 @@
 # Motifs : expression (ancrée au début et à la fin) → traduction. $1, $2… sont traduits à leur tour.
 # Dates écrites par la génération (français)
+# Rédaction en ligne, suivi, lectures (avant les motifs génériques)
+Enregistré (\d.+)	Saved $1
+Génération bloquée : (\d+) champs? à compléter\.	Generation blocked: $1 field(s) to complete.
+Créé (\d.+) par (.+)	Created $1 by $2
+Refusée : (.+)	Refused: $1
+Renvoyée par (.+) : « (.*) »	Returned by $1: “$2”
+(\d+) document\(s\) sans lecteur désigné\.	$1 document(s) without a designated reader.
+(\d+) en attente	$1 pending
+Modification soumise à (\d\d:\d\d)	Change submitted at $1
+: « (.+) »\. Publication en cours, environ 3 minutes ; la page se met à jour seule\.	: “$1”. Publishing, about 3 minutes; the page updates by itself.
+\. Publication en cours, environ 3 minutes ; la page se met à jour seule\.	. Publishing, about 3 minutes; the page updates by itself.
+Soumis le (.+) — publication en cours \(quelques minutes\)	Submitted on $1 — publishing in progress (a few minutes)
+Brouillon enregistré à (\d\d:\d\d)	Draft saved at $1
+Disponible quand (PC-[A-Z0-9-]+) sera adopté	Available once $1 is adopted
+— version (.+)\. Mise à jour de la page…	— version $1. Updating the page…
+— version (.+)\. Le circuit d'approbation commence\.	— version $1. The approval workflow begins.
+(\d+) passages? modifiés? par rapport à la version en vigueur	$1 passage(s) changed compared with the version in force
+(\d+) passages? modifiés? par rapport au texte précédent \(v([\d.]+), aucune version en vigueur\)	$1 passage(s) changed compared with the previous text (v$2, no version in force yet)
+(\d+) passages? modifiés?, (\d+) ajoutés?, (\d+) supprimés?(.*)	$1 passage(s) changed, $2 added, $3 deleted$4
+, titre ou résumé modifié(.*)	, title or summary changed$1
+, (\d+) annexe\(s\) touchée\(s\)(.*)	, $1 annex(es) affected$2
+ · version ([\d.]+) \(projet\)\.	 · version $1 (draft).
+Soumettre (PC-[A-Z0-9-]+)	Submit $1
+Créer (PC-[A-Z0-9-]+)	Create $1
+Objet : (.+)	Subject: $1
+(\d+) nom\(s\) en cours de publication\.	$1 name(s) being published.
 (\d{1,2}) janvier (\d{4})	$1 January $2
 (\d{1,2}) février (\d{4})	$1 February $2
 (\d{1,2}) mars (\d{4})	$1 March $2

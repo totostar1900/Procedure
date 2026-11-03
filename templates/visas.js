@@ -133,10 +133,18 @@
     if (estRedaction(step)) need = 1;
     return { st: step, sigs: cur, by: by, need: need, holders: h, done: by.length >= need, cur: cur[0] || null, old: cur.length ? null : all[0] || null };
   }
+  // Lecteurs d'un document : « tous », les titulaires des fonctions désignées, et les personnes ajoutées une à une
   function readersOf(d) {
     var L = V.lectures[d.id]; if (!L) return [];
-    var ids = (L.ids || []).slice();
-    if (L.tous) Object.keys(V.roles).forEach(function (id) { if (V.roles[id].actif !== false && ids.indexOf(id) < 0) ids.push(id); });
+    var ids = (L.ids || []).slice(), add = function (id) { if (ids.indexOf(id) < 0) ids.push(id); };
+    if (L.tous) Object.keys(V.roles).forEach(function (id) { if (V.roles[id].actif !== false) add(id); });
+    (L.fonctions || []).forEach(function (f) { holders(f).forEach(add); });
+    return ids;
+  }
+  // Consultation seule (accès employé) : personnes et fonctions désignées
+  function consultOf(d) {
+    var L = V.lectures[d.id] || {}, ids = (L.consult || []).slice();
+    (L.consult_fonctions || []).forEach(function (f) { holders(f).forEach(function (id) { if (ids.indexOf(id) < 0) ids.push(id); }); });
     return ids;
   }
   function docState(d) {
@@ -257,7 +265,7 @@
       }
       var role = a.etape === "lecture" ? "" : " en qualité de " + (FLABEL[a.role] || a.role);
       var phrase = a.etape === "lecture" ? "je déclare avoir lu et compris" : a.seance ? "j'atteste que le Conseil d'Administration a adopté" : estRedaction(a) ? "je confirme que la rédaction est terminée et que le texte peut passer aux étapes suivantes pour" : a.etape === "verification" ? "je vise, après vérification," : "j'approuve, à l'étape « " + a.label + " »,";
-      return '<div class="revbar open"><div class="rb-main"><b>' + esc(vName(V.me).replace(" (vous)", "")) + "</b>" + esc(role) + " : " + phrase + " le document " + esc(d.id) + ", version " + esc(d.version) + ' (empreinte <code>' + esc(d.empreinte) + "</code>).</div>" +
+      return '<div class="revbar open"><div class="rb-main"><b>' + esc(vName(V.me).replace(" (vous)", "")) + "</b>" + esc(role) + " : " + phrase + " le document " + esc(d.id) + ", version " + esc(d.version) + ".</div>" +
         (a.seance ? '<div class="rb-row"><label class="vf">Date de la séance<input type="date" id="v-seance" required></label><label class="vf">Référence du procès-verbal<input type="text" id="v-pv" placeholder="PV n°…"></label></div>' : "") +
         '<label class="vf">Commentaire (facultatif)<input type="text" id="v-com" maxlength="300"></label>' +
         '<div class="rb-btns"><button type="button" class="btn primary" data-vact="' + esc(docKey(d)) + "|" + a.etape + '|ok">Continuer…</button><button type="button" class="btn" data-vact="cancel">Annuler</button></div></div>';
@@ -281,7 +289,7 @@
   function renderDocVisas(d) {
     var bar = $("#doc-revbar"); if (bar) bar.innerHTML = revbarHtml(d);
     var adm = $("#doc-admin"); if (adm) adm.innerHTML = docAdminHtml(d);
-    var ed = $("#doc-edit"); if (ed && !(ed.querySelector(".diffbox"))) renderDocEdit(d);
+    if ($("#doc-edit")) renderDocEdit(d);
     var box = $("#doc-visas"); if (!box) return;
     if (RESTREINT) { box.innerHTML = maLectureHtml(d); return; }
     if (!V.db) { box.innerHTML = V.ready ? '<p class="visa-note">Les visas électroniques ne sont pas disponibles dans cette vue. Reconnectez-vous au référentiel.</p>' : ""; return; }
@@ -294,12 +302,12 @@
       : "Aucune personne désignée";
     if (d.estProjet) lect = d.nature_revision === "mineure" ? "Correction mineure : les lectures de la version en vigueur restent valables" : "Demandée aux personnes concernées après l'adoption";
     rows += '<tr><td><span class="stepn">✓</span>Prise de connaissance</td><td>' + esc(lect) + "</td></tr>";
-    var renv = st.renvois.length ? '<div class="rev-banner proj"><b>Renvoyé pour modification</b> par ' + esc(vName(st.renvois[0].by)) + " le " + esc(fmtDT(st.renvois[0].at)) + " : « " + esc(st.renvois[0].commentaire || "") + " ». Le circuit reprendra sur le texte corrigé (nouvelle empreinte).</div>" : "";
+    var renv = st.renvois.length ? '<div class="rev-banner proj"><b>Renvoyé pour modification</b> par ' + esc(vName(st.renvois[0].by)) + " le " + esc(fmtDT(st.renvois[0].at)) + " : « " + esc(st.renvois[0].commentaire || "") + " ». Le circuit reprendra sur le texte corrigé.</div>" : "";
     var src = circSource(d), mine = myRoles();
     var who = V.me ? (mine.length ? "Vos fonctions : " + mine.map(function (f) { return FLABEL[f] || f; }).join(", ") + "." : V.owner ? "Vous êtes administrateur : attribuez les fonctions dans la page Membres." : "Aucune fonction ne vous est attribuée : vous consultez le document.") : HOSTED ? "Session expirée : reconnectez-vous." : "Connectez-vous à claude.ai pour viser.";
-    box.innerHTML = '<div class="visas-head"><h3>Circuit d\'approbation</h3><span class="cite-src">' + (src === "fige" ? "Circuit figé au premier visa de cette version" : src === "type" ? "Circuit des documents de type « " + esc(d.type) + " »" : "Circuit déclaré dans le document") + ' · empreinte <code>' + esc(d.empreinte) + "</code></span></div>" + renv +
+    box.innerHTML = '<div class="visas-head"><h3>Circuit d\'approbation</h3><span class="cite-src">' + (src === "fige" ? "Circuit figé au premier visa de cette version" : src === "type" ? "Circuit des documents de type « " + esc(d.type) + " »" : "Circuit déclaré dans le document") + "</span></div>" + renv +
       '<table class="visa-table"><tbody>' + rows + "</tbody></table>" +
-      '<p class="visa-note">' + esc(who) + ' <button type="button" class="doclink" data-vgo="circuit">Suivi des documents</button></p>';
+      '<p class="visa-note">' + esc(who) + ' <button type="button" class="doclink" data-vgo="circuit">Suivi</button></p>';
   }
 
   // Gestion d'un document : abroger (administrateur ou RCCI), supprimer (administrateur), rétablir
@@ -333,16 +341,19 @@
       if (se.value > new Date().toISOString().slice(0, 10)) { toast("La date de séance ne peut pas être dans le futur."); return; }
       body.seance = se.value; if (pv && pv.value.trim()) body.pv = pv.value.trim().slice(0, 80);
     }
+    // La fenêtre de visa s'ouvre sur ce qui a changé (par rapport à la version en vigueur, ou au texte précédent)
+    var modH = etape !== "lecture" && etape !== "renvoi" && window.modifsDocHtml ? await window.modifsDocHtml(d) : "";
     var verbe = etape === "lecture" ? "j'ai lu" : etape === "renvoi" ? "renvoyer" : a.seance ? "adopter" : etape === "verification" ? "viser" : "approuver";
     var ok = await confirmer({
       titre: etape === "lecture" ? "Attester votre lecture" : etape === "renvoi" ? "Renvoyer le document pour modification" : a.seance ? "Enregistrer l'adoption par le Conseil" : "Donner votre visa",
-      html: '<dl><dt>Document</dt><dd><b>' + esc(d.id) + "</b> — " + esc(d.titre) + "</dd><dt>Version</dt><dd>" + esc(d.version) + ' · empreinte <code>' + esc(d.empreinte) + "</code></dd>" +
+      html: '<dl><dt>Document</dt><dd><b>' + esc(d.id) + "</b> — " + esc(d.titre) + "</dd><dt>Version</dt><dd>" + esc(d.version) + "</dd>" +
         (etape === "lecture" ? "" : "<dt>Étape</dt><dd>" + esc(etape === "renvoi" ? "Renvoi à l'étape « " + a.label + " »" : a.label) + "</dd><dt>En qualité de</dt><dd>" + esc(FLABEL[a.role] || a.role) + "</dd>") +
         (body.seance ? "<dt>Séance</dt><dd>" + esc(fmtDate(body.seance)) + (body.pv ? " · " + esc(body.pv) : "") + "</dd>" : "") +
         (body.commentaire ? "<dt>" + (etape === "renvoi" ? "Motif" : "Commentaire") + "</dt><dd>" + esc(body.commentaire) + "</dd>" : "") + "</dl>",
       points: etape === "lecture" ? ["Vous déclarez avoir lu et compris ce document, dans cette version.", "L'attestation est enregistrée à votre nom, avec la date et l'heure."]
         : etape === "renvoi" ? ["Le circuit s'arrête pour cette version.", "Les rédacteurs voient votre motif ; le circuit reprendra sur le texte corrigé."]
-        : ["Votre visa est enregistré à votre nom, avec la date, l'heure et l'empreinte du texte.", "Il ne vaut que pour ce texte : toute modification ultérieure demandera un nouveau visa."],
+        : ["Votre visa est enregistré à votre nom, avec la date et l'heure, pour ce texte précis.", "Il ne vaut que pour ce texte : toute modification ultérieure demandera un nouveau visa."],
+      onglets: modH ? [{ titre: "Ce qui a changé", html: modH }] : null, large: !!modH,
       phrase: verbe + " " + d.id, bouton: etape === "lecture" ? "Attester" : etape === "renvoi" ? "Renvoyer" : a.seance ? "Enregistrer l'adoption" : verbe === "viser" ? "Viser" : "Approuver", danger: etape === "renvoi"
     });
     if (!ok) return;
@@ -401,19 +412,8 @@
     var st = docState(d);
     return '<ol class="stepper">' + st.steps.map(function (x) { return '<li class="' + (x.done ? "ok" : st.current === x ? "cur" : x.old ? "re" : "") + (x.st.obligatoire ? "" : " opt") + '" title="' + esc(x.st.label + " — " + (FLABEL[x.st.role] || x.st.role) + (x.done ? " : visé" : st.current === x ? " : en cours" : "")) + '"><i></i><span>' + esc(x.st.label) + "</span></li>"; }).join("") + "</ol>" + (st.renvois.length ? ' <span class="pill projet">Renvoyé</span>' : "");
   }
-  function renderVisas() {
-    var v = $("#v-visas"); if (!v) return;
-    if (!V.db) { v.innerHTML = '<div class="eyebrow">Visas</div><h1 class="title">Suivi des visas</h1><p class="lead">' + (V.ready ? "Les visas électroniques ne sont pas disponibles dans cette vue. Reconnectez-vous au référentiel." : "Chargement…") + "</p>"; return; }
-    var n = vTodoList().length;
-    var table = '<div class="table-scroll panel-gap"><table class="reg"><thead><tr><th>Document</th><th>Avancement du circuit</th><th>Prise de connaissance</th></tr></thead><tbody>' +
-      VARIANTS().filter(function (d) { return !etatOf(d.id); }).map(function (d) {
-        var st = docState(d);
-        return '<tr class="live" data-open="' + esc(docHash(d)) + '"><td><div class="doc-title">' + esc(d.id) + (d.estProjet ? ' <span class="pill projet">révision v' + esc(d.version) + "</span>" : ' <span class="cite-src">v' + esc(d.version) + "</span>") + '</div><div class="doc-sum">' + esc(d.titre) + "</div></td><td>" + stepperHtml(d) + "</td><td>" + (d.estProjet ? "après adoption" : st.readers.length ? st.read.length + " / " + st.readers.length : "—") + "</td></tr>";
-      }).join("") + "</tbody></table></div>";
-    v.innerHTML = '<div class="eyebrow">Visas</div><h1 class="title">Suivi des visas</h1>' +
-      '<p class="lead">Chaque visa est enregistré par la personne elle-même, avec la date, l\'heure et l\'empreinte du texte visé. Si le texte change, le circuit recommence.' + (n ? ' <button type="button" class="doclink" data-vgo="atraiter">Vous avez ' + n + " action" + (n > 1 ? "s" : "") + " en attente.</button>" : "") + "</p>" +
-      table + (V.owner ? vAdminHtml() : "");
-  }
+  // Ancienne page « Suivi des visas » : devenue l'onglet Visas du Suivi
+  function renderVisas() { SV.tab = "visas"; if (location.hash.slice(1) === "visas") { history.replaceState(null, "", "#circuit"); route(); } else renderCircuit(); }
 
   function vAdminHtml() {
     var collabs = Object.keys(V.roles).filter(function (id) { return V.roles[id].actif !== false; });
@@ -448,7 +448,7 @@
   function maLecture(d) {
     var st = docState(d), L = V.lectures[d.id] || {};
     var ids = [V.me]; var lecteur = st.readers.indexOf(V.me) >= 0;
-    var consult = !lecteur && (L.consult || []).some(function (x) { return ids.indexOf(x) >= 0; });
+    var consult = !lecteur && consultOf(d).some(function (x) { return ids.indexOf(x) >= 0; });
     var ok = d.lectureOK || [d.empreinte];
     var sig = sigsOf(d.id, "lecture").filter(function (s) { return s.by === V.me && ok.indexOf(s.empreinte) >= 0; })[0];
     var etat = !lecteur ? "consult" : sig ? "lu" : st.approved ? "alire" : "attente";
@@ -484,7 +484,7 @@
   // Une ligne par version en mouvement : frise des étapes, qui doit agir, depuis quand et par rapport à quel délai,
   // situation (en retard, renvoyé…) et, en dépliant, l'historique daté. Les circuits et délais se règlent dans
   // la page Paramétrage (site hébergé) ; dans l'artefact, ils restent en bas de cette page.
-  var SV = { f: "", g: "situation", q: "", open: {} };
+  var SV = { f: "", g: "situation", q: "", open: {}, tab: "circuits" };
   var svReglages = function () { var c = V.circuits && V.circuits._suivi; return { seuil: c && +c.seuil > 0 ? +c.seuil : 75 }; };
   var svJours = function (iso) { return iso ? Math.max(0, Math.floor((Date.now() - new Date(iso).getTime()) / 86400000)) : 0; };
   function svLigne(d) {
@@ -559,9 +559,15 @@
   }
   var SV_SIT = { bloque: "À débloquer", circuit: "En approbation", lecture: "En prise de connaissance", vigueur: "Mis en vigueur ces 30 derniers jours" };
   var SV_PILL = { late: ["p-late", "En retard"], ret: ["p-ret", "Renvoyé"], cur: ["p-cur", "Dans les délais"], near: ["p-near", "Bientôt en retard"], lect: ["p-cur", "Lectures en cours"], ok: ["p-ok", "Terminé"] };
+  // ---------- Suivi : circuits, modifications, visas, lectures ----------
+  var SV_TABS = [["circuits", "Circuits"], ["modifs", "Modifications"], ["visas", "Visas"], ["lectures", "Lectures"]];
+  function svOnglets() {
+    return '<div class="sv-tabs" role="tablist" aria-label="Suivi">' + SV_TABS.map(function (t) { return '<button type="button" role="tab" data-svtab="' + t[0] + '" aria-selected="' + (SV.tab === t[0]) + '">' + t[1] + "</button>"; }).join("") + "</div>";
+  }
   function renderCircuit() {
     var v = $("#v-circuit"); if (!v) return;
-    var head = '<div class="eyebrow">Gouvernance documentaire</div><h1 class="title">Suivi des documents</h1>' +
+    if (SV.tab !== "circuits") { renderSuiviAutre(v); return; }
+    var head = '<div class="eyebrow">Gouvernance documentaire</div><h1 class="title">Suivi</h1>' + svOnglets() +
       '<p class="lead">Pour chaque document en mouvement : l\'étape atteinte, qui doit agir, depuis combien de temps et par rapport à quel délai. Cliquez une ligne pour l\'historique.' +
       (HOSTED && peut("circuits") ? ' <a class="doclink" href="/parametrage#circuits">Régler les circuits et délais</a>' : "") + "</p>";
     if (!V.db || !V.ready) { v.innerHTML = head + '<p class="lead">' + (V.ready ? "Le suivi n'est pas disponible dans cette vue." : "Chargement…") + "</p>" + (!HOSTED ? circuitCardsHtml() : ""); return; }
@@ -626,7 +632,40 @@
       (reste > 0 ? '<p class="cite-src panel-gap">' + reste + ' autre(s) document(s) en vigueur, lectures terminées. <button type="button" class="doclink" data-open="registre">Voir le registre</button></p>' : "") +
       (!HOSTED ? circuitCardsHtml() : "");
   }
+  function renderSuiviAutre(v) {
+    var head = '<div class="eyebrow">Gouvernance documentaire</div><h1 class="title">Suivi</h1>' + svOnglets();
+    if (!V.db || !V.ready) { v.innerHTML = head + '<p class="lead">' + (V.ready ? "Le suivi n'est pas disponible dans cette vue." : "Chargement…") + "</p>"; return; }
+    if (SV.tab === "modifs") {
+      v.innerHTML = head + '<p class="lead">Les modifications rédigées en ligne : brouillons, soumissions en cours de publication, publications refusées et textes publiés encore en circuit.</p>' + modifsTableHtml();
+      return;
+    }
+    if (SV.tab === "visas") {
+      var table = '<div class="table-scroll panel-gap"><table class="reg"><thead><tr><th>Document</th><th>Avancement du circuit</th><th>Prise de connaissance</th></tr></thead><tbody>' +
+        VARIANTS().filter(function (d) { return !etatOf(d.id); }).map(function (d) {
+          var st = docState(d);
+          return '<tr class="live" data-open="' + esc(docHash(d)) + '"><td><div class="doc-title">' + esc(d.id) + (d.estProjet ? ' <span class="pill projet">révision v' + esc(d.version) + "</span>" : ' <span class="cite-src">v' + esc(d.version) + "</span>") + '</div><div class="doc-sum">' + esc(d.titre) + "</div></td><td>" + stepperHtml(d) + "</td><td>" + (d.estProjet ? "après adoption" : st.readers.length ? st.read.length + " / " + st.readers.length : "—") + "</td></tr>";
+        }).join("") + "</tbody></table></div>";
+      v.innerHTML = head + '<p class="lead">Chaque visa est enregistré par la personne elle-même, avec la date et l\'heure, pour le texte exact visé. Si le texte change, le circuit recommence.</p>' + table +
+        (V.owner ? '<h2 class="section-h">Registre des visas</h2><p class="lead">Export de tous les visas et renvois enregistrés, pour le dossier de conformité ou une inspection.</p><button type="button" class="btn" data-vcsv="1">Exporter le registre (CSV)</button>' : "");
+      return;
+    }
+    // Lectures : qui a lu quoi, documents en vigueur avec des lecteurs désignés
+    var rows = VARIANTS().filter(function (d) { return !etatOf(d.id) && !d.estProjet; }).map(function (d) {
+      var st = docState(d); if (!st.readers.length) return "";
+      var manquent = st.readers.filter(function (id) { return st.read.indexOf(id) < 0; });
+      var etat = !st.approved ? '<span class="pill prevu">Après l\'adoption</span>' : !manquent.length ? '<span class="pill vigueur">Toutes faites</span>' : '<span class="pill projet">' + manquent.length + " en attente</span>";
+      return '<tr class="live" data-open="' + esc(docHash(d)) + '"><td><div class="doc-title">' + esc(d.id) + '</div><div class="doc-sum">' + esc(d.titre) + '</div></td><td class="num">' + st.read.length + " / " + st.readers.length + "</td><td>" + etat + "</td><td>" + (st.approved && manquent.length ? esc(manquent.map(vName).join(", ")) : "—") + "</td></tr>";
+    }).join("");
+    var sans = docs.filter(function (d) { return !etatOf(d.id) && !readersOf(d).length; }).length;
+    v.innerHTML = head + '<p class="lead">Les personnes désignées attestent avoir lu chaque document en vigueur ; la lecture est redemandée quand le texte change, sauf correction mineure.' +
+      (HOSTED && peut("lectures") ? ' <a class="doclink" href="/parametrage#lectures">Désigner les lecteurs</a>' : "") + "</p>" +
+      (rows ? '<div class="table-scroll panel-gap"><table class="reg"><thead><tr><th>Document</th><th>Lectures</th><th>État</th><th>Attendues de</th></tr></thead><tbody>' + rows + "</tbody></table></div>" : '<p class="empty">Aucune lecture désignée pour l\'instant.</p>') +
+      (sans ? '<p class="cite-src panel-gap">' + sans + " document(s) sans lecteur désigné.</p>" : "") +
+      (!HOSTED && V.owner ? vAdminHtml() : "");
+  }
   document.addEventListener("click", function (ev) {
+    var tb = ev.target.closest("[data-svtab]"); if (tb) { SV.tab = tb.getAttribute("data-svtab"); renderCircuit(); return; }
+    var sg = ev.target.closest("[data-svgo]"); if (sg) { SV.tab = sg.getAttribute("data-svgo"); go("circuit"); return; }
     var k = ev.target.closest("[data-svf]"); if (k) { SV.f = SV.f === k.getAttribute("data-svf") ? "" : k.getAttribute("data-svf"); renderCircuit(); return; }
     var g = ev.target.closest("[data-svg]"); if (g) { SV.g = g.getAttribute("data-svg"); renderCircuit(); return; }
     if (ev.target.closest("button, a, input")) return;
@@ -734,7 +773,7 @@
     else if (key === "__actif") r.actif = on;
     else { r.fonctions = (r.fonctions || []).filter(function (f) { return f !== key; }); if (on) r.fonctions.push(key); if (!r.depuis) r.depuis = new Date().toISOString().slice(0, 10); }
     r.maj = new Date().toISOString();
-    try { await V.db.doc("roles/" + id).set(r); } catch (e) { toast("Modification refusée : seul l'administrateur peut attribuer les fonctions."); renderVisas(); }
+    try { await V.db.doc("roles/" + id).set(r); } catch (e) { toast("Modification refusée : seul l'administrateur peut attribuer les fonctions."); renderCircuit(); }
   }
   // Lectures obligatoires : les changements sont préparés, puis enregistrés ensemble après double validation
   V.lectEdits = {};
@@ -743,7 +782,7 @@
     var L = JSON.parse(JSON.stringify(lectOf(docId))); L.ids = L.ids || [];
     if (key === "__tous") L.tous = on;
     else { L.ids = L.ids.filter(function (x) { return x !== key; }); if (on) L.ids.push(key); }
-    V.lectEdits[docId] = L; renderVisas();
+    V.lectEdits[docId] = L; renderCircuit();
   }
   async function vSaveLect() {
     var ids = Object.keys(V.lectEdits); if (!ids.length) return;
@@ -755,7 +794,7 @@
     if (!(await confirmer({ titre: "Enregistrer les lectures obligatoires", points: desc.concat(["Les personnes ajoutées devront attester leur lecture une fois le document en vigueur."]), phrase: "enregistrer les lectures", bouton: "Enregistrer" }))) return;
     try {
       for (var i = 0; i < ids.length; i++) { var L = V.lectEdits[ids[i]]; L.maj = new Date().toISOString(); await V.db.doc("lectures/" + ids[i]).set(L); }
-      V.lectEdits = {}; toast("Lectures obligatoires enregistrées."); renderVisas();
+      V.lectEdits = {}; toast("Lectures obligatoires enregistrées."); renderCircuit();
     } catch (e) { toast("Modification refusée : seul l'administrateur peut désigner les lecteurs."); }
   }
   async function vCsv() {
@@ -794,7 +833,7 @@
   document.addEventListener("click", function (ev) {
     var b = ev.target.closest("[data-vact],[data-vcsv],[data-vgo],button[data-vrole],[data-vcirc],[data-vetat],[data-vlectsave]"); if (!b) return;
     ev.preventDefault();
-    if (b.hasAttribute("data-vlectsave")) { if (b.getAttribute("data-vlectsave") === "annuler") { V.lectEdits = {}; renderVisas(); } else vSaveLect(); return; }
+    if (b.hasAttribute("data-vlectsave")) { if (b.getAttribute("data-vlectsave") === "annuler") { V.lectEdits = {}; renderCircuit(); } else vSaveLect(); return; }
     if (b.hasAttribute("data-vgo")) { V.done = null; V.pending = null; go(b.getAttribute("data-vgo")); return; }
     if (b.hasAttribute("data-vcsv")) { vCsv(); return; }
     if (b.hasAttribute("data-vcirc")) { var c = b.getAttribute("data-vcirc").split("|"); circAction(c[0], c[1], c[2]); return; }
@@ -825,7 +864,7 @@
     var box = $("#rail-me"); if (!box) return;
     var badge = $(RESTREINT ? "#nav-badge-emp" : "#nav-badge");
     var lm = $("#nav-membres"); if (lm) lm.hidden = !(HOSTED && V.owner);
-    var lp = $("#nav-parametrage"); if (lp) lp.hidden = !(HOSTED && (estSuper() || peut("circuits"))); var la = $("#nav-activite"); if (la) la.hidden = !(HOSTED && (estSuper() || peut("activite")));
+    var lp = $("#nav-parametrage"); if (lp) lp.hidden = !(HOSTED && (estSuper() || peut("circuits") || peut("lectures"))); var la = $("#nav-activite"); if (la) la.hidden = !(HOSTED && (estSuper() || peut("activite")));
     var lt = $("#nav-tableau"); if (lt) lt.hidden = !accesTableau();
     var bn = $("#btn-nouveau"); if (bn) bn.hidden = !(HOSTED && typeof canEdit === "function" && canEdit());
     if (!V.ready && !V.me) { box.innerHTML = '<div class="me-load">Chargement…</div>'; return; }

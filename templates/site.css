@@ -872,3 +872,26 @@ html.i18n-attente body { visibility: hidden; }
   linear-gradient(transparent, var(--navy) 70%) bottom / 100% 18px no-repeat local,
   radial-gradient(farthest-side at 50% 0, rgba(0,0,0,.35), transparent) top / 100% 8px no-repeat scroll,
   radial-gradient(farthest-side at 50% 100%, rgba(0,0,0,.35), transparent) bottom / 100% 8px no-repeat scroll; }
+
+/* ---------- Conventions : éditions (version finale réservée aux modèles adoptés) ---------- */
+.radio small { display: block; font-size: var(--fs-xs); color: var(--muted); line-height: 1.35; margin-top: 1px; }
+.radio.off { opacity: .55; cursor: not-allowed; }
+
+/* ---------- Éditeur : état d'enregistrement, suivi de la soumission, dernière modification ---------- */
+.ed-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--ok); margin-right: 6px; vertical-align: 1px; }
+.ed-dot.wait { background: var(--gold); }
+.rev-banner.suivi { display: grid; gap: 8px; border-left: 3px solid var(--gold); }
+.rev-banner.suivi.ok { border-left-color: var(--ok); background: var(--ok-bg); }
+.ed-steps { display: flex; flex-wrap: wrap; gap: 0; }
+.ed-steps span { flex: 1 1 110px; font-size: var(--fs-xs); padding: 5px 8px 0 0; border-top: 3px solid var(--rule-strong); color: var(--muted); }
+.ed-steps span.done { border-color: var(--ok); color: var(--ink); }
+.ed-steps span.now { border-color: var(--gold); color: var(--ink); font-weight: 600; }
+.ed-derniere { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 14px; border: 1px solid var(--rule); background: var(--surface); padding: 8px 12px; margin: 10px 0; font-size: var(--fs-sm); }
+.ed-derniere .seg button { font: inherit; font-size: var(--fs-sm); }
+.pill.refus { color: var(--bad, #9B2C1F); background: var(--bad-bg, #F8E6E3); }
+
+/* ---------- Suivi : onglets ---------- */
+.sv-tabs { display: flex; flex-wrap: wrap; gap: 0; border-bottom: 1px solid var(--rule-strong); margin: 10px 0 14px; }
+.sv-tabs button { font: inherit; font-size: var(--fs-read); background: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; padding: 8px 16px; color: var(--muted); cursor: pointer; }
+.sv-tabs button:hover { color: var(--heading); }
+.sv-tabs button[aria-selected="true"] { color: var(--heading); border-bottom-color: var(--gold); font-weight: 600; }

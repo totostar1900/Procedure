@@ -215,7 +215,11 @@ const docs = fs.readdirSync(DOC_DIR).filter((d) => fs.existsSync(path.join(DOC_D
     d.projet.estProjet = true;
     return d;
   }
-  return loadVariant(root);
+  const d = loadVariant(root);
+  // Texte remplacé par la dernière modification en ligne (projet sans version en vigueur) : base de « ce qui a changé »
+  const prec = path.join(root, "precedent.json");
+  if (fs.existsSync(prec)) { const x = JSON.parse(read(prec)); d.precedent = { version: x.version, le: x.remplace_le }; }
+  return d;
 });
 const ONLY = process.env.ONLY;
 const variants0 = docs.flatMap((d) => (d.projet ? [d, d.projet] : [d]));
@@ -458,6 +462,9 @@ function buildSite() {
   for (const d of docs) {
     if (d.projet) { fs.writeFileSync(P("dist/source", d.id + ".json"), JSON.stringify(d.projet._source)); fs.writeFileSync(P("dist/source", d.id + ".vigueur.json"), JSON.stringify(d._source)); }
     else fs.writeFileSync(P("dist/source", d.id + ".json"), JSON.stringify(d._source));
+    // Texte précédent du projet (remplacé par la dernière modification en ligne) : base de comparaison sans version en vigueur
+    const prec = path.join(DOC_DIR, d.id, "precedent.json");
+    if (!d.projet && fs.existsSync(prec)) fs.writeFileSync(P("dist/source", d.id + ".precedent.json"), fs.readFileSync(prec));
   }
   const strip = (d) => { const { _source, ...rest } = d; rest.annexes = (rest.annexes || []).map(({ _src, ...a }) => a); return d.projet ? { ...rest, projet: strip(d.projet) } : rest; };
   const manuel = { docs: manuelDocs().map((d) => d.id), fr: { ...MANUEL.fr, size: size(MANUEL.fr.file) }, en: { ...MANUEL.en, size: size(MANUEL.en.file) } };

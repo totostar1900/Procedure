@@ -10,7 +10,7 @@ const FL: Record<string, string> = { pca: "Président du Conseil d'Administratio
 const esc = (s: string) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
 
 // Paramétrage : super administrateur, ou administrateur ayant la prérogative « circuits » (il n'y voit que ses sections)
-export const accesParametrage = (m: { super?: boolean; prerogatives?: string[] | null }) => !!m.super || (m.prerogatives || []).includes("circuits");
+export const accesParametrage = (m: { super?: boolean; prerogatives?: string[] | null }) => !!m.super || (m.prerogatives || []).includes("circuits") || (m.prerogatives || []).includes("lectures");
 export const accesActivite = (m: { super?: boolean; prerogatives?: string[] | null }) => !!m.super || (m.prerogatives || []).includes("activite");
 export async function coquille(page: "membres" | "parametrage" | "comme" | "activite", exigeSuper: boolean) {
   const sb = await supabaseServeur();

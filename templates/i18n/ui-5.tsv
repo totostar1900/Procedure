@@ -311,4 +311,60 @@ Corrigez les noms signalés avant d'enregistrer.	Correct the flagged names befor
 nom(s) enregistré(s) : publication en cours (quelques minutes). Aucun texte, visa ni circuit n'est modifié.	name(s) saved: publishing in progress (a few minutes). No text, sign-off or circuit is changed.
 nom(s) en cours de publication.	name(s) being published.
 Les noms courts qui désignent les annexes dans les textes, les PDF et les Word. Revoyez-les ici, document par document, en français et en anglais.	The short names that designate annexes in the texts, PDFs and Word files. Review them here, document by document, in French and English.
-Le nom n'est qu'une étiquette : les textes renvoient à l'annexe par sa clé et affichent son nom du moment. Renommer ne modifie ni les textes, ni les empreintes, ni les visas, et ne relance aucun circuit.	The name is only a label: texts refer to the annex by its key and show its current name. Renaming changes neither the texts, nor the fingerprints, nor the sign-offs, and restarts no circuit.
+Le nom n'est qu'une étiquette : les textes renvoient à l'annexe par sa clé et affichent son nom du moment. Renommer ne modifie ni les textes ni les visas, et ne relance aucun circuit.	The name is only a label: texts refer to the annex by its key and show its current name. Renaming changes neither the texts nor the sign-offs, and restarts no circuit.
+Retirer la soumission	Withdraw the submission
+Voir	View
+Brouillon déjà enregistré.	Draft already saved.
+Brouillon enregistré.	Draft saved.
+Soumission retirée : le brouillon est de nouveau modifiable.	Submission withdrawn: the draft can be edited again.
+Cette modification n'est plus en attente de publication.	This change is no longer awaiting publication.
+Publication en quelques minutes.	Published within a few minutes.
+Les visas déjà donnés tombent	Sign-offs already given lapse
+: le circuit recommence au début ; vous ne viserez pas cette version.	: the workflow starts again from the beginning; you will not sign off this version.
+Le circuit d'approbation commence sur ce texte ; vous ne viserez pas cette version.	The approval workflow starts on this text; you will not sign off this version.
+Soumettre	Submit
+Créer et soumettre	Create and submit
+Publication en cours	Publishing in progress
+Publiée, mise en ligne en cours	Published, going online
+Approuvée, adoption en cours	Approved, adoption in progress
+En circuit	In workflow
+en attente	pending
+le texte a changé	the text changed
+Mes modifications	My changes
+Suivi	Tracking
+Les modifications rédigées en ligne : brouillons, soumissions en cours de publication, publications refusées et textes publiés encore en circuit.	Changes drafted online: drafts, submissions being published, refused publications and published texts still in their workflow.
+Chaque visa est enregistré par la personne elle-même, avec la date et l'heure, pour le texte exact visé. Si le texte change, le circuit recommence.	Each sign-off is recorded by the person themselves, with the date and time, for the exact text signed off. If the text changes, the workflow starts again.
+Les personnes désignées attestent avoir lu chaque document en vigueur ; la lecture est redemandée quand le texte change, sauf correction mineure.	The designated people acknowledge having read each document in force; the reading is requested again when the text changes, except for a minor correction.
+Après l'adoption	After adoption
+Toutes faites	All done
+Attendues de	Awaited from
+Aucune lecture désignée pour l'instant.	No reading designated yet.
+Désigner les lecteurs	Designate readers
+Voir les lectures	See readings
+Dernière modification	Last change
+Ce qui a changé	What changed
+Aucune différence dans le texte.	No difference in the text.
+Soumise	Submitted
+Publication	Publication
+Version de travail	Working version
+Projet pour négociation, mention « Projet — modèle non adopté »	Draft for negotiation, marked “Draft — template not adopted”
+Version finale, pour signature	Final version, for signature
+Sans mention de projet, prête à signer	No draft marking, ready to sign
+Votre visa est enregistré à votre nom, avec la date et l'heure, pour ce texte précis.	Your sign-off is recorded in your name, with the date and time, for this exact text.
+Le circuit reprendra sur le texte corrigé.	The workflow will resume on the corrected text.
+Quatre onglets : les circuits (étape atteinte, qui doit agir, depuis quand), les modifications en cours, les visas donnés et les lectures attestées. Dans les circuits, cliquez une ligne pour l'historique.	Four tabs: workflows (step reached, who must act, since when), changes in progress, sign-offs given and readings acknowledged. In workflows, click a row for its history.
+« Suivi › Circuits » montre où en est chaque document, qui doit agir et depuis quand.	“Tracking › Workflows” shows where each document stands, who must act and since when.
+« Suivi › Visas » et « Suivi › Lectures » donnent, document par document, les visas obtenus et les lectures attestées.	“Tracking › Sign-offs” and “Tracking › Readings” give, document by document, the sign-offs obtained and the readings acknowledged.
+Paramétrage › Lectures obligatoires : qui doit lire quoi, par fonction ; « Suivi › Visas » : export du registre des visas.	Settings › Mandatory readings: who must read what, by function; “Tracking › Sign-offs”: export of the sign-off register.
+Prérogative « lectures »	“Readings” power
+Qui doit lire et attester chaque document, désigné par fonction : une personne qui prend une fonction hérite de ses lectures. Les exceptions individuelles restent possibles. Le suivi des lectures faites est dans Suivi › Lectures.	Who must read and acknowledge each document, designated by function: a person who takes on a function inherits its readings. Individual exceptions remain possible. Readings done are tracked in Tracking › Readings.
+Personnes	People
+Lecteurs	Readers
+Rechercher un document	Search a document
+exception(s)	exception(s)
+sans fonction	no function
+Exceptions individuelles : en plus des fonctions cochées.	Individual exceptions: in addition to the functions ticked.
+document(s) mis à jour.	document(s) updated.
+Cliquez une case pour passer de « — » à « Lecture » (à lire et attester), puis « Consultation » (accès sans attestation, pour les employés). Une personne qui prend une fonction hérite de ses lectures ; celle qui la quitte en est déchargée.	Click a cell to go from “—” to “Reading” (to read and acknowledge), then “Consultation” (access without acknowledgement, for employees). A person who takes on a function inherits its readings; one who leaves it is released from them.
+à lire par sa fonction	to read through their function
+en consultation par sa fonction	for consultation through their function

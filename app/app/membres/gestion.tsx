@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { avisDus, loc, t, useLangue, COLS, CSS, Cfm, Confirmation, Evt, FL, FONCTIONS, Membre, MoiC, PL, Prerogatives, date, msg, peutDe, statutDe, telecharger } from "../../lib/admin-ui";
 
 type Doc = { id: string; titre: string; type: string };
-type Lect = { ids?: string[]; consult?: string[]; tous?: boolean; maj?: string };
+type Lect = { ids?: string[]; consult?: string[]; tous?: boolean; fonctions?: string[]; consult_fonctions?: string[]; maj?: string };
 const DOMAINE = "purposecapital.africa";
 const SITE = "https://referentiel.purposecapital.africa";
 const VIERGE: Membre = { email: "", user_id: null, nom: "", poste: "", fonctions: ["collab"], actif: true, admin: false, super: false, prerogatives: [], cree_le: "", derniere_connexion: null, acces: "employe", tableau: false };
@@ -112,7 +112,9 @@ export default function Gestion({ moi, docs }: { moi: MoiC; docs: Doc[] }) {
   const idsDe = (m: Membre) => [m.user_id, "email:" + m.email].filter(Boolean) as string[];
   const lectDe = (d: string): Lect => edL[d] || lects[d] || {};
   const designe = (m: Membre, d: string): "lire" | "consult" | "" => { const L = lectDe(d), ids = idsDe(m); return (L.ids || []).some((x) => ids.includes(x)) ? "lire" : (L.consult || []).some((x) => ids.includes(x)) ? "consult" : ""; };
-  const aLire = (m: Membre) => docs.filter((d) => { const L = lects[d.id] || {}; return L.tous || (L.ids || []).some((x) => idsDe(m).includes(x)); }).length;
+  // Désignation par fonction (Paramétrage › Lectures obligatoires)
+  const parFonction = (m: Membre, d: string) => { const L = lects[d] || {}, f = m.fonctions || []; return (L.fonctions || []).some((x) => f.includes(x)) ? "lire" : (L.consult_fonctions || []).some((x) => f.includes(x)) ? "consult" : ""; };
+  const aLire = (m: Membre) => docs.filter((d) => { const L = lects[d.id] || {}; return L.tous || (L.ids || []).some((x) => idsDe(m).includes(x)) || parFonction(m, d.id) === "lire"; }).length;
 
   function ouvrirFiche(m: Membre) { setEd({ ...m, nom: m.nom || "", poste: m.poste || "" }); setEdL({}); setVolet({ mode: "fiche", email: m.email }); setNote(null); }
   function ouvrirNouveau() { setEd({ ...VIERGE, admin: !peut("membres") }); setEdL({}); setVolet({ mode: "nouveau" }); setNote(null); }
@@ -322,7 +324,7 @@ export default function Gestion({ moi, docs }: { moi: MoiC; docs: Doc[] }) {
               <p className="mail" style={{ margin: "0 0 6px" }}>« Lire et attester » : lecture à confirmer une fois le document adopté. « Consultation » : visible sans attestation. Le reste du site lui est invisible.</p>
               <table className="dtab"><thead><tr><th>Document</th><th className="c">Aucun</th><th className="c">Lire</th><th className="c">Consulter</th></tr></thead><tbody>
                 {docs.map((d) => { const v = designe(orig, d.id); const tous = !!(lects[d.id] || {}).tous; return (
-                  <tr key={d.id} className={edL[d.id] ? "edited" : ""}><td><b>{d.id}</b> <span className="mail">{d.titre}{tous ? " · demandé à tous" : ""}</span></td>
+                  <tr key={d.id} className={edL[d.id] ? "edited" : ""}><td><b>{d.id}</b> <span className="mail">{d.titre}{tous ? " · demandé à tous" : ""}{!tous && parFonction(orig, d.id) ? (parFonction(orig, d.id) === "lire" ? " · à lire par sa fonction" : " · en consultation par sa fonction") : ""}</span></td>
                     {(["", "lire", "consult"] as const).map((k) => <td key={k} className="c"><input type="radio" name={"d-" + d.id} checked={tous ? k === "lire" : v === k} disabled={tous} onChange={() => designer(orig, d.id, k)} aria-label={d.id + " " + (k || "aucun")} /></td>)}
                   </tr>); })}
               </tbody></table>

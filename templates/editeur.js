@@ -121,18 +121,19 @@
     var d = E.d, dr = draftOf(E.id), sub = dr && dr.statut === "soumis", conf = dr && dr.statut === "conflit";
     var other = dr && E.maj && dr.maj !== E.maj && dr.par !== V.me;
     var pub = V.redac[E.id] && V.redac[E.id].statut === "applique" && E.draft && E.draft.statut === "soumis";
-    if (pub) { v.innerHTML = '<div class="eyebrow">Modification · ' + esc(d.id) + '</div><h1 class="title">' + esc(E.f.titre) + '</h1><div class="revbar ok"><div class="rb-main"><b>Modification publiée</b> — version ' + esc(V.redac[E.id].version || "") + ', empreinte <code>' + esc(V.redac[E.id].empreinte || "") + '</code>. Le circuit d\'approbation commence.</div><div class="rb-btns"><button type="button" class="btn primary" onclick="location.reload()">Recharger le référentiel</button></div></div>'; return; }
+    if (pub) { var vid = E.id; E = null; go(vid); return; }
     var head = (E.nouveau ? '<button type="button" class="crumb" data-open="registre">← Registre des documents</button>' : '<button type="button" class="crumb" data-open="' + esc(d.id + (d.estProjet ? "~projet" : "")) + '">← ' + esc(d.id) + " · retour au document</button>") +
       '<div class="eyebrow">Modification · ' + esc(d.type) + " · " + esc(d.id) + '</div><h1 class="title">' + esc(E.f.titre) + "</h1>" +
       (E.nouveau ? '<p class="cite-src">Nouveau document — il sera créé en projet v0.9 à la soumission, puis suivra le circuit des documents de type « ' + esc(d.type) + " ». " + esc([E.meta.domaine, "propriétaire : " + (E.meta.proprietaire || "—"), "vérifié par : " + (E.meta.verifie_par || "—"), "approuvé par : " + (E.meta.approuve_par || "—")].join(" · ")) + "</p>" :
       '<p class="cite-src">Texte de travail v' + esc(E.src.version) + " (" + esc(E.src.statut) + ")") + (E.nouveau ? "" : (enVigueur() ? " → nouvelle version " + esc(nextVersion()) + " après publication ; la version " + esc(E.src.version) + " reste en vigueur jusqu'à l'adoption." : " → le projet reste en version " + esc(E.src.version) + " ; le circuit recommence sur le texte modifié.") + "</p>");
-    var bar = '<div class="edbar"><span class="ed-state">' + (sub ? "Soumis le " + esc(fmtDT(dr.soumis_le)) + " — publication en cours (quelques minutes)" : E.dirty ? "Modifications non enregistrées…" : E.saved ? "Brouillon enregistré · " + esc(fmtDT(E.saved).split(/ à |, (?=\d\d:)/)[1] || "") : "Aucune modification") + "</span>" +
+    var bar = '<div class="edbar"><span class="ed-state">' + (sub ? "Soumis le " + esc(fmtDT(dr.soumis_le)) + " — publication en cours (quelques minutes)" : etatEnreg()) + "</span>" +
       '<div class="ed-btns">' +
       (E.model.structured && !d.modele ? '<span class="seg"><button type="button" data-ed="mode|articles" aria-pressed="' + (E.mode === "articles") + '">Par article</button><button type="button" data-ed="mode|texte" aria-pressed="' + (E.mode === "texte") + '">Texte intégral</button></span>' : "") +
       renvoiSelect() + '<label class="btn" title="Remplacer le texte du brouillon par celui d\'un fichier Word">Importer un Word…<input type="file" id="ed-word" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden></label>' +
       '<button type="button" class="btn" data-ed="view|' + (E.view === "diff" ? "edit" : "diff") + '">' + (E.view === "diff" ? "Revenir à l'édition" : "Voir les modifications") + "</button>" +
-      (sub ? '<button type="button" class="btn" data-ed="reprendre">Reprendre le brouillon</button>' : '<button type="button" class="btn primary" data-ed="soumettre">Soumettre au circuit…</button>') +
-      (dr ? '<button type="button" class="btn ghost danger" data-ed="abandon">Abandonner</button>' : "") + "</div></div>";
+      (sub ? "" : '<button type="button" class="btn" data-ed="enregistrer" title="Ctrl+S">Enregistrer</button>') +
+      (sub ? '<button type="button" class="btn" data-ed="reprendre">Retirer la soumission</button>' : '<button type="button" class="btn primary" data-ed="soumettre">Soumettre au circuit…</button>') +
+      '<button type="button" class="btn ghost danger" data-ed="abandon">Abandonner</button>' + "</div></div>";
     var warn = (E.stale ? '<div class="rev-banner proj"><b>Le texte a changé depuis la création de ce brouillon</b> (nouvelle version publiée). Vérifiez vos modifications avec « Voir les modifications » avant de soumettre ; la publication refusera un brouillon fondé sur un texte périmé. <button type="button" class="doclink" data-ed="rebase">Repartir du texte publié</button></div>' : "") +
       (conf ? '<div class="rev-banner proj"><b>Publication refusée :</b> ' + esc(dr.message || "le texte a changé entre-temps") + "</div>" : "") +
       (other ? '<div class="rev-banner proj"><b>' + esc(vName(dr.par)) + "</b> a modifié ce brouillon le " + esc(fmtDT(dr.maj)) + '. <button type="button" class="doclink" data-ed="recharger">Charger sa version</button> (vos modifications non enregistrées seront perdues)</div>' : "") +
@@ -287,17 +288,16 @@
     var complet = '<p class="cite-src">Aperçu indisponible.</p>';
     try { var mk = await loadLib("marked"); await chargerMedias(curBody()); complet = '<div class="eyebrow">' + esc(E.d.type) + " · " + esc(E.id) + " · v" + esc(nextVersion()) + '</div><h1 class="title" style="font-size:var(--fs-xl)">' + esc(E.f.titre) + '</h1><p class="lead">' + esc(E.f.resume) + '</p><div class="doc-body">' + mk.parse(avecMedias(nommer(curBody()))) + "</div>"; } catch (e) { /* aperçu indisponible */ }
     var ok = await confirmer({
-      titre: (E.nouveau ? "Créer le document " : "Soumettre la modification de ") + E.id, large: true,
-      html: "<dl><dt>Document</dt><dd><b>" + esc(E.id) + "</b> — " + esc(E.f.titre) + "</dd><dt>Objet</dt><dd>" + esc(E.f.objet) + "</dd><dt>Version</dt><dd>" + (enVigueur() ? esc(E.src.version) + " → " + esc(nextVersion()) + " (" + (E.f.nature === "mineure" ? "correction mineure" : "révision") + ")" : esc(E.src.version) + " (projet)") + "</dd></dl>",
-      points: [E.nouveau ? c.ajout + " article(s) ou passage(s)." : c.modif + " passage" + (c.modif > 1 ? "s" : "") + " modifié" + (c.modif > 1 ? "s" : "") + ", " + c.ajout + " ajouté" + (c.ajout > 1 ? "s" : "") + ", " + c.retrait + " supprimé" + (c.retrait > 1 ? "s" : "") + (meta ? ", titre ou résumé modifié" : "") + ".",
-        E.nouveau ? "Le document " + esc(E.id) + " est créé en projet (version 0.9), avec les informations saisies à sa création." : enVigueur() ? "La version " + esc(E.src.version) + " reste en vigueur jusqu'à l'adoption de la nouvelle." : "Le projet est remplacé par le texte modifié.",
-        started ? "<b>Les visas déjà donnés sur le texte actuel tombent</b> : le circuit recommence au début." : "Le circuit d'approbation commence sur le nouveau texte.",
-        "Vous ne pourrez viser aucune étape de cette version, puisque vous l'avez rédigée (règle des quatre yeux).",
-        "La publication (texte, PDF, Word) prend quelques minutes."].concat(axc.length ? [axc.length + " annexe(s) ajoutée(s), modifiée(s) ou supprimée(s)."] : [],
+      titre: (E.nouveau ? "Créer " : "Soumettre ") + E.id, large: true,
+      html: E.f.objet ? '<p class="cite-src">Objet : ' + esc(E.f.objet) + (enVigueur() ? " · " + (E.f.nature === "mineure" ? "correction mineure" : "révision") : "") + "</p>" : "",
+      // Trois lignes, puis seulement les avertissements qui s'appliquent ; on écrit « ok » pour confirmer
+      points: [(E.nouveau ? c.ajout + " article(s) ou passage(s)" : c.modif + " passage" + (c.modif > 1 ? "s" : "") + " modifié" + (c.modif > 1 ? "s" : "") + ", " + c.ajout + " ajouté" + (c.ajout > 1 ? "s" : "") + ", " + c.retrait + " supprimé" + (c.retrait > 1 ? "s" : "")) + (meta ? ", titre ou résumé modifié" : "") + (axc.length ? ", " + axc.length + " annexe(s) touchée(s)" : "") + " · version " + esc(enVigueur() ? nextVersion() : E.src.version) + (enVigueur() ? "" : " (projet)") + ".",
+        (started ? "<b>Les visas déjà donnés tombent</b> : le circuit recommence au début" : "Le circuit d'approbation commence sur ce texte") + " ; vous ne viserez pas cette version.",
+        "Publication en quelques minutes."].concat(
         restes.length ? ["<b>Attention :</b> le texte renvoie encore à " + restes.join(", ") + ", qui n'existe plus sous ce nom."] : [],
         ailleurs.length ? ["<b>Autres documents qui renvoient à une annexe supprimée :</b> " + ailleurs.join(" ; ") + "."] : []),
       onglets: [{ titre: "Modifications", html: metaDiff() + diffHtml(ch) + annexesDiffHtml() }, { titre: "Document complet", html: complet }],
-      phrase: (E.nouveau ? "créer " : "soumettre ") + E.id, bouton: E.nouveau ? "Créer et soumettre au circuit" : "Soumettre au circuit"
+      phrase: "ok", bouton: E.nouveau ? "Créer et soumettre" : "Soumettre"
     });
     if (ok) submitDraft();
   }
@@ -305,7 +305,10 @@
 
   // ---------- Enregistrement ----------
   var saveTimer = null;
-  function markDirty() { E.dirty = true; var s = $(".ed-state"); if (s) s.textContent = "Modifications non enregistrées…"; clearTimeout(saveTimer); saveTimer = setTimeout(saveDraft, 1500); }
+  var heureDe = function (iso) { return fmtDT(iso).split(/ à |, (?=\d\d:)/)[1] || ""; };
+  function etatEnreg() { return E.dirty ? '<span class="ed-dot wait"></span>Modifications non enregistrées…' : E.saved ? '<span class="ed-dot"></span>Brouillon enregistré à ' + esc(heureDe(E.saved)) : "Aucune modification"; }
+  function majEtat() { var s = $(".ed-state"); if (s) s.innerHTML = etatEnreg(); }
+  function markDirty() { E.dirty = true; majEtat(); clearTimeout(saveTimer); saveTimer = setTimeout(saveDraft, 1500); }
   async function saveDraft(statut) {
     if (!E) return;
     clearTimeout(saveTimer);
@@ -319,7 +322,7 @@
     try {
       await V.db.doc("redaction/" + E.id).set(body);
       E.draft = body; E.maj = body.maj; E.saved = body.maj; E.dirty = false; E.rebased = false;
-      var s = $(".ed-state"); if (s && !statut) s.textContent = "Brouillon enregistré · " + (fmtDT(body.maj).split(/ à |, (?=\d\d:)/)[1] || "");
+      if (!statut) majEtat();
       return true;
     } catch (e) { toast("Enregistrement refusé : la modification est réservée aux Rédacteurs et à l'administrateur."); return false; }
   }
@@ -327,7 +330,9 @@
     if (!(await saveDraft("soumis"))) return;
     if (HOSTED) { try { await fetch("/api/appliquer", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ doc: E.id }) }); } catch (e) { /* la publication horaire prendra le relais */ } }
     toast("Modification soumise : publication en cours.");
-    renderEditor();
+    // L'éditeur se ferme : la page du document (ou « À traiter » pour un nouveau document) suit la publication
+    var sid = E.id, nouveau = E.nouveau, proj = E.d && E.d.estProjet; E = null;
+    go(nouveau ? "atraiter" : sid + (proj ? "~projet" : ""));
   }
 
   // ---------- Événements ----------
@@ -366,10 +371,9 @@
     if (q[1] === "nom") { delete an._nomAvant; an.nom = t.value.trim(); markDirty(); renderEditor(); }
   });
   document.addEventListener("click", function (ev) {
-    var b = ev.target.closest("[data-ed],[data-edit-doc],[data-ediff]"); if (!b) return;
+    var b = ev.target.closest("[data-ed],[data-edit-doc]"); if (!b) return;
     ev.preventDefault();
     if (b.hasAttribute("data-edit-doc")) { go("edition/" + b.getAttribute("data-edit-doc")); return; }
-    if (b.hasAttribute("data-ediff")) { showRevisionDiff(b.getAttribute("data-ediff")); return; }
     if (!E) return;
     var p = b.getAttribute("data-ed").split("|"), m = E.model, i = +p[1], j = +p[2], T = m.titres;
     var sync = function () { E.raw = serialize(m); markDirty(); renderEditor(); };
@@ -398,12 +402,15 @@
         return;
       case "soumettre": openSubmit(); return;
       case "soumettre-ok": submitDraft(); return;
-      case "reprendre": saveDraft().then(renderEditor); return;
+      case "reprendre": retirerSoumission(E.id); return;
+      case "enregistrer": if (!E.dirty && E.saved) { toast("Brouillon déjà enregistré."); return; } saveDraft().then(function (ok) { if (ok) toast("Brouillon enregistré."); }); return;
       case "recharger": E = null; openEditor(decodeURIComponent(location.hash.slice(9))); return;
       case "rebase":
         confirmer({ titre: "Repartir du texte publié", points: ["Les modifications de ce brouillon seront remplacées par le texte actuellement publié."], phrase: "repartir du texte publié", bouton: "Repartir du texte publié", danger: true }).then(function (ok) { if (!ok) return; E.model = parseBody(E.src.body); E.raw = E.src.body; E.f.titre = E.src.titre; E.f.resume = E.src.resume; E.stale = false; E.rebased = true; markDirty(); renderEditor(); });
         return;
       case "abandon":
+        // Sans brouillon enregistré : simple retour au document, rien à supprimer
+        if (!draftOf(E.id)) { clearTimeout(saveTimer); var rid = E.nouveau ? "registre" : E.d.estProjet ? E.id + "~projet" : E.id; E = null; go(rid); return; }
         confirmer({ titre: "Abandonner le brouillon de " + E.id, points: ["Les modifications non soumises seront perdues.", "Le document publié n'est pas touché."], phrase: "abandonner " + E.id, bouton: "Abandonner le brouillon", danger: true }).then(function (ok) {
           if (!ok) return;
           V.db.doc("redaction/" + E.id).delete().then(function () { var id = E.id; E = null; toast("Brouillon abandonné."); go(id); }).catch(function () { toast("Opération refusée."); });
@@ -425,6 +432,20 @@
     }
   });
   window.addEventListener("beforeunload", function (ev) { if (E && E.dirty) { saveDraft(); ev.preventDefault(); ev.returnValue = ""; } });
+  // Ctrl+S (⌘S) : enregistrer le brouillon tout de suite
+  document.addEventListener("keydown", function (ev) {
+    if (!E || !(ev.ctrlKey || ev.metaKey) || (ev.key || "").toLowerCase() !== "s" || !$("#v-edition") || $("#v-edition").hidden) return;
+    ev.preventDefault(); var dr = draftOf(E.id); if (dr && dr.statut === "soumis") return;
+    saveDraft().then(function (ok) { if (ok) toast("Brouillon enregistré."); });
+  });
+  // Retirer une soumission pas encore publiée : le brouillon redevient modifiable
+  async function retirerSoumission(id) {
+    var r = V.redac && V.redac[id];
+    if (!r || r.statut !== "soumis") { toast("Cette modification n'est plus en attente de publication."); return; }
+    try { await V.db.doc("redaction/" + id).set(Object.assign({}, r, { statut: "brouillon", soumis_le: null, soumis_par: null, retire_le: new Date().toISOString(), maj: new Date().toISOString(), par: V.me })); toast("Soumission retirée : le brouillon est de nouveau modifiable."); }
+    catch (e) { toast("Opération refusée."); return; }
+    if (E && E.id === id) { E.draft = Object.assign({}, r, { statut: "brouillon" }); renderEditor(); }
+  }
 
   // ---------- Images (importées d'un Word) ----------
   // Dans le brouillon, une image s'écrit ![légende](media:<empreinte>) ; son contenu est rangé à part (medias/<empreinte>)
@@ -545,36 +566,143 @@
   });
 
   // ---------- Sur la page d'un document ----------
+  // ---------- Page d'un document : suivi de la modification, dernière modification, comparaison ----------
+  // Étapes affichées sous le bandeau : soumise → publication → étapes du circuit
+  function etapesHtml(d, phase) {
+    var st = d ? docState(d) : { steps: [] };
+    var cls = function (k) { return phase === k ? "now" : (phase === "pub" && k === "sou") || (phase === "circ" && (k === "sou" || k === "pub")) ? "done" : ""; };
+    return '<div class="ed-steps"><span class="' + cls("sou") + '">Soumise</span><span class="' + cls("pub") + '">Publication</span>' +
+      st.steps.filter(function (x) { return x.st.obligatoire; }).map(function (x) { return '<span class="' + (phase === "circ" ? (x.done ? "done" : st.current === x ? "now" : "") : "") + '">' + esc(x.st.label) + " · " + esc(FLABEL[x.st.role] || x.st.fonction || "") + "</span>"; }).join("") + "</div>";
+  }
+  // Après publication, la page attend que le site en ligne porte le nouveau texte, puis se recharge seule
+  var ATTENTE = {};
+  function attendrePublication(id, emp) {
+    if (ATTENTE[id]) return; ATTENTE[id] = true;
+    var n = 0, tour = function () {
+      fetchSource(id).then(function (src) { if (src.empreinte === emp) { try { sessionStorage.setItem("pc-ref-publie", id); } catch (e) { /* facultatif */ } location.reload(); } else if (++n < 60) setTimeout(tour, 10000); })
+        .catch(function () { if (++n < 60) setTimeout(tour, 10000); });
+    };
+    setTimeout(tour, 4000);
+  }
+  // Base de comparaison : la version en vigueur, sinon le texte remplacé par la dernière modification
+  function baseComparaison(d) {
+    if (d.estProjet) return { vig: true, libelle: "par rapport à la version en vigueur" };
+    if (d.statut !== "En vigueur" && d.precedent) return { prec: true, libelle: "par rapport au texte précédent (v" + d.precedent.version + ", aucune version en vigueur)" };
+    return null;
+  }
+  async function texteBase(d) {
+    var b = baseComparaison(d); if (!b) throw new Error("base");
+    if (b.vig) return fetchSource(d.id, true);
+    var r = await fetch("source/" + d.id + ".precedent.json", { cache: "no-store" }); if (!r.ok) throw new Error("base"); return r.json();
+  }
+  var DIFFS = {};
+  async function modifsDoc(d) {
+    var k = d.id + "~" + d.empreinte; if (DIFFS[k]) return DIFFS[k];
+    var a = await texteBase(d), b = await fetchSource(d.id);
+    var ch = diffBodies(a.body, b.body);
+    DIFFS[k] = { n: ch.length, html: '<div class="diffbox"><h3>' + ch.length + " passage" + (ch.length > 1 ? "s" : "") + " modifié" + (ch.length > 1 ? "s" : "") + " " + esc(baseComparaison(d).libelle) + "</h3>" + (ch.length ? diffHtml(ch) : '<p class="cite-src">Aucune différence dans le texte.</p>') + "</div>" };
+    return DIFFS[k];
+  }
+  window.modifsDocHtml = function (d) { return baseComparaison(d) ? modifsDoc(d).then(function (x) { return x.n ? x.html : ""; }).catch(function () { return ""; }) : Promise.resolve(""); };
+  var VUE_DOC = { id: null, mode: "texte" };
   function renderDocEdit(d) {
     var box = $("#doc-edit"); if (!box) return;
-    var dr = draftOf(d.id), w = workOf(d.id);
-    var html = "";
-    if (dr) html += '<div class="rev-banner proj"><b>' + (dr.statut === "soumis" ? "Modification soumise" : dr.statut === "conflit" ? "Publication refusée" : "Brouillon de modification en cours") + "</b> par " + esc((dr.auteurs || [dr.par]).map(vName).join(", ")) + " — " + esc(fmtDT(dr.maj)) + (dr.objet ? " : « " + esc(dr.objet) + " »" : "") + (canEdit() ? ' <button type="button" class="doclink" data-edit-doc="' + esc(d.id) + '">Ouvrir le brouillon</button>' : "") + "</div>";
+    var dr = draftOf(d.id), w = workOf(d.id), r = V.redac && V.redac[d.id];
+    var html = "", pub = null;
+    try { pub = sessionStorage.getItem("pc-ref-publie"); if (pub === d.id) sessionStorage.removeItem("pc-ref-publie"); } catch (e) { /* facultatif */ }
+    if (dr && dr.statut === "soumis") {
+      html += '<div class="rev-banner suivi"><div><b>Modification soumise à ' + esc(heureDe(dr.soumis_le)) + "</b>" + (dr.objet ? " : « " + esc(dr.objet) + " »" : "") + ". Publication en cours, environ 3 minutes ; la page se met à jour seule." +
+        (canEdit() ? ' <button type="button" class="doclink" data-ed-retirer="' + esc(d.id) + '">Retirer la soumission</button>' : "") + "</div>" + etapesHtml(w, "pub") + "</div>";
+    } else if (dr && dr.statut === "conflit") {
+      html += '<div class="rev-banner proj"><b>Publication refusée</b> : ' + esc(dr.message || "le texte a changé entre-temps") + "." + (canEdit() ? ' <button type="button" class="doclink" data-edit-doc="' + esc(d.id) + '">Corriger</button>' : "") + "</div>";
+    } else if (dr) {
+      html += '<div class="rev-banner proj"><b>Brouillon de modification en cours</b> par ' + esc((dr.auteurs || [dr.par]).map(vName).join(", ")) + " — " + esc(fmtDT(dr.maj)) + (dr.objet ? " : « " + esc(dr.objet) + " »" : "") + (canEdit() ? ' <button type="button" class="doclink" data-edit-doc="' + esc(d.id) + '">Ouvrir le brouillon</button>' : "") + "</div>";
+    } else if (r && r.statut === "applique" && w && r.empreinte && r.empreinte !== w.empreinte) {
+      html += '<div class="rev-banner suivi"><div><b>Modification publiée</b> — version ' + esc(r.version || "") + ". Mise à jour de la page…</div>" + etapesHtml(w, "pub") + "</div>";
+      attendrePublication(d.id, r.empreinte);
+    } else if (pub === d.id && w === d) {
+      html += '<div class="rev-banner suivi ok"><div><b>Modification publiée</b> — version ' + esc(d.version) + ". Le circuit d'approbation commence.</div>" + etapesHtml(d, "circ") + "</div>";
+    }
+    // Dernière modification et bascule Texte · Modifications (document en circuit)
+    var h0 = (d.historique || [])[0], enCircuit = d.statut !== "En vigueur" && !etatOf(d.id);
+    var base = enCircuit ? baseComparaison(d) : null;
+    if (enCircuit && h0 && (base || (r && r.statut === "applique" && r.empreinte === d.empreinte))) {
+      var enLigne = r && r.statut === "applique" && r.empreinte === d.empreinte;
+      var auteur = enLigne ? (r.auteurs || [r.par]).map(vName).join(", ") : h0.par, objet = enLigne ? r.objet || h0.objet : h0.objet;
+      html += '<div class="ed-derniere"><div><b>Dernière modification</b> · ' + esc(enLigne && r.traite_le ? fmtDT(r.traite_le) : fmtDate(h0.date)) + (objet ? " · « " + esc(objet) + " »" : "") + (auteur ? ' <span class="cite-src">— ' + esc(auteur) + "</span>" : "") + "</div>" +
+        (base ? '<span class="seg" role="group" aria-label="Affichage"><button type="button" data-vuedoc="texte" aria-pressed="' + (VUE_DOC.id !== d.id || VUE_DOC.mode === "texte") + '">Texte</button><button type="button" data-vuedoc="modifs" aria-pressed="' + (VUE_DOC.id === d.id && VUE_DOC.mode === "modifs") + '">Modifications</button></span>' : "") + "</div>";
+    }
     var btns = "";
     if (canEdit() && !etatOf(d.id) && !dr) btns += '<button type="button" class="btn" data-edit-doc="' + esc(d.id) + '">✎ Modifier le texte</button>';
-    if (d.estProjet) btns += '<button type="button" class="btn" data-ediff="' + esc(d.id) + '">Voir les modifications par rapport à la version en vigueur</button>';
     if (btns) html += '<div class="doc-edit-btns">' + btns + (canEdit() && w !== d && !d.estProjet && !dr ? '<span class="cite-src">La modification porte sur le projet de révision v' + esc(w.version) + ".</span>" : "") + "</div>";
     html += '<div id="doc-diff"></div>';
     box.innerHTML = html;
+    if (VUE_DOC.id === d.id && VUE_DOC.mode === "modifs") montrerModifs(d);
   }
-  async function showRevisionDiff(id) {
-    var box = $("#doc-diff"); if (!box) return;
-    if (box.innerHTML) { box.innerHTML = ""; return; }
+  function montrerModifs(d) {
+    var box = $("#doc-diff"), corps = $("#v-doc .doc-body"); if (!box) return;
+    if (corps) corps.hidden = true;
+    var k = d.id + "~" + d.empreinte; if (DIFFS[k]) { box.innerHTML = DIFFS[k].html; return; }
     box.innerHTML = '<p class="cite-src">Comparaison en cours…</p>';
-    try {
-      var a = await fetchSource(id, true), b = await fetchSource(id);
-      box.innerHTML = '<div class="diffbox"><h3>Modifications de la v' + esc(b.version) + " par rapport à la v" + esc(a.version) + " en vigueur</h3>" + diffHtml(diffBodies(a.body, b.body)) + "</div>";
-    } catch (e) { box.innerHTML = '<p class="cite-src">La comparaison n\'est pas disponible dans cette vue.</p>'; }
+    modifsDoc(d).then(function (x) { box.innerHTML = x.html; }).catch(function () { box.innerHTML = '<p class="cite-src">La comparaison n\'est pas disponible dans cette vue.</p>'; });
   }
-
-  // Brouillons de la personne, pour « À traiter »
+  document.addEventListener("click", function (ev) {
+    var t = ev.target.closest("[data-vuedoc],[data-ed-retirer]"); if (!t) return;
+    if (t.hasAttribute("data-ed-retirer")) { retirerSoumission(t.getAttribute("data-ed-retirer")); return; }
+    var d = DOC_COURANT; if (!d) return;
+    VUE_DOC = { id: d.id, mode: t.getAttribute("data-vuedoc") };
+    document.querySelectorAll("[data-vuedoc]").forEach(function (b) { b.setAttribute("aria-pressed", String(b === t)); });
+    if (VUE_DOC.mode === "modifs") montrerModifs(d); else { var box = $("#doc-diff"), corps = $("#v-doc .doc-body"); if (box) box.innerHTML = ""; if (corps) corps.hidden = false; }
+  });
+  // ---------- Modifications en cours : « À traiter » (les miennes) et Suivi › Modifications (toutes) ----------
+  // Une ligne par brouillon ou modification publiée encore en circuit, avec son état
+  function modifsEtat(filtreMoi) {
+    var out = [], now = Date.now();
+    Object.keys(V.redac || {}).forEach(function (id) {
+      var r = V.redac[id]; if (!r || !r.statut) return;
+      var auteurs = r.auteurs || [r.par];
+      if (filtreMoi && auteurs.indexOf(V.me) < 0) return;
+      var w = workOf(id), x = { id: id, r: r, titre: w ? w.titre : r.titre || id, objet: r.objet || "", auteurs: auteurs, nouveau: !w };
+      if (r.statut === "brouillon") Object.assign(x, { cls: "i", etat: "Brouillon", le: r.maj, act: "edit", btn: "Reprendre" });
+      else if (r.statut === "soumis") Object.assign(x, { cls: "w", etat: "Publication en cours", le: r.soumis_le, act: "retirer", btn: "Retirer" });
+      else if (r.statut === "conflit") Object.assign(x, { cls: "b", etat: "Refusée : " + (r.message || "le texte a changé entre-temps"), le: r.traite_le || r.maj, act: "edit", btn: "Corriger" });
+      else if (r.statut === "applique") {
+        if (!w) return;
+        if (w.empreinte !== r.empreinte) { if (now - Date.parse(r.traite_le || 0) > 864e5) return; Object.assign(x, { cls: "w", etat: "Publiée, mise en ligne en cours", le: r.traite_le, act: "voir", btn: "Voir" }); }
+        else {
+          if (w.statut === "En vigueur" || etatOf(id)) return;
+          var st = docState(w);
+          if (st.renvois.length) Object.assign(x, { cls: "b", etat: "Renvoyée par " + vName(st.renvois[0].by) + " : « " + (st.renvois[0].commentaire || "") + " »", le: st.renvois[0].at, act: "edit", btn: "Corriger" });
+          else if (st.approved) Object.assign(x, { cls: "o", etat: "Approuvée, adoption en cours", le: r.traite_le, act: "voir", btn: "Voir" });
+          else Object.assign(x, { cls: "o", etat: "En circuit · " + (st.current ? st.current.st.label + " · " + (FLABEL[st.current.st.role] || st.current.st.fonction || "") : "en attente"), le: r.traite_le, act: "voir", btn: "Voir" });
+        }
+      } else return;
+      out.push(x);
+    });
+    return out.sort(function (p, q) { return String(q.le || "").localeCompare(String(p.le || "")); });
+  }
+  var PILL = { i: "prevu", w: "projet", b: "refus", o: "vigueur" };
+  function modifBtn(x) {
+    if (x.act === "retirer") return canEdit() ? '<button type="button" class="btn" data-ed-retirer="' + esc(x.id) + '">Retirer</button>' : "";
+    if (x.act === "edit") return canEdit() ? '<button type="button" class="btn' + (x.btn === "Corriger" ? " primary" : "") + '" data-edit-doc="' + esc(x.id) + '">' + x.btn + "</button>" : "";
+    var w = workOf(x.id); return w ? '<button type="button" class="btn" data-open="' + esc(x.id + (w.estProjet ? "~projet" : "")) + '">Voir</button>' : "";
+  }
+  // « À traiter » : mes modifications, et les documents renvoyés pour correction
   function myDraftsHtml() {
     if (!canEdit()) return "";
-    var mine = Object.keys(V.redac || {}).map(function (id) { return { id: id, r: draftOf(id) }; }).filter(function (x) { return x.r; });
-    var ren = VARIANTS().filter(function (d) { return !etatOf(d.id) && docState(d).renvois.length && !draftOf(d.id); });
+    var mine = modifsEtat(true);
+    var ren = VARIANTS().filter(function (d) { return !etatOf(d.id) && docState(d).renvois.length && !draftOf(d.id) && !mine.some(function (x) { return x.id === d.id; }); });
     if (!mine.length && !ren.length) return "";
-    var li = function (id, sub, btn) { var d = workOf(id); return '<li class="tt-item"><div class="tt-main"><div class="tt-ref">' + esc(id) + (d ? "" : ' <span class="pill projet">nouveau</span>') + '</div><div class="tt-title">' + esc(d ? d.titre : (V.redac[id] && V.redac[id].titre) || id) + '</div><div class="cite-src">' + sub + '</div></div><button type="button" class="btn' + (btn === "Corriger" ? " primary" : "") + '" data-edit-doc="' + esc(id) + '">' + btn + "</button></li>"; };
-    return '<h2 class="section-h">Rédaction <span class="count-chip">' + (mine.length + ren.length) + "</span></h2>" +
-      '<ul class="tt-list">' + ren.map(function (d) { var r = docState(d).renvois[0]; return li(d.id, "Renvoyé par " + esc(vName(r.by)) + " : « " + esc(r.commentaire || "") + " »", "Corriger"); }).join("") +
-      mine.map(function (x) { return li(x.id, (x.r.statut === "soumis" ? "Soumis le " + esc(fmtDT(x.r.soumis_le)) + ", publication en cours" : x.r.statut === "conflit" ? "Publication refusée : " + esc(x.r.message || "") : "Brouillon · " + esc(fmtDT(x.r.maj))) + (x.r.objet ? " · « " + esc(x.r.objet) + " »" : ""), "Ouvrir"); }).join("") + "</ul>";
+    var li = function (id, titre, nouveau, sub, btn) { return '<li class="tt-item"><div class="tt-main"><div class="tt-ref">' + esc(id) + (nouveau ? ' <span class="pill projet">nouveau</span>' : "") + '</div><div class="tt-title">' + esc(titre) + '</div><div class="cite-src">' + sub + '</div></div>' + btn + "</li>"; };
+    return '<h2 class="section-h">Mes modifications <span class="count-chip">' + (mine.length + ren.length) + "</span></h2>" +
+      '<ul class="tt-list">' + ren.map(function (d) { var r = docState(d).renvois[0]; return li(d.id, d.titre, false, "Renvoyé par " + esc(vName(r.by)) + " : « " + esc(r.commentaire || "") + " »", '<button type="button" class="btn primary" data-edit-doc="' + esc(d.id) + '">Corriger</button>'); }).join("") +
+      mine.map(function (x) { return li(x.id, x.titre, x.nouveau, '<span class="pill ' + PILL[x.cls] + '">' + esc(x.etat) + "</span> " + esc(fmtDT(x.le)) + (x.objet ? " · « " + esc(x.objet) + " »" : ""), modifBtn(x)); }).join("") + "</ul>";
   }
+  // Suivi › Modifications : toutes les modifications en cours, avec leurs rédacteurs
+  function modifsTableHtml() {
+    var all = modifsEtat(false);
+    if (!all.length) return '<p class="empty">Aucune modification en cours.</p>';
+    return '<div class="table-scroll"><table class="reg"><thead><tr><th>Document</th><th>Objet</th><th>Rédaction</th><th>État</th><th>Depuis</th><th></th></tr></thead><tbody>' +
+      all.map(function (x) { return "<tr><td><b>" + esc(x.id) + "</b>" + (x.nouveau ? ' <span class="pill projet">nouveau</span>' : "") + '<div class="doc-sum">' + esc(x.titre) + "</div></td><td>" + esc(x.objet || "—") + "</td><td>" + esc(x.auteurs.map(vName).join(", ")) + '</td><td><span class="pill ' + PILL[x.cls] + '">' + esc(x.etat) + '</span></td><td class="num">' + esc(fmtDT(x.le)) + "</td><td>" + modifBtn(x) + "</td></tr>"; }).join("") + "</tbody></table></div>";
+  }
+

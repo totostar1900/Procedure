@@ -218,7 +218,7 @@
       '<div class="g2"><section class="card" id="t-att"><div class="ch"><h2>En attente d\'une action</h2></div><p class="sub">Par ancienneté ; en rouge au-delà du délai fixé pour l\'étape</p>' + attHtml + "</section>" +
       '<section class="card"><div class="ch"><h2>Par personne</h2>' + (V.owner && HOSTED ? '<a class="lnk" href="/membres">Membres</a>' : "") + '</div><p class="sub">Ce qui attend chacun ; cliquez un nom pour filtrer</p>' + persHtml + "</section></div>" +
       '<div class="g2b"><section class="card" id="t-mod"><div class="ch"><h2>Modifications en cours</h2></div><p class="sub">Brouillons, soumissions et publications refusées</p>' + modsHtml + "</section>" +
-      '<section class="card" id="t-lec"><div class="ch"><h2>Lectures obligatoires</h2><button type="button" class="lnk" data-open="visas">Gérer les lectures</button></div><p class="sub">Attestations par document en vigueur</p>' + lecHtml + "</section></div>" +
+      '<section class="card" id="t-lec"><div class="ch"><h2>Lectures obligatoires</h2><button type="button" class="lnk" data-svgo="lectures">Voir les lectures</button></div><p class="sub">Attestations par document en vigueur</p>' + lecHtml + "</section></div>" +
       '<div class="g2"><section class="card"><div class="ch"><h2>Activité</h2></div><p class="sub">Qui a fait quoi, et quand' + (T.journal ? "" : " (visas et lectures)") + "</p>" + fluxHtml + "</section>" +
       '<section class="card" id="t-rev"><div class="ch"><h2>Revues périodiques</h2></div><p class="sub">Échéances de revue des documents en vigueur</p>' + revHtml + "</section></div>";
   }

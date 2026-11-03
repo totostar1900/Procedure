@@ -5,6 +5,7 @@ import { useLangue, COLS, CSS, Cfm, Confirmation, Evt, FL, Membre, MoiC, PL, PRE
 import { Circuits, Delais, DocC, useCircuits } from "./circuits";
 import { Notifications, NT_CSS } from "./notifications";
 import { NomsAnnexes, NM_CSS } from "./noms";
+import { Lectures, LC_CSS } from "./lectures";
 
 // Paramétrage, en sections : administrateurs et prérogatives (super administrateur), circuits et délais (prérogative
 // « circuits »), règles appliquées, journal complet (super administrateur). Chacun ne voit que ses sections.
@@ -32,10 +33,12 @@ export default function Reglages({ moi, docs }: { moi: MoiC; docs: DocC[] }) {
   const [q, setQ] = useState("");
   const { cfg, charger: chargerC } = useCircuits(sb);
   const circ = moi.super || moi.prerogatives.includes("circuits");
+  const lect = moi.super || moi.prerogatives.includes("lectures");
   const noter = (tt: "ok" | "err", m: string) => setNote({ t: tt, m });
   const SECTIONS: [string, string, string][] = [
     ...(moi.super ? [["admins", "Administrateurs et prérogatives", "Super administrateur"] as [string, string, string]] : []),
     ...(circ ? [["circuits", "Circuits d'approbation", "Prérogative « circuits »"], ["delais", "Délais et alertes", "Prérogative « circuits »"]] as [string, string, string][] : []),
+    ...(lect ? [["lectures", "Lectures obligatoires", "Prérogative « lectures »"] as [string, string, string]] : []),
     ...(moi.super ? [["noms", "Noms des annexes", "Super administrateur"], ["notifications", "Avis par e-mail", "Super administrateur"]] as [string, string, string][] : []),
     ["regles", "Règles appliquées", "Pour mémoire"],
     ...(moi.super ? [["journal", "Journal d'activité", "Super administrateur"] as [string, string, string]] : []),
@@ -83,7 +86,7 @@ export default function Reglages({ moi, docs }: { moi: MoiC; docs: DocC[] }) {
 
   return (
     <div className="pg">
-      <style>{CSS + PZ + NT_CSS + NM_CSS}</style>
+      <style>{CSS + PZ + NT_CSS + NM_CSS + LC_CSS}</style>
       <main className="wrap view">
         <div className="eyebrow">Administration</div>
         <h1 className="title">Paramétrage</h1>
@@ -125,6 +128,12 @@ export default function Reglages({ moi, docs }: { moi: MoiC; docs: DocC[] }) {
           {tete("delais")}
           <p className="zp">Les délais de chaque étape et de la prise de connaissance, réunis sur une grille. Une étape passe « en retard » au-delà de son délai, et « bientôt en retard » au seuil choisi ; le suivi des documents et le tableau de bord s&apos;en servent.</p>
           <Delais sb={sb} docs={docs} moi={moi} cfg={cfg} charger={chargerC} note={noter} />
+        </section> : null}
+
+        {lect ? <section className="zone" id="z-lectures">
+          {tete("lectures")}
+          <p className="zp">Qui doit lire et attester chaque document, désigné par fonction : une personne qui prend une fonction hérite de ses lectures. Les exceptions individuelles restent possibles. Le suivi des lectures faites est dans Suivi › Lectures.</p>
+          <Lectures sb={sb} docs={docs.map((d) => ({ id: d.id, titre: d.titre || "" }))} ms={ms} note={noter} demander={setCfm} />
         </section> : null}
 
         {moi.super ? <section className="zone" id="z-noms">

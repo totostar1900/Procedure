@@ -23,8 +23,7 @@
     { si: "complet", vue: "registre", sel: '.nav [data-open="registre"]', titre: "Documents", texte: "Le registre de tous les textes, avec leur statut, leur version et leur prochaine revue." },
     { si: "complet", vue: "registre", sel: "#f-q", titre: "Rechercher et filtrer", texte: "Cherchez par mot, filtrez par type, domaine ou statut. Cliquez une ligne pour un aperçu ; ouvrez le document pour le texte complet, le PDF ou le Word." },
     { si: "redacteur", vue: "registre", sel: "#btn-nouveau", titre: "Rédiger", texte: "Créez un document, ou ouvrez un document existant et choisissez « Modifier ». Vous pouvez aussi repartir d'un fichier Word. Une fois soumis, le texte est publié automatiquement et repart dans son circuit ; vous ne pouvez pas viser votre propre version." },
-    { si: "complet", sel: '.nav [data-open="visas"]', titre: "Suivi des visas", texte: "Qui a visé quoi et quand, document par document, et l'état des lectures obligatoires." },
-    { si: "complet", sel: '.nav [data-open="circuit"]', titre: "Suivi des documents", texte: "Où en est chaque document : étape atteinte, qui doit agir, depuis quand et par rapport à quel délai. Cliquez une ligne pour l'historique." },
+    { si: "complet", sel: '.nav [data-open="circuit"]', titre: "Suivi", texte: "Quatre onglets : les circuits (étape atteinte, qui doit agir, depuis quand), les modifications en cours, les visas donnés et les lectures attestées. Dans les circuits, cliquez une ligne pour l'historique." },
     { si: "circuits", sel: HOSTED ? "#nav-parametrage" : "#v-circuit .ccards", vue: HOSTED ? null : "circuit", titre: "Modifier les circuits", texte: "Dans Paramétrage : par type de document, étapes, fonctions, règles de visa et délais. Une version déjà visée garde le circuit de son premier visa." },
     { si: "tableau", sel: '.nav [data-open="tableau"]', titre: "Tableau de bord", texte: "La vue d'ensemble : visas en attente et retards, alertes, charge par personne, modifications en cours, lectures et revues." },
     { si: "admin", sel: "#nav-membres", titre: "Membres", texte: "Ouvrir un accès, modifier les fonctions, suspendre, attribuer les documents aux employés — dans la limite de vos prérogatives." },
@@ -129,8 +128,8 @@
       "Les étapes se visent dans l'ordre ; une même personne ne vise pas deux étapes d'une même version (règle des quatre yeux).",
       "Quand la dernière étape est visée, le document est adopté et publié automatiquement."], visite: function (e) { return e.si === "approbateur"; } },
     { si: "complet", id: "suivre", titre: "Suivre les circuits", etapes: [
-      "« Suivi des documents » montre où en est chaque document, qui doit agir et depuis quand.",
-      "« Suivi des visas » donne, document par document, les visas obtenus et les lectures attestées.",
+      "« Suivi › Circuits » montre où en est chaque document, qui doit agir et depuis quand.",
+      "« Suivi › Visas » et « Suivi › Lectures » donnent, document par document, les visas obtenus et les lectures attestées.",
       "« Archives » conserve les documents abrogés et les versions antérieures."], visite: function (e) { return /visas|circuit/.test(e.sel || ""); } },
     { si: "redacteur", id: "rediger", titre: "Rédiger et modifier", etapes: [
       "Sur la page d'un document, « Modifier » ouvre l'éditeur : article par article, ou le texte complet.",
@@ -145,7 +144,7 @@
     { si: "admin", id: "administrer", titre: "Administrer", etapes: [
       "« Membres » : ouvrir un accès, modifier une fiche (nom, poste, fonctions, accès), suspendre, attribuer les documents aux employés.",
       "Vous agissez dans la limite des prérogatives que le super administrateur vous a données ; vous ne modifiez ni votre propre accès ni celui d'un autre administrateur.",
-      "« Suivi des visas » : lectures obligatoires par document et export du registre des visas.",
+      "Paramétrage › Lectures obligatoires : qui doit lire quoi, par fonction ; « Suivi › Visas » : export du registre des visas.",
       "« Paramétrage », section Circuits et délais : modification des circuits et des délais (si vous en avez la prérogative)."], visite: function (e) { return e.si === "admin" || e.si === "circuits" || e.si === "superAdmin"; } },
     { si: "superAdmin", id: "parametrer", titre: "Paramétrer (super administrateur)", etapes: [
       "« Paramétrage » : nommer les administrateurs et choisir leurs prérogatives.",

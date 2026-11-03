@@ -68,7 +68,7 @@ export function NomsAnnexes({ sb, docs, moi, note }: { sb: SupabaseClient; docs:
           </tr>); })}
         </tbody>
       </table></div>
-      <p className="fine">{t("Le nom n'est qu'une étiquette : les textes renvoient à l'annexe par sa clé et affichent son nom du moment. Renommer ne modifie ni les textes, ni les empreintes, ni les visas, et ne relance aucun circuit.")}</p>
+      <p className="fine">{t("Le nom n'est qu'une étiquette : les textes renvoient à l'annexe par sa clé et affichent son nom du moment. Renommer ne modifie ni les textes ni les visas, et ne relance aucun circuit.")}</p>
     </>
   );
 }

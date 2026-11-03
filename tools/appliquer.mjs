@@ -175,6 +175,9 @@ for (const { path: p, data: b } of soumis) {
   }
   if (b.titre) fm.titre = b.titre;
   if (b.resume) fm.resume = b.resume;
+  // Texte remplacé, gardé pour montrer « ce qui a changé » quand il n'y a pas encore de version en vigueur
+  // (precedent.json est hors empreinte : seuls document.md, annexes/ et variables.yaml y entrent)
+  if (!fs.existsSync(vig)) { const avant = matter(fs.readFileSync(path.join(root, "document.md"), "utf8")); fs.writeFileSync(path.join(root, "precedent.json"), JSON.stringify({ version: String(avant.data.version), titre: avant.data.titre, body: avant.content, remplace_le: today() }, null, 1) + "\n"); }
   writeFm(path.join(root, "document.md"), fm, corps);
   await appliquerAnnexes(); if (!annexesOK) continue;
   appliques.push({ id, p, b, version: String(fm.version) });
