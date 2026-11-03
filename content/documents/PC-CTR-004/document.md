@@ -3,42 +3,46 @@ id: PC-CTR-004
 titre: Convention d'ouverture de compte-titres
 type: Modèle de contrat
 domaine: Clientèle
-version: "0.9"
+version: '0.9'
 statut: Projet
 confidentialite: Interne
 proprietaire: Directeur Général
 redige_par: Directeur Général
 verifie_par: Responsable de la conformité et du contrôle interne (RCCI)
 approuve_par: Directeur Général
-date_approbation:
-date_effet:
+date_approbation: null
+date_effet: null
 prochaine_revue: 12 mois après adoption
-diffusion: Direction Générale, Direction Commerciale, RCCI, opérations
+diffusion: 'Direction Générale, Direction Commerciale, RCCI, opérations'
 public: false
-resume: Modèle de convention qui ouvre au client un compte-titres chez Purpose Capital S.A. — conservation en sous-compte nominatif, espèces du client, ordres signés, information, données, réclamations. Les articles 1 à 10 reprennent la convention en vigueur dans le Guichet ; les articles 11 à 14 la complètent.
+resume: 'Modèle de convention qui ouvre au client un compte-titres chez Purpose Capital S.A. — conservation en sous-compte nominatif, espèces du client, ordres signés, information, données, réclamations. Les articles 1 à 10 reprennent la convention en vigueur dans le Guichet ; les articles 11 à 14 la complètent.'
 references:
   - ref: REG-01-22
-    articles: Obligations des intermédiaires envers leurs clients, tenue de compte et conservation
+    articles: 'Obligations des intermédiaires envers leurs clients, tenue de compte et conservation'
   - ref: RG-COSUMAF-2023
-    articles: "Identification et vérification des clients (art. 94 et 98) ; information des clients ; traitement des réclamations"
+    articles: Identification et vérification des clients (art. 94 et 98) ; information des clients ; traitement des réclamations
   - ref: DC-RG
-    articles: Inscription en compte, conservation et règlement-livraison des titres
+    articles: 'Inscription en compte, conservation et règlement-livraison des titres'
   - ref: REG-02-24
-    articles: Vigilance à l'égard de la clientèle, conservation des documents pendant dix ans
+    articles: 'Vigilance à l''égard de la clientèle, conservation des documents pendant dix ans'
   - ref: LOI-CM-2024-017
     articles: Information des personnes et droits sur leurs données personnelles
   - ref: AUA
-    articles: Arbitrage, si les Parties le choisissent
+    articles: 'Arbitrage, si les Parties le choisissent'
 historique:
-  - version: "0.9"
-    date: 2026-10-19
-    objet: Reprise de la convention du Guichet (version 2026-10-10), complétée par les articles 11 à 14 et rendue disponible pour les ouvertures hors du Guichet
+  - version: '0.9'
+    date: '2026-11-03'
+    objet: mineur
+    par: RCCI
+  - version: '0.9'
+    date: '2026-10-19'
+    objet: 'Reprise de la convention du Guichet (version 2026-10-10), complétée par les articles 11 à 14 et rendue disponible pour les ouvertures hors du Guichet'
     par: Directeur Général
 notes_redaction:
-  - "Source unique : les articles 1 à 10 reprennent mot pour mot les passages « convention » du Guichet, avec la même numérotation. Toute modification de l'un doit être reportée dans l'autre, le même jour."
-  - "Les articles 11 (avis, relevés et droits attachés aux titres), 12 (responsabilité), 13 (modification de la convention) et 14 (droit applicable et litiges) n'existent pas encore dans le Guichet. S'ils sont approuvés, les ajouter aux passages « convention » du Guichet et annoncer le changement aux clients."
-  - "Dans le Guichet, la convention imprimée porte la mention « version 2026-09 » alors que la version en vigueur est 2026-10-10 : à aligner."
-  - Le formulaire sert aux ouvertures sur papier ou hors du Guichet. Dans le Guichet, la convention est remplie automatiquement à partir du dossier et acceptée électroniquement.
+  - 'Source unique : les articles 1 à 10 reprennent mot pour mot les passages « convention » du Guichet, avec la même numérotation. Toute modification de l''un doit être reportée dans l''autre, le même jour.'
+  - 'Les articles 11 (avis, relevés et droits attachés aux titres), 12 (responsabilité), 13 (modification de la convention) et 14 (droit applicable et litiges) n''existent pas encore dans le Guichet. S''ils sont approuvés, les ajouter aux passages « convention » du Guichet et annoncer le changement aux clients.'
+  - 'Dans le Guichet, la convention imprimée porte la mention « version 2026-09 » alors que la version en vigueur est 2026-10-10 : à aligner.'
+  - 'Le formulaire sert aux ouvertures sur papier ou hors du Guichet. Dans le Guichet, la convention est remplie automatiquement à partir du dossier et acceptée électroniquement.'
   - Faire valider le modèle par le conseil juridique de la Société avant sa première utilisation.
 ---
 
@@ -58,7 +62,7 @@ notes_redaction:
 
 **ET**
 
-**Purpose Capital S.A.**, société anonyme avec conseil d'administration au capital de trois cent dix-sept millions cinq cent mille francs CFA (317 500 000 FCFA), société de bourse agréée par la COSUMAF sous le numéro COSUMAF-SDB-01/2026, immatriculée au Registre du Commerce et du Crédit Mobilier de Yaoundé sous le numéro {{pc_rccm}}, dont le siège social est situé Rue Joseph Essono Balla, Elig-Essono, Yaoundé (Cameroun), représentée par son Directeur Général, dûment habilité aux fins des présentes,
+**Purpose Capital S.A.**, société anonyme avec conseil d'administration au capital de trois cent dix-sept millions cinq cent mille francs CFA (317 500 000 FCFA), société de bourse agréée par la COSUMAF sous le numéro COSUMAF-SDB-01/2026, immatriculée au Registre du Commerce et du Crédit Mobilier de Yaoundé sous le numéro RC/YAO/2025/M/336, dont le siège social est situé Rue Joseph Essono Balla, Elig-Essono, Yaoundé (Cameroun), représentée par son Directeur Général, dûment habilité aux fins des présentes,
 
 *ci-après « l'Intermédiaire »,*
 
@@ -82,7 +86,7 @@ Les titres sont dématérialisés et inscrits au nom du Titulaire sur un sous-co
 
 À cette fin, le Titulaire donne mandat à l'Intermédiaire d'ouvrir en son nom, sans autre formalité ni signature, tout compte nécessaire à l'exécution de ses ordres : sous-compte titres chez le teneur de compte, inscription au registre d'un organisme de placement collectif, et de transmettre à ces seules fins les pièces de son dossier au teneur de compte, à la société de gestion et au dépositaire.
 
-Le mandat porte sur l'ouverture et sur elle seule. Le Titulaire demeure titulaire de ses comptes et seul décisionnaire de ses investissements. Aucune ouverture ne donne lieu à frais.
+Le mandat porte sur l'ouverture et sur elle seule. Le Titulaire demeure titulaire de ses comptes et seul décisionnaire de ses investissements. Aucune ouverture ne donne lieu à des frais.
 
 Pour un Titulaire résident dont le dossier est approuvé, un ordre peut être accepté avant l'ouverture effective du sous-compte : l'ouverture est engagée aussitôt et l'ordre n'est transmis qu'une fois le sous-compte ouvert. Si l'ouverture n'aboutit pas, l'ordre devient caduc et les sommes affectées redeviennent disponibles.
 
@@ -114,13 +118,13 @@ Lorsque le prix n'est pas connu à la signature, le Titulaire signe un montant m
 
 L'Intermédiaire transmet au SVT ou au marché l'ordre signé et couvert. L'ordre est irrévocable dès sa transmission ; il est exécuté aux conditions de l'adjudication ou du marché, totalement ou partiellement, ou non exécuté, sans que la responsabilité de l'Intermédiaire soit engagée.
 
-Une intention, un sondage préalable à une adjudication ou une demande de rappel n'est pas un ordre, n'appelle aucun versement et n'emporte aucun engagement de part ni d'autre.
+Une intention, un sondage préalable à une adjudication ou une demande de rappel n'est pas un ordre, n'appelle aucun versement et n'emporte aucun engagement de part et d'autre.
 
 ## Titre II — Information et relation
 
 ### Article 5 — Information et catégorisation
 
-Le Titulaire est catégorisé « {{categorie}} ». Il reconnaît avoir reçu l'information sur les risques (crédit, prix, liquidité, allocation) et sur le fonctionnement du marché, et pouvoir la consulter à tout moment dans le Guide du Guichet. L'essentiel en est rappelé à l'annexe [[annexe:A2]].
+Le Titulaire est catégorisé « {{categorie}} ». Il reconnaît avoir reçu l'information sur les risques (crédit, prix, liquidité, allocation) et sur le fonctionnement du marché, et pourra la consulter à tout moment dans le Guide du Guichet. L'essentiel en est rappelé à l'annexe [[annexe:A2]].
 
 ### Article 6 — Tarifs
 
