@@ -12,6 +12,7 @@ import { chromium } from "playwright";
 import { PDFDocument } from "pdf-lib";
 import { createRequire } from "node:module";
 import { docxCorps, docxAnnexe, docxModeleVierge, langue, presentation as docxPresentation } from "./templates/docx.mjs";
+import { referencesEnTitres as refEnTitres } from "./templates/references.mjs";
 import { lirePresentation, regle, lignesPied, logos, annexeClient, TRADUISIBLES, CHAMPS } from "./templates/presentation.mjs";
 import JSZip from "jszip";
 // Rend un .docx reproductible : dates du paquet et des propriétés fixées à la date de la version
@@ -110,9 +111,24 @@ const NOMS_ANNEXES = (() => {
   return out;
 })();
 const RENVOIS_INCONNUS = new Set();
+// Titres des documents (FR / EN) : les références PC-… citées dans les textes s'affichent par le titre du document
+const TITRES_DOCS = (() => {
+  const out = {};
+  for (const p of cfg.prevus || []) if (p && p.id) out[p.id] = { fr: p.titre };
+  for (const p of (cfgEn && cfgEn.prevus) || []) if (p && p.id && out[p.id]) out[p.id].en = p.titre;
+  for (const id of fs.existsSync(DOC_DIR) ? fs.readdirSync(DOC_DIR) : []) {
+    const f = path.join(DOC_DIR, id, "document.md"), fe = path.join(DOC_DIR, id, "en", "document.md");
+    if (fs.existsSync(f)) out[id] = { fr: matter(read(f)).data.titre, en: fs.existsSync(fe) ? matter(read(fe)).data.titre : undefined };
+  }
+  return out;
+})();
+const referencesEnTitres = (txt, lang) => refEnTitres(txt, lang, TITRES_DOCS);
 // Même résolution dans les textes courts de l'en-tête (notes, résumé, fiche des annexes…)
 const rfm = (v, docId, lang) => (typeof v === "string" ? renvoisAnnexes(v, docId, lang) : Array.isArray(v) ? v.map((x) => rfm(x, docId, lang)) : v && typeof v === "object" && !(v instanceof Date) ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, rfm(x, docId, lang)])) : v);
 export function renvoisAnnexes(md, docId, lang) {
+  return referencesEnTitres(renvoisAnnexes0(md, docId, lang), lang);
+}
+function renvoisAnnexes0(md, docId, lang) {
   return String(md || "").replace(/\[\[annexe:(?:(PC-[A-Z0-9-]+)\/)?(A\d+)\]\]/g, (m, doc, cle) => {
     const k = (doc || docId) + "/" + cle, n = NOMS_ANNEXES[k] && (NOMS_ANNEXES[k][lang] || NOMS_ANNEXES[k].fr);
     if (!n) { RENVOIS_INCONNUS.add(docId + " → " + k); return lang === "en" ? "“(missing appendix)”" : "« (annexe introuvable) »"; }
@@ -341,7 +357,7 @@ function bodyHtml(d, withAnnexes = true) {
   const control = `<section class="control">
   <h1>${L(d, "Fiche de maîtrise documentaire")}</h1>${d.lang === "en" ? '<p style="font-size:8pt;color:#5B6B80;margin:-2mm 0 3mm">Courtesy translation — the French version prevails.</p>' : ""}
   <table class="ctable"><tbody>
-    <tr><th style="width:30%">${L(d, "Référence")}</th><td>${esc(d.id)}</td><th style="width:20%">Version</th><td>${esc(d.version)} — ${esc(L(d, d.statut))}</td></tr>
+    <tr><th style="width:30%">Version</th><td colspan="3">${esc(d.version)} — ${esc(L(d, d.statut))}</td></tr>
     <tr><th>${L(d, "Titre")}</th><td colspan="3">${esc(d.titre)}</td></tr>
     <tr><th>${d.lang === "en" ? "Type · domain" : "Type · domaine"}</th><td>${esc(L(d, d.type))} · ${esc(L(d, d.domaine))}</td><th>${L(d, "Confidentialité")}</th><td>${esc(L(d, d.confidentialite))}</td></tr>
     <tr><th>${L(d, "Propriétaire")}</th><td colspan="3">${esc(L(d, d.proprietaire))}</td></tr>
@@ -478,7 +494,7 @@ async function buildManuel(render, lang) {
   <p style="max-width:120mm;color:#B9C8DA;font-size:9.5pt;line-height:1.5;margin-top:10mm">${EN ? "This manual is assembled automatically from the documents published in the online repository: organisation and delegations, then each procedure in the order of the process map. Each document keeps its own version, status and control sheet. Courtesy translation — the French version prevails." : "Ce manuel est assemblé automatiquement à partir des documents publiés dans le référentiel en ligne : organisation et délégations, puis chaque procédure dans l'ordre de la cartographie des processus. Chaque document garde sa version, son statut et sa fiche de maîtrise."}</p></div>
   <div class="cover-foot"><div><strong>${esc(cfg.societe.raison_sociale)}</strong></div><div style="text-align:right">${EN ? "Uncontrolled copy: only the online version is authoritative." : "Copie non maîtrisée : seule la version en ligne fait foi."}</div></div></div>`;
   const cover = await render(page(html, "", "@page{margin:0}", lang), "manuel-cover-" + lang, { margin: { top: 0, bottom: 0, left: 0, right: 0 } });
-  const somm = `<section class="toc-page" style="break-after:auto"><h1>${EN ? "Contents" : "Sommaire"}</h1><table class="ctable"><thead><tr><th style="width:8%">N°</th><th style="width:22%">${EN ? "Reference" : "Référence"}</th><th>${EN ? "Document" : "Document"}</th><th style="width:16%">Version</th><th style="width:9%">Page</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${r.n}</td><td>${esc(r.d.id)}</td><td>${esc(r.d.titre)}</td><td>${esc(r.d.version)} · ${esc(L(r.d, r.d.statut))}</td><td>${r.page}</td></tr>`).join("")}</tbody></table></section>`;
+  const somm = `<section class="toc-page" style="break-after:auto"><h1>${EN ? "Contents" : "Sommaire"}</h1><table class="ctable"><thead><tr><th style="width:8%">N°</th><th>${EN ? "Document" : "Document"}</th><th style="width:16%">Version</th><th style="width:9%">Page</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${r.n}</td><td>${esc(r.d.titre)}</td><td>${esc(r.d.version)} · ${esc(L(r.d, r.d.statut))}</td><td>${r.page}</td></tr>`).join("")}</tbody></table></section>`;
   const sp = await render(page(somm, "", "", lang), "manuel-sommaire-" + lang, { margin: MARGIN });
   const out = await PDFDocument.create();
   for (const src of [await PDFDocument.load(cover), await PDFDocument.load(sp), ...pdfs.map((x) => x.doc)]) (await out.copyPages(src, src.getPageIndices())).forEach((pg) => out.addPage(pg));

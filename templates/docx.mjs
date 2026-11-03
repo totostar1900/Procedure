@@ -290,7 +290,7 @@ export async function docxCorps(d, fiche = {}) {
   const W = contentWidth(false), ap = fiche.approb || {};
   IMG = fiche.images || {};
   const info = parse(`<table><tbody>
-    <tr><th style="width:22%">${LG("Référence")}</th><td>${escH(d.id)}</td><th style="width:18%">Version</th><td>${escH(d.version)} — ${escH(LG(d.statut))}</td></tr>
+    <tr><th style="width:22%">Version</th><td colspan="3">${escH(d.version)} — ${escH(LG(d.statut))}</td></tr>
     <tr><th>${LG("Propriétaire")}</th><td colspan="3">${escH(LG(d.proprietaire))}</td></tr>
     <tr><th>${LG("Diffusion")}</th><td colspan="3">${escH(d.diffusion)}</td></tr>
     <tr><th>${LG("Date d'effet")}</th><td>${d.date_effet ? frD(d.date_effet) : LG("À l'adoption")}</td><th>${LG("Prochaine revue")}</th><td>${escH(LG(d.prochaine_revue_label))}</td></tr></tbody></table>`).querySelector("table");
