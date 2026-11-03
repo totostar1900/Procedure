@@ -3,6 +3,7 @@
 import fs from "node:fs";
 import * as D from "docx";
 import { parse } from "node-html-parser";
+import { regle, lignesPied, annexeClient } from "./presentation.mjs";
 
 const NAVY = "0B2E52", GREY = "5B6B80", GOLD = "8A6413", RULE = "B4C2D3", SHADE = "EEF3F9", PH = "FBF1DC";
 const PAGE_W = 11906, PAGE_H = 16838; // A4 en DXA
@@ -206,14 +207,43 @@ function blocks(node, width, ctx = {}) {
   return out;
 }
 
-const header = (label, d) => new D.Header({ children: [new D.Paragraph({
-  tabStops: [{ type: D.TabStopType.RIGHT, position: D.TabStopPosition.MAX }], border: { bottom: border("D5DEE9", 4) },
-  children: [new D.TextRun({ text: "PURPOSE CAPITAL", bold: true, color: NAVY, size: 15, characterSpacing: 30 }), new D.TextRun({ text: "   ·   " + label, color: GREY, size: 15 }), new D.TextRun({ text: `\tVersion ${d.version} · ${LG(d.statut)}`, color: GREY, size: 15 })],
-})] });
-const footer = (d) => new D.Footer({ children: [new D.Paragraph({
-  tabStops: [{ type: D.TabStopType.RIGHT, position: D.TabStopPosition.MAX }],
-  children: [new D.TextRun({ text: EN ? `Uncontrolled copy — only the online version is authoritative · fingerprint ${d.empreinte} · ${LG(d.confidentialite)}` : `Copie non maîtrisée — seule la version en ligne fait foi · empreinte ${d.empreinte} · ${d.confidentialite}`, color: GREY, size: 14 }), new D.TextRun({ children: ["\tPage ", D.PageNumber.CURRENT, " / ", D.PageNumber.TOTAL_PAGES], color: GREY, size: 14 })],
-})] });
+// ---------- Présentation (Paramétrage › Présentation des documents) : en-tête, bas de page, logo ----------
+let PRES = null, LOGOS = null, SOC = {};
+export function presentation(p, l, societe) { PRES = p; LOGOS = l; SOC = societe || {}; }
+const R_ = (d) => (PRES ? regle(PRES, d) : { garde: "G1", entete: "E1", pied: "P1", champs: ["raison_sociale"], client: false });
+const img = (buf, w, h) => new D.ImageRun({ data: buf, type: "png", transformation: { width: w, height: h }, altText: { name: "Purpose Capital", description: "Logo Purpose Capital", title: "Purpose Capital" } });
+const RT = { type: D.TabStopType.RIGHT, position: D.TabStopPosition.MAX };
+const header = (label, d, a) => {
+  const R = R_(d), sansV = R.client || (a && annexeClient(a));
+  const droite = sansV ? LG(d.statut) : `Version ${d.version} · ${LG(d.statut)}`;
+  const marque = new D.TextRun({ text: "PURPOSE CAPITAL", bold: true, color: NAVY, size: 15, characterSpacing: 30 });
+  const ligne = { bottom: border("D5DEE9", 4) };
+  if (R.entete === "E4" && LOGOS) return new D.Header({ children: [new D.Paragraph({ alignment: D.AlignmentType.CENTER, border: { bottom: border("B88A39", 8) }, spacing: { after: 120 }, children: [img(LOGOS.png.logo, 118, 41)] })] });
+  if (R.entete === "E3" && LOGOS) return new D.Header({ children: [new D.Paragraph({ tabStops: [RT], border: ligne, children: [img(LOGOS.png.logo, 104, 36), new D.TextRun({ text: "\t" + label, bold: true, color: NAVY, size: 15 }), new D.TextRun({ text: "  ·  " + droite, color: GREY, size: 15 })] })] });
+  const kids = [marque, new D.TextRun({ text: "   ·   " + label, color: GREY, size: 15 }), new D.TextRun({ text: "\t" + droite, color: GREY, size: 15 })];
+  if (R.entete === "E2" && LOGOS) kids.unshift(img(LOGOS.png.soleil, 13, 13), new D.TextRun({ text: "  " }));
+  return new D.Header({ children: [new D.Paragraph({ tabStops: [RT], border: ligne, children: kids })] });
+};
+const footer = (d, label, a) => {
+  const R = R_(d), sansV = R.client || (a && annexeClient(a));
+  const lignes = lignesPied(SOC, R.champs, EN);
+  const page = ["Page ", D.PageNumber.CURRENT, " / ", D.PageNumber.TOTAL_PAGES];
+  const rappel = R.entete === "E4" ? `${label}${sansV ? "" : " · v" + d.version} · ` : "";
+  const txt = (t, b) => new D.TextRun({ text: t, color: b ? NAVY : GREY, bold: !!b, size: 13 });
+  if (R.pied === "P2") return new D.Footer({ children: [
+    new D.Paragraph({ alignment: D.AlignmentType.CENTER, children: LOGOS ? [img(LOGOS.png.soleil, 13, 13)] : [] }),
+    new D.Paragraph({ alignment: D.AlignmentType.CENTER, children: [txt(rappel), new D.TextRun({ children: page, color: GREY, size: 13 })] }),
+    ...lignes.map((l) => new D.Paragraph({ alignment: D.AlignmentType.CENTER, children: [txt(l)] })),
+  ] });
+  // Numéro de page en fin de dernière ligne (taille fixée run par run : un champ ne prend pas la taille de son voisin)
+  const pg = [new D.TextRun({ text: "\t" + rappel + "Page ", color: GREY, size: 13 }), new D.TextRun({ children: [D.PageNumber.CURRENT], color: GREY, size: 13 }), new D.TextRun({ text: " / ", color: GREY, size: 13 }), new D.TextRun({ children: [D.PageNumber.TOTAL_PAGES], color: GREY, size: 13 })];
+  const sol = R.pied === "P3" && LOGOS ? [img(LOGOS.png.soleil, 12, 12), new D.TextRun({ text: "  " })] : [];
+  const fin = R.pied === "P4" && LOGOS ? [new D.TextRun({ text: "  " }), img(LOGOS.png.soleil, 10, 10)] : [];
+  const L = lignes.length ? lignes : [""];
+  const paras = L.map((l, i) => new D.Paragraph({ tabStops: [RT], indent: i && R.pied === "P3" ? { left: 260 } : undefined, border: i ? undefined : { top: border("D5DEE9", 4) },
+    children: [...(i ? [] : sol), txt(l, !i), ...(i === L.length - 1 ? [...pg, ...fin] : [])] }));
+  return new D.Footer({ children: paras });
+};
 
 const styles = {
   default: { document: { run: { font: "Calibri", size: 21, color: "0A2540" } } },
@@ -238,10 +268,12 @@ function titleBlock(d, eyebrow, titre, extra) {
   const out = [
     para([new D.TextRun({ text: eyebrow.toUpperCase(), color: GOLD, bold: true, size: 16, characterSpacing: 20 })], { spacing: { after: 60 } }),
     new D.Paragraph({ style: "Title", children: [new D.TextRun(titre)] }),
-    para([new D.TextRun({ text: `Version ${d.version} · ${LG(d.statut)} · ${LG(d.confidentialite)} · ${LG("empreinte")} ${d.empreinte}`, color: GREY, size: 17 })], { border: { bottom: border(NAVY, 12) }, spacing: { after: 240 } }),
+    para([new D.TextRun({ text: `${R_(d).client || (extra && extra.client) ? "" : "Version " + d.version + " · "}${LG(d.statut)} · ${LG(d.confidentialite)}`, color: GREY, size: 17 })], { border: { bottom: border(NAVY, 12) }, spacing: { after: 240 } }),
   ];
+  // Logo en tête de la première page (page de garde avec logo), sauf quand l'en-tête le porte déjà en grand
+  if (LOGOS && R_(d).garde !== "G1" && !["E3", "E4"].includes(R_(d).entete)) out.unshift(new D.Paragraph({ spacing: { before: 0, after: 240, line: 240, lineRule: D.LineRuleType.AUTO }, children: [img(LOGOS.png.logo, 150, 53)] }));
   if (d.statut !== "En vigueur") out.splice(1, 0, para([new D.TextRun({ text: EN ? "DRAFT — document not approved" : "PROJET — document non approuvé", bold: true, color: "8A5A06", size: 18 })], { spacing: { after: 40 } }));
-  return out.concat(extra || []);
+  return out.concat(Array.isArray(extra) ? extra : []);
 }
 
 // Langue des fichiers produits : français par défaut ; langue("en", dictionnaire) pour la version anglaise
@@ -275,9 +307,9 @@ export async function docxCorps(d, fiche = {}) {
     features: { updateFields: true },
     sections: [{
       properties: { page: { size: { width: PAGE_W, height: PAGE_H }, margin: MARG } },
-      headers: { default: header(`${d.id} — ${d.titre}`, d) }, footers: { default: footer(d) },
+      headers: { default: header(d.titre, d) }, footers: { default: footer(d, d.titre) },
       children: [
-        ...titleBlock(d, `${LG(d.type)} · ${d.id}`, d.titre),
+        ...titleBlock(d, `${LG(d.type)} · ${LG(d.domaine || "")}`, d.titre),
         sub(LG("Fiche de maîtrise documentaire")), ...htmlTable(info, W),
         sub(LG("Circuit d'approbation")), ...htmlTable(circuit, W),
         sub(LG("Historique des révisions")), ...htmlTable(hist, W),
@@ -307,8 +339,8 @@ export async function docxAnnexe(d, a) {
     creator: "Purpose Capital S.A.", title: `${a.id} — ${a.titre}`, styles, numbering: numerotation(),
     sections: [{
       properties: { page: { size: { width: PAGE_W, height: PAGE_H, orientation: land ? D.PageOrientation.LANDSCAPE : D.PageOrientation.PORTRAIT }, margin: MARG } },
-      headers: { default: header(EN ? `${a.id} — ${lib(a)} to ${d.id}` : `${a.id} — ${lib(a)} au ${d.id}`, d) }, footers: { default: footer(d) },
-      children: [...titleBlock(d, EN ? `${lib(a)} to ${LG(d.type).toLowerCase()} ${d.id} · ${a.nature || ""}` : `${lib(a)} au ${d.type.toLowerCase()} ${d.id} · ${a.nature || ""}`, a.titre, [usage]), ...blocks(body, W)],
+      headers: { default: header(`${lib(a)} · ${d.titre}`, d, a) }, footers: { default: footer(d, `${lib(a)} · ${d.titre}`, a) },
+      children: [...titleBlock(d, `${lib(a)} · ${d.titre} · ${a.nature || ""}`, a.titre, Object.assign([usage], { client: annexeClient(a) })), ...blocks(body, W)],
     }],
   });
   return D.Packer.toBuffer(doc);

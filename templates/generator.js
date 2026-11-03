@@ -391,13 +391,29 @@
       ref: m.id, version: m.version, titre: m.titre, ed: ed,
       edLabel: GEN_EN ? (ed === "signature" ? "Version for signature" : "Draft for negotiation of " + RE.formatValue({ type: "date" }, new Date().toISOString().slice(0, 10), null, "en")) : ed === "signature" ? "Version pour signature" : "Projet pour négociation du " + RE.fmtDate(new Date().toISOString().slice(0, 10)),
       parties: plain(RE.render(m.modele.schema.partie || "{{emetteur_nom}}", m.modele.schema, v, "rempli", CTX())) + (GEN_EN ? " and Purpose Capital S.A." : " et Purpose Capital S.A."),
-      etabli: GEN_EN ? "Prepared on " + RE.formatValue({ type: "date" }, new Date().toISOString().slice(0, 10), null, "en") + " from template " + m.id + " v" + m.version + " (courtesy translation — the French version prevails)" : "Établi le " + RE.fmtDate(new Date().toISOString().slice(0, 10)) + " à partir du modèle " + m.id + " v" + m.version,
+      // Remis au client : ni référence du modèle ni version
+      etabli: GEN_EN ? "Prepared on " + RE.formatValue({ type: "date" }, new Date().toISOString().slice(0, 10), null, "en") + " (courtesy translation — the French version prevails)" : "Établi le " + RE.fmtDate(new Date().toISOString().slice(0, 10)),
       file: function (ext) {
         var slug = plain(RE.render(m.modele.schema.partie || "{{emetteur_nom}}", m.modele.schema, v, "rempli")).normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^A-Za-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40).replace(/-+$/, "") || "Partie";
-        return m.id + "_" + slug + "_" + (ed === "signature" ? "signature" : "projet") + "_" + new Date().toISOString().slice(0, 10) + "." + ext;
+        var nomC = plain(m.titre).normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/^Convention (d'|de |du )?/i, "Convention ").replace(/[^A-Za-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40).replace(/-+$/, "");
+        return nomC + "_" + slug + "_" + (ed === "signature" ? "signature" : "projet") + "_" + new Date().toISOString().slice(0, 10) + "." + ext;
       }
     };
   }
+
+  // ---------- Présentation (Paramétrage › Présentation des documents, ligne « Conventions générées ») ----------
+  // Lue dans la base au moment de l'export : un changement de réglage vaut tout de suite, sans republication.
+  async function presentationConv() {
+    var base = DATA.presentation || {}, live = null;
+    try { if (store && store.doc) { var sn = await store.doc("presentation/reglages").get(); if (sn && sn.exists) live = sn.data(); } } catch (e) { /* réglage publié */ }
+    var r = Object.assign({ garde: "G3", entete: "E2", pied: "P3", champs: ["raison_sociale"] }, base.regle || {}, (live && live.types && live.types._conventions) || {});
+    var soc = Object.assign({}, DATA.societe || {}, base.societe || {}, (live && live.societe) || {});
+    var val = function (k) { var v = GEN_EN && /^(forme|mention1|mention2)$/.test(k) && soc[k + "_en"] ? soc[k + "_en"] : soc[k]; return v == null ? "" : String(v).trim(); };
+    var l = [[], []];
+    (base.champs || []).forEach(function (c) { if ((r.champs || []).indexOf(c[0]) >= 0 && val(c[0])) l[c[4] - 1].push((GEN_EN ? c[3] : c[2]) + val(c[0])); });
+    return { r: r, lignes: l.map(function (x) { return x.join(" · "); }).filter(Boolean), logo: (base.logos || {}).logo, soleil: (base.logos || {}).soleil };
+  }
+  var b64 = function (uri) { var s = atob(String(uri || "").split(",")[1] || ""), a = new Uint8Array(s.length); for (var i = 0; i < s.length; i++) a[i] = s.charCodeAt(i); return a; };
 
   async function makeDocx(parts, M) {
     var D = await loadLib("docx");
@@ -460,16 +476,27 @@
       });
       return out;
     }
-    var header = new D.Header({ children: [new D.Paragraph({ alignment: D.AlignmentType.LEFT, border: { bottom: { style: D.BorderStyle.SINGLE, size: 4, color: "D5DEE9", space: 4 } }, tabStops: [{ type: D.TabStopType.RIGHT, position: 9600 }], children: [new D.TextRun({ text: "PURPOSE CAPITAL", bold: true, color: NAVY, size: 14, characterSpacing: 30 }), new D.TextRun({ text: "  ·  " + M.ref + " — " + M.titre, color: GREY, size: 14 }), new D.TextRun({ text: "\t" + M.edLabel, color: GREY, size: 14 })] })] });
-    var footer = new D.Footer({ children: [new D.Paragraph({ tabStops: [{ type: D.TabStopType.RIGHT, position: 9600 }], children: [new D.TextRun({ text: M.etabli, color: GREY, size: 14 }), new D.TextRun({ children: ["\tPage ", D.PageNumber.CURRENT, " / ", D.PageNumber.TOTAL_PAGES], color: GREY, size: 14 })] })] });
+    var PRS = await presentationConv(), R = PRS.r;
+    var im = function (uri, w, h) { return uri ? [new D.ImageRun({ data: b64(uri), type: "png", transformation: { width: w, height: h } })] : []; };
+    var RT = [{ type: D.TabStopType.RIGHT, position: 9600 }], ligne = { bottom: { style: D.BorderStyle.SINGLE, size: 4, color: "D5DEE9", space: 4 } };
+    var marque = new D.TextRun({ text: "PURPOSE CAPITAL", bold: true, color: NAVY, size: 14, characterSpacing: 30 });
+    var header = R.entete === "E4" ? new D.Header({ children: [new D.Paragraph({ alignment: D.AlignmentType.CENTER, border: { bottom: { style: D.BorderStyle.SINGLE, size: 8, color: "B88A39", space: 4 } }, children: im(PRS.logo, 118, 41) })] })
+      : R.entete === "E3" ? new D.Header({ children: [new D.Paragraph({ tabStops: RT, border: ligne, children: im(PRS.logo, 104, 36).concat([new D.TextRun({ text: "\t" + M.titre, bold: true, color: NAVY, size: 14 }), new D.TextRun({ text: "  ·  " + M.edLabel, color: GREY, size: 14 })]) })] })
+      : new D.Header({ children: [new D.Paragraph({ tabStops: RT, border: ligne, children: (R.entete === "E2" ? im(PRS.soleil, 12, 12).concat([new D.TextRun("  ")]) : []).concat([marque, new D.TextRun({ text: "  ·  " + M.titre, color: GREY, size: 14 }), new D.TextRun({ text: "\t" + M.edLabel, color: GREY, size: 14 })]) })] });
+    var pg = ["Page ", D.PageNumber.CURRENT, " / ", D.PageNumber.TOTAL_PAGES], tx = function (t, b) { return new D.TextRun({ text: t, color: b ? NAVY : GREY, bold: !!b, size: 13 }); };
+    var lig = PRS.lignes.length ? PRS.lignes : [M.etabli];
+    var footer = R.pied === "P2" ? new D.Footer({ children: [new D.Paragraph({ alignment: D.AlignmentType.CENTER, children: im(PRS.soleil, 12, 12) }), new D.Paragraph({ alignment: D.AlignmentType.CENTER, children: [new D.TextRun({ children: pg, color: GREY, size: 13 })] })].concat(lig.map(function (l) { return new D.Paragraph({ alignment: D.AlignmentType.CENTER, children: [tx(l)] }); })) })
+      : new D.Footer({ children: lig.map(function (l, i) { return new D.Paragraph({ tabStops: RT, border: i ? undefined : { top: { style: D.BorderStyle.SINGLE, size: 4, color: "D5DEE9", space: 4 } }, children: (i === 0 && R.pied === "P3" ? im(PRS.soleil, 11, 11).concat([new D.TextRun("  ")]) : []).concat([tx(l, !i)]).concat(i === lig.length - 1 ? [new D.TextRun({ text: "\tPage ", color: GREY, size: 13 }), new D.TextRun({ children: [D.PageNumber.CURRENT], color: GREY, size: 13 }), new D.TextRun({ text: " / ", color: GREY, size: 13 }), new D.TextRun({ children: [D.PageNumber.TOTAL_PAGES], color: GREY, size: 13 })].concat(R.pied === "P4" ? [new D.TextRun("  ")].concat(im(PRS.soleil, 10, 10)) : []) : []) }); }) });
+    // Page de garde avec logo (G2/G3) : logo en tête de la convention, sauf si l'en-tête le porte déjà en grand
+    var logoTete = R.garde !== "G1" && R.entete !== "E3" && R.entete !== "E4" ? [new D.Paragraph({ spacing: { before: 0, after: 240, line: 240, lineRule: D.LineRuleType.AUTO }, children: im(PRS.logo, 150, 53) })] : [];
     var margins = { top: 1300, bottom: 1134, left: 1134, right: 1020, header: 560, footer: 480 };
     var sections = parts.map(function (p) {
       var head = p.kind === "contrat"
-        ? [new D.Paragraph({ spacing: { after: 60 }, children: [new D.TextRun({ text: GEN_EN ? "AGREEMENT" : "CONVENTION", color: GOLD, bold: true, size: 16, characterSpacing: 40 })] }),
+        ? logoTete.concat([new D.Paragraph({ spacing: { after: 60 }, children: [new D.TextRun({ text: GEN_EN ? "AGREEMENT" : "CONVENTION", color: GOLD, bold: true, size: 16, characterSpacing: 40 })] }),
           new D.Paragraph({ style: "DocTitle", children: [new D.TextRun(p.titre)] }),
           new D.Paragraph({ spacing: { after: 80 }, children: [new D.TextRun({ text: M.parties, italics: true, color: GREY })] }),
-          new D.Paragraph({ spacing: { after: 360 }, border: { bottom: { style: D.BorderStyle.SINGLE, size: 12, color: "E8A020", space: 6 } }, children: [new D.TextRun({ text: M.edLabel, color: GREY, size: 18 })] })]
-        : [new D.Paragraph({ spacing: { after: 40 }, children: [new D.TextRun({ text: (p.nom ? (GEN_EN ? "APPENDIX “" + p.nom.toUpperCase() + "”" : "ANNEXE « " + p.nom.toUpperCase() + " »") : (GEN_EN ? "APPENDIX " : "ANNEXE ") + p.num) + " · " + p.ref, color: GOLD, bold: true, size: 16, characterSpacing: 30 })] }),
+          new D.Paragraph({ spacing: { after: 360 }, border: { bottom: { style: D.BorderStyle.SINGLE, size: 12, color: "E8A020", space: 6 } }, children: [new D.TextRun({ text: M.edLabel, color: GREY, size: 18 })] })])
+        : [new D.Paragraph({ spacing: { after: 40 }, children: [new D.TextRun({ text: (p.nom ? (GEN_EN ? "APPENDIX “" + p.nom.toUpperCase() + "”" : "ANNEXE « " + p.nom.toUpperCase() + " »") : (GEN_EN ? "APPENDIX " : "ANNEXE ") + p.num), color: GOLD, bold: true, size: 16, characterSpacing: 30 })] }),
           new D.Paragraph({ style: "AnnexTitle", children: [new D.TextRun(p.titre)] })];
       return {
         properties: { page: { margin: margins, size: p.paysage ? { orientation: D.PageOrientation.LANDSCAPE, width: 11906, height: 16838 } : { width: 11906, height: 16838 } } },
@@ -511,6 +538,7 @@
     fontVfs = vfs; return vfs;
   }
   async function makePdf(parts, M) {
+    var PRS = await presentationConv(), R = PRS.r;
     var pm = await loadLib("pdfmake"), vfs = await pdfFonts();
     var fonts = {
       Inter: { normal: "Inter-Regular.ttf", bold: "Inter-SemiBold.ttf", italics: "Inter-Italic.ttf", bolditalics: "Inter-SemiBoldItalic.ttf" },
@@ -537,26 +565,37 @@
     var content = [];
     parts.forEach(function (p, i) {
       if (p.kind === "contrat") {
+        if (R.garde !== "G1" && R.entete !== "E3" && R.entete !== "E4" && PRS.logo) content.push({ image: PRS.logo, width: 120, margin: [0, 0, 0, 16] });
         content.push({ text: "CONVENTION", color: "#8A6413", bold: true, fontSize: 7.5, characterSpacing: 1.6 });
         content.push({ text: p.titre, font: "Playfair", fontSize: 21, lineHeight: 1.08, color: "#0B2E52", margin: [0, 4, 0, 6] });
         content.push({ text: M.parties, italics: true, color: "#5B6B80" });
         content.push({ canvas: [{ type: "line", x1: 0, y1: 8, x2: 40, y2: 8, lineWidth: 1.6, lineColor: "#E8A020" }], margin: [0, 0, 0, 4] });
         content.push({ text: M.edLabel, color: "#5B6B80", fontSize: 8, margin: [0, 0, 0, 18] });
       } else {
-        content.push({ pageBreak: "before", pageOrientation: p.paysage ? "landscape" : "portrait", text: (p.nom ? (GEN_EN ? "APPENDIX “" + p.nom.toUpperCase() + "”" : "ANNEXE « " + p.nom.toUpperCase() + " »") : (GEN_EN ? "APPENDIX " : "ANNEXE ") + p.num) + " · " + p.ref, color: "#8A6413", bold: true, fontSize: 7.5, characterSpacing: 1.4 });
+        content.push({ pageBreak: "before", pageOrientation: p.paysage ? "landscape" : "portrait", text: (p.nom ? (GEN_EN ? "APPENDIX “" + p.nom.toUpperCase() + "”" : "ANNEXE « " + p.nom.toUpperCase() + " »") : (GEN_EN ? "APPENDIX " : "ANNEXE ") + p.num), color: "#8A6413", bold: true, fontSize: 7.5, characterSpacing: 1.4 });
         content.push({ text: p.titre, font: "Playfair", fontSize: 15, color: "#0B2E52", margin: [0, 3, 0, 4] });
         content.push({ canvas: [{ type: "line", x1: 0, y1: 2, x2: p.paysage ? 735 : 488, y2: 2, lineWidth: 1, lineColor: "#0B2E52" }], margin: [0, 0, 0, 12] });
       }
       content = content.concat(body(p.blocks));
     });
     var dd = {
-      pageSize: "A4", pageMargins: [56, 62, 51, 56],
+      pageSize: "A4", pageMargins: [56, R.entete === "E3" || R.entete === "E4" ? 72 : 62, 51, R.pied === "P2" ? 70 + 9 * PRS.lignes.length : 56 + (PRS.lignes.length > 1 ? 8 : 0)],
       info: { title: M.titre + " — " + M.parties, author: "Purpose Capital S.A.", subject: M.etabli },
       defaultStyle: { font: "Inter", fontSize: 9.4, lineHeight: 1.32, color: "#0A2540" },
       styles: { h2: { font: "Playfair", fontSize: 13, color: "#0B2E52", margin: [0, 14, 0, 6] }, h3: { bold: true, fontSize: 9.4, color: "#0B2E52", margin: [0, 8, 0, 2] } },
       watermark: M.ed === "projet" ? { text: GEN_EN ? "DRAFT" : "PROJET", color: "#0B2E52", opacity: 0.05, font: "Playfair", bold: true } : undefined,
-      header: function () { return { margin: [56, 26, 51, 0], fontSize: 6.8, color: "#5B6B80", columns: [{ text: [{ text: "PURPOSE CAPITAL", bold: true, color: "#0B2E52", characterSpacing: 1 }, { text: "  ·  " + M.ref + " — " + M.titre }] }, { text: M.edLabel, alignment: "right", width: "auto" }] }; },
-      footer: function (page, count) { return { margin: [56, 18, 51, 0], fontSize: 6.8, color: "#5B6B80", columns: [{ text: M.etabli }, { text: "Page " + page + " / " + count, alignment: "right", width: "auto" }] }; },
+      header: function () {
+        var mq = { text: [{ text: "PURPOSE CAPITAL", bold: true, color: "#0B2E52", characterSpacing: 1 }, { text: "  ·  " + M.titre }] };
+        if (R.entete === "E4") return { margin: [56, 20, 51, 0], stack: [{ image: PRS.logo, height: 30, width: 86, alignment: "center" }, { canvas: [{ type: "line", x1: 0, y1: 4, x2: 488, y2: 4, lineWidth: 0.8, lineColor: "#B88A39" }] }] };
+        if (R.entete === "E3") return { margin: [56, 20, 51, 0], fontSize: 6.8, color: "#5B6B80", columns: [{ image: PRS.logo, height: 26, width: 74 }, { text: [{ text: M.titre, bold: true, color: "#0B2E52" }, "\n" + M.edLabel], alignment: "right" }] };
+        return { margin: [56, 26, 51, 0], fontSize: 6.8, color: "#5B6B80", columns: (R.entete === "E2" && PRS.soleil ? [{ image: PRS.soleil, width: 9, height: 9, margin: [0, -1, 5, 0] }] : []).concat([mq, { text: M.edLabel, alignment: "right", width: "auto" }]) };
+      },
+      footer: function (page, count) {
+        var lig = PRS.lignes.length ? PRS.lignes : [M.etabli], pgt = page + " / " + count;
+        if (R.pied === "P2") return { margin: [56, 8, 51, 0], fontSize: 6.3, color: "#5B6B80", alignment: "center", stack: [PRS.soleil ? { image: PRS.soleil, width: 9, height: 9, alignment: "center" } : { text: "" }, { text: pgt }].concat(lig.map(function (l) { return { text: l }; })) };
+        var info = { stack: lig.map(function (l, i) { return { text: l, bold: !i, color: i ? "#5B6B80" : "#0B2E52" }; }) };
+        return { margin: [56, 14, 51, 0], fontSize: 6.3, color: "#5B6B80", columns: (R.pied === "P3" && PRS.soleil ? [{ image: PRS.soleil, width: 9, height: 9, margin: [0, 1, 5, 0] }] : []).concat([info, { text: pgt, alignment: "right", width: "auto", noWrap: true }]).concat(R.pied === "P4" && PRS.soleil ? [{ image: PRS.soleil, width: 8, height: 8, margin: [5, 0, 0, 0] }] : []) };
+      },
       pageBreakBefore: function (node, following) { return (node.headlineLevel === 1 && following.length < 4) || (node.headlineLevel === 2 && following.length < 2); },
       content: content
     };

@@ -368,3 +368,53 @@ document(s) mis à jour.	document(s) updated.
 Cliquez une case pour passer de « — » à « Lecture » (à lire et attester), puis « Consultation » (accès sans attestation, pour les employés). Une personne qui prend une fonction hérite de ses lectures ; celle qui la quitte en est déchargée.	Click a cell to go from “—” to “Reading” (to read and acknowledge), then “Consultation” (access without acknowledgement, for employees). A person who takes on a function inherits its readings; one who leaves it is released from them.
 à lire par sa fonction	to read through their function
 en consultation par sa fonction	for consultation through their function
+Présentation des documents	Document layout
+Prérogative « présentation »	“Layout” power
+Logo, page de garde, en-tête et bas de page des PDF, des Word et des conventions générées, par type de document, avec la fiche d'identité de la société reprise dans les pieds de page et les conventions.	Logo, cover page, header and footer of the PDFs, Word files and generated agreements, by document type, with the company identity sheet used in footers and agreements.
+Fiche d'identité de la société	Company identity sheet
+Raison sociale	Company name
+Forme sociale	Legal form
+Capital	Share capital
+RCCM	Trade register (RCCM)
+NIU	Tax ID (NIU)
+Agrément COSUMAF	COSUMAF licence
+Siège	Registered office
+Boîte postale	PO Box
+Téléphone	Telephone
+E-mail	E-mail
+Site web	Website
+Mention libre 1	Free text 1
+Mention libre 2	Free text 2
+En anglais	In English
+Présentation par type de document	Layout by document type
+Cliquez une ligne pour voir l'aperçu. Les documents remis au client (modèles de contrat, formulaires, conventions générées) n'affichent ni référence ni version ; aucun document n'affiche sa référence.	Click a row to see the preview. Documents given to clients (contract templates, forms, generated agreements) show neither reference nor version; no document shows its reference.
+Page de garde	Cover page
+En-tête	Header
+Bas de page	Footer
+Informations du pied	Footer information
+Codes	Codes
+Politiques	Policies
+Procédures	Procedures
+Modèles de contrat	Contract templates
+Modes opératoires	Operating instructions
+Formulaires	Forms
+Conventions générées	Generated agreements
+remis au client	given to clients
+G1 · Bandeau, nom en lettres	G1 · Band, name in letters
+G2 · Bandeau, logo blanc	G2 · Band, white logo
+G3 · Page blanche, logo couleur	G3 · White page, colour logo
+E1 · Nom en lettres	E1 · Name in letters
+E2 · Soleil et nom	E2 · Sun and name
+E3 · Logo complet à gauche	E3 · Full logo on the left
+E4 · Papier à en-tête	E4 · Letterhead
+P1 · Informations et page	P1 · Information and page
+P2 · Soleil centré	P2 · Centred sun
+P3 · Soleil, informations et page	P3 · Sun, information and page
+P4 · Soleil à droite	P4 · Sun on the right
+Le pied dépasse deux lignes : retirez des informations.	The footer exceeds two lines: remove some information.
+Exceptions par document	Exceptions by document
+Selon le type	As per type
+Enregistrer la présentation	Save the layout
+Réglage en cours de publication : les PDF et Word seront régénérés dans quelques minutes.	Setting being published: PDFs and Word files will be regenerated within a few minutes.
+Présentation enregistrée : les conventions générées l'appliquent tout de suite ; les PDF et Word sont régénérés à la publication (quelques minutes). Aucun texte ni visa n'est touché.	Layout saved: generated agreements apply it immediately; PDFs and Word files are regenerated on publication (a few minutes). No text or sign-off is affected.
+logo, en-têtes, bas de page et fiche d'identité (accordée par le super administrateur seul)	logo, headers, footers and identity sheet (granted by the super administrator only)

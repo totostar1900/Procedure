@@ -11,7 +11,8 @@ import { Marked } from "marked";
 import { chromium } from "playwright";
 import { PDFDocument } from "pdf-lib";
 import { createRequire } from "node:module";
-import { docxCorps, docxAnnexe, docxModeleVierge, langue } from "./templates/docx.mjs";
+import { docxCorps, docxAnnexe, docxModeleVierge, langue, presentation as docxPresentation } from "./templates/docx.mjs";
+import { lirePresentation, regle, lignesPied, logos, annexeClient, TRADUISIBLES, CHAMPS } from "./templates/presentation.mjs";
 import JSZip from "jszip";
 // Rend un .docx reproductible : dates du paquet et des propriétés fixées à la date de la version
 async function docxFixe(buf, d) {
@@ -43,6 +44,12 @@ const NO_PDF = process.argv.includes("--no-pdf");
 const cfg = yaml.load(read(P("content/referentiel.yaml")));
 // Version anglaise des données communes (glossaire, textes de référence, documents prévus) : traduction de courtoisie
 const cfgEn = fs.existsSync(P("content/en/referentiel.yaml")) ? yaml.load(read(P("content/en/referentiel.yaml"))) : null;
+// Présentation des documents (Paramétrage) : la fiche d'identité complète et remplace les données de la société
+const PRES = lirePresentation(P("."));
+for (const [k, v] of Object.entries(PRES.societe)) if (v != null && String(v).trim() && !/_en$/.test(k)) cfg.societe[k] = v;
+if (cfgEn) { cfgEn.societe = cfgEn.societe || {}; for (const k of TRADUISIBLES) if (PRES.societe[k + "_en"]) cfgEn.societe[k] = PRES.societe[k + "_en"]; }
+const LOGOS = logos(P("."));
+docxPresentation(PRES, LOGOS, cfg.societe);
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 const iso = (v) => (v instanceof Date ? v.toISOString().slice(0, 10) : v ? String(v) : "");
 const MOIS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
@@ -292,19 +299,25 @@ const refCell = (k, d) => {
 };
 
 function coverHtml(d) {
-  // Dates et visas : uniquement dans la fiche de maîtrise (pas de doublon sur la page de garde)
+  // Dates et visas : uniquement dans la fiche de maîtrise (pas de doublon sur la page de garde). Pas de référence (PC-…) ;
+  // pas de version pour les documents remis au client.
+  const R = regle(PRES, d), en = d.lang === "en";
   const rows = [[L(d, "Propriétaire"), L(d, d.proprietaire)], [L(d, "Prochaine revue"), L(d, d.prochaine_revue_label)], [L(d, "Confidentialité"), L(d, d.confidentialite)]];
-  return `<div class="cover">${watermark(d)}
-  <div class="cover-band"><div class="wordmark">PURPOSE CAPITAL</div><div class="wordmark-rule"></div><div class="wordmark-sub">${L(d, "Référentiel documentaire")} · ${esc(cfg.societe.raison_sociale)}</div></div>
+  const marque = R.garde === "G1" ? `<div class="cover-band"><div class="wordmark">PURPOSE CAPITAL</div><div class="wordmark-rule"></div><div class="wordmark-sub">${L(d, "Référentiel documentaire")} · ${esc(cfg.societe.raison_sociale)}</div></div>`
+    : R.garde === "G2" ? `<div class="cover-band"><img class="cover-logo" src="${LOGOS.svg.blanc}" alt="Purpose Capital"></div>`
+    : `<div class="cover-top"><img class="cover-logo" src="${LOGOS.svg.logo}" alt="Purpose Capital"></div>`;
+  const lignes = lignesPied(en ? { ...cfg.societe, ...PRES.societe } : cfg.societe, R.champs, en);
+  return `<div class="cover${R.garde === "G3" ? " cover-blanche" : ""}">${watermark(d)}
+  ${marque}
   <div class="cover-main">
     <div class="cover-eyebrow">${esc(L(d, d.type))} · ${esc(L(d, d.domaine))}</div>
     <div class="cover-title">${esc(d.titre)}</div>
-    <div class="cover-ref">${L(d, "Référence")} <b>${esc(d.id)}</b> &nbsp;·&nbsp; Version <b>${esc(d.version)}</b><span class="cover-status">${esc(L(d, d.statut))}</span></div>
+    <div class="cover-ref">${R.client ? "" : `Version <b>${esc(d.version)}</b>`}<span class="cover-status">${esc(L(d, d.statut))}</span></div>
     <table class="cover-meta">${rows.map(([k, v]) => `<tr><th>${k}</th><td>${esc(v)}</td></tr>`).join("")}</table>
   </div>
   <div class="cover-foot">
-    <div><strong>${esc(cfg.societe.raison_sociale)}</strong></div>
-    <div style="text-align:right">${d.lang === "en" ? `Controlled document: only the version published<br>in the online repository is authoritative.<br>Courtesy translation — the French version prevails.<br>Issued on ${enDate(TODAY)}` : `Document maîtrisé : seule la version publiée<br>dans le référentiel en ligne fait foi.<br>Édité le ${frDate(TODAY)}`}</div>
+    <div>${lignes.length ? lignes.map((l, i) => (i ? esc(l) : `<strong>${esc(l)}</strong>`)).join("<br>") : `<strong>${esc(cfg.societe.raison_sociale)}</strong>`}</div>
+    <div style="text-align:right">${en ? `Courtesy translation — the French version prevails.<br>Issued on ${enDate(TODAY)}` : `Édité le ${frDate(TODAY)}`}</div>
   </div></div>`;
 }
 
@@ -312,10 +325,10 @@ function coverHtml(d) {
 export const annexeLib = (a, en) => (a.nom ? (en ? `Appendix “${a.nom}”` : `Annexe « ${a.nom} »`) : (en ? `Appendix ${a.num}` : `Annexe ${a.num}`));
 function annexBlock(d, a, standalone) {
   return `<div${standalone ? "" : ` id="annexe-${a.num}"`} class="annex${standalone ? "" : " page-break"}${!standalone && a.orientation === "paysage" ? " annex-landscape" : ""}">
-  <div class="annex-head"><div>${standalone ? '<div class="mini-mark">PURPOSE CAPITAL<i></i></div><div style="height:2mm"></div>' : ""}
-    <div class="annex-eyebrow">${d.lang === "en" ? `${esc(annexeLib(a, true))} to ${esc(L(d, d.type).toLowerCase())} ${esc(d.id)}` : `${esc(annexeLib(a))} au ${esc(d.type.toLowerCase())} ${esc(d.id)}`} · ${esc(a.nature)}</div>
+  <div class="annex-head"><div>
+    <div class="annex-eyebrow">${esc(annexeLib(a, d.lang === "en"))} · ${esc(d.titre)} · ${esc(a.nature)}</div>
     <div class="annex-title">${esc(a.titre)}</div></div>
-    <div class="annex-ref">${d.lang === "en" ? "Ref." : "Réf."} <b>${esc(a.id)}</b><br>Version ${esc(d.version)}<br>${esc(L(d, d.confidentialite))}</div></div>
+    <div class="annex-ref">${regle(PRES, d).client || annexeClient(a) ? "" : `Version ${esc(d.version)}<br>`}${esc(L(d, d.confidentialite))}</div></div>
   <div class="annex-usage"><span><b>${L(d, "Renseigné par")}</b> ${esc(a.renseigne_par)}</span><span><b>${L(d, "Fréquence")}</b> ${esc(a.frequence)}</span><span><b>${L(d, "Conservé par")}</b> ${esc(a.conserve_par)}</span></div>
   <div class="doc-body">${a.html}</div></div>`;
 }
@@ -353,12 +366,44 @@ function bodyHtml(d, withAnnexes = true) {
   return `${watermark(d)}${control}${toc}<div class="doc-body">${body}</div>${withAnnexes ? d.annexes.map((a) => annexBlock(d, a, false)).join("") : ""}`;
 }
 
-const hf = (d, label) => ({
-  headerTemplate: `<div style="width:100%;margin:0 18mm 0 20mm;padding-bottom:5px;border-bottom:0.5px solid #D5DEE9;font-family:Helvetica,Arial,sans-serif;font-size:6.8pt;color:#5B6B80;display:flex;justify-content:space-between;-webkit-print-color-adjust:exact"><span><span style="color:#0B2E52;font-weight:bold;letter-spacing:1.4px">PURPOSE CAPITAL</span>&nbsp;&nbsp;·&nbsp;&nbsp;${esc(label)}</span><span>Version ${esc(d.version)} · ${esc(L(d, d.statut))}</span></div>`,
-  footerTemplate: `<div style="width:100%;margin:0 18mm 0 20mm;font-family:Helvetica,Arial,sans-serif;font-size:6.5pt;color:#5B6B80;display:flex;justify-content:space-between"><span>${d.lang === "en" ? "Uncontrolled printed copy — only the online version is authoritative" : "Version imprimée non maîtrisée — seule la version en ligne fait foi"} · ${esc(L(d, d.confidentialite))}</span><span>Page <span class="pageNumber"></span> / <span class="totalPages"></span></span></div>`,
-});
+// En-tête et bas de page selon la présentation choisie (aucune référence PC-… ; pas de version pour le client)
+const hf = (d, label, a) => {
+  const R = regle(PRES, d), en = d.lang === "en", sansVersion = R.client || (a && annexeClient(a));
+  const F = "font-family:Helvetica,Arial,sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact";
+  const box = "width:100%;margin:0 18mm 0 20mm";
+  const marque = `<span style="color:#0B2E52;font-weight:bold;letter-spacing:1.4px">PURPOSE CAPITAL</span>`;
+  const sol = (h) => `<img src="${LOGOS.svg.soleil}" style="height:${h}px;width:${h}px;display:block">`;
+  const droite = sansVersion ? esc(L(d, d.statut)) : `Version ${esc(d.version)} · ${esc(L(d, d.statut))}`;
+  const lbl = esc(label);
+  const head = {
+    E1: `<div style="${box};${F};padding-bottom:5px;border-bottom:0.5px solid #D5DEE9;font-size:6.8pt;color:#5B6B80;display:flex;justify-content:space-between;gap:12px"><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${marque}&nbsp;&nbsp;·&nbsp;&nbsp;${lbl}</span><span style="white-space:nowrap">${droite}</span></div>`,
+    E2: `<div style="${box};${F};padding-bottom:5px;border-bottom:0.5px solid #D5DEE9;font-size:6.8pt;color:#5B6B80;display:flex;align-items:center;gap:7px">${sol(13)}<span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1">${marque}&nbsp;&nbsp;·&nbsp;&nbsp;${lbl}</span><span style="white-space:nowrap">${droite}</span></div>`,
+    E3: `<div style="${box};${F};padding-bottom:5px;border-bottom:0.5px solid #D5DEE9;font-size:6.6pt;color:#5B6B80;display:flex;align-items:center;justify-content:space-between;gap:12px"><img src="${LOGOS.svg.logo}" style="height:30px;display:block"><span style="text-align:right;line-height:1.35"><b style="color:#0B2E52">${lbl}</b><br>${droite}</span></div>`,
+    E4: `<div style="${box};${F};padding-bottom:5px;border-bottom:1px solid #B88A39;display:flex;justify-content:center"><img src="${LOGOS.svg.logo}" style="height:30px;display:block"></div>`,
+  }[R.entete] || "";
+  const lignes = lignesPied(en ? { ...cfg.societe, ...PRES.societe } : cfg.societe, R.champs, en).map(esc);
+  const pg = `<span class="pageNumber"></span> / <span class="totalPages"></span>`;
+  // Papier à en-tête (E4) : le titre et la version passent dans le bas de page
+  const rappel = R.entete === "E4" ? `<span style="white-space:nowrap">${lbl}${sansVersion ? "" : " · v" + esc(d.version)} · ${pg}</span>` : `<span style="white-space:nowrap">${pg}</span>`;
+  const infos = `<span style="flex:1;min-width:0;line-height:1.4">${lignes.map((l, i) => (i ? l : `<b style="color:#0B2E52">${l}</b>`)).join("<br>")}</span>`;
+  const foot = {
+    P1: `<div style="${box};${F};font-size:6.3pt;color:#5B6B80;display:flex;align-items:flex-end;gap:12px;border-top:0.5px solid #D5DEE9;padding-top:4px">${infos}${rappel}</div>`,
+    P2: `<div style="${box};${F};font-size:6.3pt;color:#5B6B80;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center">${sol(13)}<span>${R.entete === "E4" ? lbl + " · " : ""}${pg}</span>${lignes.length ? `<span style="line-height:1.4">${lignes.join("<br>")}</span>` : ""}</div>`,
+    P3: `<div style="${box};${F};font-size:6.3pt;color:#5B6B80;display:flex;align-items:center;gap:8px;border-top:0.5px solid #D5DEE9;padding-top:4px">${sol(13)}${infos}${rappel}</div>`,
+    P4: `<div style="${box};${F};font-size:6.3pt;color:#5B6B80;display:flex;align-items:flex-end;gap:8px;border-top:0.5px solid #D5DEE9;padding-top:4px">${infos}${rappel}${sol(11)}</div>`,
+  }[R.pied] || "";
+  return { headerTemplate: head, footerTemplate: foot };
+};
 const MARGIN = { top: "22mm", bottom: "18mm", left: "20mm", right: "18mm" };
 const ANNEX_MARGIN = { top: "17mm", bottom: "14mm", left: "18mm", right: "16mm" };
+// Marges selon la hauteur de l'en-tête (logo) et du bas de page (lignes d'informations)
+const marges = (d, annexe) => {
+  const R = regle(PRES, d), m = { ...(annexe ? ANNEX_MARGIN : MARGIN) };
+  if (R.entete === "E3" || R.entete === "E4") m.top = annexe ? "22mm" : "26mm";
+  const n = lignesPied(cfg.societe, R.champs, false).length;
+  if (R.pied === "P2") m.bottom = (annexe ? 16 : 20) + 3 * n + "mm"; else if (n > 1) m.bottom = annexe ? "17mm" : "20mm";
+  return m;
+};
 
 // Métadonnées fixes : un document inchangé produit un fichier identique d'une génération à l'autre
 const fixe = (pdf, d) => {
@@ -380,7 +425,7 @@ async function buildPdfs() {
   };
   for (const d of variants.flatMap((v) => (v.en ? [v, vueEn(v)] : [v]))) {
     const cover = await render(page(coverHtml(d), "", "@page{margin:0}", d.lang || "fr"), d.id + "-cover", { margin: { top: 0, bottom: 0, left: 0, right: 0 } });
-    const body = await render(page(bodyHtml(d), "", "", d.lang || "fr"), d.id + (d.lang ? "-en" : "") + "-body", { displayHeaderFooter: true, margin: MARGIN, outline: true, tagged: true, ...hf(d, `${d.id} — ${d.titre}`) });
+    const body = await render(page(bodyHtml(d), "", "", d.lang || "fr"), d.id + (d.lang ? "-en" : "") + "-body", { displayHeaderFooter: true, margin: marges(d), outline: true, tagged: true, ...hf(d, d.titre) });
     // La couverture est insérée dans le PDF du corps : liens du sommaire et signets restent valables
     const coverDoc = await PDFDocument.load(cover);
     const out = await PDFDocument.load(body);
@@ -390,7 +435,7 @@ async function buildPdfs() {
     fs.writeFileSync(P("dist/pdf", d.pdf.file), bytes);
     console.log("PDF", d.pdf.file, (bytes.length / 1024).toFixed(0) + " Ko");
     // Version sans annexes : couverture, fiche de maîtrise et corps seuls, numérotation propre
-    const bodyOnly = await render(page(bodyHtml(d, false), "", "", d.lang || "fr"), d.id + (d.lang ? "-en" : "") + "-corps", { displayHeaderFooter: true, margin: MARGIN, outline: true, tagged: true, ...hf(d, `${d.id} — ${d.titre}`) });
+    const bodyOnly = await render(page(bodyHtml(d, false), "", "", d.lang || "fr"), d.id + (d.lang ? "-en" : "") + "-corps", { displayHeaderFooter: true, margin: marges(d), outline: true, tagged: true, ...hf(d, d.titre) });
     const out2 = await PDFDocument.load(bodyOnly);
     out2.insertPage(0, (await out2.copyPages(coverDoc, [0]))[0]);
     out2.setTitle(`${d.id} — ${d.titre} (v${d.version}, ${d.lang === "en" ? "without appendices" : "sans annexes"})`); out2.setAuthor(cfg.societe.raison_sociale); fixe(out2, d);
@@ -398,7 +443,7 @@ async function buildPdfs() {
     for (const a of d.annexes) {
       const land = a.orientation === "paysage";
       const buf = await render(page(watermark(d) + annexBlock(d, a, true), land ? "landscape" : "", "", d.lang || "fr"), a.id + (d.lang ? "-en" : ""), {
-        displayHeaderFooter: true, landscape: land, margin: ANNEX_MARGIN, ...hf(d, d.lang === "en" ? `${a.id} — ${annexeLib(a, true)} to ${d.id}` : `${a.id} — ${annexeLib(a)} au ${d.id}`),
+        displayHeaderFooter: true, landscape: land, margin: marges(d, true), ...hf(d, `${annexeLib(a, d.lang === "en")} · ${d.titre}`, a),
       });
       const doc = await PDFDocument.load(buf);
       doc.setTitle(`${a.id} — ${a.titre}`); doc.setAuthor(cfg.societe.raison_sociale); fixe(doc, d);
@@ -468,7 +513,9 @@ function buildSite() {
   }
   const strip = (d) => { const { _source, ...rest } = d; rest.annexes = (rest.annexes || []).map(({ _src, ...a }) => a); return d.projet ? { ...rest, projet: strip(d.projet) } : rest; };
   const manuel = { docs: manuelDocs().map((d) => d.id), fr: { ...MANUEL.fr, size: size(MANUEL.fr.file) }, en: { ...MANUEL.en, size: size(MANUEL.en.file) } };
-  const data = { societe: cfg.societe, niveaux: cfg.niveaux, references: cfg.references, glossaire: cfg.glossaire, docs: docs.map(strip), prevus, generated: TODAY, manuel };
+  // Présentation des conventions générées dans le navigateur (règle « Conventions générées », fiche d'identité, logos PNG)
+  const presentation = { regle: regle(PRES, null, "_conventions"), societe: PRES.societe, champs: CHAMPS, logos: LOGOS.pngUri };
+  const data = { presentation, societe: cfg.societe, niveaux: cfg.niveaux, references: cfg.references, glossaire: cfg.glossaire, docs: docs.map(strip), prevus, generated: TODAY, manuel };
   const html = read(P("templates/index.tpl.html"))
     .replace("{{I18N_JS}}", () => i18nJs())
     .replace("{{SITE_CSS}}", () => read(P("templates/site.css")))

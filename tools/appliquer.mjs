@@ -52,6 +52,13 @@ if (process.argv.includes("--confirmer")) {
     await setKv("noms/annexes", { changements: ch, en_attente: Object.keys(ch).length ? "oui" : "non", publie_le: new Date().toISOString() });
     console.log(Object.keys(faits).length + " nom(s) d'annexe publié(s).");
   }
+  // Présentation publiée : retirée de l'attente (sauf si elle a été modifiée entre-temps)
+  const fpr = path.join(ROOT, "build", "presentation.json");
+  if (fs.existsSync(fpr)) {
+    const { maj } = JSON.parse(fs.readFileSync(fpr, "utf8"));
+    const [pk] = await api("kv?select=data&path=eq.presentation%2Freglages");
+    if (pk && pk.data && pk.data.maj === maj) await setKv("presentation/reglages", { ...pk.data, en_attente: "non", publie_le: new Date().toISOString() });
+  }
   process.exit(0);
 }
 
@@ -76,6 +83,20 @@ if (process.argv.includes("--confirmer")) {
   }
   fs.mkdirSync(path.join(ROOT, "build"), { recursive: true });
   fs.writeFileSync(path.join(ROOT, "build", "noms.json"), JSON.stringify(faits));
+}
+// Présentation des documents revue dans Paramétrage : écrite dans content/presentation.json (PDF et Word régénérés ensuite)
+{
+  const [pk] = await api("kv?select=data&path=eq.presentation%2Freglages");
+  if (pk && pk.data && pk.data.en_attente === "oui") {
+    const { societe = {}, types = {}, documents = {}, maj } = pk.data;
+    const propre = (o) => Object.fromEntries(Object.entries(o || {}).filter(([k, v]) => /^[a-z_]+$/.test(k) && typeof v === "string").map(([k, v]) => [k, v.trim().slice(0, 200)]));
+    const reg = (r) => ({ ...(r.garde ? { garde: String(r.garde) } : {}), ...(r.entete ? { entete: String(r.entete) } : {}), ...(r.pied ? { pied: String(r.pied) } : {}), ...(Array.isArray(r.champs) ? { champs: r.champs.map(String) } : {}) });
+    const out = { societe: propre(societe), types: Object.fromEntries(Object.entries(types).map(([k, r]) => [k, reg(r || {})])), documents: Object.fromEntries(Object.entries(documents).filter(([k]) => /^PC-[A-Z0-9-]+$/.test(k)).map(([k, r]) => [k, reg(r || {})])) };
+    fs.writeFileSync(path.join(ROOT, "content", "presentation.json"), JSON.stringify(out, null, 1) + "\n");
+    fs.mkdirSync(path.join(ROOT, "build"), { recursive: true });
+    fs.writeFileSync(path.join(ROOT, "build", "presentation.json"), JSON.stringify({ maj }));
+    console.log("Présentation des documents mise à jour.");
+  }
 }
 // Brouillons ouverts avant le passage aux noms d'annexes : « l'Annexe 2 » devient [[annexe:A2]] et le brouillon
 // repart du texte actuel (seuls les renvois ont changé entre les deux), sans conflit pour son rédacteur.

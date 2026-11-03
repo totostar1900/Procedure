@@ -104,3 +104,10 @@ body.landscape .doc-body table:not(.form-table) td, .annex-landscape .doc-body t
 /* Fiche : case de signature manuscrite */
 .ctable td.sig-box { height: 15mm; vertical-align: bottom; color: var(--muted); font-size: 6.8pt; }
 .ctable td.na { background: #F6F8FB; }
+
+/* Page de garde avec logo : bandeau marine (logo blanc) ou page blanche (logo couleur) */
+.cover-band .cover-logo { height: 26mm; width: auto; display: block; }
+.cover-top { padding: 22mm 20mm 0; }
+.cover-top .cover-logo { height: 24mm; width: auto; display: block; }
+.cover-blanche .cover-main { padding-top: 26mm; }
+.cover-ref:empty { display: none; }

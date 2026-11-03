@@ -1,0 +1,89 @@
+{
+ "societe": {
+  "rccm": "RC/YAO/2025/M/336"
+ },
+ "types": {
+  "Code": {
+   "garde": "G3",
+   "entete": "E2",
+   "pied": "P3",
+   "champs": [
+    "raison_sociale",
+    "siege"
+   ]
+  },
+  "Politique": {
+   "garde": "G3",
+   "entete": "E2",
+   "pied": "P3",
+   "champs": [
+    "raison_sociale",
+    "siege"
+   ]
+  },
+  "Procédure": {
+   "garde": "G3",
+   "entete": "E2",
+   "pied": "P3",
+   "champs": [
+    "raison_sociale",
+    "siege"
+   ]
+  },
+  "Modèle de contrat": {
+   "garde": "G3",
+   "entete": "E2",
+   "pied": "P3",
+   "champs": [
+    "raison_sociale",
+    "forme",
+    "capital",
+    "rccm",
+    "agrement",
+    "siege",
+    "telephone",
+    "email"
+   ]
+  },
+  "Mode opératoire": {
+   "garde": "G3",
+   "entete": "E2",
+   "pied": "P3",
+   "champs": [
+    "raison_sociale",
+    "siege"
+   ]
+  },
+  "Formulaire": {
+   "garde": "G3",
+   "entete": "E2",
+   "pied": "P3",
+   "champs": [
+    "raison_sociale",
+    "forme",
+    "capital",
+    "rccm",
+    "agrement",
+    "siege",
+    "telephone",
+    "email"
+   ]
+  },
+  "_conventions": {
+   "garde": "G3",
+   "entete": "E2",
+   "pied": "P3",
+   "champs": [
+    "raison_sociale",
+    "forme",
+    "capital",
+    "rccm",
+    "agrement",
+    "siege",
+    "telephone",
+    "email"
+   ]
+  }
+ },
+ "documents": {}
+}

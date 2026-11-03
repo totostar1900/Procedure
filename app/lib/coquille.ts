@@ -10,7 +10,7 @@ const FL: Record<string, string> = { pca: "Président du Conseil d'Administratio
 const esc = (s: string) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
 
 // Paramétrage : super administrateur, ou administrateur ayant la prérogative « circuits » (il n'y voit que ses sections)
-export const accesParametrage = (m: { super?: boolean; prerogatives?: string[] | null }) => !!m.super || (m.prerogatives || []).includes("circuits") || (m.prerogatives || []).includes("lectures");
+export const accesParametrage = (m: { super?: boolean; prerogatives?: string[] | null }) => !!m.super || (m.prerogatives || []).includes("circuits") || (m.prerogatives || []).includes("lectures") || (m.prerogatives || []).includes("presentation");
 export const accesActivite = (m: { super?: boolean; prerogatives?: string[] | null }) => !!m.super || (m.prerogatives || []).includes("activite");
 export async function coquille(page: "membres" | "parametrage" | "comme" | "activite", exigeSuper: boolean) {
   const sb = await supabaseServeur();
@@ -21,6 +21,7 @@ export async function coquille(page: "membres" | "parametrage" | "comme" | "acti
   const moi: Moi = { email, nom: m.nom || email, super: !!m.super, admin: !!m.admin, prerogatives: m.prerogatives || [], fonctions: m.fonctions || [] };
 
   type AnnexeC = { num: string; nom: string; titre: string; nomEn: string };
+  let publie: { societe: Record<string, string>; presentation: Record<string, unknown> } = { societe: {}, presentation: {} };
   let docs: { id: string; titre: string; type: string; circuit: { etape: string; label: string; role: string }[]; annexes: AnnexeC[] }[] = [], css = "", rail = "";
   try {
     const html = fs.readFileSync(path.join(process.cwd(), "site", "index.html"), "utf8");
@@ -28,6 +29,7 @@ export async function coquille(page: "membres" | "parametrage" | "comme" | "acti
     type DocBrut = { id: string; titre: string; type: string; circuit?: []; annexes?: { id?: string; num: string; nom?: string; titre: string }[]; en?: { annexes?: { id?: string; nom?: string }[] } };
     if (x) docs = JSON.parse(x[1]).docs.map((d: DocBrut) => ({ id: d.id, titre: d.titre, type: d.type, circuit: d.circuit || [],
       annexes: (d.annexes || []).map((a, i) => ({ num: a.num, nom: a.nom || "", titre: a.titre, nomEn: (((d.en && d.en.annexes) || []).find((e, j) => (a.id && e.id ? e.id === a.id : j === i)) || {}).nom || "" })) }));
+    if (x) { const j = JSON.parse(x[1]); publie = { societe: j.societe || {}, presentation: { ...(j.presentation || {}), logos: undefined } }; }
     css = (html.match(/<style>([\s\S]*?)<\/style>/) || ["", ""])[1];
     const a = html.indexOf('<div class="mbar">'), b = html.indexOf('<div class="shell">');
     if (a >= 0 && b > a) rail = html.slice(a, b);
@@ -43,5 +45,5 @@ export async function coquille(page: "membres" | "parametrage" | "comme" | "acti
     .replace('id="nav-activite" title="Activité" hidden', accesActivite(moi) ? 'id="nav-activite" title="Activité"' + (page === "activite" ? ' aria-current="page"' : "") : 'id="nav-activite" title="Activité" hidden')
     .replace('<div class="rail-me" id="rail-me" aria-live="polite"></div>', `<div class="rail-me" id="rail-me">${carte}</div>`);
   css += ".nav a.nav-link[aria-current=page]{color:var(--on-navy);background:rgba(255,255,255,.1)}.nav a.nav-link[aria-current=page]::before{content:\"\";position:absolute;left:-10px;top:8px;bottom:8px;width:3px;border-radius:0 3px 3px 0;background:var(--gold)}";
-  return { moi, docs, css, rail };
+  return { moi, docs, css, rail, publie };
 }

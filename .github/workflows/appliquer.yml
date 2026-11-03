@@ -25,7 +25,7 @@ jobs:
         id: n
         run: |
           q() { curl -sf "$SUPABASE_URL/rest/v1/kv?select=path&$1" -H "apikey: $SUPABASE_SERVICE_ROLE_KEY" -H "Authorization: Bearer $SUPABASE_SERVICE_ROLE_KEY" | grep -o '"path"' | wc -l; }
-          a=$(q "path=like.redaction%2F*&data->>statut=eq.soumis"); b=$(q "path=like.adoptions%2F*&data->>statut=eq.demande"); c=$(q "path=eq.noms%2Fannexes&data->>en_attente=eq.oui")
+          a=$(q "path=like.redaction%2F*&data->>statut=eq.soumis"); b=$(q "path=like.adoptions%2F*&data->>statut=eq.demande"); c=$(q "path=eq.noms%2Fannexes&data->>en_attente=eq.oui"); c=$((c+$(q "path=eq.presentation%2Freglages&data->>en_attente=eq.oui")))
           if [ "$GITHUB_EVENT_NAME" = "schedule" ] && [ "$a$b$c" = "000" ]; then n=0; else n=$((a+b+c+1)); fi
           echo "n=$n" >> "$GITHUB_OUTPUT"; echo "$a modification(s) soumise(s), $b demande(s) d'adoption, $c lot de noms d'annexes"
       - if: steps.n.outputs.n != '0'
