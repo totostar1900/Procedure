@@ -35,6 +35,10 @@ historique:
     objet: mineur
     par: RCCI
   - version: '0.9'
+    date: '2026-11-03'
+    objet: mineur
+    par: RCCI
+  - version: '0.9'
     date: '2026-10-19'
     objet: 'Reprise de la convention du Guichet (version 2026-10-10), complétée par les articles 11 à 14 et rendue disponible pour les ouvertures hors du Guichet'
     par: Directeur Général
