@@ -36,6 +36,10 @@ references:
 historique:
   - version: '0.9'
     date: '2026-11-04'
+    objet: mineur
+    par: RCCI
+  - version: '0.9'
+    date: '2026-11-04'
     objet: ajouter une information
     par: RCCI
   - version: '0.9'
