@@ -3,50 +3,54 @@ id: PC-COD-003
 titre: Charte du contrôle interne et de la conformité
 type: Code
 domaine: Conformité
-version: "0.9"
+version: '0.9'
 statut: Projet
 confidentialite: Interne
 proprietaire: Responsable de la conformité et du contrôle interne (RCCI)
 redige_par: Responsable de la conformité et du contrôle interne (RCCI)
 verifie_par: Directeur Général
 approuve_par: Conseil d'Administration
-date_approbation:
-date_effet:
+date_approbation: null
+date_effet: null
 prochaine_revue: 12 mois après adoption
 diffusion: Tous les collaborateurs ; Administrateurs ; prestataire de revue indépendante ; commissaires aux comptes
 public: false
-resume: Ce qu'est le contrôle interne chez Purpose Capital S.A., qui en est responsable, ce que fait le RCCI, avec quels droits et quelle indépendance, comment les contrôles sont planifiés, menés et suivis, et comment il en est rendu compte au Conseil d'Administration et à la COSUMAF.
+resume: 'Ce qu''est le contrôle interne chez Purpose Capital S.A., qui en est responsable, ce que fait le RCCI, avec quels droits et quelle indépendance, comment les contrôles sont planifiés, menés et suivis, et comment il en est rendu compte au Conseil d''Administration et à la COSUMAF.'
 references:
   - ref: RG-COSUMAF-2023
-    articles: "Approche par les risques, cartographie et rapport annuel de contrôle interne transmis avant le 31 mars (art. 5) ; fonction de conformité et de contrôle interne soumise à carte professionnelle (art. 13 et 14) ; responsable LBC/FT (art. 112) ; pénalité de 250 000 FCFA par jour de retard de transmission (art. 32)"
+    articles: 'Approche par les risques, cartographie et rapport annuel de contrôle interne transmis avant le 31 mars (art. 5) ; fonction de conformité et de contrôle interne soumise à carte professionnelle (art. 13 et 14) ; responsable LBC/FT (art. 112) ; pénalité de 250 000 FCFA par jour de retard de transmission (art. 32)'
   - ref: REG-01-22
     articles: Organisation et obligations des intermédiaires du marché financier régional
   - ref: REG-02-24
-    articles: Dispositif interne de prévention du blanchiment, contrôle et formation
+    articles: 'Dispositif interne de prévention du blanchiment, contrôle et formation'
   - ref: COBAC-CANEVAS-CI
-    articles: "Pratique de la sous-région : plan du rapport annuel sur le contrôle interne et la surveillance des risques des établissements de crédit"
+    articles: 'Pratique de la sous-région : plan du rapport annuel sur le contrôle interne et la surveillance des risques des établissements de crédit'
   - ref: OICV-CONF-2006
-    articles: "Bonne pratique internationale : mission, indépendance, moyens et évaluation de la fonction conformité des intermédiaires"
+    articles: 'Bonne pratique internationale : mission, indépendance, moyens et évaluation de la fonction conformité des intermédiaires'
   - ref: BCBS-CONF-2005
-    articles: "Bonne pratique internationale : principes de la fonction conformité"
+    articles: 'Bonne pratique internationale : principes de la fonction conformité'
   - ref: COSO-2013
-    articles: "Référentiel international : cinq composantes du contrôle interne"
+    articles: 'Référentiel international : cinq composantes du contrôle interne'
   - ref: IIA-3L-2020
-    articles: "Référentiel international : modèle des trois lignes"
+    articles: 'Référentiel international : modèle des trois lignes'
 historique:
-  - version: "0.9"
-    date: 2026-10-20
-    objet: "Mise en forme : dates d'adoption et signatures reportées dans la fiche de maîtrise documentaire"
+  - version: '0.9'
+    date: '2026-11-04'
+    objet: ajouter une information
     par: RCCI
-  - version: "0.9"
-    date: 2026-10-19
+  - version: '0.9'
+    date: '2026-10-20'
+    objet: 'Mise en forme : dates d''adoption et signatures reportées dans la fiche de maîtrise documentaire'
+    par: RCCI
+  - version: '0.9'
+    date: '2026-10-19'
     objet: Projet initial soumis au Conseil d'Administration
     par: RCCI
 notes_redaction:
-  - "La Société n'a qu'une personne pour la conformité, le contrôle interne, la gestion des risques et la LBC/FT. La charte l'assume et compense ce cumul par trois garde-fous : le RCCI ne contrôle jamais son propre travail, il a un accès direct au Président du Conseil, et une revue indépendante annuelle est confiée à un prestataire externe."
+  - 'La Société n''a qu''une personne pour la conformité, le contrôle interne, la gestion des risques et la LBC/FT. La charte l''assume et compense ce cumul par trois garde-fous : le RCCI ne contrôle jamais son propre travail, il a un accès direct au Président du Conseil, et une revue indépendante annuelle est confiée à un prestataire externe.'
   - Les opérations sont aujourd'hui tenues par le Directeur Général. Le RCCI contrôle donc directement des opérations du Directeur Général ; l'article 11 le prévoit expressément.
-  - "Leçons de la décision de la COSUMAF contre Premium Capital Securities (2026) intégrées : RCCI désigné et doté d'une carte professionnelle, comité de conformité effectif, rapports de contrôle interne transmis à temps, information de la COSUMAF sur toute modification soumise à autorisation."
-  - Vérifier sur le texte officiel le calendrier complet des transmissions périodiques à la COSUMAF et compléter l'annexe [[annexe:A5]].
+  - 'Leçons de la décision de la COSUMAF contre Premium Capital Securities (2026) intégrées : RCCI désigné et doté d''une carte professionnelle, comité de conformité effectif, rapports de contrôle interne transmis à temps, information de la COSUMAF sur toute modification soumise à autorisation.'
+  - 'Vérifier sur le texte officiel le calendrier complet des transmissions périodiques à la COSUMAF et compléter l''annexe [[annexe:A5]].'
   - Choisir le prestataire de revue indépendante et fixer son mandat avant la clôture du premier exercice.
 ---
 
@@ -108,7 +112,7 @@ Les commissaires aux comptes, sans faire partie du dispositif, en sont un appui 
 | Organe ou fonction | Responsabilités |
 | --- | --- |
 | Conseil d'Administration | Approuve la charte ; s'assure que le dispositif est efficace et doté de moyens ; examine les rapports du RCCI et de la revue indépendante ; est informé de la nomination et du départ du RCCI ; mandate le prestataire de revue indépendante |
-| Président du Conseil d'Administration | Reçoit directement les alertes du RCCI ; l'entend hors la présence de la Direction Générale au moins une fois par an |
+| Président du Conseil d'Administration | Reçoit directement les alertes du RCCI ; l'entend hors de la présence de la Direction Générale au moins une fois par an |
 | Comité d'audit et des risques (s'il est créé) | Prépare les travaux du Conseil sur le contrôle interne ; entend le RCCI et le prestataire de revue indépendante |
 | Directeur Général | Responsable du dispositif devant le Conseil ; lui donne ses moyens ; met en œuvre les recommandations ; garantit l'indépendance du RCCI |
 | Comité des risques et de la conformité | Réunion mensuelle prévue par la Politique de gestion des risques, qui siège aussi en comité de conformité : examine les contrôles, les constats, les incidents, les réclamations et le suivi des recommandations ; ses décisions sont consignées |
@@ -124,7 +128,7 @@ Le RCCI a quatre missions :
 1. **Conseiller** : il donne un avis écrit avant tout nouveau produit, nouvelle activité, nouveau prestataire important, nouveau modèle de contrat et toute communication commerciale ; il répond aux questions des collaborateurs sur la réglementation.
 2. **Veiller** : il suit l'évolution de la réglementation de la CEMAC, de la COSUMAF et de la BVMAC, en informe les personnes concernées et fait mettre à jour les procédures.
 3. **Contrôler** : il établit et exécute le plan de contrôle annuel, suit les recommandations et tient les registres de conformité.
-4. **Rendre compte** : au Directeur Général, au Conseil d'Administration et, lorsque la réglementation le prévoit, à la COSUMAF.
+4. **Rendre compte** : au Directeur Général, au Conseil d'Administration et, lorsque la réglementation le prévoit, à la COSUMAF et à l'ANIF.
 
 Il exerce également les fonctions de gestion des risques et de responsable LBC/FT, selon les politiques correspondantes, ainsi que la tenue du référentiel documentaire.
 
@@ -272,4 +276,3 @@ La présente charte s'applique avec le Code de bonne conduite, la Politique de g
 La charte est revue au moins une fois par an. Toute modification est approuvée par le Conseil d'Administration.
 
 La présente charte entre en vigueur à la date de son adoption par le Conseil d'Administration, indiquée dans la fiche de maîtrise documentaire.
-
