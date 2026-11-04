@@ -84,6 +84,21 @@ if (process.argv.includes("--confirmer")) {
   fs.mkdirSync(path.join(ROOT, "build"), { recursive: true });
   fs.writeFileSync(path.join(ROOT, "build", "noms.json"), JSON.stringify(faits));
 }
+// Brouillons préparés hors de la plateforme (content/brouillons/<ID>.json) : déposés comme brouillons non soumis,
+// pour qu'un rédacteur les reprenne dans l'éditeur et les soumette lui-même. Jamais par-dessus un brouillon en cours.
+if (!process.argv.includes("--compter")) {
+  const dir = path.join(ROOT, "content", "brouillons");
+  for (const f of fs.existsSync(dir) ? fs.readdirSync(dir).filter((x) => /^PC-[A-Z0-9-]+\.json$/.test(x)) : []) {
+    const id = f.slice(0, -5), root = path.join(DOCS, id);
+    if (!fs.existsSync(path.join(root, "document.md"))) { console.warn(id + " : document introuvable, brouillon non déposé."); continue; }
+    const [cur] = await api("kv?select=data&path=eq.redaction%2F" + encodeURIComponent(id));
+    if (cur && cur.data && ["brouillon", "soumis", "conflit"].includes(cur.data.statut)) { console.warn(id + " : un brouillon est déjà en cours, dépôt différé."); continue; }
+    const b = JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")), now = new Date().toISOString();
+    await setKv("redaction/" + id, { ...b, base: textHash(root), statut: "brouillon", cree_le: now, maj: now, par: null, auteurs: b.auteurs || [] });
+    fs.rmSync(path.join(dir, f));
+    console.log(id + " : brouillon déposé (" + (b.objet || "") + ").");
+  }
+}
 // Présentation des documents revue dans Paramétrage : écrite dans content/presentation.json (PDF et Word régénérés ensuite)
 {
   const [pk] = await api("kv?select=data&path=eq.presentation%2Freglages");
@@ -186,7 +201,7 @@ for (const { path: p, data: b } of soumis) {
   }
   if (!fs.existsSync(path.join(root, "document.md"))) { await conflit("document introuvable"); continue; }
   if (b.base !== textHash(root)) { await conflit("le texte a changé depuis la création du brouillon ; repartez du texte publié"); continue; }
-  const par = (b.auteurs || [b.par]).map(nomDe).join(", ");
+  const par = [b.import_par, ...(b.auteurs || [b.par]).filter(Boolean).map(nomDe)].filter((x, i, a) => x && a.indexOf(x) === i).join(", ") || "Rédacteur";
   let { data: fm } = matter(fs.readFileSync(path.join(root, "document.md"), "utf8"));
   if (fm.statut === "En vigueur" && !fs.existsSync(vig)) {
     execFileSync("node", [path.join(ROOT, "tools/version.mjs"), "reviser", id, b.nature === "revision" ? "revision" : "mineure", b.objet || "Modification", par], { stdio: "inherit" });

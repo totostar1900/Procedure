@@ -317,6 +317,7 @@
       nature: enVigueur() ? E.f.nature : null, objet: E.f.objet.trim(), titre: E.f.titre.trim(), resume: E.f.resume.trim(), body: curBody(),
       annexes: E.annexes.map(function (a) { return { cle: a.cle || "", tmp: a.tmp, nom: (a.nom || "").trim(), titre: a.titre || "", nature: a.nature || "", renseigne_par: a.renseigne_par || "", conserve_par: a.conserve_par || "", frequence: a.frequence || "", orientation: a.orientation || "", body: String(a.body || "").replace(/\s*$/, "\n") }; }),
       auteurs: ((prev && prev.auteurs) || []).concat(V.me).filter(function (x, i, a) { return x && a.indexOf(x) === i; }),
+      import_par: (prev && prev.import_par) || undefined,
       cree_le: (prev && prev.cree_le) || new Date().toISOString(), maj: new Date().toISOString(), par: V.me };
     if (statut === "soumis") { body.soumis_le = body.maj; body.soumis_par = V.me; }
     try {

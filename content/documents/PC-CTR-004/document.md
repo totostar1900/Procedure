@@ -47,9 +47,7 @@ historique:
     objet: 'Reprise de la convention du Guichet (version 2026-10-10), complétée par les articles 11 à 14 et rendue disponible pour les ouvertures hors du Guichet'
     par: Directeur Général
 notes_redaction:
-  - 'Source unique : les articles 1 à 10 reprennent mot pour mot les passages « convention » du Guichet, avec la même numérotation. Toute modification de l''un doit être reportée dans l''autre, le même jour.'
-  - 'Les articles 11 (avis, relevés et droits attachés aux titres), 12 (responsabilité), 13 (modification de la convention) et 14 (droit applicable et litiges) n''existent pas encore dans le Guichet. S''ils sont approuvés, les ajouter aux passages « convention » du Guichet et annoncer le changement aux clients.'
-  - 'Dans le Guichet, la convention imprimée porte la mention « version 2026-09 » alors que la version en vigueur est 2026-10-10 : à aligner.'
+  - 'Texte en cours de remplacement par la convention de compte-titres transmise par la Direction (brouillon déposé le 4 novembre 2026, à reprendre par le RCCI). À sa publication, mettre à jour les passages « convention » du Guichet avec le nouveau texte, le même jour.'
   - 'Le formulaire sert aux ouvertures sur papier ou hors du Guichet. Dans le Guichet, la convention est remplie automatiquement à partir du dossier et acceptée électroniquement.'
   - Faire valider le modèle par le conseil juridique de la Société avant sa première utilisation.
 ---
