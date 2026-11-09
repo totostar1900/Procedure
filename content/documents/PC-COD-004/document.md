@@ -35,6 +35,10 @@ references:
     articles: 'Bonne pratique internationale : structure organisationnelle claire, délégations écrites, indépendance des fonctions de contrôle'
 historique:
   - version: '0.9'
+    date: '2026-11-09'
+    objet: mineur
+    par: RCCI
+  - version: '0.9'
     date: '2026-11-02'
     objet: mineur
     par: RCCI
