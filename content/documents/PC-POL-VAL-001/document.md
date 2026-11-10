@@ -3,51 +3,55 @@ id: PC-POL-VAL-001
 titre: Politique d'engagement et de validation des opérations
 type: Politique
 domaine: Risques
-version: "0.9"
+version: '0.9'
 statut: Projet
 confidentialite: Interne
 proprietaire: Directeur Général
 redige_par: Responsable de la conformité et du contrôle interne (RCCI)
 verifie_par: Responsable de la conformité et du contrôle interne (RCCI)
 approuve_par: Conseil d'Administration
-date_approbation:
-date_effet:
+date_approbation: null
+date_effet: null
 prochaine_revue: 12 mois après adoption
-diffusion: Direction Générale, Direction des Marchés de Capitaux, Direction Commerciale, RCCI, opérations
+diffusion: 'Direction Générale, Direction des Marchés de Capitaux, Direction Commerciale, RCCI, opérations'
 public: false
-resume: "Quelles opérations Purpose Capital S.A. fait valider, par qui et avec quelles preuves avant de s'engager : mandats, prise ferme, syndicats, clients à risque, nouveaux produits, ordres exceptionnels, compte propre, paiements ; contrôle a posteriori et compte rendu au Conseil."
+resume: 'Quelles opérations Purpose Capital S.A. fait valider, par qui et avec quelles preuves avant de s''engager : mandats, prise ferme, syndicats, clients à risque, nouveaux produits, ordres exceptionnels, compte propre, paiements ; contrôle a posteriori et compte rendu au Conseil.'
 references:
   - ref: RG-COSUMAF-2023
-    articles: "Normes prudentielles fixées par la COSUMAF (art. 11) ; fonction de conformité et de contrôle interne (art. 13) ; approbation préalable des modifications du programme d'activités (art. 77) ; identification des clients avant l'entrée en relation (art. 94) ; conservation des documents pendant dix ans (art. 105) ; identité des garants et du chef de file dans le document d'information (art. 131)"
+    articles: Normes prudentielles fixées par la COSUMAF (art. 11) ; fonction de conformité et de contrôle interne (art. 13) ; approbation préalable des modifications du programme d'activités (art. 77) ; identification des clients avant l'entrée en relation (art. 94) ; conservation des documents pendant dix ans (art. 105) ; identité des garants et du chef de file dans le document d'information (art. 131)
   - ref: REG-01-22
     articles: Obligations des intermédiaires du marché financier régional ; primauté de l'intérêt des clients ; organisation et contrôle interne
   - ref: AUSCGIE
-    articles: "Pouvoirs respectifs du Conseil d'Administration et du Directeur Général de la société anonyme ; autorisation préalable du Conseil pour les cautions, avals et garanties ; inopposabilité aux tiers des limitations internes de pouvoirs ; conventions réglementées (art. 438 et suivants)"
+    articles: 'Pouvoirs respectifs du Conseil d''Administration et du Directeur Général de la société anonyme ; autorisation préalable du Conseil pour les cautions, avals et garanties ; inopposabilité aux tiers des limitations internes de pouvoirs ; conventions réglementées (art. 438 et suivants)'
   - ref: REG-02-24
     articles: Vigilance renforcée et accord d'un membre de la direction avant l'entrée en relation avec une personne politiquement exposée ou un client à risque élevé
   - ref: COSUMAF-LD-LBC-2025
     articles: Approche par les risques et vigilance renforcée appliquées par les acteurs du marché financier régional
   - ref: OICV-PRINCIPES
-    articles: "Bonne pratique internationale : capital, contrôle interne et gestion des risques des intermédiaires de marché"
+    articles: 'Bonne pratique internationale : capital, contrôle interne et gestion des risques des intermédiaires de marché'
   - ref: BCBS-RO
-    articles: "Bonne pratique internationale : approbation des nouveaux produits, activités, processus et systèmes (gestion du changement)"
+    articles: 'Bonne pratique internationale : approbation des nouveaux produits, activités, processus et systèmes (gestion du changement)'
   - ref: COSO-2013
-    articles: "Référentiel international : activités de contrôle — autorisations, approbations et séparation des tâches"
+    articles: 'Référentiel international : activités de contrôle — autorisations, approbations et séparation des tâches'
   - ref: ICMA-AGREEMENT
-    articles: "Pratique internationale : engagements de prise ferme et de syndication, responsabilités du chef de file et des membres"
+    articles: 'Pratique internationale : engagements de prise ferme et de syndication, responsabilités du chef de file et des membres'
 historique:
-  - version: "0.9"
-    date: 2026-10-20
+  - version: '0.9'
+    date: '2026-11-10'
+    objet: mineur
+    par: RCCI
+  - version: '0.9'
+    date: '2026-10-20'
     objet: Projet initial
     par: RCCI
 notes_redaction:
-  - "Les seuils de l'annexe [[annexe:A1]] sont des propositions prudentes, à arrêter par le Conseil d'Administration : prise ferme ou garantie jusqu'à 15 % des fonds propres par le Directeur Général, de 15 % à 25 % avec l'accord préalable du Président du Conseil, au-delà de 25 % (et toute prise ferme d'actions) par le Conseil ; ordres de montant élevé à partir de 50 000 000 FCFA et 200 000 000 FCFA. Ils doivent rester cohérents avec le tableau des limites de la Politique de gestion des risques (PC-POL-RIS-001, annexe [[annexe:PC-POL-RIS-001/A1]])."
-  - "Comme pour PC-POL-RIS-001, les normes prudentielles propres aux sociétés de bourse (art. 11 du Règlement général) n'ont pas été trouvées dans les textes publiés. Aligner les limites de l'article 12 sur ces normes dès qu'elles sont confirmées, et vérifier que l'agrément et le programme d'activités de la Société couvrent la prise ferme et la garantie de bonne fin (à défaut, approbation préalable de la COSUMAF, art. 77)."
-  - "La Charte d'organisation et de délégation des pouvoirs (PC-COD-004) et le Manuel de procédures comptables (PC-PRO-CPT-001) sont rédigés en parallèle. Le Titre VI ne pose que des principes ; vérifier la cohérence des renvois et des montants lors de leur adoption."
-  - "Les limitations de pouvoirs du Directeur Général fixées par la présente politique sont inopposables aux tiers en droit OHADA. Faire reprendre les seuils dans la délibération du Conseil qui fixe les pouvoirs du Directeur Général, et faire vérifier par le conseil juridique ce point ainsi que la possibilité d'une consultation écrite du Conseil en cas d'urgence (article 9), qui suppose une clause des statuts."
-  - "Le comité d'engagement peut se tenir en marge du comité des risques mensuel prévu par PC-POL-RIS-001 (article 8). Confirmer ce fonctionnement, et la composition du comité tant que le poste de Directeur des Marchés de Capitaux n'est pas pourvu."
-  - "La politique retient l'absence de toute activité pour compte propre en dehors des placements de trésorerie, conformément à la déclaration d'appétence (PC-POL-RIS-001, annexe [[annexe:PC-POL-RIS-001/A1]] : limite de 0 FCFA). Le Conseil confirme ce choix ; toute ouverture ultérieure suivra l'article 17."
-  - "Le montant de référence des fonds propres est le dernier calcul mensuel (PC-POL-RIS-001, article 13). Confirmer avec le comptable, le cas échéant externalisé, le délai de production de ce calcul."
+  - 'Les seuils de l''annexe [[annexe:A1]] sont des propositions prudentes, à arrêter par le Conseil d''Administration : prise ferme ou garantie jusqu''à 15 % des fonds propres par le Directeur Général, de 15 % à 25 % avec l''accord préalable du Président du Conseil, au-delà de 25 % (et toute prise ferme d''actions) par le Conseil ; ordres de montant élevé à partir de 50 000 000 FCFA et 200 000 000 FCFA. Ils doivent rester cohérents avec le tableau des limites de la Politique de gestion des risques (PC-POL-RIS-001, annexe [[annexe:PC-POL-RIS-001/A1]]).'
+  - 'Comme pour PC-POL-RIS-001, les normes prudentielles propres aux sociétés de bourse (art. 11 du Règlement général) n''ont pas été trouvées dans les textes publiés. Aligner les limites de l''article 12 sur ces normes dès qu''elles sont confirmées, et vérifier que l''agrément et le programme d''activités de la Société couvrent la prise ferme et la garantie de bonne fin (à défaut, approbation préalable de la COSUMAF, art. 77).'
+  - La Charte d'organisation et de délégation des pouvoirs (PC-COD-004) et le Manuel de procédures comptables (PC-PRO-CPT-001) sont rédigés en parallèle. Le Titre VI ne pose que des principes ; vérifier la cohérence des renvois et des montants lors de leur adoption.
+  - 'Les limitations de pouvoirs du Directeur Général fixées par la présente politique sont inopposables aux tiers en droit OHADA. Faire reprendre les seuils dans la délibération du Conseil qui fixe les pouvoirs du Directeur Général, et faire vérifier par le conseil juridique ce point ainsi que la possibilité d''une consultation écrite du Conseil en cas d''urgence (article 9), qui suppose une clause des statuts.'
+  - 'Le comité d''engagement peut se tenir en marge du comité des risques mensuel prévu par PC-POL-RIS-001 (article 8). Confirmer ce fonctionnement, et la composition du comité tant que le poste de Directeur des Marchés de Capitaux n''est pas pourvu.'
+  - 'La politique retient l''absence de toute activité pour compte propre en dehors des placements de trésorerie, conformément à la déclaration d''appétence (PC-POL-RIS-001, annexe [[annexe:PC-POL-RIS-001/A1]] : limite de 0 FCFA). Le Conseil confirme ce choix ; toute ouverture ultérieure suivra l''article 17.'
+  - 'Le montant de référence des fonds propres est le dernier calcul mensuel (PC-POL-RIS-001, article 13). Confirmer avec le comptable, le cas échéant externalisé, le délai de production de ce calcul.'
 ---
 
 ## Titre I — Dispositions générales
@@ -177,7 +181,7 @@ Un mandat d'arrangement ou de placement aux meilleurs efforts (PC-CTR-001) n'eng
 Avant la signature de toute lettre de mandat ou convention :
 
 1. le Directeur des Marchés de Capitaux constitue le dossier : présentation de l'émetteur et de l'opération, calendrier, rémunération, risques identifiés ;
-2. le desk vérifie l'identité de l'émetteur, de ses dirigeants et de ses bénéficiaires effectifs selon PC-PRO-KYC-001 ;
+2. le Chargé des opérations vérifie l'identité de l'émetteur, de ses dirigeants et de ses bénéficiaires effectifs selon PC-PRO-KYC-001 ;
 3. le RCCI vérifie les conflits d'intérêts (PC-POL-CI-001, articles 8, 9 et 12), inscrit l'émetteur sur la liste de surveillance et ouvre la liste d'initiés ;
 4. le comité d'engagement examine le dossier et le Directeur Général décide (N2).
 
@@ -232,11 +236,11 @@ Les règles de décision d'entrée en relation sont fixées par la Procédure d'
 - risque élevé, PPE, structure complexe (sociétés en cascade, fiducie, bénéficiaire effectif difficile à établir) : décision du Directeur Général après avis écrit du RCCI (N2) ;
 - résidence dans un pays faisant l'objet d'un appel du GAFI à des contre-mesures : décision motivée du Directeur Général après avis du RCCI, et information du Président du Conseil dans les 5 jours ouvrés.
 
-La présente politique ajoute une règle : lorsque le client est lié au Directeur Général, à un administrateur ou à un actionnaire, la décision relève du niveau N3, l'intéressé s'abstenant.
+La présente politique ajoute une règle : lorsque le client est lié au Directeur Général, à un administrateur ou à un actionnaire, la décision relève du niveau N4, l'intéressé s'abstenant.
 
 ### Article 16 — Émetteurs et contreparties professionnelles
 
-Avant tout engagement avec un émetteur, un co-arrangeur, un membre de syndicat, une banque de règlement ou un autre intermédiaire, le desk vérifie son identité, son agrément s'il y a lieu, ses bénéficiaires effectifs et l'absence de sanctions. Le RCCI donne son avis lorsque la contrepartie est établie hors de la CEMAC ou présente un risque élevé. La décision d'entrer en relation suit le niveau de l'opération envisagée.
+Avant tout engagement avec un émetteur, un co -arrangeur, un membre de syndicat, une banque de règlement ou un autre intermédiaire, le Chargé des Opérations vérifie son identité, son agrément s'il y a lieu, ses bénéficiaires effectifs et l'absence de sanctions. Le RCCI donne son avis lorsque la contrepartie est établie hors de la CEMAC ou présente un risque élevé. La décision d'entrer en relation suit le niveau de l'opération envisagée.
 
 ### Article 17 — Nouveaux produits, nouvelles activités, nouveaux marchés
 
@@ -265,7 +269,7 @@ Les contrôles préalables à l'acceptation d'un ordre (dossier à jour, absence
 
 | Situation | Règle | Qui valide | Preuve |
 | --- | --- | --- | --- |
-| Ordre d'un montant égal ou supérieur à 50 000 000 FCFA, ou supérieur à la liquidité habituelle du titre | Second regard avant transmission : cohérence avec le profil et l'origine des fonds, proposition de fractionnement | Directeur des Marchés de Capitaux, en plus du desk (N1) | Visa sur le bulletin ou dans le Guichet |
+| Ordre d'un montant égal ou supérieur à 50 000 000 FCFA, ou supérieur à la liquidité habituelle du titre | Second regard avant transmission : cohérence avec le profil et l'origine des fonds, proposition de fractionnement | Directeur des Marchés de Capitaux, en plus du chargé des opérations (N1) | Visa sur le bulletin ou dans le Guichet |
 | Ordre d'un montant égal ou supérieur à 200 000 000 FCFA, ou susceptible de faire franchir au client un seuil de déclaration de participation | En plus, avis du RCCI avant transmission | RCCI, puis Directeur des Marchés de Capitaux | Avis écrit au dossier de l'ordre |
 | Ordre sans couverture complète | **Interdit.** Aucun niveau de validation ne peut l'autoriser (PC-PRO-ORD-001, article 8) | — | — |
 | Ordre sur un compte en revue : mise à jour du dossier en retard, alerte de filtrage, examen renforcé en cours | Ordre suspendu. Seul un ordre de vente ou de retrait vers le compte bancaire déclaré peut être autorisé, s'il protège le client d'une perte | Directeur Général après avis écrit du RCCI (N2) | Demande d'engagement (Annexe [[annexe:A2]]) |
@@ -297,7 +301,7 @@ Les paiements et engagements financiers de la Société suivent la matrice de d�
 
 Relèvent toujours d'une délibération préalable du Conseil d'Administration (N4) :
 
-- toute dépense ou tout engagement non budgété supérieur à 5 % des fonds propres de référence (PC-POL-RIS-001, article 13) ;
+- toute dépense ou tout engagement non budgétisé supérieur à 5 % des fonds propres de référence (PC-POL-RIS-001, article 13) ;
 - toute caution, aval ou garantie donnée par la Société ;
 - tout emprunt et toute sûreté sur les biens de la Société ;
 - toute convention réglementée au sens de l'Acte uniforme OHADA relatif au droit des sociétés commerciales et du GIE ;
