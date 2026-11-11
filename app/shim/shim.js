@@ -77,13 +77,34 @@ async function lireCollection(coll, opts) {
 
 // Abonnements : rafraîchis après chaque écriture de cette page, par le temps réel, et toutes les 20 s
 const subs = new Set();
-const refreshAll = () => subs.forEach((s) => s.run());
+// Économie de bande passante (quota Supabase) : on ne relit les données que si elles ont changé, jamais dans un
+// onglet caché, et une seule fois pour une rafale d'événements.
+let rafT = null, enAttente = false;
+const refreshAll = () => {
+  if (document.hidden) { enAttente = true; return; }
+  clearTimeout(rafT); rafT = setTimeout(() => subs.forEach((s) => s.run()), 300);
+};
+document.addEventListener("visibilitychange", () => { if (!document.hidden && enAttente) { enAttente = false; sonde(true); } });
+// Sonde légère (quelques octets) : date de la dernière modification et nombre de lignes de kv et des membres
+let empreinteBase = "";
+async function sonde(forcer) {
+  if (document.hidden && !forcer) return;
+  try {
+    const [a, b] = await Promise.all([
+      sb.from("kv").select("maj_le", { count: "exact" }).order("maj_le", { ascending: false }).limit(1),
+      sb.from("membres").select("maj_le", { count: "exact" }).order("maj_le", { ascending: false }).limit(1),
+    ]);
+    const e = [a.count, a.data && a.data[0] && a.data[0].maj_le, b.count, b.data && b.data[0] && b.data[0].maj_le].join("|");
+    if (e !== empreinteBase) { const premier = !empreinteBase; empreinteBase = e; if (!premier) refreshAll(); }
+    else if (forcer) refreshAll();
+  } catch (e) { /* prochaine sonde */ }
+}
 // Après une écriture : le site calcule les avis par e-mail dus (visa attendu, lecture, renvoi…) ; rien n'est envoyé deux fois
 let avisT = null;
 const avis = () => { clearTimeout(avisT); avisT = setTimeout(() => { try { fetch("/api/notifier", { method: "POST", keepalive: true }); } catch (e) { /* le passage suivant enverra */ } }, 4000); };
-setInterval(refreshAll, 20000);
-sb.channel("kv-tout").on("postgres_changes", { event: "*", schema: "public", table: "kv" }, refreshAll)
-  .on("postgres_changes", { event: "*", schema: "public", table: "membres" }, refreshAll).subscribe();
+setInterval(sonde, 60000); sonde();
+// Temps réel : la table « signal » (une petite ligne par collection) annonce les changements, sans diffuser les données
+sb.channel("signal").on("postgres_changes", { event: "*", schema: "public", table: "signal" }, refreshAll).subscribe();
 
 function collection(coll, opts = {}) {
   return {
