@@ -20,7 +20,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: npm }
       - run: npm ci
-      - run: (npx playwright install --with-deps chromium || (sleep 30 && npx playwright install --with-deps chromium) || npx playwright install chromium)
+      - run: npx playwright install chromium
       # Version anglaise : retraduit les documents dont le texte français a changé (si la clé est configurée)
       - run: node tools/traduire.mjs
         env:
