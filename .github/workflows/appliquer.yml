@@ -34,7 +34,7 @@ jobs:
         uses: actions/setup-node@v4
         with: { node-version: 22, cache: npm }
       - if: steps.n.outputs.n != '0'
-        run: npm ci && npx playwright install --with-deps chromium
+        run: npm ci && (npx playwright install --with-deps chromium || (sleep 30 && npx playwright install --with-deps chromium) || npx playwright install chromium)
       - if: steps.n.outputs.n != '0'
         run: node tools/appliquer.mjs && node tools/adopter-auto.mjs
       - if: steps.n.outputs.n != '0'
