@@ -21,6 +21,14 @@ references:
     articles: "International framework: Three Lines Model"
 historique:
   - version: "0.9"
+    date: 2026-11-04
+    objet: "Minor"
+    par: "RCCI"
+  - version: "0.9"
+    date: 2026-11-04
+    objet: "Add information"
+    par: "RCCI"
+  - version: "0.9"
     date: 2026-10-20
     objet: "Formatting: adoption dates and signatures moved to the document control sheet"
     par: "RCCI"
@@ -34,7 +42,7 @@ notes_redaction:
   - "Lessons from the COSUMAF decision against Premium Capital Securities (2026) incorporated: RCCI appointed and holding a professional card, effective compliance committee, internal control reports submitted on time, COSUMAF informed of any change subject to authorisation."
   - "Check the full schedule of periodic submissions to COSUMAF against the official text and complete Appendix [[annexe:A5]]."
   - "Select the independent review provider and set its mandate before the close of the first financial year."
-source: 9cdc87b072172676
+source: 8b3e17aa2d7e7a3b
 ---
 
 ## Title I — General provisions
@@ -111,7 +119,7 @@ The RCCI has four duties:
 1. **Advise**: the RCCI gives a written opinion before any new product, new activity, new significant service provider, new contract template and any marketing communication; the RCCI answers staff members' questions on the regulations.
 2. **Monitor**: the RCCI follows developments in CEMAC, COSUMAF and BVMAC regulations, informs the persons concerned and has the procedures updated.
 3. **Control**: the RCCI draws up and carries out the annual control plan, follows up recommendations and keeps the compliance registers.
-4. **Report**: to the Chief Executive Officer, to the Board of Directors and, where required by the regulations, to COSUMAF.
+4. **Report**: to the Chief Executive Officer, to the Board of Directors and, where required by the regulations, to COSUMAF and ANIF.
 
 The RCCI also performs the risk management and AML/CFT officer functions, in accordance with the corresponding policies, and maintains the document repository.
 

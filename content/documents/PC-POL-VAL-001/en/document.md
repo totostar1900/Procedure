@@ -23,6 +23,10 @@ references:
     articles: "International practice: firm underwriting and syndication commitments, responsibilities of the lead manager and members"
 historique:
   - version: "0.9"
+    date: 2026-11-10
+    objet: "Minor amendment"
+    par: "RCCI"
+  - version: "0.9"
     date: 2026-10-20
     objet: "Initial draft"
     par: "RCCI"
@@ -34,7 +38,7 @@ notes_redaction:
   - "The commitment committee may be held alongside the monthly risk committee provided for by PC-POL-RIS-001 (Article 8). Confirm this arrangement, and the composition of the committee while the position of Head of Capital Markets remains vacant."
   - "The policy rules out any own-account activity other than cash investments, in line with the risk appetite statement (PC-POL-RIS-001, Appendix [[annexe:PC-POL-RIS-001/A1]]: limit of FCFA 0). The Board confirms this choice; any later opening will follow Article 17."
   - "The reference amount of own funds is the latest monthly calculation (PC-POL-RIS-001, Article 13). Confirm with the accountant, outsourced where applicable, the time needed to produce this calculation."
-source: 43e82e054108c744
+source: 4fee4f484669b7ef
 ---
 
 ## Title I — General provisions
@@ -164,7 +168,7 @@ A best-efforts arranging or placement mandate (PC-CTR-001) does not commit the C
 Before signing any mandate letter or agreement:
 
 1. the Head of Capital Markets compiles the file: presentation of the issuer and the transaction, timetable, remuneration, identified risks;
-2. the desk verifies the identity of the issuer, its senior managers and its beneficial owners in accordance with PC-PRO-KYC-001;
+2. the Operations Officer verifies the identity of the issuer, its senior managers and its beneficial owners in accordance with PC-PRO-KYC-001;
 3. the RCCI checks conflicts of interest (PC-POL-CI-001, Articles 8, 9 and 12), places the issuer on the watch list and opens the insider list;
 4. the commitment committee examines the file and the Chief Executive Officer decides (N2).
 
@@ -219,11 +223,11 @@ The rules for deciding on client onboarding are set by the Client Onboarding Pro
 - high risk, PEP, complex structure (layered companies, trust, beneficial owner difficult to establish): decision of the Chief Executive Officer after the written opinion of the RCCI (N2);
 - residence in a country subject to a FATF call for countermeasures: reasoned decision of the Chief Executive Officer after the RCCI opinion, and information of the Chairman of the Board within 5 business days.
 
-This policy adds one rule: where the client is linked to the Chief Executive Officer, a director or a shareholder, the decision falls to level N3, the person concerned abstaining.
+This policy adds one rule: where the client is linked to the Chief Executive Officer, a director or a shareholder, the decision falls to level N4, the person concerned abstaining.
 
 ### Article 16 — Issuers and professional counterparties
 
-Before any commitment with an issuer, a co-arranger, a syndicate member, a settlement bank or another intermediary, the desk verifies its identity, its licence where applicable, its beneficial owners and the absence of sanctions. The RCCI gives an opinion where the counterparty is established outside CEMAC or presents a high risk. The decision to enter into the relationship follows the level of the intended transaction.
+Before any commitment with an issuer, a co-arranger, a syndicate member, a settlement bank or another intermediary, the Operations Officer verifies its identity, its licence where applicable, its beneficial owners and the absence of sanctions. The RCCI gives an opinion where the counterparty is established outside CEMAC or presents a high risk. The decision to enter into the relationship follows the level of the intended transaction.
 
 ### Article 17 — New products, new activities, new markets
 
@@ -252,7 +256,7 @@ The checks prior to accepting an order (up-to-date file, no alert, consistency, 
 
 | Situation | Rule | Who approves | Evidence |
 | --- | --- | --- | --- |
-| Order of FCFA 50,000,000 or more, or exceeding the usual liquidity of the security | Second review before transmission: consistency with the profile and the source of funds, proposal to split the order | Head of Capital Markets, in addition to the desk (N1) | Sign-off on the order form or in the Guichet |
+| Order of FCFA 50,000,000 or more, or exceeding the usual liquidity of the security | Second review before transmission: consistency with the profile and the source of funds, proposal to split the order | Head of Capital Markets, in addition to the Operations Officer (N1) | Sign-off on the order form or in the Guichet |
 | Order of FCFA 200,000,000 or more, or liable to cause the client to cross a holding disclosure threshold | In addition, RCCI opinion before transmission | RCCI, then Head of Capital Markets | Written opinion in the order file |
 | Order without full cover | **Prohibited.** No approval level can authorise it (PC-PRO-ORD-001, Article 8) | — | — |
 | Order on an account under review: overdue file update, screening alert, enhanced examination in progress | Order suspended. Only a sell order or a withdrawal to the declared bank account may be authorised, if it protects the client from a loss | Chief Executive Officer after the written opinion of the RCCI (N2) | Commitment request (Appendix [[annexe:A2]]) |

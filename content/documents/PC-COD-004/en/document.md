@@ -21,6 +21,14 @@ references:
     articles: "International good practice: clear organisational structure, written delegations, independence of control functions"
 historique:
   - version: "0.9"
+    date: 2026-11-09
+    objet: "Minor amendment"
+    par: "RCCI"
+  - version: "0.9"
+    date: 2026-11-02
+    objet: "Minor amendment"
+    par: "RCCI"
+  - version: "0.9"
     date: 2026-10-20
     objet: "Initial draft"
     par: "RCCI"
@@ -32,7 +40,7 @@ notes_redaction:
   - "Check with legal counsel the article numbers of the OHADA Uniform Act on the Chairman of the Board, the Chief Executive Officer and the Deputy Chief Executive Officer, and that the articles of association do not otherwise limit the powers of the Chief Executive Officer. The limitations set out in the charter have effect only within the Company: they cannot be enforced against third parties."
   - "The repository glossary states that the RCCI is appointed by the Board of Directors; the Internal Control and Compliance Charter (PC-COD-003, Art. 9) provides for appointment by the Chief Executive Officer after informing the Board. This charter follows PC-COD-003: harmonise the glossary."
   - "Time limit for informing COSUMAF of the prolonged absence of a senior manager (adopted: more than three months) and formalities for designating a deputy AML/CFT officer with ANIF to be confirmed."
-source: 8600add8137f3920
+source: dc59d9864d83ef50
 ---
 
 ## Title I — General provisions
@@ -200,7 +208,7 @@ Where a function requires a professional card, its holder does not perform it be
 
 **Back-up**: the Chief Executive Officer for decisions; the Head of Sales for the day-to-day follow-up of a placement, excluding inside information.
 
-**Professional card**: required for market activities under the General Regulation (list to be confirmed).
+**Professional card**: required for market activities under the General Regulation.
 
 ### Article 17 — Head of Sales
 
@@ -217,7 +225,7 @@ Where a function requires a professional card, its holder does not perform it be
 
 **Back-up**: the client relationship officer for day-to-day follow-up; the Chief Executive Officer for decisions.
 
-**Professional card**: required for solicitation of and advice to clients (to be confirmed).
+**Professional card**: required for solicitation of and advice to clients.
 
 ### Article 18 — Head of Compliance and Internal Control (RCCI)
 
@@ -255,7 +263,7 @@ Where a function requires a professional card, its holder does not perform it be
 
 **Back-up**: the Chief Executive Officer, with enhanced after-the-fact control by the RCCI (Article 22).
 
-**Professional card**: to be confirmed according to the functions performed (account keeping, trading).
+**Professional card**: required.
 
 ### Article 20 — Accountant
 
@@ -291,7 +299,7 @@ Where a function requires a professional card, its holder does not perform it be
 
 **Back-up**: the Head of Sales.
 
-**Professional card**: required for solicitation of and advice to clients (to be confirmed).
+**Professional card**: required, since the officer acts as a financial investment adviser.
 
 ## Title V — Combinations, incompatibilities and back-up
 

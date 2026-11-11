@@ -17,6 +17,10 @@ references:
     articles: "Comparable jurisdiction: identification of and due diligence on PEPs"
 historique:
   - version: "0.9"
+    date: 2026-11-10
+    objet: "Minor"
+    par: "RCCI"
+  - version: "0.9"
     date: 2026-10-20
     objet: "Formatting: adoption dates and signatures moved to the document control sheet"
     par: "RCCI"
@@ -29,7 +33,7 @@ notes_redaction:
   - "Remote onboarding: the policy (Article 17) requires two independent verification elements from among a certified copy, a recorded video interview and a first payment from a CEMAC bank account in the client's name. The Guichet uses a selfie compared with the identity document. Decide whether the AML/CFT Policy recognises this comparison as a verification element (common practice in Europe, subject to conditions); failing that, a short video interview is required for every remote onboarding."
   - "In the Guichet, the first payment is therefore one of the two verification elements: until it has been received from the declared account, the file of a client onboarded remotely remains under special monitoring (Article 14)."
   - "Have the list of documents in Appendix [[annexe:A1]] validated by legal counsel for each of the six CEMAC countries."
-source: 905b7d9717853ff1
+source: 9973c6e30ddaeec4
 ---
 
 ## Title I — General provisions
@@ -54,7 +58,7 @@ The content of the checks is the same whatever the channel. Only the way they ar
 | Function | Role in the procedure |
 | --- | --- |
 | Relationship manager (Sales Department) | Welcomes the client, explains the process, helps them put the file together, collects the documents at the branch |
-| Desk (operations) | Processes the file: checks, screening, risk rating; decides for low and standard risk; opens the accounts. This function is performed by the Chief Executive Officer until a head of operations is appointed |
+| Desk (operations officers) | Processes the file: checks, screening, risk rating; decides for low and standard risk; opens the accounts. This function is performed by the Chief Executive Officer until a head of operations is appointed |
 | AML/CFT officer (RCCI) | Reviews standard-risk files within one month; gives a written opinion for high-risk clients and PEPs; handles matches against sanctions lists; monitors the procedure |
 | Chief Executive Officer | Decides on onboarding for high-risk clients and PEPs |
 
@@ -95,7 +99,7 @@ In the Guichet, the client completes the file themselves and uploads the documen
 
 ### Article 7 — Step 3: identity verification
 
-The desk checks:
+The desk (the Operations Officer) checks:
 
 - that the identity document is **valid** on the date of verification and that its details match those in the file;
 - at the branch, that the **original** has been seen; the copy bears the words "original seen", the date and the name of the Staff Member;
@@ -108,7 +112,7 @@ A document that is doubtful, illegible, expired or inconsistent is refused. A do
 
 ### Article 8 — Step 4: representatives and beneficial owners
 
-For a legal person or a group, the desk:
+For a legal person or a group, the Operations Officer:
 
 - identifies every natural person who holds, directly or indirectly, more than 25% of the capital or voting rights, or who exercises control by other means; failing that, the principal senior executive;
 - traces successive holdings up to the natural persons where the shareholder is itself a company;
@@ -117,7 +121,7 @@ For a legal person or a group, the desk:
 
 ### Article 9 — Step 5: sanctions and PEP screening
 
-The desk screens the client, their representatives and their beneficial owners:
+The Operations Officer (desk) screens the client, their representatives and their beneficial owners:
 
 - against the sanctions lists applicable in CEMAC (United Nations Security Council lists and national lists) and, for information, against those of the European Union and the United States;
 - against available PEP databases and open sources (name search and adverse information).
@@ -134,7 +138,7 @@ By default, the client is categorised as a **non-professional** client. They may
 
 ### Article 11 — Step 7: risk rating
 
-The desk rates the client's risk using the matrix in Appendix [[annexe:PC-POL-LBC-001/A1]] to the AML/CFT Policy: **low**, **standard** or **high**. The rating proposed by the Guichet is a starting point, never a decision. The desk confirms or changes it, giving reasons for any change.
+The Operations Officer rates the client's risk using the matrix in Appendix [[annexe:PC-POL-LBC-001/A1]] to the AML/CFT Policy: **low**, **standard** or **high**. The rating proposed by the Guichet is a starting point, never a decision. The Operations Officer confirms or changes it, giving reasons for any change.
 
 The following are rated at least **standard** risk: legal persons, groups, residents outside Cameroon and any remote onboarding. The following are rated **high** risk: PEPs and their close associates and family members, and clients presenting a high-risk factor in the matrix.
 
@@ -142,27 +146,27 @@ The following are rated at least **standard** risk: legal persons, groups, resid
 
 | Risk | Who decides | Condition |
 | --- | --- | --- |
-| Low | Desk | Complete file; review sheet (Appendix [[annexe:A2]]) signed |
-| Standard | Desk; RCCI review within one month | Complete file; review sheet signed |
+| Low | Operations Officer | Complete file; review sheet (Appendix [[annexe:A2]]) signed |
+| Standard | Operations Officer; RCCI review within one month | Complete file; review sheet signed |
 | High or PEP | Chief Executive Officer, after the RCCI's written opinion | Enhanced due diligence: evidence of the source of funds and, for a PEP, of the source of wealth; approval sheet in Appendix [[annexe:PC-POL-LBC-001/A5]] to the AML/CFT Policy |
 
-The desk decides within **five business days** of receipt of a complete file. It may request additional information; the file then remains on hold. If the client does not respond within three months, the file is closed with no further action.
+The Operations Officer decides within **five business days** of receipt of a complete file. They may request additional information; the file then remains on hold. If the client does not respond within three months, the file is closed with no further action.
 
-A refusal is notified to the client without detailed reasons. The actual reason is recorded in the file. If the refusal is based on a suspicion, the desk informs the RCCI.
+A refusal is notified to the client without detailed reasons. The actual reason is recorded in the file. If the refusal is based on a suspicion, the Operations Officer informs the RCCI.
 
 ### Article 13 — Step 9: agreement and account opening
 
 Once the file has been approved:
 
 1. the client **accepts the securities account opening agreement** (PC-CTR-004), together with the schedule of fees and the risk disclosure notice: in the Guichet, by one-time code, with the time and channel recorded; at the branch, by signing two original copies;
-2. the desk sends the file for opening the client's registered sub-account to the account keeper and, for government securities, to the primary dealer (spécialiste en valeurs du Trésor);
-3. the desk enters the account number assigned and informs the client.
+2. the Operations Officer sends the file for opening the client's registered sub-account to the account keeper and, for government securities, to the primary dealer (spécialiste en valeurs du Trésor);
+3. the Operations Officer enters the account number assigned and informs the client.
 
 If the agreement changes, the client accepts the new version before any further transaction.
 
 ### Article 14 — Step 10: first payment
 
-The first payment must come from the declared bank account, in the client's name. The desk checks that the name of the originator of the transfer matches the client's name. A payment from a third party is refused and returned to the sender. For a client onboarded remotely, the match is recorded in the file as a verification element.
+The first payment must come from the declared bank account, in the client's name. The Operations Officer checks that the name of the originator of the transfer matches the client's name. A payment from a third party is refused and returned to the sender. For a client onboarded remotely, the match is recorded in the file as a verification element.
 
 ## Title III — The ongoing relationship
 
@@ -187,12 +191,12 @@ Changing the bank account is the most common means of diverting a client's funds
 
 - the request is made by the client personally, in their client area or on the signed form in Appendix [[annexe:A4]];
 - the new RIB is in the client's name;
-- the desk confirms the request by calling the telephone number already recorded in the file, never a number given in the request;
+- the Operations Officer confirms the request by calling the telephone number already recorded in the file, never a number given in the request;
 - no payment is made to the new account until these checks have been completed.
 
 ### Article 18 — Closure and transfer
 
-At the client's request, or on the Company's initiative under the conditions of the agreement, the desk:
+At the client's request, or on the Company's initiative under the conditions of the agreement, the Operations Officer:
 
 - transfers the securities to the intermediary designated by the client, or sells them on the client's instructions;
 - pays the cash balance into the declared bank account;
@@ -211,7 +215,7 @@ Documents, review sheets, screening attestations, decisions and the agreement ar
 
 | Level | Who | What | When |
 | --- | --- | --- | --- |
-| First level | Desk | Complete review sheet for each file; no account opened without approval | For each file |
+| First level | Operations Officer | Complete review sheet for each file; no account opened without approval | For each file |
 | Second level | RCCI | Review of all standard-risk files; sample of low-risk files; all high-risk files | Every month |
 | Second level | RCCI | Files due for update and overdue; average processing time; completeness of screening | Every quarter |
 

@@ -23,6 +23,10 @@ references:
     articles: "Foreign good practice: concept of politically exposed person"
 historique:
   - version: "0.9"
+    date: 2026-11-02
+    objet: "Minor"
+    par: "RCCI"
+  - version: "0.9"
     date: 2026-10-20
     objet: "Formatting: adoption dates and signatures moved to the document control sheet"
     par: "RCCI"
@@ -35,7 +39,7 @@ notes_redaction:
   - "Designate the AML/CFT Officer and his or her deputy by name, and notify their appointment to ANIF and COSUMAF; the policy refers to functions only."
   - "Choose a screening tool for sanctions lists and politically exposed persons (subscription to a database or an in-house tool fed by the official lists)."
   - "Cameroon has been on the FATF list of jurisdictions under increased monitoring since 2023 and remained on it in June 2026. Update Article 9 after each FATF plenary."
-source: 13ee6e7a876e59d4
+source: f16e599caa7428b6
 ---
 
 ## Title I — General provisions
@@ -84,14 +88,14 @@ It also draws on international good practice, adapted to the CEMAC context: the 
 | AML/CFT Officer (function performed by the RCCI) | Keeps the framework up to date; assesses risks; validates high-risk relationships; analyses alerts; decides on suspicious transaction reports and sends them to ANIF; keeps the registers; trains Staff Members; reports |
 | Deputy AML/CFT Officer | Stands in for the AML/CFT Officer in his or her absence, in particular for urgent reports and asset freezing |
 | Relationship managers and sales function | Collect and verify client information; assess client profiles; report any unusual situation without delay |
-| Operations function | Verifies the origin of funds received and the destination of funds paid out; blocks any non-compliant transaction; applies freezes |
+| Back-office officer (function performed by the Accountant) | Verifies the origin of funds received and the destination of funds paid out; blocks any non-compliant transaction; applies freezes |
 | All Staff Members | Apply the policy; report any suspicious transaction; never alert a client to a suspicion |
 
 The regulations allow the function of AML/CFT Officer to be entrusted to the compliance and internal control function where the size of the firm justifies it. The appointment of the AML/CFT Officer and his or her deputy is notified to ANIF and COSUMAF.
 
 ### Article 6 — Independence and access to information
 
-The AML/CFT Officer has unrestricted access to all information and all files. He or she may object to a client onboarding or to a transaction. No commercial objective may justify overriding that objection. Management may neither prevent nor delay his or her decision to report a suspicion.
+The AML/CFT Officer, or the RCCI, has unrestricted access to all information and all files. He or she may object to a client onboarding or to a transaction. No commercial objective may justify overriding that objection. Management may neither prevent nor delay his or her decision to report a suspicion.
 
 ## Title III — Risk-based approach
 
@@ -118,11 +122,11 @@ A client is classified as **high** risk, regardless of score, where the client i
 
 Cameroon has been on the FATF list of jurisdictions under increased monitoring since 2023. In June 2026 it remained on that list, the FATF noting in particular shortcomings in the risk-based supervision of non-bank financial institutions and in the effective implementation of targeted financial sanctions.
 
-The Company draws two consequences from this: it applies the measures of this policy rigorously, and it documents each decision so that it can justify it at any time to COSUMAF, its banks and its foreign partners.
+PURPOSE CAPITAL draws two consequences from this: it applies the measures of this policy rigorously, and it documents each decision so that it can justify it at any time to COSUMAF, its banks and its foreign partners.
 
 ### Article 10 — Prohibited relationships
 
-The Company does not enter into a relationship, or terminates the relationship, where:
+PURPOSE CAPITAL does not enter into a relationship, or terminates the relationship, where:
 
 - the client refuses to identify himself or herself, to provide the required information or to substantiate the origin of his or her funds;
 - the identity of the client or of the client's beneficial owner cannot be established;
@@ -134,7 +138,7 @@ The Company does not enter into a relationship, or terminates the relationship, 
 
 ### Article 11 — Client onboarding
 
-Before the account agreement is signed and before any transaction, the Company:
+Before the account agreement is signed and before any transaction, the relationship manager or sales representative:
 
 1. **identifies** the client and, where applicable, the client's representative and beneficial owners;
 2. **verifies** their identity on the basis of the original documents listed in Appendix [[annexe:A2]], or certified copies, and of reliable and independent sources;
@@ -160,13 +164,17 @@ Measures may be reduced, but never dispensed with, where the risk is low and doc
 
 ### Article 14 — Enhanced due diligence
 
-For a high-risk client, the Company, in addition to the measures in Article 11:
+For a high-risk client, in addition to the measures in Article 11:
+
+The relationship manager or sales representative:
 
 - obtains evidence of the source of funds and, where necessary, the source of wealth (bank statements, deed of sale, inheritance, declared income);
 - gathers additional information on the client's activity and reputation, including through open-source searches;
-- updates the file at least once a year;
-- applies enhanced monitoring of the client's transactions, with lower alert thresholds;
-- enters the client in the register of high-risk persons kept by the AML/CFT Officer.
+- updates the file at least once a year.
+
+The back-office applies enhanced monitoring of its transactions, with lower alert thresholds.
+
+The AML/CFT Officer enters the client in the register of high-risk persons.
 
 ### Article 15 — Politically exposed persons
 
@@ -203,9 +211,9 @@ Where the client does not provide the requested information within three months,
 
 ### Article 19 — Ongoing monitoring
 
-The Company continuously verifies that its clients' transactions are consistent with what it knows about them: occupation, income, wealth, stated objectives and risk level. Any transaction that is unusual in its amount, complexity or frequency, or that lacks economic justification, is subject to an enhanced examination, the outcome of which is recorded.
+The back-office officer continuously verifies that the transactions of his or her clients are consistent with what he or she knows about them: occupation, income, wealth, stated objectives and risk level. Any transaction that is unusual in its amount, complexity or frequency, or that lacks economic justification, is subject to an enhanced examination, the outcome of which is recorded.
 
-Red flags specific to securities transactions are set out in Appendix [[annexe:A3]]. They are applied on a day-to-day basis by relationship managers and the operations function, and by the AML/CFT Officer during monthly reviews.
+Red flags specific to securities transactions are set out in Appendix [[annexe:A3]]. They are applied on a day-to-day basis by the back-office officer, and by the AML/CFT Officer during monthly reviews.
 
 ### Article 20 — Enhanced examination
 
@@ -215,13 +223,13 @@ The enhanced examination consists of questioning the client about the origin and
 
 ### Article 21 — Screening
 
-The Company screens its clients, their representatives, their beneficial owners and transaction counterparties against:
+PURPOSE CAPITAL screens its clients, their representatives, their beneficial owners and transaction counterparties against:
 
 - the United Nations Security Council lists relating to terrorism and proliferation;
 - the freezing lists adopted within the CEMAC and by its Member States, pursuant to Regulation No. 04/24;
 - for risk information purposes, the sanctions lists of the European Union and the United States, on which relationships with correspondent banks depend.
 
-Screening is carried out at client onboarding, at each update of the lists, and before any payment of funds or transfer of securities to a third party.
+Screening is carried out at client onboarding by the relationship manager, at each update of the lists, and before any payment of funds or transfer of securities to a third party; and by the AML/CFT Officer at each verification.
 
 ### Article 22 — Freezing without delay
 
@@ -280,4 +288,3 @@ Any breach of this policy constitutes serious misconduct exposing the person res
 The policy is reviewed at least once a year, after each FATF plenary concerning the CEMAC, and upon any significant change in regulations or activities. Any amendment is approved by the Board of Directors.
 
 This policy enters into force on the date of its adoption by the Board of Directors, as indicated in the document control sheet.
-
