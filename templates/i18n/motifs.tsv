@@ -2,6 +2,7 @@
 # Dates écrites par la génération (français)
 # Rédaction en ligne, suivi, lectures (avant les motifs génériques)
 En attente : (.+)	Pending: $1
+(\d+) visa\(s\) sur (\d+)	$1 of $2 sign-off(s)
 (\d+) personne\(s\) désignée\(s\)	$1 designated person(s)
 consultation : (.+)	consultation: $1
 (.+) — (.+), le (\d.+)	$1 — $2, on $3

@@ -908,3 +908,27 @@ html.i18n-attente body { visibility: hidden; }
 .fiche-plus summary { cursor: pointer; color: var(--muted); font-size: var(--fs-xs); letter-spacing: .06em; text-transform: uppercase; width: max-content; }
 .fiche-plus summary:hover { color: var(--heading); }
 .fiche-plus .meta { margin-top: 8px; }
+/* Page document : barre d'outils et sections repliables (fermées par défaut, état retenu par personne) */
+.doc-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 12px 0 0; }
+.doc-tools:empty, #doc-edit:empty, #doc-admin:empty { display: none; }
+#doc-edit { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+#doc-edit .seg button { font: inherit; font-size: var(--fs-sm); }
+.doc-tools .admin-menu { margin: 0; }
+.doc-tools .admin-act { flex-basis: 100%; }
+.dsecs { margin: 18px 0 22px; border-top: 1px solid var(--rule); }
+.dsecs > div:empty { display: none; }
+.dsec { border-bottom: 1px solid var(--rule); }
+.dsec > summary { list-style: none; cursor: pointer; display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; padding: 10px 4px 10px 26px; position: relative; }
+.dsec > summary::-webkit-details-marker { display: none; }
+.dsec > summary::before { content: ""; position: absolute; left: 8px; top: 15px; width: 6px; height: 6px; border-right: 1.5px solid var(--muted); border-bottom: 1.5px solid var(--muted); transform: rotate(-45deg); transition: transform .15s; }
+.dsec[open] > summary::before { transform: rotate(45deg); top: 13px; }
+.dsec > summary:hover .dsec-t, .dsec > summary:focus-visible .dsec-t { color: var(--link); }
+.dsec-t { font-weight: 600; color: var(--heading); font-size: var(--fs-base); }
+.dsec-r { color: var(--muted); font-size: var(--fs-sm); }
+.dsec-in { padding: 2px 4px 16px 26px; font-size: var(--fs-base); }
+.dsec-in > :first-child { margin-top: 0; }
+.dsec-in .meta { margin-bottom: 6px; }
+.dsec-in .fiche-plus { margin: 4px 0 0; }
+.dsec-ul { margin: 0; padding-left: 1.2em; }
+.dsec-ul li { margin: 3px 0; }
+@media (prefers-reduced-motion: reduce) { .dsec > summary::before { transition: none; } }

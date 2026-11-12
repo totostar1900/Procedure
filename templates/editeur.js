@@ -625,19 +625,19 @@
       html += '<div class="rev-banner suivi ok"><div><b>Modification publiée</b> — version ' + esc(d.version) + ". Le circuit d'approbation commence.</div>" + etapesHtml(d, "circ") + "</div>";
     }
     // Dernière modification et bascule Texte · Modifications (document en circuit)
-    var h0 = (d.historique || [])[0], enCircuit = d.statut !== "En vigueur" && !etatOf(d.id);
+    var h0 = (d.historique || [])[0], enCircuit = d.statut !== "En vigueur" && !etatOf(d.id), der = "", outils = "";
     var base = enCircuit ? baseComparaison(d) : null;
     if (enCircuit && h0 && (base || (r && r.statut === "applique" && r.empreinte === d.empreinte))) {
       var enLigne = r && r.statut === "applique" && r.empreinte === d.empreinte;
       var auteur = enLigne ? (r.auteurs || [r.par]).map(vName).join(", ") : h0.par, objet = enLigne ? r.objet || h0.objet : h0.objet;
-      html += '<div class="ed-derniere"><div><b>Dernière modification</b> · ' + esc(enLigne && r.traite_le ? fmtDT(r.traite_le) : fmtDate(h0.date)) + (objet ? " · « " + esc(objet) + " »" : "") + (auteur ? ' <span class="cite-src">— ' + esc(auteur) + "</span>" : "") + "</div>" +
-        (base ? '<span class="seg" role="group" aria-label="Affichage"><button type="button" data-vuedoc="texte" aria-pressed="' + (VUE_DOC.id !== d.id || VUE_DOC.mode === "texte") + '">Texte</button><button type="button" data-vuedoc="modifs" aria-pressed="' + (VUE_DOC.id === d.id && VUE_DOC.mode === "modifs") + '">Modifications</button></span>' : "") + "</div>";
+      der = secHtml("derniere", "Dernière modification", "<span>" + esc(enLigne && r.traite_le ? fmtDT(r.traite_le) : fmtDate(h0.date)) + "</span>" + (auteur ? " — <span>" + esc(auteur) + "</span>" : ""),
+        "<p>" + (objet ? "« " + esc(objet) + " »" : '<span class="cite-src">Sans motif indiqué.</span>') + "</p>");
+      if (base) outils += '<span class="seg" role="group" aria-label="Affichage"><button type="button" data-vuedoc="texte" aria-pressed="' + (VUE_DOC.id !== d.id || VUE_DOC.mode === "texte") + '">Texte</button><button type="button" data-vuedoc="modifs" aria-pressed="' + (VUE_DOC.id === d.id && VUE_DOC.mode === "modifs") + '">Modifications</button></span>';
     }
-    var btns = "";
-    if (canEdit() && !etatOf(d.id) && !dr) btns += '<button type="button" class="btn" data-edit-doc="' + esc(d.id) + '">✎ Modifier le texte</button>';
-    if (btns) html += '<div class="doc-edit-btns">' + btns + (canEdit() && w !== d && !d.estProjet && !dr ? '<span class="cite-src">La modification porte sur le projet de révision v' + esc(w.version) + ".</span>" : "") + "</div>";
-    html += '<div id="doc-diff"></div>';
-    box.innerHTML = html;
+    if (canEdit() && !etatOf(d.id) && !dr) outils += '<button type="button" class="btn" data-edit-doc="' + esc(d.id) + '">✎ Modifier le texte</button>' + (w !== d && !d.estProjet ? '<span class="cite-src">La modification porte sur le projet de révision v' + esc(w.version) + ".</span>" : "");
+    var ban = $("#doc-ban"); if (ban) ban.innerHTML = html;
+    box.innerHTML = outils;
+    var dz = $("#doc-derniere"); if (dz) dz.innerHTML = der;
     if (VUE_DOC.id === d.id && VUE_DOC.mode === "modifs") montrerModifs(d);
   }
   function montrerModifs(d) {

@@ -304,13 +304,22 @@
       ? (st.approved ? st.read.length + " sur " + st.readers.length + " personne" + (st.readers.length > 1 ? "s" : "") + " concernée" + (st.readers.length > 1 ? "s" : "") : "Ouverte après l'approbation · " + st.readers.length + " personne" + (st.readers.length > 1 ? "s" : "") + " désignée" + (st.readers.length > 1 ? "s" : ""))
       : "Aucune personne désignée";
     if (d.estProjet) lect = d.nature_revision === "mineure" ? "Correction mineure : les lectures de la version en vigueur restent valables" : "Demandée aux personnes concernées après l'adoption";
-    rows += '<tr><td><span class="stepn">✓</span>Prise de connaissance</td><td>' + esc(lect) + "</td></tr>";
     var renv = st.renvois.length ? '<div class="rev-banner proj"><b>Renvoyé pour modification</b> par ' + esc(vName(st.renvois[0].by)) + " le " + esc(fmtDT(st.renvois[0].at)) + " : « " + esc(st.renvois[0].commentaire || "") + " ». Le circuit reprendra sur le texte corrigé.</div>" : "";
-    var src = circSource(d), mine = myRoles();
-    var who = V.me ? (mine.length ? "Vos fonctions : " + mine.map(function (f) { return FLABEL[f] || f; }).join(", ") + "." : V.owner ? "Vous êtes administrateur : attribuez les fonctions dans la page Membres." : "Aucune fonction ne vous est attribuée : vous consultez le document.") : HOSTED ? "Session expirée : reconnectez-vous." : "Connectez-vous à claude.ai pour viser.";
-    box.innerHTML = '<div class="visas-head"><h3>Circuit d\'approbation</h3><span class="cite-src">' + (src === "fige" ? "Circuit figé au premier visa de cette version" : src === "type" ? "Circuit des documents de type « " + esc(d.type) + " »" : "Circuit déclaré dans le document") + "</span></div>" + renv +
+    var src = circSource(d);
+    var who = V.me ? "" : HOSTED ? "Session expirée : reconnectez-vous." : "Connectez-vous à claude.ai pour viser.";
+    var faits = st.steps.filter(function (x) { return x.done; }).length;
+    var resC = st.renvois.length ? "<span>Renvoyé pour modification</span>" : faits === st.steps.length && st.steps.length ? "<span>Circuit complet</span>"
+      : "<span>" + faits + " visa(s) sur " + st.steps.length + "</span>" + (st.current ? " · <span>En attente : " + esc(FLABEL[st.current.st.role] || st.current.st.fonction || "") + "</span>" : "");
+    var circuit = secHtml("circuit", "Circuit d'approbation", resC, renv +
       '<table class="visa-table"><tbody>' + rows + "</tbody></table>" +
-      '<p class="visa-note">' + esc(who) + ' <button type="button" class="doclink" data-vgo="circuit">Suivi</button></p>';
+      '<p class="visa-note"><span>' + (src === "fige" ? "Circuit figé au premier visa de cette version" : src === "type" ? "Circuit des documents de type « " + esc(d.type) + " »" : "Circuit déclaré dans le document") + "</span> · " +
+      (who ? "<span>" + esc(who) + "</span> " : "") + '<button type="button" class="doclink" data-vgo="circuit">Suivi</button></p>');
+    var diff = diffusionTexte(d);
+    var diffusion = secHtml("diffusion", "Diffusion et prise de connaissance", "<span>" + esc(diff || "Aucune lecture obligatoire désignée") + "</span>",
+      '<dl class="meta"><div><dt>Diffusion</dt><dd' + (diff ? "" : ' class="unset"') + ">" + esc(diff || "Aucune lecture obligatoire désignée") + "</dd></div>" +
+      (st.readers.length || d.estProjet ? "<div><dt>Prise de connaissance</dt><dd>" + esc(lect) + "</dd></div>" : "") + "</dl>" +
+      (peut("lectures") ? '<p class="visa-note">Les lectures se désignent dans Paramétrage › Lectures obligatoires.</p>' : ""));
+    box.innerHTML = circuit + diffusion;
   }
 
   // Gestion d'un document : abroger (administrateur ou RCCI), supprimer (administrateur), rétablir
@@ -327,8 +336,7 @@
     if (e) return '<div class="admin-act warn"><b>' + (e.statut === "abroge" ? "Document abrogé" : "Document supprimé du registre") + "</b> le " + esc(fmtD(e.date)) + (e.motif ? " — " + esc(e.motif) : "") + (canRestore(e) ? ' <button type="button" class="btn" data-vetat="' + esc(d.id) + '|restaurer">Rétablir</button>' : "") + "</div>";
     return '<details class="admin-menu"><summary>Gérer le document</summary><div class="admin-menu-in">' +
       (canArchive() ? '<button type="button" class="btn" data-vetat="' + esc(d.id) + '|abroge">Abroger et archiver…</button>' : "") +
-      (peut("supprimer") ? '<button type="button" class="btn danger" data-vetat="' + esc(d.id) + '|supprime">Supprimer…</button>' : "") +
-      '<span class="cite-src">La modification du texte arrivera avec l\'édition en ligne.</span></div></details>';
+      (peut("supprimer") ? '<button type="button" class="btn danger" data-vetat="' + esc(d.id) + '|supprime">Supprimer…</button>' : "") + "</div></details>";
   }
 
   async function vSign(key, etape, etapeVisee) {

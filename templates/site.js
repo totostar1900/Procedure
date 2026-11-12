@@ -219,36 +219,44 @@
 
   // ---------- Page document ----------
   var spy;
-  // ---------- Fiche d'identité du document, tirée des données réelles ----------
-  // Rédacteurs de la version (historique), étapes du circuit appliqué avec fonction, nom et date des visas,
-  // diffusion = lectures obligatoires désignées. Sans la base (artefact hors ligne) : valeurs déclarées du document.
+  // ---------- Sections repliables de la page document ----------
+  // Fermées par défaut ; le navigateur retient, pour chaque personne, celles qu'elle a laissées ouvertes.
+  var SECS = (function () { try { return JSON.parse(localStorage.getItem("pc-ref-sections") || "{}") || {}; } catch (e) { return {}; } })();
+  function secHtml(cle, titre, resume, corps) {
+    return '<details class="dsec" data-sec="' + cle + '"' + (SECS[cle] ? " open" : "") + '><summary><span class="dsec-t">' + esc(titre) + "</span>" +
+      (resume ? '<span class="dsec-r">' + resume + "</span>" : "") + '</summary><div class="dsec-in">' + corps + "</div></details>";
+  }
+  document.addEventListener("toggle", function (ev) {
+    var t = ev.target; if (!t || !t.matches || !t.matches("details.dsec")) return;
+    var k = t.getAttribute("data-sec"); if (t.open) SECS[k] = 1; else delete SECS[k];
+    try { localStorage.setItem("pc-ref-sections", JSON.stringify(SECS)); } catch (e) { /* facultatif */ }
+  }, true);
+  // Diffusion réelle : lectures obligatoires désignées (Paramétrage › Lectures obligatoires)
+  function diffusionTexte(d0) {
+    var L = (V.lectures || {})[d0.id] || {}, lib = function (fs) { return (fs || []).map(function (f) { return FLABEL[f] || f; }).join(", "); };
+    var parts = [];
+    if (L.tous) parts.push("Tout le personnel"); else if ((L.fonctions || []).length) parts.push(lib(L.fonctions));
+    if ((L.ids || []).length) parts.push((L.ids || []).length + " personne(s) désignée(s)");
+    var cons = [lib(L.consult_fonctions), (L.consult || []).length ? (L.consult || []).length + " personne(s)" : ""].filter(Boolean).join(", ");
+    return parts.join(" ; ") + (cons ? (parts.length ? " ; " : "") + "consultation : " + cons : "");
+  }
+  // ---------- Fiche d'identité du document ----------
+  // Rédacteurs de la version (historique) ; le circuit et la diffusion ont leurs propres sections.
+  // Sans la base (artefact hors ligne) : valeurs déclarées du document.
   function ficheHtml(d0) {
     var d = vueLangue(d0), h0 = (d0.historique || [])[0];
     var rows = [["Version", "v" + d.version], ["Statut", d.statut], ["Confidentialité", d.confidentialite], ["Propriétaire", d.proprietaire]];
     var enLigne = typeof V !== "undefined" && V.db && V.ready;
     rows.push(["Rédigé par", (h0 && h0.par) || d.redige_par]);
-    if (enLigne) {
-      var st = docState(d0);
-      st.steps.forEach(function (x) {
-        var f = FLABEL[x.st.role] || x.st.fonction || "";
-        var val = x.done || x.sigs.length ? x.sigs.map(function (sg) { return f + " — " + vName(sg.by) + ", le " + fmtDate(String(sg.seance || sg.at).slice(0, 10)); }).join(" ; ")
-          : (st.renvois.length ? "Renvoyé pour modification" : "En attente : " + f);
-        rows.push([x.st.label, val, !(x.done || x.sigs.length)]);
-      });
-      var L = (V.lectures || {})[d0.id] || {}, lib = function (fs) { return (fs || []).map(function (f) { return FLABEL[f] || f; }).join(", "); };
-      var parts = [];
-      if (L.tous) parts.push("Tout le personnel"); else if ((L.fonctions || []).length) parts.push(lib(L.fonctions));
-      if ((L.ids || []).length) parts.push((L.ids || []).length + " personne(s) désignée(s)");
-      var cons = [lib(L.consult_fonctions), (L.consult || []).length ? (L.consult || []).length + " personne(s)" : ""].filter(Boolean).join(", ");
-      var diff = parts.join(" ; ") + (cons ? (parts.length ? " ; " : "") + "consultation : " + cons : "");
-      rows.push(["Date d'approbation", d.date_approbation ? fmtDate(d.date_approbation) : "", true], ["Date d'effet", d.date_effet ? fmtDate(d.date_effet) : "", true], ["Prochaine revue", d.prochaine_revue_label],
-        ["Diffusion", diff || "Aucune lecture obligatoire désignée", !diff]);
-    } else {
-      rows.push(["Vérifié par", d.verifie_par], ["Approuvé par", d.approuve_par], ["Date d'approbation", d.date_approbation ? fmtDate(d.date_approbation) : "", true],
-        ["Date d'effet", d.date_effet ? fmtDate(d.date_effet) : "", true], ["Prochaine revue", d.prochaine_revue_label], ["Diffusion", d.diffusion]);
-    }
-    return '<dl class="meta">' + rows.map(function (m) { return "<div><dt>" + esc(m[0]) + "</dt><dd" + (m[2] || !m[1] ? ' class="unset"' : "") + ">" + esc(m[1] || "À compléter à l'adoption") + "</dd></div>"; }).join("") + "</dl>" +
+    if (!enLigne) rows.push(["Vérifié par", d.verifie_par], ["Approuvé par", d.approuve_par]);
+    // Dates d'approbation et d'effet : seulement une fois connues (adoption)
+    if (d.date_approbation) rows.push(["Date d'approbation", fmtDate(d.date_approbation)]);
+    if (d.date_effet) rows.push(["Date d'effet", fmtDate(d.date_effet)]);
+    rows.push(["Prochaine revue", d.prochaine_revue_label]);
+    if (!enLigne) rows.push(["Diffusion", d.diffusion]);
+    var corps = '<dl class="meta">' + rows.map(function (m) { return "<div><dt>" + esc(m[0]) + "</dt><dd" + (m[2] || !m[1] ? ' class="unset"' : "") + ">" + esc(m[1] || "À compléter à l'adoption") + "</dd></div>"; }).join("") + "</dl>" +
       '<details class="fiche-plus"><summary>Identifiants</summary><dl class="meta"><div><dt>Référence</dt><dd>' + esc(d.id) + "</dd></div></dl></details>";
+    return secHtml("fiche", "Fiche d'identité", '<span>v' + esc(d.version) + "</span> · <span>" + esc(d.statut) + "</span> · <span>" + esc(d.confidentialite || "") + "</span>", corps);
   }
   function renderFiche(d0) { var b = $("#doc-fiche"); if (b) b.innerHTML = ficheHtml(d0); }
   var DOC_COURANT = null; // variante affichée sur la page document (projet ou version en vigueur)
@@ -280,15 +288,17 @@
       '<div class="doc-actions">' + (d.modele ? '<button type="button" class="btn primary" data-new="' + esc(d.id) + '">Préparer une convention</button>' + dlBtn(d.pdf.file, "Modèle PDF · " + kb(d.pdf.size)) : dlBtn(d.pdf.file, "PDF complet · " + kb(d.pdf.size), true)) +
         dlBtn("word/" + d.word.file, "Word · " + kb(d.word.size)) +
         '<label class="selchk"><input type="checkbox" data-sel="doc|' + esc(d.id) + '"> Ajouter à la sélection</label>' + "</div></div>" +
-      '<div id="doc-edit"></div><div id="doc-admin"></div>' +
-      (d.modele ? '<p class="model-note">Ce modèle se remplit par formulaire : chaque donnée est saisie une seule fois, les variantes sont choisies et le Word ou le PDF ne sont produits que lorsque la convention est complète et cohérente. <button type="button" class="doclink" data-open="dossiers">Voir les dossiers en cours</button></p>' : "") +
+      '<div id="doc-ban"></div><div class="doc-tools"><div id="doc-edit"></div><div id="doc-admin"></div></div>' +
       (d.projet ? '<div class="rev-banner"><b>Révision en cours.</b> Un projet de version ' + esc(d.projet.version) + " (" + (d.projet.nature_revision === "mineure" ? "correction mineure" : "révision") + ') est en cours de visa. Cette version ' + esc(d.version) + ' reste celle qui fait foi jusqu\'à son adoption. <button type="button" class="doclink" data-open="' + esc(d.id) + '~projet">Voir le projet de révision</button></div>' : "") +
       (d.estProjet ? '<div class="rev-banner proj"><b>Projet de révision, version ' + esc(d.version) + ".</b> " + (d.nature_revision === "mineure" ? "Correction mineure : les lectures déjà faites restent valables." : "Révision : une nouvelle lecture sera demandée aux personnes concernées après l'adoption.") + ' La version en vigueur reste la ' + esc(docs.filter(function (x) { return x.projet === d; })[0].version) + '. <button type="button" class="doclink" data-open="' + esc(d.id) + '">Voir la version en vigueur</button></div>' : "") +
       bandeauEn(d) +
-      (d.notes_redaction && d.notes_redaction.length && d.statut !== "En vigueur" ? '<div class="notice"><b>Points à valider avant adoption</b><ul>' + d.notes_redaction.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul></div>" : "") +
+      '<div class="dsecs"><div id="doc-derniere"></div>' +
+      (d.notes_redaction && d.notes_redaction.length && d.statut !== "En vigueur" ? secHtml("points", "Points à valider avant adoption", "<span>" + d.notes_redaction.length + "</span>", '<ul class="dsec-ul">' + d.notes_redaction.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>") : "") +
       '<div id="doc-fiche">' + ficheHtml(d0) + "</div>" +
-      '<div id="doc-visas" class="visas-box" aria-live="polite"></div>' +
-      '<div class="doc-body">' + d.html + "</div>" +
+      '<div id="doc-visas" aria-live="polite"></div>' +
+      (d.modele ? secHtml("modele", "Utiliser ce modèle", "", '<p>Ce modèle se remplit par formulaire : chaque donnée est saisie une seule fois, les variantes sont choisies et le Word ou le PDF ne sont produits que lorsque la convention est complète et cohérente. <button type="button" class="doclink" data-open="dossiers">Voir les dossiers en cours</button></p>') : "") +
+      "</div>" +
+      '<div id="doc-diff"></div><div class="doc-body">' + d.html + "</div>" +
       '<h2 class="section-h" id="annexes">Annexes</h2>' +
       '<p class="lead" style="margin-bottom:18px">Chaque annexe se télécharge séparément, au format A4, prête à imprimer et à signer.</p>' +
       d.annexes.map(function (a) {
