@@ -3,45 +3,49 @@ id: PC-CTR-001
 titre: Convention de mandat d'arrangement et de placement
 type: Modèle de contrat
 domaine: Marchés de capitaux
-version: "0.9"
+version: '0.9'
 statut: Projet
 confidentialite: Interne
 proprietaire: Directeur des Marchés de Capitaux
 redige_par: Directeur des Marchés de Capitaux
 verifie_par: Responsable de la conformité et du contrôle interne (RCCI)
 approuve_par: Directeur Général
-date_approbation:
-date_effet:
+date_approbation: null
+date_effet: null
 prochaine_revue: 12 mois après adoption
-diffusion: Direction Générale, Direction des Marchés de Capitaux, Direction Commerciale, RCCI
+diffusion: 'Direction Générale, Direction des Marchés de Capitaux, Direction Commerciale, RCCI'
 public: false
-resume: Modèle de convention par laquelle un émetteur mandate Purpose Capital S.A. pour structurer, faire viser par la COSUMAF et placer une levée de fonds (actions, obligations ou autres titres) sur le marché financier régional.
+resume: 'Modèle de convention par laquelle un émetteur mandate Purpose Capital S.A. pour structurer, faire viser par la COSUMAF et placer une levée de fonds (actions, obligations ou autres titres) sur le marché financier régional.'
 references:
   - ref: REG-01-22
-    articles: Appel public à l'épargne, intermédiaires habilités, obligations d'information
+    articles: 'Appel public à l''épargne, intermédiaires habilités, obligations d''information'
   - ref: RG-COSUMAF-2023
-    articles: Identité des arrangeurs et du chef de file dans le document d'information (art. 131), lettre de mandat dans le dossier de visa (art. 155), information permanente
+    articles: 'Identité des arrangeurs et du chef de file dans le document d''information (art. 131), lettre de mandat dans le dossier de visa (art. 155), information permanente'
   - ref: BVMAC-RM
-    articles: Admission à la cote, centralisation, publication des résultats
+    articles: 'Admission à la cote, centralisation, publication des résultats'
   - ref: DC-RG
-    articles: Inscription en compte, règlement-livraison
+    articles: 'Inscription en compte, règlement-livraison'
   - ref: REG-02-24
     articles: Vigilance à l'égard de l'émetteur et des souscripteurs
   - ref: AUSCGIE
-    articles: Autorisations sociales d'émission, droits des actionnaires et des obligataires
+    articles: 'Autorisations sociales d''émission, droits des actionnaires et des obligataires'
   - ref: AUS
     articles: Constitution des garanties de l'emprunt
   - ref: AUA
-    articles: Clause compromissoire, arbitrage CCJA
+    articles: 'Clause compromissoire, arbitrage CCJA'
 historique:
-  - version: "0.9"
-    date: 2026-10-19
-    objet: Projet initial de modèle, rédigé en termes définis ; chaque donnée est saisie une seule fois dans le formulaire du référentiel
+  - version: '0.9'
+    date: '2026-11-12'
+    objet: mineur
+    par: RCCI
+  - version: '0.9'
+    date: '2026-10-19'
+    objet: 'Projet initial de modèle, rédigé en termes définis ; chaque donnée est saisie une seule fois dans le formulaire du référentiel'
     par: Directeur des Marchés de Capitaux
 notes_redaction:
   - Ne pas compléter ce modèle à la main. Utiliser « Préparer une convention » dans le référentiel ; le Word et le PDF ne sont produits que lorsque tous les champs requis sont renseignés et cohérents.
   - Faire valider le modèle par le conseil juridique de la Société avant sa première utilisation.
-  - "Articles du Règlement général COSUMAF du 23 mai 2023 identifiés : art. 131 (arrangeurs et chef de file dans le document d'information) et art. 155 (lettre de mandat dans le dossier de visa). Vérifier sur le texte officiel l'article fondant le préambule (désignation d'une ou deux sociétés de bourse, syndicat de placement)."
+  - 'Articles du Règlement général COSUMAF du 23 mai 2023 identifiés : art. 131 (arrangeurs et chef de file dans le document d''information) et art. 155 (lettre de mandat dans le dossier de visa). Vérifier sur le texte officiel l''article fondant le préambule (désignation d''une ou deux sociétés de bourse, syndicat de placement).'
   - La prise ferme et la garantie de bonne fin relèvent d'une convention distincte (PC-CTR-002) et des fonds propres de la Société ; elles ne sont pas couvertes par ce modèle.
   - Vérifier le traitement de la TVA et le régime fiscal applicable aux commissions et aux titres émis.
 ---
