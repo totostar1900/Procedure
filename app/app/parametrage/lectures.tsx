@@ -62,6 +62,8 @@ export function Lectures({ sb, docs, ms, note, demander }: { sb: SupabaseClient;
           if (error) { note("err", id + " : " + msg(error)); charger(); return; }
         }
         note("ok", modifs.length + " " + t("document(s) mis à jour."));
+        // Les fiches de maîtrise des PDF et Word reprennent la diffusion réelle à la publication suivante
+        try { await fetch("/api/appliquer", { method: "POST" }); } catch { /* publication horaire */ }
         charger();
       },
     });

@@ -39,6 +39,25 @@ const P = (...p) => path.join(ROOT, ...p);
 const read = (f) => fs.readFileSync(f, "utf8");
 import { createHash } from "node:crypto";
 const APPROB_FILE = P("content/approbations.json");
+// État réel de la plateforme (circuits de Paramétrage, lectures désignées), écrit par tools/appliquer.mjs
+const ETAT_FILE = P("content/etat-plateforme.json");
+const ETAT = fs.existsSync(ETAT_FILE) ? JSON.parse(fs.readFileSync(ETAT_FILE, "utf8")) : { circuits: {}, lectures: {} };
+const FONCTION_LIB = { pca: "Président du Conseil d'Administration", adm: "Administrateur (membre du Conseil)", dg: "Directeur Général", rcci: "Responsable de la conformité et du contrôle interne (RCCI)", dcom: "Directeur Commercial", dmc: "Directeur des Marchés de Capitaux", redac: "Rédacteur", collab: "Collaborateur", membre: "Tout membre" };
+// Fiche de maîtrise conforme à la réalité : rédacteurs de la version (historique), circuit réellement appliqué,
+// diffusion = lectures obligatoires désignées
+function ficheReelle(d) {
+  const h0 = (d.historique || [])[0];
+  const c = ETAT.circuits[d.type];
+  const etapes = c && c.length ? c.filter((e) => e.etape !== "redaction" && !/^r[ée]daction/i.test(e.label || "")).map((e) => ({ etape: e.etape, label: e.label, fonction: FONCTION_LIB[e.role] || e.fonction || e.role })) : null;
+  const L = ETAT.lectures[d.id] || {}, lib = (fs) => (fs || []).map((f) => FONCTION_LIB[f] || f).join(", ");
+  const parts = [];
+  if (L.tous) parts.push("Tout le personnel"); else if ((L.fonctions || []).length) parts.push(lib(L.fonctions));
+  if (L.personnes) parts.push(L.personnes + " personne(s) désignée(s)");
+  let diff = parts.join(" ; ");
+  const cons = [(L.consult_fonctions || []).length ? lib(L.consult_fonctions) : "", L.consult_personnes ? L.consult_personnes + " personne(s)" : ""].filter(Boolean).join(", ");
+  if (cons) diff += (diff ? " ; " : "") + "consultation : " + cons;
+  return { redaction: (h0 && h0.par) || d.redige_par, redacVisa: !!(c && c.some((e) => e.etape === "redaction" || /^r[ée]daction/i.test(e.label || ""))), etapes, diffusion: diff || "Aucune lecture obligatoire désignée" };
+}
 const APPROB = fs.existsSync(APPROB_FILE) ? JSON.parse(read(APPROB_FILE)) : {};
 const NO_PDF = process.argv.includes("--no-pdf");
 
@@ -279,7 +298,7 @@ async function buildWord() {
     // Le service de publication ne sert pas les .docx : chaque Word est publié encodé en base64
     // dans un .txt, et la page le décode avant de le proposer au téléchargement.
     // Données de la fiche de maîtrise : visas électroniques et textes de référence
-    const fiche = { images: IMAGES, approb: (APPROB[d.id] || {})[d.empreinte] || {}, refs: (d.references || []).map((r) => ({ titre: refTitle(r.ref, d), articles: r.articles })) };
+    const fiche = { images: IMAGES, reelle: ficheReelle(d), approb: (APPROB[d.id] || {})[d.empreinte] || {}, refs: (d.references || []).map((r) => ({ titre: refTitle(r.ref, d), articles: r.articles })) };
     fs.writeFileSync(P("dist/word", d.word.file + ".txt"), (await docxFixe(await docxCorps(d, fiche), d)).toString("base64"));
     for (const a of d.annexes) fs.writeFileSync(P("dist/word", a.word.file + ".txt"), (await docxFixe(await docxAnnexe(d, a), d)).toString("base64"));
   }
@@ -352,7 +371,7 @@ function annexBlock(d, a, standalone) {
 function bodyHtml(d, withAnnexes = true) {
   const ap = (APPROB[d.id] || {})[d.empreinte] || {};
   // Une ligne par étape : visa électronique (date, empreinte) et case de signature manuscrite, pour l'exemplaire papier
-  const visa = (e, sans) => sans ? `<td class="visa na" colspan="2"></td>` : `<td class="visa">${e ? `${dDate(d, e.date)}<br><small>${L(d, "Visa électronique")} · ${L(d, "empreinte")} ${esc(d.empreinte)}</small>` : ""}</td><td class="visa sig-box"><small>${L(d, "Date et signature")}</small></td>`;
+  const visa = (e, sans) => sans ? `<td class="visa na" colspan="2"></td>` : `<td class="visa">${e ? `${e.nom ? "<b>" + esc(e.nom) + "</b><br>" : ""}${dDate(d, e.date)}<br><small>${L(d, "Visa électronique")} · ${L(d, "empreinte")} ${esc(d.empreinte)}</small>` : `<small>${L(d, "En attente")}</small>`}</td><td class="visa sig-box"><small>${L(d, "Date et signature")}</small></td>`;
   const step = (k, v, e, sans) => `<tr><td>${esc(L(d, k))}</td><td>${esc(L(d, v))}</td>${visa(e, sans)}</tr>`;
   const control = `<section class="control">
   <h1>${L(d, "Fiche de maîtrise documentaire")}</h1>${d.lang === "en" ? '<p style="font-size:8pt;color:#5B6B80;margin:-2mm 0 3mm">Courtesy translation — the French version prevails.</p>' : ""}
@@ -361,12 +380,12 @@ function bodyHtml(d, withAnnexes = true) {
     <tr><th>${L(d, "Titre")}</th><td colspan="3">${esc(d.titre)}</td></tr>
     <tr><th>${d.lang === "en" ? "Type · domain" : "Type · domaine"}</th><td>${esc(L(d, d.type))} · ${esc(L(d, d.domaine))}</td><th>${L(d, "Confidentialité")}</th><td>${esc(L(d, d.confidentialite))}</td></tr>
     <tr><th>${L(d, "Propriétaire")}</th><td colspan="3">${esc(L(d, d.proprietaire))}</td></tr>
-    <tr><th>${L(d, "Diffusion")}</th><td colspan="3">${esc(d.diffusion)}</td></tr>
+    <tr><th>${L(d, "Diffusion")}</th><td colspan="3">${esc(L(d, ficheReelle(d).diffusion))}</td></tr>
     <tr><th>${L(d, "Date d'effet")}</th><td>${d.date_effet ? dDate(d, d.date_effet) : L(d, "À l'adoption")}</td><th>${L(d, "Prochaine revue")}</th><td>${esc(L(d, d.prochaine_revue_label))}</td></tr>
   </tbody></table>
   <h4>${L(d, "Circuit d'approbation")}</h4>
   <table class="ctable"><thead><tr><th style="width:17%">${L(d, "Étape")}</th><th>${L(d, "Fonction")}</th><th style="width:27%">${L(d, "Visa électronique")}</th><th style="width:24%">${L(d, "Signature manuscrite")}</th></tr></thead><tbody>
-    ${step("Rédaction", d.redige_par, null, true)}${ap._circuit ? ap._circuit.map((c) => step(c.label, c.fonction, ap[c.etape])).join("") : step("Vérification", d.verifie_par, ap.verification) + step("Approbation", d.approuve_par, ap.adoption || ap.approbation)}
+    ${step("Rédaction", ficheReelle(d).redaction, ap.redaction || null, !(ap.redaction || ficheReelle(d).redacVisa))}${ap._circuit ? ap._circuit.filter((c) => c.etape !== "redaction").map((c) => step(c.label, c.fonction, ap[c.etape])).join("") : ficheReelle(d).etapes ? ficheReelle(d).etapes.map((c) => step(c.label, c.fonction, null)).join("") : step("Vérification", d.verifie_par, ap.verification) + step("Approbation", d.approuve_par, ap.adoption || ap.approbation)}
   </tbody></table>
   <h4>${L(d, "Historique des révisions")}</h4>
   <table class="ctable"><thead><tr><th style="width:12%">Version</th><th style="width:22%">Date</th><th>${L(d, "Objet")}</th><th style="width:18%">${L(d, "Par")}</th></tr></thead><tbody>

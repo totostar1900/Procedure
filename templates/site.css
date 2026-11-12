@@ -902,3 +902,9 @@ html.i18n-attente body { visibility: hidden; }
 .sv-track .sv-st:last-child { justify-items: end; text-align: right; }
 .sv-track .sv-st:nth-child(2)::before { left: calc(-100% + 7px); }
 .sv-track .sv-st:last-child::before { right: 7px; }
+
+/* Fiche d'identité : les identifiants (référence) se déplient à la demande */
+.fiche-plus { margin: -6px 0 16px; font-size: var(--fs-sm); }
+.fiche-plus summary { cursor: pointer; color: var(--muted); font-size: var(--fs-xs); letter-spacing: .06em; text-transform: uppercase; width: max-content; }
+.fiche-plus summary:hover { color: var(--heading); }
+.fiche-plus .meta { margin-top: 8px; }

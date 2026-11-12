@@ -292,6 +292,7 @@
     var bar = $("#doc-revbar"); if (bar) bar.innerHTML = revbarHtml(d);
     var adm = $("#doc-admin"); if (adm) adm.innerHTML = docAdminHtml(d);
     if ($("#doc-edit")) renderDocEdit(d);
+    if ($("#doc-fiche")) renderFiche(d);
     var box = $("#doc-visas"); if (!box) return;
     if (RESTREINT) { box.innerHTML = maLectureHtml(d); return; }
     if (!V.db) { box.innerHTML = V.ready ? '<p class="visa-note">Les visas électroniques ne sont pas disponibles dans cette vue. Reconnectez-vous au référentiel.</p>' : ""; return; }

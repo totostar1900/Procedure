@@ -38,7 +38,8 @@ if (process.argv.includes("--confirmer")) {
 }
 
 const kv = await api("kv?select=path,data&or=(path.like.figes%2F*,path.like.circuits%2F*,path.like.sig%2F*,path.like.etats%2F*,path.like.adoptions%2F*)");
-const membres = await api("membres?select=user_id,fonctions,actif");
+const membres = await api("membres?select=user_id,fonctions,actif,nom,email");
+const nomDe = (uid) => { const m = membres.find((x) => x.user_id === uid); return m ? m.nom || m.email : ""; };
 const byPrefix = (pre) => kv.filter((r) => r.path.startsWith(pre));
 const figes = Object.fromEntries(byPrefix("figes/").map((r) => [r.path.slice(6), r.data]));
 const circuits = Object.fromEntries(byPrefix("circuits/").map((r) => [r.path.slice(9), r.data]));
@@ -85,7 +86,7 @@ for (const id of fs.readdirSync(DOCS).sort()) {
   writeFm(file, { ...fm, version: nouvelle, statut: "En vigueur", date_approbation: date, date_effet: fm.date_effet || date, historique: hist }, content);
   // Visas repris dans la fiche de maîtrise des PDF
   const rec = { _circuit: steps.map((s) => ({ etape: s.etape, label: s.label, fonction: s.fonction })), _decision: { date } };
-  for (const x of etat) if (x.v.length) { const s = x.v[x.v.length - 1]; rec[x.st.etape] = { date: (s.seance || String(s.at)).slice(0, 10), at: s.at, role: s.role, ...(s.seance ? { seance: s.seance } : {}), ...(s.pv ? { pv: s.pv } : {}) }; }
+  for (const x of etat) if (x.v.length) { const s = x.v[x.v.length - 1]; rec[x.st.etape] = { date: (s.seance || String(s.at)).slice(0, 10), at: s.at, role: s.role, nom: nomDe(s.by), ...(s.seance ? { seance: s.seance } : {}), ...(s.pv ? { pv: s.pv } : {}) }; }
   (approb[id] ||= {})[emp] = rec;
   adoptes.push({ id, empreinte: emp, version: nouvelle, date });
   console.log(`${id} adopté : v${nouvelle} en vigueur depuis le ${date} (empreinte ${emp}).`);

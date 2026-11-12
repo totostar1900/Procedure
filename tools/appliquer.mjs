@@ -84,6 +84,17 @@ if (process.argv.includes("--confirmer")) {
   fs.mkdirSync(path.join(ROOT, "build"), { recursive: true });
   fs.writeFileSync(path.join(ROOT, "build", "noms.json"), JSON.stringify(faits));
 }
+// État réel de la plateforme pour les fiches de maîtrise des PDF et des Word : circuits réglés dans Paramétrage
+// et lectures obligatoires (fonctions désignées). Réécrit seulement s'il a changé.
+if (!process.argv.includes("--compter")) {
+  const circ = await api("kv?select=path,data&path=like.circuits%2F*"), lect = await api("kv?select=path,data&path=like.lectures%2F*");
+  const etat = {
+    circuits: Object.fromEntries(circ.filter((r) => r.data && r.data.type && Array.isArray(r.data.etapes)).map((r) => [r.data.type, r.data.etapes.map((e) => ({ etape: e.etape, label: e.label, role: e.role, fonction: e.fonction, obligatoire: e.obligatoire !== false }))]).sort()),
+    lectures: Object.fromEntries(lect.map((r) => { const L = r.data || {}; return [r.path.slice(9), { tous: !!L.tous, fonctions: L.fonctions || [], consult_fonctions: L.consult_fonctions || [], personnes: (L.ids || []).length, consult_personnes: (L.consult || []).length }]; }).sort()),
+  };
+  const f = path.join(ROOT, "content", "etat-plateforme.json"), txt = JSON.stringify(etat, null, 1) + "\n";
+  if (!fs.existsSync(f) || fs.readFileSync(f, "utf8") !== txt) { fs.writeFileSync(f, txt); console.log("État de la plateforme (circuits, lectures) mis à jour pour les fiches de maîtrise."); }
+}
 // Brouillons préparés hors de la plateforme (content/brouillons/<ID>.json) : déposés comme brouillons non soumis,
 // pour qu'un rédacteur les reprenne dans l'éditeur et les soumette lui-même. Jamais par-dessus un brouillon en cours.
 if (!process.argv.includes("--compter")) {

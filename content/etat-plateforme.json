@@ -1,0 +1,15 @@
+{
+ "circuits": {
+  "Code": [
+   {"etape": "redaction", "label": "Rédaction", "role": "rcci", "fonction": "RCCI", "obligatoire": true},
+   {"etape": "approbation", "label": "Approbation", "role": "dg", "fonction": "Directeur Général", "obligatoire": true},
+   {"etape": "adoption", "label": "Adoption par le Conseil d'Administration", "role": "pca", "fonction": "Président du Conseil", "obligatoire": true}
+  ],
+  "Politique": [
+   {"etape": "redaction", "label": "Rédaction", "role": "rcci", "fonction": "RCCI", "obligatoire": true},
+   {"etape": "approbation", "label": "Approbation", "role": "dg", "fonction": "Directeur Général", "obligatoire": true},
+   {"etape": "adoption", "label": "Adoption par le Conseil d'Administration", "role": "pca", "fonction": "Président du Conseil", "obligatoire": true}
+  ]
+ },
+ "lectures": {}
+}

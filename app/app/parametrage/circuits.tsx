@@ -69,7 +69,7 @@ export function Circuits({ sb, docs, ms, moi, cfg, charger, note, demander }: {
   }
   async function ecrire(k: string, data: Cfg, ok: string) {
     const { error } = await sb.from("kv").upsert({ path: "circuits/" + k, data });
-    if (error) note("err", msg(error)); else { note("ok", ok); setEd(null); charger(); }
+    if (error) note("err", msg(error)); else { note("ok", ok); setEd(null); charger(); try { await fetch("/api/appliquer", { method: "POST" }); } catch { /* publication horaire */ } }
   }
   function enregistrer() {
     if (!ed) return;
