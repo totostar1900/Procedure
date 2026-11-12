@@ -21,8 +21,34 @@ if (VC) {
 }
 const sb = createBrowserClient(CFG.url, CFG.key);
 let ME = null; // { id, nom, email, admin, fonctions }
+// Rattachement de la personne connectée : trois essais ; en cas d'échec, un bandeau le dit clairement
+// (au lieu d'une page qui passe en lecture seule sans explication).
+function bandeauConnexion(msg) {
+  const go = () => {
+    if (document.getElementById("cnx-err")) return;
+    const d = document.createElement("div"); d.id = "cnx-err"; d.setAttribute("role", "alert");
+    d.style.cssText = "position:fixed;z-index:95;left:50%;top:14px;transform:translateX(-50%);max-width:min(560px,92vw);background:#8A2219;color:#fff;font:13px/1.45 Inter,Arial,sans-serif;padding:10px 14px;border-radius:3px;box-shadow:0 6px 24px rgba(0,0,0,.2);display:flex;gap:12px;align-items:center";
+    d.innerHTML = "<span>" + msg + "</span>";
+    const b = document.createElement("button"); b.type = "button"; b.textContent = "Recharger"; b.style.cssText = "font:inherit;font-weight:600;background:#fff;color:#8A2219;border:0;padding:4px 10px;border-radius:2px;cursor:pointer;flex:none";
+    b.onclick = () => location.reload(); d.appendChild(b); document.body.appendChild(d);
+  };
+  if (document.body) go(); else addEventListener("DOMContentLoaded", go);
+}
+async function rattacher() {
+  let dernier = null;
+  for (let i = 0; i < 3; i++) {
+    const r = await sb.rpc("rattacher");
+    if (!r.error) return r.data;
+    dernier = r.error;
+    if (i === 0) { try { await sb.auth.refreshSession(); } catch (e) { /* essai suivant */ } }
+    await new Promise((ok) => setTimeout(ok, 800 * (i + 1)));
+  }
+  console.error("rattacher", dernier);
+  bandeauConnexion("Le référentiel n'a pas pu confirmer votre accès (incident technique). Vos actions sont suspendues : rechargez la page ; si le problème persiste, prévenez l'administrateur.");
+  return null;
+}
 const meP = (async () => {
-  const { data } = await sb.rpc("rattacher");
+  const data = await rattacher();
   const { data: u } = await sb.auth.getUser();
   if (data && data.autorise) ME = { id: data.id, nom: data.nom || "", email: (u && u.user && u.user.email) || "", admin: !!data.admin, fonctions: data.fonctions || [] };
   // « Voir comme » (super administrateur) : la page se comporte comme pour la personne visée, sans pouvoir écrire
