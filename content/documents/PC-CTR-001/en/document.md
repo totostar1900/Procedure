@@ -21,6 +21,10 @@ references:
     articles: "Arbitration clause, CCJA arbitration"
 historique:
   - version: "0.9"
+    date: 2026-11-12
+    objet: "Minor"
+    par: "RCCI"
+  - version: "0.9"
     date: 2026-10-19
     objet: "Initial draft template, drafted using defined terms; each item of data is entered only once in the repository form"
     par: "Head of Capital Markets"
@@ -30,7 +34,7 @@ notes_redaction:
   - "Articles of the COSUMAF General Regulation of 23 May 2023 identified: Art. 131 (arrangers and lead manager in the information memorandum) and Art. 155 (mandate letter in the approval (visa) application file). Check against the official text the article on which the preamble is based (appointment of one or two brokerage firms, placement syndicate)."
   - "Firm underwriting and standby underwriting commitments fall under a separate agreement (PC-CTR-002) and the Company's own funds; they are not covered by this template."
   - "Check the VAT treatment and the tax regime applicable to the commissions and to the securities issued."
-source: 92c0e3b59de81e10
+source: e18a0feab30674e3
 ---
 
 **BETWEEN THE UNDERSIGNED:**

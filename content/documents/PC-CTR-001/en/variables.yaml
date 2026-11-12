@@ -130,8 +130,8 @@ sections:
         requis: true
         defaut: arrangeur
         options:
-          - { valeur: arrangeur, label: "The Arranger on behalf of the Issuer", texte: "the Arranger on behalf of the Issuer" }
-          - { valeur: emetteur, label: "The Issuer", texte: "the Issuer" }
+          - { valeur: arrangeur, label: "The Arranger on behalf of the Issuer", texte: "of the Arranger on behalf of the Issuer" }
+          - { valeur: emetteur, label: "The Issuer", texte: "of the Issuer" }
       - { id: compte_banque, label: "Institution holding the Centralisation Account", type: texte, requis: true }
       - { id: delai_restitution, label: "Period for returning funds if unsuccessful (business days)", type: entier, requis: true, defaut: 10 }
       - { id: delai_rapport, label: "Period for delivering the closing report (business days)", type: entier, requis: true, defaut: 15 }
