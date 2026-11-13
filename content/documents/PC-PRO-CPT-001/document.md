@@ -3,51 +3,55 @@ id: PC-PRO-CPT-001
 titre: Manuel des procédures comptables et financières
 type: Procédure
 domaine: Opérations
-version: "0.9"
+version: '0.9'
 statut: Projet
 confidentialite: Interne
 proprietaire: Directeur Général
 redige_par: Directeur Général
 verifie_par: Responsable de la conformité et du contrôle interne (RCCI)
 approuve_par: Directeur Général
-date_approbation:
-date_effet:
+date_approbation: null
+date_effet: null
 prochaine_revue: 12 mois après adoption
-diffusion: Direction Générale, comptabilité, RCCI, commissaires aux comptes
+diffusion: 'Direction Générale, comptabilité, RCCI, commissaires aux comptes'
 public: false
-resume: Comment Purpose Capital S.A. tient sa comptabilité selon le SYSCOHADA révisé, facture, dépense, paie et rapproche avec peu de personnes, clôture ses comptes, respecte ses échéances fiscales et sociales et surveille chaque mois ses fonds propres.
+resume: 'Comment Purpose Capital S.A. tient sa comptabilité selon le SYSCOHADA révisé, facture, dépense, paie et rapproche avec peu de personnes, clôture ses comptes, respecte ses échéances fiscales et sociales et surveille chaque mois ses fonds propres.'
 references:
   - ref: AUDCIF
-    articles: "Comptabilité d'engagement et Système comptable OHADA (SYSCOHADA révisé) ; livres obligatoires (journal, grand livre, balance) ; inventaire annuel ; états financiers annuels arrêtés dans les quatre mois de la clôture ; conservation des livres et pièces pendant dix ans (art. 24)"
+    articles: 'Comptabilité d''engagement et Système comptable OHADA (SYSCOHADA révisé) ; livres obligatoires (journal, grand livre, balance) ; inventaire annuel ; états financiers annuels arrêtés dans les quatre mois de la clôture ; conservation des livres et pièces pendant dix ans (art. 24)'
   - ref: AUSCGIE
-    articles: "Arrêté des comptes par le Conseil d'Administration ; approbation par l'assemblée générale ordinaire dans les six mois de la clôture ; mission et information des commissaires aux comptes ; conventions réglementées (art. 438 et suivants)"
+    articles: Arrêté des comptes par le Conseil d'Administration ; approbation par l'assemblée générale ordinaire dans les six mois de la clôture ; mission et information des commissaires aux comptes ; conventions réglementées (art. 438 et suivants)
   - ref: RG-COSUMAF-2023
-    articles: "Capital minimum et solidité financière des sociétés de bourse ; contrôle interne ; conservation des documents pendant dix ans (art. 105) ; cumul de fonctions justifié par la taille de la structure (art. 112)"
+    articles: Capital minimum et solidité financière des sociétés de bourse ; contrôle interne ; conservation des documents pendant dix ans (art. 105) ; cumul de fonctions justifié par la taille de la structure (art. 112)
   - ref: REG-01-22
     articles: Séparation des avoirs des clients et des avoirs propres des intermédiaires ; information financière due à la COSUMAF
   - ref: CT-CM
-    articles: Paiement du salaire, bulletin de paie et registre des employeurs
+    articles: 'Paiement du salaire, bulletin de paie et registre des employeurs'
   - ref: OICV-EXT-2021
-    articles: "Bonne pratique internationale : maîtrise et supervision d'une fonction confiée à un prestataire (tenue comptable)"
+    articles: 'Bonne pratique internationale : maîtrise et supervision d''une fonction confiée à un prestataire (tenue comptable)'
   - ref: OICV-PRINCIPES
-    articles: "Bonne pratique internationale : exigences de capital et tenue de registres comptables fiables par les intermédiaires de marché"
+    articles: 'Bonne pratique internationale : exigences de capital et tenue de registres comptables fiables par les intermédiaires de marché'
   - ref: COSO-2013
-    articles: "Bonne pratique internationale : séparation des tâches, autorisations, rapprochements et prévention de la fraude"
+    articles: 'Bonne pratique internationale : séparation des tâches, autorisations, rapprochements et prévention de la fraude'
 historique:
-  - version: "0.9"
-    date: 2026-10-20
+  - version: '0.9'
+    date: '2026-11-13'
+    objet: mineur
+    par: RCCI
+  - version: '0.9'
+    date: '2026-10-20'
     objet: Projet initial
     par: Directeur Général
 notes_redaction:
-  - "Tenue de la comptabilité : le manuel suppose qu'elle est confiée à un expert-comptable inscrit à l'ONECCA, sous la supervision du Directeur Général. Confirmer ce choix, signer la lettre de mission et l'inscrire au registre des externalisations (PC-POL-EXT-001) ; dire si elle est traitée comme une fonction importante."
-  - "Seuils de paiement et de double signature : le manuel renvoie à la matrice de la Charte d'organisation et de délégation des pouvoirs (PC-COD-004), rédigée en parallèle. Vérifier à l'adoption que les seuils de l'article 21 et de l'annexe [[annexe:PC-COD-004/A2]] sont ceux de PC-COD-004, et désigner les signataires bancaires."
-  - "Seuils propres au manuel, à valider par le Directeur Général : immobilisation à partir de 250 000 FCFA HT (article 24), deux devis à partir de 2 000 000 FCFA HT (article 15), caisse plafonnée à 200 000 FCFA et dépense en espèces limitée à 50 000 FCFA (article 18), provision des créances échues depuis plus de 90 jours (article 14)."
-  - "Plan de comptes : vérifier si la COSUMAF impose aux sociétés de bourse un plan de comptes, des états financiers ou des états prudentiels d'un format particulier. Faute de texte trouvé, le manuel retient le SYSCOHADA révisé (système normal) avec des sous-comptes dédiés (article 6)."
-  - "Normes prudentielles : comme pour la Politique de gestion des risques, aucun ratio prudentiel propre aux sociétés de bourse n'a été trouvé dans les textes publiés. Le calcul de l'article 31 est une définition interne prudente des fonds propres, à aligner sur l'instruction de la COSUMAF dès qu'elle est confirmée."
-  - "Traitement comptable des espèces des clients (article 7) : inscription au bilan avec une dette envers les clients, exclue des fonds propres et de la trésorerie propre. À confirmer avec les commissaires aux comptes."
-  - "Fiscalité à confirmer chaque année avec l'expert-comptable au regard de la loi de finances : taux et régime de TVA des commissions de courtage et de placement (exonération éventuelle des opérations sur titres), taux de l'acompte d'impôt sur les sociétés, échéance de la DSF (15 mars retenu), retenues à la source dues par la Société. Les échéances de l'annexe [[annexe:A4]] sont celles connues à la rédaction."
-  - "Textes absents de la table des références, à ajouter par le RCCI : Code général des impôts du Cameroun et loi de finances de l'année ; textes de la CNPS (prévoyance sociale) ; règlement CEMAC sur la profession comptable libérale (ONECCA) ; instruction de la COSUMAF sur les normes prudentielles et les états financiers des sociétés de bourse."
-  - "Conseil d'Administration : le Conseil n'a pas de comité d'audit. Le manuel confie l'examen des comptes au Conseil plénier ; décider s'il faut un comité d'audit et des risques lorsque l'activité aura grandi."
+  - 'Tenue de la comptabilité : le manuel suppose qu''elle est confiée à un expert-comptable inscrit à l''ONECCA, sous la supervision du Directeur Général. Confirmer ce choix, signer la lettre de mission et l''inscrire au registre des externalisations (PC-POL-EXT-001) ; dire si elle est traitée comme une fonction importante.'
+  - 'Seuils de paiement et de double signature : le manuel renvoie à la matrice de la Charte d''organisation et de délégation des pouvoirs (PC-COD-004), rédigée en parallèle. Vérifier à l''adoption que les seuils de l''article 21 et de l''annexe [[annexe:PC-COD-004/A2]] sont ceux de PC-COD-004, et désigner les signataires bancaires.'
+  - 'Seuils propres au manuel, à valider par le Directeur Général : immobilisation à partir de 250 000 FCFA HT (article 24), deux devis à partir de 2 000 000 FCFA HT (article 15), caisse plafonnée à 200 000 FCFA et dépense en espèces limitée à 50 000 FCFA (article 18), provision des créances échues depuis plus de 90 jours (article 14).'
+  - 'Plan de comptes : vérifier si la COSUMAF impose aux sociétés de bourse un plan de comptes, des états financiers ou des états prudentiels d''un format particulier. Faute de texte trouvé, le manuel retient le SYSCOHADA révisé (système normal) avec des sous-comptes dédiés (article 6).'
+  - 'Normes prudentielles : comme pour la Politique de gestion des risques, aucun ratio prudentiel propre aux sociétés de bourse n''a été trouvé dans les textes publiés. Le calcul de l''article 31 est une définition interne prudente des fonds propres, à aligner sur l''instruction de la COSUMAF dès qu''elle est confirmée.'
+  - 'Traitement comptable des espèces des clients (article 7) : inscription au bilan avec une dette envers les clients, exclue des fonds propres et de la trésorerie propre. À confirmer avec les commissaires aux comptes.'
+  - 'Fiscalité à confirmer chaque année avec l''expert-comptable au regard de la loi de finances : taux et régime de TVA des commissions de courtage et de placement (exonération éventuelle des opérations sur titres), taux de l''acompte d''impôt sur les sociétés, échéance de la DSF (15 mars retenu), retenues à la source dues par la Société. Les échéances de l''annexe [[annexe:A4]] sont celles connues à la rédaction.'
+  - 'Textes absents de la table des références, à ajouter par le RCCI : Code général des impôts du Cameroun et loi de finances de l''année ; textes de la CNPS (prévoyance sociale) ; règlement CEMAC sur la profession comptable libérale (ONECCA) ; instruction de la COSUMAF sur les normes prudentielles et les états financiers des sociétés de bourse.'
+  - 'Conseil d''Administration : le Conseil n''a pas de comité d''audit. Le manuel confie l''examen des comptes au Conseil plénier ; décider s''il faut un comité d''audit et des risques lorsque l''activité aura grandi.'
 ---
 
 ## Titre I — Dispositions générales
@@ -284,7 +288,7 @@ L'ouverture ou la fermeture d'un compte et tout changement de signataire sont d�
 
 - Un bien durable d'une valeur d'au moins **250 000 FCFA HT** est immobilisé ; en dessous, il est passé en charge.
 - La Comptabilité tient le **registre des immobilisations** : description, date, coût, durée d'amortissement, emplacement, utilisateur. Chaque bien porte une étiquette.
-- L'amortissement est linéaire, sur des durées d'usage fixées par la Comptabilité et visées par le Directeur Général, par exemple : matériel informatique 3 ans, mobilier 10 ans, aménagements 10 ans ou durée du bail, logiciels 3 ans.
+- L'amortissement est linéaire, sur des durées d'usage fixées par la Comptabilité et visées par le Directeur Général, par exemple : matériel informatique 4 ans, mobilier de bureau 10 ans, aménagements 10 ans ou durée du bail, logiciels 4 ans, climatiseurs 5 ans.
 - Un inventaire physique est fait chaque année au 31 décembre ; un bien manquant ou hors d'usage est sorti du registre sur décision du Directeur Général.
 
 ### Article 25 — Paie
