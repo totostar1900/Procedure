@@ -21,6 +21,10 @@ references:
     articles: "International good practice: segregation of duties, authorisations, reconciliations and fraud prevention"
 historique:
   - version: "0.9"
+    date: 2026-11-13
+    objet: "Minor"
+    par: "RCCI"
+  - version: "0.9"
     date: 2026-10-20
     objet: "Initial draft"
     par: "Chief Executive Officer"
@@ -34,7 +38,7 @@ notes_redaction:
   - "Taxation to be confirmed each year with the chartered accountant in the light of the finance law: VAT rate and regime for brokerage and placement commissions (possible exemption of securities transactions), rate of the corporate income tax instalment, DSF deadline (15 March assumed), withholding taxes due by the Company. The deadlines in Appendix [[annexe:A4]] are those known at the time of drafting."
   - "Texts missing from the table of references, to be added by the RCCI: Cameroon General Tax Code and the finance law for the year; CNPS (social security) texts; CEMAC regulation on the accounting profession in private practice (ONECCA); COSUMAF instruction on prudential standards and financial statements of brokerage firms."
   - "Board of Directors: the Board has no audit committee. The manual entrusts the review of the accounts to the full Board; decide whether an audit and risk committee is needed once the business has grown."
-source: 779af4b68ad9aba6
+source: 409a9d4aa48cf48a
 ---
 
 ## Title I — General provisions
@@ -271,7 +275,7 @@ Opening or closing an account and any change of signatory are decided in accorda
 
 - A durable asset worth at least **FCFA 250,000 excluding tax** is capitalised; below that, it is expensed.
 - Accounting keeps the **fixed asset register**: description, date, cost, depreciation period, location, user. Each asset bears a label.
-- Depreciation is straight-line, over useful lives set by Accounting and signed off by the Chief Executive Officer, for example: IT equipment 3 years, furniture 10 years, fit-out 10 years or the lease term, software 3 years.
+- Depreciation is straight-line, over useful lives set by Accounting and signed off by the Chief Executive Officer, for example: IT equipment 4 years, office furniture 10 years, fit-out 10 years or the lease term, software 4 years, air conditioning units 5 years.
 - A physical inventory is carried out each year at 31 December; a missing or unusable asset is removed from the register on the decision of the Chief Executive Officer.
 
 ### Article 25 — Payroll
