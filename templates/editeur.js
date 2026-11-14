@@ -547,6 +547,13 @@
       '<label class="vf">Prochaine revue<input name="prochaine_revue" value="12 mois après adoption"></label>' +
       '<fieldset class="vf wide"><legend>Point de départ</legend><label class="radio"><input type="radio" name="depart" value="ligne" checked> <span><b>Rédiger en ligne</b>, à partir d\'un plan type (titres et articles)</span></label><label class="radio"><input type="radio" name="depart" value="word"> <span><b>Importer un Word</b> rédigé à partir du modèle vierge</span></label></fieldset>' +
       '<div class="visa-btns wide"><button type="submit" class="btn primary">Créer le brouillon</button></div></form>';
+    // Depuis « À traiter › Au programme de rédaction » : type, code, titre et domaine repris du programme
+    var prevu = null; try { var pid = sessionStorage.getItem("pc-ref-prevu"); sessionStorage.removeItem("pc-ref-prevu"); prevu = (DATA.prevus || []).filter(function (x) { return x.id === pid; })[0]; } catch (e) { /* facultatif */ }
+    if (prevu) {
+      var f = $("#nv-form"), parts = prevu.id.split("-");
+      [].forEach.call(f.elements.type.options, function (o) { if (o.getAttribute("data-prefixe") === parts[1]) o.selected = true; });
+      f.elements.code.value = parts[2] || ""; f.elements.titre.value = prevu.titre || ""; f.elements.domaine.value = prevu.domaine || "";
+    }
   }
   document.addEventListener("submit", async function (ev) {
     if (ev.target.id !== "nv-form") return;
@@ -662,7 +669,7 @@
     Object.keys(V.redac || {}).forEach(function (id) {
       var r = V.redac[id]; if (!r || !r.statut) return;
       var auteurs = r.auteurs || [r.par];
-      if (filtreMoi && auteurs.indexOf(V.me) < 0) return;
+      if (filtreMoi && auteurs.indexOf(filtreMoi === true ? V.me : filtreMoi) < 0) return;
       var w = workOf(id), x = { id: id, r: r, titre: w ? w.titre : r.titre || id, objet: r.objet || "", auteurs: auteurs, nouveau: !w };
       if (r.statut === "brouillon") Object.assign(x, { cls: "i", etat: "Brouillon", le: r.maj, act: "edit", btn: "Reprendre" });
       else if (r.statut === "soumis") Object.assign(x, { cls: "w", etat: "Publication en cours", le: r.soumis_le, act: "retirer", btn: "Retirer" });

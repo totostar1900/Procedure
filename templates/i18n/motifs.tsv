@@ -2,6 +2,12 @@
 # Dates écrites par la génération (français)
 # Rédaction en ligne, suivi, lectures (avant les motifs génériques)
 En attente : (.+)	Pending: $1
+Ce qui attend une action de (.+)\.	What is waiting for $1 to act.
+(\d+) point\(s\) à valider	$1 point(s) to settle
+Échue depuis le (.+)	Overdue since $1
+À revoir avant le (.+)	To review before $1
+En vigueur · v(.+) · adopté le (.+)	In force · v$1 · adopted on $2
+(.+) · (.+) · priorité (.+)	$1 · $2 · priority $3
 (\d+) visa\(s\) sur (\d+)	$1 of $2 sign-off(s)
 (\d+) personne\(s\) désignée\(s\)	$1 designated person(s)
 consultation : (.+)	consultation: $1

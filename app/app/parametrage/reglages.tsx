@@ -7,6 +7,7 @@ import { Notifications, NT_CSS } from "./notifications";
 import { NomsAnnexes, NM_CSS } from "./noms";
 import { Lectures, LC_CSS } from "./lectures";
 import { Presentation, PR_CSS } from "./presentation";
+import { Programme } from "./programme";
 
 // Paramétrage, en sections : administrateurs et prérogatives (super administrateur), circuits et délais (prérogative
 // « circuits »), règles appliquées, journal complet (super administrateur). Chacun ne voit que ses sections.
@@ -21,7 +22,7 @@ const CATS: [string, string, (e: Evt) => boolean][] = [
   ["vue", "Voir comme", (e) => e.action.startsWith("VUE_")],
 ];
 
-export default function Reglages({ moi, docs, publie }: { moi: MoiC; docs: DocC[]; publie: { societe: Record<string, string>; presentation: Record<string, unknown> } }) {
+export default function Reglages({ moi, docs, publie }: { moi: MoiC; docs: DocC[]; publie: { societe: Record<string, string>; presentation: Record<string, unknown>; prevus: { id: string; titre: string; type: string; domaine?: string; priorite?: number }[] } }) {
   useLangue();
   const sb = useMemo(() => createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!), []);
   const [ms, setMs] = useState<Membre[]>([]);
@@ -39,7 +40,7 @@ export default function Reglages({ moi, docs, publie }: { moi: MoiC; docs: DocC[
   const noter = (tt: "ok" | "err", m: string) => setNote({ t: tt, m });
   const SECTIONS: [string, string, string][] = [
     ...(moi.super ? [["admins", "Administrateurs et prérogatives", "Super administrateur"] as [string, string, string]] : []),
-    ...(circ ? [["circuits", "Circuits d'approbation", "Prérogative « circuits »"], ["delais", "Délais et alertes", "Prérogative « circuits »"]] as [string, string, string][] : []),
+    ...(circ ? [["circuits", "Circuits d'approbation", "Prérogative « circuits »"], ["delais", "Délais et alertes", "Prérogative « circuits »"], ["programme", "Programme de rédaction", "Prérogative « circuits »"]] as [string, string, string][] : []),
     ...(lect ? [["lectures", "Lectures obligatoires", "Prérogative « lectures »"] as [string, string, string]] : []),
     ...(pres ? [["presentation", "Présentation des documents", "Prérogative « présentation »"] as [string, string, string]] : []),
     ...(moi.super ? [["noms", "Noms des annexes", "Super administrateur"], ["notifications", "Avis par e-mail", "Super administrateur"]] as [string, string, string][] : []),
@@ -131,6 +132,12 @@ export default function Reglages({ moi, docs, publie }: { moi: MoiC; docs: DocC[
           {tete("delais")}
           <p className="zp">Les délais de chaque étape et de la prise de connaissance, réunis sur une grille. Une étape passe « en retard » au-delà de son délai, et « bientôt en retard » au seuil choisi ; le suivi des documents et le tableau de bord s&apos;en servent.</p>
           <Delais sb={sb} docs={docs} moi={moi} cfg={cfg} charger={chargerC} note={noter} />
+        </section> : null}
+
+        {circ ? <section className="zone" id="z-programme">
+          {tete("programme")}
+          <p className="zp">Les documents prévus au référentiel et pas encore rédigés, avec la fonction chargée de les rédiger (le RCCI par défaut). Ils apparaissent dans « À traiter › Au programme de rédaction » des titulaires de cette fonction.</p>
+          <Programme sb={sb} prevus={publie.prevus || []} note={noter} />
         </section> : null}
 
         {lect ? <section className="zone" id="z-lectures">

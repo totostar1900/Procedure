@@ -932,3 +932,12 @@ html.i18n-attente body { visibility: hidden; }
 .dsec-ul { margin: 0; padding-left: 1.2em; }
 .dsec-ul li { margin: 3px 0; }
 @media (prefers-reduced-motion: reduce) { .dsec > summary::before { transition: none; } }
+/* À traiter : bilan d'avancement et choix de la personne */
+.at-qui { display: inline-flex; align-items: center; gap: 8px; font-size: var(--fs-sm); color: var(--muted); margin: 4px 16px 10px 0; }
+.at-qui select { font: inherit; font-size: var(--fs-sm); padding: 4px 8px; border: 1px solid var(--rule-strong); background: var(--surface); color: var(--ink); border-radius: var(--radius); }
+.at-bilan { border: 1px solid var(--rule); background: var(--surface); padding: 14px 16px 10px; margin: 8px 0 6px; border-radius: var(--radius); }
+.at-bar { height: 8px; background: var(--band); border-radius: 4px; overflow: hidden; }
+.at-bar i { display: block; height: 100%; background: var(--gold); border-radius: 4px; }
+.at-chiffres { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 10px 0 4px; font-size: var(--fs-sm); color: var(--ink-soft); }
+.at-chiffres b { font-size: var(--fs-lg); color: var(--heading); margin-right: 4px; font-variant-numeric: tabular-nums; }
+.at-bilan .cite-src { margin: 4px 0 0; }

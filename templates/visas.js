@@ -27,7 +27,7 @@
   var FLABEL = {}; FONCTIONS.forEach(function (f) { FLABEL[f[0]] = f[1]; }); FLABEL.membre = "Tout membre";
   var FONCTIONS_CIRCUIT = [["membre", "Tout membre"]].concat(FONCTIONS);
   var V = { db: null, user: null, me: null, owner: false, canWrite: false, ready: false, roles: {}, lectures: {}, annuaire: {}, sigs: {}, names: {}, emails: {}, subs: {},
-    circuits: {}, figes: {}, etats: {}, redac: {}, auteurs: {}, adoptions: {}, pending: null, done: null, edit: null, search: [], landed: false };
+    circuits: {}, figes: {}, etats: {}, redac: {}, auteurs: {}, adoptions: {}, programme: {}, pending: null, done: null, edit: null, search: [], landed: false };
 
   Promise.all([dbP, userP]).then(async function (r) {
     V.db = r[0]; V.user = r[1];
@@ -49,6 +49,7 @@
     watch("redaction", "redac");
     watch("auteurs", "auteurs");
     watch("adoptions", "adoptions", vAdoptionsManquantes);
+    watch("programme", "programme");
     if (V.me && V.canWrite) {
       try { var a = await V.db.doc("annuaire/" + V.me).get(); var last = a.exists ? a.data().vu : "", lg = window.PCI18N ? PCI18N.lang : "fr"; if (!last || last.slice(0, 10) !== new Date().toISOString().slice(0, 10) || (a.exists && (a.data().langue || "fr") !== lg)) await V.db.doc("annuaire/" + V.me).set({ vu: new Date().toISOString(), langue: lg }); } catch (e) { /* lecture seule */ }
     }
@@ -390,33 +391,117 @@
     }
   }
 
-  // ---------- Page « À traiter » ----------
+  // ---------- Page « À traiter » : À faire · En cours · Terminé ----------
+  // « Mes documents » = ceux que la personne a rédigés ou modifiés (toute version) et ceux dont sa fonction est propriétaire.
+  // Documents du programme à rédiger : attribués à une fonction (kv programme/attributions, Paramétrage ; RCCI par défaut).
+  // Un administrateur (tableau de bord) ou le super administrateur peut afficher l'avancement d'une autre personne.
+  var AT = { tab: "afaire", qui: "", periode: "90" };
+  var AT_TABS = [["afaire", "À faire"], ["encours", "En cours"], ["termine", "Terminé"]];
+  var fonctionsListe = function (p) { var r = V.roles[p]; return r && r.actif !== false ? r.fonctions || [] : []; };
+  var proprioDe = function (d, p) { var lab = String(d.proprietaire || ""); return fonctionsListe(p).some(function (f) { var l = FLABEL[f]; return l && f !== "redac" && f !== "collab" && (lab === l || lab.indexOf("(" + l + ")") >= 0); }); };
+  var redigePar = function (id, p) {
+    var r = V.redac[id]; if (r && (r.auteurs || [r.par]).indexOf(p) >= 0) return true;
+    return Object.keys(V.auteurs || {}).some(function (k) { return k.indexOf(id + "~") === 0 && (V.auteurs[k].auteurs || []).indexOf(p) >= 0; });
+  };
+  var mesDocs = function (p) { return docs.filter(function (d) { return !etatOf(d.id) && (proprioDe(d, p) || redigePar(d.id, p)); }); };
+  var attribution = function (id) { var a = (V.programme.attributions || {}).docs || {}; return a[id] || "rcci"; };
+  var programmeDe = function (p) { return (DATA.prevus || []).filter(function (x) { return fonctionsListe(p).indexOf(attribution(x.id)) >= 0 && !V.redac[x.id]; }).sort(function (x, y) { return (x.priorite || 9) - (y.priorite || 9); }); };
+  var attenteDepuis = function (d) { var st = docState(d), prev = st.steps.filter(function (x) { return x.done && x.cur; }).map(function (x) { return x.cur.at; }).sort().pop(); return prev || (d.historique && d.historique[0] && d.historique[0].date) || ""; };
+  var dans = function (iso, jours) { return iso && Date.parse(iso) >= Date.now() - jours * 864e5; };
+  function atItem(ref, titre, sous, bouton, extra) {
+    return '<li class="tt-item"><div class="tt-main"><div class="tt-ref">' + esc(ref) + (extra || "") + '</div><div class="tt-title">' + esc(titre) + '</div><div class="cite-src">' + sous + "</div></div>" + (bouton || "") + "</li>";
+  }
+  function atListe(titre, items, vide) {
+    return '<h2 class="section-h">' + esc(titre) + ' <span class="count-chip">' + items.length + "</span></h2>" + (items.length ? '<ul class="tt-list">' + items.join("") + "</ul>" : '<p class="tt-empty">' + esc(vide) + "</p>");
+  }
+  var ouvrir = function (d, lib) { return '<button type="button" class="btn" data-vgo="' + esc(docHash(d)) + '">' + (lib || "Ouvrir") + "</button>"; };
+
   function renderATraiter() {
     var v = $("#v-atraiter"); if (!v) return;
     var head = '<div class="eyebrow">Mon espace</div><h1 class="title">À traiter</h1>';
     if (!V.db || !V.me) { v.innerHTML = head + '<p class="lead">' + (V.ready ? (HOSTED ? "Session expirée : reconnectez-vous." : "Connectez-vous à claude.ai pour voir ce qui vous attend.") : "Chargement…") + "</p>"; return; }
-    var todo = vTodoList();
-    var visas = todo.filter(function (t) { return t.a.etape !== "lecture"; }), lect = todo.filter(function (t) { return t.a.etape === "lecture"; });
-    var waitSince = function (d) { var prev = docState(d).steps.filter(function (x) { return x.done && x.cur; }).map(function (x) { return x.cur.at; }).sort().pop(); return prev ? since(prev) : ""; };
-    var item = function (t) {
-      var s = waitSince(t.d);
-      return '<li class="tt-item"><div class="tt-main"><div class="tt-ref">' + esc(t.d.id) + (t.d.estProjet ? ' <span class="pill projet">révision v' + esc(t.d.version) + "</span>" : "") + '</div><div class="tt-title">' + esc(t.d.titre) + '</div><div class="cite-src">' + esc(t.a.label) + (t.a.etape === "lecture" ? "" : " · en qualité de " + esc(FLABEL[t.a.role] || t.a.role)) + (s ? " · " + esc(s) : "") + "</div></div>" +
-        '<button type="button" class="btn primary" data-vgo="' + esc(docHash(t.d)) + '">' + (t.a.etape === "lecture" ? "Lire" : "Examiner") + "</button></li>";
-    };
-    var html = head + '<p class="lead">Les documents qui attendent une action de votre part. Ouvrez-les un par un : la barre en haut du document propose de viser, d\'approuver ou de renvoyer avec un commentaire, puis passe au suivant.</p>';
-    html += '<h2 class="section-h">À viser ou approuver <span class="count-chip">' + visas.length + "</span></h2>" + (visas.length ? '<ul class="tt-list">' + visas.map(item).join("") + "</ul>" : '<p class="tt-empty">Rien en attente de votre visa.</p>');
-    html += '<h2 class="section-h">À lire <span class="count-chip">' + lect.length + "</span></h2>" + (lect.length ? '<ul class="tt-list">' + lect.map(item).join("") + "</ul>" : '<p class="tt-empty">Aucune lecture en attente.</p>');
-    html += myDraftsHtml();
-    if (canArchive()) {
-      var ren = VARIANTS().filter(function (d) { return !etatOf(d.id) && docState(d).renvois.length; });
-      var bloq = []; TYPES.forEach(function (t) { var d = docs.filter(function (x) { return x.type === t; })[0]; circuitIssues(circOf(d)).forEach(function (m) { bloq.push(t + " — " + m); }); });
-      html += '<h2 class="section-h">Suivi du référentiel</h2>';
-      html += ren.length ? '<p class="side-title">Renvoyés pour modification</p><ul class="tt-list">' + ren.map(function (d) { var r = docState(d).renvois[0]; return '<li class="tt-item"><div class="tt-main"><div class="tt-ref">' + esc(d.id) + '</div><div class="tt-title">' + esc(d.titre) + '</div><div class="cite-src">Par ' + esc(vName(r.by)) + " le " + esc(fmtD(r.at)) + " : « " + esc(r.commentaire || "") + " »</div></div><button type=\"button\" class=\"btn\" data-vgo=\"" + esc(docHash(d)) + '">Ouvrir</button></li>'; }).join("") + "</ul>" : "";
-      html += bloq.length ? '<p class="side-title">Circuits à corriger</p><ul class="tt-warn">' + bloq.map(function (m) { return "<li>" + esc(m) + "</li>"; }).join("") + '</ul><p><button type="button" class="btn" data-vgo="circuit">Ouvrir les circuits</button></p>' : "";
-      if (!ren.length && !bloq.length) html += '<p class="tt-empty">Aucun renvoi, aucun circuit bloqué.</p>';
+    var chef = estSuper() || (typeof accesTableau === "function" && accesTableau());
+    var p = chef && AT.qui ? AT.qui : V.me, moi = p === V.me;
+    var mine = mesDocs(p), prog = programmeDe(p), mods = modifsEtat(p);
+    var auj = new Date().toISOString().slice(0, 10), j60 = new Date(Date.now() + 60 * 864e5).toISOString().slice(0, 10);
+    var revues = mine.map(function (d) { return { d: d, e: echeance(d) }; }).filter(function (x) { return x.e && x.e <= j60; }).sort(function (a, b) { return a.e < b.e ? -1 : 1; });
+    var nouveaux = mods.filter(function (x) { return x.nouveau; }).length;
+    var nV = mine.filter(function (d) { return d.statut === "En vigueur"; }).length;
+    var nRed = mine.filter(function (d) { var r = V.redac[d.id]; return r && ["brouillon", "soumis", "conflit"].indexOf(r.statut) >= 0; }).length + nouveaux;
+    var nC = mine.filter(function (d) { var r = V.redac[d.id]; return d.statut !== "En vigueur" && !(r && ["brouillon", "soumis", "conflit"].indexOf(r.statut) >= 0); }).length;
+    var total = mine.length + prog.length + nouveaux, pct = total ? Math.round(100 * nV / total) : 0;
+
+    var choix = chef ? '<label class="at-qui">Avancement de <select id="at-qui">' + Object.keys(V.roles).filter(function (id) { return V.roles[id].actif !== false && V.roles[id].acces !== "employe" && fonctionsListe(id).length; })
+      .sort(function (a, b) { return vName(a).localeCompare(vName(b)); }).map(function (id) { return '<option value="' + esc(id) + '"' + (id === p ? " selected" : "") + ">" + esc(vName(id)) + "</option>"; }).join("") + "</select></label>" : "";
+    var html = head + choix +
+      '<div class="at-bilan"><div class="at-bar" role="img" aria-label="' + pct + ' % en vigueur"><i style="width:' + pct + '%"></i></div>' +
+      '<div class="at-chiffres"><span><b>' + total + "</b> document(s) suivis</span><span><b>" + nV + "</b> en vigueur</span><span><b>" + nC + "</b> en circuit</span><span><b>" + nRed + "</b> en rédaction</span><span><b>" + prog.length + "</b> à rédiger</span><span><b>" + revues.length + "</b> revue(s) dans 60 jours</span></div>" +
+      '<p class="cite-src">' + (moi ? "Vos documents" : "Ses documents") + " : rédigés ou modifiés, et ceux dont la fonction est propriétaire.</p></div>" +
+      '<div class="sv-tabs" role="tablist" aria-label="À traiter">' + AT_TABS.map(function (t) { return '<button type="button" role="tab" data-attab="' + t[0] + '" aria-selected="' + (AT.tab === t[0]) + '">' + t[1] + "</button>"; }).join("") + "</div>";
+
+    if (AT.tab === "afaire") {
+      var todo = []; VARIANTS().forEach(function (d) { (moi ? myActions(d) : actionsFor(d, p)).forEach(function (a) { todo.push({ d: d, a: a }); }); });
+      var item = function (t) {
+        var s = since(attenteDepuis(t.d));
+        return atItem(t.d.id, t.d.titre, esc(t.a.label) + (t.a.etape === "lecture" ? "" : " · en qualité de " + esc(FLABEL[t.a.role] || t.a.role)) + (s ? " · " + esc(s) : ""),
+          moi ? '<button type="button" class="btn primary" data-vgo="' + esc(docHash(t.d)) + '">' + (t.a.etape === "lecture" ? "Lire" : "Examiner") + "</button>" : ouvrir(t.d), t.d.estProjet ? ' <span class="pill projet">révision v' + esc(t.d.version) + "</span>" : "");
+      };
+      var visas = todo.filter(function (t) { return t.a.etape !== "lecture"; }), lect = todo.filter(function (t) { return t.a.etape === "lecture"; });
+      var ren = VARIANTS().filter(function (d) { return !etatOf(d.id) && docState(d).renvois.length && !draftOf(d.id) && (proprioDe(d, p) || redigePar(d.id, p)); });
+      var corr = ren.map(function (d) { var r = docState(d).renvois[0]; return atItem(d.id, d.titre, "Renvoyé par " + esc(vName(r.by)) + " : « " + esc(r.commentaire || "") + " »", moi && canEdit() ? '<button type="button" class="btn primary" data-edit-doc="' + esc(d.id) + '">Corriger</button>' : ouvrir(d)); })
+        .concat(mods.filter(function (x) { return x.act === "edit"; }).map(function (x) { return atItem(x.id, x.titre, '<span class="pill ' + PILL[x.cls] + '">' + esc(x.etat) + "</span> " + esc(fmtDT(x.le)) + (x.objet ? " · « " + esc(x.objet) + " »" : ""), moi ? modifBtn(x) : "", x.nouveau ? ' <span class="pill projet">nouveau</span>' : ""); }));
+      html += '<p class="lead">' + (moi ? "Ce qui attend une action de votre part." : "Ce qui attend une action de " + esc(vName(p)) + ".") + "</p>";
+      html += atListe("À viser ou approuver", visas.map(item), "Rien en attente de visa.");
+      html += atListe("À corriger ou reprendre", corr, "Aucun document renvoyé, aucun brouillon en attente.");
+      html += atListe("Au programme de rédaction", prog.map(function (x) { return atItem(x.id, x.titre, esc(x.type) + " · " + esc(x.domaine || "") + " · priorité " + (x.priorite || "—"), moi && canEdit() ? '<button type="button" class="btn" data-at-rediger="' + esc(x.id) + '">Rédiger</button>' : ""); }), "Aucun document à rédiger au programme.");
+      var pts = mine.filter(function (d) { return d.statut !== "En vigueur" && (d.notes_redaction || []).length; });
+      html += atListe("Points à valider avant adoption", pts.map(function (d) { return atItem(d.id, d.titre, d.notes_redaction.length + " point(s) à valider", ouvrir(d)); }), "Aucun point ouvert.");
+      html += atListe("Revues à échéance", revues.map(function (x) { return atItem(x.d.id, x.d.titre, (x.e < auj ? "Échue depuis le " : "À revoir avant le ") + esc(fmtDate(x.e)), ouvrir(x.d), x.e < auj ? ' <span class="pill refus">échue</span>' : ""); }), "Aucune revue dans les 60 jours.");
+      html += atListe("À lire", lect.map(item), "Aucune lecture en attente.");
+      if (moi && canArchive()) {
+        var bloq = []; TYPES.forEach(function (t) { var d = docs.filter(function (x) { return x.type === t; })[0]; circuitIssues(circOf(d)).forEach(function (m) { bloq.push(t + " — " + m); }); });
+        if (bloq.length) html += '<h2 class="section-h">Circuits à corriger</h2><ul class="tt-warn">' + bloq.map(function (m) { return "<li>" + esc(m) + "</li>"; }).join("") + '</ul><p><button type="button" class="btn" data-vgo="circuit">Ouvrir les circuits</button></p>';
+      }
+    } else if (AT.tab === "encours") {
+      var vus = {};
+      var lignes = mods.filter(function (x) { return x.act !== "edit"; }).map(function (x) { vus[x.id] = 1; return '<tr><td><b>' + esc(x.id) + "</b>" + (x.nouveau ? ' <span class="pill projet">nouveau</span>' : "") + '<div class="doc-sum">' + esc(x.titre) + "</div></td><td>" + esc(x.objet || "—") + '</td><td><span class="pill ' + PILL[x.cls] + '">' + esc(x.etat) + '</span></td><td class="num">' + esc(since(x.le)) + "</td><td>" + modifBtn(x) + "</td></tr>"; });
+      mine.forEach(function (d0) {
+        var d = d0.projet || d0; if (vus[d.id] || (d.statut === "En vigueur" && !d.estProjet)) return;
+        var r = V.redac[d.id]; if (r && ["brouillon", "conflit"].indexOf(r.statut) >= 0) return;
+        var st = docState(d), dep = attenteDepuis(d);
+        var etat = st.renvois.length ? "Renvoyé pour modification" : st.current ? "En attente : " + st.current.st.label + " · " + (FLABEL[st.current.st.role] || st.current.st.fonction || "") : st.approved ? "Approuvé, adoption en cours" : "Circuit à configurer";
+        lignes.push('<tr><td><b>' + esc(d.id) + "</b>" + (d.estProjet ? ' <span class="pill projet">révision v' + esc(d.version) + "</span>" : "") + '<div class="doc-sum">' + esc(d.titre) + "</div></td><td>" + (proprioDe(d0, p) ? "Propriétaire" : "Rédaction") + '</td><td><span class="pill ' + (st.renvois.length ? "refus" : "projet") + '">' + esc(etat) + '</span></td><td class="num">' + esc(since(dep)) + "</td><td>" + ouvrir(d, "Voir") + "</td></tr>");
+      });
+      html += '<p class="lead">Ce qui a été soumis et avance dans le circuit : l\'étape attendue, la fonction qui doit viser et depuis quand.</p>' +
+        (lignes.length ? '<div class="table-scroll"><table class="reg"><thead><tr><th>Document</th><th>Objet ou rôle</th><th>État</th><th>Depuis</th><th></th></tr></thead><tbody>' + lignes.join("") + "</tbody></table></div>" : '<p class="tt-empty">Rien en cours.</p>');
+    } else {
+      var per = AT.periode === "tout" ? 1e6 : +AT.periode;
+      var sel = '<label class="at-qui">Période <select id="at-periode">' + [["30", "30 derniers jours"], ["90", "3 derniers mois"], ["365", "12 derniers mois"], ["tout", "Depuis le début"]].map(function (o) { return '<option value="' + o[0] + '"' + (AT.periode === o[0] ? " selected" : "") + ">" + o[1] + "</option>"; }).join("") + "</select></label>";
+      var titreDe = function (id) { var d = docs.filter(function (x) { return x.id === id; })[0]; return d ? d.titre : id; };
+      var adoptes = mine.filter(function (d) { return d.statut === "En vigueur" && d.date_approbation && dans(d.date_approbation, per); }).sort(function (a, b) { return a.date_approbation < b.date_approbation ? 1 : -1; });
+      var publies = Object.keys(V.auteurs || {}).map(function (k) { return Object.assign({ id: k.split("~")[0] }, V.auteurs[k]); }).filter(function (a) { return (a.auteurs || []).indexOf(p) >= 0 && dans(a.at, per); }).sort(function (a, b) { return String(b.at).localeCompare(String(a.at)); });
+      var sigs = (V.sigs[p] || []).filter(function (s) { return dans(s.at, per); }).sort(function (a, b) { return String(b.at).localeCompare(String(a.at)); });
+      var visesL = sigs.filter(function (s) { return s.etape !== "lecture" && s.etape !== "renvoi"; }), renv = sigs.filter(function (s) { return s.etape === "renvoi"; }), lus = sigs.filter(function (s) { return s.etape === "lecture"; });
+      var sItem = function (s, lib) { var d = docs.filter(function (x) { return x.id === s.doc; })[0]; return atItem(s.doc, titreDe(s.doc), esc(lib) + " · v" + esc(s.version || "") + " · " + esc(fmtDT(s.at)) + (s.commentaire ? " · « " + esc(s.commentaire) + " »" : ""), d ? ouvrir(d) : ""); };
+      html += '<p class="lead">Ce qui a été fait, d\'après l\'historique des publications et le registre des visas.</p>' + sel;
+      html += atListe("Documents adoptés", adoptes.map(function (d) { return atItem(d.id, d.titre, "En vigueur · v" + esc(d.version) + " · adopté le " + esc(fmtDate(d.date_approbation)), ouvrir(d)); }), "Aucun document adopté sur la période.");
+      html += atListe("Modifications publiées", publies.map(function (a) { var d = docs.filter(function (x) { return x.id === a.id; })[0]; return atItem(a.id, titreDe(a.id), "v" + esc(a.version || "") + " · " + esc(fmtDT(a.at)) + (a.objet ? " · « " + esc(a.objet) + " »" : ""), d ? ouvrir(d) : ""); }), "Aucune modification publiée sur la période.");
+      html += atListe("Visas donnés", visesL.map(function (s) { return sItem(s, (ETAPES_TYPES.filter(function (e) { return s.etape && s.etape.indexOf(e[0]) === 0; })[0] || [0, s.etape])[1] + " en qualité de " + (FLABEL[s.role] || s.role || "")); }), "Aucun visa sur la période.");
+      if (renv.length) html += atListe("Renvois pour modification", renv.map(function (s) { return sItem(s, "Renvoi"); }), "");
+      html += atListe("Lectures attestées", lus.map(function (s) { return sItem(s, "Prise de connaissance"); }), "Aucune lecture attestée sur la période.");
     }
     v.innerHTML = html;
   }
+  document.addEventListener("click", function (ev) {
+    var t = ev.target.closest("[data-attab],[data-at-rediger]"); if (!t) return;
+    if (t.hasAttribute("data-attab")) { AT.tab = t.getAttribute("data-attab"); renderATraiter(); return; }
+    try { sessionStorage.setItem("pc-ref-prevu", t.getAttribute("data-at-rediger")); } catch (e) { /* facultatif */ }
+    go("nouveau");
+  });
+  document.addEventListener("change", function (ev) {
+    if (ev.target.id === "at-qui") { AT.qui = ev.target.value === V.me ? "" : ev.target.value; renderATraiter(); }
+    else if (ev.target.id === "at-periode") { AT.periode = ev.target.value; renderATraiter(); }
+  });
 
   // ---------- Page « Suivi des visas » ----------
   function stepperHtml(d) {

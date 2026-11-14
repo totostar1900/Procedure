@@ -20,8 +20,9 @@ export async function coquille(page: "membres" | "parametrage" | "comme" | "acti
   if (!m || !m.actif || !m.admin || (exigeSuper && !m.super) || (page === "parametrage" && !accesParametrage(m)) || (page === "activite" && !accesActivite(m))) redirect("/");
   const moi: Moi = { email, nom: m.nom || email, super: !!m.super, admin: !!m.admin, prerogatives: m.prerogatives || [], fonctions: m.fonctions || [] };
 
+  type Prevu = { id: string; titre: string; type: string; domaine?: string; priorite?: number };
   type AnnexeC = { num: string; nom: string; titre: string; nomEn: string };
-  let publie: { societe: Record<string, string>; presentation: Record<string, unknown> } = { societe: {}, presentation: {} };
+  let publie: { societe: Record<string, string>; presentation: Record<string, unknown>; prevus: Prevu[] } = { societe: {}, presentation: {}, prevus: [] };
   let docs: { id: string; titre: string; type: string; circuit: { etape: string; label: string; role: string }[]; annexes: AnnexeC[] }[] = [], css = "", rail = "";
   try {
     const html = fs.readFileSync(path.join(process.cwd(), "site", "index.html"), "utf8");
@@ -29,7 +30,7 @@ export async function coquille(page: "membres" | "parametrage" | "comme" | "acti
     type DocBrut = { id: string; titre: string; type: string; circuit?: []; annexes?: { id?: string; num: string; nom?: string; titre: string }[]; en?: { annexes?: { id?: string; nom?: string }[] } };
     if (x) docs = JSON.parse(x[1]).docs.map((d: DocBrut) => ({ id: d.id, titre: d.titre, type: d.type, circuit: d.circuit || [],
       annexes: (d.annexes || []).map((a, i) => ({ num: a.num, nom: a.nom || "", titre: a.titre, nomEn: (((d.en && d.en.annexes) || []).find((e, j) => (a.id && e.id ? e.id === a.id : j === i)) || {}).nom || "" })) }));
-    if (x) { const j = JSON.parse(x[1]); publie = { societe: j.societe || {}, presentation: { ...(j.presentation || {}), logos: undefined } }; }
+    if (x) { const j = JSON.parse(x[1]); publie = { societe: j.societe || {}, presentation: { ...(j.presentation || {}), logos: undefined }, prevus: j.prevus || [] }; }
     css = (html.match(/<style>([\s\S]*?)<\/style>/) || ["", ""])[1];
     const a = html.indexOf('<div class="mbar">'), b = html.indexOf('<div class="shell">');
     if (a >= 0 && b > a) rail = html.slice(a, b);
