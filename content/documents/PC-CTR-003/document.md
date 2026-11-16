@@ -3,44 +3,48 @@ id: PC-CTR-003
 titre: Convention de syndicat de placement
 type: Modèle de contrat
 domaine: Marchés de capitaux
-version: "0.9"
+version: '0.9'
 statut: Projet
 confidentialite: Interne
 proprietaire: Directeur des Marchés de Capitaux
 redige_par: Directeur des Marchés de Capitaux
 verifie_par: Responsable de la conformité et du contrôle interne (RCCI)
 approuve_par: Directeur Général
-date_approbation:
-date_effet:
+date_approbation: null
+date_effet: null
 prochaine_revue: 12 mois après adoption
-diffusion: Direction Générale, Direction des Marchés de Capitaux, Direction Commerciale, RCCI
+diffusion: 'Direction Générale, Direction des Marchés de Capitaux, Direction Commerciale, RCCI'
 public: false
-resume: Modèle de convention par laquelle Purpose Capital S.A., chef de file d'une émission par appel public à l'épargne visée par la COSUMAF, associe une à trois sociétés de bourse ou banques au placement des titres — rôle du chef de file, engagements des membres, centralisation, allocation, rétrocession des commissions.
+resume: 'Modèle de convention par laquelle Purpose Capital S.A., chef de file d''une émission par appel public à l''épargne visée par la COSUMAF, associe une à trois sociétés de bourse ou banques au placement des titres — rôle du chef de file, engagements des membres, centralisation, allocation, rétrocession des commissions.'
 references:
   - ref: REG-01-22
-    articles: Appel public à l'épargne, intermédiaires habilités au placement
+    articles: 'Appel public à l''épargne, intermédiaires habilités au placement'
   - ref: RG-COSUMAF-2023
-    articles: "Identité des arrangeurs et du chef de file dans le document d'information (art. 131) ; dossier de visa (art. 155) ; information et commercialisation des émissions"
+    articles: Identité des arrangeurs et du chef de file dans le document d'information (art. 131) ; dossier de visa (art. 155) ; information et commercialisation des émissions
   - ref: BVMAC-RM
-    articles: Centralisation, publication des résultats, admission à la cote
+    articles: 'Centralisation, publication des résultats, admission à la cote'
   - ref: DC-RG
-    articles: Inscription en compte, règlement-livraison
+    articles: 'Inscription en compte, règlement-livraison'
   - ref: REG-02-24
-    articles: Vigilance à l'égard des souscripteurs, responsabilité de chaque intermédiaire
+    articles: 'Vigilance à l''égard des souscripteurs, responsabilité de chaque intermédiaire'
   - ref: AUA
-    articles: Clause compromissoire, arbitrage CCJA
+    articles: 'Clause compromissoire, arbitrage CCJA'
   - ref: ICMA-AGREEMENT
-    articles: "Pratique internationale : convention entre chef de file et membres du syndicat (rôles, engagements, restrictions de vente)"
+    articles: 'Pratique internationale : convention entre chef de file et membres du syndicat (rôles, engagements, restrictions de vente)'
 historique:
-  - version: "0.9"
-    date: 2026-10-20
-    objet: Projet initial de modèle, rempli par formulaire, articulé avec la convention de mandat PC-CTR-001
+  - version: '0.9'
+    date: '2026-11-16'
+    objet: mineur
+    par: RCCI
+  - version: '0.9'
+    date: '2026-10-20'
+    objet: 'Projet initial de modèle, rempli par formulaire, articulé avec la convention de mandat PC-CTR-001'
     par: Directeur des Marchés de Capitaux
 notes_redaction:
   - Ne pas compléter ce modèle à la main. Utiliser « Préparer une convention » dans le référentiel ; le Word et le PDF ne sont produits que lorsque tous les champs requis sont renseignés et cohérents.
-  - "Le modèle couvre un placement « au mieux » (obligation de moyens). Si un membre prend un engagement ferme ou de garantie, utiliser en complément la convention de prise ferme et de garantie de bonne fin (PC-CTR-002)."
-  - Vérifier sur le Règlement général de la COSUMAF l'article qui permet à la société de bourse désignée par l'émetteur de constituer un syndicat de placement avec d'autres sociétés de bourse et établissements de crédit, et le citer au préambule.
-  - "Confirmer avec les membres le circuit des fonds : virement des fonds collectés sur le Compte de centralisation au plus tard le jour ouvré suivant leur réception, ou centralisation directe par les souscripteurs."
+  - 'Le modèle couvre un placement « au mieux » (obligation de moyens). Si un membre prend un engagement ferme ou de garantie, utiliser en complément la convention de prise ferme et de garantie de bonne fin (PC-CTR-002).'
+  - 'Vérifier sur le Règlement général de la COSUMAF l''article qui permet à la société de bourse désignée par l''émetteur de constituer un syndicat de placement avec d''autres sociétés de bourse et établissements de crédit, et le citer au préambule.'
+  - 'Confirmer avec les membres le circuit des fonds : virement des fonds collectés sur le Compte de centralisation au plus tard le jour ouvré suivant leur réception, ou centralisation directe par les souscripteurs.'
   - Faire valider le modèle par le conseil juridique de la Société avant sa première utilisation.
 ---
 
