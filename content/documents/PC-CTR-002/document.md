@@ -3,43 +3,47 @@ id: PC-CTR-002
 titre: Convention de prise ferme et de garantie de bonne fin
 type: Modèle de contrat
 domaine: Marchés de capitaux
-version: "0.9"
+version: '0.9'
 statut: Projet
 confidentialite: Interne
 proprietaire: Directeur des Marchés de Capitaux
 redige_par: Directeur des Marchés de Capitaux
 verifie_par: Responsable de la conformité et du contrôle interne (RCCI)
 approuve_par: Directeur Général
-date_approbation:
-date_effet:
+date_approbation: null
+date_effet: null
 prochaine_revue: 12 mois après adoption
-diffusion: Direction Générale, Direction des Marchés de Capitaux, RCCI
+diffusion: 'Direction Générale, Direction des Marchés de Capitaux, RCCI'
 public: false
-resume: Modèle de convention par laquelle Purpose Capital S.A. s'engage envers un émetteur, en complément du mandat d'arrangement et de placement, soit à souscrire elle-même les titres (prise ferme), soit à souscrire le solde non placé à la clôture (garantie de bonne fin), dans la limite d'un montant garanti et sous conditions suspensives.
+resume: 'Modèle de convention par laquelle Purpose Capital S.A. s''engage envers un émetteur, en complément du mandat d''arrangement et de placement, soit à souscrire elle-même les titres (prise ferme), soit à souscrire le solde non placé à la clôture (garantie de bonne fin), dans la limite d''un montant garanti et sous conditions suspensives.'
 references:
   - ref: REG-01-22
-    articles: Appel public à l'épargne, intermédiaires habilités, garantie de placement
+    articles: 'Appel public à l''épargne, intermédiaires habilités, garantie de placement'
   - ref: RG-COSUMAF-2023
-    articles: "Identité des garants dans le document d'information (art. 131) ; normes prudentielles des sociétés de bourse (art. 11) ; information permanente"
+    articles: Identité des garants dans le document d'information (art. 131) ; normes prudentielles des sociétés de bourse (art. 11) ; information permanente
   - ref: BVMAC-RM
-    articles: Admission à la cote, centralisation, publication des résultats
+    articles: 'Admission à la cote, centralisation, publication des résultats'
   - ref: DC-RG
-    articles: Inscription en compte, règlement-livraison
+    articles: 'Inscription en compte, règlement-livraison'
   - ref: AUSCGIE
-    articles: Autorisations sociales d'émission, droits des actionnaires et des obligataires
+    articles: 'Autorisations sociales d''émission, droits des actionnaires et des obligataires'
   - ref: AUA
-    articles: Arbitrage, Cour Commune de Justice et d'Arbitrage
+    articles: 'Arbitrage, Cour Commune de Justice et d''Arbitrage'
   - ref: OICV-PRINCIPES
-    articles: "Bonne pratique internationale : gestion des risques et des conflits d'intérêts des intermédiaires dans les opérations de placement"
+    articles: 'Bonne pratique internationale : gestion des risques et des conflits d''intérêts des intermédiaires dans les opérations de placement'
 historique:
-  - version: "0.9"
-    date: 2026-10-20
-    objet: Projet initial de modèle, articulé avec la convention de mandat PC-CTR-001 ; chaque donnée est saisie une seule fois dans le formulaire du référentiel
+  - version: '0.9'
+    date: '2026-11-16'
+    objet: mineur
+    par: RCCI
+  - version: '0.9'
+    date: '2026-10-20'
+    objet: 'Projet initial de modèle, articulé avec la convention de mandat PC-CTR-001 ; chaque donnée est saisie une seule fois dans le formulaire du référentiel'
     par: Directeur des Marchés de Capitaux
 notes_redaction:
-  - Ne pas compléter ce modèle à la main. Utiliser « Préparer une convention » dans le référentiel ; le formulaire calcule l'engagement de la Société en pourcentage de ses fonds propres et signale les seuils de la Politique de gestion des risques (alerte à 15 %, accord préalable du Conseil d'Administration au-delà de 25 %).
-  - Faire valider le modèle par le conseil juridique de la Société avant sa première utilisation, en particulier les clauses de résiliation pour événement de marché, d'indemnisation et le traitement fiscal de la commission de garantie.
-  - "Vérifier si les normes prudentielles de la COSUMAF imposent une couverture en fonds propres spécifique des engagements de garantie, ou une information préalable de la COSUMAF ; les limites internes de PC-POL-RIS-001 s'appliquent en attendant."
+  - 'Ne pas compléter ce modèle à la main. Utiliser « Préparer une convention » dans le référentiel ; le formulaire calcule l''engagement de la Société en pourcentage de ses fonds propres et signale les seuils de la Politique de gestion des risques (alerte à 15 %, accord préalable du Conseil d''Administration au-delà de 25 %).'
+  - 'Faire valider le modèle par le conseil juridique de la Société avant sa première utilisation, en particulier les clauses de résiliation pour événement de marché, d''indemnisation et le traitement fiscal de la commission de garantie.'
+  - 'Vérifier si les normes prudentielles de la COSUMAF imposent une couverture en fonds propres spécifique des engagements de garantie, ou une information préalable de la COSUMAF ; les limites internes de PC-POL-RIS-001 s''appliquent en attendant.'
   - Une prise ferme ou une garantie conclue alors que la Société est aussi arrangeur crée un conflit d'intérêts dans l'allocation et la revente des Titres ; appliquer la Politique de gestion des conflits d'intérêts (PC-POL-CI-001).
 ---
 
