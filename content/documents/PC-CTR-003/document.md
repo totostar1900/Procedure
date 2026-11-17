@@ -33,6 +33,10 @@ references:
     articles: 'Pratique internationale : convention entre chef de file et membres du syndicat (rôles, engagements, restrictions de vente)'
 historique:
   - version: '0.9'
+    date: '2026-11-17'
+    objet: mineur
+    par: RCCI
+  - version: '0.9'
     date: '2026-11-16'
     objet: mineur
     par: RCCI
@@ -74,7 +78,7 @@ le Chef de file et {% si nb_membres = un %}le Membre{% fin %}{% si nb_membres !=
 
 **Considérant que** {{emetteur_nom}} (l'« Émetteur »), dont le siège est situé au {{emetteur_pays}}, a confié à Purpose Capital, par convention du {{date_mandat}}, un mandat d'arrangeur et de chef de file du placement d'une émission de {% si titres_nature = autres %}{{titres_autre}}{% fin %}{% si titres_nature != autres %}{{titres_nature}}{% fin %} par appel public à l'épargne d'un montant de {{montant|lettres}} (l'« Opération ») ;
 
-**Considérant que** la réglementation du marché financier de l'Afrique centrale permet à la société de bourse désignée par l'émetteur de constituer, pour le placement, un syndicat avec d'autres sociétés de bourse et établissements de crédit ;
+**Considérant que** l'article 171 du règlement général de la Commission de surveillance du marché financier de l'Afrique centrale permet à la société de bourse désignée par l'émetteur de constituer, pour le placement, un syndicat avec d'autres sociétés de bourse et établissements de crédit ;
 
 **Considérant que** Purpose Capital souhaite associer {% si nb_membres = un %}le Membre{% fin %}{% si nb_membres != un %}les Membres{% fin %} au placement de l'Opération afin d'en élargir la diffusion auprès des investisseurs de la CEMAC, ce que {% si nb_membres = un %}le Membre accepte{% fin %}{% si nb_membres != un %}les Membres acceptent{% fin %} dans les termes ci-après,
 
@@ -89,8 +93,8 @@ Dans la présente convention, les termes ci-dessous ont le sens qui leur est don
 - **Titres** : les titres financiers émis dans le cadre de l'Opération, d'une valeur nominale unitaire de {{nominal}} et d'un prix d'émission de {{prix_emission}} ;
 - **Document d'information** : le prospectus de l'Opération visé par la COSUMAF sous le numéro {{visa_ref}}, y compris ses notes complémentaires et rectificatives ;
 - **Période de souscription** : du {{souscription_debut}} au {{souscription_fin}} inclus, sauf prorogation ou clôture anticipée publiée dans les conditions du Document d'information ;
-- **Date de règlement-livraison** : le {{date_reglement}}, ou toute autre date fixée dans le Document d'information ;
-- **Compte de centralisation** : le compte n° {{compte_numero}} ouvert auprès de {{compte_banque}}, sur lequel sont centralisés les fonds versés par l'ensemble des souscripteurs ;
+- **Date de règlement-livraison** : le 8ième jour calendaire après la clôture de la période de souscription, ou toute autre date fixée dans le Document d'information ;
+- **Compte de centralisation** : le compte n° {{compte_numero}} ouvert auprès de {{nom de la banque}}, sur lequel sont centralisés les fonds versés par l'ensemble des souscripteurs ;
 - **Syndicat** : le groupement formé par le Chef de file et {% si nb_membres = un %}le Membre{% fin %}{% si nb_membres != un %}les Membres{% fin %} pour le placement des Titres ;
 - **Souscription valable** : une souscription reçue pendant la Période de souscription, au moyen du bulletin prévu par le Document d'information, complète, signée, couverte par des fonds effectivement reçus et pour laquelle les mesures de vigilance ont été accomplies.
 
