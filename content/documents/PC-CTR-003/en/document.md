@@ -19,6 +19,14 @@ references:
     articles: "International practice: agreement between the lead manager and the syndicate members (roles, undertakings, selling restrictions)"
 historique:
   - version: "0.9"
+    date: 2026-11-17
+    objet: "Minor change"
+    par: "RCCI"
+  - version: "0.9"
+    date: 2026-11-16
+    objet: "Minor change"
+    par: "RCCI"
+  - version: "0.9"
     date: 2026-10-20
     objet: "Initial draft template, completed via a form, aligned with the mandate agreement PC-CTR-001"
     par: "Head of Capital Markets"
@@ -28,7 +36,7 @@ notes_redaction:
   - "Check in the COSUMAF General Regulation which article allows the brokerage firm appointed by the issuer to form a placement syndicate with other brokerage firms and credit institutions, and cite it in the preamble."
   - "Confirm the flow of funds with the members: transfer of the funds collected to the Centralisation Account no later than the business day following their receipt, or direct centralisation by the subscribers."
   - "Have the template validated by the Company's legal counsel before its first use."
-source: 544158146e7a5af3
+source: 3a64545e57d55eee
 ---
 
 **BETWEEN THE UNDERSIGNED:**
@@ -57,7 +65,7 @@ the Lead Manager and {% si nb_membres = un %}the Member{% fin %}{% si nb_membres
 
 **Whereas** {{emetteur_nom}} (the "Issuer"), whose registered office is in {{emetteur_pays}}, has, by an agreement dated {{date_mandat}}, appointed Purpose Capital as arranger and lead manager for the placement of a public offering of {% si titres_nature = autres %}{{titres_autre}}{% fin %}{% si titres_nature != autres %}{{titres_nature}}{% fin %} in an amount of {{montant|lettres}} (the "Offering");
 
-**Whereas** the regulations of the Central African financial market allow the brokerage firm appointed by the issuer to form, for the purposes of the placement, a syndicate with other brokerage firms and credit institutions;
+**Whereas** Article 171 of the General Regulation of the Central African Financial Market Supervisory Commission allows the brokerage firm appointed by the issuer to form, for the purposes of the placement, a syndicate with other brokerage firms and credit institutions;
 
 **Whereas** Purpose Capital wishes to associate {% si nb_membres = un %}the Member{% fin %}{% si nb_membres != un %}the Members{% fin %} with the placement of the Offering in order to broaden its distribution to investors in the CEMAC, which {% si nb_membres = un %}the Member accepts{% fin %}{% si nb_membres != un %}the Members accept{% fin %} on the terms set out below,
 
@@ -72,8 +80,8 @@ In this agreement, the terms below have the meanings given to them hereafter. Th
 - **Securities**: the financial securities issued as part of the Offering, with a unit nominal value of {{nominal}} and an issue price of {{prix_emission}};
 - **Information Memorandum**: the prospectus for the Offering approved (visa) by COSUMAF under number {{visa_ref}}, including its supplementary and corrective notes;
 - **Subscription Period**: from {{souscription_debut}} to {{souscription_fin}} inclusive, unless extended or closed early by announcement published in accordance with the Information Memorandum;
-- **Settlement Date**: {{date_reglement}}, or any other date set in the Information Memorandum;
-- **Centralisation Account**: account no. {{compte_numero}} held with {{compte_banque}}, into which the funds paid by all subscribers are centralised;
+- **Settlement Date**: the 8th calendar day after the close of the Subscription Period, or any other date set in the Information Memorandum;
+- **Centralisation Account**: account no. {{compte_numero}} held with {{nom de la banque}}, into which the funds paid by all subscribers are centralised;
 - **Syndicate**: the group formed by the Lead Manager and {% si nb_membres = un %}the Member{% fin %}{% si nb_membres != un %}the Members{% fin %} for the placement of the Securities;
 - **Valid Subscription**: a subscription received during the Subscription Period, using the subscription form provided for in the Information Memorandum, which is complete, signed and covered by funds actually received, and for which the due diligence measures have been carried out.
 
