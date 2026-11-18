@@ -37,6 +37,10 @@ historique:
     objet: mineur
     par: RCCI
   - version: '0.9'
+    date: '2026-11-18'
+    objet: mineur
+    par: RCCI
+  - version: '0.9'
     date: '2026-10-20'
     objet: 'Mise en forme : dates d''adoption et signatures reportées dans la fiche de maîtrise documentaire'
     par: RCCI
