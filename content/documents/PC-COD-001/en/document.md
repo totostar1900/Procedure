@@ -19,6 +19,10 @@ references:
     articles: "Employer's disciplinary authority"
 historique:
   - version: "0.9"
+    date: 2026-11-18
+    objet: "Minor"
+    par: "RCCI"
+  - version: "0.9"
     date: 2026-10-20
     objet: "Formatting: adoption dates and signatures moved to the document control sheet"
     par: "RCCI"
@@ -30,7 +34,7 @@ notes_redaction:
   - "Thresholds to be confirmed before adoption — gifts FCFA 50,000, minimum holding period 30 days, blackout period 15 days, complaint handling 30 days."
   - "Articles of the COSUMAF General Regulation of 23 May 2023 identified in the references (Art. 13–14, 77, 99, 112): to be checked against the official text before adoption."
   - "Ten-year retention period (Article 38) confirmed by Article 105 of the COSUMAF General Regulation; check that it remains consistent with CEMAC Regulation No. 02/24."
-source: ad216cea6da23a79
+source: ce81519c77369092
 ---
 
 ## Title I — General provisions
@@ -85,7 +89,7 @@ Clients are treated fairly, without favouritism. No client receives information 
 
 ### Article 9 — Market integrity
 
-Staff Members contribute to the regular, transparent and orderly functioning of the Regional Financial Market and refrain from any conduct likely to undermine confidence in it.
+Staff Members contribute to the regular, transparent and orderly functioning of the Regional Financial Market and refrain from any conduct likely to undermine confidence in it. They also refrain from using any practices or methods that could be regarded as harassment of investors.
 
 ### Article 10 — Leadership by example
 
