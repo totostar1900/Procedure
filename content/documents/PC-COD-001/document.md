@@ -3,46 +3,50 @@ id: PC-COD-001
 titre: Code de bonne conduite
 type: Code
 domaine: Déontologie
-version: "0.9"
+version: '0.9'
 statut: Projet
 confidentialite: Interne
 proprietaire: Responsable de la conformité et du contrôle interne (RCCI)
 redige_par: Responsable de la conformité et du contrôle interne (RCCI)
 verifie_par: Directeur Général
 approuve_par: Conseil d'Administration
-date_approbation:
-date_effet:
+date_approbation: null
+date_effet: null
 prochaine_revue: 12 mois après adoption
-diffusion: Tous les collaborateurs, administrateurs et prestataires ayant accès aux systèmes
+diffusion: 'Tous les collaborateurs, administrateurs et prestataires ayant accès aux systèmes'
 public: false
-resume: Règles de déontologie applicables à toute personne agissant pour Purpose Capital S.A. — intérêt du client, conflits d'intérêts, abus de marché, confidentialité, LBC/FT, dispositif de conformité et sanctions.
+resume: 'Règles de déontologie applicables à toute personne agissant pour Purpose Capital S.A. — intérêt du client, conflits d''intérêts, abus de marché, confidentialité, LBC/FT, dispositif de conformité et sanctions.'
 references:
   - ref: REG-01-22
-    articles: Organisation du marché, obligations des intermédiaires
+    articles: 'Organisation du marché, obligations des intermédiaires'
   - ref: RG-COSUMAF-2023
-    articles: Fonctions soumises à carte professionnelle dont conformité et contrôle interne (art. 13–14), codes de bonne conduite (art. 77), identification des clients (art. 99), responsable LBC/FT (art. 112)
+    articles: 'Fonctions soumises à carte professionnelle dont conformité et contrôle interne (art. 13–14), codes de bonne conduite (art. 77), identification des clients (art. 99), responsable LBC/FT (art. 112)'
   - ref: REG-02-24
-    articles: Vigilance, déclaration de soupçon, conservation
+    articles: 'Vigilance, déclaration de soupçon, conservation'
   - ref: REG-04-24
-    articles: Filtrage des clients et contreparties, sanctions financières ciblées
+    articles: 'Filtrage des clients et contreparties, sanctions financières ciblées'
   - ref: BVMAC-RM
     articles: Réception et transmission des ordres
   - ref: AUSCGIE
-    articles: Gouvernance, conseil d'administration
+    articles: 'Gouvernance, conseil d''administration'
   - ref: CT-CM
     articles: Pouvoir disciplinaire de l'employeur
 historique:
-  - version: "0.9"
-    date: 2026-10-20
-    objet: "Mise en forme : dates d'adoption et signatures reportées dans la fiche de maîtrise documentaire"
+  - version: '0.9'
+    date: '2026-11-18'
+    objet: mineur
     par: RCCI
-  - version: "0.9"
-    date: 2026-10-19
+  - version: '0.9'
+    date: '2026-10-20'
+    objet: 'Mise en forme : dates d''adoption et signatures reportées dans la fiche de maîtrise documentaire'
+    par: RCCI
+  - version: '0.9'
+    date: '2026-10-19'
     objet: Projet initial soumis au Conseil d'Administration
     par: RCCI
 notes_redaction:
-  - Seuils à confirmer avant adoption — cadeaux 50 000 FCFA, détention minimale 30 jours, fenêtre négative 15 jours, traitement des réclamations 30 jours.
-  - "Articles du Règlement général COSUMAF du 23 mai 2023 identifiés dans les références (art. 13–14, 77, 99, 112) : à confirmer sur le texte officiel avant adoption."
+  - 'Seuils à confirmer avant adoption — cadeaux 50 000 FCFA, détention minimale 30 jours, fenêtre négative 15 jours, traitement des réclamations 30 jours.'
+  - 'Articles du Règlement général COSUMAF du 23 mai 2023 identifiés dans les références (art. 13–14, 77, 99, 112) : à confirmer sur le texte officiel avant adoption.'
   - Durée de conservation de dix ans (article 38) confirmée par l'article 105 du Règlement général COSUMAF ; vérifier qu'elle reste cohérente avec le Règlement CEMAC n° 02/24.
 ---
 
@@ -98,7 +102,7 @@ Les clients sont traités de façon équitable, sans favoritisme. Aucun client n
 
 ### Article 9 — Intégrité du marché
 
-Les Collaborateurs contribuent au fonctionnement régulier, transparent et ordonné du Marché financier régional et s'abstiennent de tout comportement de nature à en altérer la confiance.
+Les Collaborateurs contribuent au fonctionnement régulier, transparent et ordonné du Marché financier régional et s'abstiennent de tout comportement de nature à en altérer la confiance. ils s'interdisent en outre l'usage de toutes pratiques ou méthodes qui puissent être assimilées à du harcèlement vis à vis des investisseurs.
 
 ### Article 10 — Exemplarité des dirigeants
 
@@ -158,7 +162,7 @@ Le RCCI tient une cartographie des conflits potentiels (placement d'une émissio
 
 ### Article 20 — Séparation des fonctions (muraille de Chine)
 
-Les activités de conseil aux émetteurs et de placement sont séparées des activités de négociation, de recherche et de gestion pour le compte de clients : accès informatiques cloisonnés, dossiers distincts, interdiction de transmettre une information sensible hors « besoin d'en connaître ». Tout franchissement est autorisé au préalable et consigné par le RCCI.
+Les activités de conseil aux émetteurs de placement sont séparées des activités de négociation, de recherche et de gestion pour le compte de clients : accès informatiques cloisonnés, dossiers distincts, interdiction de transmettre une information sensible hors « besoin d'en connaître ». Tout franchissement est autorisé au préalable et consigné par le RCCI.
 
 ### Article 21 — Déclaration d'intérêts
 
@@ -321,4 +325,3 @@ Le Code est revu au moins une fois par an par le RCCI et à chaque évolution r�
 ### Article 52 — Entrée en vigueur
 
 Le présent Code entre en vigueur à la date de son adoption par le Conseil d'Administration, indiquée dans la fiche de maîtrise documentaire. Il est communiqué à la COSUMAF.
-
