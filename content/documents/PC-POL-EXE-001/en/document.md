@@ -17,6 +17,10 @@ references:
     articles: "Obligations of intermediaries towards their clients"
 historique:
   - version: "0.9"
+    date: 2026-11-19
+    objet: "Minor"
+    par: "RCCI"
+  - version: "0.9"
     date: 2026-10-20
     objet: "Formatting: adoption dates and signatures moved to the document control sheet"
     par: "RCCI"
@@ -28,7 +32,7 @@ notes_redaction:
   - "The detailed BVMAC trading rules are to be specified in trading rules adopted under the 2025 General Regulation. The price fluctuation limits and times cited in Appendix [[annexe:A1]] come from BVMAC Instruction No. 2 and BVMAC notices: confirm them with the BVMAC before adoption."
   - "Access to the government securities market is through one or more primary dealers (spécialistes en valeurs du Trésor — SVT); complete Appendix [[annexe:A1]] with the selected SVTs once the agreements have been signed."
   - "Follow the BEAC project for a regional government securities trading platform, which will require Article 9 to be amended once it is in operation."
-source: 8aad2543a42f9cb6
+source: 2fdcd832dfd9d6ba
 ---
 
 ## Title I — General provisions
@@ -155,4 +159,3 @@ Any breach of this policy exposes the person responsible to the sanctions provid
 ### Article 20 — Entry into force
 
 This policy enters into force on the date of its adoption by the Board of Directors, as stated in the document control sheet.
-
