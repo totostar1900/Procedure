@@ -3,45 +3,49 @@ id: PC-POL-EXE-001
 titre: Politique de meilleure exécution des ordres
 type: Politique
 domaine: Clientèle
-version: "0.9"
+version: '0.9'
 statut: Projet
 confidentialite: Interne
 proprietaire: Directeur Général
 redige_par: Directeur des Marchés de Capitaux
 verifie_par: Responsable de la conformité et du contrôle interne (RCCI)
 approuve_par: Conseil d'Administration
-date_approbation:
-date_effet:
+date_approbation: null
+date_effet: null
 prochaine_revue: 12 mois après adoption
-diffusion: Direction Générale, Direction des Marchés de Capitaux, Direction Commerciale, RCCI ; résumé remis aux clients
+diffusion: 'Direction Générale, Direction des Marchés de Capitaux, Direction Commerciale, RCCI ; résumé remis aux clients'
 public: false
-resume: Comment Purpose Capital S.A. obtient le meilleur résultat possible pour ses clients lorsqu'elle reçoit, transmet et exécute leurs ordres sur la BVMAC, sur le marché des titres publics et lors des souscriptions — facteurs, lieux d'exécution, traitement des ordres et contrôle de la qualité.
+resume: 'Comment Purpose Capital S.A. obtient le meilleur résultat possible pour ses clients lorsqu''elle reçoit, transmet et exécute leurs ordres sur la BVMAC, sur le marché des titres publics et lors des souscriptions — facteurs, lieux d''exécution, traitement des ordres et contrôle de la qualité.'
 references:
   - ref: BVMAC-RM
     articles: Règlement général de la BVMAC en vigueur depuis avril 2025 ; compartiment hors cote des titres publics
   - ref: BVMAC-AVIS-057-2023
-    articles: Cotation journalière au fixing, du lundi au vendredi, depuis le 1er décembre 2023
+    articles: 'Cotation journalière au fixing, du lundi au vendredi, depuis le 1er décembre 2023'
   - ref: BVMAC-AVIS-058-2023
-    articles: Ordre au marché, depuis le 1er décembre 2023
+    articles: 'Ordre au marché, depuis le 1er décembre 2023'
   - ref: BVMAC-INST-02
-    articles: Types d'ordres, durée de validité, priorité prix puis temps, seuils de variation
+    articles: 'Types d''ordres, durée de validité, priorité prix puis temps, seuils de variation'
   - ref: RG-COSUMAF-2023
     articles: Conservation des enregistrements pendant dix ans (art. 105)
   - ref: REG-01-22
     articles: Obligations des intermédiaires à l'égard de leurs clients
 historique:
-  - version: "0.9"
-    date: 2026-10-20
-    objet: "Mise en forme : dates d'adoption et signatures reportées dans la fiche de maîtrise documentaire"
+  - version: '0.9'
+    date: '2026-11-19'
+    objet: mineur
     par: RCCI
-  - version: "0.9"
-    date: 2026-10-19
+  - version: '0.9'
+    date: '2026-10-20'
+    objet: 'Mise en forme : dates d''adoption et signatures reportées dans la fiche de maîtrise documentaire'
+    par: RCCI
+  - version: '0.9'
+    date: '2026-10-19'
     objet: Projet initial soumis au Conseil d'Administration
     par: Directeur des Marchés de Capitaux
 notes_redaction:
-  - "Les règles de négociation détaillées de la BVMAC doivent être précisées par un règlement de négociation pris en application du règlement général de 2025. Les seuils de variation et les horaires cités à l'annexe [[annexe:A1]] proviennent de l'instruction n° 2 et des avis de la BVMAC : les confirmer auprès de la BVMAC avant adoption."
-  - L'accès au marché des titres publics passe par un ou plusieurs spécialistes en valeurs du Trésor (SVT) ; compléter l'annexe [[annexe:A1]] avec les SVT retenus une fois les conventions signées.
-  - Suivre le projet de plateforme régionale de négociation des titres publics de la BEAC, qui modifiera l'article 9 lorsqu'elle sera en service.
+  - 'Les règles de négociation détaillées de la BVMAC doivent être précisées par un règlement de négociation pris en application du règlement général de 2025. Les seuils de variation et les horaires cités à l''annexe [[annexe:A1]] proviennent de l''instruction n° 2 et des avis de la BVMAC : les confirmer auprès de la BVMAC avant adoption.'
+  - 'L''accès au marché des titres publics passe par un ou plusieurs spécialistes en valeurs du Trésor (SVT) ; compléter l''annexe [[annexe:A1]] avec les SVT retenus une fois les conventions signées.'
+  - 'Suivre le projet de plateforme régionale de négociation des titres publics de la BEAC, qui modifiera l''article 9 lorsqu''elle sera en service.'
 ---
 
 ## Titre I — Dispositions générales
@@ -168,4 +172,3 @@ Tout manquement à la présente politique expose son auteur aux sanctions prévu
 ### Article 20 — Entrée en vigueur
 
 La présente politique entre en vigueur à la date de son adoption par le Conseil d'Administration, indiquée dans la fiche de maîtrise documentaire.
-
