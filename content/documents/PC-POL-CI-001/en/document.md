@@ -13,6 +13,10 @@ references:
     articles: "Employer's disciplinary authority"
 historique:
   - version: "0.9"
+    date: 2026-11-20
+    objet: "Minor"
+    par: "RCCI"
+  - version: "0.9"
     date: 2026-10-20
     objet: "Formatting: adoption dates and signatures moved to the document control sheet"
     par: "RCCI"
@@ -24,7 +28,7 @@ notes_redaction:
   - "The first 163 articles of the COSUMAF General Regulation of 23 May 2023 contain no express provision on conflicts of interest of intermediaries. The policy relies on the general obligations of the regional market, the Code of Conduct (PC-COD-001, Title IV) and international standards. Check the subsequent articles of the General Regulation and the COSUMAF instructions before adoption."
   - "Confirm with the Board of Directors the creation of an audit and risk committee; failing that, the Board rules in plenary session (Articles 12 and 14)."
   - "The combination of the compliance and internal audit functions, and the performance of the operations function by the Chief Executive Officer, are accepted on a transitional basis; the compensating measures in Article 10 are to be reviewed at each recruitment."
-source: b70c204b1912a520
+source: b9aff54dbe0a5e40
 ---
 
 ## Title I — General provisions
@@ -188,4 +192,3 @@ Any breach of this policy exposes the person responsible to the sanctions provid
 The policy is reviewed at least once a year by the RCCI and whenever there is a significant change in the activities or the regulations. Any amendment is approved by the Board of Directors.
 
 This policy enters into force on the date of its adoption by the Board of Directors, as stated in the document control sheet.
-
