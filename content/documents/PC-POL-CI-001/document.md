@@ -3,41 +3,45 @@ id: PC-POL-CI-001
 titre: Politique de gestion des conflits d'intérêts
 type: Politique
 domaine: Déontologie
-version: "0.9"
+version: '0.9'
 statut: Projet
 confidentialite: Interne
 proprietaire: Responsable de la conformité et du contrôle interne (RCCI)
 redige_par: Responsable de la conformité et du contrôle interne (RCCI)
 verifie_par: Directeur Général
 approuve_par: Conseil d'Administration
-date_approbation:
-date_effet:
+date_approbation: null
+date_effet: null
 prochaine_revue: 12 mois après adoption
 diffusion: Tous les collaborateurs et administrateurs ; résumé remis aux clients
 public: false
-resume: Comment Purpose Capital S.A. identifie, prévient, gère et déclare les conflits d'intérêts entre la Société, ses collaborateurs, ses actionnaires et ses clients — cartographie, séparation des fonctions, circuit de décision, information des clients et registre.
+resume: 'Comment Purpose Capital S.A. identifie, prévient, gère et déclare les conflits d''intérêts entre la Société, ses collaborateurs, ses actionnaires et ses clients — cartographie, séparation des fonctions, circuit de décision, information des clients et registre.'
 references:
   - ref: REG-01-22
     articles: Obligations des intermédiaires du marché financier régional
   - ref: RG-COSUMAF-2023
-    articles: Fonctions de conformité et de contrôle interne (art. 13), conservation des documents pendant dix ans (art. 105), cumul de fonctions justifié par la taille de la structure (art. 112), contrôle des choix d'investissement des préposés (art. 116)
+    articles: 'Fonctions de conformité et de contrôle interne (art. 13), conservation des documents pendant dix ans (art. 105), cumul de fonctions justifié par la taille de la structure (art. 112), contrôle des choix d''investissement des préposés (art. 116)'
   - ref: AUSCGIE
     articles: Conventions réglementées entre la société anonyme et ses administrateurs ou dirigeants (art. 438 et suivants)
   - ref: CT-CM
     articles: Pouvoir disciplinaire de l'employeur
 historique:
-  - version: "0.9"
-    date: 2026-10-20
-    objet: "Mise en forme : dates d'adoption et signatures reportées dans la fiche de maîtrise documentaire"
+  - version: '0.9'
+    date: '2026-11-20'
+    objet: mineur
     par: RCCI
-  - version: "0.9"
-    date: 2026-10-19
+  - version: '0.9'
+    date: '2026-10-20'
+    objet: 'Mise en forme : dates d''adoption et signatures reportées dans la fiche de maîtrise documentaire'
+    par: RCCI
+  - version: '0.9'
+    date: '2026-10-19'
     objet: Projet initial soumis au Conseil d'Administration
     par: RCCI
 notes_redaction:
-  - Les 163 premiers articles du Règlement général COSUMAF du 23 mai 2023 ne contiennent pas de disposition expresse sur les conflits d'intérêts des intermédiaires. La politique s'appuie sur les obligations générales du marché régional, le Code de bonne conduite (PC-COD-001, Titre IV) et les standards internationaux. Vérifier les articles suivants du Règlement général et les instructions COSUMAF avant adoption.
-  - Confirmer avec le Conseil d'Administration la création d'un comité d'audit et des risques ; à défaut, le Conseil statue en formation plénière (articles 12 et 14).
-  - Le cumul des fonctions de conformité et d'audit interne, et l'exercice de la fonction opérations par le Directeur Général, sont admis à titre transitoire ; les mesures compensatoires de l'article 10 sont à revoir à chaque recrutement.
+  - 'Les 163 premiers articles du Règlement général COSUMAF du 23 mai 2023 ne contiennent pas de disposition expresse sur les conflits d''intérêts des intermédiaires. La politique s''appuie sur les obligations générales du marché régional, le Code de bonne conduite (PC-COD-001, Titre IV) et les standards internationaux. Vérifier les articles suivants du Règlement général et les instructions COSUMAF avant adoption.'
+  - 'Confirmer avec le Conseil d''Administration la création d''un comité d''audit et des risques ; à défaut, le Conseil statue en formation plénière (articles 12 et 14).'
+  - 'Le cumul des fonctions de conformité et d''audit interne, et l''exercice de la fonction opérations par le Directeur Général, sont admis à titre transitoire ; les mesures compensatoires de l''article 10 sont à revoir à chaque recrutement.'
 ---
 
 ## Titre I — Dispositions générales
@@ -83,7 +87,7 @@ La cartographie est revue au moins une fois par an, et à chaque lancement d'une
 Une personne concernée se trouve en situation de conflit d'intérêts notamment lorsque la Société ou cette personne :
 
 - est susceptible de réaliser un gain ou d'éviter une perte aux dépens d'un client ;
-- a, dans le résultat d'un service ou d'une opération, un intérêt distinct de celui du client ;
+- a dans le résultat d'un service ou d'une opération, un intérêt distinct de celui du client ;
 - est incitée à privilégier un client ou un groupe de clients par rapport à un autre ;
 - exerce la même activité que le client, pour son propre compte ;
 - reçoit d'un tiers, en relation avec le service fourni au client, un avantage autre que la commission normalement facturée.
@@ -201,4 +205,3 @@ Tout manquement à la présente politique expose son auteur aux sanctions prévu
 La politique est revue au moins une fois par an par le RCCI et à chaque évolution significative des activités ou de la réglementation. Toute modification est approuvée par le Conseil d'Administration.
 
 La présente politique entre en vigueur à la date de son adoption par le Conseil d'Administration, indiquée dans la fiche de maîtrise documentaire.
-
