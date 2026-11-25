@@ -1,57 +1,61 @@
 ---
 id: PC-PRO-PMR-001
-titre: "Procédure post-marché : règlement-livraison, tenue de compte-conservation et opérations sur titres"
+titre: 'Procédure post-marché : règlement-livraison, tenue de compte-conservation et opérations sur titres'
 type: Procédure
 domaine: Opérations
-version: "0.9"
+version: '0.9'
 statut: Projet
 confidentialite: Interne
 proprietaire: Directeur Général
 redige_par: Responsable de la conformité et du contrôle interne (RCCI)
 verifie_par: Responsable de la conformité et du contrôle interne (RCCI)
 approuve_par: Directeur Général
-date_approbation:
-date_effet:
+date_approbation: null
+date_effet: null
 prochaine_revue: 12 mois après adoption
-diffusion: Direction Générale, opérations (back-office), comptabilité, RCCI
+diffusion: 'Direction Générale, opérations (back-office), comptabilité, RCCI'
 public: false
-resume: Ce que fait le back-office de Purpose Capital S.A. après l'exécution d'un ordre — confirmation, règlement-livraison au Dépositaire central, suspens, tenue des comptes-titres, relevés, transferts, opérations sur titres, marché primaire — avec double regard et contrôles quotidiens.
+resume: 'Ce que fait le back-office de Purpose Capital S.A. après l''exécution d''un ordre — confirmation, règlement-livraison au Dépositaire central, suspens, tenue des comptes-titres, relevés, transferts, opérations sur titres, marché primaire — avec double regard et contrôles quotidiens.'
 references:
   - ref: DC-RG
-    articles: Affiliation des teneurs de comptes, ouverture des comptes, instructions et cycle de règlement-livraison, livraison contre paiement, traitement des suspens, opérations sur titres
+    articles: 'Affiliation des teneurs de comptes, ouverture des comptes, instructions et cycle de règlement-livraison, livraison contre paiement, traitement des suspens, opérations sur titres'
   - ref: BVMAC-RM
-    articles: Obligations des membres du marché après la négociation, dénouement des transactions, rachat d'office en cas de défaut de livraison
+    articles: 'Obligations des membres du marché après la négociation, dénouement des transactions, rachat d''office en cas de défaut de livraison'
   - ref: BVMAC-INST-02
-    articles: Séances et diffusion des résultats de cotation, base du rapprochement des exécutions
+    articles: 'Séances et diffusion des résultats de cotation, base du rapprochement des exécutions'
   - ref: RG-COSUMAF-2023
-    articles: Obligations des intermédiaires dans la tenue de compte et la conservation, information des clients, conservation des documents pendant dix ans (art. 105), cumul de fonctions justifié par la taille de la structure (art. 112)
+    articles: 'Obligations des intermédiaires dans la tenue de compte et la conservation, information des clients, conservation des documents pendant dix ans (art. 105), cumul de fonctions justifié par la taille de la structure (art. 112)'
   - ref: REG-01-22
     articles: Organisation du marché financier régional ; rôle du Dépositaire central et des intermédiaires teneurs de comptes
   - ref: AUSCGIE
-    articles: Valeurs mobilières dématérialisées inscrites en compte ; droits des actionnaires et obligataires (dividendes, droit préférentiel de souscription, assemblées)
+    articles: 'Valeurs mobilières dématérialisées inscrites en compte ; droits des actionnaires et obligataires (dividendes, droit préférentiel de souscription, assemblées)'
   - ref: AUS
     articles: Nantissement des valeurs mobilières et des comptes de titres
   - ref: REG-02-24
     articles: Gel des avoirs et vigilance sur les transferts de titres
   - ref: OICV-PRINCIPES
-    articles: "Bonne pratique internationale : protection des avoirs des clients, dénouement rapide et sûr des transactions"
+    articles: 'Bonne pratique internationale : protection des avoirs des clients, dénouement rapide et sûr des transactions'
   - ref: FCA-CASS
-    articles: "Bonne pratique internationale : tenue des positions, rapprochements, traitement des opérations sur titres pour les clients"
+    articles: 'Bonne pratique internationale : tenue des positions, rapprochements, traitement des opérations sur titres pour les clients'
 historique:
-  - version: "0.9"
-    date: 2026-10-20
+  - version: '0.9'
+    date: '2026-11-25'
+    objet: mineur
+    par: RCCI
+  - version: '0.9'
+    date: '2026-10-20'
     objet: Projet initial
     par: RCCI
 notes_redaction:
-  - "Hypothèse d'organisation à confirmer : la procédure suppose que la Société ouvre les comptes-titres de ses clients (convention PC-CTR-004 et Guichet) et agit comme teneur de compte-conservateur affilié au Dépositaire central unique pour les titres cotés. Les articles 9, 10, 14 et 17 et l'article 21 (relevés de droits du Dépositaire central) sont propres à ce rôle et signalés dans le texte. Si la Société s'appuie sur un conservateur tiers, ces articles doivent être adaptés : le desk transmet alors ses instructions au conservateur et contrôle ses comptes rendus. Noter que l'article 2 de PC-CTR-004 mentionne une inscription « dans les livres du dépositaire désigné » : vérifier la cohérence avec le statut retenu et avec l'agrément."
-  - "Cycle de règlement : le texte parle de « J+n fixé par les règles du marché ». Selon les informations disponibles, le dénouement des transactions de la BVMAC est à J+3 en livraison contre paiement ; le confirmer sur le Règlement général du Dépositaire central unique et les avis de la BVMAC, ainsi que les heures limites d'instruction et la banque ou le système de règlement des espèces (BEAC)."
-  - "Rachat d'office et pénalités : les règles exactes de la BVMAC et du Dépositaire central sont à vérifier. Le principe selon lequel une pénalité reçue revient au client lésé et une pénalité due par la faute de la Société n'est jamais refacturée (article 12) s'inspire du règlement européen sur les dépositaires centraux (CSDR), qui ne figure pas dans les textes de référence du référentiel."
-  - "Fiscalité : les taux de l'impôt sur le revenu des capitaux mobiliers et le partage de la retenue entre émetteur, agent payeur et Société sont à confirmer avec un conseil fiscal (Code général des impôts du Cameroun et des autres États émetteurs, conventions fiscales). Le Code général des impôts n'est pas dans les textes de référence : à ajouter si la Société doit elle-même retenir et reverser l'impôt."
-  - "Comptes inactifs (article 19) : le délai de deux ans et le sort des avoirs non réclamés à long terme (prescription, éventuel transfert à un organisme public) sont à valider par le conseil juridique."
-  - "Saisies (article 18) : vérifier avec le conseil juridique les règles et délais de l'Acte uniforme OHADA portant organisation des procédures simplifiées de recouvrement et des voies d'exécution sur la saisie des valeurs mobilières ; ce texte n'est pas dans les textes de référence."
-  - "Transferts : l'annexe tarifaire (PC-CTR-004, annexe [[annexe:PC-CTR-004/A1]]) ne mentionne pas de frais de transfert de titres. La procédure les prévoit gratuits ; à confirmer et à ajouter à la liste « Ce qui ne se facture pas »."
-  - "Double regard : la fonction desk est tenue par le Directeur Général tant qu'aucun responsable des opérations n'est nommé. Le Directeur Général désigne par écrit le second collaborateur habilité (article 4) et son suppléant ; il ne peut s'agir ni du RCCI pour les tâches courantes, ni de la personne qui a passé le mouvement."
-  - "Incidents : la procédure renvoie à la procédure de gestion des incidents (PC-PRO-INC-001), en cours de rédaction. Jusqu'à son adoption, la fiche d'incident de la Politique de gestion des risques (PC-POL-RIS-001, annexe [[annexe:PC-POL-RIS-001/A4]]) s'applique."
+  - 'Hypothèse d''organisation à confirmer : la procédure suppose que la Société ouvre les comptes-titres de ses clients (convention PC-CTR-004 et Guichet) et agit comme teneur de compte-conservateur affilié au Dépositaire central unique pour les titres cotés. Les articles 9, 10, 14 et 17 et l''article 21 (relevés de droits du Dépositaire central) sont propres à ce rôle et signalés dans le texte. Si la Société s''appuie sur un conservateur tiers, ces articles doivent être adaptés : le desk transmet alors ses instructions au conservateur et contrôle ses comptes rendus. Noter que l''article 2 de PC-CTR-004 mentionne une inscription « dans les livres du dépositaire désigné » : vérifier la cohérence avec le statut retenu et avec l''agrément.'
+  - 'Cycle de règlement : le texte parle de « J+n fixé par les règles du marché ». Selon les informations disponibles, le dénouement des transactions de la BVMAC est à J+3 en livraison contre paiement ; le confirmer sur le Règlement général du Dépositaire central unique et les avis de la BVMAC, ainsi que les heures limites d''instruction et la banque ou le système de règlement des espèces (BEAC).'
+  - 'Rachat d''office et pénalités : les règles exactes de la BVMAC et du Dépositaire central sont à vérifier. Le principe selon lequel une pénalité reçue revient au client lésé et une pénalité due par la faute de la Société n''est jamais refacturée (article 12) s''inspire du règlement européen sur les dépositaires centraux (CSDR), qui ne figure pas dans les textes de référence du référentiel.'
+  - 'Fiscalité : les taux de l''impôt sur le revenu des capitaux mobiliers et le partage de la retenue entre émetteur, agent payeur et Société sont à confirmer avec un conseil fiscal (Code général des impôts du Cameroun et des autres États émetteurs, conventions fiscales). Le Code général des impôts n''est pas dans les textes de référence : à ajouter si la Société doit elle-même retenir et reverser l''impôt.'
+  - 'Comptes inactifs (article 19) : le délai de deux ans et le sort des avoirs non réclamés à long terme (prescription, éventuel transfert à un organisme public) sont à valider par le conseil juridique.'
+  - 'Saisies (article 18) : vérifier avec le conseil juridique les règles et délais de l''Acte uniforme OHADA portant organisation des procédures simplifiées de recouvrement et des voies d''exécution sur la saisie des valeurs mobilières ; ce texte n''est pas dans les textes de référence.'
+  - 'Transferts : l''annexe tarifaire (PC-CTR-004, annexe [[annexe:PC-CTR-004/A1]]) ne mentionne pas de frais de transfert de titres. La procédure les prévoit gratuits ; à confirmer et à ajouter à la liste « Ce qui ne se facture pas ».'
+  - 'Double regard : la fonction desk est tenue par le Directeur Général tant qu''aucun responsable des opérations n''est nommé. Le Directeur Général désigne par écrit le second collaborateur habilité (article 4) et son suppléant ; il ne peut s''agir ni du RCCI pour les tâches courantes, ni de la personne qui a passé le mouvement.'
+  - 'Incidents : la procédure renvoie à la procédure de gestion des incidents (PC-PRO-INC-001), en cours de rédaction. Jusqu''à son adoption, la fiche d''incident de la Politique de gestion des risques (PC-POL-RIS-001, annexe [[annexe:PC-POL-RIS-001/A4]]) s''applique.'
 ---
 
 ## Titre I — Dispositions générales
@@ -83,7 +87,7 @@ Les articles 9, 10, 14 et 17, ainsi que l'article 21 pour les relevés de droits
 
 ### Article 3 — Définitions et renvois
 
-- **J** : le jour de la négociation. **Date de règlement** : le jour où titres et espèces changent de mains, à **J+n**, n étant fixé par les règles du marché et du Dépositaire central.
+- **J** : le jour de la négociation. **Date de règlement** : le jour où titres et espèces changent de mains, à **J+n**, "n" étant fixé par les règles du marché et du Dépositaire central.
 - **Livraison contre paiement** : les titres ne sont livrés que si les espèces sont payées, au même moment.
 - **Instruction de règlement** : le message par lequel la Société demande au Dépositaire central de livrer ou de recevoir des titres contre espèces.
 - **Suspens** : une opération qui n'est pas dénouée à la date de règlement.
