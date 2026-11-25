@@ -25,6 +25,10 @@ references:
     articles: "International good practice: position keeping, reconciliations, processing of corporate actions for clients"
 historique:
   - version: "0.9"
+    date: 2026-11-25
+    objet: "Minor"
+    par: "RCCI"
+  - version: "0.9"
     date: 2026-10-20
     objet: "Initial draft"
     par: "RCCI"
@@ -38,7 +42,7 @@ notes_redaction:
   - "Transfers: the tariff schedule (PC-CTR-004, Appendix [[annexe:PC-CTR-004/A1]]) does not mention any securities transfer fee. The procedure makes transfers free of charge; to be confirmed and added to the \"What is not charged\" list."
   - "Four-eyes check: the desk function is held by the Chief Executive Officer until a head of operations is appointed. The Chief Executive Officer designates in writing the authorised second Staff Member (Article 4) and their deputy; this may be neither the RCCI for routine tasks nor the person who entered the movement."
   - "Incidents: the procedure refers to the incident management procedure (PC-PRO-INC-001), currently being drafted. Until it is adopted, the incident form of the Risk Management Policy (PC-POL-RIS-001, Appendix [[annexe:PC-POL-RIS-001/A4]]) applies."
-source: 08747144a0ae03ea
+source: e009fea9da303c97
 ---
 
 ## Title I — General provisions
